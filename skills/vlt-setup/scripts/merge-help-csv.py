@@ -90,14 +90,27 @@ def parse_args():
     return parser.parse_args()
 
 
-def read_csv_rows(path: str) -> tuple[list[str], list[list[str]]]:
-    """Read CSV file returning (header, data_rows).
+def read_csv_rows(
+    path: str,
+) -> tuple[list[str], list[list[str]], list[tuple[int, list[str]]]]:
+    """Read CSV file returning (header, well_formed_rows, malformed_rows).
 
-    Returns empty header and rows if file doesn't exist.
+    Returns empty header/rows/malformed if file doesn't exist.
+
+    A mis-split row — an unquoted comma inside a field makes csv.reader split the
+    row into the wrong number of columns — is SKIPPED and collected, not raised.
+    build-3 raised a ValueError here, which aborted the entire merge on a single
+    bad field written by an older vlt-mint (so one malformed row could block an
+    upgrade's whole registration step, including the local-mint preserve). The
+    read-side fix (build-10/R2-3) graduates that detector to a survivor: skip the
+    offending row, hand it back to the caller to report loudly, and let every
+    well-formed row — and the preserve step — proceed. The write-side fix
+    (vlt-mint always-quotes free-text fields) stops new bad rows at the source;
+    this tolerance survives the ones already on disk.
     """
     file_path = Path(path)
     if not file_path.exists():
-        return [], []
+        return [], [], []
 
     with open(file_path, "r", encoding="utf-8", newline="") as f:
         content = f.read()
@@ -106,22 +119,38 @@ def read_csv_rows(path: str) -> tuple[list[str], list[list[str]]]:
     rows = list(reader)
 
     if not rows:
-        return [], []
+        return [], [], []
 
     header, data_rows = rows[0], rows[1:]
 
-    # Guard against a mis-split row: an unquoted comma inside a field makes csv.reader
-    # split that row into too many columns, which would then silently merge with shifted
-    # data. Fail loudly with the offending row located, rather than corrupt the registry.
     expected = len(header)
+    well_formed: list[list[str]] = []
+    malformed: list[tuple[int, list[str]]] = []
     for line_no, row in enumerate(data_rows, start=2):  # +2: 1-based, past the header line
         if row and len(row) != expected:
-            raise ValueError(
-                f"{path}: row {line_no} has {len(row)} columns, expected {expected} — "
-                f"likely an unquoted comma in a field that must be quoted. Row: {row!r}"
-            )
+            malformed.append((line_no, row))
+        else:
+            well_formed.append(row)
 
-    return header, data_rows
+    return header, well_formed, malformed
+
+
+def describe_malformed(
+    path: str, malformed: list[tuple[int, list[str]]]
+) -> list[dict]:
+    """Build actionable records for skipped mis-split rows.
+
+    The `skill` column (index 1) sits before every comma-prone free-text field
+    (description / args / outputs), so it survives an over-split — we can always
+    name which entry was dropped.
+    """
+    described = []
+    for line_no, row in malformed:
+        skill = row[1].strip() if len(row) > 1 and row[1].strip() else "?"
+        described.append(
+            {"path": path, "line": line_no, "skill": skill, "columns": len(row)}
+        )
+    return described
 
 
 def extract_module_codes(rows: list[list[str]]) -> set[str]:
@@ -220,7 +249,7 @@ def main():
     args = parse_args()
 
     # Read source entries
-    source_header, source_rows = read_csv_rows(args.source)
+    source_header, source_rows, source_malformed = read_csv_rows(args.source)
     if not source_rows:
         print(f"Error: No data rows found in source {args.source}", file=sys.stderr)
         sys.exit(1)
@@ -236,8 +265,22 @@ def main():
         print(f"Source rows: {len(source_rows)}", file=sys.stderr)
 
     # Read existing target (may not exist)
-    target_header, target_rows = read_csv_rows(args.target)
+    target_header, target_rows, target_malformed = read_csv_rows(args.target)
     target_existed = Path(args.target).exists()
+
+    # Surface any mis-split rows skipped on read (R2-3). Loud unconditionally —
+    # a dropped row means a help entry won't register; if it is a local mint, its
+    # registration is lost until the source field is re-quoted (or it is re-minted).
+    malformed_skipped = describe_malformed(args.source, source_malformed) + \
+        describe_malformed(args.target, target_malformed)
+    for m in malformed_skipped:
+        print(
+            f"WARNING: skipped malformed row — {m['path']} line {m['line']} "
+            f"(skill {m['skill']!r}, {m['columns']} columns): likely an unquoted "
+            f"comma in a free-text field. The row is NOT registered. Re-quote the "
+            f"field and re-run, or re-mint the skill.",
+            file=sys.stderr,
+        )
 
     if args.verbose:
         print(f"Target exists: {target_existed}", file=sys.stderr)
@@ -299,6 +342,7 @@ def main():
         "local_mints_preserved": sorted(preserved_skills),
         "total_rows": len(merged_rows),
         "legacy_csvs_deleted": legacy_deleted,
+        "malformed_rows_skipped": malformed_skipped,
     }
     print(json.dumps(result, indent=2))
 
