@@ -25,10 +25,10 @@ module (a local path or its Git URL):
 cd /path/to/your/vault
 
 # from a local checkout of this repo:
-npx bmad-method install --custom-source /path/to/bmad-module-vault --tools claude-code
+npx bmad-method install --custom-source /path/to/bmad-module-vlt --tools claude-code
 
 # …or from GitHub, once published:
-npx bmad-method install --custom-source https://github.com/<you>/bmad-module-vault --tools claude-code
+npx bmad-method install --custom-source https://github.com/mggower/bmad-module-vlt --tools claude-code
 ```
 
 Or run `npx bmad-method install` interactively and give it the source path/URL when prompted. A
