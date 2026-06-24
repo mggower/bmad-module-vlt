@@ -1,0 +1,21 @@
+# DO NOT EDIT -- overwritten on every update.
+#
+# Agent customization surface for vlt-agent-creative.
+# Team overrides:     {project-root}/_bmad/custom/vlt-agent-creative.toml
+# Personal overrides: {project-root}/_bmad/custom/vlt-agent-creative.user.toml
+
+[agent]
+
+# --- Metadata (install-time roster contract) ---
+# Consumed by module.yaml:agents[] and `[agents.<code>]` in central config.
+
+code = "creative"
+name = ""                       # summoned by role; owner may set a personal name, UIs fall back to title
+title = "The Creative"
+icon = "🎨"
+description = "The vault's design and fabrication partner — turns curated knowledge into made things and challenges your ideas toward producing them."
+agent_type = "memory"           # remembers across sessions via the in-vault identity.md + thread.md (not a BMad sanctum)
+
+# No override surface: this partner's behavior lives in its SKILL.md persona, the
+# shipped operating contract, and its in-vault identity.md/thread.md. Per
+# agent-type guidance, memory agents default the customization surface to off.

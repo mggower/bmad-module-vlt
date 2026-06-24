@@ -1,0 +1,59 @@
+code: vlt
+name: "Vault"
+description: "A self-evolving cast of distinct AI partners — librarian, researcher, creative, and more they mint themselves — who share one living knowledge vault. Install it into a vault and the cast grows itself."
+module_version: 0.3.0
+default_selected: false
+module_greeting: >
+  Vault is installed — your cast of partners now shares one living knowledge vault.
+
+  Summon the Librarian to tend the collection ("Librarian, ingest this article…"), the
+  Researcher to be pushed to learn ("Researcher, dig into transformer attention…"), or the
+  Creative to turn knowledge into made things ("Creative, shape a resource doc on…"). They read
+  the same wiki, hand work to each other through it, and can grow the roster themselves with
+  vlt-mint. Install Vault into each vault you want a cast for; re-run vlt-setup anytime to refresh.
+
+# --- Agent roster (install-time contract; consumed by module.yaml:agents[] and roster UIs) ---
+# Partners are summoned by role; name is left empty so roster UIs fall back to title. An owner
+# may set a personal name later via [agents.<code>] in central config.
+agents:
+  - code: librarian
+    name: ""
+    title: Librarian
+    icon: 📚
+    description: The keeper of the vault's collection — tends the wiki, integrates new knowledge, keeps it healthy and single-home.
+  - code: researcher
+    name: ""
+    title: Researcher
+    icon: 🔭
+    description: The vault's intellectual sparring partner — reaches into the world to build new knowledge and pushes you to learn.
+  - code: creative
+    name: ""
+    title: The Creative
+    icon: 🎨
+    description: The vault's design and fabrication partner — turns curated knowledge into made things and challenges your ideas toward producing them.
+
+# --- Configuration variables ---
+# The vault IS the project — Vault is installed into each vault, so there is no vault registry.
+# The only variable is an optional layout override.
+
+vault_structure:
+  prompt: "(Advanced) Override any vault sub-paths that differ from the conventional layout? Most vaults won't need this."
+  # CANONICAL default map — the SINGLE SOURCE OF TRUTH for the structure map.
+  # vlt-setup reads this (never a hand-transcribed markdown table) and materializes it into
+  # config.yaml, merging any user overrides on top. To add/rename a logical path, edit it HERE.
+  default:
+    wiki: _agent/wiki/
+    index: _agent/wiki/index.md
+    research: _agent/research/
+    sessions: _agent/sessions/
+    log: _agent/log.md
+    backlog: _agent/backlog.md
+    partners: _agent/partners/
+    capabilities: _agent/capabilities/
+    conventions: _meta/conventions/
+    overlays: _agent/conventions/
+    personas: _meta/personas/
+    contract: _meta/vault-operating-contract.md
+    upgrade_ledger: _agent/upgrade-ledger.md
+    archive: _archive/
+  example: "wiki → _agent/wiki/ — override a single entry only if this vault diverges"

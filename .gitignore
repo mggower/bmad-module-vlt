@@ -1,0 +1,20 @@
+# Build output
+_output/
+.DS_Store
+
+# Python bytecode (merge scripts run via uv/python at install time)
+__pycache__/
+*.pyc
+
+# Local-only: BMad framework tooling + installer/editor config (not the product)
+.claude/
+_bmad/
+.vscode/
+
+# Local-only: internal dev/trial artifacts (reference the owner's private vault)
+inbox/
+docs/
+skills/reports/
+
+# Local-only: per-skill mint decision logs (internal dev records; some name the dev vault)
+**/.decision-log.md
