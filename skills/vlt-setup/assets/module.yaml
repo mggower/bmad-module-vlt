@@ -1,7 +1,7 @@
 code: vlt
 name: "Vault"
 description: "A self-evolving cast of distinct AI partners — librarian, researcher, creative, and more they mint themselves — who share one living knowledge vault. Install it into a vault and the cast grows itself."
-module_version: 0.3.1
+module_version: 0.4.0
 default_selected: false
 module_greeting: >
   Vault is installed — your cast of partners now shares one living knowledge vault.
