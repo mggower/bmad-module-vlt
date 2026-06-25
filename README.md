@@ -7,8 +7,10 @@ vault (existing or fresh) and the cast grows itself.
 
 - **What's in it:** 3 partner agents (`vlt-agent-librarian`, `vlt-agent-researcher`,
   `vlt-agent-creative`), 6 operations (`vlt-ingest`, `vlt-research`, `vlt-query`, `vlt-extract`,
-  `vlt-lint`, `vlt-dispatch`), the self-evolution engine (`vlt-mint`) and its review gate
-  (`vlt-review-council`), and the lifecycle pair (`vlt-setup`, `vlt-upgrade`) — **13 skills** in all.
+  `vlt-lint`, `vlt-dispatch`) plus the shared longitudinal-loop hand (`vlt-track`) any partner can
+  wear to run a personalized program over weeks, the self-evolution engine (`vlt-mint`) and its
+  review gate (`vlt-review-council`), and the lifecycle pair (`vlt-setup`, `vlt-upgrade`) — **14
+  skills** in all.
 - **Self-contained:** the governance bundle (operating contract + conventions + review-lens
   personas) ships inside `vlt-setup/assets/` and installs into each target vault at setup.
 
@@ -19,20 +21,16 @@ project** — install Vault *into* each vault you want a cast for, and run setup
 external registry; one vault = one install.
 
 Run the installer with the vault as your working directory, pointing `--custom-source` at this
-module (a local path or its Git URL):
+module's Git URL:
 
 ```bash
 cd /path/to/your/vault
 
-# from a local checkout of this repo:
-npx bmad-method install --custom-source /path/to/bmad-module-vlt --tools claude-code
-
-# …or from GitHub, once published:
 npx bmad-method install --custom-source https://github.com/mggower/bmad-module-vlt --tools claude-code
 ```
 
-Or run `npx bmad-method install` interactively and give it the source path/URL when prompted. A
-**local path works — no GitHub required.**
+Or run `npx bmad-method install` interactively and give it the source URL when prompted. (A local
+checkout works too — point `--custom-source` at the repo path instead.)
 
 The installer reads `.claude-plugin/marketplace.json`, copies the `vlt-*` skills into the
 vault's `.claude/skills/`, and runs `vlt-setup`, which installs the governance bundle into the
@@ -64,11 +62,11 @@ design — is detect → warn → degrade, never block.
 ## A vault ≠ this repo
 
 This repo is **module development**. A *vault* is whatever folder holds your knowledge wiki (e.g.
-`~/Vaults/core`); you register its path during `/vlt-setup`, and the module provisions it. One
-install Vault into each vault you want a cast for; each keeps its own wiki, partner threads, and backlog.
+`~/my-vault`); you register its path during `/vlt-setup`, and the module provisions it. Install
+Vault into each vault you want a cast for; each keeps its own wiki, partner threads, and backlog.
 
 ## Notable files
 
-- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 13 `vlt-*` skills the installer copies.
-- `skills/` — the 13 `vlt-*` skills (the installable module).
+- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 14 `vlt-*` skills the installer copies.
+- `skills/` — the 14 `vlt-*` skills (the installable module).
 - `skills/vlt-setup/assets/governance/_meta/` — the canonical governance bundle (pruned conventions, review-lens personas, operating contract) that `vlt-setup` installs into a vault. Edit the bundle here (single source).

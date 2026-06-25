@@ -5,8 +5,8 @@
     "email": "gowermikey@gmail.com"
   },
   "license": "MIT",
-  "homepage": "",
-  "repository": "",
+  "homepage": "https://github.com/mggower/bmad-module-vlt",
+  "repository": "https://github.com/mggower/bmad-module-vlt",
   "keywords": ["bmad", "knowledge-vault", "wiki", "obsidian", "agents", "self-evolving"],
   "plugins": [
     {
