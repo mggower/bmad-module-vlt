@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 2
-consumers: [vlt-extract, vlt-lint]
+consumers: [vlt-extract, vlt-lint, vlt-track]
 ---
 
 # Extraction Conventions

@@ -48,6 +48,20 @@ provenance: shipped
 
 (An operation skill **is** a heavy capability with a `skill:` procedure — the same object, just the heavy weight.)
 
+**Loop profile** (only for a *longitudinal-loop* op, e.g. `vlt-track`). A shared loop op is **persona-neutral and profile-driven** — *one verb, many subjects*. The wearing partner declares its parameterization here, in the body of its heavy pointer; the op reads it on activation and hardcodes none of it. Add this section under the heavy pointer's frontmatter:
+
+```markdown
+## Loop profile
+- root: _agent/<area>/<subject?>/      # agent-zone working root — the running log(s) live here
+- target: <PARA area>/<subject?>/      # where the polished protocol lands (the extraction target)
+- subject-model: single | multi        # multi → scoped under a slug, e.g. {dog}; single → one subject, no nesting
+- data-streams: <file(s) the log beat appends to, and what each holds>
+- log-tag: <this partner's slug for the {log} line, e.g. dog-trainer>
+- non-negotiable-gate: <this partner's named method gate — re-asserted at the write, e.g. least-intrusive / never past the evidence>
+```
+
+"Wear `vlt-track`" = add a `capabilities/track.md` heavy pointer (`procedure: { skill: vlt-track }`) carrying a filled Loop-profile block — **not** mint a duplicate loop op. The partner's gated mint must also have opted into the `extraction.md` personalized-extraction widening (the op writes PARA via personalized extraction). See `skills/vlt-track/SKILL.md`.
+
 ---
 
 ## Family contract — `_agent/capabilities/families/{family}.md`

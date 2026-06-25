@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 1
-consumers: [vlt-ingest, vlt-lint, vlt-extract]
+consumers: [vlt-ingest, vlt-lint, vlt-extract, vlt-track]
 ---
 
 # Wiki Supersession Conventions

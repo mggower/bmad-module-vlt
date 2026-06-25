@@ -28,6 +28,7 @@
         "./skills/vlt-research",
         "./skills/vlt-query",
         "./skills/vlt-extract",
+        "./skills/vlt-track",
         "./skills/vlt-lint",
         "./skills/vlt-dispatch",
         "./skills/vlt-mint",
