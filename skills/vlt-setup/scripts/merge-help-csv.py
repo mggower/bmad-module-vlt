@@ -33,7 +33,8 @@ import sys
 from io import StringIO
 from pathlib import Path
 
-# CSV header for module-help.csv
+# Canonical CSV header for module-help.csv (BMad schema: columns 9-10 are
+# preceded-by/followed-by; vlt shipped after/before pre-0.5.0 — see LEGACY_HEADER).
 HEADER = [
     "module",
     "skill",
@@ -43,12 +44,29 @@ HEADER = [
     "action",
     "args",
     "phase",
-    "after",
-    "before",
+    "preceded-by",
+    "followed-by",
     "required",
     "output-location",
     "outputs",
 ]
+
+# The known-old vlt header (identical columns/positions, columns 9-10 named
+# after/before). A live vault installed pre-0.5.0 carries it forever unless
+# migrated here, because the merge prefers the target's existing header. Data
+# rows are positionally identical, so migration = rename the header in place.
+LEGACY_HEADER = HEADER[:8] + ["after", "before"] + HEADER[10:]
+
+
+def canonicalize_header(header: list[str]) -> tuple[list[str], bool]:
+    """Rename the known-old header variant to canonical; anything else passes through.
+
+    Returns (header, migrated). Only the exact 13-column after/before form is
+    rewritten — an unknown header is never blindly rewritten.
+    """
+    if header == LEGACY_HEADER:
+        return list(HEADER), True
+    return header, False
 
 
 def parse_args():
@@ -287,6 +305,20 @@ def main():
         if target_existed:
             print(f"Existing target rows: {len(target_rows)}", file=sys.stderr)
 
+    # Header migration (installer-interop, build-13): rename the known-old
+    # after/before header to canonical preceded-by/followed-by. Runs before any
+    # row handling below (rows are positionally identical under both headers).
+    # Target migration is the one that fixes a live vault (target-header-wins);
+    # a legacy source header (stale bundle) is canonicalized silently.
+    target_header, header_migrated = canonicalize_header(target_header)
+    source_header, _ = canonicalize_header(source_header)
+    if header_migrated:
+        print(
+            f"Migrated legacy module-help.csv header in place "
+            f"(after,before -> preceded-by,followed-by): {args.target}",
+            file=sys.stderr,
+        )
+
     # Use source header if target doesn't exist or has no header
     header = target_header if target_header else (source_header if source_header else HEADER)
 
@@ -343,6 +375,7 @@ def main():
         "total_rows": len(merged_rows),
         "legacy_csvs_deleted": legacy_deleted,
         "malformed_rows_skipped": malformed_skipped,
+        "header_migrated": header_migrated,
     }
     print(json.dumps(result, indent=2))
 

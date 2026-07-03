@@ -57,7 +57,7 @@ Write this snapshot to a working note and **append the opening half of a ledger 
      --verbose
    ```
 
-   With `--live-skills-dir`, a `vlt` row whose skill is absent from the bundled source but whose **skill dir still exists live** is preserved (a local mint); a row whose dir is gone is a true zombie and still dropped. Confirm the JSON `local_mints_preserved` lists every partner from the Step-1 snapshot.
+   With `--live-skills-dir`, a `vlt` row whose skill is absent from the bundled source but whose **skill dir still exists live** is preserved (a local mint); a row whose dir is gone is a true zombie and still dropped. Confirm the JSON `local_mints_preserved` lists every partner from the Step-1 snapshot. If the JSON reports `header_migrated: true`, the live registry's legacy `after,before` header was renamed in place to the canonical BMad schema (`preceded-by,followed-by` — data rows untouched; one-time, pre-0.5.0 installs only) — note it in the ledger.
 
 2. **Bodies — restore dropped mints (B2, insurance).** For each minted-partner dir in the Step-1 snapshot, confirm it still exists under the live skills dir. If a destructive apply removed one, **restore it** from the snapshot. On the own-the-apply path nothing was deleted, so this is a no-op — but always verify (the cost is a directory check).
 
@@ -69,7 +69,7 @@ Write this snapshot to a working note and **append the opening half of a ledger 
    - **Overlay lift (first upgrade):** if Step 1 found base conventions diverged from baseline and no overlays yet exist for them, offer to **lift** the local additions into `{overlays}/{name}.overlay.md` (per-file judgment — additions move to the overlay, the base is restored to pristine stock). This is the one-time exercise that puts an already-diverged vault onto the durable path.
    - Run any other migrations the new version documents.
 
-6. **Provision — hand off to `vlt-setup`.** Invoke `vlt-setup` (reconfigure branch) to ensure structure, governance bundle, workflows, and the new agent-zone homes (`_agent/conventions/`, `_agent/mint/`, `_agent/capabilities/families/`) are present. `vlt-upgrade` calls it; it does not duplicate provisioning.
+6. **Provision — hand off to `vlt-setup`.** Invoke `vlt-setup` (reconfigure branch) to ensure structure, governance bundle, workflows, the new agent-zone homes (`_agent/conventions/`, `_agent/mint/`, `_agent/capabilities/families/`), and the **generic-BMad installer cache seed** (vlt-setup Provision §5 — refreshed each upgrade so the installer's view of `module.yaml` tracks the installed version) are present. `vlt-upgrade` calls it; it does not duplicate provisioning.
 
 ## Step 4 — Post-flight divergence report
 
@@ -123,4 +123,4 @@ Pass the timestamp in explicitly (the agent knows the date on activation). The o
 
 ## Verify
 
-Before closing: the live `module-help.csv` still carries every locally-minted partner row (Step 3.1 JSON confirms); every minted-partner dir from the Step-1 snapshot still exists (Step 3.2); every `{overlays}/*.overlay.md` is intact; `_agent/mint/decision-log.md` exists (relocation done if a legacy file was present); the ledger has a new dated block; the post-flight report names any base/governance divergence for the user. Then offer to commit.
+Before closing: the live `module-help.csv` still carries every locally-minted partner row (Step 3.1 JSON confirms) and its header is the canonical BMad schema; every minted-partner dir from the Step-1 snapshot still exists (Step 3.2); every `{overlays}/*.overlay.md` is intact; `_agent/mint/decision-log.md` exists (relocation done if a legacy file was present); the ledger has a new dated block; the post-flight report names any base/governance divergence for the user. Then offer to commit.

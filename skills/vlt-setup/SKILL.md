@@ -234,6 +234,20 @@ Install all of them:
 - Ensure the **mint institutional-memory zone** `_agent/mint/` exists (it holds the resumable planning docs **and** the relocated `_agent/mint/decision-log.md` — both upgrade-durable in the agent zone). Create it if absent; never clobber existing contents.
 - Ensure the **capability family zone** `{capabilities}/families/` (default `_agent/capabilities/families/`) exists — it holds the cross-partner family contracts (Model B). Create it if absent; never clobber. Per-partner `{partners}/{name}/capabilities/` folders are **not** pre-created — they appear lazily when a partner grows or is given its first light capability.
 
+### 5. Seed the generic-BMad installer cache (interop)
+
+The generic BMad installer resolves an installed module's `module.yaml` **only from its own source caches** — never from the vault. vlt installed as a Claude plugin exists in no such cache, so every generic BMad run warns (`collectAgentsFromModuleYaml` / `writeCentralConfig`), the agent roster never reaches `config.toml`, and config answers mis-scope to team. Fix: seed the installer's custom-modules cache with a minimal resolvable stub — a `.claude-plugin/` marker dir (its presence is the repo-root marker; contents not needed) plus this skill's own `module.yaml` at the standard `skills/*-setup/assets/` probe path (the installer matches on the yaml's `code: vlt`):
+
+```bash
+if [ -d "$HOME/.bmad" ]; then
+  BMAD_CACHE="$HOME/.bmad/cache/custom-modules/bmad-module-vlt"
+  mkdir -p "$BMAD_CACHE/.claude-plugin" "$BMAD_CACHE/skills/vlt-setup/assets"
+  cp "$SKILL/assets/module.yaml" "$BMAD_CACHE/skills/vlt-setup/assets/module.yaml"
+fi
+```
+
+**Refresh (overwrite) the yaml on every run** so the cache tracks the installed version — a stale cache means a stale roster. **Graceful degrade:** if `~/.bmad/` doesn't exist, skip silently — that machine never runs the generic BMad installer, and vlt must not create the tree just for this. (`vlt-upgrade` reaches this step through its provisioning hand-off — the seed refreshes on every upgrade automatically.)
+
 ## Check Dependencies
 
 Vault degrades gracefully without these — **warn, never hard-fail**. Check whether each is installed, and **count a host/global-provided skill as present** — a skill the partner can actually reach is *not* missing just because it isn't in the project's `.claude/skills/`. Look in `{project-root}/.claude/skills/` *and* consider host/global skills; if you can't confirm a host skill either way, report it as "not found in project skills (may be host-provided)" rather than a flat "missing". Note any genuinely absent ones in the confirmation summary:
