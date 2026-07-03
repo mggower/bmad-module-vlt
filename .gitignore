@@ -18,3 +18,4 @@ skills/reports/
 
 # Local-only: per-skill mint decision logs (internal dev records; some name the dev vault)
 **/.decision-log.md
+CLAUDE.local.md
