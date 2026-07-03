@@ -30,6 +30,10 @@ family: { name: {family}, inherits: [{invariant-ids}] }   # OPTIONAL — present
  (its thread.md, its in-flight deliverables) — never a shared lane.}
 ```
 
+**"Shared lane" means a *synthesized, single-writer* lane** (the wiki) — a **new-file deposit into `sources/`** is permitted for a light capability and does not promote it to heavy (definition + ruling: the contract's *Capabilities* section). A light capability may also carry a **`capabilities/scripts/<tool>` (or `assets/`) sibling** for reusable tools its profile invokes — folder shape `capabilities/{slug}.md` + `capabilities/scripts/…`; the tool runs mechanically, and persistent writes stay scratch + a raw-input deposit.
+
+> **Source-type front-end (light).** To teach an existing ingest/verb a new *input form*: mint a light capability owned by the verb's partner — an own-zone **profile** that fetches + normalizes the new form into the text the verb already eats, plus a `scripts/` sibling for tooling. The front-end writes only scratch + a raw-input deposit; the **canonical write stays with the unchanged verb skill**. Council-none, upgrade-safe, no skill proliferation. A front-end wrapping a **heavy** input (long video, long PDF, multi-page crawl) should default to the **prep/interpret split** — see `vlt-ingest`'s *Heavy sources* section — so it inherits the map-not-digest discipline.
+
 **Heavy capability file** (pointer form — the op skill carries the body):
 
 ```markdown
@@ -77,7 +81,7 @@ instances: [{partner}, ...]        # derived/maintained — who has an instance
 
 ## Invariants  (every {family} instance MUST honor these)
 - {invariant-id} — {rule, e.g. append-only — never overwrites prior observations}
-- own-zone-only — writes only the owner's own zone, never a shared lane
+- own-zone-only — writes only the owner's own zone, never a shared lane (new-file `sources/` deposits permitted — see the contract's *Capabilities*)
 - {invariant-id} — {e.g. dated-observation — every run emits a dated observation entry}
 ```
 

@@ -45,6 +45,23 @@ Before writing anything derived from the source, scan its content for secrets �
 
 The source is a file in the vault's sources layer (check its subfolders — articles, papers, books, transcripts, notes), a URL (reach the web with whatever web tooling the host provides — fetch the page, or crawl if it spans several pages on one site), or text already pasted in the conversation. Read it in full before doing anything else; read long documents in sections.
 
+## Heavy sources — the prep/interpret split (Steps 2–3 at scale)
+
+For a source too large to interpret without flooding the context — a long video transcript, a long PDF, a multi-page crawl — the cost is not the fetch (mechanical, safe) but *reading the full body to interpret it*, and the risk lives in the extraction handoff happening on a context already saturated with raw text. The lever: **keep the raw source out of the interpreting context.**
+
+**Threshold, not always-on.** Small ingests stay inline — the split only earns its overhead at scale (same discipline as `vlt-lint`'s fan-out escalation). Inline up to roughly what one context can read *and still interpret freshly* — about **~15k words of normalized text (a ~1.5h transcript)**; above that, split:
+
+- **Prep sub-agent (mechanical).** Delegate Steps 2–3's heavy half: fetch → normalize/clean → **deposit the source-of-record to the sources layer** → run the Step 2 credential scan (it needs the cleaned text). It returns a **neutral navigational brief** — section map, transcript/page *locations*, verbatim *located quotes*, and flags. **Never the raw body; never an interpretation.**
+- **You, on fresh context (interpretive).** Run the unchanged remaining steps, reading *selectively* into the deposited source-of-record at the brief's locations, for only the passages you will canonicalize.
+
+Three invariants make it safe:
+
+1. **Single-writer holds.** Prep agents fetch/clean/deposit and *report*; they never write the wiki — the canonical write stays this skill's. (Same architecture as `vlt-lint-full`: read-only finders return structured data, one serial writer applies.)
+2. **The brief is a map, not the territory.** The full deposited source stays the source-of-record; verify each located quote against it before ingesting, so a prep-agent slip can't become a confident wiki claim.
+3. **Neutral map, not a digest** (the load-bearing rule). The prep agent extracts *no interpretation* — structure and located raw material only. A pre-interpreted digest is cheaper on context but **primes and quietly corrupts** the fresh reading that is the split's entire point. Judgment stays here; the agent supplies structure, not conclusions.
+
+Sequencing: the **Step 1 re-ingest check runs up front** as always — a cheap `{log}` grep that gates whether to fetch at all (don't pay for fetch+clean on a re-ingest); the **credential scan rides in the prep agent**. The split applies to *any* heavy input form — a source-type front-end capability that wraps one (see `vlt-mint/assets/capability-template.md`) should default to this orchestration.
+
 ## Step 4: Discuss key takeaways
 
 Before writing, surface the 3–5 most significant claims, anything surprising, and which domain(s) this belongs to. Ask the user what to emphasize, de-emphasize, or connect — they know their own knowledge base better than you. Keep it to a couple of exchanges unless the user wants to go deep.
