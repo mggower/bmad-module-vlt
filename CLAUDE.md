@@ -28,8 +28,10 @@ overlays, capabilities) as module source.
    possible). Record deliberate deviations from the brief in its `status:`.
 6. **Release** — work on a branch (`arcN-vX.Y.Z`), one commit per build; at release bump
    **both** version strings (`.claude-plugin/marketplace.json` `"version"` and
-   `skills/vlt-setup/assets/module.yaml` `module_version`), ff-merge to `main`, tag
-   `vX.Y.Z`, push main + tag.
+   `skills/vlt-setup/assets/module.yaml` `module_version`). **Before tagging, run
+   `uv run tools/package-lint.py --expect-version X.Y.Z` — tag only on exit 0**, and
+   record its PASS summary line in the release commit message (skipping the lint is
+   then visible in history). Then ff-merge to `main`, tag `vX.Y.Z`, push main + tag.
 7. **Live acceptance** — batched to the next `vlt-upgrade` run on a live vault (the owner
    runs it). Defects found there file back into `inbox/` — the loop closes. A filing's
    inbox file moves to `inbox/archive/` once its build has shipped **and** passed
@@ -68,8 +70,9 @@ overlays, capabilities) as module source.
 
 - This is a public repo. Dev artifacts are gitignored and stay local: `inbox/`,
   `skills/reports/`, `docs/`, `.claude/`, `_bmad/`, `CLAUDE.local.md`. A release commit
-  therefore contains only the shipped surface (`skills/`, `.claude-plugin/`, README,
-  LICENSE). Shipped content (examples, templates, docs) must carry **no personal or
+  therefore contains only the shipped surface (`skills/`, `.claude-plugin/`, `tools/`,
+  README, LICENSE — `tools/` is tracked and public as documentation of the release
+  contract, but is not part of the own-the-apply copy surface). Shipped content (examples, templates, docs) must carry **no personal or
   vault-local information** — scrub before it lands in `skills/`.
 
 ## What not to touch
