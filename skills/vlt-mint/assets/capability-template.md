@@ -68,6 +68,15 @@ provenance: shipped
 
 ---
 
+## Enforcement (the boundary classifier — answer at mint time)
+
+**Does this mint create a rule someone else must obey?** Record the answer with the mint (the planning doc for a gated kind; the decision-log line for a ceremony-free one):
+
+- **No** → one recorded line — `non-boundary: <why>` (e.g. "own-zone profile; binds nobody else") — and nothing more. Keep honest small mints fast; most light capabilities land here.
+- **Yes** → the mint declares its bell: **who checks / at what moment / against which counter** (an enforcement-kit metric id, once that vocabulary exists), **or** a complete tripwired deferral — `deferral_metric` + `deferral_threshold` + `review_after`, all three, per `{conventions}/frontmatter.md` *Enforcement declaration*. A boundary-creating mint with neither a bell nor a valid deferral does not pass Phase 2.
+
+---
+
 ## Family contract — `_agent/capabilities/families/{family}.md`
 
 A **family** (Model B) is the only cross-partner capability object: a thin contract of **invariants** every instance must obey, with each partner's **body fully its own**. Opt-in — a one-off needs no family. Changing an invariant is **gated** (cross-partner blast radius) and fires the propagation check; changing a body touches nobody else.

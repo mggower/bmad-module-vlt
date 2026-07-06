@@ -23,6 +23,9 @@ export const meta = {
 //     crossLayerSlugs: [string] (optional)// normalized basenames of valid NON-wiki link targets (research /
 //                                          //   agent-zone notes the SKILL globbed) — a [[link]] to one of these
 //                                          //   is NOT a missing target. default []. (filing #3 §4)
+//     today:           string  (optional) // 'YYYY-MM-DD' — the SKILL passes it (scripts have no Date.now());
+//                                          //   needed to compute review_due; absent → review_due not computed
+//                                          //   (reported as a coverage cap).
 //     budgetFloor:     number  (optional) // stop fanning out when budget.remaining() < this (default 40_000)
 //     clusterCap:      number  (optional) // max cross-page contradiction clusters to check (default scales with page count)
 //     scanModel:       string  (optional) // model for the per-page scanners (pure extraction). default 'haiku' — the ~10x cost win.
@@ -43,6 +46,7 @@ const pages = Array.isArray(a.pages) ? a.pages : []
 const indexPath = a.indexPath
 const conventionsPath = a.conventionsPath
 const crossLayerSlugs = Array.isArray(a.crossLayerSlugs) ? a.crossLayerSlugs : []
+const today = typeof a.today === 'string' ? a.today : ''
 const budgetFloor = a.budgetFloor || 40_000
 // Cluster cap scales with the wiki size — a fixed 12 sat one below the 13 natural clusters on the
 // live wiki and falsely tripped the coverage cap every run. Floor of 12 holds for small wikis. (#3 §6)
@@ -60,12 +64,17 @@ if (!pages.length || !indexPath || !conventionsPath) {
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
-  required: ['slug', 'available', 'outbound_links', 'sources_count', 'frontmatter_valid', 'category', 'topic_is_list'],
+  required: ['slug', 'available', 'outbound_links', 'sources_count', 'frontmatter_valid', 'category', 'topic_is_list', 'attestation_present', 'review_after'],
   properties: {
     slug: { type: 'string' },
     available: { type: 'boolean', description: 'false if the page file could not be read — then it is dropped from the reduce' },
     title: { type: 'string' },
+    created: { type: 'string', description: "the page's frontmatter created date (or empty) — the SKILL uses it to gate unattested_write as informational for pre-convention files" },
     last_updated: { type: 'string', description: "the page's frontmatter last_updated (or empty)" },
+    attestation_present: { type: 'boolean', description: 'true if the frontmatter carries both verified_by and verified_at (the write attestation per frontmatter.md)' },
+    verified_by: { type: 'string', description: "the frontmatter verified_by value verbatim (empty if absent)" },
+    attestation_fresh: { type: 'boolean', description: 'true if verified_at >= last_updated (the freshness rule); false if stale or not applicable' },
+    review_after: { type: 'string', description: "the frontmatter review_after date verbatim (empty if absent — absence = evergreen)" },
     outbound_links: { type: 'array', items: { type: 'string' }, description: 'wiki page slugs this page links to ([[...]] targets), normalized to slugs' },
     sources_count: { type: 'integer', description: 'number of entries in the frontmatter sources: list' },
     frontmatter_valid: { type: 'boolean', description: 'frontmatter present and well-formed per frontmatter.md (no key:, sources: parseable)' },
@@ -109,7 +118,7 @@ phase('Scan pages')
 
 const pageScanPrompt = (p) =>
   `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against from ${conventionsPath}/frontmatter.md, ${conventionsPath}/wiki-supersession.md, and ${conventionsPath}/wiki-index.md (read once, apply per page). ` +
-  `Return ONLY findings about THIS page: its outbound [[wikilink]] targets (as slugs), its frontmatter sources: count (number of entries in the frontmatter sources: list), whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the summary: issue if any ('missing' / 'over-length (N chars)' / empty if fine), whether the frontmatter sources: and the prose Sources section diverge (Gap B), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, and up to 5 short key-claim summaries. Do not assess other pages — cross-page checks happen later.`
+  `Return ONLY findings about THIS page: its outbound [[wikilink]] targets (as slugs), its frontmatter sources: count (number of entries in the frontmatter sources: list), whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the summary: issue if any ('missing' / 'over-length (N chars)' / empty if fine), whether the frontmatter sources: and the prose Sources section diverge (Gap B), its created and last_updated dates verbatim, the write-attestation state (attestation_present = both verified_by and verified_at present; verified_by verbatim; attestation_fresh = verified_at >= last_updated), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, and up to 5 short key-claim summaries. Do not assess other pages — cross-page checks happen later.`
 
 const scans = []
 const coverageCaps = []
@@ -162,6 +171,8 @@ const titleSimilar = (i, j) => {
   for (const t of A) if (B.has(t)) inter++
   return inter / (A.size + B.size - inter) >= 0.5 // Jaccard ≥ 0.5 on title tokens
 }
+if (!today) { const m = `no 'today' arg provided — review_due was NOT computed (pass today: 'YYYY-MM-DD')`; coverageCaps.push(m); log(m) }
+
 let pairBudget = 2_000_000
 let nearCapped = false
 outer: for (let i = 0; i < scans.length; i++) {
@@ -246,6 +257,15 @@ return {
   },
   flag_for_human: {
     category_no_match: indexScan ? indexScan.category_violations || [] : [],
+    // Attestation findings (write-verification contract). PARA files are outside this workflow's
+    // page set (it sweeps {wiki}) — para_missing_attestation is a structural slot the SKILL fills
+    // from its own PARA jurisdiction scan; it is emitted here so the report shape is complete.
+    para_missing_attestation: [],
+    unattested_write: scans.filter((s) => !s.attestation_present).map((s) => `${s.slug} (created ${s.created || '?'})`),
+    attestation_stale: scans.filter((s) => s.attestation_present && s.attestation_fresh === false).map((s) => `${s.slug}: last_updated > verified_at`),
+    review_due: today
+      ? scans.filter((s) => s.review_after && s.review_after <= today).map((s) => `${s.slug} — review_after ${s.review_after}`)
+      : [],
     stale: collect('stale_unmarked'),
     contradictions: flat('cross_page_contradictions').concat(collect('within_page_contradictions')),
     // GAP B — handled contradictions get their own slot instead of vanishing into an empty list.

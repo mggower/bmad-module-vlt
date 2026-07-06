@@ -1,5 +1,6 @@
 ---
 name: vlt-research
+depends_on: ["frontmatter@3", "write-verification@1"]
 description: Investigate a question against the web and file a standalone research note. Use when the user wants to actively build new knowledge — 'research X', 'deep dive into Y', 'what's the current state of Z', 'get me up to speed on…', or any request to go learn something the vault doesn't yet hold. For a source already captured in the vault, use vlt-ingest; to synthesize what's already filed, use vlt-query.
 ---
 
@@ -77,15 +78,11 @@ Structure (no `key:` field):
 - **Open Questions** — what's uncertain or contested; name the tension, not "more research needed".
 - **Sources** — annotated; each with one line on what it contributed. Every URL you actually used appears here.
 
-## Phase 5: Verify
+## Phase 5: Verify and attest
 
-Re-read the note and confirm, then report the result with the headline finding (fix gaps before logging):
+Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the note — that file is the checklist's single home; read it, don't re-derive it from memory. **Fail-open:** fix what you can, flag what you can't, always complete the write. Then attest the note you created: `verified_by: vlt-research`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`).
 
-- [ ] Executive Summary is dense and specific (not "X is complex" but "X does Y, tradeoff is Z, field is divided on W")
-- [ ] Every non-trivial claim is sourced (inline or via Sources)
-- [ ] Every `[[wikilink]]` resolves to an existing page or is explicitly flagged as a new stub
-- [ ] Every URL consulted appears in both `sources:` and the Sources section
-- [ ] Frontmatter complete and correct: `type`, `created`, `title`, `author`, `trust`, `topic`, `status`, `sources` — and **no `key:` field**
+Report the result with the headline finding, and "verification passed" or the specific gaps flagged — before logging.
 
 ## Phase 6: Log and close
 

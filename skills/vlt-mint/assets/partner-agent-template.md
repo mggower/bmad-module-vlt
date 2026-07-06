@@ -4,6 +4,10 @@ Instantiate the files for a new partner `vlt-agent-{name}`: `SKILL.md` (below), 
 
 This template tracks the shipped `vlt-agent-librarian` / `vlt-agent-researcher` SKILLs (post-Build-#1). When in doubt about a mechanic, read one of those — they are the proven reference. Replace every `{placeholder}`; keep the contract mechanics (activation ritual, the three activation branches, single-writer, ending-a-sitting) verbatim in spirit.
 
+## Enforcement (the boundary classifier — answer at mint time)
+
+**Does this mint create a rule someone else must obey?** A partner mint usually doesn't (the partner obeys existing rules; it imposes none) — record the one-line exemption (`non-boundary: <why>`) in the planning doc and move on. If this partner's mint *does* create a rule others must obey (e.g. it arrives with a convention widening, a new invariant, or a spec others consume), the mint declares its bell — who checks / at what moment / against which counter — or a complete tripwired deferral (`deferral_metric` + `deferral_threshold` + `review_after`, all three), per `{conventions}/frontmatter.md` *Enforcement declaration*. A boundary-creating mint with neither does not pass Phase 2.
+
 ---
 
 ## SKILL.md

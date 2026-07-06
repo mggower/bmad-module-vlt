@@ -25,6 +25,12 @@ Before writing anything, JIT-read the governance conventions this operation obey
 
 Frontmatter for any note written follows `{conventions}/frontmatter.md`: **no `key:` field**; `created` (immutable) + `last_updated` only on continuously-updated types (wiki pages, index, re-extracted PARA); written-once notes (research, sessions) carry only `created`.
 
+## Enforcement
+
+{The boundary classifier — answer at mint time: **does this operation create a rule someone else must obey?**
+ If NO: replace this section's body with one recorded line — `non-boundary: <why>` — and move on (keep honest small mints fast).
+ If YES: declare the bell — who checks / at what moment / against which counter (an enforcement-kit metric id, once that vocabulary exists) — or carry a complete tripwired deferral (`deferral_metric` + `deferral_threshold` + `review_after`, all three), per `{conventions}/frontmatter.md` *Enforcement declaration*.}
+
 ## Log
 
 Append one partner-tagged entry to `{log}` in the operating-contract format:

@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@2", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@1"]
+depends_on: ["frontmatter@3", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@1", "write-verification@1"]
 ---
 
 # vlt-ingest
@@ -120,8 +120,11 @@ topic:                             # YAML list, general → specific, lowercase
 status: in-progress
 sources:
   - <every source that has contributed>
+review_after: YYYY-MM-DD           # OPTIONAL — only if the content is time-sensitive; a resolved date, never a duration
 ---
 ```
+
+If the content is **time-sensitive** (pricing, versioned tools, event timelines, dosing/market state), set `review_after:` to a resolved date — absence = evergreen, so omit it everywhere else (semantics: `{conventions}/frontmatter.md`).
 
 `summary:`, `category:`, and `topic:` are the Bases-surfaced fields (see `{conventions}/frontmatter.md`): `summary` is the ≤160-char scope, `category` is a **single** value that **must equal an existing `{index}` H2** (the grouping key — if no category fits, the page needs a new index category, a structural index edit), and `topic` is a lowercase general→specific list for cross-cutting filtering. Never invent a `category` outside the index H2 set.
 
@@ -145,15 +148,15 @@ Append one partner-tagged entry to `{log}`:
 
 Prefix new pages with `(new)`, updated ones with `(updated)`. If a merge happened, name it: `merged: [[{archive}/_agent/wiki/<subsumed>]] → [[<retained>]]`. Omit the wiki clause if no pages changed. **Write no session note** — the summoning partner owns the session log for the whole sitting (operating contract § session-ownership).
 
-## Step 9: Verify
+## Step 9: Verify and attest
 
-Re-read each file you created or updated and confirm, then report the result (what was created/updated, and "verification passed" or a specific gap list — fix gaps before closing):
+Run the **tier-1 checklist** from `{conventions}/write-verification.md` on every file you created or updated — that file is the checklist's single home; read it, don't re-derive it from memory. **Fail-open:** fix what you can, flag what you can't, always complete the write. Then write the attestation on every page created or updated: `verified_by: vlt-ingest`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`).
 
-- [ ] Every non-trivial claim carries a source citation
-- [ ] Every `[[wikilink]]` resolves to an existing page or is explicitly flagged as a new stub
-- [ ] Frontmatter complete and correct: `type`, `created`, `title`, `author`, `trust`, `topic` (a list), `status`, `sources` (+ `last_updated`, `summary` ≤160 chars, and `category` matching an `{index}` H2 on wiki pages) — and **no `key:` field**
-- [ ] `sources:` lists every contributing source, including every web URL consulted
-- [ ] The `{log}` entry was appended, is partner-tagged, and points at the right artifacts
+One ingest-specific check rides along:
+
+- [ ] `review_after` present **iff** the content is time-sensitive — and a resolved date, not a duration
+
+Report the result (what was created/updated, and "verification passed" or the specific gaps flagged).
 
 ## Tips
 

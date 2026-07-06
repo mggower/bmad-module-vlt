@@ -129,6 +129,11 @@ const lensPrompt = (lens) =>
   `If that file cannot be read, return { available: false } with empty fields and stop. ` +
   `Apply your lens to the subject below. If the subject references file paths, read them from those exact LIVE paths (the live project tree — never a cached or plugin copy), so you judge what will actually go live. ` +
   `Stay strictly in your lane: do not optimize for axes other lenses own. ` +
+  // Mint-mode rubric line (single-home: the "where's the bell?" lens lives HERE, not in a persona —
+  // gated kinds only, which is every kind that reaches lensPrompt in mint mode).
+  (mode === 'mint'
+    ? `Standing question for every mint review, from your axis: WHERE'S THE BELL? Does this mint create a rule someone else must obey — and if so, does it declare who checks / at what moment / against which counter, or carry a complete tripwired deferral (deferral_metric + deferral_threshold + review_after, all three)? A missing or incomplete answer on a boundary-creating mint is a concern to raise. `
+    : '') +
   `Return your position from your single axis.\n\n--- SUBJECT (${mode}${kind ? `, kind: ${kind}` : ''}) ---\n${subject}`
 
 const positions = (
@@ -159,7 +164,7 @@ const moderatorPrompt =
   `Read the moderator persona at the LIVE path ${personasPath}/moderator.md and follow its "Activation Prompt" — you synthesize, you do not argue or hold a stance. ` +
   `Below are the fielded lens positions. Map them faithfully into the structured verdict: Consensus (only where ALL fielded lenses truly agree), Disputed-resolved (only with checkable reasoning), Disputed-open (name genuine unresolved disagreements — do not paper over them), and Recommended actions (concrete, attributable). ` +
   (mode === 'mint'
-    ? `This is a MINT review: also return a single \`verdict\` of pass / revise / reject. Use 'revise' with a concrete \`changes\` list when the lenses raise fixable concerns; 'reject' with a \`reason\` only when a lens surfaces a disqualifying structural problem; 'pass' when concerns are minor or absent.`
+    ? `This is a MINT review: also return a single \`verdict\` of pass / revise / reject. Use 'revise' with a concrete \`changes\` list when the lenses raise fixable concerns; 'reject' with a \`reason\` only when a lens surfaces a disqualifying structural problem; 'pass' when concerns are minor or absent. HARD RULE (no boundary without a bell): a boundary-creating mint that lacks its Enforcement section, or carries an incomplete deferral (any of deferral_metric / deferral_threshold / review_after missing), is 'revise' or 'reject' — never 'pass'.`
     : `This is a DEBATE: do NOT return a pass/revise/reject verdict — leave \`verdict\` unset; the four sections are the product.`) +
   `\n\n--- SUBJECT (${mode}${kind ? `, kind: ${kind}` : ''}) ---\n${subject}\n\n--- FIELDED LENS POSITIONS ---\n${JSON.stringify(positions, null, 2)}`
 

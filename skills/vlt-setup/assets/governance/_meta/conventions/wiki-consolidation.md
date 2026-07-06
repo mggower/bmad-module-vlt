@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-06-01
+last_updated: 2026-07-06
 title: Wiki Consolidation Conventions
 author: hybrid
 trust: reviewed
@@ -10,6 +10,10 @@ status: complete
 sources: []
 version: 1
 consumers: [vlt-ingest]
+enforcement_stage: declared
+deferral_metric: "near-duplicate findings carried unresolved across sweeps"
+deferral_threshold: "3 carried across 2 consecutive sweeps"
+review_after: 2026-08-17
 ---
 
 # Wiki Consolidation Conventions

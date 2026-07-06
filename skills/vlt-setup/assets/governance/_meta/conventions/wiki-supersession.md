@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-06-01
+last_updated: 2026-07-06
 title: Wiki Supersession Conventions
 author: hybrid
 trust: reviewed
@@ -10,6 +10,9 @@ status: complete
 sources: []
 version: 1
 consumers: [vlt-ingest, vlt-lint, vlt-extract, vlt-track]
+enforcement_stage: checked
+enforcement_checked_by: vlt-lint
+enforcement_moment: lint run
 ---
 
 # Wiki Supersession Conventions

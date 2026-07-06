@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-06
-last_updated: 2026-06-23
+last_updated: 2026-07-06
 title: Wiki Index Conventions
 author: hybrid
 trust: reviewed
@@ -10,6 +10,9 @@ status: complete
 sources: []
 version: 2
 consumers: [vlt-ingest, vlt-lint]
+enforcement_stage: checked
+enforcement_checked_by: vlt-lint
+enforcement_moment: lint run
 ---
 
 # Wiki Index Conventions

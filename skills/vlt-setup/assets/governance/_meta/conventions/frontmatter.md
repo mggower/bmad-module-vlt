@@ -1,15 +1,21 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-06-23
+last_updated: 2026-07-06
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 2
-consumers: [vlt-ingest, vlt-lint]
+version: 3
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint]
+enforcement_stage: checked
+enforcement_checked_by: vlt-lint
+enforcement_moment: lint run
+deferral_metric: "prose/behavior drift lint findings + new conventions minted"
+deferral_threshold: "2 drift findings, or the 3rd new convention"
+review_after: 2026-08-17
 ---
 
 # Frontmatter Conventions
@@ -45,7 +51,7 @@ trust: <raw | reviewed | verified | canonical>
 ---
 ```
 
-**`created` vs `last_updated`:** `created` is the birth date and is **immutable** — never bump it on a later edit. Note types that are *continuously updated* (wiki pages, the index, re-extracted PARA artifacts) additionally carry `last_updated: YYYY-MM-DD`, bumped on every substantive edit; that is the field `vlt-lint` reads to judge staleness. Written-once note types (research notes, session logs) carry only `created`. The per-zone sections below say which applies.
+**`created` vs `last_updated`:** `created` is the birth date and is **immutable** — never bump it on a later edit. Note types that are *continuously updated* (wiki pages, the index, re-extracted PARA artifacts) additionally carry `last_updated: YYYY-MM-DD`, bumped on every substantive edit; that is the field `vlt-lint` reads to judge staleness. Written-once note types (research notes, session logs) carry only `created`. The per-zone sections below say which applies. Note that `last_updated` measures *edit recency*, not *content validity* — a page carrying `review_after:` (wiki-page schema below) announces its own content expiry, so lint needs no `last_updated`/mtime inference for it.
 
 **`author` values:**
 
@@ -64,6 +70,19 @@ trust: <raw | reviewed | verified | canonical>
 
 The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `idea`. New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
 
+## Write attestation (agent-written artifacts)
+
+Two keys record that the writing operation ran the tier-1 write-verification checklist on the file. This section defines only the **fields**; the checklist, fail-open rule, scope rule, and audit contract live in `write-verification.md`:
+
+```yaml
+verified_by: vlt-ingest | vlt-extract | vlt-research | vlt-lint
+verified_at: YYYY-MM-DD
+```
+
+- **`verified_by`** — the operation that ran tier-1 on this file. The legal value set is the three write ops plus `vlt-lint` (lint attests **narrowly** — only files its own auto-fix touched; see `write-verification.md`).
+- **`verified_at`** — the date of that verification. **Freshness rule:** an attestation is valid iff `verified_at` ≥ `last_updated`. A stale attestation is not a violation — lint quietly re-runs tier-1 on the file. Updates re-attest: an op that updates an existing page bumps both keys. Freshness keys off `last_updated`, never `review_after` (content expiry is a different axis).
+- **Not the `trust:` rung.** `verified_by`/`verified_at` record *structural* verification (the write ran its checklist); the `trust: verified` rung records *claim* verification (key claims checked against primary sources). Same word, orthogonal axes — an attested page can be `trust: raw`, and a `trust: verified` page can carry a stale attestation.
+
 ## Wiki pages (`{wiki}`)
 
 Add to base:
@@ -77,6 +96,7 @@ topic:                               # YAML list, ordered general → specific, 
   - <narrower facet>
 status: draft | in-progress | complete
 sources: []
+review_after: YYYY-MM-DD             # OPTIONAL — content-expiry date; absence = evergreen
 ```
 
 `type: wiki`. Wiki pages have stable identity (no datetime prefix in the filename) and are updated continuously — so they carry `last_updated` alongside the immutable `created`. `sources:` accretes as new sources contribute claims. The wiki `index` carries the same `last_updated` for the same reason.
@@ -91,6 +111,10 @@ sources: []
 **`summary:`** is the page's one-line scope — *what this page covers* — and it is the **single source of truth for that description.** It is the human-facing field surfaced in Obsidian Bases views (the human's primary way of scanning the wiki), and the agent's per-page blurb when it needs detail beyond the slug. It is therefore **not duplicated into the `index`** — the index is a structural map, not a description catalog (see `wiki-index.md`). It is distinct from `topic:` (a short subject-area tag for grouping) and from the page's prose opening (which can be longer).
 
 **Length limit: 160 characters** (counting characters, not bytes — em-dashes count as one). The cap keeps it a single scannable line in a Bases column and forces it to name *what the page is*, not enumerate every section (the body holds the detail). Double-quote it (it almost always contains a colon, em-dash, or comma — see YAML rule 2). `vlt-lint` flags a wiki page whose `summary:` is **missing** or **exceeds 160 characters**.
+
+**`review_after:`** is **optional** and names the date the page's *content validity* should be rechecked — a **resolved date, never a duration** (`2026-08-17`, not `6mo`; the duration judgment belongs at write time, in the writing partner's head). **Absence = evergreen**: only genuinely time-sensitive content carries it (pricing, versioned tools, event timelines, dosing/market state), set at write time. On review, exactly one of three legal outcomes: **bump the date**, **mark the specific claims `[!stale]`** per `wiki-supersession.md`, or **remove the key** (the page proved evergreen). This is the single definition of `review_after` — every other use (including the enforcement-deferral expiry below) references it, never redefines it. A page carrying `review_after` announces its own expiry: `vlt-lint` flags past-due pages (`review_due`) mechanically instead of inferring staleness from `last_updated`/mtime; it never auto-resolves them — the three-outcome review is judgment work.
+
+**Reference Bases views (documented, not shipped).** A vault surfacing these fields in Obsidian Bases typically adds three views to its own vault-grown wiki base (the module ships no `.base` file): **Register** — created / sources / trust / category / last_updated, sorted `created` DESC; **Due for review** — filter `and: [review_after, review_after <= today()]` (`today()` is a global function; the presence guard is load-bearing — a page without `review_after` is evergreen and must not match; if the property registers as text rather than a date, wrap it: `date(review_after) <= today()`); **Horizon** — `review_after` set, sorted ASC (the fallback primary if date filtering misbehaves).
 
 ## Research notes (`{research}`)
 
@@ -189,6 +213,23 @@ The vault's evolution intake is a single living file, `{backlog}` — not one fi
 
 An item promotes to its own note only if it grows into real design work. Filing an item is the cheapest, ungated act in the system; building from it is deliberate (see the operating contract's backlog rules).
 
+## Enforcement declaration (convention files)
+
+Every convention file in `{conventions}` declares, in its own frontmatter, how the boundary it creates is enforced — **no boundary without a bell.** All keys are flat (YAML rule 3; a nested `enforcement:` map is exactly what that rule forbids):
+
+```yaml
+enforcement_stage: declared | checked | enforced
+enforcement_checked_by: <owner — a partner or a skill, e.g. vlt-lint>
+enforcement_moment: <the moment the check runs, e.g. lint run | op final-steps | SessionStart hook>
+enforcement_counter: <optional until the enforcement kit lands; then its metric ids are the only legal values>
+# deferral — ALL THREE required for any deferral; missing any field = invalid:
+deferral_metric: <what is counted>
+deferral_threshold: <numeric tripwire>
+review_after: YYYY-MM-DD             # deferral expiry — the wiki-page key above, referenced not redefined
+```
+
+Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
+
 ## Narrow-convention escape hatch
 
 This file is one broad convention by deliberate choice — most vault notes touch overlapping schemas (base + per-type additions), and one file keeps the cross-references coherent. If scale or per-type coupling ever justifies it, a narrower convention (e.g. a hypothetical `wiki-frontmatter.md` consumed only by `vlt-ingest`) can be split out later. At current vault scale, one convention is the right default.
@@ -197,5 +238,6 @@ This file is one broad convention by deliberate choice — most vault notes touc
 
 - `vault-operating-contract.md` — the operating constitution that points here for frontmatter
 - `extraction.md` — PARA artifact schema (cross-referenced above)
+- `write-verification.md` — the tier-1 checklist and attestation contract behind `verified_by`/`verified_at`
 - `wiki-supersession.md` — supersession callouts used by wiki pages and re-extractions
 - `wiki-index.md` — the structural-map index that consumes `type: index` and the `summary:`/`category:`/`topic:` fields (it carries no source counts)

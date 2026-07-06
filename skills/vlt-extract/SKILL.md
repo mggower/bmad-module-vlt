@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'build a resource doc on X', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/, areas/, or resources/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@2", "wiki-supersession@1"]
+depends_on: ["extraction@2", "wiki-supersession@1", "frontmatter@3", "write-verification@1"]
 ---
 
 # vlt-extract
@@ -103,15 +103,11 @@ Append a partner-tagged entry to `{log}`:
 
 `N` is the number of pages in `sources:`. Write **no** session note — the summoning partner owns the session log (operating contract § session-ownership).
 
-## Step 8: Verify
+## Step 8: Verify and attest
 
-Re-read the artifact and confirm, then report the result (what was extracted, to which folder, "verification passed" or a gap list — fix gaps before closing):
+Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the artifact — that file is the checklist's single home; read it, don't re-derive it from memory. **Fail-open:** fix what you can, flag what you can't, always complete the write. Then write the attestation on the artifact: `verified_by: vlt-extract`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`).
 
-- [ ] It reads as a single shaped deliverable, not a stitched set of wiki excerpts
-- [ ] Every wiki page referenced in the body appears in `sources:`
-- [ ] Every `[[wikilink]]` resolves to an existing wiki page (or is explicitly flagged)
-- [ ] Frontmatter complete and correct: `type`, `created`, `last_updated`, `title`, `author: hybrid`, `trust` (confirmed by depth), `topic`, `status`, `sources` — and **no `key:` field**
-- [ ] The `{log}` entry was appended, is partner-tagged, uses `extract`, and points at the right artifact
+Report the result (what was extracted, to which folder, and "verification passed" or the specific gaps flagged).
 
 ## Tips
 

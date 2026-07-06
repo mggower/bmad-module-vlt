@@ -1,6 +1,6 @@
 ---
 name: vlt-mint
-depends_on: ["spec@1"]
+depends_on: ["spec@1", "frontmatter@3"]
 description: Grow the vault's cast — add a capability (light partner-owned or heavy op skill), mint a new partner, a persona self-edit, a convention edit, migrate or retire a capability, run family ops, or retire a partner. Use when a partner says 'I keep needing X — let me build it', or the user says 'mint a partner', 'add a capability', 'evolve the roster', 'edit my persona', 'move X to Y', or 'retire a partner'. The module's self-evolution engine; a capability every partner can reach for mid-flow.
 ---
 
@@ -38,6 +38,8 @@ Determine the **kind** and the subject. The kind sets both the path and the coun
 - **`retire a capability`** — remove one (light = delete the file + log; heavy = retire the op skill). Subject: the capability.
 - **family ops** — `create/extend a family` (gather shared invariants from instances — additive) and **`change family invariants`** (alter a family's contract — cross-partner blast radius). Subject: the family + the invariant change.
 - **`new partner`**, **`persona self-edit`**, **`convention edit`**, **`retire a partner`** — as before (the partner brief; the partner + the change; the convention file + its change; the partner to retire).
+
+**The boundary classifier (every kind):** once the kind is resolved, ask — **does this mint create a rule someone else must obey?** — and record the answer: in the planning doc for a gated kind, or as part of the decision-log line for a ceremony-free one. A non-boundary mint records a one-line exemption (`non-boundary: <why>`) and stays fast; a boundary-creating mint must declare its bell (who checks / at what moment / against which counter) or a complete tripwired deferral (`deferral_metric` + `deferral_threshold` + `review_after` — all three), per `{conventions}/frontmatter.md` *Enforcement declaration*. The classifier applies regardless of where the mint lands — base, overlay, or partner zone.
 
 **The drift boundary:** lightweight voice/tone/manner change is **not** minted — a partner writes that straight to its `identity.md ## Self`, ungated. vlt-mint enters only when a change touches *who the partner fundamentally is* (its non-negotiable, core role, or capabilities), or when accumulated `## Self` drift is being **ratified** into the canonical SKILL.md (a rebirth the partner initiates). (Operating contract § two-tier identity.)
 
@@ -93,7 +95,7 @@ Where the map requires a panel, gate the mint through the council **workflow** �
 3. **Capture is mandatory, not optional.** Before the mint goes live, record the verdict **and its reasoning** in the mint decision log (`_agent/mint/decision-log.md`) for the mint, and annotate the originating `{backlog}` item with the outcome. A gated change must carry its own rationale.
 4. **Act on the verdict:** proceed on `pass`; apply the named changes and re-stage on `revise`; stop (and say why) on `reject`.
 
-**Exit gate — Phase 2 → 3:** the council verdict is **resolved** (a `pass`, or a `revise` applied and re-staged to pass) **and** every open user-decision is **ruled**. Council-none kinds (a light or lane-rightful `add a capability`, `migrate a capability`, `retire a capability`, `create/extend a family`) clear this phase *trivially* — the gate predicate returns "no review required" — but still pass *through* it (the phase boundary holds; they just have nothing to validate). For a gated kind, write the verdict + decisions into the planning doc before building.
+**Exit gate — Phase 2 → 3:** the council verdict is **resolved** (a `pass`, or a `revise` applied and re-staged to pass) **and** every open user-decision is **ruled** — **and a boundary-creating mint (per the Phase-1 classifier) cannot pass with neither a bell nor a valid deferral.** Council-none kinds (a light or lane-rightful `add a capability`, `migrate a capability`, `retire a capability`, `create/extend a family`) clear this phase *trivially* — the gate predicate returns "no review required" — but still pass *through* it (the phase boundary holds; they just have nothing to validate). For a gated kind, write the verdict + decisions into the planning doc before building.
 
 ## Phase 3 — Build
 
@@ -126,8 +128,10 @@ The contract scaffold is **owned here and never delegated** — it is what guara
 
 **Edit a convention.** Convention files are governance, so a change is **council-gated** (Step 2) regardless of where it lands. But *where* it lands is the first decision — it determines durability across upgrades (see the operating contract, *Durability across upgrades*):
 
-- **Vault-local addition → write the overlay (the default).** If the change *adds* to the convention (a new frontmatter field, a new rule, a new subsection) for **this vault only**, write it to `{overlays}/{name}.overlay.md` — **append-only**, created lazily. **Do not touch the base** in `{conventions}`, **do not bump `version:`**, and **do not walk consumers**: the base is unchanged, so the handshake is undisturbed, and every reader already merges the overlay on read (contract rule). This path is **upgrade-durable by construction** — the overlay lives in the agent zone and survives every refresh. Record the mint + council verdict in the decision log as usual; no handshake ceremony applies.
+- **Vault-local addition → write the overlay (the default).** If the change *adds* to the convention (a new frontmatter field, a new rule, a new subsection) for **this vault only**, write it to `{overlays}/{name}.overlay.md` — **append-only**, created lazily. **Do not touch the base** in `{conventions}`, **do not bump `version:`**, and **do not walk consumers**: the base is unchanged, so the handshake is undisturbed, and every reader already merges the overlay on read (contract rule). This path is **upgrade-durable by construction** — the overlay lives in the agent zone and survives every refresh. An overlay addition that creates a rule carries its enforcement declaration in the overlay file's **own** frontmatter (the classifier applies to every boundary-creating mint regardless of landing zone). Record the mint + council verdict in the decision log as usual; no handshake ceremony applies.
 - **Generic rule change → edit the base + run the handshake.** If the change alters *an existing rule consumers must follow* (a schema field's meaning, a row format, a validation rule) — i.e. it is **generic**, true for every vault — it belongs in the base and should be **filed upstream to the module**. Edit the base and run the coherence handshake below. (An overlay can only add; it cannot change an existing base rule. So a true rule change has no overlay form.)
+
+**Enforcement frontmatter (both paths).** A **new** convention, or a **base-edited** one, must carry valid enforcement frontmatter per `{conventions}/frontmatter.md` *Enforcement declaration* — a stage with its owner + moment, or a complete tripwired deferral; the stamps ride this same base-edit + handshake ceremony. Stage promotions (`declared → checked → enforced`) are dated entries in `_agent/mint/decision-log.md`.
 
 The convention→consumer dependency map is not hand-kept: it lives in each convention's own `consumers:` frontmatter (seeded from its Writer/validator contract + Reading list), and each consumer pins the version it last reconciled against in its `depends_on:`. The **base-edit** ceremony:
 

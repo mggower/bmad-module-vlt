@@ -10,6 +10,10 @@ status: complete
 sources: []
 version: 1
 consumers: [vlt-mint, vlt-dispatch]
+enforcement_stage: declared
+deferral_metric: "spec version bumps shipping without their relay entries"
+deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
+review_after: 2026-08-17
 ---
 
 # Spec Conventions
@@ -73,7 +77,7 @@ Any mint or capability change that makes a partner consume an existing spec **MU
 
 ## Enforcement
 
-Stage: **declared** — the rules above are checked by inspection at mint and dispatch time; no automated check exists yet. Deferred: two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record) — `review_after: 2026-08-17`. Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. When they land, `vlt-lint` joins this file's `consumers:`.
+Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. When they land, `vlt-lint` joins this file's `consumers:`.
 
 ## Reading list
 
