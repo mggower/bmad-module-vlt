@@ -46,6 +46,7 @@ vault_structure:
     index: _agent/wiki/index.md
     research: _agent/research/
     sessions: _agent/sessions/
+    specs: _agent/specs/
     log: _agent/log.md
     backlog: _agent/backlog.md
     partners: _agent/partners/

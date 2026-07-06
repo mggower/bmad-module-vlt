@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-06-06
+last_updated: 2026-07-06
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -224,6 +224,7 @@ User-level **tool and workflow preferences** (e.g. "use the Tavily MCP for web s
 
 - **The relay-when-done reflex.** After writing (or revising) a handoff doc to `_agent/handoffs/`, the publishing partner's final write-step is to fire **`vlt-dispatch relay (to-slug, gist, handoff-path)`**, which appends an open pointer into the recipient's dispatch slice. The recipient then drains it via the ordinary pickup loop on its next orient. *Mechanics live in one home:* exactly how relay appends, dedups, and validates is owned by `vlt-dispatch`'s `relay` mode and is **not** restated here or in any partner's SKILL.md — those *name* the reflex and point at the mode (the same single-home discipline the dispatch *pickup* loop already follows). Single-writer holds: the publisher never edits `_agent/dispatch.md`; dispatch is the scribe.
 - **Durable handoffs are updated in place at a stable path.** A handoff doc is revised *in the same file*, not versioned into a new one. This is what lets an un-drained open pointer auto-track the freshest content (the recipient follows the link to whatever the doc now says) and lets relay key its idempotency on the doc path. A provisional spec that firms up is an *edit*, not a new doc.
+- **The third boundary — a durable doc that also *revises over time* is a spec, not a handoff.** When a cross-partner doc outlives sittings **and** is revised over time with consequences for its consumers, it has outgrown `_agent/handoffs/`: it is a **spec**, it lives in `{specs}`, and `{conventions}/spec.md` governs it (schema, supersession, notification — the mechanics live there, not here).
 
 ## The backlog — evolution intake
 

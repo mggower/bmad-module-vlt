@@ -1,5 +1,6 @@
 ---
 name: vlt-dispatch
+depends_on: ["spec@1"]
 description: The vault's partner communication bus — one routing record with a drain, three modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner handoff pointer; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', or when a partner hands off a doc to another partner. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
 ---
 
@@ -32,11 +33,12 @@ The vault is this project — resolve every path relative to `{project-root}` th
 - `conventions` → `_meta/conventions/`
 - `archive` → `_archive/`
 
-Plus three locations **not in the structure map** (the agent zone is the partners' to organize — see the operating contract):
+Plus four more locations (the first three are **not in the structure map** — the agent zone is the partners' to organize; see the operating contract):
 
 - **the human capture zone** → `daily/` (Obsidian Daily Notes, `YYYY-MM-DD.md`) — **human-owned, read-only**; touched by the `daily` mode **only**.
 - **the routing record** → `_agent/dispatch.md` (this operation's own agent-zone artifact; created on first run).
 - **the handoff zone** → `_agent/handoffs/` (durable partner→partner handoff docs; the `relay` mode points at these, never authors them).
+- **the spec zone** → `{specs}` (default `_agent/specs/`) — durable, owned, **versioned** cross-partner contracts, governed by `{conventions}/spec.md`; `relay` points at these too, never authors them.
 
 The **active partner** for the log tag is the **Librarian**.
 
@@ -149,13 +151,13 @@ A publishing partner has written a **durable handoff doc** to `_agent/handoffs/`
 
 Relay is normally **fired automatically by the publishing partner** as the last step of writing a handoff doc — the **relay-when-done reflex**. This is the shared publish-side protocol, owned **here** as its single home (mirroring how the pickup loop is owned here for the drain side); a partner *names* the reflex and points at this mode, it does not restate the mechanics. The reflex, in full:
 
-> **After writing (or revising) a handoff doc to `_agent/handoffs/`, the publishing partner invokes `vlt-dispatch relay (to-slug, gist, handoff-path)` as the final step of the write.** It supplies the recipient's slug, a one-line gist of what's waiting, and the stable path of the doc. It does **not** write `_agent/dispatch.md` itself — dispatch is the scribe (single-writer).
+> **After writing (or revising) a handoff doc to `_agent/handoffs/`, the publishing partner invokes `vlt-dispatch relay (to-slug, gist, handoff-path)` as the final step of the write.** It supplies the recipient's slug, a one-line gist of what's waiting, and the stable path of the doc. It does **not** write `_agent/dispatch.md` itself — dispatch is the scribe (single-writer). **The reflex fires equally on a spec `version` bump** (a `{specs}` contract — see `{conventions}/spec.md`): the authoring partner fires one relay per partner listed in the spec's `consumers:`, in the same session as the bump.
 
 A human may also **invoke `relay` directly** for debugging or a manual handoff (`/vlt-dispatch relay <to-slug> "<gist>" <handoff-path>`, optionally `from <from-slug>`) — reachable, but not the advertised main path.
 
 ### Inputs and validation
 
-Required: **`to-slug`** (the recipient's routing slug), **`gist`** (one-line, in the publisher's framing), **`handoff-path`** (the stable path under `_agent/handoffs/`). Optional: **`from-slug`** (the publisher; infer from the calling partner when fired as a reflex). Then:
+Required: **`to-slug`** (the recipient's routing slug), **`gist`** (one-line, in the publisher's framing), **`handoff-path`** (the stable path under `_agent/handoffs/` or `_agent/specs/`). Optional: **`from-slug`** (the publisher; infer from the calling partner when fired as a reflex). Then:
 
 - **Liveness (light).** Confirm `to-slug` matches a live `vlt-agent-{to-slug}` in `{project-root}/.claude/skills/`. If it doesn't, don't write a dangling pointer — say so and stop (a relay to a retired/typo'd slug is **failure mode #4**, phantom recipient; we surface it rather than parking an orphan). *(Deeper liveness checks stay deferred until they bite.)*
 - **Secret hygiene.** Same as `daily` — never put a credential in the gist.
@@ -173,7 +175,7 @@ This is **idempotency hygiene, not content judgment** — dispatch enforces "one
 
 ### The handoff lifecycle this rule assumes (stable path, updated in place)
 
-The idempotency key is the doc path, so it only works if **handoffs are updated in place at a stable path, not versioned into new files.** A publisher revising a provisional spec edits the *same* `_agent/handoffs/…` doc; an un-drained open pointer then **auto-tracks the freshest content** (the recipient follows the link to whatever the doc now says), and a fresh pointer is only needed when the recipient had already checked the prior one off. A stable path also blunts **#3 dangling link**. *(This lifecycle rule is the cross-cutting half; its single home is the operating contract's hand-offs section — relay depends on it, but the contract owns it.)*
+The idempotency key is the doc path, so it only works if **handoffs are updated in place at a stable path, not versioned into new files.** A publisher revising a provisional spec edits the *same* `_agent/handoffs/…` doc; an un-drained open pointer then **auto-tracks the freshest content** (the recipient follows the link to whatever the doc now says), and a fresh pointer is only needed when the recipient had already checked the prior one off. A stable path also blunts **#3 dangling link**. Specs follow the same discipline: an in-place `version` bump *is* the stable-path rule at work — the path holds and the idempotency rule above governs the re-notify; a `supersedes:` structural rewrite is a **new path** and gets fresh pointers (see `{conventions}/spec.md`). *(This lifecycle rule is the cross-cutting half; its single home is the operating contract's hand-offs section — relay depends on it, but the contract owns it.)*
 
 ### Write the relay block
 
@@ -190,7 +192,7 @@ One relay = one pointer (a relay carries a single pre-addressed handoff). The po
 
 Brief, since relay is usually a sub-step of a partner's handoff:
 
-> Relayed to **Creative**: spec waiting at `_agent/handoffs/2026-06-13-…`. Open in the Creative's slice; it'll surface when the Creative next orients.
+> Relayed to **Creative**: spec waiting at `_agent/specs/{date}-{owner}-to-{consumer}-{slug}.md`. Open in the Creative's slice; it'll surface when the Creative next orients.
 
 On a no-op (open pointer already present): "Creative already has an open pointer for this spec — nothing appended." On a phantom recipient: "No live partner `<to-slug>` — nothing written; check the slug."
 

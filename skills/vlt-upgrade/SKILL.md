@@ -22,7 +22,7 @@ Either way the reconcile logic is identical. `vlt-upgrade` **calls `vlt-setup`**
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance), tell the user to run `vlt-setup` first — there is nothing to upgrade.
 
-Resolve paths through the `vault_structure` map (override wins, else shipped default). Logical names used (default, relative to the project root): `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (overlays + the stock `.baseline/`), `personas` → `_meta/personas/`, `contract` → `_meta/vault-operating-contract.md`, `upgrade_ledger` → `_agent/upgrade-ledger.md`. The **live skills dir** is `{project-root}/.claude/skills/`; the **live workflows dir** is `{project-root}/.claude/workflows/`. Below, `{overlays}` etc. mean the resolved path.
+Resolve paths through the `vault_structure` map (override wins, else shipped default). Logical names used (default, relative to the project root): `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (overlays + the stock `.baseline/`), `personas` → `_meta/personas/`, `contract` → `_meta/vault-operating-contract.md`, `upgrade_ledger` → `_agent/upgrade-ledger.md`, `specs` → `_agent/specs/`. The **live skills dir** is `{project-root}/.claude/skills/`; the **live workflows dir** is `{project-root}/.claude/workflows/`. Below, `{overlays}` etc. mean the resolved path.
 
 Determine the **module source** (where the new bits live) — ask the user for the path if it isn't obvious, or detect the BMad module cache. If no reachable source exists and the user will run the installer themselves, take the **bracket** path (pre-flight now; reconcile after they confirm the installer ran).
 
@@ -67,6 +67,7 @@ Write this snapshot to a working note and **append the opening half of a ledger 
 5. **Migrations — run pending one-time fixups (idempotent).**
    - **Decision-log relocation (§A1):** if a legacy `.decision-log.md` exists in `{project-root}/.claude/skills/vlt-mint/`, move its entries into `_agent/mint/decision-log.md` (create if absent) and leave a one-line pointer stub at the old path. Idempotent — a second run finds nothing to move.
    - **Overlay lift (first upgrade):** if Step 1 found base conventions diverged from baseline and no overlays yet exist for them, offer to **lift** the local additions into `{overlays}/{name}.overlay.md` (per-file judgment — additions move to the overlay, the base is restored to pristine stock). This is the one-time exercise that puts an already-diverged vault onto the durable path.
+   - **Proto-spec retrofit (human-gated offer):** scan `_agent/handoffs/` for spec-shaped docs — revised in place, carrying "What changed" sections, or with ≥2 relay entries in `_agent/dispatch.md` pointing at the same path — and **offer** the retrofit per `{conventions}/spec.md` (never auto-move; spec-vs-handoff is a judgment call): `git mv` the doc to `{specs}` (default `_agent/specs/`), leave a **one-line pointer stub at the old path** (append-only records referencing it stay untouched), conform its frontmatter to the spec schema with **zero body changes**, and **re-point any *open* dispatch pointers** at the old path to the new one (relay dedups on doc path; a move resets the key — without the re-point, a stale open pointer and a fresh relay can coexist). On decline, nothing moves. Idempotent — a second run finds nothing spec-shaped left in `_agent/handoffs/`.
    - Run any other migrations the new version documents.
 
 6. **Provision — hand off to `vlt-setup`.** Invoke `vlt-setup` (reconfigure branch) to ensure structure, governance bundle, workflows, the new agent-zone homes (`_agent/conventions/`, `_agent/mint/`, `_agent/capabilities/families/`), and the **generic-BMad installer cache seed** (vlt-setup Provision §5 — refreshed each upgrade so the installer's view of `module.yaml` tracks the installed version) are present. `vlt-upgrade` calls it; it does not duplicate provisioning.
@@ -85,7 +86,7 @@ upgrade:
   overlays_intact: [<name.overlay.md>, ...]
   baselines_refreshed: [<name>, ...]
   base_divergence: [<convention: base was hand-edited (prev content preserved in ledger) — lift to overlay or upstream>, ...]
-  migrations_run: [decision-log-relocation | overlay-lift | <other>, ...]
+  migrations_run: [decision-log-relocation | overlay-lift | proto-spec-retrofit | <other>, ...]
   governance_divergence: [<file differs from shipped — review>, ...]
   capabilities_intact: [<partner/slug>, <family>, ...]            # vault-grown caps + family contracts preserved
   family_invariant_drift: [<family: instance <partner> no longer honors invariant X — reconcile>, ...]
