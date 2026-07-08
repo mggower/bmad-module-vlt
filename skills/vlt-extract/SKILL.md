@@ -16,9 +16,9 @@ PARA folders are human territory; **extraction is the one sanctioned way a partn
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`; the PARA targets are `projects/`, `areas/`, `resources/` at the project root. Note the **active partner** for the log tag.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets are `projects/`, `areas/`, `resources/` at the project root. Note the **active partner** for the log tag.
 
-**Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape).
+**Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules.
 
 ## Step 1: Interview
 

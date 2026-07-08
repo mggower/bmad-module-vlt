@@ -14,7 +14,7 @@ vlt-research goes *out into the world* to build new knowledge on a question and 
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`. Below, `{research}` etc. mean the resolved path. Note the **active partner** for the log tag.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays). Below, `{research}` etc. mean the resolved path. Note the **active partner** for the log tag.
 
 **Web access is host-provided.** Reach the web with whatever web tooling the host project supplies (an MCP connector it mandates, or native fetch/search). Don't hardcode a specific tool; if the host forbids one, honor that.
 
@@ -80,7 +80,7 @@ Structure (no `key:` field):
 
 ## Phase 5: Verify and attest
 
-Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the note — that file is the checklist's single home; read it, don't re-derive it from memory. **Fail-open:** fix what you can, flag what you can't, always complete the write. Then attest the note you created: `verified_by: vlt-research`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`).
+Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the note — that file is the checklist's single home; read it, don't re-derive it from memory (read it together with its `{overlays}/write-verification.overlay.md` if present, honoring the overlay's appended rules). **Fail-open:** fix what you can, flag what you can't, always complete the write. Then attest the note you created: `verified_by: vlt-research`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`, together with its `{overlays}/frontmatter.overlay.md` if present).
 
 Report the result with the headline finding, and "verification passed" or the specific gaps flagged — before logging.
 

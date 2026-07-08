@@ -26,7 +26,7 @@ Conceptual domain knowledge (how a method works, the evidence behind it) is **no
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the `vlt` config is missing, tell the user `vlt-setup` can configure the module, then ask for a vault root to proceed.
 
-The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`.
+The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays).
 
 **Read the loop profile (the parameterization).** This skill is run by a partner; read that partner's **loop profile** from its **`capabilities/track.md`** (the heavy `skill: vlt-track` capability pointer) and bind these for the rest of the run:
 
@@ -39,7 +39,7 @@ The vault is this project — resolve every path relative to `{project-root}` th
 
 If invoked headless with no partner context, take the profile from the named owning partner's **`capabilities/track.md`**, or ask for the missing pieces — never guess `{root}`/`{target}`.
 
-Before writing anything, JIT-read the governance conventions this operation obeys from `{conventions}`: at minimum `frontmatter.md` (the PARA-artifact schema and YAML rules) and `extraction.md` (the personalized-extraction rule and its hard invariant, the trust ladder, filename and re-extraction supersession discipline). The protocol write is an extraction — honor that convention exactly.
+Before writing anything, JIT-read the governance conventions this operation obeys from `{conventions}`: at minimum `frontmatter.md` (the PARA-artifact schema and YAML rules) and `extraction.md` (the personalized-extraction rule and its hard invariant, the trust ladder, filename and re-extraction supersession discipline) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules. The protocol write is an extraction — honor that convention exactly.
 
 Determine which beat of the loop the user is on — **design**, **log**, or **review/adjust** — from their ask.
 

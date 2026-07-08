@@ -74,6 +74,13 @@ overlays, capabilities) as module source.
   README, LICENSE — `tools/` is tracked and public as documentation of the release
   contract, but is not part of the own-the-apply copy surface). Shipped content (examples, templates, docs) must carry **no personal or
   vault-local information** — scrub before it lands in `skills/`.
+- **Worked examples in shipped skills use placeholder paths**
+  (`_agent/specs/{date}-{owner}-to-{consumer}-{slug}.md` style), never a specific install's
+  artifact paths — a vault-side file move otherwise strands the module's own documentation
+  (091001 LB2; build-15 fixed the `vlt-dispatch:193` instance, build-18 states the rule).
+  Generic *domain* illustrations (e.g. the dog-training / health-coaching loop-profile
+  examples in `vlt-track`) are fine — the rule targets live artifact **paths**, not example
+  vocabulary.
 
 ## What not to touch
 

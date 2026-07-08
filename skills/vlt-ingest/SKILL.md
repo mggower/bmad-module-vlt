@@ -19,11 +19,11 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 **Resolve paths:**
 
 - The vault is this project (`{project-root}`).
-- Resolve every location through the `vault_structure` map: an explicit override wins, else the shipped default. The logical names this skill uses (default shown, relative to the project root): `wiki` → `_agent/wiki/`, `index` → `_agent/wiki/index.md`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `sessions` → `_agent/sessions/`, `conventions` → `_meta/conventions/`, `archive` → `_archive/`. Below, `{wiki}` etc. mean the resolved path.
+- Resolve every location through the `vault_structure` map: an explicit override wins, else the shipped default. The logical names this skill uses (default shown, relative to the project root): `wiki` → `_agent/wiki/`, `index` → `_agent/wiki/index.md`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `sessions` → `_agent/sessions/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays), `archive` → `_archive/`. Below, `{wiki}` etc. mean the resolved path.
 
 **Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked standalone with no partner, omit the tag.
 
-**Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6). These govern every write; honor them exactly.
+**Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules. These govern every write; honor them exactly.
 
 ## Step 1: Re-ingest check
 
