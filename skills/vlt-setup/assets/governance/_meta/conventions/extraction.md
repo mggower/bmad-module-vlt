@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-06
+last_updated: 2026-07-17
 title: Extraction Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 2
+version: 3
 consumers: [vlt-extract, vlt-lint, vlt-track]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -44,7 +44,7 @@ Because the two roles are distinct fields, "is every method claim wiki-grounded?
 
 **This does not open a second PARA write-path.** The hard boundary stands: PARA is written *only* through extraction — same verb, same supersession/re-extraction model, same filename and trust discipline. The widening is in what a single extraction may *cite for personalization*, not in how artifacts reach PARA.
 
-**Scope of the allowance — bounded, opt-in per operation.** This is **not** a standing license, and **no skill shipped with the module uses it** — the general `vlt-extract` draws on the wiki only. A domain (vertical) partner's operation may use personalized extraction *only* when that operation's own mint **explicitly extends this section to name it** (and is gated accordingly): for example, a progress-tracking op for a domain partner that writes a tailored plan to `areas/<domain>/…`, grounded in the wiki and personalized from a progress log under `_agent/`. Absent such a named, gated extension, an agent-zone path in a `sources:`/`personalization_sources:` field is a violation, not a precedent. The Creative's `vlt-extract` is unchanged — it remains the general wiki→PARA hand and does not use `personalization_sources`.
+**Scope of the allowance — bounded, opt-in, named per operation.** This is **not** a standing license: an operation may use personalized extraction *only* when it is **named as sanctioned**. Per-**partner** authorization was retired at 0.3.0; per-**op** *naming* remains live — a **module-shipped op is named here in the base**, a **vault-local op in `{overlays}/extraction.overlay.md`**. The one **module-shipped** op sanctioned to use personalized extraction is **`vlt-track`** — the shared longitudinal-loop hand (see `vlt-track`); it is module-shipped and so cannot rely on a vault-local overlay for its own authorization, which is why it is named in the base. A domain (vertical) partner's *own* operation may use the widening *only* when that operation's own gated mint **explicitly extends this allowance to name it** (in the vault's overlay): for example, a progress-tracking op for a domain partner that writes a tailored plan to `areas/<domain>/…`, grounded in the wiki and personalized from a progress log under `_agent/`. Absent such a named, gated sanction (base for a shipped op, overlay for a vault-local one), an agent-zone path in a `sources:`/`personalization_sources:` field is a violation, not a precedent. The Creative's `vlt-extract` is unchanged — it remains the general wiki→PARA hand and does not use `personalization_sources`.
 
 **Operational-log discipline (protects single-home).** An agent-zone operational source feeding a personalized extraction holds **state, never general/method knowledge** — a progress log records *what this user did*, not *how a method works*. General knowledge that belongs in the wiki goes to the wiki (via the Researcher/Librarian); it is never parked in an operational log, which would create a second home for the same fact. Such an operation's verify step must check for this leak; the `vlt-lint` personalized-extraction check flags a method/general claim found in a progress log or a body method-claim covered only by `personalization_sources`.
 
@@ -118,7 +118,7 @@ A re-extraction overwrites the artifact in place, so it bumps `last_updated` (ne
 7. Append an `extract` entry to `{log}` (partner-tagged, per the operating contract)
 8. Verify (re-read, checkbox pass)
 
-(A personalized extraction follows the same flow, additionally reading the relevant agent-zone state in step 2 and listing it under `personalization_sources:` — not `sources:` — in step 6. No shipped op uses this; a domain op opts in per its gated mint — see *Personalized extraction* above.)
+(A personalized extraction follows the same flow, additionally reading the relevant agent-zone state in step 2 and listing it under `personalization_sources:` — not `sources:` — in step 6. The one **module-shipped** op that uses this is `vlt-track`, named in *Personalized extraction* above; a vault-local domain op opts in per its own gated mint, named in the overlay.)
 
 ## Re-extraction and supersession
 

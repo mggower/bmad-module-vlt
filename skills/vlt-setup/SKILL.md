@@ -234,7 +234,7 @@ Install all of them:
   ## Done
   ```
 
-- Ensure the **mint institutional-memory zone** `_agent/mint/` exists (it holds the resumable planning docs **and** the relocated `_agent/mint/decision-log.md` — both upgrade-durable in the agent zone). Create it if absent; never clobber existing contents.
+- Ensure the **mint institutional-memory zone** `_agent/mint/` exists (it holds the resumable planning docs **and** `_agent/mint/decision-log.md` — both upgrade-durable in the agent zone). Create it if absent; never clobber existing contents. When `_agent/mint/decision-log.md` is **absent**, seed it from the shipped `$SKILL/../vlt-mint/assets/decision-log-template.md` (the sibling `vlt-mint` skill's asset) — **header only**: copy the template's header block (title, read-order statement, entry-shape + supersession notes) and drop the worked example below the `---`, which is documentation, not real history. This gives the log its defined shape and read-order statement from install-time. Preserve the never-clobber discipline: **seed only when absent; never overwrite an existing log.**
 - Ensure the **capability family zone** `{capabilities}/families/` (default `_agent/capabilities/families/`) exists — it holds the cross-partner family contracts (Model B). Create it if absent; never clobber. Per-partner `{partners}/{name}/capabilities/` folders are **not** pre-created — they appear lazily when a partner grows or is given its first light capability.
 
 ### 5. Seed the generic-BMad installer cache (interop)

@@ -65,6 +65,24 @@ For the **gated kinds** (`new partner`, `persona self-edit`, `convention edit`) 
 - **Update it at each phase boundary** — the exit gates are the write points: after the brief is confirmed (Phase 1), after the verdict + decisions resolve (Phase 2), and on completion (Phase 3).
 - The planning doc is *live/resumable*; the decision log (`_agent/mint/decision-log.md`) is *post-hoc/permanent* — **don't conflate them**. On completion, leave the planning doc in place (git has it; the decision log summarizes).
 
+### The mint decision log — entry schema + supersession idiom
+
+The mint decision log (`_agent/mint/decision-log.md`) is the vault's permanent, upgrade-durable record of every gated decision. Its **entry shape is single-homed here** — `vlt-mint` owns mint-entry mechanics; `vlt-setup` seeds the log from `assets/decision-log-template.md`, and every writer appends in this shape (a mint, a self-grow one-liner, and an **upgrade-time ruling** written through by `vlt-upgrade` — which points here for the shape rather than restating it).
+
+**Entry schema.** Each entry is a dated block:
+
+```markdown
+## [YYYY-MM-DD] <kind> — <one-line subject>
+- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement
+- verdict: <council verdict + reasoning, or `non-boundary: <why>` / `council-none`>
+- convention: <name> <old→new>          # convention-edit ONLY — the version delta
+<free-form detail: what was decided and why>
+```
+
+The `kind:` field is what makes the log **mechanically scopable** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry. An entry written **before** this schema existed carries no `kind:` and cannot be classified — that pre-schema tail is handled honestly by the migration that reads the log, never silently swept.
+
+**Supersession idiom (bespoke to the decision log).** The log is append-only, so a later ruling **never silently overwrites** an earlier logged decision. When a new entry supersedes an earlier one, the new entry carries a `supersedes:` pointer to the superseded entry's heading, and the superseded entry is marked **in place** with `superseded_by:` / `superseded_date:` / `superseded_reason:`. The prior decision stays legible; the change is visible. This mirrors the module's two shipped supersession idioms verbatim in spirit — `wiki-supersession.md`'s page-level frontmatter block and `spec.md`'s structural-rewrite rule (*"Never silent — the same visibility principle"*). It is the decision log's **own** idiom this batch; the governance-wide convergence of the three homes (wiki + spec + decision log under one supersession convention) is a tracked carry-forward debt, not built here.
+
 **Exit gate — Phase 1 → 2:** the user has **confirmed the brief** (for a gated kind, the planning doc records the confirmed brief + decisions-so-far). Don't enter validation until the brief is agreed.
 
 ## Phase 2 — Validate
@@ -138,7 +156,7 @@ The convention→consumer dependency map is not hand-kept: it lives in each conv
 1. **Apply the change** to the file in `{conventions}`; bump its `last_updated`.
 2. **Bump the convention's `version:`** — but *only* if the change touches *the rules consumers must follow* (a schema field, a row format, a validation rule). A typo, a `## Reading list` tweak, or prose clarification does **not** bump `version` (that would churn the handshake for nothing).
 3. **Read the convention's `consumers:` and walk every listed skill.** For each consumer whose text encodes the changed rule, make the matching edit and **bump its `depends_on` entry** for this convention to the new version (the flat `"name@version"` ack). Reconciliation may legitimately conclude "no edit needed here" — bumping the ack still records that a human verified it against the new version. A consumer's ack covers its own workflow assets (e.g. `vlt-lint` acks for `vlt-lint-full.js`).
-4. **Exit gate (mandatory):** the mint cannot close while any `consumers:` skill's `depends_on` still pins the old version. This is the edit-time half of the coherence machinery; `vlt-lint`'s convention-coherence check is the lint-time net that catches drift introduced *outside* this ceremony (a hand edit, or a consumer added later). A base hand-edit in an installed vault also trips `vlt-lint`'s **base-divergence** safety net (base vs `{overlays}/.baseline/`) until it is upstreamed — that is the signal the change should have been overlay-or-upstream. A convention edit registers nothing in the help registry (Step 4) — it only records the mint + council verdict in `.decision-log.md`.
+4. **Exit gate (mandatory):** the mint cannot close while any `consumers:` skill's `depends_on` still pins the old version. This is the edit-time half of the coherence machinery; `vlt-lint`'s convention-coherence check is the lint-time net that catches drift introduced *outside* this ceremony (a hand edit, or a consumer added later). A base hand-edit in an installed vault also trips `vlt-lint`'s **base-divergence** safety net (base vs `{overlays}/.baseline/`) until it is upstreamed — that is the signal the change should have been overlay-or-upstream. A convention edit registers nothing in the help registry (Step 4) — it only records the mint + council verdict in `_agent/mint/decision-log.md`.
 
 **Migrate a capability between partners — the heavy detail.** (Light migration just moves the file, per *Migrate a capability* above.) For a **heavy** capability the op skill itself does not move (it's a shared hand in `{module-skills}`); only its *advertised ownership* changes. Remove the op from the **source** partner's "What you do" (and any framing that ties it to that partner), add it to the **target** partner's "What you do" in the target's voice, and re-attribute its capability row in the help registry (Step 4). Council: **none**.
 
