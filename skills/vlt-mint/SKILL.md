@@ -1,6 +1,6 @@
 ---
 name: vlt-mint
-depends_on: ["spec@1", "frontmatter@3"]
+depends_on: ["spec@1", "frontmatter@4"]
 description: Grow the vault's cast — add a capability (light partner-owned or heavy op skill), mint a new partner, a persona self-edit, a convention edit, migrate or retire a capability, run family ops, or retire a partner. Use when a partner says 'I keep needing X — let me build it', or the user says 'mint a partner', 'add a capability', 'evolve the roster', 'edit my persona', 'move X to Y', or 'retire a partner'. The module's self-evolution engine; a capability every partner can reach for mid-flow.
 ---
 

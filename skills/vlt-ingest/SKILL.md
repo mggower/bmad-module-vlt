@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@3", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@1", "write-verification@1"]
+depends_on: ["frontmatter@4", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@1", "write-verification@1"]
 ---
 
 # vlt-ingest

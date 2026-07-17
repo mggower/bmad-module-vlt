@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-06
+last_updated: 2026-07-17
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 3
+version: 4
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -97,6 +97,8 @@ topic:                               # YAML list, ordered general → specific, 
 status: draft | in-progress | complete
 sources: []
 review_after: YYYY-MM-DD             # OPTIONAL — content-expiry date; absence = evergreen
+source_type: <url | book | paper>    # OPTIONAL — accession format facet (Register grouping); no rule, no check
+review_note: "<what to recheck>"     # OPTIONAL — a hint paired with review_after; no rule, no check
 ```
 
 `type: wiki`. Wiki pages have stable identity (no datetime prefix in the filename) and are updated continuously — so they carry `last_updated` alongside the immutable `created`. `sources:` accretes as new sources contribute claims. The wiki `index` carries the same `last_updated` for the same reason.
@@ -114,6 +116,8 @@ review_after: YYYY-MM-DD             # OPTIONAL — content-expiry date; absence
 
 **`review_after:`** is **optional** and names the date the page's *content validity* should be rechecked — a **resolved date, never a duration** (`2026-08-17`, not `6mo`; the duration judgment belongs at write time, in the writing partner's head). **Absence = evergreen**: only genuinely time-sensitive content carries it (pricing, versioned tools, event timelines, dosing/market state), set at write time. On review, exactly one of three legal outcomes: **bump the date**, **mark the specific claims `[!stale]`** per `wiki-supersession.md`, or **remove the key** (the page proved evergreen). This is the single definition of `review_after` — every other use (including the enforcement-deferral expiry below) references it, never redefines it. A page carrying `review_after` announces its own expiry: `vlt-lint` flags past-due pages (`review_due`) mechanically instead of inferring staleness from `last_updated`/mtime; it never auto-resolves them — the three-outcome review is judgment work.
 
+**`source_type:` and `review_note:`** are **documented-optional** wiki-page slots (091006's v2 keys): `source_type:` (`url` | `book` | `paper`) is the accession *format* facet for cheap Register grouping; `review_note:` is a short "what to recheck" hint paired with `review_after:`. Both are **absence = default, no rule, and no `vlt-lint` check** — inert schema slots defined for forward-compatibility until usage evidence activates them; a page carrying neither is fully conformant.
+
 **Reference Bases views (documented, not shipped).** A vault surfacing these fields in Obsidian Bases typically adds three views to its own vault-grown wiki base (the module ships no `.base` file): **Register** — created / sources / trust / category / last_updated, sorted `created` DESC; **Due for review** — filter `and: [review_after, review_after <= today()]` (`today()` is a global function; the presence guard is load-bearing — a page without `review_after` is evergreen and must not match; if the property registers as text rather than a date, wrap it: `date(review_after) <= today()`); **Horizon** — `review_after` set, sorted ASC (the fallback primary if date filtering misbehaves).
 
 ## Research notes (`{research}`)
@@ -126,9 +130,12 @@ topic:                               # YAML list, ordered general → specific, 
   - <narrower facet>
 status: draft | in-progress | complete
 sources: []
+revisit_after: YYYY-MM-DD            # OPTIONAL — graduation-candidacy recheck date; absence = not a candidate
 ```
 
 `type: research`. Research notes use the same `topic:` list form as wiki pages (general → specific, lowercase) but carry **no `category:`** — `category` binds to the wiki index, and research notes are not wiki pages. Research notes are dated snapshots (datetime-prefixed kebab-case filenames per the operating contract's Naming Conventions) and rest once complete. **No `last_updated`** — they are written-once; a correction is a new note, not an edit.
+
+**`revisit_after:`** is **optional** and names the date a research note's *graduation candidacy* — its readiness to graduate into the wiki — should be rechecked. It applies the wiki-page key `review_after:`'s date semantics (defined once above) to a research note's *candidacy* rather than a page's *content validity* — same date discipline, different axis; it is **not** redefined here. **Absence = not a candidate** (the note is not offered for graduation): only a note the writing partner judged graduation-relevant carries it, set at write time. Because research notes carry no `last_updated`, `revisit_after` is the self-announcing candidacy signal — `vlt-lint` reads it directly (`revisit_due`) rather than inferring from mtime, exactly as `review_after` announces a wiki page's expiry. `vlt-lint` **surfaces** a past-due `revisit_after` and the union-projection linkage finding (`linkage_ripe`); it never auto-promotes a note into the wiki — graduation is judgment work (see `vlt-lint`).
 
 ## Session logs (`{sessions}`)
 
@@ -226,9 +233,13 @@ enforcement_counter: <optional until the enforcement kit lands; then its metric 
 deferral_metric: <what is counted>
 deferral_threshold: <numeric tripwire>
 review_after: YYYY-MM-DD             # deferral expiry — the wiki-page key above, referenced not redefined
+# adoption — OPTIONAL first-instance axis, orthogonal to the violation facets above:
+adoption_first_instance: <null | dated reference to the boundary's first live instance>   # null/absent = declared-but-not-yet-adopted (an absence, not a violation)
 ```
 
 Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
+
+**Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference the moment that instance appears, and **null/absent while the class is declared-but-unexercised**. Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet.
 
 ## Narrow-convention escape hatch
 

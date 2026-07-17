@@ -1,6 +1,6 @@
 ---
 name: vlt-research
-depends_on: ["frontmatter@3", "write-verification@1"]
+depends_on: ["frontmatter@4", "write-verification@1"]
 description: Investigate a question against the web and file a standalone research note. Use when the user wants to actively build new knowledge — 'research X', 'deep dive into Y', 'what's the current state of Z', 'get me up to speed on…', or any request to go learn something the vault doesn't yet hold. For a source already captured in the vault, use vlt-ingest; to synthesize what's already filed, use vlt-query.
 ---
 
@@ -62,10 +62,13 @@ created: YYYY-MM-DD
 title: <the research question, not just the topic>
 author: agent
 trust: raw
-topic: <subject area>
+topic:                             # YAML list, general → specific, lowercase
+  - <broad domain>
+  - <narrower facet>
 status: complete
 sources:
   - <url or citation for each source consulted>
+revisit_after: YYYY-MM-DD          # OPTIONAL — graduation-candidacy recheck date; absence = not a candidate (see frontmatter.md)
 ---
 ```
 
