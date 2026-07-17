@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-07-06
-last_updated: 2026-07-06
+last_updated: 2026-07-17
 title: Spec Conventions
 author: hybrid
 trust: reviewed
@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 1
-consumers: [vlt-mint, vlt-dispatch]
+consumers: [vlt-mint, vlt-dispatch, vlt-upgrade, vlt-lint]
 enforcement_stage: declared
 deferral_metric: "spec version bumps shipping without their relay entries"
 deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
@@ -77,7 +77,7 @@ Any mint or capability change that makes a partner consume an existing spec **MU
 
 ## Enforcement
 
-Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. When they land, `vlt-lint` joins this file's `consumers:`.
+Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. `vlt-lint` is **already** in this file's `consumers:` — it carries the live `spec_candidate` advocacy check (a surfacing aid at lint cadence, like `review_due`, not an enforcement of a spec *rule*, so it does not promote `enforcement_stage`). The two schema/notification checks above **remain deferred** until they land; when they do, the tripwire discharges and no `consumers:` change is needed (`vlt-lint` is registered).
 
 ## Reading list
 

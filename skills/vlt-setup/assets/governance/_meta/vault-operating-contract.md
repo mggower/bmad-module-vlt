@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-06
+last_updated: 2026-07-17
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -32,6 +32,7 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `index`       | `_agent/wiki/index.md`                    | The wiki navigation catalog — read first                    |
 | `research`    | `_agent/research/`                        | Time-bounded investigation notes (dated snapshots)          |
 | `sessions`    | `_agent/sessions/`                        | Per-session operation logs                                  |
+| `specs`       | `_agent/specs/`                           | Durable, owned, versioned cross-partner contracts (see `{conventions}/spec.md`) |
 | `log`         | `_agent/log.md`                           | Append-only chronological operation record                  |
 | `backlog`     | `_agent/backlog.md`                       | The living evolution backlog (what the vault wants to become) |
 | `partners`    | `_agent/partners/`                        | Per-partner relationship threads (and each partner's `capabilities/`) |
@@ -42,6 +43,8 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `contract`    | `_meta/vault-operating-contract.md`       | This file                                                   |
 | `upgrade_ledger` | `_agent/upgrade-ledger.md`             | Append-only standing record of how far this vault has drifted from stock |
 | `archive`     | `_archive/`                               | Retired notes, mirroring their source path                  |
+
+> The **path defaults** in the middle column mirror `module.yaml`'s `vault_structure.default` — that map is the single source of truth for path *values* (don't hand-transcribe it; see `vlt-setup`). This table is the **semantic** home: the "What lives there" column is the definitional documentation a partner or a generic agent reads to understand the zone.
 
 Resolution order for any path: explicit `vault_structure` override → shipped default. Where a convention must show a concrete path, it shows the default and notes that it resolves through `vault_structure`. **The vault root is the project root** — Vault is installed *into* the vault (the vault is the Claude Code project), so every default above resolves under `{project-root}`.
 
@@ -78,7 +81,7 @@ If a partner finds itself wanting to summarize, reorganize, or ingest a daily no
 
 ### Tool zones
 
-Because Vault is installed *into* the vault, two top-level folders are **tool infrastructure**, not vault content: `.claude/` (the installed `vlt-*` skills + project settings) and `_bmad/` (the module config). The installer and `vlt-setup` own them; partners do not write here during normal work, and they are **not** knowledge — `vlt-lint` and the partners ignore them exactly as they would `.obsidian/`. A partner touches a skill under `.claude/skills/` only deliberately, through `vlt-mint`.
+Because Vault is installed *into* the vault, some top-level folders are **tool infrastructure**, not vault content. The module ships two — `.claude/` (the installed `vlt-*` skills + project settings) and `_bmad/` (the module config), which the installer and `vlt-setup` own — and **a vault may add its own** (e.g. a `dev/` working tree that reads the vault's spec/knowledge and edits code in one place). The boundary is **"not a content layer"**: partners never ingest, lint, or extract from these folders (they are not knowledge — `vlt-lint` and the partners ignore them exactly as they would `.obsidian/`), regardless of whether a partner may *read* them. Partners do not write here during normal work; a partner touches a skill under `.claude/skills/` only deliberately, through `vlt-mint`.
 
 ## Durability across upgrades
 

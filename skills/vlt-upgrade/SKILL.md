@@ -1,5 +1,6 @@
 ---
 name: "vlt-upgrade"
+depends_on: ["spec@1"]
 description: Upgrades the Vault module in a vault durably — snapshots vault-specific evolution, refreshes the shipped bundle without destroying minted partners / local convention overlays / mint history, reconciles by merge-not-replace, and records the divergence. Use when the user requests to 'upgrade vlt', 'update the Vault module', or after pulling a new module version.
 ---
 
