@@ -21,6 +21,15 @@ Groups:
       non-empty, and marketplace skills[] maps one-to-one onto skills/vlt-* dirs
   D — tag intent: with --expect-version X.Y.Z, both version strings equal it;
       without the flag, reported SKIPPED (not PASS)
+  E — self-description integrity (build-23): the dev-side twin of vlt-lint's
+      Convention coherence check — derives truth from the authoritative surface
+      rather than confirming a string it expects. E1 handshake-bipartite
+      (convention consumers: <-> consumer depends_on: pins, both directions),
+      E2 structure-map SSoT (contract's hand-transcribed table <-> module.yaml
+      vault_structure.default, its declared source of truth), E3 stray-pin
+      (a name@version pin token in a SKILL.md body, outside depends_on: — a
+      de-facto convention-consumption tell). Retires the self-confirming
+      handshake grep every arc-3 build wrote by hand.
 
 Usage: uv run tools/package-lint.py [--expect-version X.Y.Z] [--root PATH]
 Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
@@ -30,6 +39,7 @@ import argparse
 import csv
 import importlib.util
 import json
+import re
 import sys
 from io import StringIO
 from pathlib import Path
@@ -208,6 +218,171 @@ def check_group_d(expect: str, versions) -> list:
     return failures
 
 
+def _read_frontmatter(path: Path) -> dict:
+    """Parse the YAML frontmatter block (between the first two --- fences)."""
+    text = path.read_text(encoding="utf-8")
+    if not text.startswith("---"):
+        return {}
+    lines = text.split("\n")
+    end = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        return {}
+    try:
+        data = yaml.safe_load("\n".join(lines[1:end]))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _e1_handshake(conventions: dict, acks: dict, skill_dirs: set) -> list:
+    """E1: convention consumers: <-> consumer depends_on: pins, both directions.
+
+    Derives the answer from BOTH sides of the handshake and compares — retiring
+    the self-confirming `grep "<name>@"` every arc-3 build wrote by hand (which
+    searched for the ack string it had just written). Vocabulary matches
+    vlt-lint:131 so the dev-side and vault-side homes read alike.
+    """
+    failures = []
+    for conv, (version, consumers) in conventions.items():
+        for consumer in consumers:
+            if consumer not in skill_dirs:
+                failures.append(f"stale/dangling — {conv}@{version} lists {consumer} which is not installed")
+                continue
+            pinned = acks.get(consumer, {}).get(conv)
+            if pinned is None:
+                failures.append(
+                    f"unacknowledged — {consumer} is a listed consumer of {conv}@{version} but does not ack it"
+                )
+            elif pinned != version:
+                failures.append(f"stale — {consumer} acks {conv}@{pinned} but convention is @{version}")
+    return failures
+
+
+def _e2_structure_map(root: Path) -> list:
+    """E2: the contract's hand-transcribed structure-map table vs its declared SSoT.
+
+    module.yaml vault_structure.default is the SINGLE SOURCE OF TRUTH (module.yaml
+    comment); the contract table's own note says "don't hand-transcribe it". A3-10:
+    the table drifted anyway. Derive both sides and diff — the "authoritative
+    source, not the declaration" pattern, enforcing the map's own promise.
+    """
+    failures = []
+    yaml_path = root / "skills/vlt-setup/assets/module.yaml"
+    try:
+        module = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+        ssot = dict(module["vault_structure"]["default"])
+    except Exception as e:
+        return [f"structure map: cannot read module.yaml vault_structure.default: {e}"]
+
+    contract = root / "skills/vlt-setup/assets/governance/_meta/vault-operating-contract.md"
+    try:
+        lines = contract.read_text(encoding="utf-8").splitlines()
+    except Exception as e:
+        return [f"structure map: cannot read vault-operating-contract.md: {e}"]
+
+    # Anchor on the heading, then read the pipe table until the next `## ` section.
+    # A data row is `| `key` | `path` | description |`; its first cell is a backticked
+    # logical name (header/separator rows are not, so they are skipped naturally).
+    heading = "## Path resolution — the structure map"
+    table = {}
+    in_section = False
+    for line in lines:
+        if line.strip() == heading:
+            in_section = True
+            continue
+        if in_section:
+            if line.startswith("## "):
+                break
+            s = line.strip()
+            if not s.startswith("|"):
+                continue
+            cells = [c.strip() for c in s.strip("|").split("|")]
+            if len(cells) < 2:
+                continue
+            first = cells[0]
+            if first.startswith("`") and first.endswith("`"):
+                table[first.strip("`")] = cells[1].strip("`")
+
+    for key in sorted(set(ssot) | set(table)):
+        if key not in table:
+            failures.append(f"structure map: {key} in module.yaml but not contract")
+        elif key not in ssot:
+            failures.append(f"structure map: {key} in contract but not module.yaml")
+        elif str(ssot[key]) != table[key]:
+            failures.append(
+                f"structure map: {key} path {table[key]} (contract) != {ssot[key]} (module.yaml)"
+            )
+    return failures
+
+
+def _e3_stray_pin(root: Path, conv_names: set) -> list:
+    """E3: a name@version pin token in a SKILL.md body (outside depends_on:).
+
+    The pin token is the strongest machine-detectable signal of convention
+    consumption — you write it only to pin. It legitimately lives only in a
+    skill's depends_on:; anywhere else it is a near-certain de-facto-consumption
+    tell with near-zero false positives. Anchored on the known convention names
+    (not a bare \\w+@\\d+) so an email address or unrelated foo@2 cannot trip it.
+    """
+    failures = []
+    if not conv_names:
+        return failures
+    pattern = re.compile(r"\b(" + "|".join(re.escape(n) for n in sorted(conv_names)) + r")@(\d+)\b")
+    for p in sorted(root.glob("skills/vlt-*/SKILL.md")):
+        rel = p.relative_to(root)
+        for lineno, line in enumerate(p.read_text(encoding="utf-8").splitlines(), start=1):
+            if line.lstrip().startswith("depends_on:"):
+                continue
+            m = pattern.search(line)
+            if m:
+                failures.append(
+                    f"stray pin: {rel}:{lineno} recites the pin {m.group(1)}@{m.group(2)} outside "
+                    f"depends_on: — a de-facto consumption signal; add it to depends_on: and the "
+                    f"convention's consumers:, or rewrite the reference as a version-free pointer "
+                    f"(pointer-vs-ack: roadmap :1682)"
+                )
+    return failures
+
+
+def check_group_e(root: Path) -> list:
+    """Self-description integrity: E1 handshake-bipartite, E2 structure-map SSoT, E3 stray-pin.
+
+    Aggregates three failure lists. Each check derives truth from the authoritative
+    surface and compares, rather than confirming a declaration about it — the fix
+    the whole arc pointed at.
+    """
+    conv_dir = root / "skills/vlt-setup/assets/governance/_meta/conventions"
+    conventions = {}  # name -> (version_str, [consumers])
+    for f in sorted(conv_dir.glob("*.md")):
+        fm = _read_frontmatter(f)
+        version, consumers = fm.get("version"), fm.get("consumers")
+        # A file lacking either is vlt-lint:75's convention_meta_missing jurisdiction
+        # (vault time); Group E's remit is the handshake, not enforcement frontmatter.
+        if version is None or consumers is None:
+            continue
+        conventions[f.stem] = (str(version), list(consumers))
+
+    skill_dirs = {p.name for p in root.glob("skills/vlt-*") if p.is_dir()}
+    acks = {}  # skill_name -> {conv_name: version_str}
+    for p in sorted(root.glob("skills/vlt-*/SKILL.md")):
+        pins = {}
+        for entry in _read_frontmatter(p).get("depends_on") or []:
+            name, sep, ver = str(entry).partition("@")
+            if sep:
+                pins[name] = ver
+        acks[p.parent.name] = pins
+
+    return (
+        _e1_handshake(conventions, acks, skill_dirs)
+        + _e2_structure_map(root)
+        + _e3_stray_pin(root, set(conventions))
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description="Pre-tag packaging lint (working tree on disk).")
     parser.add_argument("--expect-version", help="Tag about to be cut; group D asserts both version strings equal it")
@@ -225,6 +400,7 @@ def main():
         results["D"] = (f"tag intent ({args.expect_version})", check_group_d(args.expect_version, versions))
     else:
         results["D"] = ("tag intent", None)  # SKIPPED
+    results["E"] = ("self-description integrity", check_group_e(root))
 
     failed = []
     for group, (label, failures) in results.items():
@@ -243,7 +419,7 @@ def main():
         print(f"package-lint: FAIL ({', '.join(failed)}) — vlt {version}")
         sys.exit(1)
     d_note = "D PASS" if args.expect_version else "D SKIPPED"
-    print(f"package-lint: A/B/C PASS, {d_note} — vlt {version}")
+    print(f"package-lint: A/B/C/E PASS, {d_note} — vlt {version}")
 
 
 if __name__ == "__main__":
