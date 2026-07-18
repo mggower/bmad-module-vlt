@@ -63,10 +63,10 @@ const KIND_PANEL = {
   'operation skill': [],
   'capability migration': [],
   // Partner / governance kinds:
-  'new partner': ['architect'],
+  'new partner': ['architect', 'skeptic', 'pragmatist', 'historian'], // roster creation — highest blast radius; full panel so build-16's bell question reaches every lens and the historian reads the record (build-22: filled a composition stub)
   'persona self-edit': ['architect', 'skeptic', 'pragmatist', 'historian'],
   'convention edit': ['architect', 'skeptic', 'pragmatist', 'historian'],
-  'retire a partner': ['architect'],
+  'retire a partner': ['architect', 'skeptic', 'pragmatist', 'historian'], // roster removal — full panel, same rationale as 'new partner' (build-22)
 }
 
 // Select the panel. Mint → by kind; debate → full panel (caller may narrow). Moderator is always added.
