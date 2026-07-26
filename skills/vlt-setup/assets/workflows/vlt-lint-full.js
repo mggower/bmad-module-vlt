@@ -106,12 +106,13 @@ const INDEX_SCAN = {
 const CLUSTER_FINDINGS = {
   type: 'object',
   additionalProperties: false,
-  required: ['cross_page_contradictions', 'documented_open', 'documented_adjudicable', 'documented_undispositioned'],
+  required: ['cross_page_contradictions', 'documented_open', 'documented_adjudicable', 'documented_undispositioned', 'entity_collisions'],
   properties: {
     cross_page_contradictions: { type: 'array', items: { type: 'string' }, description: 'incompatible claims ACROSS pages in this cluster, as "page-a vs page-b: claim" — unhandled (no callout)' },
     documented_open: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout literally records "**Disposition:** open" — classify by reading that line, never by judging the disagreement yourself' },
     documented_adjudicable: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout literally records "**Disposition:** adjudicable" — classify by reading that line, never by judging the disagreement yourself. Carry the callout\'s "Closes when" / "Filed" detail where present.' },
     documented_undispositioned: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout carries NO **Disposition:** line (it predates the convention, or the writer omitted it). This is not an error and NOT a guess-bucket — a callout with no disposition goes here and is never guessed into open or adjudicable.' },
+    entity_collisions: { type: 'array', items: { type: 'string' }, description: 'the SAME proper noun recorded with INCOMPATIBLE attributes across two pages in this cluster (two mutually exclusive affiliations, two incompatible roles in one period), as "page-a vs page-b: <name> — <attribute A> vs <attribute B>"' },
   },
 }
 
@@ -231,7 +232,8 @@ const clusterResults = (
       agent(
         `You are a cross-page contradiction checker. These wiki pages share topic/links and may conflict. For each, read its LIVE path. Pages: ${group.map((g) => `${g.slug} (${pages.find((p) => p.slug === g.slug)?.path || '?'})`).join('; ')}. ` +
           `Key claims already extracted: ${JSON.stringify(group.map((g) => ({ slug: g.slug, claims: g.key_claims || [] })))}. ` +
-          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line: open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable.`,
+          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line: open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable. ` +
+          `ALSO report entity_collisions: the same proper noun recorded with incompatible attributes across two of these pages. PRECEDENCE — a conflict that is one name carrying incompatible attributes goes to entity_collisions and NOT to cross_page_contradictions; report it once, in one slot.`,
         { label: 'contradict-cluster', phase: 'Reduce + cross-page', schema: CLUSTER_FINDINGS, model: clusterModel },
       ),
     )
@@ -274,6 +276,10 @@ return {
     contradictions_open: flat('documented_open'),
     contradictions_deferred: flat('documented_adjudicable'),
     contradictions_undispositioned: flat('documented_undispositioned'),
+    // Source-fidelity findings, kept out of the contradiction slots by the precedence rule in the
+    // cluster prompt. The SKILL composes the entity_scan: denominator line itself (its own run facts,
+    // from files_checked + the cluster cap) — exactly as it does for contradiction_scan:.
+    entity_collisions: flat('entity_collisions'),
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
     malformed_frontmatter: scans.filter((s) => s.frontmatter_valid === false).map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,

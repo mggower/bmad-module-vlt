@@ -255,6 +255,18 @@ This is the single-home posture applied to reporting: **the rule is stated here 
 
 **Boundary clause on derive-first.** Derive-first does not license deriving a state from the residue of the very process that produces it — where the only available signal is the process's own leavings, the state must be recorded, not inferred, or the check must be read in the polarity the evidence actually supports. The two rules are one family: this one governs how a check establishes a truth, the one above governs what it may claim about it.
 
+## Grounding sufficiency — what a claim may rest on
+
+**A proper noun appearing *once* in a machine-transcribed source — auto-generated captions, ASR output — is not sufficient grounding for a wiki claim.** Where such a name **collides with an existing vault record**, suspect the source, not the record.
+
+The distinction that makes this load-bearing: machine transcription does not only *mangle* names, it **substitutes** them — rendering a different, real, more prominent figure from the same domain. A mangled spelling announces itself and is caught on sight; a substituted real name **reads as clean data** and is encoded as fact. Attention aimed at garbled strings does not see it.
+
+**What a write does on a collision.** Decline the name; keep the claim. A page that records a role, event or relation **without** a name it cannot ground is correct and incomplete; a page that names the wrong person is complete and wrong. State the uncertainty where the claim lives, and file what would close it.
+
+**The distinguisher.** A conflict between a low-trust source and an existing vault record — or between two pages whose claims trace to the same machine-transcribed source family — is a **source-fidelity** finding, **not** a documented disagreement between credible sources. It is not resolved by a contradiction callout (`wiki-supersession.md`); it is resolved by re-verifying the name against a non-transcribed source, or by removing it.
+
+**The honest limit, stated in the rule itself.** A substitution that enters once and is never contradicted is **undetectable by construction** — no check in the vault can see it. This rule reduces the class; it does not close it.
+
 ## Reading list
 
 - `frontmatter.md` — the frontmatter standard (single source of truth), the partner identity/thread schema, and the backlog schema

@@ -49,9 +49,13 @@ The source is a file in the vault's sources layer (check its subfolders — arti
 
 For a source too large to interpret without flooding the context — a long video transcript, a long PDF, a multi-page crawl — the cost is not the fetch (mechanical, safe) but *reading the full body to interpret it*, and the risk lives in the extraction handoff happening on a context already saturated with raw text. The lever: **keep the raw source out of the interpreting context.**
 
+**A heavy source carries a second cost the split does not address: fidelity.** A machine-transcribed source (auto-generated captions, ASR output) does not merely garble a proper noun — it **substitutes** one, and the substitution is *directional*: toward the more prominent figure in the same domain. That is why it survives review — every substituted name is a plausible thing for the speaker to have said, in a sentence that still parses. This is **not** the volume problem, and the split does not mitigate it: a fresh interpreting context reads a wrong name exactly as confidently as a saturated one. The rule — how much grounding such a name needs, and what a write does when one collides with an existing record — lives at `vault-operating-contract.md`, *Grounding sufficiency — what a claim may rest on*; read it there. Its two operative beats in this skill are the prep brief's **proper-noun inventory** (below) and the **collision check** in Step 6.
+
 **Threshold, not always-on.** Small ingests stay inline — the split only earns its overhead at scale (same discipline as `vlt-lint`'s fan-out escalation). Inline up to roughly what one context can read *and still interpret freshly* — about **~15k words of normalized text (a ~1.5h transcript)**; above that, split:
 
-- **Prep sub-agent (mechanical).** Delegate Steps 2–3's heavy half: fetch → normalize/clean → **deposit the source-of-record to the sources layer** → run the Step 2 credential scan (it needs the cleaned text). It returns a **neutral navigational brief** — section map, transcript/page *locations*, verbatim *located quotes*, and flags. **Never the raw body; never an interpretation.**
+- **Prep sub-agent (mechanical).** Delegate Steps 2–3's heavy half: fetch → normalize/clean → **deposit the source-of-record to the sources layer** → run the Step 2 credential scan (it needs the cleaned text). It returns a **neutral navigational brief** — section map, transcript/page *locations*, verbatim *located quotes*, flags, and — for a **machine-transcribed source** — a **located proper-noun inventory**: every distinct proper noun the source names, verbatim as rendered, with its location(s) and its mention count. **Never the raw body; never an interpretation.**
+
+  The inventory is **raw located material, not interpretation** — it reports what strings the source says and where, and offers no judgment about whether any of them is right, no correction, and no "likely intended" candidate (invariant 3 below is the binding constraint). The **mention count is the affordable half of the rule** — a single-mention proper noun is what *Grounding sufficiency* turns on, and counting is mechanical, which is why it belongs to the prep agent and not to the interpreting pass. It **costs no second read**: the prep agent is already reading the full body, so the inventory is a by-product of the pass it already runs, which is why it is affordable here and nowhere else. **Inline ingests get the same input for free** — below the threshold the interpreting pass has the body in context and reads the inventory directly. The rule is the same at both scales; only its delivery differs.
 - **You, on fresh context (interpretive).** Run the unchanged remaining steps, reading *selectively* into the deposited source-of-record at the brief's locations, for only the passages you will canonicalize.
 
 Three invariants make it safe:
@@ -95,6 +99,8 @@ revisit_after: YYYY-MM-DD          # OPTIONAL — graduation-candidacy recheck d
 
 Sections: **Summary** (2–4 paragraphs of your own analysis — what it *means* and how it connects, flagging uncertain or contradicting claims), **Key Points** (discrete facts/arguments), **Connections** (`[[wikilinks]]` to related pages with a note on each relationship), **Open Questions**, **Source** (full citation/path).
 
+Where the fidelity check has flagged a proper noun — single-mention, or colliding with an existing vault record (Step 6) — record the flag in **Open Questions**: the string **as rendered**, its location in the source, and what would settle it. Do **not** record a corrected name; the note records what the source said and that it is in doubt.
+
 ## Step 6: Update the wiki
 
 Read `{index}` first — it tells you what pages exist. The wiki is the living product: long-lived, multi-source reference pages, one canonical page per concept. For each concept the source touches, decide: update an existing page (new info, nuance, contradiction, refinement), create a new page (significant, recurring, ≥3–4 substantive points), or skip (mentioned only in passing).
@@ -104,6 +110,23 @@ Read `{index}` first — it tells you what pages exist. The wiki is the living p
 - If an existing page already covers the concept → **update it**, don't splinter.
 - If the source reveals that two existing pages have **drifted into near-duplicates** and should be one → fold the merge in here, under `{conventions}/wiki-consolidation.md` (choose primary vs subsumed, merge under supersession discipline, archive the subsumed page to `{archive}/_agent/wiki/`, name the merge in the log entry). This is where the retired consolidate operation re-homes.
 - If genuinely distinct → create the new page.
+
+**Proper-noun collision check before canonicalizing (required, machine-transcribed sources).** For each proper noun this write would put on a wiki page **that came from a machine-transcribed source** — the entities entering the page, not every string in the source — check it against existing wiki state before writing:
+
+```bash
+grep -ril "<name>" {wiki}
+```
+
+Then rule on what comes back:
+
+- **No hit, single mention in the source** → insufficient grounding per `vault-operating-contract.md`, *Grounding sufficiency*: do not canonicalize the name. Record the claim without it, or attribute it to the source with the uncertainty stated.
+- **A hit whose recorded attributes are incompatible** with what this source says (the same person in two mutually exclusive affiliations or roles in one period) → **suspect the source, not the record.** Do not amend the existing page. Decline the name on the new/updated page, keep the claim (the role, event or relation without the name), and say so **in-flow** — capture is never silent.
+- **A hit that agrees** → ordinary write, no finding.
+
+Two things ride with it, by pointer:
+
+- **The distinguisher.** A collision of this kind is a **source-fidelity finding, not a contradiction** — do **not** write a `{conventions}/wiki-supersession.md` contradiction callout for it (the supersession clause below is the write path that would otherwise absorb it). The rule and its reasoning live at `vault-operating-contract.md`, *Grounding sufficiency*.
+- **The drain.** Record the declined name in this ingest's research note under **Open Questions** (Step 5 — as rendered, with its location), and file a backlog item so it is recoverable: `knowledge-gap` when closing it needs a source the vault doesn't have (the usual case — a roster, a credited transcript), `maintenance` when the vault's own pages settle it. Its `why` names **substitution suspected in a machine-transcribed source**; its `closes when` names the verifying act. (Kinds: the operating contract, *The backlog*.)
 
 Wiki page frontmatter (kebab-case filename, no datetime prefix):
 
