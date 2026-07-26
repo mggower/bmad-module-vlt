@@ -34,8 +34,11 @@ overlays, capabilities) as module source.
    then visible in history). Then ff-merge to `main`, tag `vX.Y.Z`, push main + tag.
 7. **Live acceptance** — batched to the next `vlt-upgrade` run on a live vault (the owner
    runs it). Defects found there file back into `inbox/` — the loop closes. A filing's
-   inbox file moves to `inbox/archive/` once its build has shipped **and** passed
-   acceptance.
+   inbox file moves to `inbox/archive/` once its build has shipped **and** its own clauses
+   have passed acceptance — the exact criterion (and its bound) lives in
+   `arc-closeout`'s Stage 5; don't restate it here. Acceptance checks are tagged
+   **ship-verifiable** or **field-contingent** at brief time, and **only ship-verifiable
+   checks gate arc closeout** — see `build-brief` §9 and `arc-closeout` Stage 1.
 
 ## Standing rules (violations here have bitten before)
 
