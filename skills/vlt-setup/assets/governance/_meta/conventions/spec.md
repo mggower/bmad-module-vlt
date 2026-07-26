@@ -85,3 +85,4 @@ Stage and deferral are declared in this file's own frontmatter, per `frontmatter
 - `vault-operating-contract.md` — the handoff timings this class completes (synchronous payload / durable handoff doc / spec)
 - `wiki-supersession.md` — the never-silent supersession principle, and the `version`/`consumers` handshake pattern this convention strengthens
 - `frontmatter.md` — the general frontmatter standard (spec artifacts carry the schema above, not the note schema)
+- `consult.md` — the consult class, and the precondition it places on a spec whose `consumers:` name a partner other than its `owner`

@@ -1,20 +1,21 @@
 ---
 name: vlt-dispatch
-depends_on: ["spec@1"]
-description: The vault's partner communication bus — one routing record with a drain, three modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner handoff pointer; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', or when a partner hands off a doc to another partner. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
+depends_on: ["consult@1", "spec@1"]
+description: The vault's partner communication bus — one routing record with a drain, four modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner handoff pointer; `consult` asks another partner a question synchronously and returns its attributed answer now; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', when a partner hands off a doc to another partner, or when a partner needs another partner's domain to finish its current move. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
 ---
 
 # vlt-dispatch
 
 ## Overview
 
-vlt-dispatch is the **vault's partner communication bus** — the one place a message gets a checkable home and reaches the partner it's for. It is **one record with a drain** (`_agent/dispatch.md`) read through **three modes**:
+vlt-dispatch is the **vault's partner communication bus** — the one place a message gets a checkable home and reaches the partner it's for. It is **one record with a drain** (`_agent/dispatch.md`) read through **four modes**:
 
 - **`daily`** — scan the human capture stream (`daily/`), *segment + classify + route* each fragment to the domain partner whose lane it serves. The hard part is *finding* the destination. *(This is the original "daily-note router," now named.)*
 - **`relay`** — a partner hands over a *pre-addressed* pointer to another partner (a durable handoff doc is waiting). The destination arrives **known**, so classification is skipped — dispatch just appends the pointer with doc-path idempotency.
+- **`consult`** — a partner asks another partner a question **synchronously**, mid-turn, and gets that partner's own attributed answer back **now**. Nothing transfers: the caller keeps the wheel. *(A consult is a `relay` whose drain happens immediately, in-process, with the answer returned to the caller instead of left on the board.)*
 - **`ledger`** — read-only: grep the whole record for still-open items, grouped by partner, across both human and relay traffic. The standing signal of what's waiting.
 
-All three modes are **the same machine**: every mode emits the **identical pointer line** (`- [ ] \`slug\` Partner — gist → [[link]]`) into the **identical record**, drained by the **identical grep-and-check loop** (The pickup loop, below). The drain is **source-agnostic** — it does not care whether a pointer came from a daily note or another partner. That is the whole design: one drain, many intakes.
+All four modes are **the same machine**: every mode emits the **identical pointer line** (`- [ ] \`slug\` Partner — gist → [[link]]`) into the **identical record**, drained by the **identical grep-and-check loop** (The pickup loop, below). The drain is **source-agnostic** — it does not care whether a pointer came from a daily note or another partner. That is the whole design: one drain, many intakes. *(`consult` emits the same line into the same record, but writes it already **checked** — it never waited, so there is nothing to drain. It is traffic, not a queue item.)*
 
 It is a **surface-and-point** bus, never an ingest: it writes only the routing record in the agent zone, **never edits a daily note**, and **never promotes anything into the wiki** — graduation stays the human's and the receiving partner's deliberate call. The Librarian owns it (it is vault-routing, the same family as ingest and lint). It does **no web access**.
 
@@ -50,12 +51,13 @@ Daily memos are personal human capture, not curated sources — so scan a fragme
 
 Resolve the mode **first**, before any other work:
 
-- **An explicit subcommand** names the mode: `daily` / `relay` / `ledger` (e.g. `/vlt-dispatch daily`, `/vlt-dispatch relay …`, `/vlt-dispatch ledger`). A partner firing a handoff calls `relay` with its arguments. Natural-language requests resolve the same way — "dispatch my daily notes" / "route my captures" → `daily`; "what's still open" / "show the board" → `ledger`; a partner-supplied `(to-slug, gist, handoff-path)` → `relay`.
+- **An explicit subcommand** names the mode: `daily` / `relay` / `consult` / `ledger` (e.g. `/vlt-dispatch daily`, `/vlt-dispatch relay …`, `/vlt-dispatch consult …`, `/vlt-dispatch ledger`). A partner firing a handoff calls `relay` with its arguments; a partner needing another's domain mid-turn calls `consult` with its own. Natural-language requests resolve the same way — "dispatch my daily notes" / "route my captures" → `daily`; "what's still open" / "show the board" → `ledger`; a partner-supplied `(to-slug, gist, handoff-path)` → `relay`; a partner-supplied `(to-slug, question, groundIn, why)` → `consult`.
 - **A bare invocation** (`/vlt-dispatch` with no mode and no relay payload) does **not** silently default to `daily`. List the available modes and ask which to run:
 
   > vlt-dispatch is the partner communication bus. Which mode?
   > - **daily** — scan your daily notes and route them to the team.
   > - **relay** — append a partner→partner handoff pointer *(usually fired automatically by a partner; runnable here for debugging)*.
+  > - **consult** — ask another partner a question and get an attributed answer back now *(usually fired by a partner mid-turn)*.
   > - **ledger** — show the standing board of everything still open.
 
   The mode menu is the home, not a hidden default — most discoverable as modes grow. (This is a deliberate reframe: dispatch is no longer "the daily-note router that sometimes does other things"; it is a bus whose first question is *which channel*.)
@@ -70,7 +72,7 @@ The original behavior, now named and behind an explicit subcommand. **Only this 
 
 ### Step 0: Determine scope
 
-Like `vlt-lint`, pick one scope at the top of the run and announce it (with the file count, e.g. "Scoped dispatch — 3 daily notes with new content since last run"). The per-source **watermark** in `_agent/dispatch.md` is the baseline — read that file first, building `watermark[file]` = the `routed through line N` recorded in each file's most recent `daily/` run header (a never-dispatched note has watermark 0; relay blocks carry no watermark and are ignored here).
+Like `vlt-lint`, pick one scope at the top of the run and announce it (with the file count, e.g. "Scoped dispatch — 3 daily notes with new content since last run"). The per-source **watermark** in `_agent/dispatch.md` is the baseline — read that file first, building `watermark[file]` = the `routed through line N` recorded in each file's most recent `daily/` run header (a never-dispatched note has watermark 0; **relay and consult blocks carry no watermark and are ignored here** — only a `daily/…` header is parsed for `routed through line N`).
 
 **Scoped (default)** — every daily note with content **beyond its watermark**. Glob `daily/*.md`, and for each compare current line count to `watermark[file]`; include every note with new lines (on the first scoped run, the entire backlog of never-dispatched notes; thereafter only what's been appended). Process only the lines beyond each note's watermark; a run with nothing new anywhere routes nothing (report "nothing new since the last dispatch").
 
@@ -117,7 +119,7 @@ The file's header (written once, on creation):
 ```
 # Dispatch
 
-_The vault's partner communication bus — one routing record with a drain, read through three modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner handoff pointers; `ledger` is the read-only open-items board. Every pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, handoff-doc path for `relay`; the open/picked-up status makes the backlog self-reporting._
+_The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner handoff pointers; `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, handoff-doc path for `relay`; the open/picked-up status makes the backlog self-reporting._
 ```
 
 `_agent/dispatch.md` is a log-style agent record (like `{log}`), not a "note" — it carries **no per-note frontmatter**.
@@ -198,6 +200,100 @@ On a no-op (open pointer already present): "Creative already has an open pointer
 
 ---
 
+## Mode: `consult` — ask another partner and get an attributed answer now
+
+**A consult is a `relay` whose drain happens immediately, in-process, with the answer returned to the caller instead of left on the board.** Synchronous, **depth-1 hard** — the summoned partner answers, or refuses and names why; **it never summons**. It is read-only except its own memory. *Consult answers; relay assigns.*
+
+Governed by `{conventions}/consult.md` — what a consult is, when it is earned, and the precondition it places on specs live there. This section owns the **mechanics**.
+
+### Who fires it
+
+A partner **mid-turn**, when it needs another partner's domain **to finish its current move** and the consult passes the **trigger rule** — single-homed at `vault-operating-contract.md`, *Read-and-cite is the documented default*; read the test there, don't work from memory. Read-and-cite stays the default; a consult is the exception that earns itself against that test.
+
+A human may **invoke `consult` directly** for debugging, exactly as `relay` allows. **Never unprompted** — the standing rule holds for this mode too: there is no background consult.
+
+### Inputs and validation
+
+Required: **`to-slug`** (the partner being consulted), **`question`** (in the caller's own framing), **`groundIn`** (the **live absolute paths** the summoned partner must read — never a plugin-cache copy), and **`why`** — one line naming *what the caller is trying to finish* and *which part of it is outside its own authority*. Optional: **`from-slug`** (infer from the calling partner). Then:
+
+- **Liveness (light).** Confirm `to-slug` matches a live `vlt-agent-{to-slug}` in `{project-root}/.claude/skills/`. If it doesn't, say so and stop — **never spawn**.
+- **`from-slug ≠ to-slug`** — a partner does not consult itself.
+- **Secret hygiene.** Same as every other mode — never put a credential in the question, the gist, or the `{log}` line.
+
+**`why` is the anti-confabulation field.** It is what lets the summoned partner return `wrong-partner` or `insufficient-context` *accurately* instead of producing a plausible opinion about a question it was never really asked. A consult fired without it is a consult that cannot refuse well.
+
+### Invoke the engine
+
+Call the consult engine via the Workflow tool — **do not hand-spawn the partner**:
+
+```
+workflow('vlt-consult', {
+  fromSlug:     <the calling partner's slug>,
+  toSlug:       <the consulted partner's slug>,
+  question:     <the question, in the caller's framing>,
+  why:          <what the caller is finishing, and which part is outside its authority>,
+  groundIn:     [<live absolute paths the summoned partner must read>],
+  skillsPath:   <resolved LIVE absolute path to the installed skills dir>,
+  partnersPath: <resolved LIVE absolute path to {partners}>,
+  today:        'YYYY-MM-DD',
+})
+```
+
+The workflow spawns **exactly one** agent and forces its return through a typed schema. That is why **depth-1 is structural, not an honor system**: a spawned agent cannot re-enter the workflow, so the summoned partner *cannot* chain a consult of its own. The engine is the single home for the consult protocol — this SKILL invokes it, it does not re-implement it in prose.
+
+### The typed return union
+
+`answer` | `insufficient-context` | `wrong-partner` (with a slug) | `needs-human` | `needs-work`.
+
+**`insufficient-context` is a first-class, praised return.** A thin payload producing an invented opinion is strictly worse than no mechanism at all — read-and-cite cannot impersonate, but a confabulated partner voice can, and that is precisely what the operating contract's authority boundary forbids. Never treat a refusal as a failed consult; treat a suspiciously confident one as the thing to inspect.
+
+### Surface the answer raw, attributed, before you use it
+
+Put the summoned partner's `answer` in **its own block, verbatim, attributed** — then, *after* that block, the caller's use of it in the caller's own voice:
+
+> **Consulted — Partner Name (`to-slug`):**
+> <the answer, exactly as returned>
+
+A digested partner voice is an unattributed claim. Two agents converging is only visible to the human if the human sees what the second one actually said, not a summary of it.
+
+### Route the return
+
+- **`needs-work`** → the caller writes the handoff doc and fires the existing **`relay`** path. *Consult answers; relay assigns* — the summoned partner never does the work.
+- **`wrong-partner`** → the caller may consult the named slug. This is a **second consult by the caller**, still depth-1 from the caller — never a chained one by the summoned partner.
+- **`needs-human`** → surface it and stop.
+- **`insufficient-context`** → name what was missing; re-fire with a fuller payload, or fall back to read-and-cite.
+
+### Write the consult block
+
+Append to `_agent/dispatch.md`. The header shape **is the mode signal** (as `daily/…` and `relay:` are):
+
+```
+## [YYYY-MM-DD HH:MM] consult: <from-slug> → <to-slug> — <return-type>
+- [x] `to-slug` Partner Name — <question gist> → <artifact or path grounded in> ✓ answered YYYY-MM-DD
+```
+
+**The pointer is written pre-checked (`- [x]`).** A consult never waited, so it is **traffic, not a queue item**. The consequence is load-bearing and worth stating outright: a consult block **never** appears on the `ledger` board and never in a partner's open slice, **by construction** — the ledger's greps count `- [ ]` only. Nothing here can rot open.
+
+### The trail, and its bound
+
+Three sites, and **only** three:
+
+1. The pre-checked block above.
+2. **One `{log}` line, tagged with the caller** (see Log) — the caller is the active partner; the consulted partner is named in the summary.
+3. The **summoned partner's own `thread.md`** — and **only when the consult changed its stance** (the engine returns `stanceChanged`). A consult that merely confirmed what that partner already held writes nothing: `## Thread` is prunable attention that is *supposed to fade*, and one line per consult would rot the one file the contract says must stay light. The summoned partner writes its own memory; **the caller never writes it** — single-writer holds.
+
+**No session note from the summoned partner.** A consult is **not** a hand-off and crosses **no sitting boundary** — the caller keeps the wheel and owns the single session note for the sitting. The sitting unit is single-homed in the operating contract, *Sessions, sittings, and hand-offs*; read it there.
+
+### Report
+
+Brief — who was consulted, the return type, and, on `insufficient-context` / `wrong-partner` / `needs-human`, what is missing, plainly:
+
+> Consulted **Creative** (`creative`) on the framing question → `answer`. Recorded in the dispatch record; the Creative's thread moved, so it noted the shift itself.
+
+Or: "Consulted **Researcher** → `insufficient-context`: it needs the source note path, which wasn't passed. Nothing was answered; re-fire with the path or read-and-cite instead."
+
+---
+
 ## Mode: `ledger` — the read-only open board
 
 A **read-only** view: grep the *whole* record for still-open items and group them by partner, across **both** daily and relay traffic. No write, no `daily/` read — pure report. This is the human's **standing signal**: a partner only drains its slice when next summoned, so an item routed to a rarely-summoned partner could sit open, unseen, indefinitely; `ledger` shows the full open backlog without summoning anyone.
@@ -234,7 +330,10 @@ Append one partner-tagged entry to `{log}` in the operating-contract format, per
 ```
 ## [YYYY-MM-DD HH:MM] dispatch (librarian) | daily <scope>: <N> fragment(s) from <M> daily note(s) routed to <partners> [→ [[_agent/dispatch.md]]]
 ## [YYYY-MM-DD HH:MM] dispatch (librarian) | relay: <from> → <to> — <gist> [→ [[_agent/dispatch.md]]]
+## [YYYY-MM-DD HH:MM] dispatch (<from-slug>) | consult: <from> → <to> — <question gist> → <return-type>
 ```
+
+**The `consult` line carries ONE partner tag — the caller.** The tag is *the active partner for the operation* (operating contract, *the `{log}` format*), and in a consult that is unambiguously the caller: the consulted partner is not at the wheel. The consulted partner is named in the **summary**, which greps just as well and loses nothing — attribution of the *answer* lives in the attributed block and the consult record, both of which name both partners.
 
 `ledger` is read-only — it writes **no** `{log}` entry (nothing changed). Write **no** session note in any mode — the summoning partner (the Librarian, or the publishing partner on a relay) owns the single session note for the sitting (operating contract § session-ownership).
 
@@ -253,6 +352,14 @@ After writing, re-read what you produced and confirm — by mode:
 - The recipient slug is **live** (a real `vlt-agent-{to-slug}`); no dangling pointer was written.
 - The **idempotency rule was applied**: no second open pointer exists for the same `(handoff-path, to-slug)` (a no-op was honored), and a re-relay after check-off appended a fresh open pointer.
 - Exactly one `relay: <from> → <to>` block was appended (or none, on a no-op), pointer open, linking the real `_agent/handoffs/…` doc. `daily/` untouched, wiki untouched. The `{log}` relay entry was appended. No secret in the gist.
+
+**`consult`:**
+- The recipient slug is **live** (a real `vlt-agent-{to-slug}`), and `from-slug ≠ to-slug`. No partner was spawned if it wasn't.
+- Exactly **one** `consult: <from> → <to>` block was appended, and its pointer is written **checked** (`- [x]`) — not open.
+- The raw answer was surfaced **attributed, in its own block**, *before* any use of it in the caller's voice.
+- **No `daily/` read, no wiki write.** The summoned partner spawned **no** second partner (depth-1 held).
+- The summoned partner wrote **no** session note, and touched its `thread.md` **only** if the consult changed its stance.
+- The `{log}` entry was appended, tagged with the **caller**. No secret in the question or the gist.
 
 **`ledger`:**
 - **Nothing was written** — read-only. The counts match a fresh grep of open items; the board groups only live, partner-owned slugs.

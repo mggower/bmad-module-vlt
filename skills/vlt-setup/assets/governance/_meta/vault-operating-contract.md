@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-25
+last_updated: 2026-07-26
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -210,7 +210,7 @@ User-level **tool and workflow preferences** (e.g. "use the Tavily MCP for web s
 
 ## Sessions, sittings, and hand-offs
 
-**The unit is a partner *sitting*, not a conversation.** A sitting is one partner's continuous turn at the wheel; it yields **one session note**. A hand-off to another partner **ends one sitting and begins another** — so a single conversation that includes a Researcher→Librarian hand-off correctly produces **two** session notes (one per sitting), not one and not N. Within a sitting, operation skills append their own partner-tagged `{log}` entries but **never write session notes** — the partner owns the single note for its sitting. So a sitting yields one session note plus the operation `{log}` entries it ran.
+**The unit is a partner *sitting*, not a conversation.** A sitting is one partner's continuous turn at the wheel; it yields **one session note**. A hand-off to another partner **ends one sitting and begins another** — so a single conversation that includes a Researcher→Librarian hand-off correctly produces **two** session notes (one per sitting), not one and not N. **A consult is not a hand-off and crosses no sitting boundary:** no work and no wheel transfer, so the caller keeps the wheel and owns the single session note; the consulted partner writes none. Within a sitting, operation skills append their own partner-tagged `{log}` entries but **never write session notes** — the partner owns the single note for its sitting. So a sitting yields one session note plus the operation `{log}` entries it ran.
 
 **Ending a sitting.** The active partner writes one session note to `{sessions}/YYYY-MM-DD-HHmmss.md` covering the sitting, stamped `partner:` (see `frontmatter.md`), appends a `session` entry to `{log}`, and updates its `identity.md` (any `## Bond`/`## Self` the sitting earned) and `thread.md` (`## Thread` movement, including setting aside what has gone quiet).
 
@@ -227,7 +227,11 @@ User-level **tool and workflow preferences** (e.g. "use the Tavily MCP for web s
 
 **Read-and-cite is the documented default.** When a partner needs another's domain, the default is to **read that partner's zone (or the wiki) and cite what it found** — in its own voice, attributed to where it came from. Reaching for another partner is the exception, and its test is memory: **spawn another partner only when the interaction should be remembered.** Memory is what justifies a consult's cost, and is therefore also the test for when *not* to have one.
 
+**The consult has a mechanism.** When the test above is met, the act is `vlt-dispatch`'s **`consult`** mode — synchronous, depth-1, the summoned partner answering as itself and remembering that it did — governed by `{conventions}/consult.md`. *Mechanics live there*: how the payload is shaped, what the typed return union is, how the record is written, and the one precondition a consult places on a spec that binds a partner other than its owner. This contract names the act and the test; it does not restate the machine.
+
 **Two handoff timings — synchronous payload vs. durable doc.** The typed payload above is the *synchronous* seam: one partner invokes another in the same sitting, args present, work picked up immediately. The other timing is **asynchronous and durable** — a partner writes a rich handoff *document* to `_agent/handoffs/` for a recipient who isn't at the wheel yet. A durable doc has no pickup unless the recipient is *told it's waiting* — so it pairs with a pointer on the bus.
+
+Both timings **transfer work**, which is what makes them hand-offs. A **consult** is neither: it transfers none, and returns an attributed answer to a caller who never left the wheel.
 
 - **The relay-when-done reflex.** After writing (or revising) a handoff doc to `_agent/handoffs/`, the publishing partner's final write-step is to fire **`vlt-dispatch relay (to-slug, gist, handoff-path)`**, which appends an open pointer into the recipient's dispatch slice. The recipient then drains it via the ordinary pickup loop on its next orient. *Mechanics live in one home:* exactly how relay appends, dedups, and validates is owned by `vlt-dispatch`'s `relay` mode and is **not** restated here or in any partner's SKILL.md — those *name* the reflex and point at the mode (the same single-home discipline the dispatch *pickup* loop already follows). Single-writer holds: the publisher never edits `_agent/dispatch.md`; dispatch is the scribe.
 - **Durable handoffs are updated in place at a stable path.** A handoff doc is revised *in the same file*, not versioned into a new one. This is what lets an un-drained open pointer auto-track the freshest content (the recipient follows the link to whatever the doc now says) and lets relay key its idempotency on the doc path. A provisional spec that firms up is an *edit*, not a new doc.
