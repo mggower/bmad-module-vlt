@@ -14,6 +14,7 @@ enforcement_stage: declared
 deferral_metric: "spec version bumps shipping without their relay entries"
 deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
 review_after: 2026-08-17
+adoption_first_instance: null        # no first live instance yet — declared, not yet adopted
 ---
 
 # Spec Conventions

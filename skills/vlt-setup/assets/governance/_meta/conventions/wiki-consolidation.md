@@ -14,6 +14,7 @@ enforcement_stage: declared
 deferral_metric: "near-duplicate findings carried unresolved across sweeps"
 deferral_threshold: "3 carried across 2 consecutive sweeps"
 review_after: 2026-08-17
+adoption_first_instance: null        # no first live instance yet — declared, not yet adopted
 ---
 
 # Wiki Consolidation Conventions

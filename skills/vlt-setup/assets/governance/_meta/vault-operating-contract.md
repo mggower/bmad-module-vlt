@@ -247,6 +247,14 @@ User-level **tool and workflow preferences** (e.g. "use the Tavily MCP for web s
 - **Record supersessions** when updating wiki claims — never silently overwrite (see `wiki-supersession.md`).
 - **End every sitting:** write its session note + `{log}` entry and update `identity.md`/`thread.md` — see **Sessions, sittings, and hand-offs** for the sitting unit, the session-ownership rule, and the hand-off payload.
 
+## Honest reporting — what a check may claim
+
+**A count whose only attainable value is "fine" must state what it cannot see.** Any check, sweep, or report that surfaces a count — findings, violations, candidates, gaps — reports alongside it the **population it ran against** and the **class it structurally cannot detect**. A bare zero is indistinguishable from "never ran", "ran against nothing", and "cannot see this class at all"; a consumer (human or dashboard) reads all four as health. State the denominator, and name the blind spot in the same breath as the count. A report key that no check fills is the limiting case — it can only ever render empty, and an always-empty slot is a claim of health nothing earned.
+
+This is the single-home posture applied to reporting: **the rule is stated here and cited elsewhere.** A check does not word its own version of it.
+
+**Boundary clause on derive-first.** Derive-first does not license deriving a state from the residue of the very process that produces it — where the only available signal is the process's own leavings, the state must be recorded, not inferred, or the check must be read in the polarity the evidence actually supports. The two rules are one family: this one governs how a check establishes a truth, the one above governs what it may claim about it.
+
 ## Reading list
 
 - `frontmatter.md` — the frontmatter standard (single source of truth), the partner identity/thread schema, and the backlog schema

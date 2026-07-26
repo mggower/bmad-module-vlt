@@ -72,6 +72,8 @@ revisit_after: YYYY-MM-DD          # OPTIONAL — graduation-candidacy recheck d
 ---
 ```
 
+**Decide `revisit_after:` before you write — two outcomes, both legitimate.** Either set a recheck date (when should this note's *graduation candidacy* — its readiness to become a wiki page — be looked at again?), or say in-flow why this note isn't a graduation candidate and omit the key. Absence means *not a candidate* (`{conventions}/frontmatter.md`), so an unconsidered omission and a deliberate decline look identical on disk — which is why the decline is spoken, not silent. Don't default to omitting it because the slot is optional.
+
 Structure (no `key:` field):
 
 - **Research Question** — the precise question, one or two sentences; this is what "done" means.
