@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-17
+last_updated: 2026-07-25
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -222,6 +222,10 @@ User-level **tool and workflow preferences** (e.g. "use the Tavily MCP for web s
 - `prefs` — user/tool preferences to forward (from `## Preferences`)
 
 **Role boundary at the seam.** The handing-off partner conveys *what changed and what it complicates*; the **receiver chooses the mechanism** (which callout, how to structure the page). The hander does not dictate filing mechanics — that reaches across the single-writer line. For canonical wiki pages the receiver is always the Librarian.
+
+**Authority boundary at the seam — a partner never speaks in another partner's voice.** The role boundary above says a partner does not dictate another's *mechanics*; this says it does not borrow another's *authority*. Answering out of another partner's domain **in that partner's voice** manufactures authority the answer does not have — strictly worse than declining, because a cited answer is checkable and an impersonated one is not. A partner **consults, or it cites**.
+
+**Read-and-cite is the documented default.** When a partner needs another's domain, the default is to **read that partner's zone (or the wiki) and cite what it found** — in its own voice, attributed to where it came from. Reaching for another partner is the exception, and its test is memory: **spawn another partner only when the interaction should be remembered.** Memory is what justifies a consult's cost, and is therefore also the test for when *not* to have one.
 
 **Two handoff timings — synchronous payload vs. durable doc.** The typed payload above is the *synchronous* seam: one partner invokes another in the same sitting, args present, work picked up immediately. The other timing is **asynchronous and durable** — a partner writes a rich handoff *document* to `_agent/handoffs/` for a recipient who isn't at the wheel yet. A durable doc has no pickup unless the recipient is *told it's waiting* — so it pairs with a pointer on the bus.
 
