@@ -106,10 +106,12 @@ const INDEX_SCAN = {
 const CLUSTER_FINDINGS = {
   type: 'object',
   additionalProperties: false,
-  required: ['cross_page_contradictions', 'handled_contradictions'],
+  required: ['cross_page_contradictions', 'documented_open', 'documented_adjudicable', 'documented_undispositioned'],
   properties: {
     cross_page_contradictions: { type: 'array', items: { type: 'string' }, description: 'incompatible claims ACROSS pages in this cluster, as "page-a vs page-b: claim" — unhandled (no callout)' },
-    handled_contradictions: { type: 'array', items: { type: 'string' }, description: 'GAP B — disagreements in this cluster that ARE already documented (a Contradictions section / callout) — surfaced so a well-managed disagreement is visible, not vanished' },
+    documented_open: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout literally records "**Disposition:** open" — classify by reading that line, never by judging the disagreement yourself' },
+    documented_adjudicable: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout literally records "**Disposition:** adjudicable" — classify by reading that line, never by judging the disagreement yourself. Carry the callout\'s "Closes when" / "Filed" detail where present.' },
+    documented_undispositioned: { type: 'array', items: { type: 'string' }, description: 'disagreements ALREADY documented whose callout carries NO **Disposition:** line (it predates the convention, or the writer omitted it). This is not an error and NOT a guess-bucket — a callout with no disposition goes here and is never guessed into open or adjudicable.' },
   },
 }
 
@@ -229,7 +231,7 @@ const clusterResults = (
       agent(
         `You are a cross-page contradiction checker. These wiki pages share topic/links and may conflict. For each, read its LIVE path. Pages: ${group.map((g) => `${g.slug} (${pages.find((p) => p.slug === g.slug)?.path || '?'})`).join('; ')}. ` +
           `Key claims already extracted: ${JSON.stringify(group.map((g) => ({ slug: g.slug, claims: g.key_claims || [] })))}. ` +
-          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled), and SEPARATELY list disagreements that ARE already documented with a Contradictions section or callout (handled — Gap B: surface them so a well-managed disagreement stays visible).`,
+          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line: open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable.`,
         { label: 'contradict-cluster', phase: 'Reduce + cross-page', schema: CLUSTER_FINDINGS, model: clusterModel },
       ),
     )
@@ -268,8 +270,10 @@ return {
       : [],
     stale: collect('stale_unmarked'),
     contradictions: flat('cross_page_contradictions').concat(collect('within_page_contradictions')),
-    // GAP B — handled contradictions get their own slot instead of vanishing into an empty list.
-    contradictions_handled: flat('handled_contradictions'),
+    // Documented contradictions split by their RECORDED disposition — never by the mere existence of a callout.
+    contradictions_open: flat('documented_open'),
+    contradictions_deferred: flat('documented_adjudicable'),
+    contradictions_undispositioned: flat('documented_undispositioned'),
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
     malformed_frontmatter: scans.filter((s) => s.frontmatter_valid === false).map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,

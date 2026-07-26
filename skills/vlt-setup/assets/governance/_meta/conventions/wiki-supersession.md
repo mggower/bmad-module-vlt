@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 1
+version: 2
 consumers: [vlt-ingest, vlt-lint, vlt-extract, vlt-track]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -74,8 +74,31 @@ When a claim is suspected to be stale (time-sensitive data past its shelf life) 
 
 This flags the claim for investigation without removing it. `vlt-lint` surfaces these for resolution.
 
+## Contradiction Callouts (with a disposition)
+
+A contradiction is **two credible claims that cannot both hold** — across two pages, within one page, or between a `{research}` note and the wiki. It is documented in **both** pages' `## Contradictions / Open Questions` section, and never silently resolved by picking a winner.
+
+Documentation alone is not a resolution. Every contradiction callout carries a **disposition** — which kind it is, and, when it is adjudicable, what would close it:
+
+```markdown
+> [!contradiction] <short claim> (YYYY-MM-DD)
+> **This page:** <what this page claims>
+> **[[other-page]]:** <what the other page claims>
+> **Recency/authority:** <which source is more recent or more authoritative — stated, not acted on>
+> **Disposition:** open | adjudicable
+> **Closes when:** <adjudicable only — the bounded act that would settle it>
+> **Filed:** <adjudicable only — the `{backlog}` item this was filed as>
+```
+
+**Disposition values:**
+- `open` — two credible sources genuinely disagree and the vault should hold both. **Documentation is the resolution**; there is nothing further to do and nothing to file. A well-documented disagreement beats false certainty.
+- `adjudicable` — one side is simply wrong, or one page is stale, and a **bounded act** closes it. Documentation is a deferral, not a resolution: `**Closes when:**` names the act, and the contradiction is filed to `{backlog}` (`maintenance` when the vault's own pages settle it, `knowledge-gap` when it needs external evidence).
+
+Choosing between them is judgment work and belongs to whoever holds the context — the writer at ingest time, or the human at sweep time. **A callout with no `Disposition:` is not an error**; callouts predating this convention have none, and checks report them as their own third value rather than defaulting them into either bucket (`vault-operating-contract.md`, *Honest reporting*). No sweep backfills them.
+
 ## Reading list
 
 - `vault-operating-contract.md` — the operating constitution (three layers, log format, vault-syntax assumption)
 - `wiki-consolidation.md` — the merge discipline, which runs under these supersession rules
+- `vault-operating-contract.md` — *Honest reporting*: what a check may claim about a disposition it cannot read
 - `extraction.md` — re-extractions reuse the inline supersession callout

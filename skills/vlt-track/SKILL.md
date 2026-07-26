@@ -1,7 +1,7 @@
 ---
 name: vlt-track
 description: Run a personalized, evidence-grounded longitudinal loop — design a protocol, log progress, review and adjust over weeks. The shared hand any vertical partner uses to run a program (a dog's training, a body's recomposition, …); the calling partner supplies the loop profile and the voice. Reads the wiki for method, keeps the working record in the agent zone, and writes the polished protocol to a PARA area via personalized-extraction discipline.
-depends_on: ["extraction@3", "wiki-supersession@1"]
+depends_on: ["extraction@3", "wiki-supersession@2"]
 ---
 
 # vlt-track

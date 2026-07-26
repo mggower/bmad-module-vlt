@@ -1,7 +1,7 @@
 ---
 name: vlt-lint
 description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions. Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything.
-depends_on: ["frontmatter@4", "wiki-index@2", "wiki-supersession@1", "extraction@3", "write-verification@1", "spec@1"]
+depends_on: ["frontmatter@4", "wiki-index@2", "wiki-supersession@2", "extraction@3", "write-verification@1", "spec@1"]
 ---
 
 # vlt-lint
@@ -66,7 +66,7 @@ The split follows the **membership test** in `{conventions}/write-verification.m
 - **Orphan pages** — no inbound links from other wiki pages. (In scoped mode this is orphan-relative-to-scope; flag, don't exhaustively re-check the whole vault.) Fix by adding to related pages' Connections, or flag thin/redundant ones for deletion.
 - **Stale claims** — judge staleness from `last_updated` (frontmatter) and file mtime, cross-checked against newer `{research}` notes / `{log}` ingests on the same topic — not by parsing prose. A page carrying `review_after:` **announces its own expiry** — the tier-1 `review_due` check covers it; no mtime inference needed there. Where a newer source should update a page, surface it.
 - **`[!stale]` handling (explicit)** — surface time-bound claims (a specific date, deadline, or time-sensitive figure) that are past their shelf life and **lack** a `[!stale]` marker, and surface existing `[!stale]` markers for resolution.
-- **Contradictions** — incompatible claims across two pages, self-contradictions within a page, or `{research}` findings that conflict with the wiki. Document in both pages' Contradictions/Open Questions; note which source is more recent/authoritative, but never silently pick a winner.
+- **Contradictions** — incompatible claims across two pages, self-contradictions within a page, or `{research}` findings that conflict with the wiki. Document in both pages' `## Contradictions / Open Questions` **using the contradiction callout with its disposition** (`{conventions}/wiki-supersession.md`, *Contradiction Callouts* — the format and the `open`/`adjudicable` vocabulary live there, not here); note which source is more recent/authoritative, but never silently pick a winner. A contradiction dispositioned **`adjudicable`** is filed to `{backlog}` in Step 4 — that is its drain, exactly as a merge candidate's is. **Documenting is a bounded judgment call, not an obligation:** on a large sweep, documenting every contradiction found is a heavy, low-reversibility write, so document what earns it and **report the rest as declined, with the count** (Step 5 `contradictions:` plus the `contradiction_scan:` line) — a silent skip is under-delivery the report cannot see (`vault-operating-contract.md`, *Honest reporting*).
 - **Unmarked supersessions** — claims silently updated or conflicting without a `[!superseded]`/`[!stale]` callout; consensus claims ("all sources agree") lacking individual citations or that read like training knowledge; claims missing qualifiers documented in the source. Add the appropriate callout per `{conventions}/wiki-supersession.md`.
 - **Near-duplicates / drift** — pages that have drifted into overlap. Require **two coinciding signals**, not one: a shared-link signal (several shared wikilinks, *excluding* hub/entity pages everything cites) **and** a structural secondary signal (shared slug stem or title overlap). Shared links alone are co-citation noise, not duplication. Compare the *concept*, not just the slug. These are **merge candidates** — file them to the backlog (Step 4); resolution is `vlt-ingest`'s job, not lint's.
 - **Thin pages** — few claims, no connections, single source; flag as merge/stub candidates for the user.
@@ -108,7 +108,7 @@ Fix directly (bump `last_updated` on any page you substantively edit — e.g. ad
 
 **Attest what you touched (lint-as-attester, narrowly):** on every file this step's auto-fix substantively edited, re-run tier-1 and write `verified_by: vlt-lint` + `verified_at: <today>` — the auto-fix bumped `last_updated` and would otherwise re-stale the attestation just validated. Never attest a file you merely read (contract: `{conventions}/write-verification.md`).
 
-Do **not** auto-apply: page deletions (flag), contradiction resolutions (document both, flag), page merges (file to backlog — see Step 4), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
+Do **not** auto-apply: page deletions (flag), contradiction resolutions (document both **with a disposition**, flag; file the `adjudicable` ones to backlog — see Step 4), page merges (file to backlog — see Step 4), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
 
 ## Step 4: File maintenance backlog items
 
@@ -118,7 +118,15 @@ For each near-duplicate/merge candidate (and any other maintenance worth doing l
 - [ ] Merge <page-a> + <page-b> (maintenance, by: <partner>) — near-duplicate: <signal, e.g. slug stem + 4 shared wikilinks>
 ```
 
-The merge itself is resolved later by `vlt-ingest` under the consolidation discipline — lint finds, ingest resolves.
+For each contradiction dispositioned **`adjudicable`** (Step 2 / `{conventions}/wiki-supersession.md`), append its item too — `maintenance` when the vault's own pages settle it, `knowledge-gap` when it needs a source the vault doesn't have:
+
+```
+- [ ] Adjudicate <page-a> vs <page-b>: <the claim in conflict> (maintenance|knowledge-gap, by: <partner>) — closes when: <the bounded act from the callout>
+```
+
+Record the filed item back in the callout's `**Filed:**` line, so the page and the backlog agree.
+
+The merge itself is resolved later by `vlt-ingest` under the consolidation discipline — lint finds, ingest resolves. An adjudicable contradiction resolves the same way when it needs a source (`vlt-ingest`, holding the new source, applies the supersession rules); when the vault's own pages already settle it, the owning partner resolves it in ordinary work. Either way the callout's disposition is updated or the callout removed when the contradiction is gone — **that is the state transition contradictions previously lacked.**
 
 ## Step 5: Emit the structured report
 
@@ -157,8 +165,11 @@ flag_for_human:
   family_issues: [<family: invariant_violation (instance breaches X) | instance_missing (listed instance has no capability)>, ...]
   personalized_extraction_issues: [<artifact: method_not_in_sources (general claim not traced to wiki sources:) | method_in_personalization (personalization_sources carries method, not state)>, ...]
   stale: [<page — reason>, ...]
-  contradictions: [<page-a vs page-b: claim>, ...]          # unhandled — no callout yet
-  contradictions_handled: [<page-a vs page-b: claim>, ...]  # already documented — surfaced, not vanished (a managed disagreement is a feature)
+  contradiction_scan: <P pages compared; D documented, U carrying no disposition; S surfaced-but-declined this run>   # denominator + the stated bound — a bare zero below is not health
+  contradictions: [<page-a vs page-b: claim>, ...]                    # surfaced this run, no callout yet
+  contradictions_open: [<page-a vs page-b: claim>, ...]               # documented, disposition open — documentation IS the resolution
+  contradictions_deferred: [<page-a vs page-b: claim — closes when: X | backlog: <item>>, ...]   # documented, disposition adjudicable — NOT health
+  contradictions_undispositioned: [<page-a vs page-b: claim>, ...]    # documented before the disposition convention, or without one — unclassifiable, stated as such
   thin_pages: [<page>, ...]
 opportunities:
   high_value_gaps: [<concept>, ...]     # full mode
@@ -170,6 +181,8 @@ coverage_caps: [<what was NOT exhaustively checked — budget stop / near-dup ca
 ```
 
 **`files_checked` counting rule (Gap B):** count a page as *checked* only if it was actually read/scanned this run — distinct from `files_listed` (discovered in scope). When the fan-out workflow hits a budget or coverage cap, `files_checked < files_listed` and `coverage_caps` names what was skipped — **surface that; never report a capped sweep as exhaustive.** For a large full-mode sweep, you may additionally offer an HTML rendering if the host has a renderer — otherwise skip it.
+
+**Contradiction reporting.** The three documented slots are **derived from each callout's recorded `Disposition:`**, never from the existence of a callout — a callout with no disposition is `undispositioned`, never defaulted into either real bucket. `contradiction_scan:` carries the denominator and the run's stated bound: how many contradictions were surfaced and deliberately **not** documented (`S`), so a skipped triage is visible rather than silent. **You compose that line yourself** even in full mode — `P` and `S` are this run's own facts (what was compared, what you declined to document) and the fan-out workflow is read-only, so it fills the three documented slots but never the scan line. Per the operating contract's honest-reporting rule — read it there; this line does not restate it.
 
 ## Step 6: Append to the log
 
@@ -183,7 +196,7 @@ Append a partner-tagged entry to `{log}`:
 
 ## Tips
 
-- **Contradictions are features, not bugs** — a well-documented disagreement beats false certainty. Say so loudly, don't quietly pick one.
+- **An *open* contradiction is a feature, not a bug** — a well-documented disagreement between two credible sources beats false certainty. Say so loudly, don't quietly pick one. **An *adjudicable* one is a deferral wearing that costume:** one side is wrong or stale, a bounded act would close it, and it belongs in the backlog with what would close it. The disposition on the callout is what tells them apart — never the fact that someone wrote a callout.
 - **Suggest sources, not just fixes** — the best lint output is often a list of specific source types that would fill a gap.
 - **Don't over-clean** — fix the clear-cut structural issues, flag the content decisions, and leave the judgment calls to the human.
 - **Trust scoped mode** — full-vault linting gets expensive as the wiki grows; trust the scoping unless there's a reason to distrust `{log}`.

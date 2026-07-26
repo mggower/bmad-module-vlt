@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'build a resource doc on X', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/, areas/, or resources/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@3", "wiki-supersession@1", "frontmatter@4", "write-verification@1"]
+depends_on: ["extraction@3", "wiki-supersession@2", "frontmatter@4", "write-verification@1"]
 ---
 
 # vlt-extract
@@ -44,7 +44,7 @@ Draft the artifact as prose shaped for the reader — not a dump of wiki content
 - **Shape for the purpose.** A project brief leads with decisions and open questions; an area dashboard with current state and commitments; a resource doc with clear explanation. Pick the shape from Step 1.
 - **Cite wiki pages inline** via `[[wikilinks]]`; every non-trivial claim is traceable to a page.
 - **Surface contradictions, don't resolve silently.** If two pages disagree on something the artifact must state, raise it with the user before writing a resolution.
-- **Carry forward caveats.** When a source page carries marked contradictions (`[!superseded]`/`[!stale]`, or a Contradictions section), note that caveat in the artifact — don't present a contested claim as settled.
+- **Carry forward caveats.** When a source page carries marked contradictions (`[!superseded]`/`[!stale]`, or a Contradictions section), note that caveat in the artifact — don't present a contested claim as settled. Carry it as what its callout says it is (`{conventions}/wiki-supersession.md`): an `open` contradiction is a genuine caveat ("the sources disagree"), while an `adjudicable` one is a **known unresolved error** and says so — never dressed up as a balanced disagreement.
 - **Leave wiki machinery behind otherwise.** Source counts and routine `[!superseded]` callouts don't belong in the deliverable unless material to the reader; the wiki is the audit trail, the artifact points back via `sources:`.
 
 **Drafting:** for a large artifact, write a working draft to `<target>/<slug>.draft.md` so multi-turn synthesis survives an interruption; finalize by dropping the `.draft` suffix once the user confirms shape and folder. A short artifact can stay in conversation until confirmed.

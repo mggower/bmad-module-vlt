@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@4", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@1", "write-verification@1"]
+depends_on: ["frontmatter@4", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@1"]
 ---
 
 # vlt-ingest
@@ -133,7 +133,7 @@ If the content is **time-sensitive** (pricing, versioned tools, event timelines,
 
 Sections: **Overview** (synthesis across all contributing sources — reads like an encyclopedia entry, flags uncertainty), **Key Facts / Claims** (each with its source), **Connections** (`[[wikilinks]]`), **Contradictions / Open Questions**, **Sources**. When updating, weave new information in — don't append — and bump `last_updated`.
 
-**Supersession (required).** Whenever the source updates, contradicts, refines, or retracts an existing claim, apply the `[!superseded]` / `[!stale]` / page-level patterns from `{conventions}/wiki-supersession.md`. Never silently overwrite; document both sides of a genuine, unresolved contradiction rather than picking a winner.
+**Supersession (required).** Whenever the source updates, contradicts, refines, or retracts an existing claim, apply the `[!superseded]` / `[!stale]` / page-level patterns from `{conventions}/wiki-supersession.md`. Never silently overwrite; document both sides of a genuine, unresolved contradiction rather than picking a winner — which means writing that convention's **contradiction callout with its disposition**: `open` when you are holding two credible sources that genuinely disagree, `adjudicable` when you can see the bounded act that would close it but aren't the one to do it (file it to `{backlog}` — the write-side counterpart of `vlt-lint`'s Step 4).
 
 **Cross-source contradiction summary.** If this one source contradicts claims across **several** pages, surface that as a single systemic observation ("this source challenges the prevailing view on X across N pages") rather than patching each page in isolation — the pattern is the signal.
 
