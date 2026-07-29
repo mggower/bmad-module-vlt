@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 1
+version: 2
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -35,7 +35,7 @@ Tier-1 = checks answerable from the one file being written, amortized into the w
 
 **Per artifact kind, additionally:**
 
-- **Wiki page:** `summary:` present and ≤160 chars; `category:` matches an existing `{index}` H2; `topic:` is a YAML list; `review_after` present **iff** the content is time-sensitive — and a resolved date, not a duration.
+- **Wiki page:** `summary:` present and ≤160 chars; `category:` matches an existing `{index}` H2; `topic:` is a YAML list; `review_after` present **iff** the content is time-sensitive — and a resolved date, not a duration; where the page carries a prose `## Sources` section, it agrees with frontmatter `sources:` — every entry in one is traceable in the other (frontmatter is the source of truth; a page with no prose section is conformant).
 - **Research note:** the Executive Summary is dense and specific; every URL consulted appears in **both** `sources:` and the prose Sources section.
 - **PARA extract:** every wiki page referenced in the body appears in `sources:`; it reads as one shaped deliverable, not stitched wiki excerpts.
 

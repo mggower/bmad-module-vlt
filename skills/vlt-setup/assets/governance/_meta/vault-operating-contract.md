@@ -257,6 +257,8 @@ Both timings **transfer work**, which is what makes them hand-offs. A **consult*
 
 This is the single-home posture applied to reporting: **the rule is stated here and cited elsewhere.** A check does not word its own version of it.
 
+**The rule extends from report slots to the checks that fill them: a check must be able to state what it actually measures, and must report in that vocabulary.** A check whose signal is a proxy — a model's transcription of a mechanical fact, a template's own vocabulary read back as evidence, a heuristic standing in for the property it names — either narrows its claim to what the signal actually establishes, or changes the signal to match the claim. Where the fact a check consumes is exactly computable from the record, compute it: a transcription of the record is testimony about the record, not the record. A proxy that stays is stated as one, beside the finding it produces.
+
 **Boundary clause on derive-first.** Derive-first does not license deriving a state from the residue of the very process that produces it — where the only available signal is the process's own leavings, the state must be recorded, not inferred, or the check must be read in the polarity the evidence actually supports. The two rules are one family: this one governs how a check establishes a truth, the one above governs what it may claim about it.
 
 ## Grounding sufficiency — what a claim may rest on

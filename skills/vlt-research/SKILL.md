@@ -1,6 +1,6 @@
 ---
 name: vlt-research
-depends_on: ["frontmatter@4", "write-verification@1"]
+depends_on: ["frontmatter@4", "write-verification@2"]
 description: Investigate a question against the web and file a standalone research note. Use when the user wants to actively build new knowledge — 'research X', 'deep dive into Y', 'what's the current state of Z', 'get me up to speed on…', or any request to go learn something the vault doesn't yet hold. For a source already captured in the vault, use vlt-ingest; to synthesize what's already filed, use vlt-query.
 ---
 
