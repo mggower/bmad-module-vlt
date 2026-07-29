@@ -28,6 +28,8 @@ export const meta = {
 //                                          //   (reported as a coverage cap).
 //     budgetFloor:     number  (optional) // stop fanning out when budget.remaining() < this (default 40_000)
 //     clusterCap:      number  (optional) // max cross-page contradiction clusters to check (default scales with page count)
+//     pairCap:         number  (optional) // max callout-seeded entity pairs to compare in the second pass (default 24);
+//                                          //   excess seeded pairs are reported in coverage_caps, never silently dropped
 //     scanModel:       string  (optional) // model for the per-page scanners (pure extraction). default 'haiku' — the ~10x cost win.
 //     indexModel:      string  (optional) // model for the index-drift pass (light reasoning). default 'sonnet'.
 //     clusterModel:    string  (optional) // model for the cross-page contradiction pass (light judgement). default 'sonnet'.
@@ -53,6 +55,7 @@ const budgetFloor = a.budgetFloor || 40_000
 const clusterCap = a.clusterCap || Math.max(12, Math.ceil(pages.length / 4))
 // Model tiering — the page scanners are pure structured extraction (the bulk of the spend); a cheap
 // model is sufficient and is where the ~10x cost win lives. Index + cluster passes do light reasoning. (#3 §2)
+const pairCap = Number.isInteger(a.pairCap) ? a.pairCap : 24 // 0 is a valid (test) value — no || fallback
 const scanModel = a.scanModel || 'haiku'
 const indexModel = a.indexModel || 'sonnet'
 const clusterModel = a.clusterModel || 'sonnet'
@@ -64,7 +67,7 @@ if (!pages.length || !indexPath || !conventionsPath) {
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
-  required: ['slug', 'available', 'outbound_links', 'sources_count', 'frontmatter_valid', 'category', 'topic_is_list', 'attestation_present', 'review_after'],
+  required: ['slug', 'available', 'outbound_links', 'sources_count', 'frontmatter_valid', 'category', 'topic_is_list', 'attestation_present', 'review_after', 'name_callout_targets'],
   properties: {
     slug: { type: 'string' },
     available: { type: 'boolean', description: 'false if the page file could not be read — then it is dropped from the reduce' },
@@ -89,6 +92,10 @@ const PAGE_SCAN = {
     unmarked_supersession: { type: 'array', items: { type: 'string' }, description: 'silently-updated/conflicting claims lacking a [!superseded]/[!stale] callout, or consensus claims lacking citations' },
     thin: { type: 'boolean', description: 'few claims, no connections, single source — a merge/stub candidate' },
     key_claims: { type: 'array', items: { type: 'string' }, description: 'up to ~5 short claim summaries, for the cross-page contradiction pass' },
+    name_callout_targets: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['target', 'name'], properties: {
+      target: { type: 'string', description: 'the [[wikilinked]] page the callout names, normalized to a slug' },
+      name: { type: 'string', description: 'the proper noun the callout questions' },
+    } }, description: 'one entry per callout on THIS page that questions a proper noun against another named wiki page (a name-verification / [!stale] callout whose body says this page and that page disagree about a name) — the vault marking a suspect pair. Empty when the page carries none.' },
   },
 }
 
@@ -121,7 +128,7 @@ phase('Scan pages')
 
 const pageScanPrompt = (p) =>
   `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against from ${conventionsPath}/frontmatter.md, ${conventionsPath}/wiki-supersession.md, and ${conventionsPath}/wiki-index.md (read once, apply per page). ` +
-  `Return ONLY findings about THIS page: its outbound [[wikilink]] targets (as slugs), its frontmatter sources: count (number of entries in the frontmatter sources: list), whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the summary: issue if any ('missing' / 'over-length (N chars)' / empty if fine), whether the frontmatter sources: and the prose Sources section diverge (Gap B), its created and last_updated dates verbatim, the write-attestation state (attestation_present = both verified_by and verified_at present; verified_by verbatim; attestation_fresh = verified_at >= last_updated), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, and up to 5 short key-claim summaries. Do not assess other pages — cross-page checks happen later.`
+  `Return ONLY findings about THIS page: its outbound [[wikilink]] targets (as slugs), its frontmatter sources: count (number of entries in the frontmatter sources: list), whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the summary: issue if any ('missing' / 'over-length (N chars)' / empty if fine), whether the frontmatter sources: and the prose Sources section diverge (Gap B), its created and last_updated dates verbatim, the write-attestation state (attestation_present = both verified_by and verified_at present; verified_by verbatim; attestation_fresh = verified_at >= last_updated), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, up to 5 short key-claim summaries, and name_callout_targets — for each callout on this page that questions a proper noun against another named wiki page, the target slug and the name in question (an ordinary [!stale] marker with no cross-page name question yields nothing). Do not assess other pages — cross-page checks happen later.`
 
 const scans = []
 const coverageCaps = []
@@ -240,6 +247,59 @@ const clusterResults = (
   )
 ).filter(Boolean)
 
+// ── Callout-seeded entity-pair pass (B5-2) ───────────────────────────────────
+// Greedy cluster consumption can split even directly-linked pages, and entity_collisions
+// is only ever asked within a cluster — so pairs the vault itself has marked suspicious
+// (a name-verification callout on one page questioning a proper noun against another)
+// are compared here, wherever clustering put them. Seeds are callouts ONLY, never all
+// cross-cluster direct links — the unmarked-split-pair residual is stated in the SKILL's
+// entity_scan: denominator, not chased here.
+const PAIR_FINDINGS = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['entity_collisions'],
+  properties: {
+    entity_collisions: { type: 'array', items: { type: 'string' }, description: 'the SAME proper noun recorded with INCOMPATIBLE attributes across these two pages, as "page-a vs page-b: <name> — <attribute A> vs <attribute B>". Empty when the marked pair does not actually collide.' },
+  },
+}
+
+const pairKey = (x, y) => [x, y].sort().join('|')
+const comparedPairs = new Set()
+for (const group of clustersToCheck)
+  for (let i = 0; i < group.length; i++)
+    for (let j = i + 1; j < group.length; j++) comparedPairs.add(pairKey(group[i].slug, group[j].slug))
+
+const seedMap = new Map() // pairKey -> { a, b, name }
+for (const s of scans)
+  for (const t of s.name_callout_targets || []) {
+    if (!t || !slugSet.has(t.target) || t.target === s.slug) continue
+    const k = pairKey(s.slug, t.target)
+    if (comparedPairs.has(k) || seedMap.has(k)) continue
+    seedMap.set(k, { a: s.slug, b: t.target, name: t.name })
+  }
+const seededPairsTotal = seedMap.size
+let seededPairs = [...seedMap.values()]
+if (seededPairs.length > pairCap) {
+  seededPairs = seededPairs.slice(0, pairCap)
+  const m = `callout-seeded entity-pair check capped at ${pairCap}/${seededPairsTotal} pairs — ${seededPairsTotal - pairCap} vault-marked pairs were NOT compared`
+  coverageCaps.push(m)
+  log(m)
+}
+
+const seededResults = (
+  await parallel(
+    seededPairs.map((pr) => () =>
+      agent(
+        `You are a cross-page entity-collision checker. A name-verification callout marked these two wiki pages as a suspect pair over the proper noun "${pr.name}". Read BOTH at their LIVE paths: ${pr.a} (${pages.find((p) => p.slug === pr.a)?.path || '?'}); ${pr.b} (${pages.find((p) => p.slug === pr.b)?.path || '?'}). ` +
+          `Judge the PAGES, not the callout: report entity_collisions — the same proper noun recorded with incompatible attributes across these two pages, as "page-a vs page-b: <name> — <attribute A> vs <attribute B>". PRECEDENCE — a conflict that is one name carrying incompatible attributes is an entity collision, never also a contradiction. Report nothing else; a marked pair whose pages do not actually collide returns empty (that is the pass working, not failing).`,
+        { label: `entity-pair:${pr.a}+${pr.b}`, phase: 'Reduce + cross-page', schema: PAIR_FINDINGS, model: clusterModel },
+      ),
+    )
+  )
+).filter(Boolean)
+// Duplication with cluster findings is impossible by construction — only never-compared pairs run.
+const seededCollisions = seededResults.flatMap((r) => (r.entity_collisions || []).map((f) => `${f} (callout-seeded)`))
+
 // ── Assemble the structured report (vlt-lint Step 5 shape + Gap B slots) ─────
 const flat = (key) => clusterResults.flatMap((c) => c[key] || [])
 const collect = (key) => scans.flatMap((s) => (s[key] || []).map((v) => `${s.slug}: ${v}`))
@@ -277,15 +337,25 @@ return {
     contradictions_deferred: flat('documented_adjudicable'),
     contradictions_undispositioned: flat('documented_undispositioned'),
     // Source-fidelity findings, kept out of the contradiction slots by the precedence rule in the
-    // cluster prompt. The SKILL composes the entity_scan: denominator line itself (its own run facts,
-    // from files_checked + the cluster cap) — exactly as it does for contradiction_scan:.
-    entity_collisions: flat('entity_collisions'),
+    // cluster prompt. Cluster findings first, then the callout-seeded pair pass's (each carrying a
+    // " (callout-seeded)" provenance suffix — a marker, not a bucket). The SKILL composes the
+    // entity_scan: denominator line itself from the top-level entity_scan_facts below — exactly as
+    // it composes contradiction_scan: from its own run facts.
+    entity_collisions: flat('entity_collisions').concat(seededCollisions),
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
     malformed_frontmatter: scans.filter((s) => s.frontmatter_valid === false).map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,
   },
   opportunities: {
     near_duplicates,
+  },
+  // Honest facts for the SKILL's entity_scan: denominator composition (Step 5) — exact counts
+  // even on an uncapped run, so the line never has to be inferred from cap messages.
+  entity_scan_facts: {
+    clusters_checked: clustersToCheck.length,
+    clusters_total: clusters.length,
+    seeded_pairs_checked: seededPairs.length,
+    seeded_pairs_total: seededPairsTotal,
   },
   coverage_caps: coverageCaps,
 }
