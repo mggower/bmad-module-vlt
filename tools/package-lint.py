@@ -18,7 +18,21 @@ Groups:
       double-quoted in the raw line whenever non-empty (always-quote rule)
   C — resolvability + version agreement: module.yaml parses, module_version
       equals marketplace.json plugins[0].version, governance bundle home exists
-      non-empty, and marketplace skills[] maps one-to-one onto skills/vlt-* dirs
+      non-empty, and marketplace skills[] maps one-to-one onto skills/vlt-* dirs;
+      plus C6 (build B5-7) derived-artifact freshness: vault-rule-card.md exists,
+      its frontmatter derived_from: sha256 equals the shipped contract's actual
+      SHA-256 (a contract edit without re-deriving the card fails), and the card
+      is within its 8,000-byte budget (a digest that balloons re-creates the
+      whale under a new name); plus C7 (build B5-8) router integrity: every
+      skills/vlt-*/references/*.md is named by its skill's SKILL.md or a
+      sibling reference (no orphan reference), every `references/<name>.md`
+      token in a router or reference resolves to a real file (no dangling
+      route), and the two re-cut routers stay within their byte budgets; plus
+      C8 (build B5-9) enforcement-kit agreement: the tripwires seed parses as
+      YAML with every wire carrying all required fields, every wire's metric
+      id exists in vlt-vitals.py's canonical METRICS table (parsed from the
+      asset, never re-declared), vlt-vitals.py compiles, and module.yaml's
+      default map carries the tripwires + lint_reports rows
   D — tag intent: with --expect-version X.Y.Z, both version strings equal it;
       without the flag, reported SKIPPED (not PASS)
   E — self-description integrity (build-23): the dev-side twin of vlt-lint's
@@ -27,9 +41,11 @@ Groups:
       (convention consumers: <-> consumer depends_on: pins, both directions),
       E2 structure-map SSoT (contract's hand-transcribed table <-> module.yaml
       vault_structure.default, its declared source of truth), E3 stray-pin
-      (a name@version pin token in a SKILL.md body, outside depends_on: — a
-      de-facto convention-consumption tell). Retires the self-confirming
-      handshake grep every arc-3 build wrote by hand.
+      (a name@version pin token in a SKILL.md or references/*.md body, outside
+      depends_on: — a de-facto convention-consumption tell; widened to
+      reference files by B5-8, since mechanics moved there exit a
+      SKILL.md-only scan). Retires the self-confirming handshake grep every
+      arc-3 build wrote by hand.
 
 Usage: uv run tools/package-lint.py [--expect-version X.Y.Z] [--root PATH]
 Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
@@ -37,6 +53,7 @@ Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
 
 import argparse
 import csv
+import hashlib
 import importlib.util
 import json
 import re
@@ -205,7 +222,181 @@ def check_group_c(root: Path) -> tuple:
         for unlisted in sorted(on_disk - listed):
             failures.append(f"skills/{unlisted}/ exists but is not in marketplace.json skills[] (silently doesn't ship)")
 
+    failures.extend(check_rule_card(root))
+    failures.extend(check_router_integrity(root))
+    failures.extend(check_enforcement_kit(root))
+
     return failures, (module_version, plugin_version)
+
+
+RULE_CARD_BUDGET = 8000  # bytes — B5-7 disposition 2's acceptance bound
+ROUTER_BUDGETS = {  # bytes — B5-8 disposition 8's acceptance bounds
+    "vlt-dispatch": 14000,
+    "vlt-lint": 12000,
+}
+REF_TOKEN_RE = re.compile(r"references/([A-Za-z0-9_-]+\.md)")
+
+
+def check_router_integrity(root: Path) -> list:
+    """C7 (build B5-8): router<->reference agreement for re-cut skills.
+
+    The re-cut moved skill mechanics into skills/vlt-*/references/*.md read at
+    the moment that uses them — creating a new cross-file agreement with no
+    net. This check is the net, both directions: an orphan reference (on disk,
+    named by no router or sibling reference) and a dangling route (a
+    `references/<name>.md` token naming a file that does not exist) each FAIL.
+    Also enforces the re-cut routers' byte budgets (ROUTER_BUDGETS), the
+    RULE_CARD_BUDGET idiom one artifact class over.
+    """
+    failures = []
+    for skill_dir in sorted(p for p in root.glob("skills/vlt-*") if p.is_dir()):
+        router = skill_dir / "SKILL.md"
+        refs_dir = skill_dir / "references"
+        ref_files = sorted(refs_dir.glob("*.md")) if refs_dir.is_dir() else []
+        scan_files = ([router] if router.is_file() else []) + ref_files
+        texts = {p: p.read_text(encoding="utf-8") for p in scan_files}
+        existing = {r.name for r in ref_files}
+        for ref in ref_files:
+            token = f"references/{ref.name}"
+            if not any(token in texts[p] for p in scan_files if p != ref):
+                failures.append(
+                    f"orphan reference: {ref.relative_to(root)} is named by neither "
+                    f"its SKILL.md nor a sibling reference — nothing routes to it"
+                )
+        for p in scan_files:
+            for lineno, line in enumerate(texts[p].splitlines(), start=1):
+                for m in REF_TOKEN_RE.finditer(line):
+                    if m.group(1) not in existing:
+                        failures.append(
+                            f"dangling route: {p.relative_to(root)}:{lineno} names "
+                            f"references/{m.group(1)} which does not exist"
+                        )
+        budget = ROUTER_BUDGETS.get(skill_dir.name)
+        if budget is not None and router.is_file():
+            size = router.stat().st_size
+            if size > budget:
+                failures.append(
+                    f"router over budget: {router.relative_to(root)} is {size:,} bytes "
+                    f"> {budget:,} (the re-cut's eager surface must stay thin — move "
+                    f"mechanics to references/)"
+                )
+    return failures
+
+
+def check_rule_card(root: Path) -> list:
+    """C6 (build B5-7): derived-artifact freshness for the shipped rule-card.
+
+    The card is factory-authored and MARKED derived (frontmatter derived_from:
+    carries the shipped contract's SHA-256). This check keeps the marker honest
+    by machine, not by memory: a factory edit to the contract without
+    re-deriving the card fails here — the drift this artifact class invites.
+    """
+    failures = []
+    card = root / "skills/vlt-setup/assets/governance/_meta/vault-rule-card.md"
+    contract = root / "skills/vlt-setup/assets/governance/_meta/vault-operating-contract.md"
+    if not card.is_file():
+        return ["rule-card missing: skills/vlt-setup/assets/governance/_meta/vault-rule-card.md (the ceremony's eager read — partners point at it)"]
+
+    size = card.stat().st_size
+    if size > RULE_CARD_BUDGET:
+        failures.append(
+            f"rule-card over budget: {size:,} bytes > {RULE_CARD_BUDGET:,} "
+            f"(a digest that balloons re-creates the whale — re-distill it)"
+        )
+
+    declared = str(_read_frontmatter(card).get("derived_from") or "")
+    m = re.search(r"sha256:([0-9a-f]{64})", declared)
+    if not m:
+        failures.append("rule-card: frontmatter derived_from: carries no sha256:<64-hex> marker")
+    elif not contract.is_file():
+        failures.append("rule-card: shipped contract missing — cannot verify derived_from:")
+    else:
+        actual = hashlib.sha256(contract.read_bytes()).hexdigest()
+        if m.group(1) != actual:
+            failures.append(
+                f"rule-card stale: derived_from sha256 {m.group(1)[:12]}… != shipped contract "
+                f"{actual[:12]}… — the contract changed without re-deriving the card"
+            )
+    return failures
+
+
+def check_enforcement_kit(root: Path) -> list:
+    """C8 (build B5-9): enforcement-kit packaging agreement.
+
+    The kit's promises get a deterministic factory net (the C6/C7 precedent):
+    (a) the tripwires seed parses as YAML and every wire carries all required
+    fields; (b) every wire's metric id exists in vlt-vitals.py's canonical
+    METRICS table — parsed by importing the asset, never re-declared here;
+    (c) vlt-vitals.py compiles; (d) module.yaml's default map carries the
+    tripwires and lint_reports rows the kit resolves through.
+    """
+    import py_compile
+    import tempfile
+
+    failures = []
+    vitals = root / "skills/vlt-setup/assets/hooks/vlt-vitals.py"
+    seed = root / "skills/vlt-setup/assets/tripwires.yaml"
+
+    # (c) the reader compiles — checked first; (b) depends on importing it.
+    # The .pyc goes to a throwaway temp path, never beside the source — a
+    # default cfile would write the very __pycache__ cruft group A polices.
+    if not vitals.is_file():
+        return ["enforcement kit: vitals reader missing: skills/vlt-setup/assets/hooks/vlt-vitals.py"]
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            py_compile.compile(str(vitals), cfile=str(Path(tmp) / "vlt-vitals.pyc"), doraise=True)
+        except py_compile.PyCompileError as e:
+            return [f"enforcement kit: vlt-vitals.py does not compile: {e.msg.splitlines()[-1] if e.msg else e}"]
+
+    metrics = None
+    required_fields = None
+    try:
+        spec = importlib.util.spec_from_file_location("vlt_vitals_lint", vitals)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        metrics = set(mod.METRICS)
+        required_fields = list(mod.WIRE_REQUIRED_FIELDS)  # imported, never re-declared
+        if not metrics:
+            failures.append("enforcement kit: vlt-vitals.py METRICS table is empty")
+    except Exception as e:
+        failures.append(f"enforcement kit: cannot read METRICS/WIRE_REQUIRED_FIELDS from vlt-vitals.py: {e}")
+
+    # (a) seed parses; every wire complete. (b) metric ids canonical.
+    if not seed.is_file():
+        failures.append("enforcement kit: tripwires seed missing: skills/vlt-setup/assets/tripwires.yaml")
+    else:
+        try:
+            data = yaml.safe_load(seed.read_text(encoding="utf-8"))
+            wires = (data or {}).get("wires")
+            if not isinstance(wires, list) or not wires:
+                failures.append("enforcement kit: tripwires.yaml carries no wires: list")
+            else:
+                for w in wires:
+                    wid = (w or {}).get("id", "(no id)")
+                    missing = [f for f in (required_fields or []) if not (w or {}).get(f)]
+                    if missing:
+                        failures.append(
+                            f"enforcement kit: seed wire '{wid}' missing required field(s): {', '.join(missing)}"
+                        )
+                    if metrics is not None and (w or {}).get("metric") not in metrics:
+                        failures.append(
+                            f"enforcement kit: seed wire '{wid}' names metric "
+                            f"'{(w or {}).get('metric')}' — not in vlt-vitals.py's canonical table"
+                        )
+        except Exception as e:
+            failures.append(f"enforcement kit: tripwires.yaml does not parse as YAML: {e}")
+
+    # (d) the structure map carries the kit's two logical paths.
+    try:
+        module = yaml.safe_load((root / "skills/vlt-setup/assets/module.yaml").read_text(encoding="utf-8"))
+        default_map = module["vault_structure"]["default"]
+        for key in ("tripwires", "lint_reports"):
+            if key not in default_map:
+                failures.append(f"enforcement kit: module.yaml vault_structure.default lacks the '{key}' row")
+    except Exception as e:
+        failures.append(f"enforcement kit: cannot read module.yaml default map: {e}")
+
+    return failures
 
 
 def check_group_d(expect: str, versions) -> list:
@@ -320,19 +511,25 @@ def _e2_structure_map(root: Path) -> list:
 
 
 def _e3_stray_pin(root: Path, conv_names: set) -> list:
-    """E3: a name@version pin token in a SKILL.md body (outside depends_on:).
+    """E3: a name@version pin token in a SKILL.md or references/*.md body
+    (outside depends_on:).
 
     The pin token is the strongest machine-detectable signal of convention
     consumption — you write it only to pin. It legitimately lives only in a
     skill's depends_on:; anywhere else it is a near-certain de-facto-consumption
     tell with near-zero false positives. Anchored on the known convention names
     (not a bare \\w+@\\d+) so an email address or unrelated foo@2 cannot trip it.
+    Scope (B5-8): SKILL.md plus skills/vlt-*/references/*.md — the re-cut moved
+    mechanics into reference files, which would otherwise exit this coverage;
+    deliberately NOT a blanket **/*.md (vlt-setup/assets/** is installable
+    payload with its own vault-side jurisdiction).
     """
     failures = []
     if not conv_names:
         return failures
     pattern = re.compile(r"\b(" + "|".join(re.escape(n) for n in sorted(conv_names)) + r")@(\d+)\b")
-    for p in sorted(root.glob("skills/vlt-*/SKILL.md")):
+    targets = sorted(root.glob("skills/vlt-*/SKILL.md")) + sorted(root.glob("skills/vlt-*/references/*.md"))
+    for p in targets:
         rel = p.relative_to(root)
         for lineno, line in enumerate(p.read_text(encoding="utf-8").splitlines(), start=1):
             if line.lstrip().startswith("depends_on:"):

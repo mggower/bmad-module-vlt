@@ -30,7 +30,7 @@ A consult transfers **nothing**. The caller keeps the wheel and gets an attribut
 - **A hand-off** transfers the work *and the wheel* — it ends one sitting and begins another (`vault-operating-contract.md`, *Sessions, sittings, and hand-offs*).
 - **A council** is fixed lenses applied in parallel with no cross-talk, returning a *verdict* — not a partner (`vlt-review-council`).
 
-A consult is none of these: the work does not move, the wheel does not move, and what comes back is a named partner's answer in its own voice.
+A consult is none of these: the work does not move, the wheel does not move, and what comes back is a named partner's answer in its own voice. The summoned partner answers from a **lite boot**, not a full activation (mechanics at `vlt-dispatch`, *Mode: consult*).
 
 ## When a consult is earned
 
@@ -54,7 +54,7 @@ The precondition is bounded to `{specs}`. A partner claiming another's domain in
 
 ## Enforcement
 
-Stage and owner are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `checked`, by `vlt-lint`, at every lint run. The check is the `consult_missing` finding: for each `{specs}` artifact binding a partner other than its owner, `vlt-lint` confirms a `consult:` block in `_agent/dispatch.md` names that `(spec-path, consumer-slug)` pair, and reports the population it compared alongside the blind spot named above. It **never auto-fixes** — a missing consult is closed by *having the consult*, not by lint writing anything.
+Stage and owner are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `checked`, by `vlt-lint`, at every lint run. The check derives **two states** from the records that already exist: **presence** — for each `{specs}` artifact binding a partner other than its owner, `vlt-lint` confirms a `consult:` block in `_agent/dispatch.md` names that `(spec-path, consumer-slug)` pair, flagging the absence as `consult_missing` — and **precedence** — a consult block whose header timestamp is dated **after** the spec's `created:` reports `consult_retroactive`, its own state, not a failure: the precondition was honored late, and the report says so rather than reading presence as precedence. It reports the population it compared alongside the blind spot named above. It **never auto-fixes** — a missing consult is closed by *having the consult*, not by lint writing anything.
 
 There is no deferral: the check exists, its owner is named, and its moment is named, all as of this convention's first version.
 

@@ -1,7 +1,7 @@
 ---
 name: vlt-lint
-description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions. Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything.
-depends_on: ["frontmatter@4", "wiki-index@2", "wiki-supersession@2", "extraction@3", "write-verification@2", "spec@1", "consult@1"]
+description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions (the `lint-debt` tripwire — `{tripwires}` — is the counter behind this phrase). Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything.
+depends_on: ["frontmatter@5", "wiki-index@2", "wiki-supersession@2", "extraction@3", "write-verification@2", "spec@2", "consult@1", "decision-log@1"]
 ---
 
 # vlt-lint
@@ -32,186 +32,34 @@ Extract the `[YYYY-MM-DD HH:MM]` timestamp and **validate it parses as a real da
 find {wiki} {research} {sessions} -type f -name "*.md" -newermt "YYYY-MM-DD HH:MM"
 ```
 
+Two "since last lint" definitions exist **by design**: this step scopes by **file mtime** (which files to read); the `lint-debt` wire counts **ingest ops** from `{log}` headers (how much work has piled up). They can legitimately disagree; neither redefines the other.
+
 **Full** — only when the user says "full lint" / "lint everything" / `--full`. Read every page in `{wiki}` (and `{research}` for deeper checks).
 
 Below, "every wiki page" means the scoped set in scoped mode, or the whole wiki in full mode.
 
-**Full mode at scale → the fan-out workflow.** Reading the whole wiki in one context stops scaling as it grows. When full mode would cover **more than ~30 pages**, delegate the *finding* to the `vlt-lint-full` workflow (installed at `{project-root}/.claude/workflows/vlt-lint-full.js`) instead of reading every page inline:
-
-1. **Discover the page list** — glob `{wiki}` for `*.md` (excluding `{index}`), building `pages: [{slug, path}]` with **live absolute paths** (the agents read the live tree, not a plugin cache). Also glob `{research}` (and any agent-zone note location the wiki conventionally `[[links]]` into) for `*.md` basenames, normalized the same way page slugs are — pass these as `crossLayerSlugs` so a valid cross-layer link isn't reported as a missing target. Also parse `{index}`'s `## Stubs` section for its backtick-wrapped slugs and pass them as `stubSlugs` — a `[[link]]` to a registered stub is a recorded gap (the Stubs section is its record), not a missing target.
-2. **Invoke** `workflow('vlt-lint-full', { pages, indexPath, conventionsPath, crossLayerSlugs, stubSlugs, today })` — passing the live absolute `{index}` and `{conventions}` paths, and `today` as `'YYYY-MM-DD'` (the script has no clock; it needs it to compute `review_due`). It fans out one agent per page (budget-guarded, chunked), reduces the link graph in JS (orphans / missing targets / near-duplicates), and runs an index pass + bounded cross-page contradiction-cluster pass. It is **read-only** — it returns the structured findings (Steps 2 shape, pre-fix), never writes. The workflow tiers its models for cost — page scanners default to a cheap model, the index/cluster passes to a mid model; pass `scanModel`/`indexModel`/`clusterModel` only to override. **On resume** (`resumeFromRunId`), re-pass the full args object — the runtime delivers args fresh per run, so omitting them nulls `pages`/`crossLayerSlugs`/models.
-3. **Then apply Step 3 fixes and Step 4 backlog items yourself**, serially, from the returned `fix_now` / `flag_for_human` / `opportunities` — single-writer safety lives here in the SKILL, not in the parallel finders. The workflow sweeps `{wiki}` only — the PARA attestation scan (`para_missing_attestation`), the governance checks, the enforcement doctrine meta-check, **and the `{research}`-zone graduation-candidacy pass (`linkage_ripe` / `revisit_due` + the widened `topic:`-is-a-list schema check, Step 2)** stay yours; fill those report slots from your own pass. The research-candidacy pass runs **inline** here (per-note reads of `revisit_after:` + `sources:`, cross-read against every wiki page's frontmatter `sources:`, body `[[wikilinks]]`, and prose `## Sources` section), **not** fanned out — for the first cut and typical research-zone sizes that is fine; giving the workflow a `{research}` zone is the named **second-cut** work, not this build. The pass sees only notes on disk in `{research}` at run time and can say nothing about notes that never carried the key, which is what the report's `research_zone:` denominator states (Step 5). Honor any `coverage_caps` the workflow reports (budget stop, near-dup cap, cluster cap) by surfacing them in the report — **never present a capped sweep as exhaustive.**
-
-If the workflow isn't installed, fall back to reading inline. Small full sweeps (≤ ~30 pages) and all scoped runs stay inline — the fan-out only earns its overhead at scale.
+**Full mode at scale.** When full mode would cover **more than ~30 pages**, read `references/full-scale.md` — the fan-out workflow protocol. Scoped runs and small full sweeps stay inline and never open it.
 
 ## Step 1: Read the selected files
 
 Read `{index}` first for the overview, then each selected page in full, noting topics, claims (and sources), outbound links, source count, and `last_updated`.
 
-## Step 2: Checks — two tiers
+## The step sequence (read each reference at the step that uses it)
 
-The split follows the **membership test** in `{conventions}/write-verification.md` (one-file-checkable → tier 1, amortized into the writes; corpus-knowledge → tier 2, this sweep — the test and its promotion path live there, not here).
+- **Step 0 — scope** (above, router-only): pick scoped/full and announce it; a run with nothing in scope since the last lint ends here.
+- **Step 1 — read** (above, router-only): `{index}` first, then each selected page.
+- **Step 2 — checks**: the two-tier catalog (structural, judgment/corpus, governance, research candidacy) — read `references/checks.md` (both modes).
+- **Steps 3+4 — fix and file**: auto-fix safe issues, attest, file backlog items — read `references/fix-and-file.md`.
+- **Step 5 — report**: the structured fence + reporting rules + Tips — read `references/report.md`.
+- **Step 6 — log** (below, router-only): append the `{log}` line.
 
-### Tier 1 — structural (one-file checks)
+## Standing rules (act-blocking; mechanics live in the references)
 
-**Re-scoping rule:** a file whose attestation is present and fresh (`verified_at` ≥ `last_updated` — see `{conventions}/frontmatter.md`, *Write attestation*) **skips tier-1 re-checks** — the writing op already ran them; still re-run tier-1 on **≈1 in 5** attested-and-fresh files (the sample audit, per `write-verification.md`). Unattested or stale-attested files get the full tier-1 pass.
-
-- **Missing targets** — `[[wikilinks]]` pointing at targets that don't exist anywhere. A link that resolves to a **cross-layer note** (a `{research}` or agent-zone note the wiki legitimately references) is **not** missing — only a target that resolves to nothing in the wiki *or* the cross-layer set counts (a target registered under the index's `## Stubs` section is a recorded gap, not a missing target). Per genuinely-missing link: create now (if there's enough to say), remove (speculative), or mark explicitly as a needed stub.
-- **Frontmatter / Bases-field drift** — for every wiki page: `summary:` present and ≤160 chars; `category:` present and **exactly matching an existing `{index}` H2** (the strict binding in `{conventions}/wiki-index.md` — a `category:` that matches no H2, or a wiki page missing one, is a finding); `topic:` present and a **YAML list** (not a delimited string). A category that matches no H2 means either a typo (fix) or a page that needs a new index category (flag — a structural judgment call). The **`topic:`-is-a-YAML-list** requirement (and its string→list auto-fix, Step 3) applies identically to **every `{research}` note** — research notes carry `topic:` in the same list form (`{conventions}/frontmatter.md`), and healing it at lint cadence dissolves the `topic:` raggedness the module's own former scalar write template manufactured. `summary:`/`category:` stay **wiki-only** (research notes carry neither).
-- **Sources-vs-prose agreement** — where a wiki page carries a prose `## Sources` section, compare it against frontmatter `sources:` (the tier-1 item in `{conventions}/write-verification.md`); an entry in one not traceable in the other → `sources_vs_prose_mismatches`. A page with no prose section is conformant — frontmatter is the source of truth.
-- **Attestation findings** (scope rule: `write-verification.md` — attestation is a self-marker; only *unmarked cells claiming to be self* are in jurisdiction, never bare human files) — `para_missing_attestation`: a PARA file carrying vault `type:` + `author: agent|hybrid` with no attestation (the out-of-path-write net — a real finding from day one); `unattested_write`: an agent-lane wiki/research file with no attestation — **informational, not a violation, for files whose `created` predates convention adoption**; `attestation_stale`: `last_updated` > `verified_at` → quietly re-run tier-1 on the file (not a violation).
-- **`review_due`** — `review_after:` in the past → `flag_for_human` (page + date). Checked on **every** file in scope regardless of attestation (attestation is structural, expiry is content). **Never auto-fix, never nag** — the three-outcome review (bump / mark `[!stale]` / remove the key) is judgment work, and escalation of an aging queue is a tripwire concern, not lint's.
-
-### Tier 2 — judgment and corpus (the sweep)
-
-- **Orphan pages** — no inbound links from other wiki pages. (In scoped mode this is orphan-relative-to-scope; flag, don't exhaustively re-check the whole vault.) Fix by adding to related pages' Connections, or flag thin/redundant ones for deletion.
-- **Stale claims** — judge staleness from `last_updated` (frontmatter) and file mtime, cross-checked against newer `{research}` notes / `{log}` ingests on the same topic — not by parsing prose. A page carrying `review_after:` **announces its own expiry** — the tier-1 `review_due` check covers it; no mtime inference needed there. Where a newer source should update a page, surface it.
-- **`[!stale]` handling (explicit)** — surface time-bound claims (a specific date, deadline, or time-sensitive figure) that are past their shelf life and **lack** a `[!stale]` marker, and surface existing `[!stale]` markers for resolution.
-- **Contradictions** — incompatible claims across two pages, self-contradictions within a page, or `{research}` findings that conflict with the wiki. Document in both pages' `## Contradictions / Open Questions` **using the contradiction callout with its disposition** (`{conventions}/wiki-supersession.md`, *Contradiction Callouts* — the format and the `open`/`adjudicable` vocabulary live there, not here); note which source is more recent/authoritative, but never silently pick a winner. A contradiction dispositioned **`adjudicable`** is filed to `{backlog}` in Step 4 — that is its drain, exactly as a merge candidate's is. **Documenting is a bounded judgment call, not an obligation:** on a large sweep, documenting every contradiction found is a heavy, low-reversibility write, so document what earns it and **report the rest as declined, with the count** (Step 5 `contradictions:` plus the `contradiction_scan:` line) — a silent skip is under-delivery the report cannot see (`vault-operating-contract.md`, *Honest reporting*). **Precedence:** a cross-page conflict that meets the entity-collision test below reports as an entity collision and **not** here — one finding, one slot.
-- **Entity collisions** (both modes) — the **same proper noun** recorded with **incompatible attributes** across two wiki pages (two mutually exclusive affiliations, two incompatible roles in the same period). This is its own finding, **not** a contradiction: its remedy is to **re-verify the name against a non-transcribed source or remove it**, not to adjudicate which claim is true — a contradiction presumes two credible sources disagreeing, and this class is one source being wrong twice. The rule and the distinguisher live at `vault-operating-contract.md`, *Grounding sufficiency — what a claim may rest on*; read them there. **Precedence:** a conflict that meets this test is reported here and **not** in `contradictions:` — one finding, one slot.
-
-  **The leading cause, named as a cause and not a test.** Machine-transcribed sources substitute names toward the more prominent figure in a domain, so a collision whose pages trace to one source family is the archetype — but the check does **not** gate on provenance: no schema records that a source was machine-transcribed (`sources:` holds paths/prose; `trust:` is a claim-verification rung, `{conventions}/frontmatter.md`), and derive-first means no new key is added for one check. Fire on the collision; name the suspected cause in the finding. **Never auto-fix** (the standing tier-2 posture) — this is `flag_for_human` plus a backlog item (Step 4), never a silent edit to either page.
-
-  **Its structural blind spot, stated in the check's own text:** a substitution that entered **once** and was never contradicted by another page is invisible to a cross-page test **by construction**. That is what the report's denominator must say (Step 5, `entity_scan:`).
-
-  **Its second leg (full-mode fan-out):** pairs the vault has already marked as suspicious — a name-verification callout on one page questioning a proper noun against another — are compared by a callout-seeded second pass even when cluster bounding would split them. Pages that document their own suspects are never the ones the check can't see. A split pair carrying **no** callout remains uncompared — the denominator states it (Step 5, `entity_scan:`).
-- **Unmarked supersessions** — claims silently updated or conflicting without a `[!superseded]`/`[!stale]` callout; consensus claims ("all sources agree") lacking individual citations or that read like training knowledge; claims missing qualifiers documented in the source. Add the appropriate callout per `{conventions}/wiki-supersession.md`.
-- **Near-duplicates / drift** — pages that have drifted into overlap. Require **two coinciding signals**, not one: a shared-link signal (several shared wikilinks, *excluding* hub/entity pages everything cites) **and** a structural secondary signal (shared slug stem or title overlap). Shared links alone are co-citation noise, not duplication. Compare the *concept*, not just the slug. These are **merge candidates** — file them to the backlog (Step 4); resolution is `vlt-ingest`'s job, not lint's.
-- **Thin pages** — few claims, no connections, single source; flag as merge/stub candidates for the user.
-- **Index drift** — validate `{index}` against `{conventions}/wiki-index.md`: every page appears as a structural row under a sensible `##` category; the index lists no missing or nonexistent pages; the `## Stubs (linked, not yet written)` section is well-formed. The index is a **structural map** — it carries no descriptions, source counts, or dates, so do **not** check those against it (they live in frontmatter, surfaced via Bases). (Runs in both modes.)
-- **Convention coherence** (governance check; both modes) — validate the convention→consumer version handshake. For each `{conventions}/*.md` carrying a `version:` and `consumers:`, read every listed consumer skill's `SKILL.md` `depends_on:` and confirm it pins that convention at the current `version` (entries are flat `name@version` scalars). **Flag** — a consumer whose `depends_on` pins an **older** version (stale ack — the convention moved and the consumer didn't follow), a listed consumer with **no** `depends_on` entry for the convention (unacknowledged), or a `consumers:` entry naming a skill that **isn't installed** (dangling). A consumer's ack covers its own workflow assets (e.g. `vlt-lint` acks for `vlt-lint-full.js`). This check verifies the **pin** — that each listed consumer acks the current `version` — **not** that a consumer's body actually conforms to the convention's rules; content-conformance is out of its jurisdiction (a skill whose text *recites* a convention's mechanics is a consumer and owes an ack, whereas one that merely *points* at the convention survives any rule change unedited and is not one). The module's dev-side release gate carries the mechanical net for this class — `tools/package-lint.py` Group E. **Never auto-fix** — see Step 3.
-- **Enforcement doctrine meta-check** (governance check; both modes) — validate every `{conventions}/*.md` file's enforcement frontmatter against `{conventions}/frontmatter.md` *Enforcement declaration*. **Flag** (`flag_for_human`): `enforcement_missing` (no valid enforcement frontmatter at all), `deferral_invalid` (a deferral missing any of `deferral_metric`/`deferral_threshold`/`review_after`), `deferral_expired` (past its `review_after`), `declared_untripwired` (`enforcement_stage: declared` with no complete deferral). **Also flag** a `{conventions}/*.md` missing `version:`/`consumers:` entirely (`convention_meta_missing`) — without them the file escapes the coherence machinery above. **Never auto-fix** — stages promote through the mint ceremony only, never through lint.
-- **Convention base divergence** (durability safety net; both modes) — a shipped base convention must stay **pristine** so upgrades can refresh it; local additions belong in an overlay (`{overlays}/{name}.overlay.md`), never in the base. For each `{conventions}/{name}.md` with a stock baseline at `{overlays}/.baseline/{name}.md`, compare the two: if the base **differs from its baseline**, the base was hand-edited locally — **flag** it (`convention_base_divergence`) as needing to be lifted into the overlay or upstreamed to the module (the change is generic if it alters a rule rather than adds one). If no baseline exists for a base file, **flag** it once as `baseline_missing` (the upgrade path can't classify hand-edits without it). **Never auto-fix** — a human decides overlay-vs-upstream. *(This is the lint-time half of the detect-and-report safety net; `vlt-upgrade`'s pre-flight is the upgrade-time half.)*
-- **Overlay append-only** (governance check; both modes) — an overlay may only *add*. For each `{overlays}/{name}.overlay.md`, flag (`overlay_not_append_only`) a section heading that duplicates a base heading verbatim (a likely attempt to *replace* a base rule rather than extend it) and any overlay whose `{name}` has no corresponding base convention (`overlay_orphan`). **Never auto-fix** — flag for a human. *(Property: `depends_on` pins are flat base-only `name@version` scalars — see the coherence check above — and overlays are **deliberately unversioned** vault-local additions carrying no handshake axis; an overlay addition is invisible to the version handshake by design, a local extension rather than a consumer-facing rule change.)*
-- **Capability lane-safety** (governance check; both modes) — for each capability file under `{partners}/*/capabilities/*.md`, validate the lane firewall (see the contract's *Capabilities*): a **light** capability (`weight: light` / `write_scope: own-zone`) whose **body describes a write to a *synthesized, single-writer* lane (the wiki), another partner's zone, or a modification of an *existing* `sources/` file** is a lane violation (`capability_lane_violation`) — a **new-file deposit into `sources/`** (the raw-input tray; no single-writer owner) is permitted and is *neither* a lane violation *nor* a scope mismatch (definition: the contract's *Capabilities*); a capability whose declared `write_scope` doesn't otherwise match what its body actually writes is `capability_scope_mismatch`; a `weight:`/`council_class:` not consistent with `write_scope` (own-zone must be light+none; a shared lane must be heavy) is `capability_weight_mismatch`. **Heavy** capabilities should carry a `procedure: { skill: vlt-* }` pointer to an installed op skill — a dangling pointer is `capability_skill_missing`.
-- **Family-invariant conformance** (governance check; both modes) — for each `{capabilities}/families/{family}.md`, read its `## Invariants` and its `instances:`; for every instance partner, confirm a capability declaring `family: { name: {family} }` exists and that its body honors each invariant (e.g. an `own-zone-only` invariant with a body that writes a shared lane is a violation). **Flag** (`family_invariant_violation`) an instance that breaches an invariant, and (`family_instance_missing`) a listed instance with no matching capability file. **Never auto-fix** — these are the propagation/coherence guard; a human reconciles the body or the contract.
-- **Personalized-extraction firewall** (governance check; both modes) — the personalized-extraction widening (`{conventions}/extraction.md`) lets a domain deliverable additionally read the partner's agent-zone state via a separate `personalization_sources:` field, but the hard invariant holds: **every method/general claim must still trace to a wiki page in `sources:`**, and `personalization_sources:` carries **state, never method**. For each extracted artifact carrying `personalization_sources:`, **flag** (a) `method_not_in_sources` — a body claim that reads as general method/knowledge but is **not** covered by any page in its `sources:` (it leaked in via personalization), and (b) `method_in_personalization` — a `personalization_sources:` entry (or operational-log file it points at) that carries general/method knowledge rather than the user's operational state. **Never auto-fix** — flag for the partner to re-ground the claim in the wiki or move it. *(This is the enforcement the widening's prose + verify-checkbox deferred; lint is the net.)*
-- **Spec candidates** (governance check; both modes) — surface handoff docs that have outgrown the handoff class. For each doc in `_agent/handoffs/` that is **revised in place** (carries a "What changed" section) **or** has **≥2 `relay:` entries in `_agent/dispatch.md` pointing at the same path** (**relay entries only** — a `consult:` block grounding in the same path is not a relay notification and must never increment this count, or a doc consulted twice before filing would self-promote), flag it (`spec_candidate`) as a possible `{specs}` contract per `{conventions}/spec.md` — the same signals the proto-spec retrofit (`vlt-upgrade`, *Proto-spec retrofit* — the human-gated offer) surfaces at upgrade time, surfaced here at lint cadence. Derive the count from handoff file state + dispatch relay entries; **no stored counter**. **Never auto-promote** — spec-vs-handoff is a judgment call, so file to the backlog / flag for the human, exactly as merge candidates and `review_due` are surfaced (routing back to the owning partner is not lint's job). An empty `_agent/handoffs/` yields no findings; **the check never alarms on the absence of specs** — it surfaces candidates that exist, never zero-specs.
-- **Consult preconditions** (governance check; both modes) — for each `{specs}` artifact whose `consumers:` name a partner other than its `owner`, confirm a **consult record** exists for each such consumer: a `consult:` block in `_agent/dispatch.md` naming that `(spec-path, consumer-slug)` pair. **Flag** (`consult_missing`) a spec that binds another partner's domain with no consult record for that partner — a contract written to bind a partner that was never asked. The rule and its bound live at `{conventions}/consult.md`; read them there. **Derived from the record, no stored counter** (the `spec_candidate` posture above — the consult block is written *by the consult*, an event, so this derives from a record and not from the residue of the process being checked). **Never auto-fix** — a missing consult is closed by *having the consult*, not by lint writing anything.
-
-  **Its structural blind spot, stated in the check's own text:** this check sees `{specs}` only. A partner claiming another's domain in an ordinary wiki page, research note, or session note carries no machine-readable authority axis to derive from and is invisible to it **by construction**. That is what the report's denominator must say (Step 5, `authority_scan:`).
-- **Research-note graduation candidacy** (candidacy pass; both modes) — a **`{research}`-zone read**, run **inline** in this SKILL's own jurisdiction (like the governance checks above), **not** by the `vlt-lint-full` workflow (which sweeps `{wiki}` only — Step 0). Two surfacing findings, both `flag_for_human`, **never auto-promoted** (routing a ripe note to a partner for graduation is judgment work, the merge-candidate / `review_due` posture).
-
-  **Boundary clause on derive-first** — stated once in the operating contract (*Honest reporting — what a check may claim*); read it there, not from memory. Applied here: this pass derives *absorption* (evidence the wiki has taken a note up), never *graduation* (the event) — which is why **absence** of linkage is the signal and presence of it is not.
-
-  The two findings:
-
-  - **`linkage_ripe`** — a `{research}` note is graduation-**ripe** when the **absorption union finds nothing**: no wiki page shows evidence of having taken the note up. Any absorption signal means **already absorbed ⇒ exclude the note**. The three legs — any one hit excludes:
-    1. **Cited** — a wiki page names the note in its frontmatter `sources:` **or** in its prose `## Sources` section, by path or unambiguous reference. Read **both** surfaces: frontmatter `sources:` entries are sometimes human prose rather than paths, so a frontmatter-only read re-creates a known blind spot — and a blind spot in an absorption test is a false positive (a note called ripe that was in fact absorbed).
-    2. **Linked** — an inbound body `[[wikilink]]` from ≥1 wiki page.
-    3. **Shared-source** — the note and a wiki page share an entry in `sources:`.
-
-    **Report what is missing, not what fired** — under this polarity nothing fires on a ripe note. Surface the note and, where cheap, the nearest-miss context (*no citing page; nearest topical page X*). Field calibration across two opposite-profile vaults: the naive orphan signal (frontmatter citation alone) measured **~79% false-positive** on a mature zone; the absorption union measured **≈0% false-positive**, surfacing **~8–14%** of the research zone. **A high surfacing rate is the failure signature** — if this pass flags most of the zone, the polarity or a leg is wrong. (The name is *historical*: it marks candidacy decided **by** linkage, not candidacy caused by it. This shares polarity with `orphans` — both mean "nothing points here" — the difference being layer: `orphans` is a wiki page with no inbound wiki links; `linkage_ripe` is a research note no wiki page has absorbed.)
-  - **`revisit_due`** — a `{research}` note whose `revisit_after:` is in the past → surface the note and date. Same posture as the wiki `review_due` (tier-1): surface, **never nag, never auto-resolve**. **Absence of `revisit_after:` = not a candidate = zero findings** — legacy research notes generate no noise (backfill is a non-event by construction). Reported per the operating contract's honest-reporting rule: a zero here means *no note carrying the key is past due*, **not** that the zone has no graduation candidates — state how many notes carry `revisit_after:` at all, of how many research notes, so the zero is readable.
-
-  Escalation of an aging graduation queue is a **tripwire concern (the enforcement kit), not lint's** — lint surfaces candidates, the kit escalates (mirroring the `review_due` line in tier 1).
-- **High-value gaps** (full mode only) — concepts referenced across many pages without their own page; candidates for new pages.
-
-## Step 3: Auto-fix the safe issues
-
-Fix directly (bump `last_updated` on any page you substantively edit — e.g. adding a callout; skip the bump for trivial formatting):
-
-- **Index drift** — add missing pages (structural row + right category per `{conventions}/wiki-index.md`), remove non-existent ones, move resolved stubs out of `## Stubs`; set the index `last_updated`. Do **not** add or "correct" source counts/dates — the index doesn't carry them.
-- **Frontmatter / Bases-field drift** — a `category:` with a clear typo for an existing H2 → repoint it. A `topic:` still in old delimited-string form (`a / b` or `a, b`) → convert to a YAML list (general→specific, lowercase) — on **wiki pages and `{research}` notes** alike (`topic:` is a list in both schemas). A missing `summary:` on a page with enough to summarize → draft one ≤160 chars. **Flag, don't mutate:** a `category:` that fits no existing H2 (needs a structural index decision) → `flag_for_human`.
-- **Broken wikilinks** — repoint renamed targets; remove links to targets that clearly won't exist.
-- **Formatting** — standardize frontmatter and required sections.
-- **Unmarked supersession/stale callouts** — add them per the convention.
-
-**Attest what you touched (lint-as-attester, narrowly):** on every file this step's auto-fix substantively edited, re-run tier-1 and write `verified_by: vlt-lint` + `verified_at: <today>` — the auto-fix bumped `last_updated` and would otherwise re-stale the attestation just validated. Never attest a file you merely read (contract: `{conventions}/write-verification.md`).
-
-Do **not** auto-apply: page deletions (flag), contradiction resolutions (document both **with a disposition**, flag; file the `adjudicable` ones to backlog — see Step 4), page merges (file to backlog — see Step 4), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
-
-## Step 4: File maintenance backlog items
-
-For each near-duplicate/merge candidate (and any other maintenance worth doing later), append a `maintenance` item to `{backlog}` under `## Open`, then **mention it in-flow** (capture is cheap and never silent):
-
-```
-- [ ] Merge <page-a> + <page-b> (maintenance, by: <partner>) — near-duplicate: <signal, e.g. slug stem + 4 shared wikilinks>
-```
-
-For each contradiction dispositioned **`adjudicable`** (Step 2 / `{conventions}/wiki-supersession.md`), append its item too — `maintenance` when the vault's own pages settle it, `knowledge-gap` when it needs a source the vault doesn't have:
-
-```
-- [ ] Adjudicate <page-a> vs <page-b>: <the claim in conflict> (maintenance|knowledge-gap, by: <partner>) — closes when: <the bounded act from the callout>
-```
-
-Record the filed item back in the callout's `**Filed:**` line, so the page and the backlog agree.
-
-For each **entity collision** (Step 2, tier 2), append its item too:
-
-```
-- [ ] Verify "<name>" — <page-a> records <A>, <page-b> records <B> (knowledge-gap|maintenance, by: <partner>) — suspected substitution in a machine-transcribed source; closes when: <the name is confirmed against a non-transcribed source, or the claim is recorded without it>
-```
-
-Same routing split: `knowledge-gap` when closing it needs a source the vault doesn't have (a roster, a credited transcript — the usual case), `maintenance` when the vault's own pages settle it. **No `**Filed:**` back-write** — there is no callout to write back into, which is the distinguisher showing through: this class produces no contradiction callout by design.
-
-**Duplicate-filing guard for callout-seeded findings:** for a finding marked `(callout-seeded)`, first read the seeding callout — if it records an existing `{backlog}` item (a "Tracked in" / "Filed" line) and that item is still open under `## Open`, do **not** file a second; mention the existing item in-flow instead. If the callout claims tracking but no open item exists, file one and note the mismatch. The no-`**Filed:**`-back-write rule above stands for *unseeded* findings; a seeded finding's callout is the vault's own record and is left as the page's author wrote it.
-
-The merge itself is resolved later by `vlt-ingest` under the consolidation discipline — lint finds, ingest resolves. An adjudicable contradiction resolves the same way when it needs a source (`vlt-ingest`, holding the new source, applies the supersession rules); when the vault's own pages already settle it, the owning partner resolves it in ordinary work. Either way the callout's disposition is updated or the callout removed when the contradiction is gone — **that is the state transition contradictions previously lacked.**
-
-## Step 5: Emit the structured report
-
-Produce a parseable report (stable keys, so a dashboard can consume it), opening with the mode/scope line. Use a fenced block:
-
-```yaml
-mode: scoped            # scoped | full
-scope_since: 2026-04-19 15:00    # or: full
-files_checked: 10       # pages an agent/this run actually SCANNED (not merely listed/globbed)
-files_listed: 10        # pages discovered in scope (full mode via the workflow reports both — files_checked < files_listed signals a coverage cap)
-fix_now:
-  orphans: [<page>, ...]
-  missing_targets: [<page → target>, ...]
-  index_drift: [<what was fixed>, ...]
-  frontmatter_drift: [<page: summary missing/over-length | topic string→list | category typo repointed>, ...]
-  unmarked_supersessions_fixed: [<page: claim>, ...]
-  sources_vs_prose_mismatches: [<page: frontmatter sources vs prose Sources diverge>, ...]
-flag_for_human:
-  category_no_match: [<page: category 'X' matches no index H2 — needs a category decision>, ...]
-  convention_drift: [<convention@version → consumer acks @N (stale) | <consumer> unacknowledged | <consumer> dangling/not-installed>, ...]
-  enforcement_missing: [<convention: no valid enforcement frontmatter>, ...]
-  deferral_invalid: [<convention: deferral missing metric | threshold | review_after>, ...]
-  deferral_expired: [<convention: deferral past review_after YYYY-MM-DD>, ...]
-  declared_untripwired: [<convention: stage declared, no complete deferral>, ...]
-  convention_meta_missing: [<convention: missing version and/or consumers keys>, ...]
-  para_missing_attestation: [<para-file: vault type + author agent|hybrid, no attestation>, ...]
-  unattested_write: [<page (created YYYY-MM-DD) — informational where created predates convention adoption>, ...]
-  attestation_stale: [<page: last_updated > verified_at — quiet tier-1 re-run>, ...]
-  review_due: [<page — review_after YYYY-MM-DD past>, ...]
-  research_zone: <M notes scanned; N carry revisit_after:>   # candidacy-pass denominator — a bare zero below is not health
-  linkage_ripe: [<research-note — no absorption linkage: cited ∪ inbound wikilink ∪ shared sources>, ...]
-  revisit_due: [<research-note — revisit_after YYYY-MM-DD past>, ...]
-  convention_base_divergence: [<convention: base differs from .baseline — lift to overlay or upstream | baseline_missing>, ...]
-  overlay_issues: [<overlay: duplicates base heading 'X' (not append-only) | overlay_orphan (no base convention)>, ...]
-  capability_issues: [<partner/slug: lane_violation (light cap writes a shared lane) | scope_mismatch (write_scope ≠ actual writes) | weight_mismatch | skill_missing (dangling heavy pointer)>, ...]
-  family_issues: [<family: invariant_violation (instance breaches X) | instance_missing (listed instance has no capability)>, ...]
-  personalized_extraction_issues: [<artifact: method_not_in_sources (general claim not traced to wiki sources:) | method_in_personalization (personalization_sources carries method, not state)>, ...]
-  stale: [<page — reason>, ...]
-  contradiction_scan: <P pages compared; D documented, U carrying no disposition; S surfaced-but-declined this run>   # denominator + the stated bound — a bare zero below is not health
-  contradictions: [<page-a vs page-b: claim>, ...]                    # surfaced this run, no callout yet
-  contradictions_open: [<page-a vs page-b: claim>, ...]               # documented, disposition open — documentation IS the resolution
-  contradictions_deferred: [<page-a vs page-b: claim — closes when X | backlog item>, ...]   # documented, disposition adjudicable — NOT health
-  contradictions_undispositioned: [<page-a vs page-b: claim>, ...]    # documented before the disposition convention, or without one — unclassifiable, stated as such
-  entity_scan: <P pages compared in Q clusters + R callout-seeded pairs; single-mention substitutions are invisible by construction; unmarked split pairs are not compared>   # denominator + blind spot — a bare zero below is not health
-  entity_collisions: [<page-a vs page-b: <name> — <attribute A> vs <attribute B> (suspected source substitution | callout-seeded)>, ...]
-  authority_scan: <S specs compared; T binding a partner other than their owner>   # denominator + blind spot: out-of-authority claims outside {specs} are invisible by construction — a bare zero below is not health
-  consult_missing: [<spec — binds <consumer-slug>, no consult record>, ...]
-  thin_pages: [<page>, ...]
-opportunities:
-  high_value_gaps: [<concept>, ...]     # full mode
-  near_duplicates: [<page-a + page-b (signal)>, ...]
-  source_gaps: [<topic — source type that would help>, ...]
-fixes_applied: [<summary>, ...]
-backlog_filed: [<merge item>, ...]
-coverage_caps: [<what was NOT exhaustively checked — budget stop / near-dup cap / cluster cap>, ...]   # full-mode workflow only; empty when the sweep was exhaustive
-```
-
-**`files_checked` counting rule (Gap B):** count a page as *checked* only if it was actually read/scanned this run — distinct from `files_listed` (discovered in scope). When the fan-out workflow hits a budget or coverage cap, `files_checked < files_listed` and `coverage_caps` names what was skipped — **surface that; never report a capped sweep as exhaustive.** For a large full-mode sweep, you may additionally offer an HTML rendering if the host has a renderer — otherwise skip it.
-
-**Contradiction reporting.** The three documented slots are **derived from each callout's recorded `Disposition:`**, never from the existence of a callout — a callout with no disposition is `undispositioned`, never defaulted into either real bucket. `contradiction_scan:` carries the denominator and the run's stated bound: how many contradictions were surfaced and deliberately **not** documented (`S`), so a skipped triage is visible rather than silent. **You compose that line yourself** even in full mode — `P` and `S` are this run's own facts (what was compared, what you declined to document) and the fan-out workflow is read-only, so it fills the three documented slots but never the scan line. Per the operating contract's honest-reporting rule — read it there; this line does not restate it.
-
-**Entity-collision reporting.** A conflict reported in `entity_collisions:` is **not** also reported in `contradictions:` — one finding, one slot (the precedence rule stated in Step 2). `entity_scan:` carries the population actually compared — pages, clusters, and callout-seeded pairs in full mode (from the workflow's returned `entity_scan_facts` and any pair-cap it surfaces) — **and** names the blind spot beside it: a substitution that entered once and was never contradicted cannot be seen by a cross-page check, and a cluster-bounded sweep did not compare every pair — callout-marked pairs are the stated exception, compared by the seeded second pass; an unmarked split pair remains invisible. **You compose that line yourself** in both modes, as with `contradiction_scan:`. Per the operating contract's honest-reporting rule — read it there.
-
-**Consult-precondition reporting.** `authority_scan:` carries the population the check actually ran against — how many `{specs}` artifacts were compared, and how many of those bind a partner other than their `owner` — **and** names the blind spot beside it: an out-of-authority claim made anywhere other than a spec has no authority axis to derive from and cannot be seen by this check. A vault with no cross-binding spec renders as `authority_scan: <S specs compared; 0 binding another partner>`, **never as silence**. **You compose that line yourself** — this is a governance check, so it is this SKILL's own fact in both modes (the fan-out workflow sweeps `{wiki}` only and never reads `{specs}` or the dispatch record). Per the operating contract's honest-reporting rule — read it there.
+- **Never auto-fix a tier-2 or governance finding** — every one is `flag_for_human` or a backlog filing (the catalog: `references/checks.md`).
+- **Never auto-apply:** page deletions (flag), contradiction resolutions (document both **with a disposition**, flag; file the `adjudicable` ones to backlog — `references/fix-and-file.md`), page merges (file to backlog), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
+- **Single-writer safety lives here in the SKILL, never in parallel finders** — the fan-out workflow is read-only; fixes and backlog writes apply serially here (`references/full-scale.md`).
+- **Lint never stamps `adoption_first_instance:`** — the stamp is the authorized ceremonies' (`vlt-mint`, Step 4).
+- **Write-through records a human's ruling only** — lint never decides (`references/fix-and-file.md`).
 
 ## Step 6: Append to the log
 
@@ -221,11 +69,4 @@ Append a partner-tagged entry to `{log}`:
 ## [YYYY-MM-DD HH:MM] lint (<partner>) | <mode> — checked N files — orphans: X, contradictions: Y, gaps: Z, fixes: <summary>, backlog: M filed
 ```
 
-`<mode>` is `scoped since <timestamp>` or `full`. Write **no** session note — the summoning partner owns the session log (operating contract § session-ownership).
-
-## Tips
-
-- **An *open* contradiction is a feature, not a bug** — a well-documented disagreement between two credible sources beats false certainty. Say so loudly, don't quietly pick one. **An *adjudicable* one is a deferral wearing that costume:** one side is wrong or stale, a bounded act would close it, and it belongs in the backlog with what would close it. The disposition on the callout is what tells them apart — never the fact that someone wrote a callout.
-- **Suggest sources, not just fixes** — the best lint output is often a list of specific source types that would fill a gap.
-- **Don't over-clean** — fix the clear-cut structural issues, flag the content decisions, and leave the judgment calls to the human.
-- **Trust scoped mode** — full-vault linting gets expensive as the wiki grows; trust the scoping unless there's a reason to distrust `{log}`.
+`<mode>` is `scoped since <timestamp>` or `full`. This entry is, **by derivation, the `lint-debt` counter reset** — no bookkeeping step exists anywhere. Also **persist the report** (both modes): write the Step-5 report block **verbatim** to `{lint_reports}/YYYY-MM-DD-HHMM-lint.md` (append-only — never edit, prune, or re-read-to-rewrite past reports; retention is the human's). Write **no** session note — the summoning partner owns the session log (operating contract § session-ownership).

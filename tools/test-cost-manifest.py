@@ -59,9 +59,11 @@ vlt:
 """
 # Deliberately missing from the fixture map (must fall back to the canonical
 # default and be NAMED in the report): sessions, specs, capabilities,
-# personas, contract, upgrade_ledger, archive.
+# personas, contract, upgrade_ledger, archive, plus B5-9's two new canonical
+# rows (tripwires, lint_reports).
 EXPECTED_FALLBACKS = {"archive", "capabilities", "contract", "personas",
-                      "sessions", "specs", "upgrade_ledger"}
+                      "sessions", "specs", "upgrade_ledger",
+                      "tripwires", "lint_reports"}
 
 
 def build_fixture(root: Path) -> dict:
@@ -137,7 +139,7 @@ def case_vault_fixture(root, sizes, out):
     # to EOF — includes the non-header lines between entries.
     slice_start = FIXTURE_LOG.index("## [2026-01-02")
     expected_slice = len(FIXTURE_LOG[slice_start:].encode("utf-8"))
-    assert f"slice — the contract's recency read) | {expected_slice:,} |" in out, out
+    assert f"slice — the declared Beat-2 bound) | {expected_slice:,} |" in out, out
 
 
 @case("2. vault mode: missing structure-map keys fall back, each NAMED")
@@ -178,10 +180,18 @@ def case_module_self_check(root, sizes, out):
     assert r.returncode == 0, r.stderr
     report = r.stdout
     gov = REPO / "skills/vlt-setup/assets/governance/_meta"
+
+    def dir_surface(skill):
+        d = REPO / "skills" / skill
+        files = [d / "SKILL.md"] + sorted((d / "references").glob("*.md"))
+        return sum(p.stat().st_size for p in files)
+
     truth = {
         "contract": (gov / "vault-operating-contract.md").stat().st_size,
-        "lint SKILL": (REPO / "skills/vlt-lint/SKILL.md").stat().st_size,
-        "dispatch SKILL": (REPO / "skills/vlt-dispatch/SKILL.md").stat().st_size,
+        "lint surface (SKILL.md + references/)": dir_surface("vlt-lint"),
+        "lint router (SKILL.md)": (REPO / "skills/vlt-lint/SKILL.md").stat().st_size,
+        "dispatch surface (SKILL.md + references/)": dir_surface("vlt-dispatch"),
+        "dispatch router (SKILL.md)": (REPO / "skills/vlt-dispatch/SKILL.md").stat().st_size,
         "conventions total": sum(p.stat().st_size for p in gov.glob("conventions/*.md")),
         "frontmatter.md": (gov / "conventions/frontmatter.md").stat().st_size,
         "all-SKILL.md total": sum(p.stat().st_size for p in REPO.glob("skills/*/SKILL.md")),

@@ -1,15 +1,15 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-17
+last_updated: 2026-07-30
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 4
-consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint]
+version: 5
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -205,12 +205,13 @@ The vault's evolution intake is a single living file, `{backlog}` — not one fi
 # Backlog
 
 ## Open
-- [ ] <short imperative title> (kind, by: <partner|user>) — <one-line why>
+- [ ] <short imperative title> (kind, by: <partner|user>, blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD) — <one-line why>
 
 ## Done
 - [x] <short imperative title> (kind, by: <partner|user>) — <one-line why> [resolved: <how>]
 ```
 
+- **`blocked`** (the optional third facet) is **triage metadata, never a status** — an item can be open and unblocked. **Optional; absence = untagged (zero backfill)** — never rewrite existing items to add it. **`external-event` requires its companion `YYYY-MM-DD` date** (a dateless external-event block could never age — nothing would ever re-surface it); the date dovetails with `review_after:`'s date semantics (referenced, not redefined). The facet may also ride a dispatch pointer line's paren (see `vlt-dispatch`); `vlt-dispatch ledger` groups open items by it, untagged rows rendering as their own bucket.
 - **`kind`** ∈ `capability-gap` | `maintenance` | `knowledge-gap`:
   - `capability-gap` — a missing operation or partner; `vlt-mint` filters for these.
   - `maintenance` — wiki health work (drift, near-duplicates, stale claims); feeds `vlt-lint` and inline merges via `vlt-ingest`.
@@ -228,7 +229,7 @@ Every convention file in `{conventions}` declares, in its own frontmatter, how t
 enforcement_stage: declared | checked | enforced
 enforcement_checked_by: <owner — a partner or a skill, e.g. vlt-lint>
 enforcement_moment: <the moment the check runs, e.g. lint run | op final-steps | SessionStart hook>
-enforcement_counter: <optional until the enforcement kit lands; then its metric ids are the only legal values>
+enforcement_counter: <optional; when present, must name a metric id from the vitals reader's canonical table (.claude/hooks/vlt-vitals.py) — the enforcement kit's one vocabulary>
 # deferral — ALL THREE required for any deferral; missing any field = invalid:
 deferral_metric: <what is counted>
 deferral_threshold: <numeric tripwire>
@@ -239,7 +240,7 @@ adoption_first_instance: <null | dated reference to the boundary's first live in
 
 Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
 
-**Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference the moment that instance appears, and **null/absent while the class is declared-but-unexercised**. Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet. *Live consumers today:* `vlt-mint` stamps the facet when a mint ceremony produces a convention's first live instance (the same ceremony that promotes `enforcement_stage`), and `vlt-upgrade`'s post-flight report + upgrade ledger surface each convention's adoption state. Its absence remains **not** a `vlt-lint` finding.
+**Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference **by the ceremony that produces it**, and **null/absent while the class is declared-but-unexercised**. Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet. *Live consumers today:* the facet is stamped by the ceremony that produces a convention's first live instance — `vlt-mint` (mint ceremonies, the same ceremony that promotes `enforcement_stage`), the spec promotion step (`spec.md`, *Promotion from candidate*), `vlt-upgrade`'s proto-spec retrofit, and `vlt-dispatch`'s consult record (the authority rule's single home is `vlt-mint`, Step 4) — and `vlt-upgrade`'s post-flight report + upgrade ledger surface each convention's adoption state. Its absence remains **not** a `vlt-lint` finding; `vlt-lint` never writes it.
 
 ## Narrow-convention escape hatch
 

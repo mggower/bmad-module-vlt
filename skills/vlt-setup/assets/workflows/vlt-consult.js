@@ -126,6 +126,7 @@ const consultPrompt =
   (partnersPath
     ? `Also read ${partnersPath}/${toSlug}/identity.md and ${partnersPath}/${toSlug}/thread.md if they exist — your accumulated identity in this vault and what you are currently on. `
     : '') +
+  `You are on a LITE BOOT: read your SKILL for voice, domain, and rules of refusal, your identity.md/thread.md for who you are here, and the GROUND IN paths below — you do NOT run your SKILL's activation ritual (no rule-card or contract read, no Beat 2 orient reads); a consult is depth-1 traffic, not a sitting. ` +
   `If your SKILL file cannot be read, return { available: false } with empty fields and stop — do NOT answer as a generic assistant. ` +
   `\n\nYou have been CONSULTED by the partner "${fromSlug}". A consult is synchronous and depth-1: you answer, and you are done. ` +
   `HARD RULES:\n` +

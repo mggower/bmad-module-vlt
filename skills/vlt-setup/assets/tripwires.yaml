@@ -1,0 +1,57 @@
+# The tripwire registry — vault-level enforcement wires (build B5-9).
+#
+# WHAT THIS IS. The enforcement kit's registry: each wire binds a DERIVED
+# metric to a threshold and a surface. The vitals reader
+# (.claude/hooks/vlt-vitals.py) evaluates every wire on demand (the
+# SessionStart strip; the `vlt-dispatch ledger` Tripped-wires section).
+#
+# DERIVE-FIRST (the design invariant, stated where the file lives): wires
+# reference derived metrics only — NO OP EVER WRITES COUNTERS; every figure
+# is derived fresh from existing vault records at read time. The canonical
+# metric vocabulary is the METRICS table in .claude/hooks/vlt-vitals.py —
+# a wire's `metric` must name an id from that table and no other (an unknown
+# id is a loud per-wire error, never a silent skip).
+#
+# SCHEMA (all seven fields REQUIRED on every wire):
+#   id            — short kebab-case wire name (unique in this file)
+#   metric        — a canonical metric id from the vitals reader's table
+#   threshold     — comparison + integer, e.g. ">= 10" or "> 21"
+#   owner         — the partner slug whose debt this is (who acts on a trip)
+#   moment        — where the trip surfaces (SessionStart strip / ledger)
+#   surface_text  — the short phrase rendered beside the value on a trip
+#   review_after  — date this wire itself should be re-examined (the wiki-page
+#                   key's date semantics, referenced not redefined)
+#
+# WRITE MOMENTS. This registry is written ONLY at rare, human-gated moments:
+# a mint or council verdict that defers an enforcement leg outside any
+# convention's frontmatter (vlt-mint Step 2a / vlt-review-council Step 3 —
+# the non-convention deferral rule), or a deliberate human edit. Frontmatter
+# deferrals remain the per-convention wires (frontmatter.md, Enforcement
+# declaration); this registry holds metrics belonging to no single convention
+# and never duplicates a frontmatter deferral. One finder per fact:
+# lint/dispatch find, tripwires nag.
+#
+# VAULT-GROWN AFTER SEEDING. vlt-setup seeds this file when absent and
+# merges by `id` when present: ship-seeded wires are added only if their id
+# is absent; LOCAL THRESHOLDS WIN; local wires are never dropped or
+# rewritten. Everything below the seed is this vault's to evolve.
+#
+# The two stock wires (the filing's own pair — the alert-fatigue budget is a
+# hard constraint; add a third only when a real failure earns it):
+
+wires:
+  - id: lint-debt
+    metric: ingests_since_lint
+    threshold: ">= 10"
+    owner: librarian
+    moment: SessionStart strip + ledger
+    surface_text: "ingests since the last lint — run vlt-lint"
+    review_after: 2027-01-31
+
+  - id: relay-overdue
+    metric: oldest_open_pointer_days
+    threshold: "> 21"
+    owner: librarian
+    moment: SessionStart strip + ledger
+    surface_text: "days the oldest open dispatch pointer has waited — summon its partner"
+    review_after: 2027-01-31

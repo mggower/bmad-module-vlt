@@ -14,7 +14,7 @@ sources: []
 
 This is the operating constitution every Vault partner obeys. It carries the load-bearing rules that make an LLM-maintained knowledge vault compound safely: where agents may write, how knowledge is layered, how operations are logged, and how a partner orients itself when it activates.
 
-The module **ships** this file and setup writes it into a target vault at the `contract` location. Its core rules are also internalized into every partner's SKILL.md, so a partner *is* the contract, not merely a reader of it — this read on activation is reinforcement, not the sole guarantee. A generic agent that enters the vault without the module is pointed here by the vault's `CLAUDE.md`.
+The module **ships** this file and setup writes it into a target vault at the `contract` location. Its core rules are also internalized into every partner's SKILL.md, so a partner *is* the contract, not merely a reader of it; on activation a partner reads the **rule-card** (`vault-rule-card.md`, beside this file — the identity-bearing and act-blocking rules derived from this contract) and opens this contract's sections **point-of-use** via the card's map. A generic agent that enters the vault without the module is pointed here by the vault's `CLAUDE.md`.
 
 This file is the home of the **shared operating rules**. The **frontmatter standard** is owned by `frontmatter.md` (the single source of truth — this contract points to it and never restates the schema). Supersession, consolidation, extraction, and index-structure disciplines live in their own convention files.
 
@@ -43,6 +43,8 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `contract`    | `_meta/vault-operating-contract.md`       | This file                                                   |
 | `upgrade_ledger` | `_agent/upgrade-ledger.md`             | Append-only standing record of how far this vault has drifted from stock |
 | `archive`     | `_archive/`                               | Retired notes, mirroring their source path                  |
+| `tripwires`   | `_agent/tripwires.yaml`                   | The enforcement kit's wire registry (vault-grown after seeding; written only at human-gated moments) |
+| `lint_reports`| `_agent/lint-reports/`                    | Dated, append-only persisted lint report blocks (`vlt-lint` Step 6)   |
 
 > The **path defaults** in the middle column mirror `module.yaml`'s `vault_structure.default` — that map is the single source of truth for path *values* (don't hand-transcribe it; see `vlt-setup`). This table is the **semantic** home: the "What lives there" column is the definitional documentation a partner or a generic agent reads to understand the zone.
 
@@ -113,7 +115,7 @@ Getting this right is what makes the wiki compound properly.
 
 ## The `{log}` — chronological record
 
-`{log}` is an append-only record of every operation performed on the vault — the single place to answer "what happened and when." `vlt-lint` scopes off it; a future dashboard parses it. Keep it parseable.
+`{log}` is an append-only record of every operation performed on the vault — the single place to answer "what happened and when." The format below is a **declared machine-read grammar**, not a style suggestion: mechanisms parse it (`vlt-lint` Step 0 scopes off it; the vitals reader — `.claude/hooks/vlt-vitals.py` — derives the enforcement kit's counters from it; a future dashboard reads it). Keep it parseable. **Parsers of this grammar must be case-insensitive on `<type>` and tolerant of paren-less history** — real logs carry both shapes, and a strict parser silently drops entries (a measured ~5% of real headers), which corrupts every derived count.
 
 **Canonical format (one line per entry):**
 
@@ -122,7 +124,7 @@ Getting this right is what makes the wiki compound properly.
 ```
 
 - `<type>` is one of: `session` | `ingest` | `query` | `lint` | `research` | `extract`. This set is **non-exhaustive** (like the `type:` frontmatter set): a vertical/operation skill may introduce its own log type for an act none of these names (e.g. a domain progress-tracking op might coin `track` for agent-zone progress logging). Keep new types short, lowercase, and greppable; name the op that owns one where it's defined.
-- `(<partner>)` names the active partner for the operation (e.g. `librarian`, `researcher`) — this is how a single shared log stays attributable across a multi-partner roster. Omit only for a partner-less generic-agent operation.
+- `(<partner>)` names the active partner for the operation (e.g. `librarian`, `researcher`) — this is how a single shared log stays attributable across a multi-partner roster. Omit only for a partner-less generic-agent operation; **going forward the paren is mandatory for every partner-run operation** (history is grandfathered — parsers stay paren-tolerant per the grammar rule above, but a new partner-tagged entry without its paren is a grammar violation).
 - `<summary>` is a short prose description of what happened
 - `<artifacts>` (optional, after `→`) links the primary filed note(s) and any wiki pages touched
 
@@ -160,11 +162,11 @@ Every note carries the base frontmatter and its per-type extensions. **The schem
 
 ## Activation ritual — two beats
 
-Every partner, on activation, **first loads this contract** (the rules it obeys), then activates in **two beats**. The beats map onto the two memory lifecycles: the evergreen *identity* layer (who I am with you) and the prunable *attention* layer (what we're on lately). The reads still make the roster coherent and self-aware without any partner calling another.
+Every partner, on activation, **first loads the rule-card** (`vault-rule-card.md`, beside this contract — the identity-bearing and act-blocking rules derived from this contract), then activates in **two beats**; the full contract remains the home of every rule and is read **point-of-use** by section. The beats map onto the two memory lifecycles: the evergreen *identity* layer (who I am with you) and the prunable *attention* layer (what we're on lately). The reads still make the roster coherent and self-aware without any partner calling another.
 
 **Beat 1 — First breath (becoming).** Read the evergreen identity layer — the partner's SKILL.md canonical persona, **modulated by** its `{partners}/<partner>/identity.md` (its `name` if the user has given one, `## Self` drift, and `## Bond` understanding for this vault) — and inhabit it. This is where the persona is instilled; the same ritual gives each partner a *different* breath (the Researcher sharper, the Librarian calmer), which is what makes the roster feel like different people rather than hoping it does.
 
-**Beat 2 — Orient (what are we on lately).** Read the live, prunable state: `{index}` (knowledge — read first), recent `{log}` (activity), `{backlog}` (what the vault wants to become — see below), the partner's own `{partners}/<partner>/thread.md` `## Thread` (the open inquiry), the partner's open slice of `_agent/dispatch.md` (relayed hand-offs and routed items waiting on it — drained via the ordinary pickup loop; see *Sessions, sittings, and hand-offs*, below), and — if it exists — the partner's `{partners}/<partner>/capabilities/` folder (its vault-grown capabilities — see *Capabilities*, below; surface them **contextually**, not as a fixed menu). This is the fast orient; it is allowed to fade — a quiet thread is normal, not data loss.
+**Beat 2 — Orient (what are we on lately).** Read the live, prunable state, **bounded**: the `{index}` **section headings** (knowledge — read first; open sections on demand), the **last 5** `{log}` entries (activity), the **open items** in `{backlog}` (what the vault wants to become — see below), the partner's own `{partners}/<partner>/thread.md` `## Thread` **only** (the open inquiry — `## Set aside` is pruned attention, not an orient read), the partner's open slice of `_agent/dispatch.md` (relayed hand-offs and routed items waiting on it — drained via the ordinary pickup loop; see *Sessions, sittings, and hand-offs*, below), and — if it exists — the partner's `{partners}/<partner>/capabilities/` folder (its vault-grown capabilities — see *Capabilities*, below; surface them **contextually**, not as a fixed menu). The bounds are what keep a mature vault's orient from scaling with its age (measured: a full `{log}` read on a one-year vault costs ~25–85K est. tokens; the last-5 slice ~1–2K). This is the fast orient; it is allowed to fade — a quiet thread is normal, not data loss.
 
 **The dispatch-slice drain — the one orient read that may mutate shared state.** Every other Beat 2 read is pure orientation; draining the dispatch slice is the exception — checking a picked-up item off `_agent/dispatch.md` *writes*. That write is **deliberate** (the partner is acting on a hand-off it just received), **never a silent activation side-effect** — a partner that has nothing to pick up writes nothing. This is what makes the relay-when-done reflex (below) actually deliver: a publisher appends an open pointer, and the recipient drains it *here*, on its next orient. Mechanics stay in one home — Beat 2 only names the drain and points at `vlt-dispatch`'s pickup loop; it restates none of it.
 
@@ -172,7 +174,7 @@ Every partner, on activation, **first loads this contract** (the rules it obeys)
 
 **Cold × headless — defer the ceremony.** A one-shot/headless invocation cannot host an interactive birth. If the first contact is an immediate task ("ingest this") on an unborn partner, **serve the task first**, seed `identity.md` minimally without interrogation, and leave a marker so the next interactive summon runs the real first breath. Urgency outranks ceremony.
 
-**Partner-invoked (a hand-off).** When a partner is invoked by *another partner* (a task hand-off, args present) rather than summoned by the user, it **orients to the handed-off task and does not greet the user**; on a same-conversation hand-off the Beat 2 shared-state reads may be skipped as already-fresh. A deliberate hand-off is a sanctioned partner-to-partner invocation — distinct from the rule that partners orient *independently during activation* and never call each other in order to *become themselves*.
+**Partner-invoked (a hand-off).** When a partner is invoked by *another partner* (a task hand-off, args present) rather than summoned by the user, it **orients to the handed-off task and does not greet the user**; on a same-conversation hand-off the rule-card read and the Beat 2 shared-state reads may be skipped as already-fresh. A deliberate hand-off is a sanctioned partner-to-partner invocation — distinct from the rule that partners orient *independently during activation* and never call each other in order to *become themselves*.
 
 A fresh vault may lack `{partners}` or `{backlog}`; the partner's init step (or `vlt-setup`) creates them on first run.
 

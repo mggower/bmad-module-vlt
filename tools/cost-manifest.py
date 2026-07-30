@@ -28,137 +28,47 @@ Exit: 0 = report produced; 2 = error (e.g. vault has no _bmad/config.yaml).
 """
 
 import argparse
-import re
+import importlib.util
 import sys
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
 # SHARED MEASUREMENT SUBSTRATE (arc-5 pre-ideation ruling 1)
 #
-# The one derive-only reader over existing vault records. B5-9's enforcement-
-# kit vitals EXTEND these functions; they never lay a second substrate. Homed
-# in tools/ for now — the module-owned-code-home question (A5-19 Q1) re-opens
-# at B5-9's brief and is deliberately not answered here.
+# The one derive-only reader over existing vault records. Re-homed to the
+# shipped asset skills/vlt-setup/assets/hooks/vlt-vitals.py by B5-9 (the
+# A5-19 Q1 code-home question resolved: {root}/.claude/hooks/, the Arc-3
+# decide-once ruling) so an installed vault can run it too. THIS TOOL IS A
+# CONSUMER: it imports the substrate — the tolerant {log} parser, the
+# structure-map resolver, the canonical metric table — and never re-declares
+# any of it. One parser, two callers, zero second substrates.
 # ---------------------------------------------------------------------------
 
-# Tolerant {log} header parser, per the contract's canonical entry grammar
-# (vault-operating-contract.md "The {log} — chronological record"):
-#   ## [YYYY-MM-DD HH:MM] <type> (<partner>) | <summary> [→ <artifacts>]
-# Tolerances (A5-19's residual probe: strict parsing drops ~5% of real
-# headers): case-insensitive type; paren optional (omittable for partner-less
-# generic operations per the contract). The trailing "|" stays required so a
-# non-header "## " line cannot match.
-LOG_HEADER_RE = re.compile(
-    r"^##\s*\[([^\]]+)\]\s*([A-Za-z][A-Za-z0-9_-]*)\s*(?:\(\s*([^)]*?)\s*\))?\s*\|",
-    re.IGNORECASE,
+sys.dont_write_bytecode = True  # the import must not shed __pycache__ into skills/
+
+_VITALS_PATH = (
+    Path(__file__).resolve().parent.parent
+    / "skills/vlt-setup/assets/hooks/vlt-vitals.py"
 )
-# Fallback shape seen in real logs: the bracket swallowed type and partner —
-# `## [2026-07-18 track (chess-coach)] | …`. The type must start with a letter,
-# so a well-formed `[YYYY-MM-DD HH:MM]` bracket can never match this one.
-LOG_HEADER_FALLBACK_RE = re.compile(
-    r"^##\s*\[([^\]\s]+(?:\s+[^\]\s]+)*?)\s+([A-Za-z][A-Za-z0-9_-]*)\s*(?:\(\s*([^)]*?)\s*\))?\s*\]\s*\|",
-    re.IGNORECASE,
-)
-DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+_spec = importlib.util.spec_from_file_location("vlt_vitals", _VITALS_PATH)
+_vitals = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_vitals)
 
-
-def parse_log_entries(text):
-    """Parse {log} text -> list of entries, file order (the log is append-only).
-
-    Each entry: {"date": "YYYY-MM-DD" or None, "type": lowercased str,
-    "partner": lowercased str or None, "start": char offset of the header}.
-    Derive-only: no thresholds, no judgments.
-    """
-    entries = []
-    offset = 0
-    for line in text.splitlines(keepends=True):
-        m = LOG_HEADER_RE.match(line) or LOG_HEADER_FALLBACK_RE.match(line)
-        if m:
-            date_m = DATE_RE.search(m.group(1))
-            partner = m.group(3)
-            entries.append(
-                {
-                    "date": date_m.group(0) if date_m else None,
-                    "type": m.group(2).lower(),
-                    "partner": partner.strip().lower() if partner and partner.strip() else None,
-                    "start": offset,
-                }
-            )
-        offset += len(line)
-    return entries
-
-
-def parse_block_map(lines, section_path):
-    """Extract a flat `key: value` block map nested under section_path.
-
-    A deliberately narrow YAML-subset reader (stdlib-only) for the two
-    installer-materialized shapes this tool needs: `vlt.vault_structure` in a
-    vault's _bmad/config.yaml and `vault_structure.default` in module.yaml.
-    Walks indentation; skips blanks/comments; strips quotes. Returns {} if the
-    section is absent.
-    """
-    depth = 0
-    section_indent = -1
-    result = {}
-    in_target = False
-    for raw in lines:
-        if not raw.strip() or raw.lstrip().startswith("#"):
-            continue
-        indent = len(raw) - len(raw.lstrip())
-        stripped = raw.strip()
-        if in_target:
-            if indent <= section_indent:
-                break
-            m = re.match(r"^([A-Za-z_][\w-]*):\s*(\S.*)$", stripped)
-            if m:
-                result[m.group(1)] = m.group(2).strip().strip("'\"")
-            continue
-        if indent <= section_indent:
-            # left the section we were descending through
-            depth = 0 if indent == 0 else depth
-            section_indent = -1 if indent == 0 else section_indent
-        want = section_path[depth]
-        if stripped == f"{want}:" or stripped.startswith(f"{want}:"):
-            if depth == len(section_path) - 1:
-                in_target = True
-                section_indent = indent
-            else:
-                depth += 1
-                section_indent = indent
-    return result
+parse_log_entries = _vitals.parse_log_entries
+parse_block_map = _vitals.parse_block_map
 
 
 def resolve_structure_map(vault_root, module_root):
-    """Resolve a vault's structure map: vault config first, canonical default
-    (module.yaml vault_structure.default — the SSoT) for any missing key.
-
-    Returns (map, fallback_keys). Raises FileNotFoundError if the vault has no
-    _bmad/config.yaml at all (not a vlt install — a hard error, never a silent
-    all-defaults guess).
-    """
-    config = vault_root / "_bmad" / "config.yaml"
-    if not config.is_file():
-        raise FileNotFoundError(
-            f"no _bmad/config.yaml under {vault_root} — not an installed vault"
-        )
-    vault_map = parse_block_map(
-        config.read_text(encoding="utf-8", errors="replace").splitlines(),
-        ["vlt", "vault_structure"],
-    )
+    """Resolve a vault's structure map via the substrate's resolver, with the
+    canonical default map (module.yaml vault_structure.default — the SSoT)
+    substituted for the asset's embedded installed-vault defaults."""
     default_map = parse_block_map(
         (module_root / "skills/vlt-setup/assets/module.yaml")
         .read_text(encoding="utf-8", errors="replace")
         .splitlines(),
         ["vault_structure", "default"],
     )
-    resolved, fallbacks = {}, []
-    for key in sorted(set(default_map) | set(vault_map)):
-        if key in vault_map:
-            resolved[key] = vault_map[key]
-        else:
-            resolved[key] = default_map[key]
-            fallbacks.append(key)
-    return resolved, fallbacks
+    return _vitals.resolve_structure_map(vault_root, default_map=default_map)
 
 
 # ---------------------------------------------------------------------------
@@ -241,14 +151,16 @@ HONESTY_HEADER = """\
 # ---------------------------------------------------------------------------
 
 # Eager/contingent grouping — encodes, as data, the activation ritual's two
-# documented prose homes: every partner opens with a full contract read
-# (partner SKILL.md "Become yourself — the two-beat ritual") and the contract's
-# "Activation ritual — two beats" section; governance conventions are lazy
-# point-of-use reads (partner SKILL "Ending a sitting" reads frontmatter.md at
-# need; vlt-lint reads conventions per check). This constant is a soft third
-# home of that grouping (brief B5-1, Out of scope 6) — if the prose homes move,
-# update it here.
+# documented prose homes: every partner opens with a rule-card read (partner
+# SKILL.md "Become yourself — the two-beat ritual", post-B5-7 boot diet) and
+# the contract's "Activation ritual — two beats" section; the contract itself
+# and the governance conventions are lazy point-of-use reads (sections opened
+# via the card's map; partner SKILL "Ending a sitting" reads frontmatter.md at
+# need; vlt-lint reads conventions per check). This constant pair is a soft
+# third home of that grouping (brief B5-1, Out of scope 6) — if the prose
+# homes move, update it here.
 CONTRACT_REL = "skills/vlt-setup/assets/governance/_meta/vault-operating-contract.md"
+RULE_CARD_REL = "skills/vlt-setup/assets/governance/_meta/vault-rule-card.md"
 GOVERNANCE_REL = "skills/vlt-setup/assets/governance/_meta"
 WORKFLOWS_REL = "skills/vlt-setup/assets/workflows"
 
@@ -264,24 +176,28 @@ def module_mode(root):
     )
 
     contract = root / CONTRACT_REL
+    rule_card = root / RULE_CARD_REL
 
-    # Per-partner fixed boot: SKILL.md + full contract read, per activation.
+    # Per-partner fixed boot: SKILL.md + rule-card read, per activation
+    # (post-B5-7: the contract is a lazy point-of-use read, no longer eager).
     out.append("\n## Per-partner fixed boot (eager — paid at every activation)\n")
     out.append(
-        "Every partner activation opens with its SKILL.md plus a full "
-        "operating-contract read (the two-beat ritual's opener).\n"
+        "Every partner activation opens with its SKILL.md plus the rule-card "
+        "read (the two-beat ritual's opener); the full operating contract is "
+        "a lazy point-of-use read via the card's section map.\n"
     )
     partner_skills = sorted(root.glob("skills/vlt-agent-*/SKILL.md"))
     contract_m = measure_file(contract)
+    card_m = measure_file(rule_card) or (0, 0, 0, 0)
     boot_rows = []
     for skill in partner_skills:
         skill_m = measure_file(skill)
         partner = skill.parent.name
-        combined_bytes = skill_m[0] + contract_m[0]
-        combined_words = skill_m[1] + contract_m[1]
+        combined_bytes = skill_m[0] + card_m[0]
+        combined_words = skill_m[1] + card_m[1]
         boot_rows.append(
             (
-                f"{partner} (SKILL.md {skill_m[0]:,} + contract {contract_m[0]:,})",
+                f"{partner} (SKILL.md {skill_m[0]:,} + rule-card {card_m[0]:,})",
                 combined_bytes,
                 combined_words,
                 round(combined_words * 1.3),
@@ -296,12 +212,15 @@ def module_mode(root):
     gov_files = sorted(p for p in gov.rglob("*") if p.is_file())
     conv_rows = sized_rows([p for p in gov_files if p.parent.name == "conventions"], root)
     other_rows = sized_rows(
-        [p for p in gov_files if p.parent.name != "conventions" and p != contract], root
+        [p for p in gov_files if p.parent.name != "conventions" and p not in (contract, rule_card)],
+        root,
     )
     out.append("Conventions (`_meta/conventions/`):\n")
     out.append(table(conv_rows, total_label="conventions total"))
-    out.append("\nContract (broken out — it is the eager read above):\n")
+    out.append("\nContract (broken out — the tracked whale, now a lazy point-of-use read):\n")
     out.append(table(sized_rows([contract], root)))
+    out.append("\nRule-card (broken out — it is the eager ceremony read above):\n")
+    out.append(table(sized_rows([rule_card], root)))
     if other_rows:
         out.append("\nOther `_meta/` files:\n")
         out.append(table(other_rows, total_label="other _meta total"))
@@ -311,6 +230,11 @@ def module_mode(root):
 
     # Skill surface — SKILL.md files only (the capture's correction).
     out.append("\n## Skill surface (SKILL.md files only — not whole skill dirs)\n")
+    out.append(
+        "The two re-cut skills (`vlt-lint`, `vlt-dispatch`) additionally carry "
+        "on-demand `references/*.md` read at the step/mode that uses them "
+        "(build B5-8) — measured in the named aggregates below.\n"
+    )
     skill_rows = sized_rows(sorted(root.glob("skills/*/SKILL.md")), root)
     out.append(table(skill_rows, total_label="all SKILL.md total"))
 
@@ -320,12 +244,28 @@ def module_mode(root):
     out.append(table(wf_rows, total_label="workflows total"))
 
     # Named aggregates — the whales the captures track, one diffable block.
+    # The two re-cut whales (B5-8) are dir-aware: the tracked line measures the
+    # whole surface the skill can read (router + references/), with a (router)
+    # row beside it for the eager/trigger share — that split IS the re-cut's
+    # claim, so the instrument states both.
     out.append("\n## Named aggregates (the tracked whales — one diff line each)\n")
+
+    def skill_dir_surface(skill_name):
+        d = root / "skills" / skill_name
+        files = [d / "SKILL.md"]
+        refs = d / "references"
+        if refs.is_dir():
+            files += sorted(refs.glob("*.md"))
+        rows = sized_rows(files, root)
+        return sum_rows(rows) if rows else None
+
     agg_rows = []
     for name, m in [
         ("contract", contract_m),
-        ("lint SKILL", measure_file(root / "skills/vlt-lint/SKILL.md")),
-        ("dispatch SKILL", measure_file(root / "skills/vlt-dispatch/SKILL.md")),
+        ("lint surface (SKILL.md + references/)", skill_dir_surface("vlt-lint")),
+        ("lint router (SKILL.md)", measure_file(root / "skills/vlt-lint/SKILL.md")),
+        ("dispatch surface (SKILL.md + references/)", skill_dir_surface("vlt-dispatch")),
+        ("dispatch router (SKILL.md)", measure_file(root / "skills/vlt-dispatch/SKILL.md")),
         ("conventions total", sum_rows(conv_rows) if conv_rows else None),
         ("frontmatter.md", measure_file(gov / "conventions/frontmatter.md")),
         ("all-SKILL.md total", sum_rows(skill_rows) if skill_rows else None),
@@ -382,7 +322,7 @@ def vault_mode(vault_root, module_root):
         start = entries[-5]["start"] if len(entries) >= 5 else (entries[0]["start"] if entries else len(log_text))
         rows.append(
             (
-                f"{smap['log']} (last-5-entries slice — the contract's recency read)",
+                f"{smap['log']} (last-5-entries slice — the declared Beat-2 bound)",
                 *measure_text(log_text[start:]),
             )
         )

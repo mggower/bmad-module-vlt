@@ -44,6 +44,7 @@ The workflow selects the panel (full panel for a debate, the fixed `kind → cou
 
 - **Debate** → return the verdict to the summoning partner / user. If it's worth preserving, **hand it to the Librarian** (`vlt-ingest`) to file — typically as a `{research}` note capturing the question, the positions, and the verdict. The council never writes canonical wiki pages itself (single-writer); the Librarian files and logs. If the verdict isn't worth keeping, it lives in the partner's session note.
 - **Mint review run by hand** → return the verdict; `vlt-mint` owns recording it and gating the mint. (When `vlt-mint` invokes the workflow itself, capture is part of its Step 2a — not this SKILL's job.)
+- **A deferral needs a wire.** A verdict that defers an enforcement leg with **no convention frontmatter to carry the deferral** (an "until it bites" deferral) MUST register a wire in `{tripwires}` — `id`, `metric` (from the vitals reader's canonical table), `threshold`, `review_after` and the other schema fields per the registry's header — in the same human-gated moment as the verdict itself. The registry is written **only** at these moments and by deliberate human edit; **no op ever writes counters** (the derive-first invariant, cited).
 
 ## This skill does not…
 

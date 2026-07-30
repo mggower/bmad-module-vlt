@@ -1,6 +1,6 @@
 ---
 name: vlt-mint
-depends_on: ["spec@1", "frontmatter@4"]
+depends_on: ["spec@2", "frontmatter@5", "decision-log@1"]
 description: Grow the vault's cast — add a capability (light partner-owned or heavy op skill), mint a new partner, a persona self-edit, a convention edit, migrate or retire a capability, run family ops, or retire a partner. Use when a partner says 'I keep needing X — let me build it', or the user says 'mint a partner', 'add a capability', 'evolve the roster', 'edit my persona', 'move X to Y', or 'retire a partner'. The module's self-evolution engine; a capability every partner can reach for mid-flow.
 ---
 
@@ -65,23 +65,9 @@ For the **gated kinds** (`new partner`, `persona self-edit`, `convention edit`) 
 - **Update it at each phase boundary** — the exit gates are the write points: after the brief is confirmed (Phase 1), after the verdict + decisions resolve (Phase 2), and on completion (Phase 3).
 - The planning doc is *live/resumable*; the decision log (`_agent/mint/decision-log.md`) is *post-hoc/permanent* — **don't conflate them**. On completion, leave the planning doc in place (git has it; the decision log summarizes).
 
-### The mint decision log — entry schema + supersession idiom
+### The mint decision log
 
-The mint decision log (`_agent/mint/decision-log.md`) is the vault's permanent, upgrade-durable record of every gated decision. Its **entry shape is single-homed here** — `vlt-mint` owns mint-entry mechanics; `vlt-setup` seeds the log from `assets/decision-log-template.md`, and every writer appends in this shape (a mint, a self-grow one-liner, and an **upgrade-time ruling** written through by `vlt-upgrade` — which points here for the shape rather than restating it).
-
-**Entry schema.** Each entry is a dated block:
-
-```markdown
-## [YYYY-MM-DD] <kind> — <one-line subject>
-- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement
-- verdict: <council verdict + reasoning, or `non-boundary: <why>` / `council-none`>
-- convention: <name> <old→new>          # convention-edit ONLY — the version delta
-<free-form detail: what was decided and why>
-```
-
-The `kind:` field is what makes the log **mechanically scopable** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry. An entry written **before** this schema existed carries no `kind:` and cannot be classified — that pre-schema tail is handled honestly by the migration that reads the log, never silently swept.
-
-**Supersession idiom (bespoke to the decision log).** The log is append-only, so a later ruling **never silently overwrites** an earlier logged decision. When a new entry supersedes an earlier one, the new entry carries a `supersedes:` pointer to the superseded entry's heading, and the superseded entry is marked **in place** with `superseded_by:` / `superseded_date:` / `superseded_reason:`. The prior decision stays legible; the change is visible. This mirrors the module's two shipped supersession idioms verbatim in spirit — `wiki-supersession.md`'s page-level frontmatter block and `spec.md`'s structural-rewrite rule (*"Never silent — the same visibility principle"*). It is the decision log's **own** idiom this batch; the governance-wide convergence of the three homes (wiki + spec + decision log under one supersession convention) is a tracked carry-forward debt, not built here.
+The mint decision log (`_agent/mint/decision-log.md`) is the vault's permanent, upgrade-durable record of every gated decision. Its mechanics — the entry schema, the `ref:` machine key, the classifiability tail, and the supersession idiom — are **single-homed at `{conventions}/decision-log.md`**: every writer appends in that shape and points there; do not restate the entry mechanics here. What belongs *here* is the mint-operational side: **when this skill writes** — a gated mint's verdict capture (Step 2a) and its completion record (Step 4), a stage promotion's dated entry (Step 3, *Edit a convention*), the self-grow one-liner (Step 3) — and that `vlt-setup` seeds the log header-only from `assets/decision-log-template.md` when it is absent. The other writers (`vlt-upgrade`'s and `vlt-lint`'s write-throughs) and the readers (the reconcile pass, the read-before-flag) are rostered in the convention.
 
 **Exit gate — Phase 1 → 2:** the user has **confirmed the brief** (for a gated kind, the planning doc records the confirmed brief + decisions-so-far). Don't enter validation until the brief is agreed.
 
@@ -110,7 +96,7 @@ Where the map requires a panel, gate the mint through the council **workflow** �
 
 1. **Stage the pending mint in the live project tree** (not the plugin cache) so the lenses review what will actually go live — write the proposed SKILL.md / edit to its real `{module-skills}` path (or a clearly-marked pending sibling), then point the council at that live, absolute path. (Subagents otherwise resolve files to the plugin cache and would review a stale prior build.)
 2. **Invoke** the council via the Workflow tool — `workflow('vlt-review-council', { mode: 'mint', kind, subject, personasPath })` — where `subject` is a tight summary **plus the live absolute path(s)** of the staged mint (the lenses read those paths directly), `kind` drives panel selection, and `personasPath` is the resolved **live** `{personas}` directory (absolute, `{project-root}`-anchored — passing the live path is the plugin-cache fix). It returns a **structured verdict** — `pass` / `revise` (with the specific `changes`) / `reject` (with the `reason`), plus the moderator's four-part synthesis.
-3. **Capture is mandatory, not optional.** Before the mint goes live, record the verdict **and its reasoning** in the mint decision log (`_agent/mint/decision-log.md`) for the mint, and annotate the originating `{backlog}` item with the outcome. A gated change must carry its own rationale.
+3. **Capture is mandatory, not optional.** Before the mint goes live, record the verdict **and its reasoning** in the mint decision log (`_agent/mint/decision-log.md`) for the mint, and annotate the originating `{backlog}` item with the outcome. A gated change must carry its own rationale. A verdict that **defers an enforcement leg with no convention frontmatter to carry the deferral** (an "until it bites" deferral) MUST register a wire in `{tripwires}` — `id`, `metric` (from the vitals reader's canonical table), `threshold`, `review_after` and the other schema fields per the registry's header — recorded in the same human-gated moment as the verdict itself. The registry is written **only** at these moments and by deliberate human edit; **no op ever writes counters** (the derive-first invariant, cited).
 4. **Act on the verdict:** proceed on `pass`; apply the named changes and re-stage on `revise`; stop (and say why) on `reject`.
 
 **Exit gate — Phase 2 → 3:** the council verdict is **resolved** (a `pass`, or a `revise` applied and re-staged to pass) **and** every open user-decision is **ruled** — **and a boundary-creating mint (per the Phase-1 classifier) cannot pass with neither a bell nor a valid deferral.** Council-none kinds (a light or lane-rightful `add a capability`, `migrate a capability`, `retire a capability`, `create/extend a family`) clear this phase *trivially* — the gate predicate returns "no review required" — but still pass *through* it (the phase boundary holds; they just have nothing to validate). For a gated kind, write the verdict + decisions into the planning doc before building.
@@ -173,7 +159,7 @@ The convention→consumer dependency map is not hand-kept: it lives in each conv
 - A **retired capability**: light = the file is deleted (nothing in the registry); heavy = the op skill is deregistered from the live `module-help.csv`. A **retired** partner is removed from the live `module-help.csv`; its skill folder is removed after its `identity.md` + `thread.md` are archived.
 - **Family ops** register nothing in the help CSV — a family contract lives at `{capabilities}/families/{family}.md` (agent zone).
 
-- **Stamp first adoption when a mint produces one.** When this ceremony produces the **first live instance** of a boundary a `{conventions}` file declares — the first spec minted under `spec.md`, the first consolidation performed under `wiki-consolidation.md` — set that convention's `adoption_first_instance:` to a dated reference to the instance and record the stamp in `_agent/mint/decision-log.md` alongside the ceremony's other rulings. It is a stamp set **once, never a counter** (`{conventions}/frontmatter.md`, *Adoption axis*) — if the key already carries a date, leave it. Nothing else may write this key; `vlt-lint` never does. Most ceremonies produce no first instance and skip this.
+- **Stamp first adoption when a mint produces one.** When this ceremony produces the **first live instance** of a boundary a `{conventions}` file declares — the first spec minted under `spec.md`, the first consolidation performed under `wiki-consolidation.md` — set that convention's `adoption_first_instance:` to a dated reference to the instance and record the stamp in `_agent/mint/decision-log.md` alongside the ceremony's other rulings. It is a stamp set **once, never a counter** (`{conventions}/frontmatter.md`, *Adoption axis*) — if the key already carries a date, leave it. **The authority rule (single home — the other writers point here):** the stamp is written by **the ceremony that produces the first instance** — this mint beat, the spec promotion step (`{conventions}/spec.md`, *Promotion from candidate*), `vlt-upgrade`'s proto-spec retrofit, and `vlt-dispatch`'s consult record; `vlt-lint` never writes it. Most ceremonies produce no first instance and skip this.
 
 Record the mint: note it in the mint decision log (`_agent/mint/decision-log.md`) (with the council verdict + reasoning where Step 2a applied), and the new skill carries its own. The new skill is loadable on its next activation.
 

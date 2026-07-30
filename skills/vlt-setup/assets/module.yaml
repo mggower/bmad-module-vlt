@@ -57,4 +57,6 @@ vault_structure:
     contract: _meta/vault-operating-contract.md
     upgrade_ledger: _agent/upgrade-ledger.md
     archive: _archive/
+    tripwires: _agent/tripwires.yaml
+    lint_reports: _agent/lint-reports/
   example: "wiki → _agent/wiki/ — override a single entry only if this vault diverges"

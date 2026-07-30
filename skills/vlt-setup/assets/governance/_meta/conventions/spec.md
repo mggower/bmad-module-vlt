@@ -1,17 +1,17 @@
 ---
 type: note
 created: 2026-07-06
-last_updated: 2026-07-17
+last_updated: 2026-07-29
 title: Spec Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 1
+version: 2
 consumers: [vlt-mint, vlt-dispatch, vlt-upgrade, vlt-lint]
 enforcement_stage: declared
-deferral_metric: "spec version bumps shipping without their relay entries"
+deferral_metric: "spec version bumps shipping without their relay entries"   # at zero adoption this cannot fire — see Enforcement, the blind-spot statement
 deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
 review_after: 2026-08-17
 adoption_first_instance: null        # no first live instance yet — declared, not yet adopted
@@ -76,9 +76,20 @@ A redundant pair by design: push survives a consumer that never runs; pull survi
 
 Any mint or capability change that makes a partner consume an existing spec **MUST add that partner to the spec's `consumers:` in the same change** (and `_agent/mint/decision-log.md` records it — see `vlt-mint`, Step 3). This is the anti-fork mechanism, placed at the only moment a new consumer can appear: consumer registration is never deferred to goodwill or memory.
 
+## Promotion from candidate
+
+A `spec_candidate` surfaced by lint (`vlt-lint`, *Spec candidates*) or the proto-spec retrofit (`vlt-upgrade`) is **never left unowned**: it is filed to the backlog with a **named next owner** — the doc's authoring partner, derived from the handoff filename's `{owner}-to-{consumer}` shape where it parses, else the doc's own attribution, else the `relay:` entries' from-slug; where all three are ambiguous, the item is filed `by: <human>` with the ambiguity stated (a named slot is never left unnamed) — and a closes-when bound. The owner, in ordinary work, does one of two things:
+
+- **Promotes** — conform the doc's frontmatter to the spec schema above and move it to `{specs}` per the relocation-migration discipline (single-homed in `vlt-upgrade`, Step 3 *Migrations* preamble — stub the old path, re-point open dispatch pointers; read it there), satisfying the consult precondition (`consult.md`) where the new spec's `consumers:` name a partner other than its `owner`, and **stamping `adoption_first_instance:`** if this is the convention's first live instance (the authority rule, `vlt-mint`, Step 4).
+- **Declines** — close the backlog item with the reason recorded. A recorded decline is the loop's terminal state and is **honored by future surfacing** — the doc is excluded from future `spec_candidate` findings, with the count of honored declines stated beside the finding, never silently suppressed.
+
+This is the beat's single home; lint and the retrofit point here rather than restating it.
+
 ## Enforcement
 
 Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. `vlt-lint` is **already** in this file's `consumers:` — it carries the live `spec_candidate` advocacy check (a surfacing aid at lint cadence, like `review_due`, not an enforcement of a spec *rule*, so it does not promote `enforcement_stage`). The two schema/notification checks above **remain deferred** until they land; when they do, the tripwire discharges and no `consumers:` change is needed (`vlt-lint` is registered).
+
+**The deferral's blind spot, stated in its own text:** at zero adoption the `deferral_metric` cannot fire — "spec version bumps shipping without their relay entries" presupposes a spec that exists, so its only attainable value is "fine" — which means it measures **notification discipline once specs exist, never adoption itself**. The bound that fires regardless of adoption is the deferral's own `review_after:` expiry (`vlt-lint`'s `deferral_expired` finding), per the operating contract's honest-reporting rule (`vault-operating-contract.md`, *Honest reporting* — cited, not restated).
 
 ## Reading list
 
