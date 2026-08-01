@@ -5,6 +5,14 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.9.1 — 2026-08-01
+
+**Arc 6** — the factory's own honest surface.
+
+- **B6-1 — the changelog:** eight tags say a version happened and nothing says what it contains; the authoring was done thirty-six times and thrown away.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-setup`, `tools/package-lint.py`, `tools/test-package-lint.py`
+
 ## v0.9.0 — 2026-07-30
 
 **Arc 5** — the kept-promises arc.
