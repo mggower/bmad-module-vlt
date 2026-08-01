@@ -62,6 +62,11 @@ def build_fixture(root: Path) -> None:
         'code: vlt\nname: "Vault"\nmodule_version: 9.9.9\n', encoding="utf-8"
     )
     (root / "skills/vlt-mint/SKILL.md").write_text("# vlt-mint\n", encoding="utf-8")
+    # Group D's third artifact (build B6-1): a valid entry for the fixture's version.
+    (root / "CHANGELOG.md").write_text(
+        "# Changelog\n\n## v9.9.9 — 2026-01-01\n\n**Arc 9** — the fixture arc.\n",
+        encoding="utf-8",
+    )
     (root / ".claude-plugin/marketplace.json").write_text(
         json.dumps(
             {
@@ -171,6 +176,34 @@ def case_c5_unlisted_dir(root):
     mkt_path.write_text(json.dumps(mkt, indent=2), encoding="utf-8")
     r = run_lint(root)
     assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
+
+
+@case("9. --expect-version matching a clean tree with its entry -> D passes")
+def case_d_positive(root):
+    # Asserts the group verdict, not the exit code: the fixture is stale against C6/C7/C8
+    # and E (seeded by B5-7..B5-9 without updating this harness), so a whole-run exit-0
+    # assertion would grade unrelated debt. Cases 2-8 use this same group-scoped idiom.
+    r = run_lint(root, "--expect-version", "9.9.9")
+    assert "PASS group D" in r.stdout, r.stdout
+
+
+@case("10. CHANGELOG.md entry for a different version -> D fails naming CHANGELOG.md")
+def case_d_wrong_entry(root):
+    edit(root / "CHANGELOG.md", "## v9.9.9 — ", "## v9.9.8 — ")
+    r = run_lint(root, "--expect-version", "9.9.9")
+    assert r.returncode != 0 and "FAIL group D" in r.stdout, r.stdout
+    assert "CHANGELOG.md" in r.stdout, r.stdout
+
+
+@case("11. duplicated CHANGELOG.md entry for the expected version -> D fails")
+def case_d_duplicate_entry(root):
+    path = root / "CHANGELOG.md"
+    path.write_text(
+        path.read_text(encoding="utf-8") + "\n## v9.9.9 — 2026-01-02\n\nsecond block\n",
+        encoding="utf-8",
+    )
+    r = run_lint(root, "--expect-version", "9.9.9")
+    assert r.returncode != 0 and "FAIL group D" in r.stdout, r.stdout
 
 
 def main():

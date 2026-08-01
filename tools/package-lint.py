@@ -33,7 +33,9 @@ Groups:
       id exists in vlt-vitals.py's canonical METRICS table (parsed from the
       asset, never re-declared), vlt-vitals.py compiles, and module.yaml's
       default map carries the tripwires + lint_reports rows
-  D — tag intent: with --expect-version X.Y.Z, both version strings equal it;
+  D — tag intent: with --expect-version X.Y.Z, both version strings equal it and
+      CHANGELOG.md carries exactly one dated `## vX.Y.Z — YYYY-MM-DD` entry
+      (build B6-1; existence + heading only, never a grade on the entry's prose);
       without the flag, reported SKIPPED (not PASS)
   E — self-description integrity (build-23): the dev-side twin of vlt-lint's
       Convention coherence check — derives truth from the authoritative surface
@@ -399,13 +401,27 @@ def check_enforcement_kit(root: Path) -> list:
     return failures
 
 
-def check_group_d(expect: str, versions) -> list:
+def check_group_d(expect: str, versions, root: Path) -> list:
     module_version, plugin_version = versions
     failures = []
     if str(module_version) != expect:
         failures.append(f"module.yaml module_version={module_version} != --expect-version {expect}")
     if str(plugin_version) != expect:
         failures.append(f"marketplace.json version={plugin_version} != --expect-version {expect}")
+
+    # D3 (build B6-1): the tag's changelog entry. Existence + exactly one correctly-dated
+    # heading — never a judgement on the entry's prose. Disk-only like every other group:
+    # no git, so this deliberately does NOT check that every tag has an entry.
+    changelog = root / "CHANGELOG.md"
+    if not changelog.is_file():
+        failures.append(f"CHANGELOG.md missing — no entry for --expect-version {expect}")
+    else:
+        pattern = rf"^## v{re.escape(expect)} — \d{{4}}-\d{{2}}-\d{{2}}$"
+        n = len(re.findall(pattern, changelog.read_text(encoding="utf-8"), re.M))
+        if n == 0:
+            failures.append(f"CHANGELOG.md has no '## v{expect} — YYYY-MM-DD' entry")
+        elif n > 1:
+            failures.append(f"CHANGELOG.md has {n} entries for v{expect} — expected exactly one")
     return failures
 
 
@@ -594,7 +610,7 @@ def main():
     c_failures, versions = check_group_c(root)
     results["C"] = ("resolvability + version agreement", c_failures)
     if args.expect_version:
-        results["D"] = (f"tag intent ({args.expect_version})", check_group_d(args.expect_version, versions))
+        results["D"] = (f"tag intent ({args.expect_version})", check_group_d(args.expect_version, versions, root))
     else:
         results["D"] = ("tag intent", None)  # SKIPPED
     results["E"] = ("self-description integrity", check_group_e(root))
