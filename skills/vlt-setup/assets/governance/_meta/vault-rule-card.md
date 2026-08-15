@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-30
-last_updated: 2026-07-30
+last_updated: 2026-08-15
 title: Vault Rule-Card
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:f066909d44ac7bd2ec0ee03b0ef8dcf5888691b1516c62e9ba74d9f93b1b7296 (derived 2026-07-30)'
+derived_from: 'vault-operating-contract.md sha256:c32b5cb8b7041f22becfc56ad95eff69ef80e08cd80c058ebcd1e843c0427d50 (derived 2026-08-15)'
 ---
 
 # Vault Rule-Card
@@ -48,7 +48,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Capabilities — what a partner can do* | Light/heavy weights, families, ownership — open before growing or running a capability |
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
 | *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |
-| *The backlog — evolution intake* | Capture-is-cheap filing, never building unasked — open when filing friction |
+| *The backlog — evolution intake* | Capture-is-cheap filing by address (backlog or relay), never building unasked — open when filing friction |
 | *How to write* | The write disciplines: notes, synthesis, supersession — open before filing notes |
 | *Honest reporting — what a check may claim* | Denominators, blind spots, proxies — open before reporting any count |
 | *Grounding sufficiency — what a claim may rest on* | Machine-transcribed names, collision handling — open before naming a person from a low-trust source |

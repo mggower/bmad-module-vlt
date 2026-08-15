@@ -55,7 +55,7 @@ The file's header (written once, on creation):
 ```
 # Dispatch
 
-_The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner handoff pointers; `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, handoff-doc path for `relay`; the open/picked-up status makes the backlog self-reporting._
+_The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner pointers (a handoff doc, or a doc-less ask/answer); `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, the pointer's key (doc path or ref) for `relay`; the open/picked-up status makes the backlog self-reporting._
 ```
 
 `_agent/dispatch.md` is a log-style agent record (like `{log}`), not a "note" — it carries **no per-note frontmatter**.

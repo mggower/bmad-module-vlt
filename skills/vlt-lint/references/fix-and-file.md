@@ -20,19 +20,21 @@ Do **not** auto-apply anything on the **never-auto-apply list** (router, Standin
 
 ## Step 4: File maintenance backlog items
 
+**The address axis comes before the kind split** (the address rule: `{conventions}/frontmatter.md`, *The address rule*): when an item's bounded closing act **names another partner's act** (e.g. it needs an external source the vault doesn't hold → the Researcher), it is **relayed**, not filed — `vlt-dispatch relay`, shape `ask`, the `ref` naming the question. When the vault's own pages settle it → `maintenance` to `{backlog}`; when nobody can say what closes it → `knowledge-gap` to `{backlog}`.
+
 For each near-duplicate/merge candidate (and any other maintenance worth doing later), append a `maintenance` item to `{backlog}` under `## Open`, then **mention it in-flow** (capture is cheap and never silent):
 
 ```
 - [ ] Merge <page-a> + <page-b> (maintenance, by: <partner>) — near-duplicate: <signal, e.g. slug stem + 4 shared wikilinks>
 ```
 
-For each contradiction dispositioned **`adjudicable`** (Step 2 / `{conventions}/wiki-supersession.md`), append its item too — `maintenance` when the vault's own pages settle it, `knowledge-gap` when it needs a source the vault doesn't have:
+For each contradiction dispositioned **`adjudicable`** (Step 2 / `{conventions}/wiki-supersession.md`), apply the address axis first — needs a source the vault doesn't have → **relay** (shape `ask`) to the partner whose act closes it; otherwise append its item (`maintenance` when the vault's own pages settle it, `knowledge-gap` when nobody can say what closes it):
 
 ```
 - [ ] Adjudicate <page-a> vs <page-b>: <the claim in conflict> (maintenance|knowledge-gap, by: <partner>) — closes when: <the bounded act from the callout>
 ```
 
-Record the filed item back in the callout's `**Filed:**` line, so the page and the backlog agree.
+Record the filed item — or the relay (`ask: <ref>` and its recipient) — back in the callout's `**Filed:**` line, so the page and the record agree.
 
 For each **entity collision** (Step 2, tier 2), append its item too:
 
@@ -40,7 +42,7 @@ For each **entity collision** (Step 2, tier 2), append its item too:
 - [ ] Verify "<name>" — <page-a> records <A>, <page-b> records <B> (knowledge-gap|maintenance, by: <partner>) — suspected substitution in a machine-transcribed source; closes when: <the name is confirmed against a non-transcribed source, or the claim is recorded without it>
 ```
 
-Same routing split: `knowledge-gap` when closing it needs a source the vault doesn't have (a roster, a credited transcript — the usual case), `maintenance` when the vault's own pages settle it. **No `**Filed:**` back-write** — there is no callout to write back into, which is the distinguisher showing through: this class produces no contradiction callout by design.
+Same address-first routing: closing it needs a source the vault doesn't have (a roster, a credited transcript — the usual case) → **relay** (shape `ask`) to the partner whose act closes it; the vault's own pages settle it → `maintenance`; nobody can say what closes it → `knowledge-gap`. **No `**Filed:**` back-write** — there is no callout to write back into, which is the distinguisher showing through: this class produces no contradiction callout by design.
 
 For each **spec candidate** (Step 2, the governance check), append its item too — the named owner and closes-when come from the beat's single home (`{conventions}/spec.md`, *Promotion from candidate*):
 
@@ -50,6 +52,6 @@ For each **spec candidate** (Step 2, the governance check), append its item too 
 
 **Guard:** an existing item for the same doc — open → mention it in-flow, never file a second (the duplicate-filing posture above); closed as **declined** → do not re-file (the recorded decline is honored; the count of honored declines is stated beside the finding in Step 5).
 
-**Duplicate-filing guard for callout-seeded findings:** for a finding marked `(callout-seeded)`, first read the seeding callout — if it records an existing `{backlog}` item (a "Tracked in" / "Filed" line) and that item is still open under `## Open`, do **not** file a second; mention the existing item in-flow instead. If the callout claims tracking but no open item exists, file one and note the mismatch. The no-`**Filed:**`-back-write rule above stands for *unseeded* findings; a seeded finding's callout is the vault's own record and is left as the page's author wrote it.
+**Duplicate-filing guard for callout-seeded findings:** for a finding marked `(callout-seeded)`, first read the seeding callout — if it records an existing `{backlog}` item (a "Tracked in" / "Filed" line) and that item is still open under `## Open`, do **not** file a second; mention the existing item in-flow instead. If the callout claims tracking but no open item exists, file one and note the mismatch. The no-`**Filed:**`-back-write rule above stands for *unseeded* findings; a seeded finding's callout is the vault's own record and is left as the page's author wrote it. The guard extends across rails: an **open relay pointer for the same question** (same key — the relay idempotency rule makes this checkable) counts as "already filed" — mention it in-flow, never file or relay a second.
 
 The merge itself is resolved later by `vlt-ingest` under the consolidation discipline — lint finds, ingest resolves. An adjudicable contradiction resolves the same way when it needs a source (`vlt-ingest`, holding the new source, applies the supersession rules); when the vault's own pages already settle it, the owning partner resolves it in ordinary work. Either way the callout's disposition is updated or the callout removed when the contradiction is gone — **that is the state transition contradictions previously lacked.**

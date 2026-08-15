@@ -18,6 +18,15 @@ If everything is picked up, say "all routed items have been picked up — nothin
 
 `ledger` is also printed **inline at the end of a `daily` run** (Step 3) — same board, two surfaces: `daily` closes with it, `ledger` serves it on demand.
 
+### Pointer integrity — every relay pointer resolves a key
+
+After the board, check the rail: for every pointer in a `relay:` block, **resolve its key** — a `handoff-path` that exists on disk, or a `ref` present in the block header (`(ask: <ref>)` / `(answer: <ref>)`). Scope: `relay:` blocks **only** — a `consult:` block is pre-checked traffic, and a `daily` pointer keys on its watermark. Render:
+
+- **Findings** — a *shape-annotated* pointer that fails its shape's key requirement: an `ask`/`answer` with no `ref`, or an annotated `handoff` with no path on disk. The finding's legal response: **the publishing partner re-fires the relay correctly keyed; the recipient checks the malformed line off as superseded** (its own tagged line — two-writer discipline holds).
+- **The legacy line** — un-annotated **pathless** pointers are legacy pre-shape traffic (exempt from the key check by design; see `references/relay.md`, *Backward compatibility*). Report them as a **denominated count**, never as findings: "N legacy unkeyed pointers (pre-shape)" — zero renders as the denominated zero, matching the wires idiom below.
+
+This is the read-side bell for the failure that cannot be seen by reading a single block: an unkeyed pointer disables the spam guard invisibly.
+
 **Group open items by `blocked:` facet where tagged** (the optional inline facet on backlog items and pointer lines — `blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD`, per `{conventions}/frontmatter.md`'s backlog schema): render `user-decision` first as the owner's question list, then the other facets; untagged rows are their own bucket (absence = untagged; never infer a facet).
 
 ### Tripped wires & vitals
@@ -32,6 +41,7 @@ After the open board, run the vitals reader — `{root}/.claude/hooks/vlt-vitals
 After writing, re-read what you produced and confirm:
 
 - **Nothing was written** — read-only. The counts match a fresh grep of open items; the board groups only live, partner-owned slugs.
+- **The pointer-integrity line agrees with a fresh grep of `relay:` blocks** — every finding is a shape-annotated key failure; the legacy count matches the un-annotated pathless pointers actually present.
 - **The rendered wires match a fresh vitals run** — re-run the reader; every tripped row (or the denominated zero, or the warning row) agrees with it.
 
 Report the result; fix any gap before closing.

@@ -56,7 +56,7 @@ Read `{index}` first for the overview, then each selected page in full, noting t
 ## Standing rules (act-blocking; mechanics live in the references)
 
 - **Never auto-fix a tier-2 or governance finding** — every one is `flag_for_human` or a backlog filing (the catalog: `references/checks.md`).
-- **Never auto-apply:** page deletions (flag), contradiction resolutions (document both **with a disposition**, flag; file the `adjudicable` ones to backlog — `references/fix-and-file.md`), page merges (file to backlog), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
+- **Never auto-apply:** page deletions (flag), contradiction resolutions (document both **with a disposition**, flag; the `adjudicable` ones are filed **or relayed, by address**, per `references/fix-and-file.md`), page merges (file to backlog), or **convention-coherence drift** (flag — a stale `depends_on` ack must be cleared by a human reconciling the consumer against the convention and then bumping the ack; lint must never bump the integer itself, or it would rubber-stamp conformance it didn't verify).
 - **Single-writer safety lives here in the SKILL, never in parallel finders** — the fan-out workflow is read-only; fixes and backlog writes apply serially here (`references/full-scale.md`).
 - **Lint never stamps `adoption_first_instance:`** — the stamp is the authorized ceremonies' (`vlt-mint`, Step 4).
 - **Write-through records a human's ruling only** — lint never decides (`references/fix-and-file.md`).
