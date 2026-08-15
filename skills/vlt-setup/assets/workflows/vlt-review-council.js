@@ -8,6 +8,12 @@ export const meta = {
   ],
 }
 
+// depends_on: []
+// ^ the asset ack (B7-6): this workflow reads NO convention files today — the empty
+//   list is the explicit, checkable "reads no conventions" state the release gate
+//   (package-lint E5) requires on every shipped workflow, so a future convention
+//   read cannot arrive unacked and structurally unnoticed.
+
 // ─────────────────────────────────────────────────────────────────────────────
 // vlt-review-council — the panel engine (Gap A: invoke-and-return + mandatory
 // capture come free; both modes route through here).
@@ -123,6 +129,9 @@ log(`${mode} panel: ${lenses.join(', ')} + moderator (reading live personas at $
 // Spawn each lens independently and in parallel — lenses do NOT see each other's positions
 // (independence is what keeps them from collapsing into one another). Each reads its persona file
 // and any live files the subject references from their real project-tree paths (the cache fix).
+// If a convention read ever enters this prompt, it must be merged-on-read per
+// vault-operating-contract.md (Convention overlays) and must add its flat
+// "name@version" pin to the depends_on header line at the top of this file.
 const lensPrompt = (lens) =>
   `You are the "${lens}" lens on a vlt review-council panel. ` +
   `Read the persona file at the LIVE path ${personasPath}/${lens}.md and apply its "Activation Prompt" section VERBATIM as your operating instructions — that section defines your single axis. ` +

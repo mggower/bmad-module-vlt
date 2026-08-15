@@ -8,8 +8,8 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 6
-consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch]
+version: 7
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -33,7 +33,7 @@ These rules are mandatory across every note type. They are codified from real mi
 1. **Wikilink-valued fields must be double-quoted.** Any field whose value is a `[[wikilink]]` (or a list of them) takes double quotes — `superseded_by: "[[page-slug]]"`, never bare `superseded_by: [[page-slug]]`. YAML treats a leading `[` as a flow sequence and rejects or misparses the value otherwise.
 2. **Long or multi-line string fields must be double-quoted.** Any string spanning multiple lines or containing YAML-significant characters (colons, leading dashes, leading brackets) takes double quotes. Block scalars (`>` / `|`) are not used — quote uniformly.
 3. **No nested properties.** Obsidian's properties UI does not render nested YAML maps. Every schema in this file is intentionally **flat**; do not introduce nested structures even where YAML would accept them. List fields hold bare scalars (strings, paths, quoted wikilinks), never maps.
-4. **List fields split by use: verify vs traverse.** A list you *verify against* — an audit trail, where the record is the point (a session log's `artifacts:`, a research note's `sources:`) — holds bare vault-relative paths, never wikilinks. A list you *traverse* — a link graph, where claims are answerable to origins and following the link is the point — is wikilink-form territory; **a wiki page's `sources:` is a link graph** and is the first field so classed. (Unless a specific schema says otherwise — that carve-out is the delegation slot per-schema rules build on.) *Interim posture:* the wikilink **form** for wiki `sources:` (quoting, path shape, reserved characters, and the normalization clause that protects the `linkage_ripe` shared-source comparison) ships with the overlay-contract build; **until it does, wiki pages stay on the bare-path form** — the split is declared, the wiki schema's `sources: []` below is unchanged, and converting early is the one illegal move in the window: an unnormalized early conversion silently breaks the absorption test the form change is designed to protect.
+4. **List fields split by use: verify vs traverse.** A list you *verify against* — an audit trail, where the record is the point (a session log's `artifacts:`, a research note's `sources:`) — holds bare vault-relative paths, never wikilinks. A list you *traverse* — a link graph, where claims are answerable to origins and following the link is the point — is wikilink-form territory; **a wiki page's `sources:` is a link graph** and is the first field so classed. (Unless a specific schema says otherwise — that carve-out is the delegation slot per-schema rules build on.) **The form:** a wiki page's `sources:` entry that references a **vault note** is a **double-quoted wikilink** (rule 1) carrying the **full vault-relative path, no `.md`** — full path because basenames collide across zones; no `.md` per rule 1's own example (`superseded_by: "[[page-slug]]"`). Entries that are **external URLs are not page references and stay plain strings.** Reserved characters, stated positively: `[`, `]`, `#`, `^`, `|` are reserved inside a wikilink target; **`?` is not** — a target containing it keeps it. **Normalization clause:** any consumer comparing `sources:` entries — across pages, across zones, or against a prose `## Sources` section — normalizes both sides first: strip surrounding quotes and `[[ ]]`, strip a trailing `.md`, and compare on the vault-relative path (tolerating a bare-basename legacy entry by basename match) — so the wikilink and bare-path forms compare equal forever. **Coexistence posture:** existing bare-path entries stay legal and there is **no backfill sweep**; a page adopts the form on its next substantive edit — the normalization clause is what makes the mixed state permanently safe.
 5. **Backtick-wrapped wikilinks do not resolve.** `` `[[X]]` `` renders as literal text. Never wrap a wikilink in backticks anywhere a link is intended, in frontmatter or body.
 6. **Don't duplicate a frontmatter field as inline body metadata.** If a field lives in the frontmatter, it does not also appear as `**Field:** value` in the document body — that just invites drift.
 
@@ -95,7 +95,7 @@ topic:                               # YAML list, ordered general → specific, 
   - <broad domain>
   - <narrower facet>
 status: draft | in-progress | complete
-sources: []
+sources: []                          # vault notes as "[[path]]" wikilinks, URLs plain — YAML rule 4
 review_after: YYYY-MM-DD             # OPTIONAL — content-expiry date; absence = evergreen
 source_type: <url | book | paper>    # OPTIONAL — accession format facet (Register grouping); no rule, no check
 review_note: "<what to recheck>"     # OPTIONAL — a hint paired with review_after; no rule, no check

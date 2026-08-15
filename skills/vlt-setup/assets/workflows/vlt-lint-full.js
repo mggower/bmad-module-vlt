@@ -8,6 +8,12 @@ export const meta = {
   ],
 }
 
+// depends_on: ["frontmatter@7", "wiki-supersession@2", "wiki-index@2"]
+// ^ the asset ack (B7-6): this workflow's prompts instruct agents to read these
+//   conventions, so it is a listed consumer in its own right — the flat pins
+//   above are its handshake acks, bumped on reconciliation like a skill's
+//   depends_on:. The release gate (package-lint E5) parses this line.
+
 // ─────────────────────────────────────────────────────────────────────────────
 // vlt-lint-full — the fan-out finder (owner-prioritized op-layer workflow).
 //
@@ -20,6 +26,12 @@ export const meta = {
 //     pages:           [{ slug, path }]   // every wiki page to scan (LIVE abs paths). required.
 //     indexPath:       string             // LIVE abs path to {index}. required.
 //     conventionsPath: string             // LIVE abs path to {conventions} dir. required.
+//     overlaysPath:    string  (optional) // LIVE abs path to {overlays} (vault-local convention overlays).
+//     overlayNames:    [string] (optional)// convention names whose overlay file actually EXISTS on disk
+//                                          //   (the SKILL has filesystem access, this script has none — the
+//                                          //   crossLayerSlugs/stubSlugs division). e.g. ["frontmatter"].
+//                                          //   Absent overlay args → pages are judged base-only and
+//                                          //   coverage_caps says so loudly (never a silent base-only run).
 //     crossLayerSlugs: [string] (optional)// normalized basenames of valid NON-wiki link targets (research /
 //                                          //   agent-zone notes the SKILL globbed) — a [[link]] to one of these
 //                                          //   is NOT a missing target. default []. (filing #3 §4)
@@ -60,6 +72,9 @@ const normalizeTarget = (t) => String(t || '')
 const pages = Array.isArray(a.pages) ? a.pages : []
 const indexPath = a.indexPath
 const conventionsPath = a.conventionsPath
+// Overlay args (B7-6): the merged-on-read contract crosses the fan-out boundary here.
+const overlaysPath = typeof a.overlaysPath === 'string' ? a.overlaysPath : ''
+const overlayNames = (Array.isArray(a.overlayNames) ? a.overlayNames : []).map((n) => String(n).replace(/\.overlay\.md$/i, '')).filter(Boolean)
 const crossLayerSlugs = (Array.isArray(a.crossLayerSlugs) ? a.crossLayerSlugs : []).map(normalizeTarget).filter(Boolean)
 const stubSlugs = (Array.isArray(a.stubSlugs) ? a.stubSlugs : []).map(normalizeTarget).filter(Boolean)
 const today = typeof a.today === 'string' ? a.today : ''
@@ -138,12 +153,29 @@ const CLUSTER_FINDINGS = {
 // ── Phase 1: per-page fan-out, chunked with a budget guard ───────────────────
 phase('Scan pages')
 
+// Merged-on-read (B7-6): a convention is the base file PLUS its overlay, merged on read
+// (vault-operating-contract.md, Convention overlays). When the caller says an overlay
+// exists, the scanner reads base + overlay together — mirroring the vlt-lint SKILL's own
+// inline reads ("read each together with its {overlays}/{name}.overlay.md if present,
+// honoring the overlay's appended rules").
+const convRead = (name) =>
+  overlaysPath && overlayNames.includes(name)
+    ? `${conventionsPath}/${name}.md together with its overlay ${overlaysPath}/${name}.overlay.md, honoring the overlay's appended rules (the convention is the base file plus its overlay, merged on read)`
+    : `${conventionsPath}/${name}.md`
+
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against from ${conventionsPath}/frontmatter.md, ${conventionsPath}/wiki-supersession.md, and ${conventionsPath}/wiki-index.md (read once, apply per page). ` +
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('wiki-index')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter.md YAML rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. ` +
   `Return ONLY findings about THIS page: the raw [[wikilink]] inner text of every outbound link, verbatim — including any |alias, #anchor, or path prefix; do not normalize — whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the frontmatter summary: value verbatim (empty if absent), whether the frontmatter sources: and the prose Sources section diverge (Gap B), its created and last_updated dates verbatim, its verified_by and verified_at values verbatim (empty if absent), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, up to 5 short key-claim summaries, and name_callout_targets — for each callout on this page that questions a proper noun against another named wiki page, the raw [[wikilink]] target text verbatim and the name in question (an ordinary [!stale] marker with no cross-page name question yields nothing). Do not assess other pages — cross-page checks happen later.`
 
 const scans = []
 const coverageCaps = []
+// Loud degrade (B7-6): an old caller passing no overlay args gets a base-only sweep with
+// its cap on the record — never a silent base-only judgment.
+if (!overlaysPath) {
+  const m = 'no overlay args passed — pages were judged against base conventions only; overlay-compliant content may be falsely flagged'
+  coverageCaps.push(m)
+  log(m)
+}
 const CHUNK = 16
 for (let i = 0; i < pages.length; i += CHUNK) {
   if (budget.total && budget.remaining() < budgetFloor) {
@@ -229,7 +261,7 @@ if (nearCapped) { const m = `near-duplicate comparison capped — not all page p
 
 // ── Index pass (one agent, reads the live index + the computed page set) ─────
 const indexScan = await agent(
-  `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${conventionsPath}/wiki-index.md. The wiki currently contains exactly these page slugs: ${[...slugSet].join(', ')}. ` +
+  `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${convRead('wiki-index')}. The wiki currently contains exactly these page slugs: ${[...slugSet].join(', ')}. ` +
     `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed ## Stubs entries; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`,
   { label: 'index-drift', phase: 'Reduce + cross-page', schema: INDEX_SCAN, model: indexModel },
 )

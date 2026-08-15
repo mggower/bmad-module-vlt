@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 2
-consumers: [vlt-ingest, vlt-lint]
+consumers: [vlt-ingest, vlt-lint, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run

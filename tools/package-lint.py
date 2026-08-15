@@ -56,7 +56,14 @@ Groups:
       arc-3 build wrote by hand. E4 harness-coverage (build B7-1, standing
       rule R2): every gate check callable (introspected, never listed) has a
       tools/test-package-lint.py case declaring it can make that check fail —
-      a gate check with no fixture case is itself a lint failure.
+      a gate check with no fixture case is itself a lint failure. E5
+      asset-node handshake (build B7-6): every shipped workflow file
+      (skills/vlt-setup/assets/workflows/*.js) carries exactly one
+      machine-parseable `// depends_on: [...]` header line of flat
+      "name@version" pins (or []), and asset consumers — a convention
+      consumers: entry ending .js — are bipartite-checked both directions
+      in E1's vocabulary; E1 skips .js entries (E5 owns them, one shared
+      predicate).
 
 Usage: uv run tools/package-lint.py [--expect-version X.Y.Z] [--root PATH]
 Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
@@ -582,17 +589,28 @@ def _read_frontmatter(path: Path) -> dict:
         return {}
 
 
+def _is_asset_node(consumer: str) -> bool:
+    """Shared predicate (E1/E5): a convention consumers: entry ending .js is a
+    workflow-asset node — it resolves against skills/vlt-setup/assets/workflows/
+    and E5 owns its leg of the bipartite comparison; E1 skips it."""
+    return str(consumer).endswith(".js")
+
+
 def _e1_handshake(conventions: dict, acks: dict, skill_dirs: set) -> list:
     """E1: convention consumers: <-> consumer depends_on: pins, both directions.
 
     Derives the answer from BOTH sides of the handshake and compares — retiring
     the self-confirming `grep "<name>@"` every arc-3 build wrote by hand (which
     searched for the ack string it had just written). Vocabulary matches
-    vlt-lint:131 so the dev-side and vault-side homes read alike.
+    vlt-lint:131 so the dev-side and vault-side homes read alike. Skips
+    consumers: entries ending .js — workflow-asset nodes, whose leg E5 owns
+    (the shared predicate _is_asset_node, stated in both docstrings).
     """
     failures = []
     for conv, (version, consumers) in conventions.items():
         for consumer in consumers:
+            if _is_asset_node(consumer):
+                continue  # E5 owns the asset leg
             if consumer not in skill_dirs:
                 failures.append(f"stale/dangling — {conv}@{version} lists {consumer} which is not installed")
                 continue
@@ -698,6 +716,93 @@ def _e3_stray_pin(root: Path, conv_names: set) -> list:
     return failures
 
 
+WORKFLOWS_DIR = "skills/vlt-setup/assets/workflows"
+_DEPENDS_ON_LINE_RE = re.compile(r"^\s*//\s*depends_on:\s*(\[.*\])\s*$")
+_ASSET_PIN_RE = re.compile(r"^[A-Za-z0-9_-]+@\d+$")
+
+
+def _e5_asset_nodes(root: Path, conventions: dict) -> list:
+    """E5 (build B7-6): workflow assets are first-class handshake nodes.
+
+    Structural on both sides, never an enumeration. (a) Presence: every
+    skills/vlt-setup/assets/workflows/*.js MUST carry exactly one
+    `// depends_on: [...]` header line parsing as flat "name@version" pins
+    (or []) — a missing or unparseable line FAILs; absence must be loud,
+    the named-node state is the deliverable. (b) Bipartite, both directions,
+    E1's vocabulary: every convention consumers: entry ending .js (the
+    shared predicate _is_asset_node — E1 skips these, E5 owns them) must
+    resolve to an existing workflow file whose header acks that convention
+    at the current version (dangling / unacknowledged / stale); every
+    non-empty pin in a workflow header must appear in that convention's
+    consumers: (an asset consuming unlisted is the reverse drift).
+    """
+    failures = []
+    wf_dir = root / WORKFLOWS_DIR
+    asset_pins = {}  # filename -> {conv_name: version_str}
+    for wf in sorted(wf_dir.glob("*.js")) if wf_dir.is_dir() else []:
+        rel = wf.relative_to(root)
+        matches = [
+            m for line in wf.read_text(encoding="utf-8").splitlines()
+            for m in [_DEPENDS_ON_LINE_RE.match(line)] if m
+        ]
+        if len(matches) != 1:
+            failures.append(
+                f"asset node: {rel} carries {len(matches)} `// depends_on: [...]` header "
+                f"lines — every shipped workflow must carry exactly one ([] if it reads "
+                f"no conventions); absence must be loud"
+            )
+            continue
+        try:
+            raw = json.loads(matches[0].group(1))
+            assert isinstance(raw, list) and all(
+                isinstance(p, str) and _ASSET_PIN_RE.match(p) for p in raw
+            )
+        except Exception:
+            failures.append(
+                f"asset node: {rel} depends_on header does not parse as flat "
+                f'["name@version"] pins: {matches[0].group(1)}'
+            )
+            continue
+        pins = {}
+        for p in raw:
+            name, _, ver = p.partition("@")
+            pins[name] = ver
+        asset_pins[wf.name] = pins
+
+    for conv, (version, consumers) in sorted(conventions.items()):
+        for consumer in consumers:
+            if not _is_asset_node(consumer):
+                continue  # skill consumers are E1's leg
+            if consumer not in asset_pins:
+                failures.append(
+                    f"stale/dangling — {conv}@{version} lists asset {consumer} but "
+                    f"{WORKFLOWS_DIR}/{consumer} does not exist (or its header failed to parse)"
+                )
+                continue
+            pinned = asset_pins[consumer].get(conv)
+            if pinned is None:
+                failures.append(
+                    f"unacknowledged — asset {consumer} is a listed consumer of "
+                    f"{conv}@{version} but its depends_on header does not ack it"
+                )
+            elif pinned != version:
+                failures.append(f"stale — asset {consumer} acks {conv}@{pinned} but convention is @{version}")
+
+    for fname, pins in sorted(asset_pins.items()):
+        for conv, ver in sorted(pins.items()):
+            if conv not in conventions:
+                failures.append(
+                    f"asset node: {fname} acks unknown convention {conv}@{ver} "
+                    f"(no such convention in the shipped bundle)"
+                )
+            elif fname not in conventions[conv][1]:
+                failures.append(
+                    f"asset node: {fname} acks {conv}@{ver} but {conv}'s consumers: does "
+                    f"not list it — an asset consuming unlisted is the reverse drift"
+                )
+    return failures
+
+
 # E4 (build B7-1, standing rule R2): the gate-check inventory is structural —
 # every module-level callable whose name matches this pattern IS a gate check,
 # so a new check enters the inventory the moment it is defined, with no
@@ -750,7 +855,7 @@ def _e4_harness_coverage(inventory=None, coverage=None) -> list:
 
 def check_group_e(root: Path) -> list:
     """Self-description integrity: E1 handshake-bipartite, E2 structure-map SSoT,
-    E3 stray-pin, E4 harness-coverage (B7-1/R2).
+    E3 stray-pin, E4 harness-coverage (B7-1/R2), E5 asset-node handshake (B7-6).
 
     Aggregates the failure lists. Each check derives truth from the authoritative
     surface and compares, rather than confirming a declaration about it — the fix
@@ -782,6 +887,7 @@ def check_group_e(root: Path) -> list:
         + _e2_structure_map(root)
         + _e3_stray_pin(root, set(conventions))
         + _e4_harness_coverage()
+        + _e5_asset_nodes(root, conventions)
     )
 
 

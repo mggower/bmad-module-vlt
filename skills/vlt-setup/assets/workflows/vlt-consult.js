@@ -7,6 +7,12 @@ export const meta = {
   ],
 }
 
+// depends_on: []
+// ^ the asset ack (B7-6): this workflow reads NO convention files today — the empty
+//   list is the explicit, checkable "reads no conventions" state the release gate
+//   (package-lint E5) requires on every shipped workflow, so a future convention
+//   read cannot arrive unacked and structurally unnoticed.
+
 // ─────────────────────────────────────────────────────────────────────────────
 // vlt-consult — the synchronous partner→partner consult engine.
 //
@@ -120,6 +126,9 @@ const CONSULT_RETURN = {
 phase('Consult')
 log(`consult: ${fromSlug} → ${toSlug} (grounding in ${groundIn.length} path(s))`)
 
+// If a convention read ever enters this prompt, it must be merged-on-read per
+// vault-operating-contract.md (Convention overlays) and must add its flat
+// "name@version" pin to the depends_on header line at the top of this file.
 const consultPrompt =
   `You are the vault partner whose routing slug is "${toSlug}". ` +
   `Read your SKILL at the LIVE path ${skillsPath}/vlt-agent-${toSlug}/SKILL.md and BECOME that partner — answer in its own voice, from its own expertise, with its own manner. ` +

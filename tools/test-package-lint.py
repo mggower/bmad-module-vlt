@@ -144,9 +144,20 @@ def build_fixture(root: Path) -> None:
         encoding="utf-8",
     )
 
-    # One convention + ack (E1/E3): bipartite-consistent clean.
+    # One convention + ack (E1/E3): bipartite-consistent clean. The consumers:
+    # list carries a workflow-asset node end-to-end (B7-6/E5): the fixture .js
+    # below acks it via its depends_on header line.
     (assets / "governance/_meta/conventions/testconv.md").write_text(
-        "---\nversion: 1\nconsumers: [vlt-mint]\n---\n\n# testconv\n",
+        "---\nversion: 1\nconsumers: [vlt-mint, vlt-fixture.js]\n---\n\n# testconv\n",
+        encoding="utf-8",
+    )
+
+    # Workflow asset node (E5 clean baseline, B7-6): exactly one machine-parseable
+    # depends_on header line, acking the fixture convention at its current version.
+    workflows = assets / "workflows"
+    workflows.mkdir(parents=True)
+    (workflows / "vlt-fixture.js").write_text(
+        '// depends_on: ["testconv@1"]\n// fixture workflow asset (E5 baseline)\n',
         encoding="utf-8",
     )
 
@@ -215,7 +226,7 @@ COVERAGE = {}  # package-lint check name -> [case names]; E4's data source (R2)
 # R2 shrink net: a net that must carry a list carries a shrink check. Bump the
 # floor in the same edit that adds cases (ratchet); main() fails loudly when
 # the registered count drops below it. Per-check shrink is E4's jurisdiction.
-CASE_FLOOR = 20
+CASE_FLOOR = 21
 
 
 def case(name, *, covers):
@@ -464,6 +475,19 @@ def case_c9_manifest_enumeration(root):
     r = run_lint(root)
     assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
     assert "references/how.md" in r.stdout, r.stdout
+
+
+@case("21. asset ack goes stale -> E fails, stale asset; E1 stays silent on the .js entry",
+      covers=("_e5_asset_nodes",))
+def case_e5_stale_asset(root):
+    edit(root / "skills/vlt-setup/assets/workflows/vlt-fixture.js",
+         '["testconv@1"]', '["testconv@0"]')
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group E" in r.stdout, r.stdout
+    assert "stale — asset vlt-fixture.js acks testconv@0" in r.stdout, r.stdout
+    # E1-change probe (B7-6): the .js consumers: entry is E5's, not E1's — it must
+    # never trip E1's not-installed leg.
+    assert "lists vlt-fixture.js which is not installed" not in r.stdout, r.stdout
 
 
 def main():
