@@ -5,6 +5,21 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.10.0 — 2026-08-15
+
+**Arc 7** — the nowhere-to-put-it arc.
+
+- **B7-1 — the harness baseline:** the release gate learns to prove its own checks can fail.
+- **B7-2 — the durability nets:** the config merge preserves instead of rebuilding, and the skill-asset manifest walks the tree instead of trusting a list.
+- **B7-3 — frontmatter@6, the coordinated rules bump:** four rule changes, one six-consumer walk; rules ship ahead of their mechanisms with stated interim postures.
+- **B7-4 — the seam:** vault-writable fields honored, local conventions received, dispatch given a routing profile (the mechanisms behind the rules the frontmatter bump shipped).
+- **B7-5 — relay & address:** the ask/answer shapes and the address rule's mechanism — the rails the frontmatter@6 rules already await.
+- **B7-6 — the overlay contract:** workflow assets become first-class handshake nodes, the fan-out honors merged-on-read, and the wiki sources: wikilink form ships with its normalization clause.
+- **B7-7 — the council fallback:** a gated mint meeting an unavailable council now parks or records a user-ruled verdict — never an unmarked substitute.
+- **B7-8 — the stale-prose sweep:** shipped prose catches up with what the arc made true.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-agent-creative`, `skills/vlt-agent-librarian`, `skills/vlt-agent-researcher`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-track`, `skills/vlt-upgrade`, `tools/package-lint.py`, `tools/test-package-lint.py`
+
 ## v0.9.1 — 2026-08-01
 
 **Arc 6** — the factory's own honest surface.
