@@ -1,21 +1,21 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-30
+last_updated: 2026-08-15
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 5
+version: 6
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
 deferral_metric: "prose/behavior drift lint findings + new conventions minted"
-deferral_threshold: "2 drift findings, or the 3rd new convention"
-review_after: 2026-08-17
+deferral_threshold: "2 prose/behavior drift findings since 2026-08-15, or the 3rd convention minted beyond the 9 shipped at that baseline"
+review_after: 2026-11-15
 ---
 
 # Frontmatter Conventions
@@ -33,7 +33,7 @@ These rules are mandatory across every note type. They are codified from real mi
 1. **Wikilink-valued fields must be double-quoted.** Any field whose value is a `[[wikilink]]` (or a list of them) takes double quotes — `superseded_by: "[[page-slug]]"`, never bare `superseded_by: [[page-slug]]`. YAML treats a leading `[` as a flow sequence and rejects or misparses the value otherwise.
 2. **Long or multi-line string fields must be double-quoted.** Any string spanning multiple lines or containing YAML-significant characters (colons, leading dashes, leading brackets) takes double quotes. Block scalars (`>` / `|`) are not used — quote uniformly.
 3. **No nested properties.** Obsidian's properties UI does not render nested YAML maps. Every schema in this file is intentionally **flat**; do not introduce nested structures even where YAML would accept them. List fields hold bare scalars (strings, paths, quoted wikilinks), never maps.
-4. **Non-graph list fields use bare paths/basenames, not wikilinks.** A list that is an audit trail rather than a link graph (e.g. a session log's `artifacts:`) holds plain vault-relative paths. Do not wrap these in `[[...]]` — the audit trail is not a wikilink graph. (`sources:` likewise holds plain page references unless a specific schema says otherwise.)
+4. **List fields split by use: verify vs traverse.** A list you *verify against* — an audit trail, where the record is the point (a session log's `artifacts:`, a research note's `sources:`) — holds bare vault-relative paths, never wikilinks. A list you *traverse* — a link graph, where claims are answerable to origins and following the link is the point — is wikilink-form territory; **a wiki page's `sources:` is a link graph** and is the first field so classed. (Unless a specific schema says otherwise — that carve-out is the delegation slot per-schema rules build on.) *Interim posture:* the wikilink **form** for wiki `sources:` (quoting, path shape, reserved characters, and the normalization clause that protects the `linkage_ripe` shared-source comparison) ships with the overlay-contract build; **until it does, wiki pages stay on the bare-path form** — the split is declared, the wiki schema's `sources: []` below is unchanged, and converting early is the one illegal move in the window: an unnormalized early conversion silently breaks the absorption test the form change is designed to protect.
 5. **Backtick-wrapped wikilinks do not resolve.** `` `[[X]]` `` renders as literal text. Never wrap a wikilink in backticks anywhere a link is intended, in frontmatter or body.
 6. **Don't duplicate a frontmatter field as inline body metadata.** If a field lives in the frontmatter, it does not also appear as `**Field:** value` in the document body — that just invites drift.
 
@@ -215,9 +215,11 @@ The vault's evolution intake is a single living file, `{backlog}` — not one fi
 - **`kind`** ∈ `capability-gap` | `maintenance` | `knowledge-gap`:
   - `capability-gap` — a missing operation or partner; `vlt-mint` filters for these.
   - `maintenance` — wiki health work (drift, near-duplicates, stale claims); feeds `vlt-lint` and inline merges via `vlt-ingest`.
-  - `knowledge-gap` — a topic the vault is thin on; a cue for the Researcher.
+  - `knowledge-gap` — a topic the vault is thin on.
 - **`by`** — who filed it (a partner name, or `user`).
 - **`why`** — one line; enough to act on later without re-deriving context.
+
+**The address rule.** A noticed gap goes to `{backlog}` only when the filing partner does not know whose turn it is; when it does, the gap is **relayed to that partner** (`vlt-dispatch relay`, shape `ask`). The backlog is evolution intake, not a shared to-do list — it holds the unassignable. Three guards: **(1)** the rule binds every `kind`, not just `knowledge-gap` — it is a rule about address, not subject; **(2)** self-addressed work is not a relay — a partner does not relay to itself; **(3)** migration is one-home — an item that acquires an owner is relayed **and struck** from `## Open`, never left on both rails. And the rule's limit: relay does not schedule work — it buys an **address and a drain**, which the backlog has neither of, not execution; a stale relayed slice is not evidence the rail failed. *Interim posture:* the `ask` shape and the relay-side machinery ship with the relay build; until then this rule is declared — the existing relay form carries what it can, filing to `{backlog}` remains legal for anything it cannot, and no check fires on either choice.
 
 An item promotes to its own note only if it grows into real design work. Filing an item is the cheapest, ungated act in the system; building from it is deliberate (see the operating contract's backlog rules).
 
@@ -232,19 +234,23 @@ enforcement_moment: <the moment the check runs, e.g. lint run | op final-steps |
 enforcement_counter: <optional; when present, must name a metric id from the vitals reader's canonical table (.claude/hooks/vlt-vitals.py) — the enforcement kit's one vocabulary>
 # deferral — ALL THREE required for any deferral; missing any field = invalid:
 deferral_metric: <what is counted>
-deferral_threshold: <numeric tripwire>
+deferral_threshold: <the tripwire — a number, or a short prose threshold a vault can evaluate from its own state>
 review_after: YYYY-MM-DD             # deferral expiry — the wiki-page key above, referenced not redefined
 # adoption — OPTIONAL first-instance axis, orthogonal to the violation facets above:
-adoption_first_instance: <null | dated reference to the boundary's first live instance>   # null/absent = declared-but-not-yet-adopted (an absence, not a violation)
+adoption_first_instance: <null | dated reference to the boundary's first live instance>   # null = declared-but-not-yet-adopted; key absent = axis not declared (both absences, not violations)
 ```
 
 Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
 
-**Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference **by the ceremony that produces it**, and **null/absent while the class is declared-but-unexercised**. Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet. *Live consumers today:* the facet is stamped by the ceremony that produces a convention's first live instance — `vlt-mint` (mint ceremonies, the same ceremony that promotes `enforcement_stage`), the spec promotion step (`spec.md`, *Promotion from candidate*), `vlt-upgrade`'s proto-spec retrofit, and `vlt-dispatch`'s consult record (the authority rule's single home is `vlt-mint`, Step 4) — and `vlt-upgrade`'s post-flight report + upgrade ledger surface each convention's adoption state. Its absence remains **not** a `vlt-lint` finding; `vlt-lint` never writes it.
+**Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference **by the ceremony that produces it**, and **explicit `null`** while the class is declared-but-unexercised (a wholly absent key means the axis is not declared — `vlt-upgrade`'s adoption report distinguishes the three values). Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet. *Live consumers today:* the facet is stamped by the ceremony that produces a convention's first live instance — `vlt-mint` (mint ceremonies, the same ceremony that promotes `enforcement_stage`), the spec promotion step (`spec.md`, *Promotion from candidate*), `vlt-upgrade`'s proto-spec retrofit, and `vlt-dispatch`'s consult record (the authority rule's single home is `vlt-mint`, Step 4) — and `vlt-upgrade`'s post-flight report + upgrade ledger surface each convention's adoption state. Its absence remains **not** a `vlt-lint` finding; `vlt-lint` never writes it.
+
+**Vault-writable declared fields.** A base convention field may be **declared vault-writable** — an authorized vault-local carry on a shipped base, the class `adoption_first_instance:` already instantiates — and a declared field's local value is not base divergence. The deferral-expiry key `review_after:` on a shipped convention is the second member of that class: a vault records a performed review's outcome without forking the base. *Interim posture:* until the mechanism that honors the declaration ships (the seam build's divergence-diff generalization), a shipped deferral's expiry is **reviewed upstream, and a vault's only legal move is to file** — an expired `review_after:` on a stock convention produces a `deferral_expired` finding that is **correct**, a base edit to clear it still flags `convention_base_divergence` (also correctly), and neither finding should be suppressed locally.
 
 ## Narrow-convention escape hatch
 
 This file is one broad convention by deliberate choice — most vault notes touch overlapping schemas (base + per-type additions), and one file keeps the cross-references coherent. If scale or per-type coupling ever justifies it, a narrower convention (e.g. a hypothetical `wiki-frontmatter.md` consumed only by `vlt-ingest`) can be split out later. At current vault scale, one convention is the right default.
+
+**Local conventions (vault-originated).** A vault may originate a **local convention** — a convention file in `{conventions}` with no stock counterpart, carrying its own enforcement declaration. Two properties are mandatory: **(a)** it exists without a stock counterpart — it is not an overlay and shadows no shipped base — and **(b)** it is visible to the split tripwire as a convention in its own right: it counts toward this file's `deferral_metric` ("new conventions minted") exactly as a module-shipped mint would. A landing zone that is merely silent would reproduce today's outcome with better manners; both properties are the floor. *Interim posture:* until the seam build ships the mechanism (the `baseline_missing` exemption and the consumer read), a vault-originated convention file in `{conventions}` still flags `baseline_missing` — the finding is correct in the window; the legal move is to carry the file and file the finding upstream, not to suppress the check or disguise the rule inside an unrelated overlay (the silent third zone this rule exists to close).
 
 ## Reading list
 

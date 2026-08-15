@@ -13,7 +13,7 @@ consumers: [vlt-mint, vlt-dispatch, vlt-upgrade, vlt-lint]
 enforcement_stage: declared
 deferral_metric: "spec version bumps shipping without their relay entries"   # at zero adoption this cannot fire — see Enforcement, the blind-spot statement
 deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
-review_after: 2026-08-17
+review_after: 2026-10-15
 adoption_first_instance: null        # no first live instance yet — declared, not yet adopted
 ---
 
