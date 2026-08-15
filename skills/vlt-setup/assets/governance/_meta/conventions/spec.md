@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-07-06
-last_updated: 2026-07-29
+last_updated: 2026-08-15
 title: Spec Conventions
 author: hybrid
 trust: reviewed
@@ -11,7 +11,7 @@ sources: []
 version: 2
 consumers: [vlt-mint, vlt-dispatch, vlt-upgrade, vlt-lint]
 enforcement_stage: declared
-deferral_metric: "spec version bumps shipping without their relay entries"   # at zero adoption this cannot fire — see Enforcement, the blind-spot statement
+deferral_metric: "spec version bumps shipping without their relay entries"   # while adoption is zero this cannot fire — see Enforcement, the blind-spot statement
 deferral_threshold: "1 — any such bump promotes the deferred lint checks to next-mint priority"
 review_after: 2026-10-15
 adoption_first_instance: null        # no first live instance yet — declared, not yet adopted
@@ -87,9 +87,9 @@ This is the beat's single home; lint and the retrofit point here rather than res
 
 ## Enforcement
 
-Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. `vlt-lint` is **already** in this file's `consumers:` — it carries the live `spec_candidate` advocacy check (a surfacing aid at lint cadence, like `review_due`, not an enforcement of a spec *rule*, so it does not promote `enforcement_stage`). The two schema/notification checks above **remain deferred** until they land; when they do, the tripwire discharges and no `consumers:` change is needed (`vlt-lint` is registered).
+Stage and deferral are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `declared`, with a tripwired deferral. Until the deferred machinery lands, the rules above are checked by inspection at mint and dispatch time. The deferred machinery is two `vlt-lint` checks — `spec_schema_violation` (a `{specs}` artifact missing required fields, or a `version` bump without its "What changed" entry) and `spec_notification_missing` (a `version` bump with no matching relay entries in the dispatch record). Escalation trigger, pre-agreed: a spec `version` bump ever shipping without its relay entries promotes the lint checks from scheduled follow-on to next-mint priority. `vlt-lint` is **already** in this file's `consumers:` — it carries the live `spec_candidate` advocacy check (a surfacing aid at lint cadence, like `review_due`, not an enforcement of a spec *rule*, so it does not promote `enforcement_stage`). The two schema/notification checks above **remain deferred** until they land; when they do, the tripwire discharges and no `consumers:` change is needed (`vlt-lint` is registered). Design note for the deferred `spec_notification_missing` check, recorded ahead of its build: a promotion-era `version` bump may have been relayed against the doc's **pre-promotion path** (a handoff at `_agent/handoffs/{date}-{slug}.md`, promoted to `{specs}/...` only afterwards — drained relay entries are not re-pointed by the relocation migration), so notification matching must accept a relay entry referencing any of the spec's historical paths; keying on the `{specs}` path alone scores exactly that history as un-notified — a false positive on the class the check exists to measure.
 
-**The deferral's blind spot, stated in its own text:** at zero adoption the `deferral_metric` cannot fire — "spec version bumps shipping without their relay entries" presupposes a spec that exists, so its only attainable value is "fine" — which means it measures **notification discipline once specs exist, never adoption itself**. The bound that fires regardless of adoption is the deferral's own `review_after:` expiry (`vlt-lint`'s `deferral_expired` finding), per the operating contract's honest-reporting rule (`vault-operating-contract.md`, *Honest reporting* — cited, not restated).
+**The deferral's blind spot, stated in its own text:** **while adoption is zero** the `deferral_metric` cannot fire — "spec version bumps shipping without their relay entries" presupposes a spec that exists, so until the first spec does, its only attainable value is "fine". In both regimes it measures **notification discipline once specs exist, never adoption itself** — adoption is the orthogonal `adoption_first_instance:` axis (`frontmatter.md`, *Adoption axis*). The bound that fires regardless of adoption is the deferral's own `review_after:` expiry (`vlt-lint`'s `deferral_expired` finding), per the operating contract's honest-reporting rule (`vault-operating-contract.md`, *Honest reporting* — cited, not restated).
 
 ## Reading list
 

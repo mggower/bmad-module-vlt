@@ -102,14 +102,14 @@ upgrade:
   skill_asset_divergence: [<path: shipped skill asset was hand-edited (prev content preserved in ledger) — re-apply locally or upstream | skill_manifest_missing (seeded this run)>, ...]
   migrations_run: [decision-log-relocation | overlay-lift | proto-spec-retrofit | overlay-subsumption | decision-log-reconcile | decision-log-write | loop-profile-relocation | <other>, ...]
   governance_divergence: [<file differs from shipped — review>, ...]
-  convention_adoption: [<convention: adopted <ref> | declared, no first instance yet (declared since YYYY-MM-DD — N days) | axis not declared>, ...]
+  convention_adoption: [<convention: adopted <ref> | declared, no first instance yet (created YYYY-MM-DD — N days) | axis not declared>, ...]
   capabilities_intact: [<partner/slug>, <family>, ...]            # vault-grown caps + family contracts preserved
   family_invariant_drift: [<family: instance <partner> no longer honors invariant X — reconcile>, ...]
 ```
 
 `base_divergence`, `skill_asset_divergence`, and `governance_divergence` are the **detect-and-report** safety net (filing #8 B3): the upgrade never silently clobbers a local edit without surfacing it — but it does not auto-merge either (overlays make that unnecessary going forward for conventions; a hand-edited base or skill asset is the user's to re-express or re-apply).
 
-`convention_adoption` reads the **adoption axis** (`{conventions}/frontmatter.md`, *Adoption axis*): for every `{conventions}/*.md`, read `adoption_first_instance:` — a dated reference reports **adopted**; an explicit `null` reports **declared, no first instance yet (declared since `created:` — N days)**, deriving the date from the convention file's own `created:` frontmatter — so a long-lived null is readable at the only cadence that reports the axis; the key's total absence reports **axis not declared** (this report cannot tell that case from an unexercised one, which is why the three values are distinct). Per the operating contract's honest-reporting rule, the line is **never omitted when empty** — an absent line would read as "all adopted". It is a **report, never a gate**: adoption is an absence, not a violation, so it can never block or fail an upgrade.
+`convention_adoption` reads the **adoption axis** (`{conventions}/frontmatter.md`, *Adoption axis*): for every `{conventions}/*.md`, read `adoption_first_instance:` — a dated reference reports **adopted**; an explicit `null` reports **declared, no first instance yet (created `YYYY-MM-DD` — N days)**, the date read from the convention file's own `created:` frontmatter and reported in that vocabulary — `created:` is a **proxy** for the axis's declaration date (exact while an axis is born with its file; stated as a proxy per the operating contract's honest-reporting rule) — so a long-lived null is readable at the only cadence that reports the axis; the key's total absence reports **axis not declared** (this report cannot tell that case from an unexercised one, which is why the three values are distinct). Per the operating contract's honest-reporting rule, the line is **never omitted when empty** — an absent line would read as "all adopted". It is a **report, never a gate**: adoption is an absence, not a violation, so it can never block or fail an upgrade.
 
 ## Step 5 — The standing divergence ledger
 
