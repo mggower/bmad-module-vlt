@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-29
-last_updated: 2026-07-29
+last_updated: 2026-08-15
 title: Decision-Log Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 1
+version: 2
 consumers: [vlt-mint, vlt-upgrade, vlt-lint]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -38,13 +38,23 @@ Each entry is a dated block:
 ## [YYYY-MM-DD] <kind> — <one-line subject>
 - kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement
 - ref: <governed object>    # e.g. conventions/frontmatter.md | overlays/extraction.overlay.md | capabilities/families/<name> | partners/<name>
-- verdict: <council verdict + reasoning, or `non-boundary: <why>` / `council-none`>
+- verdict: <verdict> (<provenance>) — <reasoning>   # or `non-boundary: <why>` / `council-none`
 - convention: <name> <old→new>          # convention-edit ONLY — the version delta
 <free-form detail: what was decided and why>
 ```
 
 - **`kind:`** makes the log **scopable by class** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry.
 - **`ref:`** names the **governed object**, making an entry findable **by subject**, not only by date — it is the machine key `vlt-lint`'s read-before-flag matches on. It is **required on every new entry**: every entry names a governed object (a mint names the minted thing, a convention edit names the convention, a retirement names the retiree), and a conditional key would re-create the classifiability gap one tier down.
+
+### Verdict provenance (v2)
+
+A **gated** entry's `verdict:` records *how the verdict was reached*, not only what it was — a parenthetical provenance, one of exactly three forms:
+
+- **`(council — lenses: <the workflow's lensesFielded>)`** — the panel workflow was invoked and fielded; the lens list is the workflow's own return, not a recollection.
+- **`(council-degraded — <the workflow's note>)`** — the workflow ran but produced a degraded verdict (e.g. no persona lens could be read); carry its `note`.
+- **`(user-ruled — panel not fielded: <why>)`** — the council could not be fielded and the **user** explicitly ruled the verdict in the live session. The *why* is **required**, never optional: an entry that cannot say why the panel was not fielded is an improvisation, not a ruling. Only the user may substitute for the panel — a minting context never reviews its own staging (see `vlt-mint`, Step 2a).
+
+Provenance is required on every **new** gated entry from v2 on. `non-boundary:` and `council-none` entries carry none (there was no panel to account for). **No backfill** — append-only means pre-v2 entries without the facet are *pre-facet*, a third honest tier of the classifiability tail, surfaced, never silently swept.
 
 ## The classifiability tail
 
@@ -85,6 +95,8 @@ The memory covers what was **recorded**. A ruling made and never written through
 Stage and owner are declared in this file's own frontmatter, per `frontmatter.md` *Enforcement declaration* — `checked`, by `vlt-lint`, at every lint run. The check is the read-before-flag: for each long-lived governance finding, derive exactly one of three states — **`adjudicated`** (a matching live entry exists; cite it), **`undisposed`** (no matching entry), **`unclassifiable`** (the tail above, surfaced in the report's denominator). It **never auto-fixes** — `adjudicated` changes what lint *reports*, never what it writes to the governed files — and its counter (undisposed governance findings) is **derived from the log at each run, never stored**.
 
 There is no deferral: the check exists, its owner is named, and its moment is named, all as of this convention's first version.
+
+The **verdict-provenance rule (v2)** is **write-side** — enforced by the ceremonies that write gated entries (`vlt-mint` Step 2a is the first) — and is *not* covered by the read-before-flag check, which keys on `ref:` only. No new finding class ships with v2; a build that later adds a provenance checker owes that check its own stated legal response.
 
 ## Reading list
 
