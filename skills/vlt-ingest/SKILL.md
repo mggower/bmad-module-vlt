@@ -23,7 +23,7 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 
 **Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked standalone with no partner, omit the tag.
 
-**Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules. These govern every write; honor them exactly.
+**Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*). These govern every write; honor them exactly.
 
 ## Step 1: Re-ingest check
 

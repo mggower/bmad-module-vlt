@@ -27,7 +27,7 @@ After the board, check the rail: for every pointer in a `relay:` block, **resolv
 
 This is the read-side bell for the failure that cannot be seen by reading a single block: an unkeyed pointer disables the spam guard invisibly.
 
-**Group open items by `blocked:` facet where tagged** (the optional inline facet on backlog items and pointer lines — `blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD`, per `{conventions}/frontmatter.md`'s backlog schema): render `user-decision` first as the owner's question list, then the other facets; untagged rows are their own bucket (absence = untagged; never infer a facet).
+**Group open items by `blocked:` facet where tagged** (the optional inline facet on backlog items and pointer lines — `blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD`, per `{conventions}/frontmatter.md`'s backlog schema): render `user-decision` first as the owner's question list, then the other facets; untagged rows are their own bucket (absence = untagged; never infer a facet). Where `(for: <principal>)` facets are present, additionally annotate the per-partner counts by principal (e.g. "Researcher 3 — 2 for `{principal-slug}`") and render un-faceted items as the default principal's — absence = default, never infer. The pointer-integrity check is unchanged (a key is a path or a `ref`; the principal widens the key's *pair*, not its *presence*).
 
 ### Tripped wires & vitals
 

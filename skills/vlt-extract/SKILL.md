@@ -18,7 +18,7 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 
 The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets are `projects/`, `areas/`, `resources/` at the project root. Note the **active partner** for the log tag.
 
-**Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules.
+**Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*).
 
 ## Step 1: Interview
 

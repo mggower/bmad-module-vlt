@@ -36,9 +36,11 @@ flag_for_human:
   revisit_due: [<research-note — revisit_after YYYY-MM-DD past>, ...]
   governance_memory: <G governance findings checked against the log; A adjudicated, U undisposed; X log entries unclassifiable (no ref key)>   # read-before-flag denominator — the pre-key tail is surfaced, never silently swept
   convention_base_divergence: [<convention: base differs from .baseline — lift to overlay or upstream | baseline_missing | annotated (adjudicated YYYY-MM-DD <kind>) where a live log entry disposes it>, ...]
+  local_conventions: <N local convention(s): <names>>   # sanctioned local conventions (no baseline + live mint entry) — an inventory line, not a finding; zero renders as the denominated zero
   overlay_issues: [<overlay: duplicates base heading 'X' (not append-only) | overlay_orphan (no base convention)>, ...]
   capability_issues: [<partner/slug: lane_violation (light cap writes a shared lane) | scope_mismatch (write_scope ≠ actual writes) | weight_mismatch | skill_missing (dangling heavy pointer)>, ...]
   family_issues: [<family: invariant_violation (instance breaches X) | instance_missing (listed instance has no capability)>, ...]
+  dispatch_profile_invalid: [<_agent/dispatch-profile.md: <failing line — duplicate slug | no/multiple (default) | capture stream resolves to no directory>>, ...]   # absent file = no findings (single-principal default)
   personalized_extraction_issues: [<artifact: method_not_in_sources (general claim not traced to wiki sources:) | method_in_personalization (personalization_sources carries method, not state)>, ...]
   stale: [<page — reason>, ...]
   contradiction_scan: <P pages compared; D documented, U carrying no disposition; S surfaced-but-declined this run>   # denominator + the stated bound — a bare zero below is not health

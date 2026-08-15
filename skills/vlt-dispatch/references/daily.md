@@ -12,6 +12,8 @@ Like `vlt-lint`, pick one scope at the top of the run and announce it (with the 
 
 **Scoped (default)** — every daily note with content **beyond its watermark**. Glob `daily/*.md`, and for each compare current line count to `watermark[file]`; include every note with new lines (on the first scoped run, the entire backlog of never-dispatched notes; thereafter only what's been appended). Process only the lines beyond each note's watermark; a run with nothing new anywhere routes nothing (report "nothing new since the last dispatch").
 
+**Where a routing profile declares principals** (`SKILL.md`, *the routing profile*), the scan covers **each declared capture stream** — glob each principal's stream the same way (`daily/*.md` stays the default principal's); the watermark machinery is already per-source, so per-stream watermarks need no new mechanics. With no profile, this paragraph is inert.
+
 **Full** — only when the user says "full dispatch" / "dispatch everything" / `--full`: re-route **every** `daily/*.md` from line 0, ignoring watermarks. Use after a format change or to rebuild the record. (Re-routing writes fresh open items; it does not resurrect items a partner already checked off in a prior block — those stay as their own historical blocks.)
 
 **A named date or range** — "dispatch the 10th" / "this week's notes" / "today" → resolve to the matching `daily/YYYY-MM-DD.md` file(s) and process each beyond its watermark (or from line 0 if the user says "re-dispatch").
@@ -40,7 +42,7 @@ Append one **`daily` run block** per in-scope source to `_agent/dispatch.md` (cr
 - [ ] `slug` Partner Name — one-line gist of the fragment, in the user's own framing → [[daily/YYYY-MM-DD]]
 ```
 
-Only **owned** fragments get a pointer line. A no-owner fragment is flagged in the run report and written nowhere; the header's `K item(s)` counts only the pointers actually written. A pointer line **may** optionally carry the `blocked:` triage facet in a paren after the gist (`(blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD)` — the backlog facet in `{conventions}/frontmatter.md`, referenced not redefined); absence = untagged, and `ledger` groups by it.
+Only **owned** fragments get a pointer line. A no-owner fragment is flagged in the run report and written nowhere; the header's `K item(s)` counts only the pointers actually written. A pointer line **may** optionally carry the `blocked:` triage facet in a paren after the gist (`(blocked: user-decision | partner-bandwidth | external-event YYYY-MM-DD)` — the backlog facet in `{conventions}/frontmatter.md`, referenced not redefined); absence = untagged, and `ledger` groups by it. A pointer routed from a non-default principal's stream carries that principal's facet — `(for: <principal-slug>)` — so the draining partner knows whose capture it serves and whose thread the answer belongs to; default-stream pointers stay un-faceted (byte-identical single-user output).
 
 Rules for the block:
 
@@ -55,7 +57,7 @@ The file's header (written once, on creation):
 ```
 # Dispatch
 
-_The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner pointers (a handoff doc, or a doc-less ask/answer); `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, the pointer's key (doc path or ref) for `relay`; the open/picked-up status makes the backlog self-reporting._
+_The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner pointers (a handoff doc, or a doc-less ask/answer); `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, the pointer's key (doc path or ref, per recipient pair) for `relay`; the open/picked-up status makes the backlog self-reporting._
 ```
 
 `_agent/dispatch.md` is a log-style agent record (like `{log}`), not a "note" — it carries **no per-note frontmatter**.

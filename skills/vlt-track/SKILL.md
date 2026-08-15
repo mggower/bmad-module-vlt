@@ -39,7 +39,7 @@ The vault is this project — resolve every path relative to `{project-root}` th
 
 If invoked headless with no partner context, take the profile from the named owning partner's **`capabilities/track.md`**, or ask for the missing pieces — never guess `{root}`/`{target}`.
 
-Before writing anything, JIT-read the governance conventions this operation obeys from `{conventions}`: at minimum `frontmatter.md` (the PARA-artifact schema and YAML rules) and `extraction.md` (the personalized-extraction rule and its hard invariant, the trust ladder, filename and re-extraction supersession discipline) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules. The protocol write is an extraction — honor that convention exactly.
+Before writing anything, JIT-read the governance conventions this operation obeys from `{conventions}`: at minimum `frontmatter.md` (the PARA-artifact schema and YAML rules) and `extraction.md` (the personalized-extraction rule and its hard invariant, the trust ladder, filename and re-extraction supersession discipline) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*). The protocol write is an extraction — honor that convention exactly.
 
 Determine which beat of the loop the user is on — **design**, **log**, or **review/adjust** — from their ask.
 

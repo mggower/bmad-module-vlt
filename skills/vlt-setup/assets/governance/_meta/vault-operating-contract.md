@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-07-26
+last_updated: 2026-08-15
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -98,11 +98,14 @@ A vault **grows**: it mints its own partners, edits its conventions, accrues min
 
 - An overlay is `{overlays}/{name}.overlay.md` (e.g. `_agent/conventions/frontmatter.overlay.md`). It is **append-only**: it may *add* a frontmatter field, a rule, or a whole subsection — it never rewrites or deletes a base rule. Precedence is simply base-first, overlay-appended.
 - **Any reader of a convention reads the base, then applies its overlay if one exists.** The convention is the base file *plus* its overlay, merged on read. (Consumer skills that pin a convention in `depends_on:` resolve the overlay the same way — the version handshake is against the *base*; the overlay rides along.)
-- **An overlay may occupy a carve-out the base names in its own words.** This is legal exactly where *(a)* the base rule itself cuts the delegation ("unless a specific schema says otherwise") and *(b)* the overlay names the exact schema it occupies and scopes narrowly to it — e.g. an overlay stating *"for the `<note-type>` schema in this vault, `<field>:` additionally allows `<value-form>`"* occupies a named carve-out. An overlay claiming a carve-out the base never cut is a base-rule change in disguise and routes per the next bullet.
+- **An overlay may occupy a carve-out the base names in its own words.** This is legal exactly where *(a)* the base rule itself cuts the delegation ("unless a specific schema says otherwise") and *(b)* the overlay names the exact schema it occupies and scopes narrowly to it — e.g. an overlay stating *"for the `<note-type>` schema in this vault, `<field>:` additionally allows `<value-form>`"* occupies a named carve-out. An overlay claiming a carve-out the base never cut is a base-rule change in disguise and routes per the base-rule-change bullet below.
+- **A sanctioned local convention is read the same way.** A vault-originated convention (`{conventions}/frontmatter.md`, *Local conventions*) is a convention in its own right: a consumer JIT-reading its governing conventions **also honors any local convention that names it in its `consumers:`** — discovery is by the local file's own consumer roster (scan `{conventions}` for it), never by an enumeration inside the skill. Local conventions are vault-local: they carry `version:`/`consumers:` for meta-completeness and discovery, but they are **outside the version handshake** (no `depends_on:` pin exists or is owed — the handshake binds shipped conventions only).
 - Because the collision never forms (base and local edits never share a file), an upgrade can refresh every base convention without ever threatening a local addition. This is the durability principle applied to governance content.
 - To *change* an existing base rule (not just add one) the change must go to the base — which means it is **generic** and belongs upstream (file it to the module). If a base file is hand-edited locally anyway, that is divergence: `vlt-lint` and the upgrade pre-flight **detect and report** it against the stock `{overlays}/.baseline/` copy (they never silently clobber it), but it is outside the durable path until upstreamed.
 
-`vlt-mint`'s *Edit a convention* kind routes by this rule (overlay for a local addition; base + version-handshake for a generic rule change). `vlt-upgrade` owns the reconcile that makes refresh-the-base safe. See `{upgrade_ledger}` for the standing divergence record.
+`vlt-mint`'s *Edit a convention* kind routes by this rule (overlay for a local addition; base + version-handshake for a generic rule change; local convention for a vault-originated new subject). `vlt-upgrade` owns the reconcile that makes refresh-the-base safe. See `{upgrade_ledger}` for the standing divergence record.
+
+**Designed parameter reads — how a module skill takes vault-local policy.** A module-owned skill that needs per-vault variation consumes it as a **designed parameter read**: a vault-declared object in a declared home — `vlt-track`'s loop profile (`capabilities/track.md`), `vlt-dispatch`'s routing profile (`_agent/dispatch-profile.md`) — with a named fallback when absent. The declaration lives where upgrades never write, so it is durable by construction; the skill hardcodes none of it. **The boundary, and why it is a veto:** skill *text and behavior* are never locally patchable — skills have no overlay mechanism, a local skill edit is a `skill_asset_divergence` the user re-applies every upgrade (a treadmill, not a home), and a text override is the silent-fork pattern the SHA manifest and single-home discipline exist to refuse. The standing answer to "can I overlay skill X?": **parameters yes** (a designed read, filed upstream if the skill lacks one), **content yes** (conventions, overlays, local conventions), **new behavior by mint** (a vault-grown op skill or capability), **skill text no**.
 
 ## `{research}` vs `{wiki}` — the core distinction
 

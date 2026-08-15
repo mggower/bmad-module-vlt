@@ -28,24 +28,24 @@ Every relay declares a **`shape`** — what the pointer carries, and what keys i
 
 ### Inputs and validation
 
-Required always: **`to-slug`** (the recipient's routing slug) and **`gist`** (one-line, in the publisher's framing). Per shape: **`handoff-path`** (the stable path under `_agent/handoffs/` or `_agent/specs/`) is **required** for `handoff`, never assumed for `ask` (an ask has no doc — that is the point), and optional for `answer`; **`ref`** is **required** for `ask` and `answer`. Optional: **`from-slug`** (the publisher; infer from the calling partner when fired as a reflex). Then:
+Required always: **`to-slug`** (the recipient's routing slug) and **`gist`** (one-line, in the publisher's framing). Per shape: **`handoff-path`** (the stable path under `_agent/handoffs/` or `_agent/specs/`) is **required** for `handoff`, never assumed for `ask` (an ask has no doc — that is the point), and optional for `answer`; **`ref`** is **required** for `ask` and `answer`. Optional: **`from-slug`** (the publisher; infer from the calling partner when fired as a reflex); **`to-principal`** (a roster principal-slug, only meaningful where a routing profile declares one — `SKILL.md`, *the routing profile*; absent = the default principal; an unknown principal-slug stops the act — never guess a roster). Then:
 
 - **Liveness (light).** Confirm `to-slug` matches a live `vlt-agent-{to-slug}` in `{project-root}/.claude/skills/`. If it doesn't, don't write a dangling pointer — say so and stop (a relay to a retired/typo'd slug is **failure mode #4**, phantom recipient; we surface it rather than parking an orphan). *(Deeper liveness checks stay deferred until they bite.)*
-- **`from-slug ≠ to-slug`** — a partner does not relay to itself (mirrors consult's "a partner does not consult itself"). Stated against the addressee model in force: one human principal, partners identified by slug — "self" means the same partner slug.
+- **`from-slug ≠ to-slug`** — a partner does not relay to itself (mirrors consult's "a partner does not consult itself"). Stated against the addressee model in force: **"self" means the same `(partner-slug, principal)` pair** — under a routing profile, the same partner acting for a **different** principal is a legal relay (the cross-principal handoff is the traffic a roster exists for); with no profile there is one principal, and the pair test reduces to the same slug-equality this rule has always been.
 - **Secret hygiene.** Same as `daily` — never put a credential in the gist.
 - **The handoff doc itself is the publisher's, not dispatch's** — relay points at it, never reads it for content, never edits it. Surface-and-point holds: the pointer carries a gist; the rich spec stays in `_agent/handoffs/`.
 
-### The idempotency rule — keyed on `(handoff-path | ref, to-slug)`
+### The idempotency rule — keyed on `(handoff-path | ref, to-slug, principal)`
 
-The key is per shape: a `handoff` keys on its **doc path** exactly as it always has; an `ask` or `answer` keys on its **`ref`**. This is why `ref` is required — an unkeyed pointer disables the spam guard below **invisibly**: the guard's absence is indistinguishable from the guard passing. Two kept properties: an `answer` reusing its `ask`'s `ref` **does not collide** (opposite directions — different `to-slug`), and the open/checked/no-op ladder below applies per key, unchanged.
+The key is per shape: a `handoff` keys on its **doc path** exactly as it always has; an `ask` or `answer` keys on its **`ref`**. This is why `ref` is required — an unkeyed pointer disables the spam guard below **invisibly**: the guard's absence is indistinguishable from the guard passing. The key carries the **recipient pair**, not the recipient slug alone: the same ask relayed to the same partner for two different principals is two distinct waits, not a duplicate; an un-annotated pointer keys as the default principal, so every existing key is unchanged (backward-compatible, no backfill — the pre-shape idiom, *Backward compatibility* above, extends to the facet: an un-faceted pointer *is* default-principal traffic, exempt from nothing because it needs no exemption). Two kept properties: an `answer` reusing its `ask`'s `ref` **does not collide** (opposite directions — different `to-slug`), and the open/checked/no-op ladder below applies per key, unchanged.
 
-Before appending, grep the record for an existing relay pointer with this **same `(key, to-slug)` pair** and apply:
+Before appending, grep the record for an existing relay pointer with this **same `(key, to-slug, principal)` tuple** and apply:
 
 - **No pointer exists** → append a fresh open pointer (first relay).
 - **An *open* pointer exists** (`- [ ]`) → **no-op.** The recipient hasn't drained the prior notice yet; a second relay of the same key is the **#1 spam** failure mode (a partner re-firing each awakening). Say "already open in `<to-slug>`'s slice — no-op" and write nothing.
 - **The latest pointer is *checked off*** (`- [x]`) → the recipient already picked up the prior version and the publisher is relaying **again** = new information (a revised spec — **#2 stale-spec**). Append a **fresh open pointer** to re-notify.
 
-This is **idempotency hygiene, not content judgment** — dispatch enforces "one open pointer per `(key, recipient)`," nothing about whether the handoff is *good*. The scribe stays thin.
+This is **idempotency hygiene, not content judgment** — dispatch enforces "one open pointer per `(key, recipient pair)`," nothing about whether the handoff is *good*. The scribe stays thin.
 
 ### The handoff lifecycle this rule assumes (stable path, updated in place)
 
@@ -67,6 +67,14 @@ Append a **`relay` block** to `_agent/dispatch.md`. The header shape — `relay:
 
 An `answer` is analogous — `(answer: <ref>)`, reusing the ask's `ref`, its pointer optionally citing the durable artifact as a `[[wikilink]]`.
 
+Where a routing profile declares a roster and the act is addressed to a non-default principal, the pointer carries the **principal facet** in a paren after the gist (the same paren idiom as `blocked:` — `SKILL.md`, *Why a record, not an inbox*):
+
+```
+- [ ] `to-slug` Partner Name — gist of what's waiting (for: {principal-slug}) → [[_agent/handoffs/…]]
+```
+
+An un-faceted pointer is the default principal's — never annotate the default.
+
 One relay = one **pre-addressed act**: a `handoff` or `answer` carries a single pointer; a **batched `ask`** may carry several questions when they are one act — one publisher, one recipient, one moment, each pointer its own `ref`. *(The pattern the field surfaced: a backlog accumulates items one at a time and never sees that nine of them are one act; the triage onto an addressed rail is where that becomes visible — an observation, not a rule.)* The pointer **may** optionally carry the `blocked:` triage facet in a paren after the gist (the backlog facet in `{conventions}/frontmatter.md` — absence = untagged; `ledger` groups by it). The pointer is the **same line format** every mode emits, so the recipient drains it with the **same** pickup loop — a relayed item is indistinguishable from a daily-routed one once in the slice, which is exactly the point.
 
 ### Report
@@ -78,6 +86,10 @@ Brief, since relay is usually a sub-step of a partner's handoff:
 Or, for an `ask`:
 
 > Relayed an ask to **Researcher** (`ask: {question-slug}`): what would close it is a source the vault doesn't hold. Open in the Researcher's slice; it'll surface when the Researcher next orients.
+
+Or, addressed to a roster principal:
+
+> Relayed to **Researcher** for `{principal-slug}` (`for: {principal-slug}`): spec waiting at `_agent/handoffs/{doc-slug}.md`. Open in the Researcher's slice, faceted to `{principal-slug}`'s thread.
 
 On a no-op (open pointer already present): "Creative already has an open pointer for this spec — nothing appended." On a phantom recipient: "No live partner `<to-slug>` — nothing written; check the slug."
 
@@ -94,7 +106,8 @@ The mode's `{log}` entry (router: Log):
 After writing, re-read what you produced and confirm:
 
 - The recipient slug is **live** (a real `vlt-agent-{to-slug}`); no dangling pointer was written.
-- The **idempotency rule was applied against the shape's key**: no second open pointer exists for the same `(handoff-path | ref, to-slug)` (a no-op was honored), and a re-relay after check-off appended a fresh open pointer.
+- The **idempotency rule was applied against the shape's key, pair-inclusive**: no second open pointer exists for the same `(handoff-path | ref, to-slug, principal)` (a no-op was honored), and a re-relay after check-off appended a fresh open pointer.
+- Any `(for: …)` facet written this run names a principal on the routing profile's roster (an unknown slug should have stopped the act — never guess a roster).
 - **Every pointer written this run resolves a key** — a path on disk (`handoff`), or a `ref` in the header (`ask`/`answer`).
 - Exactly one `relay: <from> → <to>` block was appended (or none, on a no-op), pointer(s) open, a `handoff` linking the real `_agent/handoffs/…` doc, an `ask`/`answer` carrying its `ref` in the header. `daily/` untouched, wiki untouched. The `{log}` relay entry was appended. No secret in the gist.
 

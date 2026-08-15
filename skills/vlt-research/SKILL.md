@@ -85,7 +85,7 @@ Structure (no `key:` field):
 
 ## Phase 5: Verify and attest
 
-Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the note — that file is the checklist's single home; read it, don't re-derive it from memory (read it together with its `{overlays}/write-verification.overlay.md` if present, honoring the overlay's appended rules). **Fail-open:** fix what you can, flag what you can't, always complete the write. Then attest the note you created: `verified_by: vlt-research`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`, together with its `{overlays}/frontmatter.overlay.md` if present).
+Run the **tier-1 checklist** from `{conventions}/write-verification.md` on the note — that file is the checklist's single home; read it, don't re-derive it from memory (read it together with its `{overlays}/write-verification.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:`; the operating contract, *Durability across upgrades*). **Fail-open:** fix what you can, flag what you can't, always complete the write. Then attest the note you created: `verified_by: vlt-research`, `verified_at: <today>` (fields + freshness rule: `{conventions}/frontmatter.md`, together with its `{overlays}/frontmatter.overlay.md` if present).
 
 Report the result with the headline finding, and "verification passed" or the specific gaps flagged — before logging.
 
