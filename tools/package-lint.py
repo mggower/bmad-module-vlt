@@ -47,7 +47,10 @@ Groups:
       depends_on: — a de-facto convention-consumption tell; widened to
       reference files by B5-8, since mechanics moved there exit a
       SKILL.md-only scan). Retires the self-confirming handshake grep every
-      arc-3 build wrote by hand.
+      arc-3 build wrote by hand. E4 harness-coverage (build B7-1, standing
+      rule R2): every gate check callable (introspected, never listed) has a
+      tools/test-package-lint.py case declaring it can make that check fail —
+      a gate check with no fixture case is itself a lint failure.
 
 Usage: uv run tools/package-lint.py [--expect-version X.Y.Z] [--root PATH]
 Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
@@ -561,10 +564,61 @@ def _e3_stray_pin(root: Path, conv_names: set) -> list:
     return failures
 
 
-def check_group_e(root: Path) -> list:
-    """Self-description integrity: E1 handshake-bipartite, E2 structure-map SSoT, E3 stray-pin.
+# E4 (build B7-1, standing rule R2): the gate-check inventory is structural —
+# every module-level callable whose name matches this pattern IS a gate check,
+# so a new check enters the inventory the moment it is defined, with no
+# registry to forget.
+_E4_CHECK_NAME_RE = re.compile(r"^(check_|_e\d+_)")
 
-    Aggregates three failure lists. Each check derives truth from the authoritative
+
+def _e4_harness_coverage(inventory=None, coverage=None) -> list:
+    """E4 (build B7-1, standing rule R2): harness coverage — the gate proves
+    its own checks can fail.
+
+    A rule observed passing only on the artifact it was authored from is not
+    yet tested (A7-1). Derives the check inventory by introspecting this
+    module's own callables (^check_ / ^_e\\d+_ — never a hand-kept list) and
+    reads the harness's COVERAGE map (imported from
+    tools/test-package-lint.py, the load_canonical_header idiom — single
+    source, never a copy). Any inventoried check with no covering case FAILs;
+    a missing/unimportable harness FAILs loudly, never skips. Binds the gate's
+    OWN repo, invariant of --root: fixture trees have no tools/, and every
+    fixture subprocess run therefore also exercises E4 against the real repo.
+    The inventory/coverage parameters exist so the harness's own E4 case can
+    exercise the failure path in-process with a fabricated hole.
+    """
+    if inventory is None:
+        inventory = sorted(
+            name for name, obj in globals().items()
+            if callable(obj) and _E4_CHECK_NAME_RE.match(name)
+        )
+    if coverage is None:
+        harness = Path(__file__).resolve().parent / "test-package-lint.py"
+        if not harness.is_file():
+            return [
+                "harness coverage: tools/test-package-lint.py is missing — the gate's "
+                "checks cannot be proven able to fail (R2; absence must be loud)"
+            ]
+        try:
+            spec = importlib.util.spec_from_file_location("test_package_lint", harness)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            coverage = dict(mod.COVERAGE)
+        except Exception as e:
+            return [f"harness coverage: cannot import tools/test-package-lint.py: {e} (R2; absence must be loud)"]
+    return [
+        f"harness coverage: {name} has no fixture case that can fail it "
+        f"(R2 — extend tools/test-package-lint.py in the same build)"
+        for name in inventory
+        if not coverage.get(name)
+    ]
+
+
+def check_group_e(root: Path) -> list:
+    """Self-description integrity: E1 handshake-bipartite, E2 structure-map SSoT,
+    E3 stray-pin, E4 harness-coverage (B7-1/R2).
+
+    Aggregates the failure lists. Each check derives truth from the authoritative
     surface and compares, rather than confirming a declaration about it — the fix
     the whole arc pointed at.
     """
@@ -593,6 +647,7 @@ def check_group_e(root: Path) -> list:
         _e1_handshake(conventions, acks, skill_dirs)
         + _e2_structure_map(root)
         + _e3_stray_pin(root, set(conventions))
+        + _e4_harness_coverage()
     )
 
 
