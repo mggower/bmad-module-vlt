@@ -8,7 +8,19 @@
 Reads a module.yaml definition and a JSON answers file, then writes or updates
 the shared config.yaml (core values at root + module section) and config.user.yaml
 (user_name, communication_language, plus any module variable with user_setting: true).
-Uses an anti-zombie pattern for the module section in config.yaml.
+
+Answers payload shape: {"core": {...}, "module": {...}} — module variables MUST
+nest under "module" (a top-level module key outside that object is ignored, and
+is no longer destructive).
+
+Module-section semantics (preserve-unless-answered, build B7-2): metadata is
+always refreshed from module.yaml; each defined variable takes the answered
+value if present, else the existing config value, else the variable's
+module.yaml `default:`. A key that is neither metadata nor a defined variable
+is a true zombie — removed, and always reported in the result JSON
+(module_keys_preserved / module_keys_removed / module_keys_defaulted). No
+defined variable can be destroyed by an absent answer, and no key is ever
+removed unreported.
 
 Legacy migration: when --legacy-dir is provided, reads old per-module config files
 from {legacy-dir}/{module-code}/config.yaml and {legacy-dir}/core/config.yaml.
@@ -33,7 +45,12 @@ except ImportError:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Merge module config into shared _bmad/config.yaml with anti-zombie pattern."
+        description="Merge module config into shared _bmad/config.yaml. "
+        "Answers JSON shape: {\"core\": {...}, \"module\": {...}} — module variables "
+        "must nest under \"module\". Preserve-unless-answered: metadata is refreshed, "
+        "a defined variable absent from the answers keeps its existing value (else "
+        "its module.yaml default), and only undefined zombie keys are removed — "
+        "always reported in the result JSON."
     )
     parser.add_argument(
         "--config-path",
@@ -179,6 +196,26 @@ def cleanup_legacy_configs(
     return deleted
 
 
+# Metadata keys the module section always refreshes from module.yaml
+# (the extract_module_metadata output surface).
+_METADATA_KEYS = frozenset({"name", "description", "version", "default_selected"})
+
+# A top-level module.yaml key is a *defined variable* iff its value is a dict
+# carrying any of these declaration markers. A declaration read, never a
+# hard-coded variable name — so `agents:`-style structured metadata can never
+# be mistaken for a variable (build B7-2).
+_VARIABLE_MARKER_KEYS = ("prompt", "default", "result", "user_setting")
+
+
+def defined_variables(module_yaml: dict) -> list:
+    """Return module.yaml's defined-variable names, in declaration order."""
+    return [
+        k
+        for k, v in module_yaml.items()
+        if isinstance(v, dict) and any(m in v for m in _VARIABLE_MARKER_KEYS)
+    ]
+
+
 def extract_module_metadata(module_yaml: dict) -> dict:
     """Extract non-variable metadata fields from module.yaml."""
     meta = {}
@@ -226,8 +263,13 @@ def merge_config(
     module_yaml: dict,
     answers: dict,
     verbose: bool = False,
-) -> dict:
-    """Merge answers into config, applying anti-zombie pattern.
+) -> tuple:
+    """Merge answers into config, preserve-unless-answered (build B7-2).
+
+    Metadata is always refreshed from module.yaml. Each defined variable takes
+    the answered value if present, else the existing section's value, else its
+    module.yaml `default:`. Keys that are neither metadata nor defined
+    variables are true zombies — removed, and reported.
 
     Args:
         existing_config: Current config.yaml contents (may be empty)
@@ -236,7 +278,8 @@ def merge_config(
         verbose: Print progress to stderr
 
     Returns:
-        Updated config dict ready to write
+        (config, merge_report) — the updated config dict ready to write, and a
+        report dict with 'preserved' / 'removed' / 'defaulted' key-name lists.
     """
     config = dict(existing_config)
     module_code = module_yaml.get("code")
@@ -268,31 +311,58 @@ def merge_config(
                 print(f"Writing core config at root: {list(shared_core.keys())}", file=sys.stderr)
             config.update(shared_core)
 
-    # Anti-zombie: remove existing module section
-    if module_code in config:
-        if verbose:
-            print(
-                f"Removing existing '{module_code}' section (anti-zombie)",
-                file=sys.stderr,
-            )
-        del config[module_code]
+    # Module section: preserve-unless-answered (build B7-2). The legitimate
+    # surface is DECLARED by module.yaml — metadata + defined variables; only
+    # keys outside that declaration are zombies, removed and reported.
+    raw_existing = config.get(module_code)
+    existing_section = raw_existing if isinstance(raw_existing, dict) else {}
 
-    # Build module section: metadata + variable values
-    module_section = extract_module_metadata(module_yaml)
+    defined = defined_variables(module_yaml)
     module_answers = apply_result_templates(
         module_yaml, answers.get("module", {}), verbose
     )
-    module_section.update(module_answers)
+
+    module_section = extract_module_metadata(module_yaml)  # always refreshed
+    preserved, defaulted = [], []
+    for var in defined:
+        if var in module_answers:
+            module_section[var] = module_answers[var]
+        elif var in existing_section:
+            module_section[var] = existing_section[var]
+            preserved.append(var)
+        elif "default" in module_yaml[var]:
+            # Defaults ship final — written as-is, no result-template pass.
+            module_section[var] = module_yaml[var]["default"]
+            defaulted.append(var)
+
+    removed = [
+        k
+        for k in existing_section
+        if k not in _METADATA_KEYS and k not in defined
+    ]
+    # An answered key that is not a defined variable is a caller error — it is
+    # never written, and never dropped silently.
+    removed.extend(
+        k for k in module_answers if k not in defined and k not in removed
+    )
+    if raw_existing is not None and not isinstance(raw_existing, dict):
+        removed.append(f"(entire '{module_code}' value — non-dict legacy)")
 
     if verbose:
         print(
-            f"Writing '{module_code}' section with keys: {list(module_section.keys())}",
+            f"Writing '{module_code}' section with keys: {list(module_section.keys())} "
+            f"(preserved: {preserved}, removed: {removed}, defaulted: {defaulted})",
             file=sys.stderr,
         )
 
     config[module_code] = module_section
+    merge_report = {
+        "preserved": preserved,
+        "removed": removed,
+        "defaulted": defaulted,
+    }
 
-    return config
+    return config, merge_report
 
 
 # Core keys that are always written to config.user.yaml
@@ -370,7 +440,9 @@ def main():
                 print("Applied legacy values as fallback defaults", file=sys.stderr)
 
     # Merge and write config.yaml
-    updated_config = merge_config(existing_config, module_yaml, answers, args.verbose)
+    updated_config, merge_report = merge_config(
+        existing_config, module_yaml, answers, args.verbose
+    )
     write_config(updated_config, args.config_path, args.verbose)
 
     # Merge and write config.user.yaml
@@ -397,6 +469,9 @@ def main():
         "module_code": module_code,
         "core_updated": bool(answers.get("core")),
         "module_keys": list(updated_config.get(module_code, {}).keys()),
+        "module_keys_preserved": merge_report["preserved"],
+        "module_keys_removed": merge_report["removed"],
+        "module_keys_defaulted": merge_report["defaulted"],
         "user_keys": list(user_settings.keys()),
         "legacy_configs_found": legacy_files_found,
         "legacy_configs_deleted": legacy_deleted,

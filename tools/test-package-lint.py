@@ -73,6 +73,12 @@ def build_fixture(root: Path) -> None:
     # HEADER's single source: the real merge script, copied into the fixture.
     shutil.copy(REPO / "skills/vlt-setup/scripts/merge-help-csv.py", scripts)
 
+    # C9 (build B7-2): the real durability-net scripts — real, never stubs, so
+    # the clean-tree baselines exercise the true code paths (the merge-help-csv
+    # precedent). Cases 19/20 swap in destructive stubs to prove C9 can fail.
+    shutil.copy(REPO / "skills/vlt-setup/scripts/merge-config.py", scripts)
+    shutil.copy(REPO / "skills/vlt-setup/scripts/verify-skill-manifest.py", scripts)
+
     import importlib.util
     spec = importlib.util.spec_from_file_location("mhc", scripts / "merge-help-csv.py")
     mod = importlib.util.module_from_spec(spec)
@@ -209,7 +215,7 @@ COVERAGE = {}  # package-lint check name -> [case names]; E4's data source (R2)
 # R2 shrink net: a net that must carry a list carries a shrink check. Bump the
 # floor in the same edit that adds cases (ratchet); main() fails loudly when
 # the registered count drops below it. Per-check shrink is E4's jurisdiction.
-CASE_FLOOR = 18
+CASE_FLOOR = 20
 
 
 def case(name, *, covers):
@@ -416,6 +422,48 @@ def case_e4_self(root):
     assert any(
         "check_fixture_probe" in f and "no fixture case" in f for f in failures
     ), failures
+
+
+@case("19. merge-config swapped for a rebuild-from-answers stub -> C fails, preservation",
+      covers=("check_durability_nets",))
+def case_c9_destructive_merge(root):
+    # The pre-B7-2 behavior, reproduced deterministically: delete the module
+    # section, rebuild from answers alone, return config only (no report).
+    (root / "skills/vlt-setup/scripts/merge-config.py").write_text(
+        "def merge_config(existing_config, module_yaml, answers, verbose=False):\n"
+        "    config = dict(existing_config)\n"
+        "    code = module_yaml['code']\n"
+        "    config.pop(code, None)\n"
+        "    section = {'name': module_yaml.get('name')}\n"
+        "    section.update(answers.get('module', {}))\n"
+        "    config[code] = section\n"
+        "    return config\n",
+        encoding="utf-8",
+    )
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
+    assert "durability net (merge-config)" in r.stdout, r.stdout
+
+
+@case("20. manifest script swapped for a references/-dropping enumeration stub -> C fails naming the path",
+      covers=("check_durability_nets",))
+def case_c9_manifest_enumeration(root):
+    # The A7-3 regression shape: a walk that filters references/ back out.
+    (root / "skills/vlt-setup/scripts/verify-skill-manifest.py").write_text(
+        "import hashlib\n"
+        "def compute_manifest(root, live_skills_dir, source_skills_dir):\n"
+        "    entries = {}\n"
+        "    for d in source_skills_dir.glob('vlt-*'):\n"
+        "        for f in (live_skills_dir / d.name).rglob('*'):\n"
+        "            if f.is_file() and 'references' not in f.parts:\n"
+        "                entries[str(f.relative_to(root))] = "
+        "hashlib.sha256(f.read_bytes()).hexdigest()\n"
+        "    return entries\n",
+        encoding="utf-8",
+    )
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
+    assert "references/how.md" in r.stdout, r.stdout
 
 
 def main():

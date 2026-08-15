@@ -32,7 +32,13 @@ Groups:
       YAML with every wire carrying all required fields, every wire's metric
       id exists in vlt-vitals.py's canonical METRICS table (parsed from the
       asset, never re-declared), vlt-vitals.py compiles, and module.yaml's
-      default map carries the tripwires + lint_reports rows
+      default map carries the tripwires + lint_reports rows; plus C9 (build
+      B7-2, the enumeration-vs-structure doctrine) durability nets:
+      merge-config.py's merge_config() preserves a defined variable absent
+      from the answers and reports removals (in-process probe against the
+      real script), and verify-skill-manifest.py's computed scope contains
+      this check's own independent walk of the shipped skill dirs (never
+      confirming the script's claim about itself)
   D — tag intent: with --expect-version X.Y.Z, both version strings equal it and
       CHANGELOG.md carries exactly one dated `## vX.Y.Z — YYYY-MM-DD` entry
       (build B6-1; existence + heading only, never a grade on the entry's prose);
@@ -230,6 +236,7 @@ def check_group_c(root: Path) -> tuple:
     failures.extend(check_rule_card(root))
     failures.extend(check_router_integrity(root))
     failures.extend(check_enforcement_kit(root))
+    failures.extend(check_durability_nets(root))
 
     return failures, (module_version, plugin_version)
 
@@ -401,6 +408,133 @@ def check_enforcement_kit(root: Path) -> list:
     except Exception as e:
         failures.append(f"enforcement kit: cannot read module.yaml default map: {e}")
 
+    return failures
+
+
+def _import_script(path: Path, name: str):
+    """Import a shipped script by path (the load_canonical_header idiom —
+    single source, never a copy)."""
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def check_durability_nets(root: Path) -> list:
+    """C9 (build B7-2): the durability nets are proven, structurally.
+
+    Two mechanisms whose whole job is to protect vault state once defined
+    their protected surface by enumeration and silently destroyed what the
+    enumeration missed (A7-2/A7-3). This check is their standing proof:
+
+    Probe 1 — merge-config preservation: call the real merge_config()
+    in-process with a synthetic triple (an existing config carrying a
+    defined variable's map with a vault-local sub-key plus one zombie key;
+    answers omitting the variable). FAIL unless the variable survives
+    byte-identical and the merge report names the zombie in `removed` and
+    the variable in `preserved` — A7-2's reproduction table as a gate.
+
+    Probe 2 — manifest structural scope: compare the script's computed
+    manifest for this repo's own skills tree (source == live) against this
+    check's OWN independent walk of the shipped vlt-* dirs (marketplace
+    skills[] ∩ disk, cruft excluded). The truth side is the check's walk,
+    never the script's claim about itself (the build-23/E-group posture) —
+    a regression back to an enumeration goes red on the first references/
+    or scripts/ file it drops.
+    """
+    failures = []
+    scripts_dir = root / "skills/vlt-setup/scripts"
+
+    # Probe 1 — merge-config preservation
+    variable_map = {"wiki": "_agent/wiki/", "local_zone": "_agent/local-zone/"}
+    existing = {
+        "vlt": {
+            "name": "Vault",
+            "vault_structure": dict(variable_map),
+            "zombie_key": "stale",
+        }
+    }
+    module_yaml = {
+        "code": "vlt",
+        "name": "Vault",
+        "module_version": "9.9.9",
+        "vault_structure": {
+            "prompt": "override paths?",
+            "default": {"wiki": "_agent/wiki/"},
+        },
+    }
+    answers = {"module": {}}
+    try:
+        mc = _import_script(scripts_dir / "merge-config.py", "merge_config_lint")
+        result = mc.merge_config(existing, module_yaml, answers)
+        config, report = result  # must be (config, merge_report)
+        section = config["vlt"]
+        if section.get("vault_structure") != variable_map:
+            failures.append(
+                "durability net (merge-config): a defined variable absent from "
+                "the answers did not survive intact — got "
+                f"{section.get('vault_structure')!r}, expected {variable_map!r} "
+                "(preserve-unless-answered is broken)"
+            )
+        if "vault_structure" not in report.get("preserved", []):
+            failures.append(
+                "durability net (merge-config): merge report does not name the "
+                "preserved variable in 'preserved' — removals/preservation "
+                "would go unreported"
+            )
+        if "zombie_key" not in report.get("removed", []):
+            failures.append(
+                "durability net (merge-config): merge report does not name the "
+                "dropped zombie key in 'removed' — a removal went silent"
+            )
+    except Exception as e:
+        failures.append(
+            f"durability net (merge-config): merge_config() probe failed — {e} "
+            "(the preserve-unless-answered contract, incl. the (config, report) "
+            "return, is broken)"
+        )
+
+    # Probe 2 — manifest structural scope
+    try:
+        vsm = _import_script(
+            scripts_dir / "verify-skill-manifest.py", "verify_skill_manifest_lint"
+        )
+        computed = set(
+            vsm.compute_manifest(root, root / "skills", root / "skills")
+        )
+    except Exception as e:
+        return failures + [
+            f"durability net (manifest): cannot compute the manifest via "
+            f"verify-skill-manifest.py — {e}"
+        ]
+
+    # The check's OWN walk — marketplace skills[] ∩ disk, cruft excluded.
+    walk = set()
+    try:
+        mkt = json.loads((root / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
+        listed = {Path(s).name for s in mkt["plugins"][0].get("skills", [])}
+    except Exception as e:
+        return failures + [f"durability net (manifest): cannot read marketplace skills[]: {e}"]
+    for name in sorted(listed):
+        skill_dir = root / "skills" / name
+        if not skill_dir.is_dir():
+            continue
+        for f in skill_dir.rglob("*"):
+            if f.is_file() and not any(
+                part in CRUFT_DIR_NAMES for part in f.relative_to(root).parts
+            ) and f.name not in CRUFT_NAMES and f.suffix not in CRUFT_SUFFIXES:
+                walk.add(str(f.relative_to(root)))
+    if not walk:
+        failures.append(
+            "durability net (manifest): the independent walk found no shipped "
+            "files — the probe is vacuous (A7-1) and cannot prove the net"
+        )
+    for missing in sorted(walk - computed):
+        failures.append(
+            f"durability net (manifest): shipped file {missing} is absent from "
+            "the script's computed manifest — the scope has narrowed back "
+            "toward an enumeration"
+        )
     return failures
 
 
