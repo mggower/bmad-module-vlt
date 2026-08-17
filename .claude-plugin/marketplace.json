@@ -30,6 +30,7 @@
         "./skills/vlt-extract",
         "./skills/vlt-track",
         "./skills/vlt-lint",
+        "./skills/vlt-groom",
         "./skills/vlt-dispatch",
         "./skills/vlt-mint",
         "./skills/vlt-review-council"

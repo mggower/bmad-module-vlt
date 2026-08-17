@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 8
-consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-lint-full.js]
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -215,7 +215,7 @@ review_after: 2026-11-17    # the wiki-page key above, referenced not redefined 
 ---
 ```
 
-The **cap is declared in the file's own frontmatter** because it is n=1-evidenced (one field prototype): it ships with its named `falsifier:` and `review_after:` so the value can be recalibrated on evidence — the first field groom runs are the named calibration evidence that may amend the cap value without re-opening ideation. **Enforcement posture (the cap does not ship silent):** stage `declared`; checked by **the partner itself at promote-time** (the edit-one-out rule) and *rendered* by the groom op's approval-gated diff once it ships; the mechanical bell is deferred — deferral metric: cap-argued or cap-exceeded observations in the field; threshold: 2; expiry: the `review_after:` above. The cap + edit-one-out + the retire verb are also this file class's **decay contract at birth** — it structurally cannot become a no-decay accumulator.
+The **cap is declared in the file's own frontmatter** because it is n=1-evidenced (one field prototype): it ships with its named `falsifier:` and `review_after:` so the value can be recalibrated on evidence — the first field groom runs are the named calibration evidence that may amend the cap value without re-opening ideation. **Enforcement posture (the cap does not ship silent):** stage `declared`; checked by **the partner itself at promote-time** (the edit-one-out rule) and *rendered* by `vlt-groom`'s approval-gated diff (the shipped render surface); the mechanical bell is deferred — deferral metric: cap-argued or cap-exceeded observations in the field; threshold: 2; expiry: the `review_after:` above. The cap + edit-one-out + the retire verb are also this file class's **decay contract at birth** — it structurally cannot become a no-decay accumulator.
 
 All three are partner-private (a relationship layer, not shared knowledge), so they carry `partner:` for attribution but need no `author`/`trust`. Their bodies are `## ` sections per the operating contract (reflexes: one line per rule). *(Prior to the two-file split, identity and thread lived in a single `type: thread` file carrying all three sections; `vlt-setup` performs the one-time, idempotent migration — and seeds `reflexes.md` if absent. An existing populated `reflexes.md` is vault relationship history and is never touched.)*
 

@@ -438,7 +438,9 @@ def derive_metrics(vault_root, smap, today=None):
         metrics["classifier_streak"] = 0
         notes["classifier_streak"] = "no _agent/mint/decision-log.md — 0 classifier records (a zero of zero)"
 
-    # Size vitals (disposition 8 — display-only; no rollover machinery).
+    # Size vitals (display-only). Disposition 8's "no rollover machinery" deferral was
+    # discharged by field evidence (filing 2026-08-16, Arc 8); decay machinery ships
+    # separately — these vitals stay display-only.
     for key, metric_id in (("backlog", "backlog_bytes"), ("index", "index_bytes")):
         p = vault_root / smap[key].rstrip("/")
         metrics[metric_id] = p.stat().st_size if p.is_file() else 0
