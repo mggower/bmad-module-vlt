@@ -5,6 +5,18 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.11.0 — 2026-08-17
+
+**Arc 8** — the lifecycle arc.
+
+- **B8-1 — the R3 retrofit:** every shipped check names its legal response, stated where the check lives.
+- **B8-2 — the delivery shape:** unsolicited inline-payload delivery gets a legal form, and the pointer-integrity check's pending legal response ships with it.
+- **B8-3 — the memory contracts:** partner memory gains a promotion ladder, an always-loaded reflex layer, and thread lifecycle rules (recorded knowledge was demonstrably failing to bind).
+- **B8-4 — the groom op:** an invoked, approval-gated groom pass for partner memory (the arc's motivating deliverable — the manual prototype's method codified as an upstream skill).
+- **B8-5 — the decay contracts:** rotate/drain verbs, retention-at-birth, and the mass/age wires (the agent zone finally gets a decomposer — every accumulating record gains a declared exit).
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `README.md`, `skills/vlt-agent-creative`, `skills/vlt-agent-librarian`, `skills/vlt-agent-researcher`, `skills/vlt-decay`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-groom`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-upgrade`
+
 ## v0.10.0 — 2026-08-15
 
 **Arc 7** — the nowhere-to-put-it arc.
