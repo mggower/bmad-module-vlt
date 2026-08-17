@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:878d818140873ea30776fd75cdc9770dd017efef59f38fb695c6d4dff58b7a63 (derived 2026-08-17)'
+derived_from: 'vault-operating-contract.md sha256:c725cb5dc1b27d6fead14d3d67b75a09b4cf61ba9f2bfd8db043efd710f139e1 (derived 2026-08-17)'
 ---
 
 # Vault Rule-Card
@@ -49,7 +49,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
 | *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |
 | *The backlog — evolution intake* | Capture-is-cheap filing by address (backlog or relay), never building unasked — open when filing friction |
-| *Hygiene and grooming — the safety model* | Retire-by-reference, watermarks, gated interpretive rewrites, derivability — open before any groom/compaction act |
+| *Hygiene and grooming — the safety model* | Retire-by-reference, watermarks, gated interpretive rewrites, derivability, the *Decay contracts* table (every file class’s exit) — open before any groom/rotate/drain act |
 | *How to write* | The write disciplines: notes, synthesis, supersession — open before filing notes |
 | *Honest reporting — what a check may claim* | Denominators, blind spots, proxies — open before reporting any count |
 | *Grounding sufficiency — what a claim may rest on* | Machine-transcribed names, collision handling — open before naming a person from a low-trust source |

@@ -31,6 +31,7 @@
         "./skills/vlt-track",
         "./skills/vlt-lint",
         "./skills/vlt-groom",
+        "./skills/vlt-decay",
         "./skills/vlt-dispatch",
         "./skills/vlt-mint",
         "./skills/vlt-review-council"

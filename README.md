@@ -7,7 +7,7 @@ Install it into a vault (existing or fresh) and the cast grows itself.
 The roster ships with three partners — a **Librarian** who tends the wiki, a **Researcher** who
 pushes you to learn, and a **Creative** who turns curated knowledge into made things. They share one
 living vault, hand work to each other through it, and can mint new partners and abilities on their
-own. **15 skills in all.**
+own. **16 skills in all.**
 
 ## What Vault is
 
@@ -152,14 +152,14 @@ in `personalization_sources:` and never smuggled in as general knowledge). Coher
 
 ## The full skill roster
 
-All 15 skills, grouped:
+All 16 skills, grouped:
 
 | Group | Skills | Role |
 |---|---|---|
 | **Partners** | `vlt-agent-librarian`, `vlt-agent-researcher`, `vlt-agent-creative` | The cast you summon — personas with memory. |
 | **Operations** | `vlt-ingest`, `vlt-research`, `vlt-query`, `vlt-extract`, `vlt-lint`, `vlt-dispatch` | The verbs partners run against the vault. |
 | **Shared hand** | `vlt-track` | A longitudinal loop any partner can *wear*. |
-| **Hygiene** | `vlt-groom` | Groom a partner's memory — approval-gated, never destructive. |
+| **Hygiene** | `vlt-groom`, `vlt-decay` | Groom a partner's memory — approval-gated, never destructive. Rotate/drain the accumulating agent-zone records — mechanical, archives stay readable. |
 | **Self-evolution** | `vlt-mint`, `vlt-review-council` | Grow the cast; gate the growth. |
 | **Lifecycle** | `vlt-setup`, `vlt-upgrade` | Install/provision; upgrade durably. |
 
@@ -219,7 +219,7 @@ Vault into each vault you want a cast for; each keeps its own wiki, partner thre
 
 ## Notable files
 
-- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 15 `vlt-*` skills the installer copies.
-- `skills/` — the 15 `vlt-*` skills (the installable module).
+- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 16 `vlt-*` skills the installer copies.
+- `skills/` — the 16 `vlt-*` skills (the installable module).
 - `skills/vlt-setup/assets/governance/_meta/` — the canonical governance bundle (pruned conventions, review-lens personas, operating contract) that `vlt-setup` installs into a vault. Edit the bundle here (single source).
 - `skills/reports/` — module-development build briefs and the evolution roadmap (how the cast itself was grown).

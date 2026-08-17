@@ -38,8 +38,9 @@
 # is absent; LOCAL THRESHOLDS WIN; local wires are never dropped or
 # rewritten. Everything below the seed is this vault's to evolve.
 #
-# The two stock wires (the filing's own pair — the alert-fatigue budget is a
-# hard constraint; add a third only when a real failure earns it):
+# The four stock wires (the original pair plus the decay-contract pair, Arc 8
+# — the alert-fatigue budget is a hard constraint; add a further wire only
+# when a real failure earns it):
 
 wires:
   - id: lint-debt
@@ -57,3 +58,19 @@ wires:
     moment: SessionStart strip + ledger
     surface_text: "days the oldest open dispatch pointer has waited — summon its partner"
     review_after: 2027-01-31
+
+  - id: log-mass
+    metric: log_bytes
+    threshold: ">= 262144"
+    owner: librarian
+    moment: SessionStart strip + ledger
+    surface_text: "live {log} bytes — rotate the log (`vlt-decay`)"
+    review_after: 2027-02-28
+
+  - id: drain-due
+    metric: oldest_drainable_section_days
+    threshold: "> 45"
+    owner: librarian
+    moment: SessionStart strip + ledger
+    surface_text: "days the oldest drainable dispatch section has sat closed on the live board — drain the board (`vlt-decay`)"
+    review_after: 2027-02-28

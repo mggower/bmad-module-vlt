@@ -210,8 +210,21 @@ METRICS = {
         "_agent/mint/decision-log.md that are `non-boundary:` (denominated: of M "
         "classifier records; K entries carry no readable verdict)"
     ),
-    "log_bytes": "byte size of {log} (display-only size vital)",
-    "backlog_bytes": "byte size of {backlog} (display-only size vital)",
+    "log_bytes": (
+        "byte size of the live {log} (display-only size vital + the `log-mass` "
+        "wire; archived segments under {archive} excluded — vitals measure "
+        "wake-read mass)"
+    ),
+    "backlog_bytes": (
+        "byte size of the live {backlog} (display-only size vital; archived "
+        "segments under {archive} excluded — vitals measure wake-read mass)"
+    ),
+    "oldest_drainable_section_days": (
+        "days since the run-header date of the oldest drain-eligible "
+        "_agent/dispatch.md run block — fully closed `daily/`/`relay` block "
+        "that is not its source's newest watermark carrier; `consult:` blocks "
+        "exempt; 0 when none (display + wire)"
+    ),
     "index_bytes": "byte size of {index} (display-only size vital)",
     "partner_memory_bytes": (
         "total bytes of per-partner identity.md + thread.md + reflexes.md + "
@@ -357,10 +370,11 @@ def derive_metrics(vault_root, smap, today=None):
     # hardcoded per Arc-3 ruling 4 (see DISPATCH_REL above).
     dispatch = vault_root / DISPATCH_REL
     if dispatch.is_file():
+        dispatch_text = dispatch.read_text(encoding="utf-8", errors="replace")
         open_count = 0
         oldest_days = None
         current_date = None
-        for line in dispatch.read_text(encoding="utf-8", errors="replace").splitlines():
+        for line in dispatch_text.splitlines():
             hm = re.match(r"^##\s*\[(\d{4}-\d{2}-\d{2})", line)
             if hm:
                 current_date = hm.group(1)
@@ -375,9 +389,62 @@ def derive_metrics(vault_root, smap, today=None):
         if open_count and oldest_days is None:
             notes["oldest_open_pointer_days"] = "open rows found under no dated run header — age underivable"
             metrics["oldest_open_pointer_days"] = None
+
+        # oldest_drainable_section_days (build B8-5): the decay contract's age
+        # facet. Eligibility mirrors `vlt-decay`'s drain verb exactly (so a
+        # performed drain always clears the `drain-due` wire): a run block is
+        # drain-eligible iff it is a `daily/…` or `relay` block (`consult:`
+        # blocks are permanently exempt), it is fully closed (≥1 pointer line,
+        # no `- [ ]`), and it is NOT its source's newest `daily/<source>` block
+        # (that block carries the source's `routed through line N` watermark).
+        blocks = []  # (kind, source_or_None, date_str_or_None, closed)
+        cur = None
+        for line in dispatch_text.splitlines():
+            hb = re.match(r"^##\s*\[([^\]]*)\]\s*(\S+)", line)
+            if hb:
+                head = hb.group(2)
+                if head.startswith("daily/"):
+                    kind, source = "daily", head
+                elif head.startswith("relay"):
+                    kind, source = "relay", None
+                elif head.startswith("consult"):
+                    kind, source = "consult", None
+                else:
+                    kind, source = "other", None
+                dm = DATE_RE.search(hb.group(1))
+                cur = {
+                    "kind": kind,
+                    "source": source,
+                    "date": dm.group(0) if dm else None,
+                    "pointers": 0,
+                    "open": 0,
+                }
+                blocks.append(cur)
+                continue
+            if cur is not None and re.match(r"^-\s*\[( |x|X)\]", line):
+                cur["pointers"] += 1
+                if re.match(r"^-\s*\[ \]", line):
+                    cur["open"] += 1
+        newest_daily_idx = {}  # source -> index of its newest daily block
+        for i, b in enumerate(blocks):
+            if b["kind"] == "daily" and b["source"]:
+                newest_daily_idx[b["source"]] = i  # file order: last wins
+        oldest_drainable = 0
+        for i, b in enumerate(blocks):
+            if b["kind"] not in ("daily", "relay"):
+                continue
+            if b["pointers"] == 0 or b["open"]:
+                continue  # empty or still-live block — not drainable
+            if b["kind"] == "daily" and newest_daily_idx.get(b["source"]) == i:
+                continue  # the source's watermark carrier — never drained
+            d = _days_since(b["date"], today)
+            if d is not None and d > oldest_drainable:
+                oldest_drainable = d
+        metrics["oldest_drainable_section_days"] = oldest_drainable
     else:
         metrics["open_pointers"] = 0
         metrics["oldest_open_pointer_days"] = 0
+        metrics["oldest_drainable_section_days"] = 0
         notes["open_pointers"] = "no _agent/dispatch.md — dispatch has never run (a zero of zero rows)"
 
     # expired_pages over {wiki} + {research}.

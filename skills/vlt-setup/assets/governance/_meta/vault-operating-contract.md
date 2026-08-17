@@ -33,7 +33,7 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `research`    | `_agent/research/`                        | Time-bounded investigation notes (dated snapshots)          |
 | `sessions`    | `_agent/sessions/`                        | Per-session operation logs                                  |
 | `specs`       | `_agent/specs/`                           | Durable, owned, versioned cross-partner contracts (see `{conventions}/spec.md`) |
-| `log`         | `_agent/log.md`                           | Append-only chronological operation record                  |
+| `log`         | `_agent/log.md`                           | Append-only chronological operation record (live tail — rotates under *Decay contracts*) |
 | `backlog`     | `_agent/backlog.md`                       | The living evolution backlog (what the vault wants to become) |
 | `partners`    | `_agent/partners/`                        | Per-partner relationship threads (and each partner's `capabilities/`) |
 | `capabilities`| `_agent/capabilities/`                    | Vault-level capability state — the family contracts (`families/`)     |
@@ -119,7 +119,7 @@ Getting this right is what makes the wiki compound properly.
 
 ## The `{log}` — chronological record
 
-`{log}` is an append-only record of every operation performed on the vault — the single place to answer "what happened and when." The format below is a **declared machine-read grammar**, not a style suggestion: mechanisms parse it (`vlt-lint` Step 0 scopes off it; the vitals reader — `.claude/hooks/vlt-vitals.py` — derives the enforcement kit's counters from it; a future dashboard reads it). Keep it parseable. **Parsers of this grammar must be case-insensitive on `<type>` and tolerant of paren-less history** — real logs carry both shapes, and a strict parser silently drops entries (a measured ~5% of real headers), which corrupts every derived count.
+`{log}` is an append-only record of every operation performed on the vault — the single place to answer "what happened and when" (the live tail; rotated history sits at its `{archive}` mirror — *Decay contracts*). The format below is a **declared machine-read grammar**, not a style suggestion: mechanisms parse it (`vlt-lint` Step 0 scopes off it; the vitals reader — `.claude/hooks/vlt-vitals.py` — derives the enforcement kit's counters from it; a future dashboard reads it). Keep it parseable. **Parsers of this grammar must be case-insensitive on `<type>` and tolerant of paren-less history** — real logs carry both shapes, and a strict parser silently drops entries (a measured ~5% of real headers), which corrupts every derived count.
 
 **Canonical format (one line per entry):**
 
@@ -275,6 +275,27 @@ Hygiene and grooming acts — grooming partner memory, compacting an accumulatin
 - **Progress state lives in the files' own watermarks** — `archive:` and `compacted-through:`, defined once in `frontmatter.md`'s *Hygiene watermarks* (fields by pointer; this section owns the behavior) — generalizing dispatch's "routed through line N" idiom. Never in a new ever-growing ledger.
 - **Mechanical, lossless-by-reference acts are council-free** (a compress-to-latest-form, a by-reference retire, a rotation that moves closed content whole). **Interpretive rewrites** — an act that summarizes, rephrases, or judges what to keep — are legal **only as an approval-gated diff** with the pre-state reachable via `archive:`. There is no ungated in-place rewriting of records.
 - **Derivability.** A decay act must keep every derive-first consumer correct **in the same act**: the retained tail provably contains the consumer's full derivation window, or the consumer is widened to read the archive. Without this, a drain manufactures false findings whose legal response the vault cannot perform.
+
+### Decay contracts — retention declared at birth
+
+Every operational file class carries its exit — a decay verb, or an exemption with its reason — declared here, beside the safety model that governs every act. The mechanical verbs (**rotate**, **drain**) live in `vlt-decay`; partner-memory tending lives in `vlt-groom`; this table is the register, never the mechanics.
+
+| File class | Decay verb | Trigger | Destination | Watermark |
+| --- | --- | --- | --- | --- |
+| `{log}` | **rotate** (`vlt-decay`) | `log-mass` wire | `{archive}/_agent/log.md` | breadcrumb line beneath the title |
+| `_agent/dispatch.md` | **drain** (`vlt-decay`) | `drain-due` wire | `{archive}/_agent/dispatch.md` | breadcrumb line; `consult:` blocks and each source's newest watermark block permanently retained (eligibility lives in `vlt-decay`) |
+| `{backlog}` | **drain** of `## Done` (`vlt-decay`) | rides the drain invocation | `{archive}/_agent/backlog.md` | breadcrumb line; `## Open` never touched |
+| Partner memory (`identity.md` / `thread.md` / `reflexes.md`) | **groom** → `vlt-groom` (the ladder + gate live there) | proposed at natural seams; invoked-only | per the groom's `archive:` watermark | `groomed:` / `archive:` (`frontmatter.md`, *Hygiene watermarks*); `reflexes.md` additionally carries its decay contract at birth in its own schema |
+| Wiki + research (incl. `{index}`) | the wiki lane's own machinery (consolidation, supersession, graduation, `{archive}` retirement) — pointed at, exempt here; `{index}` is not an accumulator (lint repairs it in place) | — | — | — |
+| `{specs}` | exempt — versioned contracts with their own lifecycle (in-place revision, supersession, retirement per `{conventions}/spec.md`); not an accumulator | — | — | — |
+| `{capabilities}` (and partner `capabilities/`) | exempt — contracts, not memory; edited deliberately, never accumulating (the groom's own out-of-scope rule) | — | — | — |
+| `{conventions}`, `{personas}`, `{contract}` | exempt — shipped governance, refreshed by upgrade, never accumulating | — | — | — |
+| `{sessions}` | exempt — naturally segmented per sitting (the foldering pattern the rotate verb mirrors); never whole-dir wake-read; ad-hoc retirement to `{archive}` remains available | — | — | — |
+| `{lint_reports}` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-lint` Step 6) | — | — | — |
+| `{upgrade_ledger}`, `{overlays}`, `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / rare wire edits); their append-only declarations stand | — | — | — |
+| `{archive}` | exempt by definition — cold storage, outside every live-read enumeration; git-tracked, readable markdown | — | — | — |
+
+A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract.
 
 ## How to write
 

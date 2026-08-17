@@ -60,7 +60,7 @@ The file's header (written once, on creation):
 _The vault's partner communication bus — one routing record with a drain, read through four modes. `daily` routes human daily-note captures to the partner whose domain they serve; `relay` appends pre-addressed partner→partner pointers (a handoff doc, or a doc-less ask/answer/deliver); `consult` records a synchronous partner→partner question already answered; `ledger` is the read-only open-items board. Every routed pointer is written open (`- [ ]`); a partner greps its `` `slug` `` for open items and checks off (`- [x]`) what it picks up. A `consult` pointer is written already checked — it never waited. Never edits daily notes; never auto-ingests. Idempotency is per-source watermark for `daily`, the pointer's key (doc path or ref, per recipient pair) for `relay`; the open/picked-up status makes the backlog self-reporting._
 ```
 
-`_agent/dispatch.md` is a log-style agent record (like `{log}`), not a "note" — it carries **no per-note frontmatter**.
+`_agent/dispatch.md` is a log-style agent record (like `{log}`), not a "note" — it carries **no per-note frontmatter** (a `vlt-decay` drain leaves at most a one-line breadcrumb beneath the title — still no frontmatter).
 
 ### Step 3: Report (and print the standing ledger inline)
 
