@@ -131,7 +131,7 @@ _How this vault has evolved from stock, one upgrade at a time. Append-only — f
 - Skill-asset divergence: <list or none>   # hand-edited shipped skill files surfaced (prev content quoted/linked)
 - Migrations: <list or none>
 - Governance divergence: <list or none>
-- Convention adoption: <list>        # per-convention: adopted <ref> | declared, not yet (since created: — N days) | axis not declared
+- Convention adoption: <list>        # per-convention: adopted <ref> | declared, no first instance yet (created YYYY-MM-DD — N days) | axis not declared
 - Notes: <anything the user should remember — name the report's local_conventions_intact and vault_writable_collisions entries here when non-empty>
 ```
 

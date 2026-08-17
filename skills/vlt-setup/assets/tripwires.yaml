@@ -18,7 +18,9 @@
 #   threshold     — comparison + integer, e.g. ">= 10" or "> 21"
 #   owner         — the partner slug whose debt this is (who acts on a trip)
 #   moment        — where the trip surfaces (SessionStart strip / ledger)
-#   surface_text  — the short phrase rendered beside the value on a trip
+#   surface_text  — the short phrase rendered beside the value on a trip;
+#                   phrase it as the responding act — a wire's legal response
+#                   homes HERE, not in any per-check field
 #   review_after  — date this wire itself should be re-examined (the wiki-page
 #                   key's date semantics, referenced not redefined)
 #
