@@ -20,19 +20,25 @@ overlays, capabilities) as module source.
 3. **Ideate** — per-build, owner-steered (grouping, order, scope rulings). An external
    unknown gets a **spike before the brief is written** — read the actual external source
    rather than reasoning from its docs or from memory.
-4. **Brief** — each build gets `skills/reports/build-N-<slug>.md` (scope, exact sites with
+4. **Review** — convene the roadmap roundtable (`roadmap-roundtable`) over the filled
+   ideation rulings before any brief: the installed roster hunts the plan's *joints*
+   (cross-build dependencies, rules ahead of mechanisms, interim postures), agreed
+   amendments are applied to the roadmap in-session, disputes are owner-ruled live with
+   dissents on record. Skipping is an explicit owner waiver in the roadmap, never a
+   silence — `build-brief` gates on the record.
+5. **Brief** — each build gets `skills/reports/build-N-<slug>.md` (scope, exact sites with
    `file:line` grounding, out-of-scope dispositions, verification + acceptance checks).
    Append its live-acceptance checks to the arc roadmap's ledger.
-5. **Build** — implement the brief; **unit-verify at rest** (greps for cross-file agreement,
+6. **Build** — implement the brief; **unit-verify at rest** (greps for cross-file agreement,
    real script runs against temp fixtures, end-to-end against real external code where
    possible). Record deliberate deviations from the brief in its `status:`.
-6. **Release** — work on a branch (`arcN-vX.Y.Z`), one commit per build; at release bump
+7. **Release** — work on a branch (`arcN-vX.Y.Z`), one commit per build; at release bump
    **both** version strings (`.claude-plugin/marketplace.json` `"version"` and
    `skills/vlt-setup/assets/module.yaml` `module_version`). **Before tagging, run
    `uv run tools/package-lint.py --expect-version X.Y.Z` — tag only on exit 0**, and
    record its PASS summary line in the release commit message (skipping the lint is
    then visible in history). Then ff-merge to `main`, tag `vX.Y.Z`, push main + tag.
-7. **Live acceptance** — batched to the next `vlt-upgrade` run on a live vault (the owner
+8. **Live acceptance** — batched to the next `vlt-upgrade` run on a live vault (the owner
    runs it). Defects found there file back into `inbox/` — the loop closes. A filing's
    inbox file moves to `inbox/archive/` once its build has shipped **and** its own clauses
    have passed acceptance — the exact criterion (and its bound) lives in
