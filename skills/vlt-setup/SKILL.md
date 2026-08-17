@@ -1,5 +1,6 @@
 ---
 name: "vlt-setup"
+depends_on: ["frontmatter@8"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 
@@ -214,8 +215,8 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
 ### 4. Scaffold the partner + evolution layer
 
 - Ensure `partners` (`{root}/_agent/partners/`) exists.
-- **Upgrade migration (idempotent — finding from the partner-layer rework).** Before seeding, check each `{partners}/{partner}/` for a **legacy single `thread.md`** that carries all three sections (`## Bond` + `## Self` + `## Thread`). If found, split it into the two-file layout: move `## Bond` and `## Self` into a new `identity.md`, leave `## Thread` in `thread.md`, set both files' frontmatter `type:` accordingly. This is safe to re-run — a vault already on the two-file layout (an `identity.md` exists) is skipped. **Never discard relationship history** — migrate, don't reset.
-- For each shipped partner — `librarian`, `researcher`, and `creative` — create the **two memory files if absent**, per the operating contract's *Partner memory* and `frontmatter.md` (never overwrite an existing file — it holds the relationship history):
+- **Upgrade migration (idempotent — finding from the partner-layer rework).** Before seeding, check each `{partners}/{partner}/` for a **legacy single `thread.md`** that carries all three sections (`## Bond` + `## Self` + `## Thread`). If found, split it into the two-file layout: move `## Bond` and `## Self` into a new `identity.md`, leave `## Thread` in `thread.md`, set both files' frontmatter `type:` accordingly. This is safe to re-run — a vault already on the two-file layout (an `identity.md` exists) is skipped. The split now also seeds `reflexes.md` if absent (the seed-if-absent pass below covers migrated partners the same as fresh ones). **Never discard relationship history** — migrate, don't reset.
+- For each shipped partner — `librarian`, `researcher`, and `creative` — create the **three memory files if absent**, per the operating contract's *Partner memory* and `frontmatter.md` (never overwrite an existing file — it holds the relationship history; an existing populated `reflexes.md` is vault relationship history and is never touched):
 
   `{partners}/{partner}/identity.md` (evergreen):
 
@@ -247,6 +248,22 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
 
   ## Thread
   _Our open inquiry — stances taken, what we're circling, open questions. (Empty for now.)_
+  ```
+
+  `{partners}/{partner}/reflexes.md` (always-loaded — **seed if absent only**; body empty at birth, reflexes are earned by promotion):
+
+  ```markdown
+  ---
+  type: reflexes
+  partner: <librarian|researcher|creative>
+  created: <today YYYY-MM-DD>
+  last_updated: <today YYYY-MM-DD>
+  cap: 30
+  falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, or reflexes routinely exceed one line, the cap value (or the one-line form) is mis-set — file it"
+  review_after: 2026-11-17
+  ---
+
+  _One line per rule — empty at birth; promoting one in at cap means editing one out or arguing the cap._
   ```
 
 - Create `backlog` (`{root}/_agent/backlog.md`) **if absent**. The backlog is a frontmatter-less structured checklist (per `conventions/frontmatter.md`) — do not give it YAML frontmatter:
@@ -302,7 +319,7 @@ The `cleanup-legacy.py` script ships in the skill's `scripts/` only for parity w
 Display what happened, using the script JSON output plus your provisioning notes:
 
 - Config written — the `vlt` section (metadata + any `vault_structure` overrides), core values, user settings (`user_keys`), help entries, fresh-install vs. update.
-- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` hook installed/refreshed, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
+- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` hook installed/refreshed, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
 - **Dependencies** — any genuinely missing skills (not host-provided ones), with the graceful-degradation note.
 - **Installer TOML quirk (if present)** — if the installer's `config.toml` serialized `vault_structure` as `"[object Object]"`, acknowledge it in one line: a known BMad-installer serialization quirk that Vault **ignores** (the runtime reads `config.yaml`, which `vlt-setup` wrote correctly). Surfacing it here saves a future debugging detour.
 - **Co-installed modules untouched** — confirm only the `vlt` section, user settings, and Vault help rows were written; no other module's config was read or removed.

@@ -1,15 +1,15 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-15
+last_updated: 2026-08-17
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 7
-consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-lint-full.js]
+version: 8
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -168,7 +168,7 @@ See `extraction.md` for the full schema, the trust ladder progression, and re-ex
 
 ## Partner memory (`{partners}`)
 
-Each partner keeps its relationship with the user *in this vault* under `{partners}/<partner>/`, split by lifecycle into two files (the sections inside each are defined in the operating contract's "Partner memory — the thread", not here):
+Each partner keeps its relationship with the user *in this vault* under `{partners}/<partner>/`, split by lifecycle into **three files** (the sections inside each — and the promotion ladder, lifecycle rules, and verbs that move material between them — are defined in the operating contract's "Partner memory — identity, thread, and reflexes", not here: **the contract owns behavior; this file owns fields**):
 
 **`identity.md`** — the evergreen identity layer (`## Bond` + `## Self`). Continuously updated, so it carries `last_updated`:
 
@@ -179,6 +179,8 @@ partner: <role>             # the roster role — librarian, researcher — stab
 name: <given-name>          # OPTIONAL: the name THIS user gave the partner in THIS vault. Empty/absent = go by role/title.
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
+groomed: YYYY-MM-DD         # OPTIONAL — date of the last groom pass; absence = never groomed
+archive: <ref>              # OPTIONAL — pre-groom state reference; see Hygiene watermarks (referenced, not redefined)
 ---
 ```
 
@@ -192,10 +194,37 @@ type: thread
 partner: <partner-name>
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
+groomed: YYYY-MM-DD         # OPTIONAL — date of the last groom pass; absence = never groomed
+archive: <ref>              # OPTIONAL — pre-groom state reference; see Hygiene watermarks (referenced, not redefined)
 ---
 ```
 
-Both are partner-private (a relationship layer, not shared knowledge), so they carry `partner:` for attribution but need no `author`/`trust`. Their bodies are `## ` sections per the operating contract. *(Prior to the two-file split these lived in a single `type: thread` file carrying all three sections; `vlt-setup` performs the one-time, idempotent migration to the two files.)*
+The thread body's **standing-read form** (a `### Standing reads` subsection whose entries are latest-form-only, grounds named, each carrying a falsifier) is contract-defined shape, not a frontmatter field — see the operating contract's *Partner memory* section for the rules; this file defines no body grammar.
+
+**`reflexes.md`** — the always-loaded rule layer, read in Beat 1 (one line per rule, hard-capped). Continuously updated:
+
+```yaml
+---
+type: reflexes
+partner: <partner-name>
+created: YYYY-MM-DD
+last_updated: YYYY-MM-DD
+cap: 30                     # hard cap — at most 30 one-line rules; promoting one in means editing one out or arguing the cap
+falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, or reflexes routinely exceed one line, the cap value (or the one-line form) is mis-set — file it"
+review_after: 2026-11-17    # the wiki-page key above, referenced not redefined — the cap's n=1 calibration expiry
+---
+```
+
+The **cap is declared in the file's own frontmatter** because it is n=1-evidenced (one field prototype): it ships with its named `falsifier:` and `review_after:` so the value can be recalibrated on evidence — the first field groom runs are the named calibration evidence that may amend the cap value without re-opening ideation. **Enforcement posture (the cap does not ship silent):** stage `declared`; checked by **the partner itself at promote-time** (the edit-one-out rule) and *rendered* by the groom op's approval-gated diff once it ships; the mechanical bell is deferred — deferral metric: cap-argued or cap-exceeded observations in the field; threshold: 2; expiry: the `review_after:` above. The cap + edit-one-out + the retire verb are also this file class's **decay contract at birth** — it structurally cannot become a no-decay accumulator.
+
+All three are partner-private (a relationship layer, not shared knowledge), so they carry `partner:` for attribution but need no `author`/`trust`. Their bodies are `## ` sections per the operating contract (reflexes: one line per rule). *(Prior to the two-file split, identity and thread lived in a single `type: thread` file carrying all three sections; `vlt-setup` performs the one-time, idempotent migration — and seeds `reflexes.md` if absent. An existing populated `reflexes.md` is vault relationship history and is never touched.)*
+
+## Hygiene watermarks
+
+Two flat, **optional** keys record hygiene progress on any file whose content is groomed or compacted under the operating contract's safety model (*Hygiene and grooming — the safety model* — the behavior home; this subsection is the fields' **single definition**, and every schema that carries them — the partner-memory files above, accumulating agent-zone records — references it, never redefines it):
+
+- **`archive:`** — a reference to the **pre-groom / pre-compaction state**: a git commit reference, or an `{archive}` path (`{archive}` is a structure-map logical name). Set **by the act that retires content**; **absence = never groomed.** This is what makes retirement by-reference rather than destruction — the pre-state stays reachable from the file itself.
+- **`compacted-through:`** — the **in-file progress watermark** for compaction of an accumulating agent-zone file: the point (a date, line, or entry reference) through which the file's content has been compacted, generalizing dispatch's "routed through line N" idiom (which remains dispatch's own, untouched). Progress state lives in the file's own watermark, never in a new ever-growing ledger.
 
 ## Backlog (`{backlog}`)
 

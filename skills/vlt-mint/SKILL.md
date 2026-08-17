@@ -1,6 +1,6 @@
 ---
 name: vlt-mint
-depends_on: ["spec@2", "frontmatter@7", "decision-log@2"]
+depends_on: ["spec@2", "frontmatter@8", "decision-log@2"]
 description: Grow the vault's cast — add a capability (light partner-owned or heavy op skill), mint a new partner, a persona self-edit, a convention edit, migrate or retire a capability, run family ops, or retire a partner. Use when a partner says 'I keep needing X — let me build it', or the user says 'mint a partner', 'add a capability', 'evolve the roster', 'edit my persona', 'move X to Y', or 'retire a partner'. The module's self-evolution engine; a capability every partner can reach for mid-flow.
 ---
 
@@ -129,7 +129,7 @@ The contract scaffold is **owned here and never delegated** — it is what guara
 
 **Mint a new partner** — *scaffold the partner shaped in Phase 1's becoming conversation.* The ideation (who the partner is — temperament, non-negotiable, core acts, starting register, optional name, and whether it's a horizontal or vertical archetype) happened in Phase 1; here you instantiate it:
 
-- **Scaffold from the template.** Instantiate `assets/partner-agent-template.md` (SKILL.md + `customize.toml`) into `{module-skills}/vlt-agent-{name}/`, filling persona, non-negotiable, and capabilities from the Phase-1 brief. Then **seed two memory files** at `{partners}/{name}/`: `identity.md` (`name` frontmatter + `## Bond` + `## Self` — seed `## Self` with the distinctive starting register from the becoming conversation so the partner is born with an edge, not blank) and `thread.md` (`## Thread`, empty at birth).
+- **Scaffold from the template.** Instantiate `assets/partner-agent-template.md` (SKILL.md + `customize.toml`) into `{module-skills}/vlt-agent-{name}/`, filling persona, non-negotiable, and capabilities from the Phase-1 brief. Then **seed three memory files** at `{partners}/{name}/`: `identity.md` (`name` frontmatter + `## Bond` + `## Self` — seed `## Self` with the distinctive starting register from the becoming conversation so the partner is born with an edge, not blank), `thread.md` (`## Thread`, empty at birth), and `reflexes.md` (the always-loaded rule layer — empty at birth, capped per its schema in `{conventions}/frontmatter.md`).
 
 (The partner runs its own **live first-breath** on its first real activation — see Phase 1's note on the two distinct moments. A **vertical/domain** partner also acquires its domain verb here or soon after — usually by **wearing the shared `vlt-track` loop hand** (a `capabilities/track.md` pointer + *Loop profile*), or by minting its own operation skill for a non-loop verb — per the Phase-1 archetype guidance. And a partner minted into an existing spec relationship — typically a vertical partner consuming another partner's `{specs}` contract — lands in that spec's `consumers:` in the same mint, per the consumer lock above.)
 

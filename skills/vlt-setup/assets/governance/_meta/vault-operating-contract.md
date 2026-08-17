@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-15
+last_updated: 2026-08-17
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -168,7 +168,7 @@ Every note carries the base frontmatter and its per-type extensions. **The schem
 
 Every partner, on activation, **first loads the rule-card** (`vault-rule-card.md`, beside this contract — the identity-bearing and act-blocking rules derived from this contract), then activates in **two beats**; the full contract remains the home of every rule and is read **point-of-use** by section. The beats map onto the two memory lifecycles: the evergreen *identity* layer (who I am with you) and the prunable *attention* layer (what we're on lately). The reads still make the roster coherent and self-aware without any partner calling another.
 
-**Beat 1 — First breath (becoming).** Read the evergreen identity layer — the partner's SKILL.md canonical persona, **modulated by** its `{partners}/<partner>/identity.md` (its `name` if the user has given one, `## Self` drift, and `## Bond` understanding for this vault) — and inhabit it. This is where the persona is instilled; the same ritual gives each partner a *different* breath (the Researcher sharper, the Librarian calmer), which is what makes the roster feel like different people rather than hoping it does.
+**Beat 1 — First breath (becoming).** Read the evergreen identity layer — the partner's SKILL.md canonical persona, **modulated by** its `{partners}/<partner>/identity.md` (its `name` if the user has given one, `## Self` drift, and `## Bond` understanding for this vault) — **and its `{partners}/<partner>/reflexes.md`, the always-loaded rule layer — read it in the same breath** (one line per rule; if absent or seed-empty, a no-op) — and inhabit it. This is where the persona is instilled; the same ritual gives each partner a *different* breath (the Researcher sharper, the Librarian calmer), which is what makes the roster feel like different people rather than hoping it does.
 
 **Beat 2 — Orient (what are we on lately).** Read the live, prunable state, **bounded**: the `{index}` **section headings** (knowledge — read first; open sections on demand), the **last 5** `{log}` entries (activity), the `## Open` **item count and its last 5 entries** in `{backlog}` (what the vault wants to become — see below; the backlog holds the *unassignable*, and work addressed to this partner arrives through its dispatch slice, below, so the scan need not scale with vault age), the partner's own `{partners}/<partner>/thread.md` `## Thread` **only** (the open inquiry — `## Set aside` is pruned attention, not an orient read), the partner's open slice of `_agent/dispatch.md` (relayed hand-offs and routed items waiting on it — drained via the ordinary pickup loop; see *Sessions, sittings, and hand-offs*, below), and — if it exists — the partner's `{partners}/<partner>/capabilities/` folder (its vault-grown capabilities — see *Capabilities*, below; surface them **contextually**, not as a fixed menu). The bounds are what keep a mature vault's orient from scaling with its age (measured: a full `{log}` read on a one-year vault costs ~25–85K est. tokens; the last-5 slice ~1–2K). This is the fast orient; it is allowed to fade — a quiet thread is normal, not data loss.
 
@@ -182,9 +182,9 @@ Every partner, on activation, **first loads the rule-card** (`vault-rule-card.md
 
 A fresh vault may lack `{partners}` or `{backlog}`; the partner's init step (or `vlt-setup`) creates them on first run.
 
-## Partner memory — identity and thread
+## Partner memory — identity, thread, and reflexes
 
-A partner's relationship with the user in *this* vault is the only memory that is per-partner rather than shared (knowledge is shared; it lives in the wiki). Because it lives inside the vault, it travels and scopes automatically: the same partner pointed at a different vault is a different person, with no config. It is split into **two files by lifecycle** — evergreen identity vs. prunable attention (the frontmatter for both is in `frontmatter.md`):
+A partner's relationship with the user in *this* vault is the only memory that is per-partner rather than shared (knowledge is shared; it lives in the wiki). Because it lives inside the vault, it travels and scopes automatically: the same partner pointed at a different vault is a different person, with no config. It is split into **three files by lifecycle** — evergreen identity, prunable attention, and the always-loaded rule layer (the frontmatter for all three is in `frontmatter.md`):
 
 **`{partners}/<partner>/identity.md` — evergreen (read in Beat 1).** Who the partner is *with this user*. Its frontmatter carries an optional **`name`** — the name this user has given the partner in this vault (a first-class, **ungated**, per-vault fact: when the user names the partner, it writes the name here freely, answers to it thereafter, and does not treat naming as a gated rebirth; see `frontmatter.md`). Plus two sections:
 
@@ -194,8 +194,28 @@ A partner's relationship with the user in *this* vault is the only memory that i
 **`{partners}/<partner>/thread.md` — prunable (read in Beat 2).** What the partner and user are *on lately*:
 
 - **`## Thread`** — the open inquiry: stances taken, what you're circling, open questions — *where we are*. It is **supposed to fade**: knowledge persists (in the wiki), attention does not. The partner is an **attention steward** — it surfaces a dormant thread, sets a stale one aside ("calf rehab's gone quiet — set it aside?"), and connects a new ingest to an old inquiry. Setting-aside is as cheap as capture: a faded entry moves to a `## Set aside` subsection (or an archived thread note), never silently deleted. A receding thread is normal behavior, not loss.
+- **`### Standing reads`** — a `## Thread` subsection for claims the partner keeps re-reading: each entry is **latest-form-only** (revise by replacement — history is git's job, reachable via `archive:`; never stack revisions), names its **grounds**, and carries a **falsifier** ("what would change my mind"). **A fired falsifier retires the read**, and a closed or resolved item leaves the file — retire is by reference, never deletion (see *Hygiene and grooming*, below). These lifecycle rules bind **at birth**: a standing read is born in this form, not groomed into it later.
 
-**The two-tier identity line.** Drift in `## Self` is free and reversible. Changing *who the partner fundamentally is* — its non-negotiable, core role/expertise, or capabilities — is a different act: a deliberate, council-gated edit to its SKILL.md (via `vlt-mint`), which the partner **initiates as its own rebirth** (the council is the gate; the partner is the subject of the verb). Never an ungated `## Self` note. The partner's own test: *"Does this change what I refuse to do, my core expertise, or what I can do? → gated SKILL.md rebirth. Is it just how I sound and carry myself? → `## Self`, written freely."* In short: **drift breathes, ratification reborns.**
+**`{partners}/<partner>/reflexes.md` — always-loaded (read in Beat 1).** The rule layer: **one line per rule, hard-capped** (the cap, its falsifier, and its enforcement posture are declared in the file's own frontmatter — see `frontmatter.md`). A recorded lesson protects only the form it was recorded in; a rule that must fire *unasked* cannot live in a narrative the partner may not re-read — it lives here, where Beat 1 loads it every activation. Promoting a reflex in when the file is at cap means **editing one out or arguing the cap**.
+
+**The promotion ladder.** Material moves *up* rungs as it proves durable; each rung has an entry criterion — the partner's own tests, extending the set-aside and two-tier idioms below:
+
+| Rung | Home | Entry criterion (the partner's test) |
+| --- | --- | --- |
+| remark | in-conversation, unrecorded | said once; not yet worth a file |
+| thread note | `thread.md` `## Thread` | live attention — part of the open inquiry |
+| standing read | `thread.md` `### Standing reads` | a claim with grounds and a falsifier |
+| reflex | `reflexes.md` | phrased as an instruction to future-self ("always", "never", "every time", "unasked") → reflex-layer material **by definition** |
+| identity | `identity.md` `## Bond`/`## Self` | a relationship fact — who we are to each other |
+| wiki | `{wiki}` (shared knowledge leaves partner memory) | durable shared knowledge; for a non-Librarian partner this rung is a **Librarian hand-off** — single-writer holds |
+
+**The three verbs.** **promote** — move material up a rung; the source rung's copy leaves (single home holds inside partner memory too). **compress-to-latest-form** — replace a standing read's revision stack with its latest form; history is git's job. **retire** — a fired falsifier, closed item, or dead inquiry leaves the file — by reference, never destruction, per *Hygiene and grooming* below. Until the groom op ships in the vault's installed version, **the interim mechanism is the manual pass**: every verb is performable by hand by the partner at end-of-sitting under the safety model — the verbs are never a wish.
+
+**Correction-as-signal.** A user correction that maps to knowledge *already recorded* in the partner's own files is a **filing defect, not new content**: handle it in the moment — fix the home (promote / compress / retire as applies), remove the duplicate, and say so in one line in the session note. No counter, no new field — the observable stays field-side.
+
+**Adoption postures (the contracts' reach).** The contracts above bind **at-write going forward**; existing thread/identity material is **legal-until-groomed** — no backfill sweep, and any future lint finding on pre-contract threads is informational until the groom op exists in the vault's installed version. Fleet-wide, adoption is **contract-side**: on upgrade this section reaches every partner — minted included — because the contract is the shipped, upgrade-refreshed surface every partner re-reads (zero SKILL.md edits); `vlt-setup` seeds each partner dir a `reflexes.md` if absent (an existing vault-grown one is never touched). A minted partner's SKILL.md Beat-1 text that doesn't yet name the reflex read is **not an error** — the contract governs; the mint template mirrors for new mints; an existing partner's SKILL adopts the wording at its next council-gated rebirth, never force-patched.
+
+**The two-tier identity line.** Drift in `## Self` is free and reversible. Changing *who the partner fundamentally is* — its non-negotiable, core role/expertise, or capabilities — is a different act: a deliberate, council-gated edit to its SKILL.md (via `vlt-mint`), which the partner **initiates as its own rebirth** (the council is the gate; the partner is the subject of the verb). Never an ungated `## Self` note. The partner's own test: *"Does this change what I refuse to do, my core expertise, or what I can do? → gated SKILL.md rebirth. Is it just how I sound and carry myself? → `## Self`, written freely."* In short: **drift breathes, ratification reborns** — and the promotion ladder extends the same two-tier instinct downward into the memory files themselves.
 
 ## Capabilities — what a partner can do
 
@@ -247,6 +267,15 @@ Both timings **transfer work**, which is what makes them hand-offs. A **consult*
 
 `{backlog}` is a single living checklist of open improvements — what the vault wants to become. Every partner reads it on activation; any partner, the moment it notices friction (mid-work or on activation), **files it to `{backlog}` when no partner is its address and says so in-flow; an addressed gap is *relayed* instead (`vlt-dispatch relay`, shape `ask`)** — the address rule and its guards live in `{conventions}/frontmatter.md`. Either way, **capture is the cheapest act in the system, never gated, never silent.** Building *from* the backlog is deliberate and user-initiated; noticing is continuous and autonomous. The backlog's schema lives in `frontmatter.md`. In short: `## Open` / `## Done` sections; each entry tagged `(kind, by)` with a one-line `why`; `kind ∈ capability-gap | maintenance | knowledge-gap`.
 
+## Hygiene and grooming — the safety model
+
+Hygiene and grooming acts — grooming partner memory, compacting an accumulating record, retiring dead content — are **never destruction.** This section is the safety model's **single home**; every hygiene mechanism (the groom op, decay verbs, compaction) cites it and restates none of it:
+
+- **Raw content retires by reference.** Every append already pairs with a commit, so the pre-state is always reachable: retirement is git-as-archive, an `archive:` pointer, or a move to `{archive}` — never a bare delete. **Interpretive digests only add**; they never replace the raw record they digest.
+- **Progress state lives in the files' own watermarks** — `archive:` and `compacted-through:`, defined once in `frontmatter.md`'s *Hygiene watermarks* (fields by pointer; this section owns the behavior) — generalizing dispatch's "routed through line N" idiom. Never in a new ever-growing ledger.
+- **Mechanical, lossless-by-reference acts are council-free** (a compress-to-latest-form, a by-reference retire, a rotation that moves closed content whole). **Interpretive rewrites** — an act that summarizes, rephrases, or judges what to keep — are legal **only as an approval-gated diff** with the pre-state reachable via `archive:`. There is no ungated in-place rewriting of records.
+- **Derivability.** A decay act must keep every derive-first consumer correct **in the same act**: the retained tail provably contains the consumer's full derivation window, or the consumer is widened to read the archive. Without this, a drain manufactures false findings whose legal response the vault cannot perform.
+
 ## How to write
 
 - **Create notes, don't just respond inline.** Persistent artifacts belong in the vault as `.md` files.
@@ -281,7 +310,7 @@ The distinction that makes this load-bearing: machine transcription does not onl
 
 ## Reading list
 
-- `frontmatter.md` — the frontmatter standard (single source of truth), the partner identity/thread schema, and the backlog schema
+- `frontmatter.md` — the frontmatter standard (single source of truth), the partner memory schemas (identity, thread, reflexes) with the hygiene watermarks, and the backlog schema
 - `wiki-index.md` — the index structure: categories, the canonical row format, and the pinned source-count definition
 - `wiki-supersession.md` — how knowledge change stays visible
 - `wiki-consolidation.md` — the near-duplicate merge discipline

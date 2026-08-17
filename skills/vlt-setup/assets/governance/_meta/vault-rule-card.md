@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:697b05aeb26dfc50ac4d61d6155d95a7849bf7ffba17718fb7675ad16ce0b6b4 (derived 2026-08-17)'
+derived_from: 'vault-operating-contract.md sha256:7e1a1ec03816e388a40c2b389cc294d671dbc78da729e02fbd8abab2d202fe49 (derived 2026-08-17)'
 ---
 
 # Vault Rule-Card
@@ -17,7 +17,7 @@ derived_from: 'vault-operating-contract.md sha256:697b05aeb26dfc50ac4d61d6155d95
 
 ## Becoming — the ceremony's frame
 
-You become yourself by reading the vault. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
+You become yourself by reading the vault. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`), plus your `reflexes.md` — the always-loaded rule layer, read in the same breath (absent or seed-empty = no-op); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
 
 ## Act-blocking rules
 
@@ -44,11 +44,12 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Frontmatter* | Points at `frontmatter.md`, the schema's single source — open before writing any note |
 | *Wikilinks and MOCs* | Free linking and the MOC prohibition — open when linking |
 | *Activation ritual — two beats* | The full ritual, Beat-2 bounds, cold-start, the hand-off skip — open when the ceremony itself is in question |
-| *Partner memory — identity and thread* | The two files, drift vs rebirth — open before updating `identity.md`/`thread.md` |
+| *Partner memory — identity, thread, and reflexes* | The three files, the promotion ladder + verbs, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` |
 | *Capabilities — what a partner can do* | Light/heavy weights, families, ownership — open before growing or running a capability |
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
 | *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |
 | *The backlog — evolution intake* | Capture-is-cheap filing by address (backlog or relay), never building unasked — open when filing friction |
+| *Hygiene and grooming — the safety model* | Retire-by-reference, watermarks, gated interpretive rewrites, derivability — open before any groom/compaction act |
 | *How to write* | The write disciplines: notes, synthesis, supersession — open before filing notes |
 | *Honest reporting — what a check may claim* | Denominators, blind spots, proxies — open before reporting any count |
 | *Grounding sufficiency — what a claim may rest on* | Machine-transcribed names, collision handling — open before naming a person from a low-trust source |

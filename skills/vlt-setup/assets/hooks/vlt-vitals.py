@@ -214,8 +214,8 @@ METRICS = {
     "backlog_bytes": "byte size of {backlog} (display-only size vital)",
     "index_bytes": "byte size of {index} (display-only size vital)",
     "partner_memory_bytes": (
-        "total bytes of per-partner identity.md + thread.md + capabilities/ "
-        "under {partners} (display-only size vital)"
+        "total bytes of per-partner identity.md + thread.md + reflexes.md + "
+        "capabilities/ under {partners} (display-only size vital)"
     ),
 }
 
@@ -450,7 +450,9 @@ def derive_metrics(vault_root, smap, today=None):
     if partners_dir.is_dir():
         for pdir in sorted(p for p in partners_dir.iterdir() if p.is_dir()):
             n = sum(
-                (pdir / f).stat().st_size for f in ("identity.md", "thread.md") if (pdir / f).is_file()
+                (pdir / f).stat().st_size
+                for f in ("identity.md", "thread.md", "reflexes.md")
+                if (pdir / f).is_file()
             ) + _dir_bytes(pdir / "capabilities")
             partner_rows.append((pdir.name, n))
             total_partner += n
@@ -496,7 +498,7 @@ def render_report(vault_root, smap, fallbacks):
         out.append(line)
     if partner_rows:
         out.append("")
-        out.append("Per-partner memory bytes (identity.md + thread.md + capabilities/):")
+        out.append("Per-partner memory bytes (identity.md + thread.md + reflexes.md + capabilities/):")
         for name, n in partner_rows:
             out.append(f"  - {name}: {n:,}")
     out.append("")

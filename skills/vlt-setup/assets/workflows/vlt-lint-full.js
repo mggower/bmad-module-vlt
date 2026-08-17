@@ -8,7 +8,7 @@ export const meta = {
   ],
 }
 
-// depends_on: ["frontmatter@7", "wiki-supersession@2", "wiki-index@2"]
+// depends_on: ["frontmatter@8", "wiki-supersession@2", "wiki-index@2"]
 // ^ the asset ack (B7-6): this workflow's prompts instruct agents to read these
 //   conventions, so it is a listed consumer in its own right — the flat pins
 //   above are its handshake acks, bumped on reconciliation like a skill's
