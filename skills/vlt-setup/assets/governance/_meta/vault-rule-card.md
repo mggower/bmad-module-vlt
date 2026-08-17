@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-30
-last_updated: 2026-08-15
+last_updated: 2026-08-17
 title: Vault Rule-Card
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:12f03853c529d095347ca1e194a579450ab719293a4cbc99f71ef0138ec3fb4a (derived 2026-08-15)'
+derived_from: 'vault-operating-contract.md sha256:697b05aeb26dfc50ac4d61d6155d95a7849bf7ffba17718fb7675ad16ce0b6b4 (derived 2026-08-17)'
 ---
 
 # Vault Rule-Card

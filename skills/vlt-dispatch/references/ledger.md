@@ -20,10 +20,12 @@ If everything is picked up, say "all routed items have been picked up — nothin
 
 ### Pointer integrity — every relay pointer resolves a key
 
-After the board, check the rail: for every pointer in a `relay:` block, **resolve its key** — a `handoff-path` that exists on disk, or a `ref` present in the block header (`(ask: <ref>)` / `(answer: <ref>)`). Scope: `relay:` blocks **only** — a `consult:` block is pre-checked traffic, and a `daily` pointer keys on its watermark. Render:
+After the board, check the rail: for every pointer in a `relay:` block, **resolve its key** — a `handoff-path` that exists on disk, or a `ref` present in the block header (`(ask: <ref>)` / `(answer: <ref>)` / `(deliver: <ref>)`). Scope: `relay:` blocks **only** — a `consult:` block is pre-checked traffic, and a `daily` pointer keys on its watermark. Render:
 
-- **Findings** — a *shape-annotated* pointer that fails its shape's key requirement: an `ask`/`answer` with no `ref`, or an annotated `handoff` with no path on disk. The finding's legal response: **the publishing partner re-fires the relay correctly keyed; the recipient checks the malformed line off as superseded** (its own tagged line — two-writer discipline holds). *(Known-incomplete: for an unsolicited delivery whose payload is written inline, no correct key exists to re-fire with — this class's response is pending the delivery-shape build. Interim posture: drain the finding normally; no re-fire is expected of anyone.)*
-- **The legacy line** — un-annotated **pathless** pointers are legacy pre-shape traffic (exempt from the key check by design; see `references/relay.md`, *Backward compatibility*). Report them as a **denominated count**, never as findings: "N legacy unkeyed pointers (pre-shape)" — zero renders as the denominated zero, matching the wires idiom below.
+- **Findings** — a *shape-annotated* pointer that fails its shape's key requirement: an `ask`/`answer`/`deliver` with no `ref`, or an annotated `handoff` with no path on disk. The finding's legal response: **the publishing partner re-fires the relay correctly keyed (an unsolicited inline delivery mis-fired as an annotated `handoff` re-fires as `deliver` with a publisher-chosen `ref`); the recipient checks the malformed line off as superseded** (its own tagged line — two-writer discipline holds).
+- **The legacy lines** — two denominated lanes, reported as **counts, never findings**; zero renders as the denominated zero, matching the wires idiom below. Un-annotated **pathless** pointers are legacy pre-shape traffic (exempt from the key check by design; see `references/relay.md`, *Backward compatibility*): "N legacy unkeyed pointers (pre-shape)". Shape-annotated **pathless** pointers written before `deliver` existed are proto-`deliver` traffic (same home): "N proto-`deliver` pointers (pre-shape)".
+
+  **Counting rules (what makes the denominators reproducible).** The **unit is the pointer line** — the check's own scope ("for every pointer in a `relay:` block") — never the block: a block's item count neither inflates nor deflates a denominator. A pointer line is **pathless** iff it carries no **key-path** — a trailing `→ [[…]]` link (or plain path) resolving under the handoff zone (`_agent/handoffs/` or `_agent/specs/`). **Any other wikilink — research notes, wiki concepts — is payload and never counts as a path.**
 
 This is the read-side bell for the failure that cannot be seen by reading a single block: an unkeyed pointer disables the spam guard invisibly.
 
@@ -41,7 +43,7 @@ After the open board, run the vitals reader — `{root}/.claude/hooks/vlt-vitals
 After writing, re-read what you produced and confirm:
 
 - **Nothing was written** — read-only. The counts match a fresh grep of open items; the board groups only live, partner-owned slugs.
-- **The pointer-integrity line agrees with a fresh grep of `relay:` blocks** — every finding is a shape-annotated key failure; the legacy count matches the un-annotated pathless pointers actually present.
+- **The pointer-integrity line agrees with a fresh grep of `relay:` blocks** — every finding is a shape-annotated key failure; the two denominated legacy counts match the record: the legacy count the un-annotated pathless pointer lines actually present, the proto-`deliver` count the pre-`deliver` shape-annotated pathless pointer lines actually present (unit = pointer line; pathless per the counting rules above).
 - **The rendered wires match a fresh vitals run** — re-run the reader; every tripped row (or the denominated zero, or the warning row) agrees with it.
 
 Report the result; fix any gap before closing.
