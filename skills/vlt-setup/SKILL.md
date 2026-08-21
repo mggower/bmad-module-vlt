@@ -1,6 +1,6 @@
 ---
 name: "vlt-setup"
-depends_on: ["frontmatter@9"]
+depends_on: ["frontmatter@10"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 
@@ -183,7 +183,7 @@ Install all of them:
 The kit is three provisioned surfaces — the vitals reader (module-owned code), the tripwire registry seed (vault-grown after seeding), and the SessionStart strip hook registration:
 
 - **Copy `./assets/hooks/vlt-vitals.py` → `{root}/.claude/hooks/vlt-vitals.py`** (create `{root}/.claude/hooks/` if absent). This file is **module-owned, not user-authored — overwrite it on every install/update**, exactly like the workflows above (`{root}/.claude/hooks/` is the module-owned code home beside the `.claude/workflows/` force-reinstall precedent; the vault never edits it). It is stdlib-only Python, read-only, derive-only. **Clobber-legibility floor:** before overwriting an *existing* `{root}/.claude/hooks/vlt-vitals.py`, compare it to the incoming file **by checksum (`sha256`) or a real line differ — never a bare `diff` invocation** (a shell-wrapped `diff` fails toward "no divergence", the dangerous direction). Identical → overwrite silently as today. Different → still overwrite (module-owned stands; this is a floor, not a preserve path) but **quote the differing content into the provisioning notes first** and mark the refresh as *overwrote local edits* for the Confirm line. On an upgrade (`vlt-upgrade` Step 6's provision hand-off) the quoted content reaches the upgrade ledger's Notes line by the existing "name the report's entries here when non-empty" mechanism.
-- **Seed `{tripwires}`** (default `_agent/tripwires.yaml`) from `./assets/tripwires.yaml` — **skip-if-present with merge-by-id**: if the registry is absent, copy the seed whole; if present, add **only** ship-seeded wires whose `id` is absent from the vault's file. **Local thresholds win; local wires are never dropped or rewritten** — the registry is vault-grown state (the mint-zone never-clobber posture in §4, applied). Note the merge result (seeded whole / N wires added / all present) for the report.
+- **Seed `{tripwires}`** (default `_agent/tripwires.yaml`) from `./assets/tripwires.yaml` — **skip-if-present with merge-by-id**: if the registry is absent, copy the seed whole; if present, add **only** ship-seeded wires whose `id` is absent from the vault's file. **Local thresholds win; local wires are never dropped or rewritten** — and the vault's `local_metrics:` declarations are vault-grown state exactly as local wires are: never dropped, rewritten, or reordered by seeding (the seed ships none, so the merge has nothing to add there) — the registry is vault-grown state (the mint-zone never-clobber posture in §4, applied). Note the merge result (seeded whole / N wires added / all present) for the report.
 - **Register the SessionStart strip hook in `{root}/.claude/settings.json`** by **idempotent JSON merge keyed on the command path**. The hook entry to ensure (under `hooks.SessionStart`, the standard hooks shape):
 
   ```json

@@ -11,9 +11,14 @@ install/update, never vault-edited.
 
 Stdlib-only, read-only, derive-only: NO mutable stored counters anywhere —
 every figure is derived fresh from existing vault records (091003's recorded
-design invariant). The canonical metric vocabulary is the METRICS table below:
-registry wires and convention `enforcement_counter:` values must name these
-ids and no others (the enforcement kit's one vocabulary).
+design invariant). The enforcement kit's one vocabulary is two-homed (B10-4):
+the canonical METRICS table below (module-owned) plus the vault's declarative
+`local_metrics:` section in the {tripwires} registry (vault-grown — the
+registry header owns that schema). Registry wires and convention
+`enforcement_counter:` values must name an id from one of those two homes and
+no other. The reader itself stays module-owned, overwrite-on-update; nothing
+vault-authored is ever imported or executed — local metrics are DECLARED
+(bounded count/size/age kinds), never code.
 
 Modes:
   (default)  print the full vitals report — every metric with its value, the
@@ -186,10 +191,14 @@ def resolve_structure_map(vault_root, default_map=None):
 
 
 # ---------------------------------------------------------------------------
-# THE CANONICAL METRIC VOCABULARY (disposition 5 — the one vocabulary).
-# id -> one-line definition. Registry wires and `enforcement_counter:` values
-# must name these ids; `vlt-lint`'s counter_unknown_metric flag and
-# package-lint C8 both key off this table (they parse it, never re-declare it).
+# THE CANONICAL METRIC VOCABULARY (disposition 5 — the one vocabulary,
+# module-owned half). id -> one-line definition. Registry wires and
+# `enforcement_counter:` values must name an id from this table OR from the
+# registry's own `local_metrics:` declarations (the {tripwires} header owns
+# that schema — B10-4); `vlt-lint`'s counter_unknown_metric flag and
+# package-lint C8 both key off this table (they parse it, never re-declare
+# it). Vault-local additions to THIS table remain illegal — the durable home
+# is the registry's `local_metrics:` section.
 # ---------------------------------------------------------------------------
 METRICS = {
     "ingests_since_lint": (
@@ -235,6 +244,41 @@ METRICS = {
 WIRE_REQUIRED_FIELDS = ["id", "metric", "threshold", "owner", "moment", "surface_text", "review_after"]
 THRESHOLD_RE = re.compile(r"^\s*(>=|<=|==|>|<|≥|≤)\s*(\d+)\s*$")
 
+# Local metrics (B10-4): the registry's declarative vault-local vocabulary —
+# bounded count/size/age kinds ({tripwires} header owns the schema). A derive
+# beyond these kinds routes upstream (a new canonical metric or a new kind),
+# never into a hand-edit of this module-owned reader.
+LOCAL_METRIC_KINDS = {"file_count", "bytes", "days_since_newest"}
+LOCAL_METRIC_LOCATOR = {"file_count": "glob", "bytes": "path", "days_since_newest": "glob"}
+LOCAL_METRIC_REQUIRED = ["id", "kind", "definition"]
+
+
+def _parse_flat_entry_list(text, section):
+    """Parse one top-level `<section>:` list of flat maps (stdlib YAML-subset —
+    the registry's own style; nothing nested)."""
+    entries = []
+    current = None
+    in_section = False
+    for raw in text.splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        if re.match(rf"^{re.escape(section)}:\s*$", raw):
+            in_section = True
+            continue
+        if in_section and not raw.startswith(" ") and not raw.startswith("-"):
+            in_section = False  # left the section (another top-level key)
+        if not in_section:
+            continue
+        m = re.match(r"^\s*-\s+([A-Za-z_][\w-]*):\s*(.*)$", raw)
+        if m:
+            current = {m.group(1): m.group(2).strip().strip("'\"")}
+            entries.append(current)
+            continue
+        m = re.match(r"^\s+([A-Za-z_][\w-]*):\s*(.*)$", raw)
+        if m and current is not None:
+            current[m.group(1)] = m.group(2).strip().strip("'\"")
+    return entries
+
 
 def parse_wires(text):
     """Parse the tripwires registry's `wires:` list (stdlib YAML-subset).
@@ -242,27 +286,8 @@ def parse_wires(text):
     Returns (wires, errors): wires = list of flat dicts; errors = loud
     per-wire problem strings (missing required fields — never a silent skip).
     """
-    wires, errors = [], []
-    current = None
-    in_wires = False
-    for raw in text.splitlines():
-        if not raw.strip() or raw.lstrip().startswith("#"):
-            continue
-        if re.match(r"^wires:\s*$", raw):
-            in_wires = True
-            continue
-        if in_wires and not raw.startswith(" ") and not raw.startswith("-"):
-            break  # left the wires: section
-        if not in_wires:
-            continue
-        m = re.match(r"^\s*-\s+([A-Za-z_][\w-]*):\s*(.*)$", raw)
-        if m:
-            current = {m.group(1): m.group(2).strip().strip("'\"")}
-            wires.append(current)
-            continue
-        m = re.match(r"^\s+([A-Za-z_][\w-]*):\s*(.*)$", raw)
-        if m and current is not None:
-            current[m.group(1)] = m.group(2).strip().strip("'\"")
+    wires = _parse_flat_entry_list(text, "wires")
+    errors = []
     for w in wires:
         missing = [f for f in WIRE_REQUIRED_FIELDS if not w.get(f)]
         if missing:
@@ -272,16 +297,158 @@ def parse_wires(text):
     return wires, errors
 
 
-def evaluate_wire(wire, metrics):
+def parse_local_metrics(text):
+    """Parse the registry's optional `local_metrics:` section (B10-4).
+
+    Returns (defs, errors): defs = validly-declared entries only; errors =
+    loud per-entry problem strings (missing fields, unknown kind, missing
+    locator, an id shadowing the canonical table, a duplicate id — never a
+    silent skip; the evaluate_wire posture extended). Zero declarations is
+    the normal state, not an error.
+    """
+    raw_defs = _parse_flat_entry_list(text, "local_metrics")
+    defs, errors = [], []
+    seen = set()
+    for d in raw_defs:
+        probs = []
+        missing = [f for f in LOCAL_METRIC_REQUIRED if not d.get(f)]
+        if missing:
+            probs.append(f"missing required field(s) {', '.join(missing)}")
+        kind = d.get("kind")
+        if kind and kind not in LOCAL_METRIC_KINDS:
+            probs.append(
+                f"unknown kind `{kind}` (legal kinds: {', '.join(sorted(LOCAL_METRIC_KINDS))} — "
+                "a derive beyond them routes upstream)"
+            )
+        locator = LOCAL_METRIC_LOCATOR.get(kind)
+        if locator and not d.get(locator):
+            probs.append(f"kind `{kind}` requires a `{locator}:` locator field")
+        if d.get("id") in METRICS:
+            probs.append(
+                "shadows a canonical metric id — the canonical table stays "
+                "authoritative for its own names"
+            )
+        if d.get("id") in seen:
+            probs.append("duplicate local metric id")
+        if probs:
+            errors.append(f"local metric `{d.get('id', '(no id)')}`: " + "; ".join(probs))
+        else:
+            seen.add(d["id"])
+            defs.append(d)
+    return defs, errors
+
+
+def _resolve_locator(spec, smap):
+    """Expand `{key}` structure-map logical names in a locator; the result is
+    a vault-relative path/glob. An unknown `{key}` is left in place — the
+    caller treats a remaining brace as unresolvable (derives None, reason
+    stated)."""
+    return re.sub(
+        r"\{([A-Za-z_][\w-]*)\}",
+        lambda m: smap[m.group(1)].rstrip("/") if m.group(1) in smap else m.group(0),
+        spec,
+    )
+
+
+def _read_frontmatter_date(path):
+    """First dated frontmatter key (created/date/last_updated) — never mtime
+    (git operations and copies corrupt mtimes; the vault's records are dated
+    by convention). Returns YYYY-MM-DD or None."""
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return None
+    if not text.startswith("---"):
+        return None
+    found = {}
+    for line in text.split("\n")[1:60]:
+        if line.strip() == "---":
+            break
+        m = re.match(r"^(created|date|last_updated):\s*[\"']?(\d{4}-\d{2}-\d{2})", line.strip())
+        if m and m.group(1) not in found:
+            found[m.group(1)] = m.group(2)
+    for key in ("created", "date", "last_updated"):
+        if key in found:
+            return found[key]
+    return None
+
+
+def derive_local_metrics(vault_root, smap, defs, today=None):
+    """Derive every validly-declared local metric by `kind` (read-only,
+    derive-only — the same posture as the canonical derivations). Returns
+    (values, notes): values[id] = int or None (unresolvable locator —
+    stated, the underivable posture, not an error)."""
+    today = today or datetime.date.today()
+    values, notes = {}, {}
+    for d in defs:
+        mid = d["id"]
+        kind = d["kind"]
+        locator_field = LOCAL_METRIC_LOCATOR[kind]
+        spec = _resolve_locator(d[locator_field], smap)
+        if "{" in spec:
+            values[mid] = None
+            notes[mid] = (
+                f"locator `{d[locator_field]}` names an unknown structure-map key — underivable"
+            )
+            continue
+        try:
+            if kind == "file_count":
+                values[mid] = sum(1 for f in vault_root.glob(spec) if f.is_file())
+            elif kind == "bytes":
+                target = vault_root / spec
+                if target.is_file():
+                    values[mid] = target.stat().st_size
+                elif target.is_dir():
+                    values[mid] = _dir_bytes(target)
+                else:
+                    values[mid] = None
+                    notes[mid] = f"{spec} absent — underivable (no record yet)"
+            elif kind == "days_since_newest":
+                newest = None
+                matched = 0
+                for f in vault_root.glob(spec):
+                    if not f.is_file():
+                        continue
+                    matched += 1
+                    m = DATE_RE.search(f.name)
+                    date_str = m.group(0) if m else _read_frontmatter_date(f)
+                    if date_str is None:
+                        continue
+                    try:
+                        fdate = datetime.date.fromisoformat(date_str)
+                    except ValueError:
+                        continue
+                    if newest is None or fdate > newest:
+                        newest = fdate
+                if newest is None:
+                    values[mid] = None
+                    notes[mid] = (
+                        f"no dated file matches {spec} ({matched} matched; dates come from "
+                        "dated names or frontmatter, never mtime) — underivable"
+                    )
+                else:
+                    values[mid] = (today - newest).days
+        except (OSError, ValueError) as e:
+            values[mid] = None
+            notes[mid] = f"locator `{d[locator_field]}` unreadable ({e}) — underivable"
+    return values, notes
+
+
+def evaluate_wire(wire, metrics, local_ids=frozenset()):
     """Evaluate one wire against the derived metrics.
 
-    Returns (state, detail): state in {"tripped", "ok", "error"}. An unknown
+    Returns (state, detail): state in {"tripped", "ok", "error"}. A wire's
+    metric is legal iff it names a canonical METRICS id or one of the
+    registry's validly-declared `local_metrics:` ids (B10-4). An unknown
     metric id is a LOUD error, never a silent skip; a metric whose value is
     underivable (None) evaluates ok with the reason stated.
     """
     metric_id = wire.get("metric")
-    if metric_id not in METRICS:
-        return "error", f"unknown metric id `{metric_id}` — not in the canonical table"
+    if metric_id not in METRICS and metric_id not in local_ids:
+        return "error", (
+            f"unknown metric id `{metric_id}` — not in the canonical table or the "
+            "registry's `local_metrics:` declarations"
+        )
     m = THRESHOLD_RE.match(wire.get("threshold", ""))
     if not m:
         return "error", f"unparseable threshold `{wire.get('threshold')}` (want e.g. `>= 10`)"
@@ -542,17 +709,25 @@ BANNER = (
 
 def load_registry(vault_root, smap):
     """Read {tripwires}. Absent registry = zero wires, said plainly (a fresh
-    vault before seeding), never an error. Returns (wires, wire_errors, note)."""
+    vault before seeding), never an error. Returns
+    (wires, local_defs, wire_errors, local_errors, note)."""
     reg = vault_root / smap["tripwires"]
     if not reg.is_file():
-        return [], [], f"no registry at {smap['tripwires']} — zero wires (a fresh vault before `vlt-setup` seeds it)"
-    wires, errors = parse_wires(reg.read_text(encoding="utf-8", errors="replace"))
-    return wires, errors, None
+        return [], [], [], [], (
+            f"no registry at {smap['tripwires']} — zero wires (a fresh vault before `vlt-setup` seeds it)"
+        )
+    text = reg.read_text(encoding="utf-8", errors="replace")
+    wires, wire_errors = parse_wires(text)
+    local_defs, local_errors = parse_local_metrics(text)
+    return wires, local_defs, wire_errors, local_errors, None
 
 
 def render_report(vault_root, smap, fallbacks):
     metrics, notes, partner_rows = derive_metrics(vault_root, smap)
-    wires, wire_errors, reg_note = load_registry(vault_root, smap)
+    wires, local_defs, wire_errors, local_errors, reg_note = load_registry(vault_root, smap)
+    local_values, local_notes = derive_local_metrics(vault_root, smap, local_defs)
+    metrics.update(local_values)  # local ids can never shadow canonical ones (validated)
+    local_ids = {d["id"] for d in local_defs}
     out = ["# vlt vitals", ""]
     out.append(f"> {BANNER}")
     out.append("")
@@ -565,6 +740,20 @@ def render_report(vault_root, smap, fallbacks):
         if metric_id in notes:
             line += f" [{notes[metric_id]}]"
         out.append(line)
+    if local_defs or local_errors:
+        # Denominated sibling block (B10-4): registry-declared local metrics.
+        # Zero declarations and zero errors renders nothing at all.
+        out.append("")
+        out.append(f"{len(local_defs)} local metric(s) (registry-declared):")
+        for err in local_errors:
+            out.append(f"- ⚠ LOCAL METRIC ERROR: {err}")
+        for d in local_defs:
+            value = local_values.get(d["id"])
+            shown = "n/a" if value is None else f"{value:,}"
+            line = f"- `{d['id']}` ({d['kind']}): **{shown}** — {d['definition']}"
+            if d["id"] in local_notes:
+                line += f" [{local_notes[d['id']]}]"
+            out.append(line)
     if partner_rows:
         out.append("")
         out.append("Per-partner memory bytes (identity.md + thread.md + reflexes.md + capabilities/):")
@@ -579,7 +768,7 @@ def render_report(vault_root, smap, fallbacks):
         out.append(f"- ⚠ WIRE ERROR: {err}")
     tripped_count = 0
     for w in wires:
-        state, detail = evaluate_wire(w, metrics)
+        state, detail = evaluate_wire(w, metrics, local_ids)
         if state == "tripped":
             tripped_count += 1
             out.append(f"- ⚠ `{w['id']}` TRIPPED — {detail} (owner {w.get('owner')}): {w.get('surface_text')}")
@@ -599,12 +788,17 @@ def render_report(vault_root, smap, fallbacks):
 def render_strip(vault_root, smap):
     """At most one line: tripped wires + wire errors only; empty string when green."""
     metrics, _notes, _rows = derive_metrics(vault_root, smap)
-    wires, wire_errors, _reg_note = load_registry(vault_root, smap)
+    wires, local_defs, wire_errors, local_errors, _reg_note = load_registry(vault_root, smap)
+    local_values, _local_notes = derive_local_metrics(vault_root, smap, local_defs)
+    metrics.update(local_values)
+    local_ids = {d["id"] for d in local_defs}
     parts = []
+    for err in local_errors:
+        parts.append(f"local metric error — {err}")
     for err in wire_errors:
         parts.append(f"wire error — {err}")
     for w in wires:
-        state, detail = evaluate_wire(w, metrics)
+        state, detail = evaluate_wire(w, metrics, local_ids)
         if state == "tripped":
             value = metrics.get(w["metric"])
             parts.append(f"{w['id']}: {value} {w.get('surface_text')} (wire {w.get('threshold')})")

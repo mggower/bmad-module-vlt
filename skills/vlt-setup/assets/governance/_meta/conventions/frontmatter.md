@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 9
+version: 10
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -260,7 +260,7 @@ Every convention file in `{conventions}` declares, in its own frontmatter, how t
 enforcement_stage: declared | checked | enforced
 enforcement_checked_by: <owner — a partner or a skill, e.g. vlt-lint>
 enforcement_moment: <the moment the check runs, e.g. lint run | op final-steps | SessionStart hook>
-enforcement_counter: <optional; when present, must name a metric id from the vitals reader's canonical table (.claude/hooks/vlt-vitals.py) — the enforcement kit's one vocabulary>
+enforcement_counter: <optional; when present, must name a metric id from the vitals reader's canonical table (.claude/hooks/vlt-vitals.py) or a `local_metrics:` declaration in the vault's `{tripwires}` registry (the registry header owns that schema) — the enforcement kit's one vocabulary, whose durable vault-local half lives in the registry>
 # deferral — ALL THREE required for any deferral; missing any field = invalid:
 deferral_metric: <what is counted>
 deferral_threshold: <the tripwire — a number, or a short prose threshold a vault can evaluate from its own state>
@@ -270,6 +270,8 @@ adoption_first_instance: <null | dated reference to the boundary's first live in
 ```
 
 Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
+
+**Per-section addressing (overlays).** An overlay (`{overlays}/{name}.overlay.md`) accretes sections, and its sections are independently shaped — one file-level declaration cannot honestly stand in for rules added at different times with different enforcement stories. So overlay enforcement is addressed **per section**: a **rule-shaped** overlay section — the boundary classifier's own test, "does this create a rule someone else must obey?" (`vlt-mint`, the classifier's single home; judged, not pattern-matched) — carries its **own** declaration block directly under the section heading: the same flat keys, the same stage semantics and deferral triple as above, addressed to that section alone. The overlay **file** carries no file-level enforcement declaration, and base convention files keep the file-level shape unchanged. A content-extension section (a worked example, a clarification, a field-value addition creating no obligation) carries no declaration and flags nothing. A rule-shaped section with no per-section declaration is a `vlt-lint` finding — the enforcement-doctrine meta-check walks overlays and owns the finding class and its legal response (`vlt-lint`, checks reference).
 
 **Enforcement ships with widening.** A change that **widens what may be written — or that states a new rule constraining what may be written** — ships in the **same build** as the enforcement that catches its violations. A change whose enforcement cannot ship in the same build states an interim posture **in shipped text, as this declaration** — `enforcement_stage: declared` plus the complete deferral triple (`deferral_metric:` / `deferral_threshold:` / `review_after:`) — or is withdrawn. A posture written as prose instead fires none of `declared_untripwired` / `deferral_invalid` / `deferral_expired` and is not a posture.
 

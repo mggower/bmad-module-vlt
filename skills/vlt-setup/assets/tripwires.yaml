@@ -9,8 +9,13 @@
 # reference derived metrics only — NO OP EVER WRITES COUNTERS; every figure
 # is derived fresh from existing vault records at read time. The canonical
 # metric vocabulary is the METRICS table in .claude/hooks/vlt-vitals.py —
-# a wire's `metric` must name an id from that table and no other (an unknown
-# id is a loud per-wire error, never a silent skip).
+# a wire's `metric` must name an id from that table OR a `local_metrics:`
+# declaration in this same file (below); an unknown id remains a loud
+# per-wire error, never a silent skip. The bound (B10-4): local metrics are
+# DECLARATIVE and cover the common count/size/age shapes only — a derive
+# beyond those kinds has no vault-local home; its route is an upstream filing
+# for a new canonical metric or a new kind (the same route METRICS additions
+# take), never a hand-edit of the module-owned reader.
 #
 # SCHEMA (all seven fields REQUIRED on every wire):
 #   id            — short kebab-case wire name (unique in this file)
@@ -24,7 +29,30 @@
 #   review_after  — date this wire itself should be re-examined (the wiki-page
 #                   key's date semantics, referenced not redefined)
 #
-# WRITE MOMENTS. This registry is written ONLY at rare, human-gated moments:
+# LOCAL METRICS (optional top-level `local_metrics:` section — B10-4, the
+# durable vault-local metric home). Each entry is a flat map declaring a
+# derived metric this vault grows for itself; the vitals reader derives it
+# beside the canonical table and wires may reference it by id:
+#   id          — kebab-case metric name, unique in this file, and NOT
+#                 shadowing a canonical METRICS id (a shadow is a loud error)
+#   kind        — one of the bounded derive kinds:
+#                   file_count        — count of files matching `glob`
+#                   bytes             — byte size of the file or directory at `path`
+#                   days_since_newest — age in days of the newest file matching
+#                                       `glob`, dated by its dated filename or
+#                                       frontmatter date — NEVER mtime (git
+#                                       operations and copies corrupt mtimes)
+#   glob / path — the kind's vault-relative locator; `{key}` structure-map
+#                 logical names resolve the way the reader's own derivations
+#                 do (e.g. "{research}/**/*.md")
+#   definition  — one line of prose (the METRICS-table analogue, so the
+#                 vitals report renders the value denominated)
+# A malformed or unresolvable declaration is a LOUD per-entry error, never a
+# silent skip; an unresolvable locator derives n/a with the reason stated.
+# The seed ships NO local_metrics — the section is this vault's to grow.
+#
+# WRITE MOMENTS (wires AND local_metrics alike). This registry is written
+# ONLY at rare, human-gated moments:
 # a mint or council verdict that defers an enforcement leg outside any
 # convention's frontmatter (vlt-mint Step 2a / vlt-review-council Step 3 —
 # the non-convention deferral rule), or a deliberate human edit. Frontmatter
@@ -36,7 +64,10 @@
 # VAULT-GROWN AFTER SEEDING. vlt-setup seeds this file when absent and
 # merges by `id` when present: ship-seeded wires are added only if their id
 # is absent; LOCAL THRESHOLDS WIN; local wires are never dropped or
-# rewritten. Everything below the seed is this vault's to evolve.
+# rewritten — and the vault's `local_metrics:` declarations share exactly
+# that fate: never dropped, rewritten, or reordered by seeding (the seed
+# ships none, so the merge has nothing to add there). Everything below the
+# seed is this vault's to evolve.
 #
 # The four stock wires (the original pair plus the decay-contract pair, Arc 8
 # — the alert-fatigue budget is a hard constraint; add a further wire only
