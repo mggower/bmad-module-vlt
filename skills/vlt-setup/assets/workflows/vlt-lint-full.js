@@ -8,11 +8,17 @@ export const meta = {
   ],
 }
 
-// depends_on: ["frontmatter@9", "wiki-supersession@2", "wiki-index@2"]
+// depends_on: ["frontmatter@9", "wiki-supersession@2", "wiki-index@2", "write-verification@3"]
 // ^ the asset ack (B7-6): this workflow's prompts instruct agents to read these
 //   conventions, so it is a listed consumer in its own right — the flat pins
 //   above are its handshake acks, bumped on reconciliation like a skill's
 //   depends_on:. The release gate (package-lint E5) parses this line.
+//   R4 (the fan-out currency rule): any ask in this file that enforces a
+//   convention's rule adds that convention to convRead AND to the pins above
+//   in the same edit; any edit to an ask or to the read list re-runs the
+//   fan-out audit (every ask checked against the convention set its scanner
+//   receives); restated convention instructions in prompts carry inline
+//   `per <convention>@N` source markers, which consumer walks re-derive.
 
 // ─────────────────────────────────────────────────────────────────────────────
 // vlt-lint-full — the fan-out finder (owner-prioritized op-layer workflow).
@@ -96,7 +102,7 @@ if (!pages.length || !indexPath || !conventionsPath) {
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
-  required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_valid', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets'],
+  required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_valid', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
   properties: {
     slug: { type: 'string' },
     available: { type: 'boolean', description: 'false if the page file could not be read — then it is dropped from the reduce' },
@@ -112,8 +118,8 @@ const PAGE_SCAN = {
     topic_is_list: { type: 'boolean', description: 'true if topic: is a YAML list; false if it is still a delimited string (a / b or a, b) or missing — a frontmatter-drift finding' },
     summary: { type: 'string', description: 'the frontmatter summary: value verbatim (empty string if the field is absent)' },
     frontmatter_issue: { type: 'string', description: 'what is wrong if frontmatter_valid is false' },
-    sources_vs_prose_mismatch: { type: 'boolean', description: 'GAP B — true if the frontmatter sources: list and the prose Sources section diverge (a URL in one not the other)' },
-    sources_vs_prose_detail: { type: 'string' },
+    sources_vs_prose: { type: 'string', enum: ['match', 'diverge', 'no_prose_section'], description: 'GAP B — diverge only when the page has BOTH a frontmatter sources: list and a prose Sources section and an entry in one is not traceable in the other; no_prose_section when the page carries no prose Sources section (conformant per write-verification@3 — frontmatter is the source of truth); else match' },
+    sources_vs_prose_detail: { type: 'string', description: "populated only when sources_vs_prose is 'diverge' — what diverges; empty otherwise" },
     stale_unmarked: { type: 'array', items: { type: 'string' }, description: 'time-bound claims past their shelf life that LACK a [!stale] marker' },
     within_page_contradictions: { type: 'array', items: { type: 'string' }, description: 'incompatible claims inside this one page' },
     unmarked_supersession: { type: 'array', items: { type: 'string' }, description: 'silently-updated/conflicting claims lacking a [!superseded]/[!stale] callout, or consensus claims lacking citations' },
@@ -164,8 +170,8 @@ const convRead = (name) =>
     : `${conventionsPath}/${name}.md`
 
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('wiki-index')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter.md YAML rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. ` +
-  `Return ONLY findings about THIS page: the raw [[wikilink]] inner text of every outbound link, verbatim — including any |alias, #anchor, or path prefix; do not normalize — whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the frontmatter summary: value verbatim (empty if absent), whether the frontmatter sources: and the prose Sources section diverge (Gap B), its created and last_updated dates verbatim, its verified_by and verified_at values verbatim (empty if absent), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, up to 5 short key-claim summaries, and name_callout_targets — for each callout on this page that questions a proper noun against another named wiki page, the raw [[wikilink]] target text verbatim and the name in question (an ordinary [!stale] marker with no cross-page name question yields nothing). Do not assess other pages — cross-page checks happen later.`
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('wiki-index')}; ${convRead('write-verification')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@9 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@9 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
+  `Return ONLY findings about THIS page: the raw [[wikilink]] inner text of every outbound link, verbatim — including any |alias, #anchor, or path prefix; do not normalize — whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the frontmatter summary: value verbatim (empty if absent), the tri-state sources_vs_prose verdict (Gap B, per the conditional above), its created and last_updated dates verbatim, its verified_by and verified_at values verbatim (empty if absent), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, up to 5 short key-claim summaries, and name_callout_targets — for each callout on this page that questions a proper noun against another named wiki page, the raw [[wikilink]] target text verbatim and the name in question (an ordinary [!stale] marker with no cross-page name question yields nothing). Do not assess other pages — cross-page checks happen later.`
 
 const scans = []
 const coverageCaps = []
@@ -297,7 +303,7 @@ const clusterResults = (
       agent(
         `You are a cross-page contradiction checker. These wiki pages share topic/links and may conflict. For each, read its LIVE path. Pages: ${group.map((g) => `${g.slug} (${pages.find((p) => p.slug === g.slug)?.path || '?'})`).join('; ')}. ` +
           `Key claims already extracted: ${JSON.stringify(group.map((g) => ({ slug: g.slug, claims: g.key_claims || [] })))}. ` +
-          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line: open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable. ` +
+          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line (per wiki-supersession@2): open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable. A disagreement recorded only as a bullet, heading, or plain prose — not an Obsidian > [!type] callout — is NOT documented (per wiki-supersession@2); report it in cross_page_contradictions. ` +
           `ALSO report entity_collisions: the same proper noun recorded with incompatible attributes across two of these pages. PRECEDENCE — a conflict that is one name carrying incompatible attributes goes to entity_collisions and NOT to cross_page_contradictions; report it once, in one slot.`,
         { label: 'contradict-cluster', phase: 'Reduce + cross-page', schema: CLUSTER_FINDINGS, model: clusterModel },
       ),
@@ -381,7 +387,7 @@ return {
       .filter((s) => s.topic_is_list === false || summaryIssue(s))
       .map((s) => `${s.slug}: ${[s.topic_is_list === false ? 'topic not a list' : '', summaryIssue(s)].filter(Boolean).join('; ')}`),
     unmarked_supersessions: collect('unmarked_supersession'),
-    sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose_mismatch).map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: vs prose Sources diverge'}`),
+    sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose === 'diverge').map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: vs prose Sources diverge'}`),
   },
   flag_for_human: {
     // Exact match against the extracted H2 set, computed here (B5-3) — the strict category↔H2
