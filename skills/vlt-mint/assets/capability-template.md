@@ -5,7 +5,7 @@ A **Capability** is the first-class object for anything a partner can do. It has
 - **`write_scope: own-zone` → light.** A partner-owned markdown file at `{partners}/{name}/capabilities/{slug}.md` — frontmatter is the object, body is the partner's application. Writes only the partner's own zone. Council-none. May be **self-grown live** (no full mint ceremony). This is the featherweight default — the "missing middle" between a `## Self` note and a registered op skill.
 - **`write_scope: <a shared lane>` (e.g. `wiki`) → heavy.** Backed by a **registered operation skill** (the existing `operation-skill-template`); the capability file is just a `procedure: { skill: vlt-{op} }` pointer. Must be owned by that lane's rightful partner. May be council-gated.
 
-**Ownership = location.** A light capability belongs to exactly one partner and lives in that partner's zone — no cross-partner writes (single-writer discipline holds by construction). The `slug` is an **addressing handle** (referenceable, migratable, headless-callable), not primarily a typed command — a partner surfaces its capabilities **contextually** (data, not a fixed menu).
+**Ownership = location.** A light capability belongs to exactly one partner and lives in that partner's zone — no cross-partner writes (single-writer discipline holds by construction). The `slug` is an **addressing handle** (referenceable, migratable, headless-callable), not primarily a typed command — a partner surfaces its capabilities **contextually** (data, not a fixed menu). **`provenance:` takes exactly one of `shipped | vault-grown`** — stated here, not in a copied comment, so live files never carry (or drop) their own vocabulary.
 
 ---
 
@@ -20,7 +20,7 @@ owner: {name}                      # the owning partner (= file location for lig
 write_scope: own-zone              # THE one declared field — own-zone (light) | a named shared lane (heavy)
 weight: light                      # DERIVED from write_scope (own-zone → light); never hand-set
 council_class: none                # DERIVED (light + additive → none); never hand-set
-provenance: vault-grown            # shipped | vault-grown (usually implied by location)
+provenance: vault-grown            # usually implied by location
 family: { name: {family}, inherits: [{invariant-ids}] }   # OPTIONAL — present only if opted into a family
 ---
 

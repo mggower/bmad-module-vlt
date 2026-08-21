@@ -14,6 +14,7 @@ body:
         [`skills/vlt-feedback/references/field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md).
         Filing from an installed vault? Prefer the `vlt-feedback` skill — it scrubs,
         previews, and stamps the payload for you.
+        Note: comments added after an issue is labeled `captured` reach the factory only if the owner admits them by hand — an amendment channel is planned; until it ships, assume a comment on a captured issue is not read.
   - type: textarea
     id: what_happened
     attributes:

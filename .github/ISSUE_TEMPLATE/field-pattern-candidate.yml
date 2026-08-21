@@ -16,6 +16,7 @@ body:
         `field:pattern` / `field:candidate` label is applied by the filer (if permissions
         allow) or at owner triage. Filing from an installed vault? Prefer the
         `vlt-feedback` skill — it scrubs, previews, and stamps the payload for you.
+        Note: comments added after an issue is labeled `captured` reach the factory only if the owner admits them by hand — an amendment channel is planned; until it ships, assume a comment on a captured issue is not read.
   - type: textarea
     id: what_happened
     attributes:

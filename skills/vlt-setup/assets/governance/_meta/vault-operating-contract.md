@@ -308,7 +308,7 @@ Every operational file class carries its exit — a decay verb, or an exemption 
 | `{conventions}`, `{personas}`, `{contract}` | exempt — shipped governance, refreshed by upgrade, never accumulating | — | — | — |
 | `{sessions}` | exempt — naturally segmented per sitting (the foldering pattern the rotate verb mirrors); never whole-dir wake-read; ad-hoc retirement to `{archive}` remains available | — | — | — |
 | `{lint_reports}` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-lint` Step 6) | — | — | — |
-| `{upgrade_ledger}`, `{overlays}`, `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / rare wire edits); their append-only declarations stand | — | — | — |
+| `{upgrade_ledger}`, `{overlays}` (incl. `.skill-manifest.sanctioned`, the manifest's sanction record), `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / one line per sanctioned migration edit / rare wire edits); their append-only declarations stand | — | — | — |
 | `{archive}` | exempt by definition — cold storage, outside every live-read enumeration; git-tracked, readable markdown | — | — | — |
 
 A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract.
