@@ -1,0 +1,75 @@
+# Field-contract issue form (defect). ADDITIVE-ONLY: fields may be added, never renamed or
+# removed and never change meaning, without bumping rail_contract. The shape's single source
+# of truth is skills/vlt-feedback/references/field-contract.md — this form derives from it
+# and never restates it.
+name: Field defect
+description: A live vault hit shipped module behavior that is wrong. Follows the field contract.
+labels: ["vault-filed", "field:defect"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is one surface of the module's **field contract** — the payload shape,
+        label semantics, and evolution rule are single-homed at
+        [`skills/vlt-feedback/references/field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md).
+        Filing from an installed vault? Prefer the `vlt-feedback` skill — it scrubs,
+        previews, and stamps the payload for you.
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: what_happened
+      description: What happened, concretely, as hit in real use.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: evidence
+      description: "Generalized evidence: placeholder paths (`_agent/{zone}/{file}.md` style), quoted behavior, exact error text. No vault-local literals, no personal-domain content."
+    validations:
+      required: true
+  - type: textarea
+    id: provenance_guess
+    attributes:
+      label: provenance_guess
+      description: Where in the module source this probably lives — explicitly a guess; the factory grounds it before capture.
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: kind
+      description: This form files defects; the classification is fixed.
+      options:
+        - defect
+    validations:
+      required: true
+  - type: input
+    id: origin_vault
+    attributes:
+      label: origin_vault
+      description: The vault the signal originated in (a short vault name, not a path).
+    validations:
+      required: true
+  - type: input
+    id: acceptance_vault
+    attributes:
+      label: acceptance_vault
+      description: Where acceptance should run — the vault (or kind of vault) that can verify the fix.
+    validations:
+      required: false
+  - type: input
+    id: module_version
+    attributes:
+      label: module_version
+      description: The filing vault's installed module version.
+    validations:
+      required: true
+  - type: input
+    id: rail_contract
+    attributes:
+      label: rail_contract
+      description: The field-contract version this payload follows.
+      value: "1"
+    validations:
+      required: true

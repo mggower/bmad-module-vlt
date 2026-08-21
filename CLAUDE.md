@@ -87,8 +87,10 @@ overlays, capabilities) as module source.
 - This is a public repo. Dev artifacts are gitignored and stay local: `inbox/`,
   `skills/reports/`, `docs/`, `.claude/`, `_bmad/`, `CLAUDE.local.md`. A release commit
   therefore contains only the shipped surface (`skills/`, `.claude-plugin/`, `tools/`,
-  README, LICENSE — `tools/` is tracked and public as documentation of the release
-  contract, but is not part of the own-the-apply copy surface). Shipped content (examples, templates, docs) must carry **no personal or
+  `.github/`, README, LICENSE — `tools/` is tracked and public as documentation of the
+  release contract, but is not part of the own-the-apply copy surface; `.github/` is the
+  repo-side half of the feedback rail's field contract, likewise tracked and public but
+  never copied into vaults). Shipped content (examples, templates, docs) must carry **no personal or
   vault-local information** — scrub before it lands in `skills/`.
 - **Worked examples in shipped skills use placeholder paths**
   (`_agent/specs/{date}-{owner}-to-{consumer}-{slug}.md` style), never a specific install's

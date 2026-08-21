@@ -49,7 +49,9 @@ Ask the user for values. Show defaults in brackets. Present values together so t
 
 **Core config** (only if no core keys exist yet): `user_name` (default: BMad), `communication_language` + `document_output_language` (default: English — one language question, both keys get the answer), `output_folder` (default: `{project-root}/_bmad-output`). `user_name` and `communication_language` are written exclusively to `config.user.yaml`; the rest go to `config.yaml` root.
 
-**Module config.** The vault *is* this project (`{project-root}`) — there is no vault registry to collect (you install Vault into each vault you want a cast for). The only module variable is optional:
+**Module config.** The vault *is* this project (`{project-root}`) — there is no vault registry to collect (you install Vault into each vault you want a cast for). There are two module variables; neither is prompted for in the normal flow:
+
+- **`feedback_repo`** *(not prompted — materialized silently from the `module.yaml` default)* — the transport endpoint `vlt-feedback` posts field notes to (an `OWNER/REPO` slug for `gh --repo`). Setup writes the default into `config.yaml`'s `vlt:` section; a vault that files elsewhere overrides by editing `config.yaml` or at reconfigure. The filing shape itself is single-homed in the `vlt-feedback` skill's field-contract reference.
 
 - **`vault_structure`** *(advanced — you usually won't change it)* — the map of `{logical_name → path-relative-to-project-root}` every skill resolves paths through. **Setup materializes the full default map into `config.yaml`** so the override mechanism is visible and editable in one place. **Read the canonical default map from `./assets/module.yaml` (`vault_structure.default`) — do not hand-transcribe the table below; `module.yaml` is the single source of truth.** Don't prompt for each path; merge any user override entries over the `module.yaml` defaults and write the complete map. The table below is **illustrative only** (authoritative copy is `module.yaml`):
 

@@ -34,7 +34,7 @@ agents:
 
 # --- Configuration variables ---
 # The vault IS the project — Vault is installed into each vault, so there is no vault registry.
-# The only variable is an optional layout override.
+# Two variables: an optional layout override and the feedback transport endpoint.
 
 vault_structure:
   prompt: "(Advanced) Override any vault sub-paths that differ from the conventional layout? Most vaults won't need this."
@@ -60,3 +60,10 @@ vault_structure:
     tripwires: _agent/tripwires.yaml
     lint_reports: _agent/lint-reports/
   example: "wiki → _agent/wiki/ — override a single entry only if this vault diverges"
+
+feedback_repo:
+  # Transport endpoint for vlt-feedback (OWNER/REPO slug for `gh --repo`). A defined
+  # variable (dict with default:) — merge-config.py exports ONLY defined variables into
+  # config.yaml's vlt: section; a flat scalar here would be silently dropped (roundtable
+  # A13). Public module metadata; override per-vault in config.yaml if filing elsewhere.
+  default: mggower/bmad-module-vlt

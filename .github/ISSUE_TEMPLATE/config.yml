@@ -1,0 +1,21 @@
+# Field-contract template chooser. Blank issues stay enabled deliberately: the tracker is
+# public, and label partitioning does the work — an issue without `vault-filed` is invisible
+# to the factory intake's discovery by construction.
+#
+# Owner bootstrap (build-time, run once before the release tag; idempotent via --force) —
+# the seven labels of the field contract (defined in
+# skills/vlt-feedback/references/field-contract.md, never here):
+#
+#   gh label create "vault-filed"     --repo mggower/bmad-module-vlt --force --color FBCA04 --description "Field contract: candidacy, not admission"
+#   gh label create "vault-accepted"  --repo mggower/bmad-module-vlt --force --color 0E8A16 --description "Field contract: owner-admitted; intake materializes"
+#   gh label create "captured"        --repo mggower/bmad-module-vlt --force --color 1D76DB --description "Field contract: materialized into the factory inbox"
+#   gh label create "declined"        --repo mggower/bmad-module-vlt --force --color B60205 --description "Field contract: not admitted; closed with a reason"
+#   gh label create "field:defect"    --repo mggower/bmad-module-vlt --force --color D93F0B --description "Field contract: shipped behavior is wrong"
+#   gh label create "field:pattern"   --repo mggower/bmad-module-vlt --force --color 5319E7 --description "Field contract: recurring shape worth naming"
+#   gh label create "field:candidate" --repo mggower/bmad-module-vlt --force --color C2E0C6 --description "Field contract: upstream-this proposal"
+#
+blank_issues_enabled: true
+contact_links:
+  - name: The field contract (payload shape, labels, evolution rule)
+    url: https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md
+    about: The single home of the filing shape — the templates point here and never restate it.

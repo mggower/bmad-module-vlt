@@ -34,7 +34,8 @@
         "./skills/vlt-decay",
         "./skills/vlt-dispatch",
         "./skills/vlt-mint",
-        "./skills/vlt-review-council"
+        "./skills/vlt-review-council",
+        "./skills/vlt-feedback"
       ]
     }
   ]
