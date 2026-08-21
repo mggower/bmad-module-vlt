@@ -1,7 +1,7 @@
 ---
 name: vlt-feedback
 depends_on: []
-description: File a field note upstream to the Vault module's public tracker as a labelled GitHub issue — classify honestly (defect / pattern / candidate), scrub it of vault paths and personal-domain content, render the exact public payload and halt for the user's approval, then post via gh with origin-vault and contract-version stamps. Use when the user says 'file this upstream', 'send feedback to the module', 'report this to the module', or when a partner has proposed a filing and the user says go. Invoked-only — a partner may propose a filing; only the user's explicit go executes. Degrades loudly: missing or unauthenticated gh yields a named error plus a paste-ready local filing, never a silent drop.
+description: "File a field note upstream to the Vault module's public tracker as a labelled GitHub issue — classify honestly (defect / pattern / candidate), scrub it of vault paths and personal-domain content, render the exact public payload and halt for the user's approval, then post via gh with origin-vault and contract-version stamps. Use when the user says 'file this upstream', 'send feedback to the module', 'report this to the module', or when a partner has proposed a filing and the user says go. Invoked-only — a partner may propose a filing; only the user's explicit go executes. Degrades loudly: missing or unauthenticated gh yields a named error plus a paste-ready local filing, never a silent drop."
 ---
 
 # vlt-feedback
