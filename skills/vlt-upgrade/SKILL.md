@@ -97,7 +97,7 @@ upgrade:
   apply_path: own | bracket
   mints_preserved: [<vlt-agent-x>, <vlt-op>, ...]      # registration kept — every local mint (partners + vault-grown op skills)
   bodies_restored: [<vlt-agent-x>, <vlt-op>, ...]      # B2 — empty on the own path
-  overlays_intact: [<name.overlay.md>, ...]
+  overlays_intact: [<name.overlay.md>, ...]   # retirement annotation, render-when-present — see below
   local_conventions_intact: [<name> (mint <ref>), ...]   # sanctioned local conventions preserved (Step-1 snapshot) — never omitted when empty
   baselines_refreshed: [<name>, ...]
   base_divergence: [<convention: base was hand-edited (prev content preserved in ledger) — lift to overlay or upstream>, ...]
@@ -109,6 +109,8 @@ upgrade:
   capabilities_intact: [<partner/slug>, <family>, ...]            # vault-grown caps + family contracts preserved
   family_invariant_drift: [<family: instance <partner> no longer honors invariant X — reconcile>, ...]
 ```
+
+`overlays_intact` carries one **retirement annotation**, render-when-present: when a preserved overlay carries a `consumers:` (or other handshake-shaped) line, the report line for that overlay appends *"carries a `consumers:` line — the overlay registration route is retired (v0.12.0): re-register via `local_consumers:` in the base (`frontmatter.md`, *Vault-writable declared fields*) and a mint entry, then remove the overlay line — `vlt-lint` flags it `overlay_consumers_illegal` until then"*. The overlay itself is **never edited or dropped** by the upgrade (append-only preservation holds) — the retirement is the vault's move, surfaced here, not performed.
 
 `base_divergence`, `skill_asset_divergence`, and `governance_divergence` are the **detect-and-report** safety net (filing #8 B3): the upgrade never silently clobbers a local edit without surfacing it — but it does not auto-merge either — each divergence line routes its content to the durable host the operating contract's *Durability across upgrades* doctrine names (overlays made that route generic for conventions; a designed parameter read, mint, or upstream filing covers the rest). A standing re-apply is the treadmill the doctrine exists to end.
 

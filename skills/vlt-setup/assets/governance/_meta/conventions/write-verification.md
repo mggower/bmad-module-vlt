@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-06
-last_updated: 2026-07-06
+last_updated: 2026-08-21
 title: Write-Verification Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 2
+version: 3
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -44,7 +44,7 @@ Tier-1 = checks answerable from the one file being written, amortized into the w
 The fields (`verified_by`, `verified_at`) and the freshness rule (valid iff `verified_at` ≥ `last_updated`; stale → quiet tier-1 re-run, not a violation) are defined in `frontmatter.md` — referenced here, not redefined. This file owns the contract around them:
 
 - After tier-1 completes, write `verified_by: <this op>` and `verified_at: <today>` on **every artifact created or updated**. Updates re-attest — an op that updates an existing page bumps both keys.
-- **`verified_by` value set:** the three write ops (`vlt-ingest`, `vlt-extract`, `vlt-research`) plus `vlt-lint` — and lint attests **narrowly**: it writes the pair only on files its own auto-fix touched (an auto-fix bumps `last_updated` and would otherwise re-stale the attestation it just validated). Lint never attests a file it merely read.
+- **`verified_by` value set:** the `verified_by` value set is this file's `consumers:` **that are write ops**, plus write-op `local_consumers:` registrants (`frontmatter.md`, *Vault-writable declared fields*). The roster is **membership and ceiling**, never an automatic grant: a skill added to `consumers:` for handshake reasons alone acquires no attestation authority — the write-op qualifier binds the **whole** set. Per-consumer scope stays stated where it applies: lint attests **narrowly** — it writes the pair only on files its own auto-fix touched (an auto-fix bumps `last_updated` and would otherwise re-stale the attestation it just validated). Lint never attests a file it merely read.
 
 ## Fail-open rule
 

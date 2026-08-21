@@ -5,6 +5,19 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.12.0 — 2026-08-21
+
+**Arc 9** — the boundary arc.
+
+- **B9-1 — the dispatch-ledger repair:** the proto-`deliver` era gets its datum, the key-check exemption is cut to the key requirement on both sites, and the ledger's denominators gain a factory-side reproducibility instrument.
+- **B9-2 — the three standing rules:** the durable-host doctrine, rule precedence, and enforcement-ships-with-widening land ahead of the builds they govern.
+- **B9-3 — the remote feedback rail:** GitHub issues become the module's reachable front door — the ingress two of this arc's own filings had to route around.
+- **B9-4 — consumer registration:** vault-grown ops get a lawful, checked route onto a shipped convention's roster — closing the boundary the arc's load-bearing filing found shut on both sides.
+
+**A note for vaults with agent-authored PARA content:** a known finding exists — agent overflow written into PARA can falsify `sources:` as provenance. Until the model for this lands (Arc 10), such content belongs under `_agent/`, not in PARA through a stretched `sources:` list; the PARA location rule itself stands unwidened.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `.github/ISSUE_TEMPLATE`, `CLAUDE.md`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-feedback`, `skills/vlt-groom`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-upgrade`, `tools/dispatch-lane-check.py`
+
 ## v0.11.0 — 2026-08-17
 
 **Arc 8** — the lifecycle arc.

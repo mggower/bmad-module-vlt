@@ -1,6 +1,6 @@
 ---
 name: vlt-groom
-depends_on: ["frontmatter@8"]
+depends_on: ["frontmatter@9"]
 description: Run an approval-gated groom pass over one partner's memory files (identity.md, thread.md, reflexes.md) — classify every item against the promotion ladder and propose promote / compress-to-latest-form / retire as a diff grouped by class, one-line rationale per item, applied only on the user's approval. Use when the user says 'groom the librarian', 'groom <partner>', or 'run a groom pass' — or when the active partner has proposed a groom and the user says go. Invoked-only; runs inside the target partner's own sitting (the partner is the writer, this op is the procedure). Never destruction — the pre-groom state stays reachable via the `archive:` watermark.
 ---
 
