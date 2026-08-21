@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-17
+last_updated: 2026-08-21
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
@@ -270,6 +270,8 @@ adoption_first_instance: <null | dated reference to the boundary's first live in
 ```
 
 Stage semantics: **`declared`** = the rule exists in prose only; **`checked`** = a mechanical check exists **and** a named owner + moment; **`enforced`** = the check fires at a moment needing no human memory (op final-steps, a hook, a blocking gate). A named human moment ("the Librarian checks at every lint run") is a legitimate `checked` stage before any counter exists. A `declared` stage must carry a complete tripwired deferral — `declared` with no deferral is `declared_untripwired`, a `vlt-lint` finding, as are an incomplete deferral (`deferral_invalid`) and an expired one (`deferral_expired`). Stage promotions (`declared → checked → enforced`) happen through the mint ceremony — dated entries in `_agent/mint/decision-log.md` — never through lint.
+
+**Enforcement ships with widening.** A change that **widens what may be written — or that states a new rule constraining what may be written** — ships in the **same build** as the enforcement that catches its violations. A change whose enforcement cannot ship in the same build states an interim posture **in shipped text, as this declaration** — `enforcement_stage: declared` plus the complete deferral triple (`deferral_metric:` / `deferral_threshold:` / `review_after:`) — or is withdrawn. A posture written as prose instead fires none of `declared_untripwired` / `deferral_invalid` / `deferral_expired` and is not a posture.
 
 **Adoption axis (optional, orthogonal).** Every facet above measures **violation** — the boundary being crossed. `adoption_first_instance:` measures the orthogonal **adoption** question the violation facets structurally cannot: has the boundary this convention declares had its *first live instance* yet? It is one class-wide answer — the first real spec minted under `spec.md`, the first instance of a declared loop profile — recorded as a dated reference **by the ceremony that produces it**, and **explicit `null`** while the class is declared-but-unexercised (a wholly absent key means the axis is not declared — `vlt-upgrade`'s adoption report distinguishes the three values). Because adoption is an **absence** (there is no event to count until the first instance occurs), it is a stamp set once, **never a counter**, and its absence is **not** a `vlt-lint` finding. Whatever checks consume it — a convention's first-exercise acceptance, a loop profile's non-vacuity gate — live where those checks live; this declaration defines only the facet. *Live consumers today:* the facet is stamped by the ceremony that produces a convention's first live instance — `vlt-mint` (mint ceremonies, the same ceremony that promotes `enforcement_stage`), the spec promotion step (`spec.md`, *Promotion from candidate*), `vlt-upgrade`'s proto-spec retrofit, and `vlt-dispatch`'s consult record (the authority rule's single home is `vlt-mint`, Step 4) — and `vlt-upgrade`'s post-flight report + upgrade ledger surface each convention's adoption state. Its absence remains **not** a `vlt-lint` finding; `vlt-lint` never writes it.
 

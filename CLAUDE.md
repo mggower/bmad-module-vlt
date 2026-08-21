@@ -61,6 +61,13 @@ overlays, capabilities) as module source.
   a short pointer, never restated mechanics. Related: **lists that claim completeness
   drift** (they fall behind additions); subset-with-defaults listings don't — prefer
   point-at-the-map over full enumerations.
+- **Precedence by elimination (Arc 9 D5):** where two shipped rules address the same
+  population, eliminate the overlap by **narrowing one rule's population**; an explicit
+  precedence statement is the **fallback**, used only where the populations genuinely
+  cannot be cut apart. Prefer elimination; state precedence only when elimination is
+  impossible. (Worked example: the B9-1 dispatch-ledger repair — `vlt-dispatch`'s
+  `ledger.md:25`/`:26` overlap ceased to exist by narrowing, no precedence statement
+  needed.) A vault-facing restatement, if ever wanted, is a pointer, never a copy.
 - **`module-help.csv`:** canonical BMad header (13 cols, `preceded-by,followed-by` — NOT
   `after,before`); **always quote** free-text fields (description/args/outputs/display-name),
   not just when a comma is present. `merge-help-csv.py` migrates the known-old header

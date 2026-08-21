@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-17
+last_updated: 2026-08-21
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -93,6 +93,22 @@ A vault **grows**: it mints its own partners, edits its conventions, accrues min
 
 - **Generic evolution** (a better convention, a new operation skill, a fixed workflow) flows **upstream** — it is filed to the module, shipped, and *received* on upgrade. Its home is the shipped bundle (`{conventions}`, `{personas}`, `{contract}`, the `vlt-*` skills); on upgrade it is **refreshed** (overwritten with the new shipped version).
 - **Vault-specific evolution** (minted `vlt-agent-*` partners, local convention additions, mint/decision history, the upgrade ledger) must be **upgrade-durable**. Durability is a property of **location + merge strategy**, not of running an upgrade procedure correctly each time: vault-specific state either lives in the agent zone (`_agent/`, never overwritten) or is reconciled by **merge, never replace** (e.g. the help registry — local mint rows survive; only shipped rows refresh).
+
+**The durable-host doctrine (carve-out vs clobber).** *A vault-local addition lands only where the base declares a carve-out for it — a vault-writable declared field (`{conventions}/frontmatter.md`, *Vault-writable declared fields*), an overlay, a vault-scoped sibling. It never lands in a file the module overwrites on update.*
+
+```yaml
+enforcement_stage: checked
+enforcement_checked_by: vlt-upgrade
+enforcement_moment: vlt-upgrade post-flight divergence report (detection at pre-flight)
+# the bell — three existing report keys, covering all three host classes:
+#   base_divergence (a hand-edited pristine base)
+#   skill_asset_divergence (the .skill-manifest walk, incl. .claude/hooks/vlt-vitals.py)
+#   governance_divergence (the _meta/ bundle, incl. vault-rule-card.md)
+```
+
+Each of those three report lines routes the addition to its durable host (see `vlt-upgrade`, Step 4) rather than leaving re-apply-next-upgrade as the only response.
+
+*A build that declares a file module-owned or overwrite-on-update must, in the same build, name where vault-local additions of that file's kind live — or state in shipped text that none exist.* (A birth-time obligation, deliberately not a host list — lists that claim completeness drift.)
 
 **Convention overlays — local additions, durably.** A vault never edits a shipped convention file in place. The base convention in `{conventions}` stays **pristine** so every upgrade can overwrite it cleanly. A vault's own additions live in an **overlay** beside it, in the agent zone:
 

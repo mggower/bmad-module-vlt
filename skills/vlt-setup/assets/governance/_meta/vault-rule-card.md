@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-30
-last_updated: 2026-08-17
+last_updated: 2026-08-21
 title: Vault Rule-Card
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:c725cb5dc1b27d6fead14d3d67b75a09b4cf61ba9f2bfd8db043efd710f139e1 (derived 2026-08-17)'
+derived_from: 'vault-operating-contract.md sha256:cdf187b5c3bf3be1401e5b809800ba85225c9e805107c14cea716a9d49133bcf (derived 2026-08-21)'
 ---
 
 # Vault Rule-Card
@@ -26,7 +26,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 - **Write boundaries.** Write only to `_agent/` and `_meta/`. `sources/` is read-only; PARA (`projects/`, `areas/`, `resources/`) is human-curated and reached only through extraction; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. → *The three layers and the hard write boundaries*
 - **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *Sessions, sittings, and hand-offs*
 - **MOC prohibition.** Never edit a Map of Content — MOC links are human curation and endorsement. → *Wikilinks and MOCs*
-- **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a shipped base convention is never hand-edited in place — local additions go in overlays. → *Durability across upgrades*
+- **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a vault-local addition lands only where the base declares a carve-out (overlay, vault-writable field, vault-scoped sibling) — never in a file the module overwrites on update. → *Durability across upgrades*
 - **Authority boundary.** Never answer in another partner's voice — a partner consults, or it cites. → *Sessions, sittings, and hand-offs*
 - **Sitting-end obligations.** Every sitting ends with its one session note, its `{log}` entry, and the partner's `identity.md`/`thread.md` updates — read `{conventions}/frontmatter.md` before writing, never from memory. → *Sessions, sittings, and hand-offs*; *How to write*
 
