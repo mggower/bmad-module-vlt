@@ -1,6 +1,6 @@
 ---
 name: "vlt-setup"
-depends_on: ["frontmatter@10"]
+depends_on: ["frontmatter@11"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 
@@ -270,6 +270,22 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   _One line per rule — empty at birth; promoting one in at cap means editing one out or arguing the cap._
   ```
 
+- Create the **vault rung** `_agent/reflexes.md` **if absent** (vault-scoped, fleet-wide — the always-loaded pointer layer every partner reads in Beat 1; see the operating contract, *Partner memory*, the vault rung). **Seed if absent only — never touch an existing populated file** (it holds the vault's grown rung):
+
+  ```markdown
+  ---
+  type: reflexes
+  scope: vault
+  created: <today YYYY-MM-DD>
+  last_updated: <today YYYY-MM-DD>
+  cap: 30
+  falsifier: "if a partner writes against an overlaid subject without the pre-act read after this rung named it, or a rung line carries rule content rather than pointing at the rule's home, the pointer shape is failing — file it"
+  review_after: 2026-11-17
+  ---
+
+  _One pointer line per overlaid subject — empty at birth; written by overlay mints/amends and fleet-relevant promotions (contract, *Partner memory*); hand-adding a line is legal — this file is vault-owned._
+  ```
+
 - Create `backlog` (`{root}/_agent/backlog.md`) **if absent**. The backlog is a frontmatter-less structured checklist (per `conventions/frontmatter.md`) — do not give it YAML frontmatter:
 
   ```markdown
@@ -323,7 +339,7 @@ The `cleanup-legacy.py` script ships in the skill's `scripts/` only for parity w
 Display what happened, using the script JSON output plus your provisioning notes:
 
 - Config written — the `vlt` section (metadata + any `vault_structure` overrides), core values, user settings (`user_keys`), help entries, fresh-install vs. update.
-- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` installed / refreshed (identical) / **refreshed — overwrote local edits (diff preserved in the notes; a vault-local derive function does not survive here — a durable home for local metrics lands in a later release)**, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown, **plus its write-time `diverged` (unsanctioned local edits preserved-and-reported, never absorbed) and `sanctioned` (N sanctioned divergences: paths) lines, and the live-hashed warning when `source_mode: live`** — always shown when non-empty), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
+- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` installed / refreshed (identical) / **refreshed — overwrote local edits (diff preserved in the notes; a vault-local derive function does not survive here — a durable home for local metrics lands in a later release)**, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown, **plus its write-time `diverged` (unsanctioned local edits preserved-and-reported, never absorbed) and `sanctioned` (N sanctioned divergences: paths) lines, and the live-hashed warning when `source_mode: live`** — always shown when non-empty), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + the vault rung `_agent/reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
 - **Dependencies** — any genuinely missing skills (not host-provided ones), with the graceful-degradation note.
 - **Installer TOML quirk (if present)** — if the installer's `config.toml` serialized `vault_structure` as `"[object Object]"`, acknowledge it in one line: a known BMad-installer serialization quirk that Vault **ignores** (the runtime reads `config.yaml`, which `vlt-setup` wrote correctly). Surfacing it here saves a future debugging detour.
 - **Co-installed modules untouched** — confirm only the `vlt` section, user settings, and Vault help rows were written; no other module's config was read or removed.

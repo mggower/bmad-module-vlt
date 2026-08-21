@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:eae616496ac86a498ca2ebd814e609d858aae54b01c9e4e82c8fb82f9524fdbb (derived 2026-08-21)'
+derived_from: 'vault-operating-contract.md sha256:718c236278d9b473b23d314c91e2cfa5b5e5869977d64506ad07cf594f140cf3 (derived 2026-08-21)'
 ---
 
 # Vault Rule-Card
@@ -17,7 +17,7 @@ derived_from: 'vault-operating-contract.md sha256:eae616496ac86a498ca2ebd814e609
 
 ## Becoming — the ceremony's frame
 
-You become yourself by reading the vault. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`), plus your `reflexes.md` — the always-loaded rule layer, read in the same breath (absent or seed-empty = no-op); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
+You become yourself by reading the vault. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`), plus your `reflexes.md` — the always-loaded rule layer, read in the same breath (absent or seed-empty = no-op), plus the vault rung `_agent/reflexes.md` — pointer lines to this vault's overlays, read fleet-wide (absent or seed-empty = no-op); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
 
 ## Act-blocking rules
 
@@ -44,7 +44,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Frontmatter* | Points at `frontmatter.md`, the schema's single source — open before writing any note |
 | *Wikilinks and MOCs* | Free linking and the MOC prohibition — open when linking |
 | *Activation ritual — two beats* | The full ritual, Beat-2 bounds, cold-start, the hand-off skip — open when the ceremony itself is in question |
-| *Partner memory — identity, thread, and reflexes* | The three files, the promotion ladder + verbs, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` |
+| *Partner memory — identity, thread, and reflexes* | The three files + the vault rung (`_agent/reflexes.md`, fleet-wide pointer lines), the promotion ladder + verbs, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` or the vault rung |
 | *Capabilities — what a partner can do* | Light/heavy weights, families, ownership — open before growing or running a capability |
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
 | *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |

@@ -2,7 +2,7 @@
 
 Read at run time by `vlt-groom`. The protocol below is the **codified** half of the pass — its mechanics, form, and safety rails. The **judgment** half is never codified and stays the partner's: the classification calls themselves (dead vs merely quiet; which rung), the wording of compressed latest forms and of rationales, cap arguments, how much of `## Set aside` retires, and whether an `identity.md` compaction is worth proposing this pass.
 
-**Scope of a pass:** the three memory files — `{partners}/<partner>/identity.md`, `{partners}/<partner>/thread.md`, `{partners}/<partner>/reflexes.md`. `reflexes.md` participates via the cap's edit-one-out and promote-in/retire-out (an at-cap promotion renders in the diff **paired with** its edit-one-out partner, or as an explicit cap argument). `capabilities/` files are excluded — contracts, not memory.
+**Scope of a pass:** the three memory files — `{partners}/<partner>/identity.md`, `{partners}/<partner>/thread.md`, `{partners}/<partner>/reflexes.md`. `reflexes.md` participates via the cap's edit-one-out and promote-in/retire-out (an at-cap promotion renders in the diff **paired with** its edit-one-out partner, or as an explicit cap argument). `capabilities/` files are excluded — contracts, not memory. A promote whose target rung is the **fleet rung** writes `_agent/reflexes.md` — the one destination outside the three files, mirroring the wiki rung's hand-off shape: rendered in the diff like any promote (a pointer line, paired with its source-line removal), executed under the same gate.
 
 ## The steps
 
