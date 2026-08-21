@@ -5,6 +5,18 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.13.0 — 2026-08-21
+
+**Arc 10** — the signal-integrity arc, first release.
+
+- **B10-1 — the manifest source-hash:** the skill-asset divergence net stops blessing the edits it exists to catch — source-hashed on write, sanctioned edits self-recording, the live-as-source and version-skew escape paths closed.
+- **B10-2 — the lint-full signal repair:** the fan-out scanners get the rules they enforce — write-verification joins the read list with a tri-state Gap B, coexistence posture and callout form made explicit, the cross-layer set derived from the structure map, and the fan-out currency rule lands in its home.
+- **B10-3 — repeat-aware spec-candidate reporting:** new candidates report loud; unchanged already-filed candidates collapse to one denominated standing line instead of re-firing every run.
+- **B10-4 — the durable metric home, the overlay bell, and per-section enforcement addressing:** the enforcement kit learns to hear vault-grown rules.
+- **B10-5 — the fleet-wide reflex rung:** fleet-relevant rules stop condensing as per-partner copies — the vault-scoped always-loaded pointer layer lands, and v0.13.0 cuts here.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `.github/ISSUE_TEMPLATE`, `skills/vlt-agent-creative`, `skills/vlt-agent-librarian`, `skills/vlt-agent-researcher`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-feedback`, `skills/vlt-groom`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-upgrade`
+
 ## v0.12.0 — 2026-08-21
 
 **Arc 9** — the boundary arc.
