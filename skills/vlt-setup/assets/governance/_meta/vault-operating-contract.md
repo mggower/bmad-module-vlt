@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-21
+last_updated: 2026-08-22
 title: Vault Operating Contract
 author: hybrid
 trust: reviewed
@@ -38,7 +38,7 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `partners`    | `_agent/partners/`                        | Per-partner relationship threads (and each partner's `capabilities/`) |
 | `capabilities`| `_agent/capabilities/`                    | Vault-level capability state — the family contracts (`families/`)     |
 | `conventions` | `_meta/conventions/`                      | The rules every write obeys (shipped by the module — pristine, overwrite-safe) |
-| `overlays`    | `_agent/conventions/`                     | Vault-local **append-only** convention overlays + the stock `.baseline/` (durable, never overwritten) |
+| `overlays`    | `_agent/conventions/`                     | Vault-local **append-only** overlays (convention + contract) + the stock `.baseline/` (durable, never overwritten) |
 | `personas`    | `_meta/personas/`                         | The review-council lenses (shipped by the module)           |
 | `contract`    | `_meta/vault-operating-contract.md`       | This file                                                   |
 | `upgrade_ledger` | `_agent/upgrade-ledger.md`             | Append-only standing record of how far this vault has drifted from stock |
@@ -121,6 +121,8 @@ Each of those three report lines routes the addition to its durable host (see `v
 - To *change* an existing base rule (not just add one) the change must go to the base — which means it is **generic** and belongs upstream (file it to the module). If a base file is hand-edited locally anyway, that is divergence: `vlt-lint` and the upgrade pre-flight **detect and report** it against the stock `{overlays}/.baseline/` copy (they never silently clobber it), but it is outside the durable path until upstreamed.
 
 `vlt-mint`'s *Edit a convention* kind routes by this rule (overlay for a local addition; base + version-handshake for a generic rule change; local convention for a vault-originated new subject). Minting or amending an overlay — of any class this contract recognizes — writes or refreshes that overlay's rung pointer line in `_agent/reflexes.md` in the same act (see *Partner memory*, the vault rung). `vlt-upgrade` owns the reconcile that makes refresh-the-base safe. See `{upgrade_ledger}` for the standing divergence record.
+
+**The contract's own overlay.** This contract is module-shipped and refreshed on upgrade, so a vault-local *addition* to it lives the same way: an append-only overlay in `{overlays}` named for this file — default `_agent/conventions/vault-operating-contract.overlay.md` (the resolved `{contract}` file's basename + `.overlay.md`). **Any reader of this contract reads the base, then applies its overlay if one exists** — at every contract-read: a point-of-use section open via the rule-card's map, or a skill's read of a contract section. The overlay rules above apply unchanged: append-only (a change to an existing contract rule is generic — file it upstream; it has no overlay form), no `version:`/`consumers:`/handshake keys (this contract is deliberately unhandshaked — single-home + pointers), a rule-shaped overlay section carries its per-section enforcement declaration (`{conventions}/frontmatter.md`, *Per-section addressing*), and minting or amending it writes its rung pointer line in the same act (the writer clause above — a contract overlay is an overlay class this contract recognizes). Route via `vlt-mint`'s *Edit a convention* kind (council-gated). This names the durable host for vault-local additions of this file's kind, per the birth-time obligation above.
 
 **Designed parameter reads — how a module skill takes vault-local policy.** A module-owned skill that needs per-vault variation consumes it as a **designed parameter read**: a vault-declared object in a declared home — `vlt-track`'s loop profile (`capabilities/track.md`), `vlt-dispatch`'s routing profile (`_agent/dispatch-profile.md`) — with a named fallback when absent. The declaration lives where upgrades never write, so it is durable by construction; the skill hardcodes none of it. **The boundary, and why it is a veto:** skill *text and behavior* are never locally patchable — skills have no overlay mechanism, a local skill edit is a `skill_asset_divergence` the user re-applies every upgrade (a treadmill, not a home), and a text override is the silent-fork pattern the SHA manifest and single-home discipline exist to refuse. The standing answer to "can I overlay skill X?": **parameters yes** (a designed read, filed upstream if the skill lacks one), **content yes** (conventions, overlays, local conventions), **new behavior by mint** (a vault-grown op skill or capability), **skill text no**.
 

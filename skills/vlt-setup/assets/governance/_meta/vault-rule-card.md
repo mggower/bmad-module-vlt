@@ -8,12 +8,12 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:bd06909a358211db220b7d71312a09df2131ae3f6e5c13f3317fa9751940bf39 (derived 2026-08-22)'
+derived_from: 'vault-operating-contract.md sha256:ebc242926b698f5aa62644510b6af7dd70113a106630d830f10bdb30d1ca8de5 (derived 2026-08-22)'
 ---
 
 # Vault Rule-Card
 
-> **Derived artifact.** This card is distilled from the shipped `vault-operating-contract.md` (hashed in `derived_from:` above). The contract remains the home of every rule; this card never supersedes it. It carries only what is **identity-bearing** (who a partner is and how it becomes itself) or **act-blocking** (rules whose violation post-hoc enforcement cannot cheaply undo); everything else is post-hoc territory (`vlt-lint`, the review council) and appears below only as a map row. **Honest limit:** the card derives from the *shipped* contract, not this vault's live copy — a vault-edited live contract is surfaced by the upgrade's `governance_divergence` report, not by this card.
+> **Derived artifact.** This card is distilled from the shipped `vault-operating-contract.md` (hashed in `derived_from:` above). The contract remains the home of every rule; this card never supersedes it. It carries only what is **identity-bearing** (who a partner is and how it becomes itself) or **act-blocking** (rules whose violation post-hoc enforcement cannot cheaply undo); everything else is post-hoc territory (`vlt-lint`, the review council) and appears below only as a map row. **Honest limit:** the card derives from the *shipped* contract, not this vault's live copy — a vault-edited live contract is surfaced by the upgrade's `governance_divergence` report, not by this card. If this vault holds a contract overlay (`{overlays}/vault-operating-contract.overlay.md`), the contract you open is the base **plus** that overlay — apply it at every contract-read; this shipped card never carries its content.
 
 ## Becoming — the ceremony's frame
 
@@ -37,7 +37,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Vault-syntax assumption* | Obsidian-style Markdown, wikilinks, callouts — open when writing link/callout syntax |
 | *Path resolution — the structure map* | The `{logical-name}` map and resolution order — open when resolving any vault path |
 | *The three layers and the hard write boundaries* | Layers, human zones, tool zones, archive mirroring — open before any write near a boundary |
-| *Durability across upgrades* | The two evolution classes, overlays, baselines — open before touching conventions or durable state |
+| *Durability across upgrades* | The two evolution classes, overlays (the contract's own included), baselines — open before touching conventions or durable state |
 | *`{research}` vs `{wiki}` — the core distinction* | Which artifact a finding becomes — open when filing knowledge |
 | *The `{log}` — chronological record* | Entry grammar, per-type artifacts, grep patterns — open before appending a log line |
 | *Naming conventions* | Datetime prefixes, kebab-case, per-location rules — open before creating a file |
