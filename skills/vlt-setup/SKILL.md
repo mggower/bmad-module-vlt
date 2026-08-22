@@ -323,6 +323,19 @@ Vault degrades gracefully without these — **warn, never hard-fail**. Check whe
 - **`bmad-agent-builder`** *(recommended companion — part of the BMad Builder / BMB module)* — used by `vlt-mint`'s *deliberate* (from-scratch) partner path for richer persona discovery. Absent → `vlt-mint` still mints partners and ops via its bundled in-flow templates; you only lose the guided interview. If it's missing and the user wants the fuller path, tell them how to add it: install the BMB module (its `bmad-agent-builder` skill), e.g. via the BMad installer or by adding the BMB plugin, then re-run nothing — `vlt-mint` picks it up automatically next time. **Not required; never block setup on it.**
 - **`bmad-brainstorming`**, **`deep-research`** (and any design-thinking skills) — the Researcher reaches for these mid-flow. Absent → the Researcher proceeds with available web tooling and says so. Optional; same install note applies.
 
+### Machine-tool probe (both layers — report, never gate)
+
+The machine-level toolchain gets the same warn-never-hard-fail treatment, over two layers:
+
+1. **Module layer** — read `machine_tools:` from `./assets/module.yaml` (already read on activation; the declaration lives there, deliberately outside config.yaml — no per-vault override).
+2. **Vault-grown layer** — walk `{partners}/*/capabilities/*.md` (resolve `{partners}` through the structure map; skip the archive zone) and collect every `requires:` entry (the birth record — schema + rule in `vlt-mint/assets/capability-template.md`). A fresh install with no partner zones yet probes the module layer only.
+
+Probe each distinct tool with `command -v <tool>` — **presence only, never versions**. For each absent tool report one named line:
+
+- `tool-missing: <tool>` — carrying the declaration's `needed_by:`/`absent:` text (module rows) or the owning `partner/slug` plus any parenthesized install hint (vault-grown entries).
+
+**Report, never gate.** The legal response to a `tool-missing:` line is: install the tool per its hint, or accept the named degraded behavior — setup completes either way; the vault stays usable degraded. (This generalizes `vlt-feedback`'s `gh-missing` pattern to the whole declared set; `vlt-feedback`'s own exercise-time pre-flight is unchanged — arrival-time and exercise-time are complementary moments.)
+
 **No web-tool check.** Web access is a host concern — the operation skills use whatever web tooling the host provides; setup ships and checks no web policy.
 
 ## Create Output Directories
@@ -341,7 +354,7 @@ Display what happened, using the script JSON output plus your provisioning notes
 
 - Config written — the `vlt` section (metadata + any `vault_structure` overrides), core values, user settings (`user_keys`), help entries, fresh-install vs. update.
 - **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` installed / refreshed (identical) / **refreshed — overwrote local edits (diff preserved in the notes; a vault-local derive function does not survive here — a durable home for local metrics lands in a later release)**, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present, `_agent/upgrade-reports/` created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown, **plus its write-time `diverged` (unsanctioned local edits preserved-and-reported, never absorbed) and `sanctioned` (N sanctioned divergences: paths) lines, and the live-hashed warning when `source_mode: live`** — always shown when non-empty), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + the vault rung `_agent/reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
-- **Dependencies** — any genuinely missing skills (not host-provided ones), with the graceful-degradation note.
+- **Dependencies** — any genuinely missing skills (not host-provided ones) and any `tool-missing:` lines from the machine-tool probe (declared module tools + capability `requires:` entries), each with its degrade note.
 - **Installer TOML quirk (if present)** — if the installer's `config.toml` serialized `vault_structure` as `"[object Object]"`, acknowledge it in one line: a known BMad-installer serialization quirk that Vault **ignores** (the runtime reads `config.yaml`, which `vlt-setup` wrote correctly). Surfacing it here saves a future debugging detour.
 - **Co-installed modules untouched** — confirm only the `vlt` section, user settings, and Vault help rows were written; no other module's config was read or removed.
 

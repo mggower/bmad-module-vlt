@@ -67,3 +67,24 @@ feedback_repo:
   # config.yaml's vlt: section; a flat scalar here would be silently dropped (roundtable
   # A13). Public module metadata; override per-vault in config.yaml if filing elsewhere.
   default: mggower/bmad-module-vlt
+
+# --- Machine-tool dependencies (module level) ---
+# The machine-level tools shipped skills assume. Read directly from this file by
+# vlt-setup's Check Dependencies machine-tool probe (report, never gate). NOT a defined
+# variable (no prompt:/default: markers) and not metadata — merge-config.py ignores a
+# list-valued top-level key by its declaration read (B7-2), so this never reaches
+# config.yaml and is never prompted. Writer clause (same-act): a module build that adds
+# a shipped tool assumption adds its row here in the same build.
+machine_tools:
+  - tool: gh
+    needed_by: "vlt-feedback (issue transport pre-flight)"
+    absent: "degrades to the paste-ready outbox failure path (named error gh-missing)"
+  - tool: uv
+    needed_by: "vlt-setup / vlt-upgrade merge + manifest scripts (PEP 723 inline deps)"
+    absent: "config/help/manifest merges cannot run — install uv before setup or upgrade"
+  - tool: python3
+    needed_by: "the vlt-vitals SessionStart hook (enforcement kit)"
+    absent: "hook prints only its own error line — loud, never silent-green"
+  - tool: git
+    needed_by: "the vault itself (groom safety model, upgrade ledger refs, worktrees)"
+    absent: "the durability premise fails — effectively required for a vault"

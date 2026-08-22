@@ -22,6 +22,7 @@ weight: light                      # DERIVED from write_scope (own-zone → ligh
 council_class: none                # DERIVED (light + additive → none); never hand-set
 provenance: vault-grown            # usually implied by location
 family: { name: {family}, inherits: [{invariant-ids}] }   # OPTIONAL — present only if opted into a family
+requires: []                       # OPTIONAL — machine-level tools this capability installs/assumes; flat strings, hint in parens; [] = censused, needs none
 ---
 
 ## Application
@@ -31,6 +32,8 @@ family: { name: {family}, inherits: [{invariant-ids}] }   # OPTIONAL — present
 ```
 
 **"Shared lane" means a *synthesized, single-writer* lane** (the wiki) — a **new-file deposit into `sources/`** is permitted for a light capability and does not promote it to heavy (definition + ruling: the contract's *Capabilities* section). A light capability may also carry a **`capabilities/scripts/<tool>` (or `assets/`) sibling** for reusable tools its profile invokes — folder shape `capabilities/{slug}.md` + `capabilities/scripts/…`; the tool runs mechanically, and persistent writes stay scratch + a raw-input deposit.
+
+**`requires:` — the machine-tool birth record.** A capability that installs or assumes a machine-level tool (a CLI, a parser, a converter — including whatever runs its `scripts/` sibling) records it in `requires:` **at birth**: a flat list of tool-name strings, an install hint in parentheses where useful (e.g. `requires: [gh, "pandoc (brew install pandoc)"]`). `requires: []` states the considered answer "needs nothing" (and is what the upgrade's dependency census writes on a no-deps ruling — an absent key means *unconsidered*, not *none*). **Same-act writer clause:** an exercise that installs a new tool appends it to the owning capability's `requires:` in the same act. `vlt-setup`'s Check Dependencies probe reads the field at arrival and reports (never gates) missing tools — this record is what makes a vault's toolchain portable alongside the vault. Both weights carry it: a heavy capability's pointer file records what its op skill assumes.
 
 > **Source-type front-end (light).** To teach an existing ingest/verb a new *input form*: mint a light capability owned by the verb's partner — an own-zone **profile** that fetches + normalizes the new form into the text the verb already eats, plus a `scripts/` sibling for tooling. The front-end writes only scratch + a raw-input deposit; the **canonical write stays with the unchanged verb skill**. Council-none, upgrade-safe, no skill proliferation. A front-end wrapping a **heavy** input (long video, long PDF, multi-page crawl) should default to the **prep/interpret split** — see `vlt-ingest`'s *Heavy sources* section — so it inherits the map-not-digest discipline.
 
@@ -47,6 +50,7 @@ weight: heavy
 council_class: gated               # heavy/lane-writing → gated (unless owned by the lane's rightful owner & additive)
 procedure: { skill: vlt-{op} }     # XOR with a body — the registered op skill is the body
 provenance: shipped
+requires: []                       # OPTIONAL — machine-level tools this capability installs/assumes; flat strings, hint in parens; [] = censused, needs none
 ---
 ```
 
