@@ -1,10 +1,10 @@
-# Field-contract issue form (defect). ADDITIVE-ONLY: fields may be added, never renamed or
+# Field-contract issue form (pattern). ADDITIVE-ONLY: fields may be added, never renamed or
 # removed and never change meaning, without bumping rail_contract. The shape's single source
 # of truth is skills/vlt-feedback/references/field-contract.md — this form derives from it
 # and never restates it.
-name: Field defect
-description: A live vault hit shipped module behavior that is wrong. Follows the field contract.
-labels: ["vault-filed", "field:defect"]
+name: Field pattern
+description: A live vault observed a recurring shape worth naming. Follows the field contract.
+labels: ["vault-filed", "field:pattern"]
 body:
   - type: markdown
     attributes:
@@ -19,14 +19,14 @@ body:
     id: what_happened
     attributes:
       label: what_happened
-      description: What happened, concretely, as hit in real use.
+      description: What happened / the observation, concretely, as hit in real use.
     validations:
       required: true
   - type: textarea
     id: evidence
     attributes:
       label: evidence
-      description: "Generalized evidence: placeholder paths (`_agent/{zone}/{file}.md` style), quoted behavior, exact error text. No vault-local literals, no personal-domain content."
+      description: "Generalized evidence: placeholder paths (`_agent/{zone}/{file}.md` style), quoted behavior, exact text. No vault-local literals, no personal-domain content."
     validations:
       required: true
   - type: textarea
@@ -40,9 +40,9 @@ body:
     id: kind
     attributes:
       label: kind
-      description: This form files defects; the classification is fixed.
+      description: This form files patterns (a recurring shape worth naming); the classification is fixed.
       options:
-        - defect
+        - pattern
     validations:
       required: true
   - type: input
@@ -56,7 +56,7 @@ body:
     id: acceptance_vault
     attributes:
       label: acceptance_vault
-      description: Where acceptance should run — the vault (or kind of vault) that can verify the fix.
+      description: Where acceptance should run — the vault (or kind of vault) that can verify the change.
     validations:
       required: false
   - type: input

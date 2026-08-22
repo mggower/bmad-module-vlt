@@ -1,22 +1,20 @@
-# Field-contract issue form (pattern / candidate). ADDITIVE-ONLY: fields may be added,
-# never renamed or removed and never change meaning, without bumping rail_contract. The
-# shape's single source of truth is skills/vlt-feedback/references/field-contract.md —
-# this form derives from it and never restates it.
-name: Field pattern / candidate
-description: A live vault observed a recurring pattern or has an upstream-this proposal. Follows the field contract.
-labels: ["vault-filed"]
+# Field-contract issue form (candidate). ADDITIVE-ONLY: fields may be added, never renamed
+# or removed and never change meaning, without bumping rail_contract. The shape's single
+# source of truth is skills/vlt-feedback/references/field-contract.md — this form derives
+# from it and never restates it.
+name: Field candidate
+description: A live vault has a "this should ship upstream" proposal. Follows the field contract.
+labels: ["vault-filed", "field:candidate"]
 body:
   - type: markdown
     attributes:
       value: |
-        This form is one surface of the module's **field contract** — single-homed at
+        This form is one surface of the module's **field contract** — the payload shape,
+        label semantics, and evolution rule are single-homed at
         [`skills/vlt-feedback/references/field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md).
-        One form covers both non-defect kinds because issue forms cannot branch labels on a
-        dropdown: **the `kind` field below is authoritative**; the matching
-        `field:pattern` / `field:candidate` label is applied by the filer (if permissions
-        allow) or at owner triage. Filing from an installed vault? Prefer the
-        `vlt-feedback` skill — it scrubs, previews, and stamps the payload for you.
-        Note: comments added after an issue is labeled `captured` reach the factory only if the owner admits them by hand — an amendment channel is planned; until it ships, assume a comment on a captured issue is not read.
+        Filing from an installed vault? Prefer the `vlt-feedback` skill — it scrubs,
+        previews, and stamps the payload for you.
+        To amend after an issue is labeled `captured`: add a comment with the new evidence **and @mention @mggower** — the notification is the trigger for a look; the owner applying the `amended` label is what admits the comment into the factory. An unadmitted comment is not read.
   - type: textarea
     id: what_happened
     attributes:
@@ -35,16 +33,15 @@ body:
     id: provenance_guess
     attributes:
       label: provenance_guess
-      description: Where in the module source this probably lives — explicitly a guess; the factory grounds it before capture.
+      description: "Where in the module source this probably lives — explicitly a guess; include `path:line` references where you have them. The factory grounds it before capture."
     validations:
       required: false
   - type: dropdown
     id: kind
     attributes:
       label: kind
-      description: "Authoritative classification — select `pattern` (recurring shape worth naming) or `candidate` (this should ship upstream). The matching `field:` label follows this field, applied by you or at owner triage."
+      description: This form files candidates (an upstream-this proposal); the classification is fixed.
       options:
-        - pattern
         - candidate
     validations:
       required: true

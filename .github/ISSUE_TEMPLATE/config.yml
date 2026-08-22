@@ -3,7 +3,7 @@
 # to the factory intake's discovery by construction.
 #
 # Owner bootstrap (build-time, run once before the release tag; idempotent via --force) —
-# the seven labels of the field contract (defined in
+# the labels of the field contract (defined in
 # skills/vlt-feedback/references/field-contract.md, never here):
 #
 #   gh label create "vault-filed"     --repo mggower/bmad-module-vlt --force --color FBCA04 --description "Field contract: candidacy, not admission"
@@ -13,6 +13,13 @@
 #   gh label create "field:defect"    --repo mggower/bmad-module-vlt --force --color D93F0B --description "Field contract: shipped behavior is wrong"
 #   gh label create "field:pattern"   --repo mggower/bmad-module-vlt --force --color 5319E7 --description "Field contract: recurring shape worth naming"
 #   gh label create "field:candidate" --repo mggower/bmad-module-vlt --force --color C2E0C6 --description "Field contract: upstream-this proposal"
+#   gh label create "amended"         --repo mggower/bmad-module-vlt --force --color 0052CC --description "Field contract: owner-admitted amendment; intake appends and clears"
+#   gh label create "needs-info"      --repo mggower/bmad-module-vlt --force --color D4C5F9 --description "Field contract: question to the filer pending; still candidacy"
+#   gh label create "declined:out-of-scope"        --repo mggower/bmad-module-vlt --force --color E4626B --description "Field contract: decline reason — out of scope"
+#   gh label create "declined:working-as-designed" --repo mggower/bmad-module-vlt --force --color E4626B --description "Field contract: decline reason — working as designed"
+#   gh label create "declined:upstream"            --repo mggower/bmad-module-vlt --force --color E4626B --description "Field contract: decline reason — belongs upstream (BMAD-METHOD)"
+#   gh label create "declined:superseded"          --repo mggower/bmad-module-vlt --force --color E4626B --description "Field contract: decline reason — superseded"
+#   gh label create "declined:duplicate"           --repo mggower/bmad-module-vlt --force --color E4626B --description "Field contract: decline reason — duplicate of an issue or filing"
 #
 blank_issues_enabled: true
 contact_links:
