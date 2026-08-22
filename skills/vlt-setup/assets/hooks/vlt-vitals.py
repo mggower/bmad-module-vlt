@@ -134,8 +134,8 @@ def parse_block_map(lines, section_path):
 # passes module.yaml's parsed map instead, so the SSoT stays authoritative
 # where it exists.
 DEFAULT_STRUCTURE_MAP = {
-    "wiki": "_agent/wiki/",
-    "index": "_agent/wiki/index.md",
+    "wiki": "resources/wiki/",
+    "index": "resources/wiki/index.md",
     "research": "_agent/research/",
     "sessions": "_agent/sessions/",
     "specs": "_agent/specs/",

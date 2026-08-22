@@ -1,14 +1,14 @@
 ---
 name: vlt-extract
-description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'build a resource doc on X', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/, areas/, or resources/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@4", "wiki-supersession@2", "frontmatter@12", "write-verification@3"]
+description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/ or areas/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
+depends_on: ["extraction@5", "wiki-supersession@2", "frontmatter@13", "write-verification@3"]
 ---
 
 # vlt-extract
 
 ## Overview
 
-Extraction turns wiki knowledge into a PARA artifact — a curated, human-oriented deliverable filed into `projects/`, `areas/`, or `resources/`. The wiki stays the source of truth; the artifact is a synthesis shaped for a specific reader at a specific moment. It reaches the wiki **only** (no web, no research notes, no source files — extracting from anything but the curated wiki bypasses the curation that makes it trustworthy). The output is a deliverable, not a transcript of wiki content. Runs interactively (the interview shapes the artifact) or headless ("extract a resource doc on X").
+Extraction turns wiki knowledge into a PARA artifact — a curated, human-oriented deliverable filed into `projects/` or `areas/`. The wiki stays the source of truth; the artifact is a synthesis shaped for a specific reader at a specific moment. It reaches the wiki **only** (no web, no research notes, no source files — extracting from anything but the curated wiki bypasses the curation that makes it trustworthy). The output is a deliverable, not a transcript of wiki content — a project brief, an area dashboard, or (for standing reference material) a pointer to the browsable wiki itself. Runs interactively (the interview shapes the artifact) or headless ("extract a project brief on X").
 
 PARA is the human-curated layer, its boundary drawn by authorship-honesty; **extraction is the sanctioned artifact path into it** (the operating contract's Layer 3 names one other surface — container maintenance appends — which is not this skill's) — this skill does not touch canonical wiki pages.
 
@@ -16,7 +16,7 @@ PARA is the human-curated layer, its boundary drawn by authorship-honesty; **ext
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets resolve through the map — `projects` → `projects/`, `areas` → `areas/`, `resources` → `resources/`. Note the **active partner** for the log tag.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `resources/wiki/index.md`, `wiki` → `resources/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets resolve through the map — `projects` → `projects/`, `areas` → `areas/`. Note the **active partner** for the log tag.
 
 **Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*).
 
@@ -41,7 +41,7 @@ Read `{index}` first, then read fully every relevant page (err toward more — a
 
 Draft the artifact as prose shaped for the reader — not a dump of wiki content:
 
-- **Shape for the purpose.** A project brief leads with decisions and open questions; an area dashboard with current state and commitments; a resource doc with clear explanation. Pick the shape from Step 1.
+- **Shape for the purpose.** A project brief leads with decisions and open questions; an area dashboard with current state and commitments. Pick the shape from Step 1.
 - **Cite wiki pages inline** via `[[wikilinks]]`; every non-trivial claim is traceable to a page.
 - **Surface contradictions, don't resolve silently.** If two pages disagree on something the artifact must state, raise it with the user before writing a resolution.
 - **Carry forward caveats.** When a source page carries marked contradictions (`[!superseded]`/`[!stale]`, or a Contradictions section), note that caveat in the artifact — don't present a contested claim as settled. Carry it as what its callout says it is (`{conventions}/wiki-supersession.md`): an `open` contradiction is a genuine caveat ("the sources disagree"), while an `adjudicable` one is a **known unresolved error** and says so — never dressed up as a balanced disagreement.
@@ -53,9 +53,9 @@ Draft the artifact as prose shaped for the reader — not a dump of wiki content
 
 Prompt the user — no default:
 
-> "Which PARA folder — `projects/`, `areas/`, or `resources/`?"
+> "Which PARA folder — `projects/` or `areas/`?"
 
-If unsure: **`projects/`** = discrete work with a defined outcome/"done" state; **`areas/`** = ongoing commitments without an end (dashboards, standing references); **`resources/`** = reference material not tied to a commitment (primers, how-tos). The choice sets both the path and the `type:`.
+If unsure: **`projects/`** = discrete work with a defined outcome/"done" state; **`areas/`** = ongoing commitments without an end (dashboards, standing references). For **reference material not tied to a commitment** (primers, how-tos): that lives in **the wiki itself** now — the human-browsable `{wiki}` — or in `areas/` when it serves an ongoing commitment; point the user at the relevant wiki pages (or offer a Librarian pass to enrich them) rather than extracting a resource doc (`{conventions}/extraction.md` — `resources/` is retired as an extraction target). The choice sets both the path and the `type:`.
 
 **Container-aware filing:** if the target layer holds **containers** (`{projects}/<slug>/` or `{areas}/<slug>/` directories — the operating contract, *PARA containers*), also ask **which container the artifact belongs to, or none** — an artifact belonging to a container files into that container's directory (`{projects}/<slug>/<artifact>.md`); a loose artifact at the layer root stays legal.
 
@@ -71,14 +71,14 @@ Write `<target>/<slug>.md`.
 
 ```yaml
 ---
-type: <project | area | resource>     # matches the target folder
+type: <project | area>                # matches the target folder
 created: YYYY-MM-DD                    # immutable
 last_updated: YYYY-MM-DD               # set today; bump on every re-extraction
 title: <human-readable title>
 author: hybrid
 trust: reviewed                        # confirm by depth — see below
 topic: <subject area>
-status: <per-type enum ({conventions}/extraction.md) — project: draft|in-progress|complete; area: ongoing|retired; resource: complete>
+status: <per-type enum ({conventions}/extraction.md) — project: draft|in-progress|complete; area: ongoing|retired>
 sources:
   - <wiki page 1>
   - <wiki page 2>

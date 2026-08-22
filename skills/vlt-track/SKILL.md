@@ -1,7 +1,7 @@
 ---
 name: vlt-track
 description: Run a personalized, evidence-grounded longitudinal loop — design a protocol, log progress, review and adjust over weeks. The shared hand any vertical partner uses to run a program (a dog's training, a body's recomposition, …); the calling partner supplies the loop profile and the voice. Reads the wiki for method, keeps the working record in the agent zone, and writes the polished protocol to a PARA area via personalized-extraction discipline.
-depends_on: ["extraction@4", "wiki-supersession@2"]
+depends_on: ["extraction@5", "wiki-supersession@2"]
 ---
 
 # vlt-track
@@ -26,7 +26,7 @@ Conceptual domain knowledge (how a method works, the evidence behind it) is **no
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the `vlt` config is missing, tell the user `vlt-setup` can configure the module, then ask for a vault root to proceed.
 
-The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays).
+The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `resources/wiki/index.md`, `wiki` → `resources/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays).
 
 **Read the loop profile (the parameterization).** This skill is run by a partner; read that partner's **loop profile** from its **`capabilities/track.md`** (the heavy `skill: vlt-track` capability pointer) and bind these for the rest of the run:
 

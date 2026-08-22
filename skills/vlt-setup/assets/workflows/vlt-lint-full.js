@@ -8,7 +8,7 @@ export const meta = {
   ],
 }
 
-// depends_on: ["frontmatter@12", "wiki-supersession@2", "wiki-index@2", "write-verification@3"]
+// depends_on: ["frontmatter@13", "wiki-supersession@2", "wiki-index@2", "write-verification@3"]
 // ^ the asset ack (B7-6): this workflow's prompts instruct agents to read these
 //   conventions, so it is a listed consumer in its own right — the flat pins
 //   above are its handshake acks, bumped on reconciliation like a skill's
@@ -170,7 +170,7 @@ const convRead = (name) =>
     : `${conventionsPath}/${name}.md`
 
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('wiki-index')}; ${convRead('write-verification')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@12 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@12 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('wiki-index')}; ${convRead('write-verification')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@13 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@13 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
   `Return ONLY findings about THIS page: the raw [[wikilink]] inner text of every outbound link, verbatim — including any |alias, #anchor, or path prefix; do not normalize — whether frontmatter is valid, its frontmatter category: value verbatim (empty if missing), whether topic: is a YAML list (false if a delimited string or missing), the frontmatter summary: value verbatim (empty if absent), the tri-state sources_vs_prose verdict (Gap B, per the conditional above), its created and last_updated dates verbatim, its verified_by and verified_at values verbatim (empty if absent), its review_after date verbatim (empty if absent), time-bound claims past shelf life lacking a [!stale] marker, within-page contradictions, unmarked supersessions, whether the page is thin, up to 5 short key-claim summaries, and name_callout_targets — for each callout on this page that questions a proper noun against another named wiki page, the raw [[wikilink]] target text verbatim and the name in question (an ordinary [!stale] marker with no cross-page name question yields nothing). Do not assess other pages — cross-page checks happen later.`
 
 const scans = []
@@ -372,6 +372,19 @@ const collect = (key) => scans.flatMap((s) => (s[key] || []).map((v) => `${s.slu
 // Verdicts computed from verbatim extractions (B5-3) — the scanner reads, JS does the arithmetic.
 const summaryIssue = (s) => !(s.summary || '').trim() ? 'summary missing' : s.summary.length > 160 ? `over-length (${s.summary.length} chars)` : ''
 const attested = (s) => !!(s.verified_by && s.verified_at) // present = both non-empty
+const isStale = (s) => attested(s) && !!s.last_updated && s.last_updated > s.verified_at
+// The attestation census (E6/B10-11): the denominated wiki-wide line for the browsable
+// wiki — pure arithmetic over the attestation values the scanners ALREADY return (no new
+// ask, no PAGE_SCAN change). fresh = attested and current; stale = attested but
+// last_updated > verified_at; unattested_pre_adoption = the unattested class the
+// unattested_write slot lists (its created-vs-adoption informationality gate is the
+// SKILL's, per checks.md). The three buckets partition pages_total.
+const attestation_census = {
+  pages_total: scans.length,
+  fresh: scans.filter((s) => attested(s) && !isStale(s)).length,
+  stale: scans.filter(isStale).length,
+  unattested_pre_adoption: scans.filter((s) => !attested(s)).length,
+}
 const h2set = new Set(indexScan ? indexScan.h2_headings || [] : [])
 
 return {
@@ -399,7 +412,10 @@ return {
     para_missing_attestation: [],
     // ISO YYYY-MM-DD strings compare lexicographically — the same property review_due relies on.
     unattested_write: scans.filter((s) => !attested(s)).map((s) => `${s.slug} (created ${s.created || '?'})`),
-    attestation_stale: scans.filter((s) => attested(s) && s.last_updated && s.last_updated > s.verified_at).map((s) => `${s.slug}: last_updated > verified_at`),
+    attestation_stale: scans.filter(isStale).map((s) => `${s.slug}: last_updated > verified_at`),
+    // The census line rides beside the per-page slots — the scale-honesty layer above
+    // them, never a replacement (checks.md, Attestation findings; report.md slot).
+    attestation_census,
     review_due: today
       ? scans.filter((s) => s.review_after && s.review_after <= today).map((s) => `${s.slug} — review_after ${s.review_after}`)
       : [],

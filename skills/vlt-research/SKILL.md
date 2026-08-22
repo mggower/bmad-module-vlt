@@ -1,6 +1,6 @@
 ---
 name: vlt-research
-depends_on: ["frontmatter@12", "write-verification@3"]
+depends_on: ["frontmatter@13", "write-verification@3"]
 description: Investigate a question against the web and file a standalone research note. Use when the user wants to actively build new knowledge — 'research X', 'deep dive into Y', 'what's the current state of Z', 'get me up to speed on…', or any request to go learn something the vault doesn't yet hold. For a source already captured in the vault, use vlt-ingest; to synthesize what's already filed, use vlt-query.
 ---
 
@@ -14,7 +14,7 @@ vlt-research goes *out into the world* to build new knowledge on a question and 
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays). Below, `{research}` etc. mean the resolved path. Note the **active partner** for the log tag.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `resources/wiki/index.md`, `wiki` → `resources/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays). Below, `{research}` etc. mean the resolved path. Note the **active partner** for the log tag.
 
 **Web access is host-provided.** Reach the web with whatever web tooling the host project supplies (an MCP connector it mandates, or native fetch/search). Don't hardcode a specific tool; if the host forbids one, honor that.
 

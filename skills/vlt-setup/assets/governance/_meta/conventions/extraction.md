@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 4
+version: 5
 consumers: [vlt-extract, vlt-lint, vlt-track]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -23,7 +23,7 @@ This file is the **PARA-layer reference** — containers *and* extracted artifac
 
 ## What extraction is
 
-PARA artifacts (`projects/`, `areas/`, `resources/`) are **extracted from the wiki** (`{wiki}`), not promoted from research notes. The wiki is the living synthesis layer and remains the source of truth; an extracted artifact is a synthesized, human-oriented deliverable pulled from one or more wiki pages at a specific moment in time. (One bounded widening of the *personalization* provenance — for a deliverable that must reflect the user's lived state — is defined in *Personalized extraction* below; it does not add an artifact write-path, and it does not relax the rule that every method claim traces to a wiki page.)
+PARA artifacts (`projects/`, `areas/`) are **extracted from the wiki** (`{wiki}`), not promoted from research notes. The wiki is the living synthesis layer and remains the source of truth; an extracted artifact is a synthesized, human-oriented deliverable pulled from one or more wiki pages at a specific moment in time. (One bounded widening of the *personalization* provenance — for a deliverable that must reflect the user's lived state — is defined in *Personalized extraction* below; it does not add an artifact write-path, and it does not relax the rule that every method claim traces to a wiki page.)
 
 Research notes in `{research}` are dated snapshots. They rest once complete and are not promoted.
 
@@ -66,7 +66,6 @@ Kebab-case, **no datetime prefix** — extracted artifacts have stable identity 
 Examples:
 - `projects/teal-framework-launch.md`
 - `areas/home-energy-plan.md`
-- `resources/spaced-repetition-primer.md`
 
 Pick slugs that will still make sense in a year. Avoid datestamps, version suffixes (`-v2`), and status words (`-draft`, `-wip`).
 
@@ -78,13 +77,14 @@ Pick slugs that will still make sense in a year. Avoid datestamps, version suffi
 |---------------|---------------|
 | `projects/` | `project` |
 | `areas/` | `area` |
-| `resources/` | `resource` |
+
+`resources/` is **retired as an extraction target** as of this version — it is now the wiki's human-browsable home (`{wiki}` defaults to `resources/wiki/`; the operating contract's structure map). Legacy `type: resource` artifacts predating this version stay legal at the `resources/` root indefinitely — no backfill sweep, no re-type (the coexistence posture below, extended to the retired type; the legacy sentence also covers their `status: complete`). Where reference material goes now: **the wiki itself** — the human-browsable `{wiki}` — or `areas/` when it serves an ongoing commitment.
 
 ## Required frontmatter for extracted artifacts
 
 ```yaml
 ---
-type: <project | area | resource>
+type: <project | area>
 created: YYYY-MM-DD                  # immutable
 last_updated: YYYY-MM-DD             # bumped on each re-extraction (overwrite-in-place)
 title: <human-readable title>
@@ -109,7 +109,6 @@ sources:
 |---------|----------------|------|
 | `project` | `draft \| in-progress \| complete` | matches the wiki/research enum (`frontmatter.md`) |
 | `area` | `ongoing \| retired` | unbounded work — no "done", only retirement |
-| `resource` | `complete` | resources arrive finished |
 
 Two rules ride the enums. **A `status:` value is a state, never a changelog** — history belongs in the container's `record.md` and in `last_updated`, never stuffed into the field. **Coexistence posture:** legacy values on files predating this convention stay legal, and there is **no backfill sweep** — a file adopts the enum on its next substantive edit (`vlt-lint` reports an out-of-enum value on a pre-adoption file as informational only: `para_status_unknown`). A **vault-grown** type or template declares its `status:` vocabulary **as schema in `{overlays}/extraction.overlay.md` at the type's birth** — never as an enum-in-comment inside a template.
 

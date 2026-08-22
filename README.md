@@ -37,7 +37,7 @@ or by calling it by name.
 |---|---|---|
 | 📖 **Librarian** (`vlt-agent-librarian`) | Tends the wiki. Brings sources in cleanly, keeps one canonical home per concept, runs health checks. Calm, custodial, protective of coherence. | `vlt-ingest`, `vlt-lint`, `vlt-query` |
 | 🔬 **Researcher** (`vlt-agent-researcher`) | Your intellectual sparring partner. Goes to the web, argues with the material, pushes you to think harder — then hands findings to the Librarian to file. | `vlt-research`, `vlt-query` |
-| 🎨 **Creative** (`vlt-agent-creative`) | Turns curated knowledge into deliverables — briefs, dashboards, resource docs. Taste-driven, production-focused, challenges you toward *making*. | `vlt-extract`, `vlt-query` |
+| 🎨 **Creative** (`vlt-agent-creative`) | Turns curated knowledge into deliverables — project briefs and area dashboards. Taste-driven, production-focused, challenges you toward *making*. | `vlt-extract`, `vlt-query` |
 
 Partners never call each other directly. When the Researcher finds something the Librarian should
 file, it leaves a pointer in shared vault state and the Librarian picks it up. The vault *is* the
@@ -67,8 +67,8 @@ flowchart LR
   work-in-progress file.
 - **`vlt-query`** — answers from the **wiki only**, no web reach. Grounds every claim in a cited
   page, ranks contradictions, and admits when "the wiki is thin here."
-- **`vlt-extract`** — shapes wiki knowledge into a PARA deliverable (project brief, area dashboard,
-  resource doc) for a specific reader and purpose. Every claim traces back to a wiki page.
+- **`vlt-extract`** — shapes wiki knowledge into a PARA deliverable (project brief, area dashboard)
+  for a specific reader and purpose. Every claim traces back to a wiki page.
 - **`vlt-lint`** — health-checks the wiki: orphans, stale claims, contradictions, near-duplicate
   pages, index drift. Auto-fixes the safe structural issues, files the rest to the backlog.
 

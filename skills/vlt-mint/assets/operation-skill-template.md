@@ -13,7 +13,7 @@ description: {5-8 word summary of what the operation does}. {Use-when trigger ph
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the `vlt` config is missing, tell the user `vlt-setup` can configure the module, then ask for a vault root to proceed.
 
-The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map materialized in `config.yaml` (override wins, else the shipped default). List only the logical names this operation uses, with their defaults — e.g. `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`. Below, `{index}` etc. mean the resolved path. Note the **active partner** for the log tag.
+The vault is this project — resolve every path relative to `{project-root}` through the `vault_structure` map materialized in `config.yaml` (override wins, else the shipped default). List only the logical names this operation uses, with their defaults — e.g. `index` → `resources/wiki/index.md`, `wiki` → `resources/wiki/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`. Below, `{index}` etc. mean the resolved path. Note the **active partner** for the log tag.
 
 {If the operation writes notes derived from external content, add: scan that content for secrets before writing — never write a credential into a derived note.}
 

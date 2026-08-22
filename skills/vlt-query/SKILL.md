@@ -13,7 +13,7 @@ A query is not just a lookup — it synthesizes knowledge built up over time and
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names this skill uses (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`. Below, `{index}` etc. mean the resolved path. Note the **active partner** for the log tag, used only if the answer is filed.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names this skill uses (default, relative to the project root): `index` → `resources/wiki/index.md`, `wiki` → `resources/wiki/`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `conventions` → `_meta/conventions/`. Below, `{index}` etc. mean the resolved path. Note the **active partner** for the log tag, used only if the answer is filed.
 
 ## Step 1: Read the index
 

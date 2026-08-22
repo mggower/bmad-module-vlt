@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@12", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@3"]
+depends_on: ["frontmatter@13", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@3"]
 ---
 
 # vlt-ingest
@@ -19,7 +19,7 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 **Resolve paths:**
 
 - The vault is this project (`{project-root}`).
-- Resolve every location through the `vault_structure` map: an explicit override wins, else the shipped default. The logical names this skill uses (default shown, relative to the project root): `wiki` → `_agent/wiki/`, `index` → `_agent/wiki/index.md`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `sessions` → `_agent/sessions/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays), `archive` → `_archive/`. Below, `{wiki}` etc. mean the resolved path.
+- Resolve every location through the `vault_structure` map: an explicit override wins, else the shipped default. The logical names this skill uses (default shown, relative to the project root): `wiki` → `resources/wiki/`, `index` → `resources/wiki/index.md`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `sessions` → `_agent/sessions/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays), `archive` → `_archive/`. Below, `{wiki}` etc. mean the resolved path.
 
 **Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked standalone with no partner, omit the tag.
 
@@ -108,7 +108,7 @@ Read `{index}` first — it tells you what pages exist. The wiki is the living p
 **Near-duplicate check before creating a page (required).** List existing slugs (`ls {wiki}`) and compare the *concept*, not just the slug string, against existing pages — leading noun, synonyms (`coaching-tree` vs `coaching-lineage`), and topic overlap all count. Creating near-duplicate pages is the most common way the wiki drifts.
 
 - If an existing page already covers the concept → **update it**, don't splinter.
-- If the source reveals that two existing pages have **drifted into near-duplicates** and should be one → fold the merge in here, under `{conventions}/wiki-consolidation.md` (choose primary vs subsumed, merge under supersession discipline, archive the subsumed page to `{archive}/_agent/wiki/`, name the merge in the log entry). This is where the retired consolidate operation re-homes.
+- If the source reveals that two existing pages have **drifted into near-duplicates** and should be one → fold the merge in here, under `{conventions}/wiki-consolidation.md` (choose primary vs subsumed, merge under supersession discipline, archive the subsumed page to `{archive}/{wiki}/`, name the merge in the log entry). This is where the retired consolidate operation re-homes.
 - If genuinely distinct → create the new page.
 
 **Proper-noun collision check before canonicalizing (required, machine-transcribed sources).** For each proper noun this write would put on a wiki page **that came from a machine-transcribed source** — the entities entering the page, not every string in the source — check it against existing wiki state before writing:
@@ -173,7 +173,7 @@ Append one partner-tagged entry to `{log}`:
 ## [YYYY-MM-DD HH:MM] ingest (<partner>) | "<Source Title>" → research: [[<research-note>]], wiki: [[<page>]] (new), [[<page>]] (updated)
 ```
 
-Prefix new pages with `(new)`, updated ones with `(updated)`. If a merge happened, name it: `merged: [[{archive}/_agent/wiki/<subsumed>]] → [[<retained>]]`. Omit the wiki clause if no pages changed. **Write no session note** — the summoning partner owns the session log for the whole sitting (operating contract § session-ownership).
+Prefix new pages with `(new)`, updated ones with `(updated)`. If a merge happened, name it: `merged: [[{archive}/{wiki}/<subsumed>]] → [[<retained>]]`. Omit the wiki clause if no pages changed. **Write no session note** — the summoning partner owns the session log for the whole sitting (operating contract § session-ownership).
 
 ## Step 9: Verify and attest
 

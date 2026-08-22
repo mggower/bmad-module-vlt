@@ -8,7 +8,7 @@ module_greeting: >
 
   Summon the Librarian to tend the collection ("Librarian, ingest this article…"), the
   Researcher to be pushed to learn ("Researcher, dig into transformer attention…"), or the
-  Creative to turn knowledge into made things ("Creative, shape a resource doc on…"). They read
+  Creative to turn knowledge into made things ("Creative, shape a deliverable on…"). They read
   the same wiki, hand work to each other through it, and can grow the roster themselves with
   vlt-mint. Install Vault into each vault you want a cast for; re-run vlt-setup anytime to refresh.
 
@@ -42,8 +42,8 @@ vault_structure:
   # vlt-setup reads this (never a hand-transcribed markdown table) and materializes it into
   # config.yaml, merging any user overrides on top. To add/rename a logical path, edit it HERE.
   default:
-    wiki: _agent/wiki/
-    index: _agent/wiki/index.md
+    wiki: resources/wiki/
+    index: resources/wiki/index.md
     research: _agent/research/
     sessions: _agent/sessions/
     specs: _agent/specs/
@@ -64,7 +64,7 @@ vault_structure:
     tripwires: _agent/tripwires.yaml
     lint_reports: _agent/lint-reports/
     upgrade_reports: _agent/upgrade-reports/
-  example: "wiki → _agent/wiki/ — override a single entry only if this vault diverges"
+  example: "wiki → resources/wiki/ — override a single entry only if this vault diverges"
 
 feedback_repo:
   # Transport endpoint for vlt-feedback (OWNER/REPO slug for `gh --repo`). A defined

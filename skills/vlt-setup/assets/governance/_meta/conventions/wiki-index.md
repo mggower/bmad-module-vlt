@@ -19,7 +19,7 @@ enforcement_moment: lint run
 
 > **Overlay note:** This is the pristine base (overwrite-safe on upgrade). A vault's local additions live in `{overlays}/wiki-index.overlay.md`, read together with this file — **append-only**. See the operating contract, *Durability across upgrades*. Edit the overlay for a vault-local addition; edit this base only for a generic rule change bound upstream.
 
-The `{index}` (`_agent/wiki/index.md` by default) is the **agent's structural map** of the wiki layer — read first on every activation and before any ingest or query. It answers "what concepts exist, how do they cluster, and where does new knowledge belong." This file defines its structure so it is governed by a written spec rather than one writer's mimicry: `vlt-ingest` writes it against this convention and `vlt-lint` validates it against this convention. (Paths use the structure-map logical names — see the operating contract.)
+The `{index}` (`resources/wiki/index.md` by default) is the **agent's structural map** of the wiki layer — read first on every activation and before any ingest or query. It answers "what concepts exist, how do they cluster, and where does new knowledge belong." This file defines its structure so it is governed by a written spec rather than one writer's mimicry: `vlt-ingest` writes it against this convention and `vlt-lint` validates it against this convention. (Paths use the structure-map logical names — see the operating contract.)
 
 ## What the index is — and is not
 

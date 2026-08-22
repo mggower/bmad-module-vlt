@@ -1,6 +1,6 @@
 ---
 name: "vlt-setup"
-depends_on: ["frontmatter@12"]
+depends_on: ["frontmatter@13"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 
@@ -57,8 +57,8 @@ Ask the user for values. Show defaults in brackets. Present values together so t
 
    | Logical name | Default (relative to the project root) |
    | --- | --- |
-   | `wiki` | `_agent/wiki/` |
-   | `index` | `_agent/wiki/index.md` |
+   | `wiki` | `resources/wiki/` |
+   | `index` | `resources/wiki/index.md` |
    | `research` | `_agent/research/` |
    | `sessions` | `_agent/sessions/` |
    | `specs` | `_agent/specs/` |
@@ -113,7 +113,7 @@ This is the heart of Vault setup. It operates on **this project** — `{project-
 
 ### 1. Verify and seed the core state files (wiki, index, log)
 
-- Confirm the `wiki` directory exists (`{root}/_agent/wiki/` by default); create it if absent.
+- Confirm the `wiki` directory exists (`{root}/resources/wiki/` by default — keyed on the resolved `{wiki}`); create it if absent.
 - If `log` (`{log}`, `_agent/log.md` by default) is missing, **create it with its header** — the activation "read the `{log}`" step and `vlt-ingest`'s re-ingest grep both assume it exists; without it the read silently no-ops and the grep errors on a fresh vault:
 
   ```markdown
@@ -193,7 +193,7 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   Create the file and the `hooks`/`SessionStart` keys if absent (preserving all existing content). Append this entry **only if no existing SessionStart entry's command already contains `vlt-vitals.py`** (the script path is the idempotency key — key on the bare path, not path-plus-flags: quoting between path and flags would defeat a longer substring) — and **never touch, reorder, or rewrite unrelated hooks**: a vault-local SessionStart hook must survive **byte-identical**. Re-running is a no-op. (The strip prints at most one line — tripped wires only, nothing when green, `vitals unavailable (<reason>)` on reader failure; a machine without `python3` degrades to the hook printing only its own error line — loud, never silent-green.)
 - **Create `{lint_reports}`** (default `_agent/lint-reports/`, empty dir) if absent — `vlt-lint` persists its dated Step-5 reports there (plain `.yaml`). Same never-clobber line: existing reports are the vault's, append-only, untouched.
 - **Create `{upgrade_reports}`** (default `_agent/upgrade-reports/`, empty dir) if absent — `vlt-upgrade` persists its dated Step-4 reports there (plain `.yaml`; the upgrade also creates it lazily). Same never-clobber line: existing reports are the vault's, append-only, untouched.
-- **Create the container layers** — `{projects}` (default `projects/`), `{areas}` (default `areas/`), `{resources}` (default `resources/`), and `{handoffs}` (default `_agent/handoffs/`) — as empty dirs if absent, so a fresh install and an upgraded vault both materialize the parameterized layout. Same never-clobber discipline as `{lint_reports}`: existing content is the vault's, untouched.
+- **Create the container layers and the wiki's parent** — `{projects}` (default `projects/`), `{areas}` (default `areas/`), `{resources}` (default `resources/` — the wiki's human-browsable home, no longer a container layer), and `{handoffs}` (default `_agent/handoffs/`) — as empty dirs if absent, so a fresh install and an upgraded vault both materialize the parameterized layout. Same never-clobber discipline as `{lint_reports}`: existing content is the vault's, untouched.
 
 ### 3. Write the `CLAUDE.md` pointer
 
@@ -354,7 +354,7 @@ The `cleanup-legacy.py` script ships in the skill's `scripts/` only for parity w
 Display what happened, using the script JSON output plus your provisioning notes:
 
 - Config written — the `vlt` section (metadata + any `vault_structure` overrides), core values, user settings (`user_keys`), help entries, fresh-install vs. update.
-- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` installed / refreshed (identical) / **refreshed — overwrote local edits (diff preserved in the notes; a vault-local derive function does not survive here — a durable home for local metrics lands in a later release)**, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present, `{upgrade_reports}` created / present, container layers (`{projects}`/`{areas}`/`{resources}`/`{handoffs}`) created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown, **plus its write-time `diverged` (unsanctioned local edits preserved-and-reported, never absorbed) and `sanctioned` (N sanctioned divergences: paths) lines, and the live-hashed warning when `source_mode: live`** — always shown when non-empty), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + the vault rung `_agent/reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
+- **Per vault provisioned** — for each: governance files installed vs. skipped (already present), the **dynamic workflows** (`.claude/workflows/*.js` — every workflow §2a ships) installed/refreshed, the **enforcement kit** (§2b: `vlt-vitals.py` installed / refreshed (identical) / **refreshed — overwrote local edits (diff preserved in the notes; a vault-local derive function does not survive here — a durable home for local metrics lands in a later release)**, `{tripwires}` seeded / merged (N wires added) / kept, SessionStart hook registration added / already-present, `{lint_reports}` created / present, `{upgrade_reports}` created / present, container layers + the wiki's parent (`{projects}`/`{areas}`/`{resources}`/`{handoffs}`) created / present), `log.md` + `index.md` created or left, the `vault_structure` map materialized into `config.yaml`, the **skill-asset manifest** written (entry count, plus `added`/`removed` vs the prior manifest when one existed — removals always shown, **plus its write-time `diverged` (unsanctioned local edits preserved-and-reported, never absorbed) and `sanctioned` (N sanctioned divergences: paths) lines, and the live-hashed warning when `source_mode: live`** — always shown when non-empty), `CLAUDE.md` pointer + `## Preferences` written / appended / left, partner `identity.md`+`thread.md`+`reflexes.md` + the vault rung `_agent/reflexes.md` + `backlog` scaffolded vs. already present, and any **legacy `thread.md` → two-file migration** performed.
 - **Dependencies** — any genuinely missing skills (not host-provided ones) and any `tool-missing:` lines from the machine-tool probe (declared module tools + capability `requires:` entries), each with its degrade note.
 - **Installer TOML quirk (if present)** — if the installer's `config.toml` serialized `vault_structure` as `"[object Object]"`, acknowledge it in one line: a known BMad-installer serialization quirk that Vault **ignores** (the runtime reads `config.yaml`, which `vlt-setup` wrote correctly). Surfacing it here saves a future debugging detour.
 - **Co-installed modules untouched** — confirm only the `vlt` section, user settings, and Vault help rows were written; no other module's config was read or removed.

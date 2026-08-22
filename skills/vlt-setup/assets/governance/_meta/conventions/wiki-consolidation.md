@@ -89,7 +89,7 @@ After a merge, the retained page's frontmatter:
 
 ## Frontmatter — subsumed page (before archival)
 
-Before moving the subsumed page to `{archive}/_agent/wiki/`, stamp its frontmatter per `wiki-supersession.md` page-level rules:
+Before moving the subsumed page to `{archive}/{wiki}/`, stamp its frontmatter per `wiki-supersession.md` page-level rules:
 
 ```yaml
 superseded_by: <retained-page-slug>
@@ -108,7 +108,7 @@ This ensures that if a reader later pulls the archived page out of `{archive}`, 
 
 ## Archive path
 
-Move the subsumed page to `{archive}/_agent/wiki/<slug>.md`. Confirm the directory exists before writing. **Do not delete** the subsumed page — archive-and-stamp is the canonical pattern; history is preserved even when the page no longer lives in the active wiki.
+Move the subsumed page to `{archive}/{wiki}/<slug>.md`. Confirm the directory exists before writing. **Do not delete** the subsumed page — archive-and-stamp is the canonical pattern; history is preserved even when the page no longer lives in the active wiki.
 
 ## Index update
 
@@ -124,7 +124,7 @@ After the merge, update `{index}`:
 A merge has no log type of its own — it folds into the `ingest` entry that executed it, per the operating contract's `{log}` format. Name the merge in that entry's artifacts:
 
 ```
-## [YYYY-MM-DD HH:MM] ingest (<partner>) | <summary>; merged near-duplicate — <signal summary> → wiki: [[{wiki}/<retained>]] (updated), merged: [[{archive}/_agent/wiki/<subsumed>]]
+## [YYYY-MM-DD HH:MM] ingest (<partner>) | <summary>; merged near-duplicate — <signal summary> → wiki: [[{wiki}/<retained>]] (updated), merged: [[{archive}/{wiki}/<subsumed>]]
 ```
 
 `<signal summary>` is a short phrase naming what drove the merge — e.g. "slug stem + 4 shared wikilinks", "topic overlap + contradictory claims resolved". One artifact clause per pair if several merge in one run — the log is the audit trail.

@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 12
+version: 13
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -68,7 +68,7 @@ trust: <raw | reviewed | verified | canonical>
 | `verified` | Key claims checked against primary sources |
 | `canonical` | Integrated into personal knowledge; safe to link from MOCs |
 
-The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `idea`, and the PARA container files `charter`, `record`, `register` (`extraction.md`, *PARA containers*). New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
+The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `idea`, and the PARA container files `charter`, `record`, `register` (`extraction.md`, *PARA containers*). `resource` is **retired as of this version** — legal on existing files, no longer minted (`extraction.md`). New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
 
 ## Write attestation (agent-written artifacts)
 
@@ -166,13 +166,13 @@ Datetime-prefixed kebab-case filename; optional `-<type>` suffix per the operati
 
 **`partner:`** names the roster member who authored the session — the frontmatter analogue of the `(<partner>)` tag on `{log}` entries, so the session trail is greppable by partner (`grep -l "partner: researcher" {sessions}/*.md`). The summoning partner owns the session note for the whole sitting (operation skills append `{log}` entries but never write session notes — see the operating contract's session-ownership rule). Omit only for a partner-less generic-agent session.
 
-## PARA artifacts (`projects/`, `areas/`, `resources/`)
+## PARA artifacts (`projects/`, `areas/`)
 
 Defined in `extraction.md` (the canonical reference; not duplicated here). Summary:
 
 - The layer splits into **containers** (`charter.md`/`record.md`/`register.md` under a `{projects}`/`{areas}` container directory — `type: charter | record | register`, container `status:` enums on the charter, attribution-per-entry, no attestation pair) and **extracted artifacts** (loose at the layer root, or filed into a container's directory).
 - Artifacts: `author: hybrid`, `trust: reviewed` at extraction.
-- `type:` mapped to target folder: `projects/` → `project`; `areas/` → `area`; `resources/` → `resource`.
+- `type:` mapped to target folder: `projects/` → `project`; `areas/` → `area`. (`type: resource` is retired — legal on existing files at the `resources/` root, no longer minted; `extraction.md`.)
 - `status:` from the per-type enums in `extraction.md` (legacy values coexist — no backfill).
 - `sources:` lists the wiki pages that fed the extraction; optional `grounding:` carries non-wiki evidence/relations (the field above; segregation rule in `extraction.md`).
 
