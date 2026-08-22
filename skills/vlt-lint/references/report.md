@@ -31,6 +31,7 @@ flag_for_human:
   para_missing_attestation: [<para-file: vault type + author agent|hybrid, no attestation>, ...]
   unattested_write: [<page (created YYYY-MM-DD) — informational where created predates convention adoption>, ...]
   attestation_stale: [<page: last_updated > verified_at — quiet tier-1 re-run>, ...]
+  para_status_unknown: [<para-file: status 'X' outside the <type> enum — informational where created predates convention adoption>, ...]
   review_due: [<page — review_after YYYY-MM-DD past>, ...]
   research_zone: <M notes scanned; N carry revisit_after:>   # candidacy-pass denominator — a bare zero below is not health
   linkage_ripe: [<research-note — no absorption linkage: cited ∪ inbound wikilink ∪ shared sources>, ...]
@@ -42,7 +43,7 @@ flag_for_human:
   capability_issues: [<partner/slug: lane_violation (light cap writes a shared lane) | scope_mismatch (write_scope ≠ actual writes) | weight_mismatch | skill_missing (dangling heavy pointer)>, ...]
   family_issues: [<family: invariant_violation (instance breaches X) | instance_missing (listed instance has no capability)>, ...]
   dispatch_profile_invalid: [<_agent/dispatch-profile.md: <failing line — duplicate slug | no/multiple (default) | capture stream resolves to no directory>>, ...]   # absent file = no findings (single-principal default)
-  personalized_extraction_issues: [<artifact: method_not_in_sources (general claim not traced to wiki sources:) | method_in_personalization (personalization_sources carries method, not state)>, ...]
+  personalized_extraction_issues: [<artifact: method_not_in_sources (general claim not traced to wiki sources:) | method_in_personalization (personalization_sources carries method, not state) | method_in_grounding (grounding: entry — or a body claim resting only on one — carries method, not evidence/relations)>, ...]
   stale: [<page — reason>, ...]
   contradiction_scan: <P pages compared; D documented, U carrying no disposition; S surfaced-but-declined this run>   # denominator + the stated bound — a bare zero below is not health
   contradictions: [<page-a vs page-b: claim>, ...]                    # surfaced this run, no callout yet

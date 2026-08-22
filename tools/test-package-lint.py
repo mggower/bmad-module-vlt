@@ -226,7 +226,7 @@ COVERAGE = {}  # package-lint check name -> [case names]; E4's data source (R2)
 # R2 shrink net: a net that must carry a list carries a shrink check. Bump the
 # floor in the same edit that adds cases (ratchet); main() fails loudly when
 # the registered count drops below it. Per-check shrink is E4's jurisdiction.
-CASE_FLOOR = 21
+CASE_FLOOR = 22
 
 
 def case(name, *, covers):
@@ -488,6 +488,48 @@ def case_e5_stale_asset(root):
     # E1-change probe (B7-6): the .js consumers: entry is E5's, not E1's — it must
     # never trip E1's not-installed leg.
     assert "lists vlt-fixture.js which is not installed" not in r.stdout, r.stdout
+
+
+@case("22. merge-config swapped for a whole-value-preserve stub -> C fails, key injection (C6-b)",
+      covers=("check_durability_nets",))
+def case_c9_whole_value_preserve(root):
+    # The pre-B10-10 behavior, reproduced deterministically: preserve-unless-
+    # answered at WHOLE-value granularity (a preserved vault_structure keeps
+    # its dict byte-identical, so a newly shipped default key never reaches
+    # it), report without structure_keys_added. Probe 1's original assertions
+    # stay green; Probe 1b (the injection case) must go red.
+    (root / "skills/vlt-setup/scripts/merge-config.py").write_text(
+        "_META = ('name', 'description', 'version', 'default_selected')\n"
+        "_MARKERS = ('prompt', 'default', 'result', 'user_setting')\n"
+        "def merge_config(existing_config, module_yaml, answers, verbose=False):\n"
+        "    config = dict(existing_config)\n"
+        "    code = module_yaml['code']\n"
+        "    raw = config.get(code)\n"
+        "    existing = raw if isinstance(raw, dict) else {}\n"
+        "    defined = [k for k, v in module_yaml.items()\n"
+        "               if isinstance(v, dict) and any(m in v for m in _MARKERS)]\n"
+        "    section = {'name': module_yaml.get('name')}\n"
+        "    mod_answers = answers.get('module', {})\n"
+        "    preserved, defaulted = [], []\n"
+        "    for var in defined:\n"
+        "        if var in mod_answers:\n"
+        "            section[var] = mod_answers[var]\n"
+        "        elif var in existing:\n"
+        "            section[var] = existing[var]  # whole-value preserve (C6-b)\n"
+        "            preserved.append(var)\n"
+        "        elif 'default' in module_yaml[var]:\n"
+        "            section[var] = module_yaml[var]['default']\n"
+        "            defaulted.append(var)\n"
+        "    removed = [k for k in existing if k not in _META and k not in defined]\n"
+        "    config[code] = section\n"
+        "    return config, {'preserved': preserved, 'removed': removed,\n"
+        "                    'defaulted': defaulted}\n",
+        encoding="utf-8",
+    )
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
+    assert "durability net (merge-config)" in r.stdout, r.stdout
+    assert "newly shipped default key" in r.stdout or "structure_keys_added" in r.stdout, r.stdout
 
 
 def main():

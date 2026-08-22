@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-21
+last_updated: 2026-08-22
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 11
+version: 12
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -68,7 +68,7 @@ trust: <raw | reviewed | verified | canonical>
 | `verified` | Key claims checked against primary sources |
 | `canonical` | Integrated into personal knowledge; safe to link from MOCs |
 
-The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `idea`. New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
+The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `idea`, and the PARA container files `charter`, `record`, `register` (`extraction.md`, *PARA containers*). New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
 
 ## Write attestation (agent-written artifacts)
 
@@ -82,6 +82,16 @@ verified_at: YYYY-MM-DD
 - **`verified_by`** — the operation that ran tier-1 on this file. The legal value set is the attestation contract's, defined in `write-verification.md` §Attestation — not restated here.
 - **`verified_at`** — the date of that verification. **Freshness rule:** an attestation is valid iff `verified_at` ≥ `last_updated`. A stale attestation is not a violation — lint quietly re-runs tier-1 on the file. Updates re-attest: an op that updates an existing page bumps both keys. Freshness keys off `last_updated`, never `review_after` (content expiry is a different axis).
 - **Not the `trust:` rung.** `verified_by`/`verified_at` record *structural* verification (the write ran its checklist); the `trust: verified` rung records *claim* verification (key claims checked against primary sources). Same word, orthogonal axes — an attested page can be `trust: raw`, and a `trust: verified` page can carry a stale attestation.
+
+## Evidence grounding (`grounding:`)
+
+An **optional** flat list of non-wiki evidence and relation references — a PARA sibling, a container, an external repo or URL — carried by PARA artifacts and container charters:
+
+```yaml
+grounding: []                        # OPTIONAL — bare references/paths/URLs; a flat list (YAML rule 3)
+```
+
+`grounding:` is the evidence/relation edge, distinct from its two siblings by role: `sources:` is wiki-only method provenance, `personalization_sources:` is agent-zone state, and `grounding:` carries **evidence and relations, never method**. The segregation rule and the firewall that enforces it (`vlt-lint`, `method_in_grounding`) live in `extraction.md` — fields here, the rule there.
 
 ## Wiki pages (`{wiki}`)
 
@@ -160,11 +170,13 @@ Datetime-prefixed kebab-case filename; optional `-<type>` suffix per the operati
 
 Defined in `extraction.md` (the canonical reference; not duplicated here). Summary:
 
-- `author: hybrid`, `trust: reviewed` at extraction.
+- The layer splits into **containers** (`charter.md`/`record.md`/`register.md` under a `{projects}`/`{areas}` container directory — `type: charter | record | register`, container `status:` enums on the charter, attribution-per-entry, no attestation pair) and **extracted artifacts** (loose at the layer root, or filed into a container's directory).
+- Artifacts: `author: hybrid`, `trust: reviewed` at extraction.
 - `type:` mapped to target folder: `projects/` → `project`; `areas/` → `area`; `resources/` → `resource`.
-- `sources:` lists the wiki pages that fed the extraction.
+- `status:` from the per-type enums in `extraction.md` (legacy values coexist — no backfill).
+- `sources:` lists the wiki pages that fed the extraction; optional `grounding:` carries non-wiki evidence/relations (the field above; segregation rule in `extraction.md`).
 
-See `extraction.md` for the full schema, the trust ladder progression, and re-extraction supersession rules.
+See `extraction.md` for the full schema, the container model, the trust ladder progression, and re-extraction supersession rules.
 
 ## Partner memory (`{partners}`)
 

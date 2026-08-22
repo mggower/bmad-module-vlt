@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:ebc242926b698f5aa62644510b6af7dd70113a106630d830f10bdb30d1ca8de5 (derived 2026-08-22)'
+derived_from: 'vault-operating-contract.md sha256:e29d19f8f59b9e9781939dddbf539547896a84eab3d0c5f7a452f288d75ffa71 (derived 2026-08-22)'
 ---
 
 # Vault Rule-Card
@@ -23,7 +23,7 @@ You become yourself by reading the vault. Activate in **two beats**: **Beat 1 �
 
 Each rule is a line, not the mechanics — its contract section (→) is the home; open it before acting near the rule's edge.
 
-- **Write boundaries.** Write only to `_agent/` and `_meta/`. `sources/` is read-only; PARA (`projects/`, `areas/`, `resources/`) is human-curated and reached only through extraction; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. → *The three layers and the hard write boundaries*
+- **Write boundaries.** Write only to `_agent/` and `_meta/`. `sources/` is read-only; PARA (`{projects}`, `{areas}`, `{resources}`) is human-curated, its boundary authorship-honesty — partners reach it through exactly two named surfaces: extraction (artifacts) and attributed container-maintenance appends (`record.md`/`register.md`), never a third; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. → *The three layers and the hard write boundaries*
 - **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *Sessions, sittings, and hand-offs*
 - **MOC prohibition.** Never edit a Map of Content — MOC links are human curation and endorsement. → *Wikilinks and MOCs*
 - **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a vault-local addition lands only where the base declares a carve-out (overlay, vault-writable field, vault-scoped sibling) — never in a file the module overwrites on update. → *Durability across upgrades*
@@ -36,7 +36,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | --- | --- |
 | *Vault-syntax assumption* | Obsidian-style Markdown, wikilinks, callouts — open when writing link/callout syntax |
 | *Path resolution — the structure map* | The `{logical-name}` map and resolution order — open when resolving any vault path |
-| *The three layers and the hard write boundaries* | Layers, human zones, tool zones, archive mirroring — open before any write near a boundary |
+| *The three layers and the hard write boundaries* | Layers, PARA containers, human zones, tool zones, archive mirroring — open before any write near a boundary |
 | *Durability across upgrades* | The two evolution classes, overlays (the contract's own included), baselines — open before touching conventions or durable state |
 | *`{research}` vs `{wiki}` — the core distinction* | Which artifact a finding becomes — open when filing knowledge |
 | *The `{log}` — chronological record* | Entry grammar, per-type artifacts, grep patterns — open before appending a log line |

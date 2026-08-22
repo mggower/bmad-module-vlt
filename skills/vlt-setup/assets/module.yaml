@@ -49,6 +49,10 @@ vault_structure:
     specs: _agent/specs/
     log: _agent/log.md
     backlog: _agent/backlog.md
+    projects: projects/
+    areas: areas/
+    resources: resources/
+    handoffs: _agent/handoffs/
     partners: _agent/partners/
     capabilities: _agent/capabilities/
     conventions: _meta/conventions/
@@ -59,6 +63,7 @@ vault_structure:
     archive: _archive/
     tripwires: _agent/tripwires.yaml
     lint_reports: _agent/lint-reports/
+    upgrade_reports: _agent/upgrade-reports/
   example: "wiki → _agent/wiki/ — override a single entry only if this vault diverges"
 
 feedback_repo:

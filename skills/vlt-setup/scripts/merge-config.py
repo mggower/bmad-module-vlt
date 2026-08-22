@@ -22,6 +22,12 @@ is a true zombie — removed, and always reported in the result JSON
 defined variable can be destroyed by an absent answer, and no key is ever
 removed unreported.
 
+vault_structure preserves at KEY level (build B10-10): a preserved map keeps
+every existing key and value byte-identical (overrides and vault-grown keys
+win), and any module default key absent from it is added — reported in
+structure_keys_added (empty when none). Scalar variables keep whole-value
+preservation.
+
 Legacy migration: when --legacy-dir is provided, reads old per-module config files
 from {legacy-dir}/{module-code}/config.yaml and {legacy-dir}/core/config.yaml.
 Matching values serve as fallback defaults (answers override them). After a
@@ -324,11 +330,30 @@ def merge_config(
 
     module_section = extract_module_metadata(module_yaml)  # always refreshed
     preserved, defaulted = [], []
+    structure_keys_added = []
     for var in defined:
         if var in module_answers:
             module_section[var] = module_answers[var]
         elif var in existing_section:
-            module_section[var] = existing_section[var]
+            if (
+                var == "vault_structure"
+                and isinstance(existing_section[var], dict)
+                and isinstance(module_yaml[var].get("default"), dict)
+            ):
+                # Key-level union (build B10-10, retiring the C6-b strip):
+                # every existing key and value wins byte-identical — overrides
+                # and vault-grown keys survive — then any module `default:`
+                # key absent from the existing map is added, and named in
+                # `structure_keys_added` (empty when none). Scalar variables
+                # keep whole-value preservation below.
+                merged_map = dict(existing_section[var])
+                for k, v in module_yaml[var]["default"].items():
+                    if k not in merged_map:
+                        merged_map[k] = v
+                        structure_keys_added.append(k)
+                module_section[var] = merged_map
+            else:
+                module_section[var] = existing_section[var]
             preserved.append(var)
         elif "default" in module_yaml[var]:
             # Defaults ship final — written as-is, no result-template pass.
@@ -360,6 +385,7 @@ def merge_config(
         "preserved": preserved,
         "removed": removed,
         "defaulted": defaulted,
+        "structure_keys_added": structure_keys_added,
     }
 
     return config, merge_report
@@ -472,6 +498,7 @@ def main():
         "module_keys_preserved": merge_report["preserved"],
         "module_keys_removed": merge_report["removed"],
         "module_keys_defaulted": merge_report["defaulted"],
+        "structure_keys_added": merge_report["structure_keys_added"],
         "user_keys": list(user_settings.keys()),
         "legacy_configs_found": legacy_files_found,
         "legacy_configs_deleted": legacy_deleted,

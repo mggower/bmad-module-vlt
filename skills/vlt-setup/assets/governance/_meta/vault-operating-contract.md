@@ -33,8 +33,12 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `research`    | `_agent/research/`                        | Time-bounded investigation notes (dated snapshots)          |
 | `sessions`    | `_agent/sessions/`                        | Per-session operation logs                                  |
 | `specs`       | `_agent/specs/`                           | Durable, owned, versioned cross-partner contracts (see `{conventions}/spec.md`) |
+| `handoffs`    | `_agent/handoffs/`                        | Cross-partner handoff docs — the spec-candidate population (`vlt-lint`) |
 | `log`         | `_agent/log.md`                           | Append-only chronological operation record (live tail — rotates under *Decay contracts*) |
 | `backlog`     | `_agent/backlog.md`                       | The living evolution backlog (what the vault wants to become) |
+| `projects`    | `projects/`                               | Bounded containers and their artifacts — the container model (Layer 3, *PARA containers*) |
+| `areas`       | `areas/`                                  | Unbounded containers and their artifacts (Layer 3, *PARA containers*) |
+| `resources`   | `resources/`                              | Reference artifacts — vestigial; see `extraction.md` |
 | `partners`    | `_agent/partners/`                        | Per-partner relationship threads (and each partner's `capabilities/`) |
 | `capabilities`| `_agent/capabilities/`                    | Vault-level capability state — the family contracts (`families/`)     |
 | `conventions` | `_meta/conventions/`                      | The rules every write obeys (shipped by the module — pristine, overwrite-safe) |
@@ -45,7 +49,7 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `archive`     | `_archive/`                               | Retired notes, mirroring their source path                  |
 | `tripwires`   | `_agent/tripwires.yaml`                   | The enforcement kit's wire registry (vault-grown after seeding; written only at human-gated moments) |
 | `lint_reports`| `_agent/lint-reports/`                    | Dated, append-only persisted lint reports (`vlt-lint` Step 6)   |
-| `_agent/upgrade-reports/` *(literal path)* | `_agent/upgrade-reports/`  | Dated, append-only persisted upgrade Step-4 reports (`vlt-upgrade` Step 4) — *not yet a `vault_structure` key: key-minting waits on the merge-config `vault_structure` fix; the build that mints the key rewrites this clause in the same act* |
+| `upgrade_reports` | `_agent/upgrade-reports/`             | Dated, append-only persisted upgrade Step-4 reports (`vlt-upgrade` Step 4) |
 
 > The **path defaults** in the middle column mirror `module.yaml`'s `vault_structure.default` — that map is the single source of truth for path *values* (don't hand-transcribe it; see `vlt-setup`). This table is the **semantic** home: the "What lives there" column is the definitional documentation a partner or a generic agent reads to understand the zone.
 
@@ -59,9 +63,11 @@ The vault has three layers with hard boundaries. **This is the single most load-
 
 **Layer 2 — Agent zone (`_agent/`, `_meta/`):** The partners' persistent, compounding knowledge base and operational layer — the `{wiki}` reference pages, `{research}` notes, `{sessions}` logs, the `{log}`, the `{backlog}`, per-partner identity and thread files under `{partners}`, and the operational rules under `{conventions}`/`{personas}`/`{contract}`. Partners own this layer entirely — read, write, update. Humans read it and extract from it but do not write into it directly (except while editing a note mid-extraction, at which point ownership transfers). Partners may also create **ad-hoc owned artifacts under `_agent/` that are not named in the structure map** (e.g. a `vlt-verification/` working folder) — the map names the *load-bearing* locations, not the *only* permitted ones; the agent zone is the partners' to organize.
 
-**Layer 3 — PARA (`projects/`, `areas/`, `resources/`):** Human-curated knowledge. Artifacts arrive here only through the extraction workflow (see `extraction.md`). Partners read from PARA but **never write directly into it.**
+**Layer 3 — PARA (`{projects}`, `{areas}`, `{resources}`):** The human-curated layer. Its boundary is drawn by **authorship-honesty**: everything here carries an honest `author:` (`human | agent | hybrid`), and partner-touched content reaches it through exactly **two named surfaces** — **extraction** (artifacts, via the extraction workflow — `extraction.md`, same supersession and trust discipline as ever) and **container maintenance** (a partner working a container's sanctioned work may append dated, attributed entries to that container's `record.md`/`register.md` — see *PARA containers* below). Charters are human-gated: partner-drafted at most, human-ratified (`author: hybrid`).
 
-**The hard rule:** Partners write only to `_agent/` and `_meta/`. `sources/` is read-only. PARA folders are human territory. Human zones (`_vault/`, `new/`, `daily/`) are human-only — see below.
+**The hard rule:** Partners write only to `_agent/` and `_meta/` — plus the two named PARA surfaces above, and nothing else in PARA: partners never create, rewrite, or delete human-curated PARA content outside those two surfaces. `sources/` is read-only. Human zones (`_vault/`, `new/`, `daily/`) are human-only — see below.
+
+**PARA containers (the container model — behavior; fields in `extraction.md`, *PARA containers*):** a **container** is the unit of bounded or ongoing work in Layer 3 — a directory `{projects}/<slug>/` (or `{areas}/<slug>/`) carrying 2–3 declared files: **`charter.md`** (the stable frame — outcome, scope, definition-of-done; human-gated as above), **`record.md`** (the dated, append-shaped running record, each entry attributed `(<partner>)`), and optionally **`register.md`** (decisions and open questions). Sub-containers nest as directories; **membership and containment are answered by location** — a file is in its container's directory, an umbrella contains its sub-container directories — no field. Container `status:` lives on the charter; a lifecycle transition (e.g. a project reclassified as an area) is a `status:` change plus a location move, recorded as a dated `record.md` entry. A `closed`/`retired` container archives **whole** to `{archive}`, mirroring its source path (the archive-structure rule below). Container files are **operational records, not knowledge artifacts** — attribution rides each entry; they carry no `verified_by:`/`verified_at:` pair.
 
 **Archive structure:** `{archive}` mirrors the source path of a retired note. A note retired from `{sessions}` goes to `{archive}/_agent/sessions/`; one from `projects/` goes to `{archive}/projects/`. Pre-convention items with no known source path go in `{archive}/unknown/`.
 
@@ -315,7 +321,8 @@ Every operational file class carries its exit — a decay verb, or an exemption 
 | `{conventions}`, `{personas}`, `{contract}` | exempt — shipped governance, refreshed by upgrade, never accumulating | — | — | — |
 | `{sessions}` | exempt — naturally segmented per sitting (the foldering pattern the rotate verb mirrors); never whole-dir wake-read; ad-hoc retirement to `{archive}` remains available | — | — | — |
 | `{lint_reports}` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-lint` Step 6) | — | — | — |
-| `_agent/upgrade-reports/` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-upgrade` Step 4) | — | — | — |
+| `{upgrade_reports}` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-upgrade` Step 4) | — | — | — |
+| PARA containers (`{projects}`/`{areas}` container directories) | exempt — human-curated territory, outside the decay verbs' jurisdiction; a `closed`/`retired` container archives **whole** to `{archive}` mirroring its source path (the archive-structure rule, *The three layers*); `record.md` is append-shaped but human-territory — its bound is the container's own close, not a wire | — | — | — |
 | `{upgrade_ledger}`, `{overlays}` (incl. `.skill-manifest.sanctioned`, the manifest's sanction record), `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / one line per sanctioned migration edit / rare wire edits); their append-only declarations stand | — | — | — |
 | `{archive}` | exempt by definition — cold storage, outside every live-read enumeration; git-tracked, readable markdown | — | — | — |
 
@@ -359,4 +366,4 @@ The distinction that makes this load-bearing: machine transcription does not onl
 - `wiki-index.md` — the index structure: categories, the canonical row format, and the pinned source-count definition
 - `wiki-supersession.md` — how knowledge change stays visible
 - `wiki-consolidation.md` — the near-duplicate merge discipline
-- `extraction.md` — shaping wiki knowledge into PARA deliverables
+- `extraction.md` — the PARA-layer reference: shaping wiki knowledge into PARA deliverables, plus the container schema (*PARA containers*)

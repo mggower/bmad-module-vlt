@@ -1,6 +1,6 @@
 ---
 name: vlt-dispatch
-depends_on: ["consult@1", "spec@2", "frontmatter@11"]
+depends_on: ["consult@1", "spec@2", "frontmatter@12"]
 description: The vault's partner communication bus — one routing record with a drain, four modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner pointer (a handoff doc, or a doc-less ask/answer/deliver); `consult` asks another partner a question synchronously and returns its attributed answer now; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', when a partner hands off a doc to another partner, or when a partner needs another partner's domain to finish its current move. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
 ---
 

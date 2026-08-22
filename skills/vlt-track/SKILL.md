@@ -1,7 +1,7 @@
 ---
 name: vlt-track
 description: Run a personalized, evidence-grounded longitudinal loop — design a protocol, log progress, review and adjust over weeks. The shared hand any vertical partner uses to run a program (a dog's training, a body's recomposition, …); the calling partner supplies the loop profile and the voice. Reads the wiki for method, keeps the working record in the agent zone, and writes the polished protocol to a PARA area via personalized-extraction discipline.
-depends_on: ["extraction@3", "wiki-supersession@2"]
+depends_on: ["extraction@4", "wiki-supersession@2"]
 ---
 
 # vlt-track
@@ -18,7 +18,7 @@ It is **persona-neutral and profile-driven** by design — *one verb, many subje
 The loop touches two layers, by design (the maturity split every vertical partner holds):
 
 - **The working record lives in the agent zone** — the profile's *agent-zone root* holds the running progress log(s) and any not-yet-polished drafts. This is partner-operational data (like research notes and session logs), written and maintained by the partner, read freely by the user.
-- **The polished protocol lives in PARA** — the profile's *PARA target* holds the curated, human-facing deliverable, written via **personalized-extraction discipline** (see `{conventions}/extraction.md`, *Personalized extraction*). Its `sources:` cite **only the wiki pages** that supply the method (the hard, load-bearing invariant — every method claim traces to a wiki page), and a **separate** `personalization_sources:` field cites the agent-zone log(s) that supply the subject's lived state (situation, not fact). PARA is still written **only through extraction** — this widens what an extraction may cite *for personalization*, it does not open a second write-path.
+- **The polished protocol lives in PARA** — the profile's *PARA target* holds the curated, human-facing deliverable, written via **personalized-extraction discipline** (see `{conventions}/extraction.md`, *Personalized extraction*). Its `sources:` cite **only the wiki pages** that supply the method (the hard, load-bearing invariant — every method claim traces to a wiki page), and a **separate** `personalization_sources:` field cites the agent-zone log(s) that supply the subject's lived state (situation, not fact). PARA **artifacts** are still written only through extraction (`{conventions}/extraction.md`; the operating contract's Layer 3 names the surfaces) — this widens what an extraction may cite *for personalization*, it does not add an artifact write-path.
 
 Conceptual domain knowledge (how a method works, the evidence behind it) is **not** written here — that is wiki knowledge, and it reaches the wiki through the Researcher (`vlt-research`) and the Librarian (`vlt-ingest`). This skill consumes that knowledge; it does not author it. The personalized-extraction allowance this skill performs is **opt-in per the calling partner's gated mint** (see `{conventions}/extraction.md`, *Personalized extraction*): a domain op uses the widening only when its own mint explicitly extended that section to name it. The bound is **not** a standing license; it is the hard invariant, enforced at write-time here and by `vlt-lint`'s personalized-extraction check — **every method/general claim traces to a wiki page in `sources:`**, and `personalization_sources:` carries the subject's lived state, never method.
 

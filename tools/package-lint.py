@@ -440,6 +440,9 @@ def check_durability_nets(root: Path) -> list:
     answers omitting the variable). FAIL unless the variable survives
     byte-identical and the merge report names the zombie in `removed` and
     the variable in `preserved` — A7-2's reproduction table as a gate.
+    Probe 1b (build B10-10): a module default key absent from the existing
+    map must be ADDED by the key-level merge — existing keys byte-identical
+    plus the new key, named in `structure_keys_added` — the C6-b fix's gate.
 
     Probe 2 — manifest structural scope: compare the script's computed
     manifest for this repo's own skills tree (source == live) against this
@@ -493,6 +496,37 @@ def check_durability_nets(root: Path) -> list:
             failures.append(
                 "durability net (merge-config): merge report does not name the "
                 "dropped zombie key in 'removed' — a removal went silent"
+            )
+        # Probe 1b — structure-key injection (build B10-10, the C6-b fix):
+        # a key newly added to module.yaml's default must reach a preserved
+        # map, with every existing key (vault-grown local_zone included)
+        # byte-identical and the report naming the addition.
+        module_yaml_new_key = {
+            "code": "vlt",
+            "name": "Vault",
+            "module_version": "9.9.9",
+            "vault_structure": {
+                "prompt": "override paths?",
+                "default": {"wiki": "_agent/wiki/", "projects": "projects/"},
+            },
+        }
+        config2, report2 = mc.merge_config(existing, module_yaml_new_key, answers)
+        merged_map = config2["vlt"].get("vault_structure")
+        expected_map = dict(variable_map)
+        expected_map["projects"] = "projects/"
+        if merged_map != expected_map:
+            failures.append(
+                "durability net (merge-config): a newly shipped default key "
+                "never reaches an existing vault's map, or an existing key "
+                f"was clobbered — got {merged_map!r}, expected {expected_map!r} "
+                "(the C6-b key-level merge is broken)"
+            )
+        if report2.get("structure_keys_added") != ["projects"]:
+            failures.append(
+                "durability net (merge-config): merge report does not name the "
+                "injected key in 'structure_keys_added' — got "
+                f"{report2.get('structure_keys_added')!r} (a key addition went "
+                "unreported)"
             )
     except Exception as e:
         failures.append(

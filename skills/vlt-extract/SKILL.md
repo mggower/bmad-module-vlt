@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'build a resource doc on X', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/, areas/, or resources/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@3", "wiki-supersession@2", "frontmatter@11", "write-verification@3"]
+depends_on: ["extraction@4", "wiki-supersession@2", "frontmatter@12", "write-verification@3"]
 ---
 
 # vlt-extract
@@ -10,13 +10,13 @@ depends_on: ["extraction@3", "wiki-supersession@2", "frontmatter@11", "write-ver
 
 Extraction turns wiki knowledge into a PARA artifact — a curated, human-oriented deliverable filed into `projects/`, `areas/`, or `resources/`. The wiki stays the source of truth; the artifact is a synthesis shaped for a specific reader at a specific moment. It reaches the wiki **only** (no web, no research notes, no source files — extracting from anything but the curated wiki bypasses the curation that makes it trustworthy). The output is a deliverable, not a transcript of wiki content. Runs interactively (the interview shapes the artifact) or headless ("extract a resource doc on X").
 
-PARA folders are human territory; **extraction is the one sanctioned way a partner writes into them** — this skill does not touch canonical wiki pages.
+PARA is the human-curated layer, its boundary drawn by authorship-honesty; **extraction is the sanctioned artifact path into it** (the operating contract's Layer 3 names one other surface — container maintenance appends — which is not this skill's) — this skill does not touch canonical wiki pages.
 
 ## On Activation
 
 Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/config.user.yaml` (root level and the `vlt` section). If the module isn't set up (no `vlt` config or `_meta` governance in this project), tell the user `vlt-setup` can configure it.
 
-The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets are `projects/`, `areas/`, `resources/` at the project root. Note the **active partner** for the log tag.
+The vault is this project — resolve paths relative to `{project-root}` through the `vault_structure` map (override wins, else the shipped default). Logical names used (default, relative to the project root): `index` → `_agent/wiki/index.md`, `wiki` → `_agent/wiki/`, `log` → `_agent/log.md`, `archive` → `_archive/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays); the PARA targets resolve through the map — `projects` → `projects/`, `areas` → `areas/`, `resources` → `resources/`. Note the **active partner** for the log tag.
 
 **Read the conventions you will obey** before writing: `{conventions}/extraction.md` (trust ladder, filename rules, `type:` mapping, re-extraction supersession) and `{conventions}/wiki-supersession.md` (the inline `[!superseded]` callout shape) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*).
 
@@ -57,6 +57,8 @@ Prompt the user — no default:
 
 If unsure: **`projects/`** = discrete work with a defined outcome/"done" state; **`areas/`** = ongoing commitments without an end (dashboards, standing references); **`resources/`** = reference material not tied to a commitment (primers, how-tos). The choice sets both the path and the `type:`.
 
+**Container-aware filing:** if the target layer holds **containers** (`{projects}/<slug>/` or `{areas}/<slug>/` directories — the operating contract, *PARA containers*), also ask **which container the artifact belongs to, or none** — an artifact belonging to a container files into that container's directory (`{projects}/<slug>/<artifact>.md`); a loose artifact at the layer root stays legal.
+
 ## Step 5: Filename and near-duplicate check
 
 Propose a kebab-case slug from the topic (no datetime prefix — extracted artifacts have stable identity). Before writing, check the target folder for an overlapping artifact (`ls <target>/`), comparing the *concept* not just the slug string — leading noun, synonym, lexical or topic overlap.
@@ -76,7 +78,7 @@ title: <human-readable title>
 author: hybrid
 trust: reviewed                        # confirm by depth — see below
 topic: <subject area>
-status: <in-progress for projects | ongoing for areas | complete for resources>
+status: <per-type enum ({conventions}/extraction.md) — project: draft|in-progress|complete; area: ongoing|retired; resource: complete>
 sources:
   - <wiki page 1>
   - <wiki page 2>
