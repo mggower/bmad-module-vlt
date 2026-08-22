@@ -44,7 +44,8 @@ Partners and operation skills **never hardcode a vault sub-path.** Every locatio
 | `upgrade_ledger` | `_agent/upgrade-ledger.md`             | Append-only standing record of how far this vault has drifted from stock |
 | `archive`     | `_archive/`                               | Retired notes, mirroring their source path                  |
 | `tripwires`   | `_agent/tripwires.yaml`                   | The enforcement kit's wire registry (vault-grown after seeding; written only at human-gated moments) |
-| `lint_reports`| `_agent/lint-reports/`                    | Dated, append-only persisted lint report blocks (`vlt-lint` Step 6)   |
+| `lint_reports`| `_agent/lint-reports/`                    | Dated, append-only persisted lint reports (`vlt-lint` Step 6)   |
+| `_agent/upgrade-reports/` *(literal path)* | `_agent/upgrade-reports/`  | Dated, append-only persisted upgrade Step-4 reports (`vlt-upgrade` Step 4) — *not yet a `vault_structure` key: key-minting waits on the merge-config `vault_structure` fix; the build that mints the key rewrites this clause in the same act* |
 
 > The **path defaults** in the middle column mirror `module.yaml`'s `vault_structure.default` — that map is the single source of truth for path *values* (don't hand-transcribe it; see `vlt-setup`). This table is the **semantic** home: the "What lives there" column is the definitional documentation a partner or a generic agent reads to understand the zone.
 
@@ -312,10 +313,11 @@ Every operational file class carries its exit — a decay verb, or an exemption 
 | `{conventions}`, `{personas}`, `{contract}` | exempt — shipped governance, refreshed by upgrade, never accumulating | — | — | — |
 | `{sessions}` | exempt — naturally segmented per sitting (the foldering pattern the rotate verb mirrors); never whole-dir wake-read; ad-hoc retirement to `{archive}` remains available | — | — | — |
 | `{lint_reports}` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-lint` Step 6) | — | — | — |
+| `_agent/upgrade-reports/` | exempt — dated per-run files, never wake-read (disk-side, not wake-side mass); retention remains the human's (`vlt-upgrade` Step 4) | — | — | — |
 | `{upgrade_ledger}`, `{overlays}` (incl. `.skill-manifest.sanctioned`, the manifest's sanction record), `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / one line per sanctioned migration edit / rare wire edits); their append-only declarations stand | — | — | — |
 | `{archive}` | exempt by definition — cold storage, outside every live-read enumeration; git-tracked, readable markdown | — | — | — |
 
-A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract.
+A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract. A **structured report-emitting** verb persists its report verbatim as a dated plain `.yaml` file under its report dir, declared in these tables in the act that creates it (retention-at-birth); report dirs are walker-exempt **by their rows here — never by a separate list**; legacy `.md` report files predating this rule stay legal, no backfill.
 
 ## How to write
 

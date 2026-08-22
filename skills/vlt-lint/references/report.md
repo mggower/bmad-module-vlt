@@ -1,6 +1,6 @@
 # vlt-lint — reference: Step 5 — the structured report (+ Tips)
 
-Read on reaching Step 5. The fenced report block is strict YAML as a whole — keep it parsing whole.
+Read on reaching Step 5. The fenced report block is strict YAML as a whole — emitted fenced in-session and **persisted as the plain `.yaml` file** (`vlt-lint` Step 6) — same content, no fence; keep it parsing whole in both homes.
 
 ## Step 5: Emit the structured report
 
@@ -58,7 +58,7 @@ flag_for_human:
   spec_candidate_standing: <N standing candidate(s) — previously filed, open backlog item, signal unchanged: <paths>>   # the quiet line — derived from {backlog} open items, never prior reports; renders (denominated zero included) whenever _agent/handoffs/ is non-empty; no line when it is empty
   thin_pages: [<page>, ...]
 opportunities:
-  high_value_gaps: [<concept>, ...]     # full mode
+  high_value_gaps: unmeasured     # no producer exists (the fan-out computes no gap candidates) — render the literal, never [] and never omit: an empty list would claim "measured, none found"
   near_duplicates: [<page-a + page-b (signal)>, ...]
   source_gaps: [<topic — source type that would help>, ...]
 fixes_applied: [<summary>, ...]

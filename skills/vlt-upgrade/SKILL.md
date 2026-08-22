@@ -88,7 +88,7 @@ Write this snapshot to a working note and **append the opening half of a ledger 
 
 ## Step 4 — Post-flight divergence report
 
-Report in a parseable summary so the user sees exactly what changed and what needs their attention:
+Report in a parseable summary so the user sees exactly what changed and what needs their attention. **Compose the report by walking the schema block below top-to-bottom and rendering every key in order — never from memory**; a key with nothing to report renders its empty form (the per-line never-omit contracts stand).
 
 ```yaml
 upgrade:
@@ -117,6 +117,10 @@ upgrade:
 
 `convention_adoption` reads the **adoption axis** (`{conventions}/frontmatter.md`, *Adoption axis*): for every `{conventions}/*.md`, read `adoption_first_instance:` — a dated reference reports **adopted**; an explicit `null` reports **declared, no first instance yet (created `YYYY-MM-DD` — N days)**, the date read from the convention file's own `created:` frontmatter and reported in that vocabulary — `created:` is a **proxy** for the axis's declaration date (exact while an axis is born with its file; stated as a proxy per the operating contract's honest-reporting rule) — so a long-lived null is readable at the only cadence that reports the axis; the key's total absence reports **axis not declared** (this report cannot tell that case from an unexercised one, which is why the three values are distinct). Per the operating contract's honest-reporting rule, the line is **never omitted when empty** — an absent line would read as "all adopted". It is a **report, never a gate**: adoption is an absence, not a violation, so it can never block or fail an upgrade.
 
+**Persist the report:** write the Step-4 report block **verbatim** to `_agent/upgrade-reports/YYYY-MM-DD-HHMM-upgrade.yaml` — plain YAML, no fence, no wrapper. Create the directory lazily on first persist (the `{upgrade_ledger}` precedent). Append-only — never edit, prune, or re-read-to-rewrite past reports; retention is the human's — upgrade reports are never wake-read; the operating contract's *Decay contracts* table records the exemption. The home is a **literal path, not a structure-map key** — see the contract's zone-map row for the interim clause.
+
+**Verify the persist:** parse the persisted `.yaml` (it must parse whole) and verify its top-level key set matches the schema block above; a missing or extra key is fixed and re-persisted before the report is presented — the report is not done until the file verifies.
+
 ## Step 5 — The standing divergence ledger
 
 `{upgrade_ledger}` (default `_agent/upgrade-ledger.md`) is an **append-only standing record** of how far this vault has drifted from stock — read it between upgrades to see the vault's evolution over time. It is agent-zone (durable) and **never rewritten**: each upgrade appends one dated block. Create it lazily on first upgrade with a title line, then append:
@@ -136,6 +140,7 @@ _How this vault has evolved from stock, one upgrade at a time. Append-only — f
 - Governance divergence: <list or none>
 - Convention adoption: <list>        # per-convention: adopted <ref> | declared, no first instance yet (created YYYY-MM-DD — N days) | axis not declared
 - Notes: <anything the user should remember — name the report's local_conventions_intact, vault_writable_collisions, and manifest_write_divergence entries here when non-empty>
+- Report: <the persisted _agent/upgrade-reports/ filename | none (pre-persist upgrade)>
 ```
 
 Every line above is required in every entry — a line with nothing to report says "none" (the adoption line uses its three-valued read, Step 4); omitting a line entirely is the failure the Verify completeness check exists to catch.
