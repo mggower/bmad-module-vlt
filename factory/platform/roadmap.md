@@ -223,24 +223,6 @@ argument. See Out of scope for the three deferred and why.)*
 touching `skills/vlt-*` or `.claude-plugin/` should fail `package-lint`"* — is the same
 family as check (d) and should land in this item's tranche rather than stay loose.
 
-### P-9 — the publication act — **queued**
-
-*(Same block as P-7.)*
-
-**Brief-lite:**
-- **Intent:** make the factory public, cleanly, in one commit against an already-tidy structure.
-- **Sites:** the ~30-file scrub to `{field-vault}` placeholders; `README.md` gains a short
-  "how this project evolves"; a `factory/method/` index; the public remote push; CLAUDE.md's
-  "Git & publishing" section rewritten (its gitignored-artifacts list is now wrong).
-- **Verification:** grepping every tracked file for the owner's username, `/Users/` paths,
-  or the field vault's real name returns nothing (the only tolerated hits are meta-references
-  that *name* the scrub tokens, rewritten to `{owner}`-style placeholders, and
-  `.claude-plugin/marketplace.json`'s deliberate public author email); **the 30-second
-  stranger test** — README says *what vlt is*, the tracker says *how it evolves*, the open
-  cycle says *what's happening now*.
-- **Out of scope:** the GitHub mapping (P-10); publishing a demo vault; rewriting git history.
-- **Done-when:** `main` carries the factory publicly and the stranger test passes.
-
 ### P-10 — the loop, visible — **queued**
 
 *(Same block as P-7.)*
@@ -455,3 +437,42 @@ building.)*
   private remote contains the factory.
 - **Out of scope:** any rename, any move, any public push, any scrub.
 - **Done-when:** the full factory tree is committed and mirrored to a private remote.
+
+
+### P-9 — the publication act — **CLOSED 2026-08-23 (done-when met on the push)**
+
+**Record (2026-08-23):** the 30-file scrub landed (`{field-vault}`/`{owner}`/`~`
+placeholders; tolerated remnants: meta-references naming the scrub tokens, and
+marketplace.json's deliberate public author email); README gained "How this project
+evolves" + a truthful Notable-files list; `factory/method/README.md` indexes the loop's
+homes; CLAUDE.md's Git & publishing rewritten to the factory-public posture. Verified:
+zero personal-token hits across all tracked files, factory-paths-check PASS (107 refs),
+package-lint A/B/C/E PASS at 0.14.0, stranger test walked (README = what, tracker =
+how it evolves, `factory/CYCLE` = now). **Push shape — owner-ruled at publish:** the
+P-7..P-9 commits were **squashed to one publication commit `b785abd`** parented on the
+v0.14.0 release commit, so public history carries no pre-scrub file states; the full
+build-by-build history survives on the private mirror's `p7-p9-history` branch.
+**Commit provenance note:** the per-item hashes cited in P-7/P-8's records (`bd605aa`,
+`a9d8403`, `8ef152b`, `e8c92ae`) live on that private branch, not on public `main`.
+**Process note:** ran from the queue while WIP sat 2/2 (P-2 open, P-8 built-awaiting) —
+owner-directed and seam-bound; flagged here for the record rather than papered over.
+*(vlt-sayari name: flagged at publish, owner chose to publish without scrubbing it —
+it names no path.)*
+
+**Original brief-lite (as adopted):**
+
+*(Same block as P-7.)*
+
+**Brief-lite:**
+- **Intent:** make the factory public, cleanly, in one commit against an already-tidy structure.
+- **Sites:** the ~30-file scrub to `{field-vault}` placeholders; `README.md` gains a short
+  "how this project evolves"; a `factory/method/` index; the public remote push; CLAUDE.md's
+  "Git & publishing" section rewritten (its gitignored-artifacts list is now wrong).
+- **Verification:** grepping every tracked file for the owner's username, `/Users/` paths,
+  or the field vault's real name returns nothing (the only tolerated hits are meta-references
+  that *name* the scrub tokens, rewritten to `{owner}`-style placeholders, and
+  `.claude-plugin/marketplace.json`'s deliberate public author email); **the 30-second
+  stranger test** — README says *what vlt is*, the tracker says *how it evolves*, the open
+  cycle says *what's happening now*.
+- **Out of scope:** the GitHub mapping (P-10); publishing a demo vault; rewriting git history.
+- **Done-when:** `main` carries the factory publicly and the stranger test passes.
