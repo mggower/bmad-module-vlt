@@ -223,9 +223,25 @@ argument. See Out of scope for the three deferred and why.)*
 touching `skills/vlt-*` or `.claude-plugin/` should fail `package-lint`"* — is the same
 family as check (d) and should land in this item's tranche rather than stay loose.
 
-### P-10 — the loop, visible — **queued**
+### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 11's milestone + build issues generated, not typed)**
 
-*(Same block as P-7.)*
+**Build record (2026-08-23):** `issue-triage` gained its second mode — **'sync the
+tracker'**, mechanics single-homed at the new
+`.claude/skills/issue-triage/references/tracker-sync.md`: milestone `Cycle NN — <Title>`
+per open cycle, issue `B<NN>-<i> — <slug>` per ruled build, one `stage:` label per
+lifecycle position (7-rung ladder derived from the map's observables), the acceptance
+ledger as a task list with `check:ship-verifiable`/`check:field-contingent` labels,
+inherited debt re-milestoned never recreated. **One direction writes** (disk → tracker);
+the rail population is disjoint by construction (factory-authored `B<NN>-<i>` titles vs
+filer-authored `vault-filed`) — elimination, no precedence statement. Every apply passes
+the same owner batch gate as triage. Bootstrapped live: all 9 `stage:`/`check:` labels
+on the tracker (documented in the reference, config.yml-style, NOT in the field
+contract); pinned issue #9 "How this project evolves"; `.github/PULL_REQUEST_TEMPLATE.md`
+(build ID + brief + build-issue links). factory-paths-check PASS (110 refs, 20 files).
+**Process note:** third queue-jump while WIP reads 2/2 (P-2 open, P-8 built-awaiting) —
+owner-directed, seam-bound, flagged as before.
+
+*(Original adoption block: same as P-7.)*
 
 **Brief-lite:**
 - **Intent:** stop the roadmap doing by hand what a milestone and a label set do for free.

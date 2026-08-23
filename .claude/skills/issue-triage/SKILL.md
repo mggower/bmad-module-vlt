@@ -1,6 +1,6 @@
 ---
 name: issue-triage
-description: Grounds open rail issues against module source and rules them accepted or declined in one owner-approved batch. Use when the user says 'run issue triage' or 'triage the tracker'.
+description: Grounds open rail issues against module source and rules them accepted or declined in one owner-approved batch; also projects the open cycle's roadmap onto the tracker as milestone + build issues + stage labels (one-way sync). Use when the user says 'run issue triage', 'triage the tracker', or 'sync the tracker'.
 ---
 
 # issue-triage
@@ -116,10 +116,23 @@ sweeps, and any paste-ready residue. **Next lifecycle move** (the map's routing
 contract): accepted issues route to `run inbox-capture` (the intake's trigger is now
 armed); an all-declined or empty run routes to the map's prevailing position.
 
+## Tracker sync mode ('sync the tracker')
+
+The skill's second mode, mechanics single-homed at `references/tracker-sync.md`: project
+the open cycle's roadmap onto the tracker — milestone `Cycle NN — <Title>`, one issue
+per ruled build (`B<NN>-<i> — <slug>`), a `stage:` label per lifecycle position, the
+acceptance ledger as a task list with `check:` labels. **One direction writes** (disk →
+tracker; the roadmap is never edited from tracker state), the sync touches only objects
+it owns (rail issues are a disjoint population — see the reference), and every apply
+passes the same owner batch gate as triage. Pre-flight, transport, and report discipline
+are this skill's own, unchanged.
+
 ## References
 
 - `skills/vlt-feedback/references/field-contract.md` — the single home of labels, state
   flow, payload fields, and the evolution rule. This skill derives from it.
+- `references/tracker-sync.md` — the sync mode's mechanics and the `stage:`/`check:`
+  label set (single home; not field-contract labels).
 - `.claude/skills/inbox-capture/references/github-intake.md` — the downstream consumer of
   an `accept`; materialization and the `captured` transition are its, never this skill's.
 - `.claude/skills/vlt-lifecycle.md` — position and routing.
