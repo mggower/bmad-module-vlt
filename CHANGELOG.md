@@ -5,6 +5,24 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.14.0 — 2026-08-23
+
+**Arc 10** — the signal-integrity arc, second release.
+
+- **B10-6 — the report contract:** structured reports persist verbatim as dated plain-`.yaml` files under walker-exempt report dirs — the upgrade post-flight report gains a durable home, schema-derived emission makes mandatory report lines unskippable, and the unfillable `high_value_gaps` slot reports `unmeasured` honestly.
+- **B10-7 — the rail amendment channel:** a captured issue stops being write-only — the owner-applied `amended` label routes post-capture comments into the factory, the triage verdict vocabulary becomes queryable labels, and the issue forms arrive triage-ready.
+- **B10-8 — the dependency record:** a vault ports but its toolchain doesn't — the module declares the machine tools its shipped skills assume, capabilities record theirs at birth, and setup/upgrade probe the declared set at arrival (report, never gate).
+- **B10-9 — the contract overlay:** the operating contract gains its vault-local overlay, closing the one durable-host gap in the governance surface.
+- **B10-10 — the PARA container model and parameterization:** Layer 3 re-drawn by authorship, shipping the container the field already built twice.
+- **B10-11 — the wiki-move capstone:** the wiki moves into human-browsable space and `resources/` retires as an extraction target — one operation at true cost.
+- **B10-12 — the lint-full execution repair:** the full-mode wiki sweep runs again, and can no longer lie when it does not.
+
+**A known issue in v0.13.0, fixed here — full-mode `vlt-lint` was not executable.** On v0.13.0 the full-mode wiki sweep's page-scan schema crossed a fan-out size ceiling, so effectively every scanner agent died; worse, the total failure rendered as a **clean-looking empty report** rather than an error. Standard and scoped lint modes were unaffected. If you ran a full-mode sweep on v0.13.0, treat its output as void — read any such report against its `files_checked:` line, and do not trust a shortfall that no coverage cap explains. B10-12 repairs execution and makes degradation loud: a sweep below majority coverage now returns an error and a dated failed-run record instead of a report, partial coverage is capped and reason-partitioned, and inbound-derived slots are suppressed rather than silently wrong.
+
+**Upgrading a vault with a wiki:** B10-11 moves the default wiki home to `resources/wiki/`. The upgrade offers the relocation and **never moves anything on its own** — declining writes explicit `vault_structure` overrides so every consumer keeps resolving correctly, and wikilinks are slug-based, so the link graph survives the move either way.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `.github/ISSUE_TEMPLATE`, `README.md`, `skills/vlt-agent-creative`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-feedback`, `skills/vlt-groom`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-query`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-track`, `skills/vlt-upgrade`, `tools/package-lint.py`, `tools/test-package-lint.py`
+
 ## v0.13.0 — 2026-08-21
 
 **Arc 10** — the signal-integrity arc, first release.
