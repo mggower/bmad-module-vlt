@@ -11,12 +11,15 @@ overlays, capabilities) as module source.
 ## The evolution lifecycle (the loop this repo runs on)
 
 1. **Field notes arrive** — live vaults file defects/patterns/candidates as dated markdown
-   into `inbox/` (see `inbox/README.md` for the filing shape).
-2. **Capture** — fold uncaptured filings into the current arc roadmap in `skills/reports/`
-   (`inbox-evolution-arc*-roadmap.md`). **Ground every filing claim against current module
-   source before capturing it** — filings regularly mis-attribute provenance or guess wrong
-   fixes; grounding corrections belong in the capture. Closed arc roadmaps live in
-   `skills/reports/archive/` — read them for history, **never append to them**.
+   into `factory/inbox/` (see `factory/inbox/README.md` for the filing shape).
+2. **Capture** — fold uncaptured filings into the open cycle's roadmap at
+   `factory/cycles/<NN-slug>/roadmap.md` (the open cycle is named by `factory/CYCLE`;
+   capture opens the next cycle when none is open). **Ground every filing claim against
+   current module source before capturing it** — filings regularly mis-attribute
+   provenance or guess wrong fixes; grounding corrections belong in the capture. Closed
+   cycles' roadmaps stay in their own `factory/cycles/` directories — read them for
+   history, **never append to them**. (Cycles 1–10 were called arcs —
+   `factory/method/cycles-were-arcs.md`.)
 3. **Ideate** — per-build, owner-steered (grouping, order, scope rulings). An external
    unknown gets a **spike before the brief is written** — read the actual external source
    rather than reasoning from its docs or from memory.
@@ -26,25 +29,27 @@ overlays, capabilities) as module source.
    amendments are applied to the roadmap in-session, disputes are owner-ruled live with
    dissents on record. Skipping is an explicit owner waiver in the roadmap, never a
    silence — `build-brief` gates on the record.
-5. **Brief** — each build gets `skills/reports/build-N-<slug>.md` (scope, exact sites with
-   `file:line` grounding, out-of-scope dispositions, verification + acceptance checks).
-   Append its live-acceptance checks to the arc roadmap's ledger.
+5. **Brief** — each build gets `factory/cycles/<NN-slug>/briefs/build-N-<slug>.md`
+   (scope, exact sites with `file:line` grounding, out-of-scope dispositions,
+   verification + acceptance checks). Append its live-acceptance checks to the cycle
+   roadmap's ledger.
 6. **Build** — implement the brief; **unit-verify at rest** (greps for cross-file agreement,
    real script runs against temp fixtures, end-to-end against real external code where
    possible). Record deliberate deviations from the brief in its `status:`.
-7. **Release** — work on a branch (`arcN-vX.Y.Z`), one commit per build; at release bump
+7. **Release** — work on a branch (`cycleN-vX.Y.Z`), one commit per build; at release bump
    **both** version strings (`.claude-plugin/marketplace.json` `"version"` and
    `skills/vlt-setup/assets/module.yaml` `module_version`). **Before tagging, run
    `uv run tools/package-lint.py --expect-version X.Y.Z` — tag only on exit 0**, and
    record its PASS summary line in the release commit message (skipping the lint is
    then visible in history). Then ff-merge to `main`, tag `vX.Y.Z`, push main + tag.
 8. **Live acceptance** — batched to the next `vlt-upgrade` run on a live vault (the owner
-   runs it). Defects found there file back into `inbox/` — the loop closes. A filing's
-   inbox file moves to `inbox/archive/` once its build has shipped **and** its own clauses
-   have passed acceptance — the exact criterion (and its bound) lives in
-   `arc-closeout`'s Stage 5; don't restate it here. Acceptance checks are tagged
-   **ship-verifiable** or **field-contingent** at brief time, and **only ship-verifiable
-   checks gate arc closeout** — see `build-brief` §9 and `arc-closeout` Stage 1.
+   runs it). Defects found there file back into `factory/inbox/` — the loop closes. A
+   filing's inbox file moves to its cycle's `filings/` directory once its build has
+   shipped **and** its own clauses have passed acceptance — the exact criterion (and its
+   bound) lives in `cycle-closeout`'s Stage 5; don't restate it here. Acceptance checks
+   are tagged **ship-verifiable** or **field-contingent** at brief time, and **only
+   ship-verifiable checks gate cycle closeout** — see `build-brief` §9 and
+   `cycle-closeout` Stage 1.
 
 ## Standing rules (violations here have bitten before)
 
@@ -84,14 +89,21 @@ overlays, capabilities) as module source.
 
 ## Git & publishing
 
-- This is a public repo. Dev artifacts are gitignored and stay local: `inbox/`,
-  `skills/reports/`, `docs/`, `.claude/`, `_bmad/`, `CLAUDE.local.md`. A release commit
-  therefore contains only the shipped surface (`skills/`, `.claude-plugin/`, `tools/`,
-  `.github/`, README, LICENSE — `tools/` is tracked and public as documentation of the
-  release contract, but is not part of the own-the-apply copy surface; `.github/` is the
-  repo-side half of the feedback rail's field contract, likewise tracked and public but
-  never copied into vaults). Shipped content (examples, templates, docs) must carry **no personal or
-  vault-local information** — scrub before it lands in `skills/`.
+- This is a public repo, **factory included** (P-9, 2026-08-23): the shipped surface
+  (`skills/`, `.claude-plugin/`), the factory record (`factory/`, the 9 factory skills
+  under `.claude/skills/`), `tools/`, and `.github/` are all tracked and public.
+  `tools/` documents the release contract but is not part of the own-the-apply copy
+  surface; `.github/` is the repo-side half of the feedback rail's field contract,
+  likewise never copied into vaults. Still gitignored and local-only:
+  `.claude/skills/bmad-*` (upstream's), `_bmad/`, `_output/`, `.vscode/`,
+  `CLAUDE.local.md`, `**/.decision-log.md`. Remotes: `origin` (public) and `private`
+  (mirror; kept as an off-machine backup).
+- **No personal or vault-local information anywhere tracked** — that now covers the
+  factory, not just `skills/`. Machine paths, the owner's username, and the field
+  vault's real path stay out (placeholders like `{field-vault}`, `{owner}`, `~` in
+  their stead); machine/personal specifics live only in `CLAUDE.local.md`. The one
+  deliberate exception: the author email in `.claude-plugin/marketplace.json` (public
+  plugin metadata).
 - **Worked examples in shipped skills use placeholder paths**
   (`_agent/specs/{date}-{owner}-to-{consumer}-{slug}.md` style), never a specific install's
   artifact paths — a vault-side file move otherwise strands the module's own documentation

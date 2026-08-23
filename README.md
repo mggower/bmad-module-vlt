@@ -217,9 +217,26 @@ This repo is **module development**. A *vault* is whatever folder holds your kno
 `~/my-vault`); you register its path during `/vlt-setup`, and the module provisions it. Install
 Vault into each vault you want a cast for; each keeps its own wiki, partner threads, and backlog.
 
+## How this project evolves
+
+The module is grown by a **field-driven evolution loop**, and the whole factory is public in this
+repo. Live vaults file friction and defects — as GitHub issues on this repo's tracker (the
+**feedback rail**), or directly into `factory/inbox/`. Filings are grounded against module source
+and folded into a **cycle**: one turn of the loop, with its own roadmap, owner-ruled scope, build
+briefs, a release, and a live-acceptance ledger that gates its closeout. Every closed cycle sits
+in full under `factory/cycles/` — roadmaps, briefs, and the filings that drove them — so *why any
+rule exists* is traceable to the field event that demanded it.
+
+- `factory/CYCLE` names the cycle currently open (or `none` between cycles).
+- `factory/method/` documents the loop itself; `.claude/skills/` holds the factory's own
+  lifecycle skills (capture, brief, release, closeout…) — the tooling that runs the loop.
+- Found a defect in a live vault? Open an issue — the rail's contract labels it, triage grounds
+  it, and you can watch it become a build in the next cycle.
+
 ## Notable files
 
 - `.claude-plugin/marketplace.json` — the plugin manifest; lists the 16 `vlt-*` skills the installer copies.
 - `skills/` — the 16 `vlt-*` skills (the installable module).
 - `skills/vlt-setup/assets/governance/_meta/` — the canonical governance bundle (pruned conventions, review-lens personas, operating contract) that `vlt-setup` installs into a vault. Edit the bundle here (single source).
-- `skills/reports/` — module-development build briefs and the evolution roadmap (how the cast itself was grown).
+- `factory/` — the evolution loop's working record: `cycles/` (one directory per cycle: roadmap, briefs, filings), `inbox/` (open field filings), `platform/` (the off-cadence factory-tooling ledger), `method/` (how the loop works).
+- `tools/` — the release contract's checks (`package-lint.py` and friends), documentation-grade and runnable.

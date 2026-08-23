@@ -6,15 +6,11 @@ _output/
 __pycache__/
 *.pyc
 
-# Local-only: BMad framework tooling + installer/editor config (not the product)
-.claude/
+# Upstream BMad tooling (installed, not ours — defects file upstream) + local editor/session config
+.claude/skills/bmad-*
+.claude/settings.local.json
 _bmad/
 .vscode/
-
-# Local-only: internal dev/trial artifacts (reference the owner's private vault)
-inbox/
-docs/
-skills/reports/
 
 # Local-only: per-skill mint decision logs (internal dev records; some name the dev vault)
 **/.decision-log.md
