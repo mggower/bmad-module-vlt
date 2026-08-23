@@ -105,30 +105,30 @@ const PAGE_SCAN = {
   required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_valid', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
   properties: {
     slug: { type: 'string' },
-    available: { type: 'boolean', description: 'false if the page file could not be read — then it is dropped from the reduce' },
-    title: { type: 'string', description: "the page's frontmatter title value verbatim (empty if absent — an omitted title would silently fall back to slug tokens in the near-dup title signal)" },
-    created: { type: 'string', description: "the page's frontmatter created date (or empty) — the SKILL uses it to gate unattested_write as informational for pre-convention files" },
-    last_updated: { type: 'string', description: "the page's frontmatter last_updated (or empty)" },
+    available: { type: 'boolean', description: 'false if the page file could not be read' },
+    title: { type: 'string', description: "the page's frontmatter title value verbatim (empty if absent)" },
+    created: { type: 'string', description: "the page's frontmatter created date (empty if absent)" },
+    last_updated: { type: 'string', description: "the page's frontmatter last_updated (empty if absent)" },
     verified_by: { type: 'string', description: "the frontmatter verified_by value verbatim (empty if absent)" },
     verified_at: { type: 'string', description: "the frontmatter verified_at value verbatim (empty if absent)" },
-    review_after: { type: 'string', description: "the frontmatter review_after date verbatim (empty if absent — absence = evergreen)" },
-    outbound_links: { type: 'array', items: { type: 'string' }, description: 'the raw [[wikilink]] inner text of every outbound link on this page, verbatim — including any |alias, #anchor, or path prefix; do not normalize' },
-    frontmatter_valid: { type: 'boolean', description: 'frontmatter present and well-formed per frontmatter.md (no key:, sources: parseable)' },
-    category: { type: 'string', description: "the page's frontmatter category: value verbatim (empty string if the field is missing) — validated against the index H2 set in the index pass" },
-    topic_is_list: { type: 'boolean', description: 'true if topic: is a YAML list; false if it is still a delimited string (a / b or a, b) or missing — a frontmatter-drift finding' },
-    summary: { type: 'string', description: 'the frontmatter summary: value verbatim (empty string if the field is absent)' },
+    review_after: { type: 'string', description: "the frontmatter review_after date verbatim (empty if absent)" },
+    outbound_links: { type: 'array', items: { type: 'string' }, description: 'raw [[wikilink]] inner text of every outbound link, verbatim; do not normalize' },
+    frontmatter_valid: { type: 'boolean', description: 'frontmatter present and well-formed' },
+    category: { type: 'string', description: "the frontmatter category: value verbatim (empty if missing)" },
+    topic_is_list: { type: 'boolean', description: 'true if topic: is a YAML list; false if a delimited string or missing' },
+    summary: { type: 'string', description: 'the frontmatter summary: value verbatim (empty if absent)' },
     frontmatter_issue: { type: 'string', description: 'what is wrong if frontmatter_valid is false' },
-    sources_vs_prose: { type: 'string', enum: ['match', 'diverge', 'no_prose_section'], description: 'GAP B — diverge only when the page has BOTH a frontmatter sources: list and a prose Sources section and an entry in one is not traceable in the other; no_prose_section when the page carries no prose Sources section (conformant per write-verification@3 — frontmatter is the source of truth); else match' },
-    sources_vs_prose_detail: { type: 'string', description: "populated only when sources_vs_prose is 'diverge' — what diverges; empty otherwise" },
-    stale_unmarked: { type: 'array', items: { type: 'string' }, description: 'time-bound claims past their shelf life that LACK a [!stale] marker' },
+    sources_vs_prose: { type: 'string', enum: ['match', 'diverge', 'no_prose_section'], description: 'GAP B tri-state (match | diverge | no_prose_section) — apply the prompt Gap B rule, per write-verification@3' },
+    sources_vs_prose_detail: { type: 'string', description: "what diverges when sources_vs_prose is 'diverge'; empty otherwise" },
+    stale_unmarked: { type: 'array', items: { type: 'string' }, description: 'time-bound claims past shelf life lacking a [!stale] marker' },
     within_page_contradictions: { type: 'array', items: { type: 'string' }, description: 'incompatible claims inside this one page' },
     unmarked_supersession: { type: 'array', items: { type: 'string' }, description: 'silently-updated/conflicting claims lacking a [!superseded]/[!stale] callout, or consensus claims lacking citations' },
     thin: { type: 'boolean', description: 'few claims, no connections, single source — a merge/stub candidate' },
     key_claims: { type: 'array', items: { type: 'string' }, description: 'up to ~5 short claim summaries, for the cross-page contradiction pass' },
     name_callout_targets: { type: 'array', items: { type: 'object', additionalProperties: false, required: ['target', 'name'], properties: {
-      target: { type: 'string', description: 'the [[wikilinked]] page the callout names — the raw wikilink inner text, verbatim; do not normalize' },
+      target: { type: 'string', description: "the callout's [[wikilink]] target, raw inner text verbatim; do not normalize" },
       name: { type: 'string', description: 'the proper noun the callout questions' },
-    } }, description: 'one entry per callout on THIS page that questions a proper noun against another named wiki page (a name-verification / [!stale] callout whose body says this page and that page disagree about a name) — the vault marking a suspect pair. Empty when the page carries none.' },
+    } }, description: 'one entry per callout on this page questioning a proper noun against another named wiki page; empty when the page carries none' },
   },
 }
 
@@ -182,18 +182,66 @@ if (!overlaysPath) {
   coverageCaps.push(m)
   log(m)
 }
+// Reason-partitioned shortfall accounting (A10-16 Defect 2): a fan-out agent the harness
+// rejected pre-read resolves to null (no catchable error — the v0.13.0 classifier-ceiling
+// failure that silently dropped 145/146 pages read as a clean report). parallel() preserves
+// position, so chunk[k] names the page for part[k]: a null is an AGENT-FAILED slug; an
+// available:false result is a PAGE-UNREADABLE slug. Both are counted, never silently dropped.
+const agentFailedSlugs = []
+const pageUnreadableSlugs = []
+let budgetCapped = false
 const CHUNK = 16
 for (let i = 0; i < pages.length; i += CHUNK) {
   if (budget.total && budget.remaining() < budgetFloor) {
     const msg = `budget guard: scanned ${scans.length}/${pages.length} pages before the remaining budget fell below ${budgetFloor} — the rest were NOT checked`
     coverageCaps.push(msg)
     log(msg)
+    budgetCapped = true
     break
   }
   const chunk = pages.slice(i, i + CHUNK)
   const part = await parallel(chunk.map((p) => () => agent(pageScanPrompt(p), { label: `scan:${p.slug}`, phase: 'Scan pages', schema: PAGE_SCAN, model: scanModel })))
-  scans.push(...part.filter(Boolean).filter((s) => s.available !== false))
+  for (let k = 0; k < chunk.length; k++) {
+    const r = part[k]
+    if (!r) agentFailedSlugs.push(chunk[k].slug)
+    else if (r.available === false) pageUnreadableSlugs.push(chunk[k].slug)
+    else scans.push(r)
+  }
   log(`scanned ${scans.length}/${pages.length} pages`)
+}
+// Loud degrade at the reduce boundary (A10-16 Defect 2): a dead agent adds a loud cap, never
+// vanishes. When the sweep scanned fewer pages than listed for any reason OTHER than the budget
+// guard already having capped, push a coverage cap naming the count + reason partition + the
+// failed slugs — mirroring the overlay/budget-guard cap posture above.
+if (!budgetCapped && scans.length < pages.length) {
+  const parts = []
+  if (agentFailedSlugs.length) parts.push(`${agentFailedSlugs.length} agent-rejected [${agentFailedSlugs.join(', ')}]`)
+  if (pageUnreadableSlugs.length) parts.push(`${pageUnreadableSlugs.length} page-unreadable [${pageUnreadableSlugs.join(', ')}]`)
+  const m = `partial sweep: scanned ${scans.length}/${pages.length} pages — ${parts.join(', ')}; the rest were NOT checked`
+  coverageCaps.push(m)
+  log(m)
+}
+
+// Near-total shortfall → error, never a findings report (A10-16 Defect 2, disposition 3):
+// below MAJORITY coverage the cross-page reduce is dominated by absent pages and any "clean"
+// bucket is far more likely shortfall than health (the exact 0.7%-coverage field failure). The
+// guard is scans.length === 0 (the hard sub-case) OR scans.length < ceil(pages.length / 2). The
+// error shape carries status:'failed' and NO findings buckets — distinct from a report, mirroring
+// the args-guard error convention above. Owner-adjustable threshold.
+if (scans.length === 0 || scans.length < Math.ceil(pages.length / 2)) {
+  const msg = `near-total fan-out shortfall: only ${scans.length}/${pages.length} listed pages scanned (below the majority-coverage floor) — a findings report over this set cannot be honest. The most likely cause is a stale vault-local workflow copy; re-run after confirming the workflow copy is current.`
+  log(msg)
+  return {
+    status: 'failed',
+    mode: 'full',
+    reason: msg,
+    files_listed: pages.length,
+    files_checked: scans.length,
+    agent_failed: agentFailedSlugs,
+    page_unreadable: pageUnreadableSlugs,
+    coverage_caps: coverageCaps,
+    next: 're-run after confirming the vault-local workflow copy is current (vlt-upgrade); if the shortfall persists at full coverage, file it',
+  }
 }
 
 // ── JS reduce: the link graph (free — no agents) ─────────────────────────────
@@ -205,11 +253,27 @@ phase('Reduce + cross-page')
 for (const s of scans) s.outbound_links = (s.outbound_links || []).map(normalizeTarget).filter(Boolean)
 const nslug = (s) => normalizeTarget(s.slug)
 
-const slugSet = new Set(scans.map(nslug))
+// Filesystem-truth page set (A10-17 root fix): valid-target space is every page that
+// EXISTS on disk (the input page list the SKILL globbed), not only pages whose agent scan
+// survived. A wikilink to a real page that merely failed to scan is no longer a fabricated
+// missing-target. Inbound-derived slots (orphans/near-dup) stay scans-denominated (DA7).
+const pageSlugSet = new Set(pages.map((p) => normalizeTarget(p.slug)))
 const inbound = new Map()
 for (const s of scans) for (const l of s.outbound_links) inbound.set(l, (inbound.get(l) || 0) + 1)
 
-const orphans = scans.filter((s) => !(inbound.get(nslug(s)) > 0)).map((s) => s.slug)
+// Inbound-derived slots under shortfall (leg 3, DA7): orphans and near_duplicates are computed
+// from the inbound link map, which is only as complete as what scanned — under any shortfall a
+// page whose only inbound link came from an unscanned page falsely reads as an orphan (the A10-17
+// class in another slot). Under partial shortfall both slots are emitted EMPTY with a cap naming
+// the suppression; missing_targets / index drift / the callout gate switched to filesystem truth
+// (F5) and stay valid.
+const partialShortfall = scans.length < pages.length
+if (partialShortfall) {
+  const m = 'orphans / near-duplicates not computed — inbound-derived and coverage was incomplete'
+  coverageCaps.push(m)
+  log(m)
+}
+const orphans = partialShortfall ? [] : scans.filter((s) => !(inbound.get(nslug(s)) > 0)).map((s) => s.slug)
 // A [[link]] target that resolves to a wiki slug OR a known cross-layer note (research / agent-zone,
 // supplied by the SKILL which has filesystem access) is valid; only a target resolving to NOTHING
 // anywhere is a missing target. Without crossLayer, valid cross-layer links false-positive en masse. (#3 §4)
@@ -217,7 +281,7 @@ const orphans = scans.filter((s) => !(inbound.get(nslug(s)) > 0)).map((s) => s.s
 const crossLayer = new Set(crossLayerSlugs)
 const stubs = new Set(stubSlugs)
 const missing_targets = []
-for (const s of scans) for (const l of s.outbound_links) if (!slugSet.has(l) && !crossLayer.has(l) && !stubs.has(l)) missing_targets.push(`${s.slug} → ${l}`)
+for (const s of scans) for (const l of s.outbound_links) if (!pageSlugSet.has(l) && !crossLayer.has(l) && !stubs.has(l)) missing_targets.push(`${s.slug} → ${l}`)
 
 // near-duplicates (#3 §5): a pair is a near-duplicate ONLY when a shared-link signal COINCIDES with a
 // secondary signal (shared slug stem OR title similarity) — never shared links alone. Shared links
@@ -249,7 +313,8 @@ if (!today) { const m = `no 'today' arg provided — review_due was NOT computed
 
 let pairBudget = 2_000_000
 let nearCapped = false
-outer: for (let i = 0; i < scans.length; i++) {
+// Suppressed under partial shortfall (F6/DA7): the cap is already on the record above.
+outer: for (let i = 0; !partialShortfall && i < scans.length; i++) {
   for (let j = i + 1; j < scans.length; j++) {
     if (pairBudget-- <= 0) { nearCapped = true; break outer }
     let shared = 0
@@ -267,7 +332,7 @@ if (nearCapped) { const m = `near-duplicate comparison capped — not all page p
 
 // ── Index pass (one agent, reads the live index + the computed page set) ─────
 const indexScan = await agent(
-  `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${convRead('wiki-index')}. The wiki currently contains exactly these page slugs: ${[...slugSet].join(', ')}. ` +
+  `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${convRead('wiki-index')}. The wiki currently contains exactly these page slugs: ${[...pageSlugSet].join(', ')}. ` +
     `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed ## Stubs entries; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`,
   { label: 'index-drift', phase: 'Reduce + cross-page', schema: INDEX_SCAN, model: indexModel },
 )
@@ -337,7 +402,7 @@ const seedMap = new Map() // pairKey -> { a, b, name }
 for (const s of scans)
   for (const t of s.name_callout_targets || []) {
     const target = t && normalizeTarget(t.target) // raw wikilink text in, normal form compared (B5-3)
-    if (!target || !slugSet.has(target) || target === nslug(s)) continue
+    if (!target || !pageSlugSet.has(target) || target === nslug(s)) continue
     const k = pairKey(s.slug, target)
     if (comparedPairs.has(k) || seedMap.has(k)) continue
     seedMap.set(k, { a: s.slug, b: target, name: t.name })

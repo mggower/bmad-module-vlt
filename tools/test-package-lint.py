@@ -226,7 +226,7 @@ COVERAGE = {}  # package-lint check name -> [case names]; E4's data source (R2)
 # R2 shrink net: a net that must carry a list carries a shrink check. Bump the
 # floor in the same edit that adds cases (ratchet); main() fails loudly when
 # the registered count drops below it. Per-check shrink is E4's jurisdiction.
-CASE_FLOOR = 22
+CASE_FLOOR = 23
 
 
 def case(name, *, covers):
@@ -530,6 +530,31 @@ def case_c9_whole_value_preserve(root):
     assert r.returncode != 0 and "FAIL group C" in r.stdout, r.stdout
     assert "durability net (merge-config)" in r.stdout, r.stdout
     assert "newly shipped default key" in r.stdout or "structure_keys_added" in r.stdout, r.stdout
+
+
+@case("23. oversized fan-out schema in a workflow asset -> E fails (schema-size budget)",
+      covers=("_e6_schema_size_budget", "check_group_e"))
+def case_e6_schema_size(root):
+    # A padded output schema (type:'object' with properties) whose serialized
+    # JSON.stringify length exceeds SCHEMA_SIZE_BUDGET (3700) must turn E6 red —
+    # the standing margin device (B10-12). The clean fixture workflow carries no
+    # schema, so case 1 covers the compliant-passes side.
+    wf = root / "skills/vlt-setup/assets/workflows/vlt-fixture.js"
+    pad = "x" * 4000
+    wf.write_text(
+        wf.read_text(encoding="utf-8")
+        + "\nconst BIG_SCAN = {\n"
+        + "  type: 'object',\n"
+        + "  additionalProperties: false,\n"
+        + "  properties: {\n"
+        + f"    f: {{ type: 'string', description: '{pad}' }},\n"
+        + "  },\n"
+        + "}\n",
+        encoding="utf-8",
+    )
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group E" in r.stdout, r.stdout
+    assert "schema-size budget" in r.stdout and "BIG_SCAN" in r.stdout, r.stdout
 
 
 def main():

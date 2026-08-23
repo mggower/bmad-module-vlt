@@ -63,7 +63,15 @@ Groups:
       "name@version" pins (or []), and asset consumers — a convention
       consumers: entry ending .js — are bipartite-checked both directions
       in E1's vocabulary; E1 skips .js entries (E5 owns them, one shared
-      predicate).
+      predicate). E6 schema-size budget (build B10-12): every fan-out output
+      schema in every workflow asset (discovered structurally by
+      type: 'object', never a hand-kept list) serializes to
+      JSON.stringify(schema).length <= 3700 — the standing margin device that
+      stops a tri-state-style description from silently re-crossing the
+      harness classifier's ~4096-char output-schema ceiling (the v0.13.0
+      non-executable-full-lint failure). Measured by a node subprocess so the
+      figure reproduces the runtime's own JSON.stringify, never a
+      source-literal char count.
 
 Usage: uv run tools/package-lint.py [--expect-version X.Y.Z] [--root PATH]
 Exit: 0 = all groups PASS (or D SKIPPED); non-zero on any FAIL.
@@ -75,6 +83,8 @@ import hashlib
 import importlib.util
 import json
 import re
+import shutil
+import subprocess
 import sys
 from io import StringIO
 from pathlib import Path
@@ -887,9 +897,105 @@ def _e4_harness_coverage(inventory=None, coverage=None) -> list:
     ]
 
 
+SCHEMA_SIZE_BUDGET = 3700  # serialized JSON.stringify(schema).length ceiling per fan-out schema
+
+# The measure MUST reproduce the runtime's own JSON.stringify(schema).length — a
+# source-literal char count is the wrong number (the 4,266 source literal serializes
+# to 4,100). A node subprocess evals every top-level `const NAME = {…}` object literal
+# in a workflow asset and, for those that are output schemas (type:'object' with
+# properties — discovered structurally, never a hand-kept list), prints its serialized
+# length. A literal that textually looks like a schema but fails to eval is reported as
+# an error (absence must be loud), never silently skipped.
+_E6_NODE_EXTRACTOR = r"""
+const fs = require('fs');
+const src = fs.readFileSync(process.argv[1], 'utf8');
+const out = [];
+const re = /(?:^|\n)\s*const\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*\{/g;
+let m;
+while ((m = re.exec(src))) {
+  const name = m[1];
+  let start = src.indexOf('{', m.index);
+  let depth = 0, j = start, inStr = null, inLine = false, inBlock = false;
+  for (; j < src.length; j++) {
+    const c = src[j], c2 = src[j + 1];
+    if (inStr) { if (c === '\\') { j++; continue; } if (c === inStr) inStr = null; continue; }
+    if (inLine) { if (c === '\n') inLine = false; continue; }
+    if (inBlock) { if (c === '*' && c2 === '/') { j++; inBlock = false; } continue; }
+    if (c === '/' && c2 === '/') { inLine = true; j++; continue; }
+    if (c === '/' && c2 === '*') { inBlock = true; j++; continue; }
+    if (c === '"' || c === "'" || c === '`') { inStr = c; continue; }
+    if (c === '{') depth++;
+    else if (c === '}') { depth--; if (depth === 0) { j++; break; } }
+  }
+  const lit = src.slice(start, j);
+  let obj;
+  try { obj = eval('(' + lit + ')'); }
+  catch (e) { if (/type:\s*['"]object['"]/.test(lit)) out.push({ name, error: String(e) }); continue; }
+  if (obj && obj.type === 'object' && obj.properties) out.push({ name, len: JSON.stringify(obj).length });
+}
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+def _e6_schema_size_budget(root: Path) -> list:
+    """E6 (build B10-12): standing schema-size budget — every fan-out output
+    schema in every workflow asset serializes to JSON.stringify length within
+    SCHEMA_SIZE_BUDGET. The margin device that stops a description from silently
+    re-crossing the harness classifier's output-schema ceiling (the v0.13.0
+    non-executable-full-lint failure). Workflow-agnostic: the same check covers
+    the vlt-review-council and vlt-consult schemas, so a future council/consult
+    schema crossing the ceiling is caught regardless of any per-build decline.
+    """
+    failures = []
+    wf_dir = root / WORKFLOWS_DIR
+    if not wf_dir.is_dir():
+        return failures
+    node = shutil.which("node")
+    if not node:
+        return [
+            "schema-size budget: node is not on PATH — the serialized "
+            "JSON.stringify(schema).length cannot be measured faithfully (R2; absence must be loud)"
+        ]
+    for wf in sorted(wf_dir.glob("*.js")):
+        rel = wf.relative_to(root)
+        try:
+            proc = subprocess.run(
+                [node, "-e", _E6_NODE_EXTRACTOR, str(wf)],
+                capture_output=True, text=True, timeout=30,
+            )
+        except Exception as e:
+            failures.append(f"schema-size budget: could not run node over {rel}: {e}")
+            continue
+        if proc.returncode != 0:
+            failures.append(
+                f"schema-size budget: node failed extracting schemas from {rel}: "
+                f"{(proc.stderr or proc.stdout).strip()[:300]}"
+            )
+            continue
+        try:
+            schemas = json.loads(proc.stdout or "[]")
+        except Exception as e:
+            failures.append(f"schema-size budget: unparseable extractor output for {rel}: {e}")
+            continue
+        for s in schemas:
+            if "error" in s:
+                failures.append(
+                    f"schema-size budget: {rel} schema {s['name']} looks like an output schema "
+                    f"but could not be evaluated to measure it: {s['error']}"
+                )
+            elif s.get("len", 0) > SCHEMA_SIZE_BUDGET:
+                failures.append(
+                    f"schema-size budget: {rel} schema {s['name']} serializes to {s['len']} chars "
+                    f"(> {SCHEMA_SIZE_BUDGET}) — trim descriptions or migrate schema-only semantics "
+                    f"into the prompt (the harness rejects an over-ceiling output schema pre-read)"
+                )
+    return failures
+
+
 def check_group_e(root: Path) -> list:
     """Self-description integrity: E1 handshake-bipartite, E2 structure-map SSoT,
-    E3 stray-pin, E4 harness-coverage (B7-1/R2), E5 asset-node handshake (B7-6).
+    E3 stray-pin, E4 harness-coverage (B7-1/R2), E5 asset-node handshake (B7-6),
+    E6 schema-size budget (B10-12).
 
     Aggregates the failure lists. Each check derives truth from the authoritative
     surface and compares, rather than confirming a declaration about it — the fix
@@ -922,6 +1028,7 @@ def check_group_e(root: Path) -> list:
         + _e3_stray_pin(root, set(conventions))
         + _e4_harness_coverage()
         + _e5_asset_nodes(root, conventions)
+        + _e6_schema_size_budget(root)
     )
 
 
