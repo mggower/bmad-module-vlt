@@ -56,7 +56,7 @@ flag_for_human:
   authority_scan: <S specs compared; T binding a partner other than their owner>   # denominator + blind spot: out-of-authority claims outside {specs} are invisible by construction — a bare zero below is not health
   consult_missing: [<spec — binds <consumer-slug>, no consult record>, ...]
   consult_retroactive: [<spec — consult for <consumer-slug> dated YYYY-MM-DD, after created YYYY-MM-DD>, ...]
-  spec_candidate: [<handoff-doc — signal 2 relay entries | dated revision record; new | signal changed (item updated); owner <partner>; M prior declines honored>, ...]   # loud entries only: new candidates + standing candidates whose signal changed (Step 2's repeat partition)
+  spec_candidate: [<handoff-doc — signal re-relay (2 same-key handoff entries) | dated revision record; new | signal changed (item updated); owner <partner>; M prior declines honored>, ...]   # loud entries only: new candidates + standing candidates whose signal changed (Step 2's repeat partition)
   spec_candidate_standing: <N standing candidate(s) — previously filed, open backlog item, signal unchanged: <paths>>   # the quiet line — derived from {backlog} open items, never prior reports; renders (denominated zero included) whenever _agent/handoffs/ is non-empty; no line when it is empty
   thin_pages: [<page>, ...]
 opportunities:
