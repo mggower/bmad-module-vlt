@@ -148,3 +148,11 @@ A11-2 brief:
 > an issue opened by a non-collaborator, and for their comment on a thread the owner has
 > not participated in? (Needs a second account or a real third-party filer; observation
 > via the inbox UI, or via API after granting the `notifications` scope.)
+
+### Post-harvest addendum (2026-08-24, owner act)
+
+Minutes after this harvest, the owner flipped the repo watch to **All Activity** — the
+one precondition the harvest surfaced (`viewerSubscription: UNSUBSCRIBED`) is now met.
+The re-cut residual above stands unchanged, but its parenthetical precondition is
+already satisfied: what remains for Cycle 12's A11-2 brief is only the observation leg
+(a real third-party event demonstrably notifying).
