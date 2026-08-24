@@ -7,7 +7,7 @@ Install it into a vault (existing or fresh) and the cast grows itself.
 The roster ships with three partners — a **Librarian** who tends the wiki, a **Researcher** who
 pushes you to learn, and a **Creative** who turns curated knowledge into made things. They share one
 living vault, hand work to each other through it, and can mint new partners and abilities on their
-own. **16 skills in all.**
+own. **17 skills in all.**
 
 ## What Vault is
 
@@ -152,7 +152,7 @@ in `personalization_sources:` and never smuggled in as general knowledge). Coher
 
 ## The full skill roster
 
-All 16 skills, grouped:
+All 17 skills, grouped:
 
 | Group | Skills | Role |
 |---|---|---|
@@ -161,7 +161,7 @@ All 16 skills, grouped:
 | **Shared hand** | `vlt-track` | A longitudinal loop any partner can *wear*. |
 | **Hygiene** | `vlt-groom`, `vlt-decay` | Groom a partner's memory — approval-gated, never destructive. Rotate/drain the accumulating agent-zone records — mechanical, archives stay readable. |
 | **Self-evolution** | `vlt-mint`, `vlt-review-council` | Grow the cast; gate the growth. |
-| **Lifecycle** | `vlt-setup`, `vlt-upgrade` | Install/provision; upgrade durably. |
+| **Lifecycle** | `vlt-setup`, `vlt-upgrade`, `vlt-feedback` | Install/provision; upgrade durably; file field notes upstream to the module (the feedback rail). |
 
 **Self-contained:** the governance bundle (operating contract + conventions + review-lens personas)
 ships inside `vlt-setup/assets/` and installs into each target vault at setup.
@@ -235,8 +235,8 @@ rule exists* is traceable to the field event that demanded it.
 
 ## Notable files
 
-- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 16 `vlt-*` skills the installer copies.
-- `skills/` — the 16 `vlt-*` skills (the installable module).
+- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 17 `vlt-*` skills the installer copies.
+- `skills/` — the 17 `vlt-*` skills (the installable module).
 - `skills/vlt-setup/assets/governance/_meta/` — the canonical governance bundle (pruned conventions, review-lens personas, operating contract) that `vlt-setup` installs into a vault. Edit the bundle here (single source).
 - `factory/` — the evolution loop's working record: `cycles/` (one directory per cycle: roadmap, briefs, filings), `inbox/` (open field filings), `platform/` (the off-cadence factory-tooling ledger), `method/` (how the loop works).
 - `tools/` — the release contract's checks (`package-lint.py` and friends), documentation-grade and runnable.

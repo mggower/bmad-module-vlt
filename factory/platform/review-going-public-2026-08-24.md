@@ -371,3 +371,27 @@ Findings, all documentation-level, none blocking:
    a fresh Cycle 11 roadmap (P-8's own recorded watch, still open).
 
 Nothing was fixed. Cycle 11's capture may open on this tree as it stands.
+
+## Findings disposition (2026-08-24, follow-up session)
+
+- **F1 FIXED** — README's four skill-count lines bumped 16 → 17 (matching disk and
+  marketplace.json) and `vlt-feedback` added to the roster's Lifecycle row.
+- **F2 HELD — owner ruling pending.** Not touched, per the finding's own instruction:
+  the vault *name* `vlt-core` (180 files, incl. one shipped-surface site) vs. the P-9
+  record's overstated verification line. Options (a) correct the record line / (b) scrub
+  are with the owner.
+- **F3 FIXED** — live/queued ledger entries repointed: the channel contract's
+  visibility-floor line (cycle-closeout), P-2's spike-register path
+  (`factory/platform/spikes/`) + orphan-check owner, P-3's intake/closeout sites,
+  P-5's ROI-count citation and citation-walk target. Closed records (P-7/P-8/P-9)
+  deliberately untouched — their old paths are history.
+  `factory/method/vault-resident-architecture-spec.md:109` judged **historical** — left
+  as-is. The factory-paths-check SCAN_FILES widening is raised to the owner as a
+  candidate P-item (needs a history-vs-live distinction), not done as a drive-by.
+- **F4 FIXED** — ideation-scaffold's shape exemplar repointed to
+  `factory/cycles/09-boundary/roadmap.md`'s `## Ideation rulings — A9-1..A9-6` section
+  (now under factory-paths-check coverage, as suggested).
+
+Verification after fixes: factory-paths-check PASS (111 refs, 20 files); package-lint
+A/B/C/E PASS at 0.14.0; `git diff --name-only v0.14.0 HEAD -- 'skills/vlt-*'
+.claude-plugin/` empty (no shipped-surface touch).

@@ -28,8 +28,8 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
   roadmap.
 - **Skill budget:** the channel adds at most **one** new factory skill ever
   (`issue-triage`); all other platform work extends existing skills/tools.
-- **Visibility floor:** each arc-closeout notes "platform work landed during this arc:
-  P-…" in the closeout record — visibility without coupling.
+- **Visibility floor:** each cycle-closeout notes "platform work landed during this
+  cycle: P-…" in the closeout record — visibility without coupling.
 
 ### Enforcement debt (open, unblocked 2026-08-21 by the channel's first self-acceptance)
 
@@ -49,10 +49,10 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
   blocking at brief (the ruling that survived the brainstorm — blocking *adoption*
   front-loads spikes at their dumbest moment; S3 proved questions sharpen after
   ideation).
-- **Sites:** `skills/reports/spikes/S-N-<slug>.md` register (status:
+- **Sites:** `factory/platform/spikes/S-N-<slug>.md` register (status:
   proposed/running/harvested/consumed; timebox; `verdict: proceed/reshape/kill`);
   `ideation-scaffold` gains a Spikes section; `build-brief` gates on candidate spike
-  field = `none` or `S-N harvested`; `arc-closeout` gains an orphan-spike check;
+  field = `none` or `S-N harvested`; `cycle-closeout` gains an orphan-spike check;
   `inbox-capture` may open a spike stub when grounding hits an external unknown;
   `vlt-lifecycle.md` gains spike observable rows (an open/running spike is a lifecycle
   position with a named next move) so `lifecycle-status` sees the register.
@@ -132,12 +132,12 @@ topics, existing artifacts untouched; D4 plain-numbered briefs (22 at build time
   queue only by hand, and the visibility-floor contract line has no mechanism.
 - **Sites:** `vlt-lifecycle.md` gains platform observable rows (open/queued P-items
   from this ledger's headings — cheap heading reads, per lifecycle-status's doctrine);
-  `inbox/` filings gain an optional `channel: platform` marker and `inbox-capture`
-  routes marked filings to this ledger's Queued section instead of the arc roadmap
-  (one intake, two destinations); `arc-closeout` gains the one-line
-  "platform work landed during this arc" step the contract already promises.
+  `factory/inbox/` filings gain an optional `channel: platform` marker and
+  `inbox-capture` routes marked filings to this ledger's Queued section instead of the
+  cycle roadmap (one intake, two destinations); `cycle-closeout` gains the one-line
+  "platform work landed during this cycle" step the contract already promises.
 - **Verification:** a `lifecycle-status` run reports the channel positions; a fixture
-  filing with `channel: platform` routes to Queued, not the roadmap; grep arc-closeout
+  filing with `channel: platform` routes to Queued, not the roadmap; grep cycle-closeout
   for the visibility line.
 - **Out of scope:** any automated candidate detection (agent-initiated platform
   filings stay a brainstorm future); spike rows (P-2's).
@@ -148,7 +148,7 @@ topics, existing artifacts untouched; D4 plain-numbered briefs (22 at build time
 
 *(Queued 2026-08-23 from the eval brainstorm
 (`_output/brainstorming/brainstorm-vlt-eval-harness-2026-08-23/`) and its ROI count
-(`skills/reports/eval-roi-count-2026-08-23.md`). Routed here, not inbox: the fix site is
+(`factory/cycles/10-signal-integrity/eval-roi-count-2026-08-23.md`). Routed here, not inbox: the fix site is
 `tools/` — `vlt-upgrade` never delivers it. Filed separately from P-6 because it is a
 class of one, independent of both the check suite and any fixture, and carries the
 corpus's single worst instance.)*
@@ -162,7 +162,8 @@ corpus's single worst instance.)*
   only when a spike re-read the source filing 14 days later. CLAUDE.md states the
   grounding discipline twice; nothing mechanically enforces it.
 - **Sites:** new `tools/citation-check.py` — walk every `file:line` citation in
-  `skills/reports/*.md` (briefs + roadmaps), assert the path resolves, the line exists,
+  `factory/cycles/*/{roadmap.md,briefs/*.md}` (briefs + roadmaps), assert the path
+  resolves, the line exists,
   and where the citing text carries a quotation the cited line contains it verbatim;
   wired as a new `package-lint.py` group so it rides the existing stage-4 gate rather
   than adding a second gate; `build-brief`'s verification section gains a pointer to it.

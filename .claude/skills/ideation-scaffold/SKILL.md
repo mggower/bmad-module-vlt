@@ -59,9 +59,10 @@ the captures name.
 
 Append a new section to the roadmap:
 `## Ideation rulings — <batch label> (owner-steered, <date>)` — after any existing
-rulings sections, before the Deferred acceptance ledger. Match the shape of the roadmap's
-existing 2026-07-06 rulings section (read it first; it is the parse target `build-brief`
-already understands). Skeleton slots, each either seeded with the flagged-but-unanswered
+rulings sections, before the Deferred acceptance ledger. Match the shape of a closed
+cycle's rulings section — exemplar: `factory/cycles/09-boundary/roadmap.md`, its
+`## Ideation rulings — A9-1..A9-6` section (read it first; that shape is the parse
+target `build-brief` already understands). Skeleton slots, each either seeded with the flagged-but-unanswered
 questions from Discovery or left as an explicit `*(owner to fill)*` placeholder:
 
 - **Grouping & order** — which builds, numbered, and which filings each folds in. Build
