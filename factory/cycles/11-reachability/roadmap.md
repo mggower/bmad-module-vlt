@@ -1406,3 +1406,12 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   rare human-gated registry write that nothing schedules; B10-4(4) discharges on it, and
   B10-4 parts 2 and 3 ride the same carry; goes to the standing watch register at
   closeout.
+
+## Next lifecycle move
+
+**v0.15.0 SHIPPED — live acceptance is the move.** The owner runs `vlt-upgrade` on a live
+vault; once that upgrade evidence exists, `acceptance-discharge` discharges this cycle's
+deferred ledger (all 9 build items unchecked as of this stamp). *(Stamp appended
+2026-08-24 by a lifecycle-status-surfaced repair — the v0.15.0 release run updated the
+frontmatter `status:` but omitted the foot restamp the lifecycle map's standing rule
+requires; frontmatter and this line now agree.)*
