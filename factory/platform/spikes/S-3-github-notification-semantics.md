@@ -1,14 +1,19 @@
 ---
 id: 'S-3'
 slug: 'github-notification-semantics'
-status: 'proposed'
+status: 'harvested'
 question: 'Does a repository watch actually notify a maintainer on comments to issues they have not participated in — and is there a filer-grantable "please look" mechanism, or is the permission model owner-only?'
 opened: '2026-08-24'
 opened_by: 'capture — Cycle 11 (A11-2, open question 1; the capture flagged it and deferred registration to P-2)'
 timebox: 'read the current GitHub notification/subscription documentation AND confirm against real repo behavior — a docs-only answer does not close this spike'
-verdict: ''
-sources: []
-findings: ''
+verdict: 'reshape'
+sources:
+  - 'https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications (extracted 2026-08-24)'
+  - 'https://docs.github.com/en/account-and-profile/managing-subscriptions-and-notifications-on-github/setting-up-notifications/about-notifications (extracted 2026-08-24)'
+  - 'https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels (search excerpt 2026-08-24)'
+  - 'https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms (search excerpt 2026-08-24)'
+  - 'gh api (authenticated as the owner, read-only): GraphQL repository.viewerSubscription + per-issue viewerSubscription; REST /repos/mggower/bmad-module-vlt (org field), /subscribers, /collaborators, /issues?state=all, /issues/8/events, /user/subscriptions; REST /repos/.../subscription and /notifications (scope-walled — observed error)'
+findings: 'inline below — see "Harvest (2026-08-24)"'
 consumed_by: []
 legacy_id: ''
 ---
@@ -68,3 +73,78 @@ register's stated purpose: visible at adoption, blocking at brief.
 `status:` stays `proposed` until a read actually begins; the ladder describes a read in
 progress, so stamping `running` in advance would name a state nobody is in. Whoever picks
 it up moves it, inside the timebox above.
+
+## Harvest (2026-08-24)
+
+**Actor:** Claude, as the owner's sanctioned delegate (the owner delegated the run
+in-session 2026-08-24). **Research tool:** Tavily (`tavily_search`/`tavily_extract`) ran
+— no fallback, no degradation. **Live leg:** `gh` authenticated as the owner, read-only
+throughout — no subscription state changed, no comments posted, no issues modified.
+
+### Q1 — does a repo watch notify on comments to non-participated issues?
+
+**Docs say yes, under the right watch setting.** Watching a repository "subscrib[es] you
+to updates for activity in that repository"; the watch menu offers All Activity,
+Participating and @mentions, Custom (select Issues/PRs/Releases/etc.), and Ignore.
+"Participating and @mentions" covers only threads you opened, commented on, were
+assigned to, subscribed to manually, or were @mentioned in (the about-notifications
+auto-subscribe list) — third-party activity in untouched threads reaches you only via
+All Activity or Custom→Issues.
+
+**Live-confirmed state of the real repo (`mggower/bmad-module-vlt`):**
+
+- **The owner is NOT watching the repo.** GraphQL `repository.viewerSubscription:
+  UNSUBSCRIBED`; `subscribers_count: 0`; the repo is absent from the owner's
+  `/user/subscriptions` (paginated, full list). The docs' "you automatically watch
+  repositories you create" default is *not in effect here* — so a watch-based trigger
+  fires **nothing today** until the watch is set (`viewerCanSubscribe: true` — it is
+  one flip away, and the GraphQL mutation path works under the current token).
+- **Every existing tracker issue is thread-subscribed anyway.** All 11 issues are
+  owner-filed (the vault files through the owner's account), and per-issue GraphQL
+  `viewerSubscription: SUBSCRIBED` on every one probed — so comments on *existing* rail
+  issues notify the owner regardless of the repo watch. The uncovered case is precisely
+  a **third-party-opened issue** — the case the templates' trigger sentence exists for.
+- **Not observed live: an actual notification firing.** Two hard blockers, both
+  recorded: (a) no third-party event has ever occurred on this repo — there is nothing
+  historical to observe; (b) the owner's `gh` token scopes are `gist, read:org, repo,
+  workflow` — REST `/repos/.../subscription` and `/notifications` returned 404 demanding
+  the `notifications` scope (observed error), and the delegate did not run
+  `gh auth refresh` (that alters the owner's auth state). GraphQL reads subscription
+  state fine under `repo` scope.
+
+### Q2/Q3 — filer-grantable "please look", or owner-only?
+
+- **Manual labels/assignment are owner-only in practice.** Docs: "Anyone with triage
+  access to a repository can apply and dismiss labels." Live: the sole collaborator is
+  the owner (admin); the repo has **no organization behind it** (`organization: none`) —
+  no triage grants exist, so a filer can neither label nor assign.
+- **Template-applied labels ARE filer-reachable.** Issue-form `labels:` keys apply
+  automatically at creation regardless of the filer's permission (docs,
+  syntax-for-issue-forms); all three shipped templates already carry them
+  (`field-*.yml:7`, live), and label events at creation were observed on issue #8. So a
+  "please look" **at filing time** can ride the template; there is **no filer label path
+  on an existing thread**.
+- **On an existing thread the only filer-grantable attention is an @mention** — it
+  notifies regardless of watch state (participating/@mentions semantics). But a
+  **repo-owned non-person mention target does not exist for this repo**: team mentions
+  require an organization, and the repo is under a personal account (live). Question 2's
+  team/CODEOWNERS direction is dead as the repo stands; a bot account would be a new
+  moving part, not a configuration.
+
+### Verdict: `reshape` — semantics settled, the demonstration leg remains
+
+Both legs ran (docs + live probes), and they settle the *semantics*: watch with All
+Activity or Custom→Issues is the mechanism, the permission model is owner-only except
+template-applied labels and @mentions, and no non-person mention target exists. But the
+spike's inherited bound — *a real observed notification (or its absence) settles it* —
+is unmet: no notification was observed, and none could be (no third-party event exists;
+the notifications inbox is scope-walled). The residual is no longer a read; it is an
+**act-and-observe** that coincides with A11-2's own acceptance evidence ("a replacement
+ships only if the notification demonstrably fires"). Re-cut question for Cycle 12's
+A11-2 brief:
+
+> With the owner's watch set to All Activity or Custom→Issues (currently UNSUBSCRIBED —
+> the one precondition this harvest surfaced), does a notification observably arrive for
+> an issue opened by a non-collaborator, and for their comment on a thread the owner has
+> not participated in? (Needs a second account or a real third-party filer; observation
+> via the inbox UI, or via API after granting the `notifications` scope.)
