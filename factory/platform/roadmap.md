@@ -344,6 +344,35 @@ would brick the next release at its final stage.)*
 - **Done-when:** the next release reaches `main` through a PR without breaking the
   choreography's gate sequence, and direct pushes to `main` are refused server-side.
 
+### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **queued**
+
+*(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
+Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
+`Next lifecycle move` stamps across its whole lifecycle, where Cycles 9/10 carry 2–3.
+Mechanical cause: `vlt-release` choreography Stage 8 says "End the **report** with the
+Next lifecycle move", and "report" resolved to the chat report only. The instance was
+repaired by hand the same day; this item closes the recurrence path.)*
+
+- **Intent:** every lifecycle skill's text says explicitly that the terminal routing
+  restamp is written **into the open cycle roadmap's foot** (the map's Arc 9 standing
+  rule), not only emitted in the chat report — one clause each, pointing at the map,
+  never restating its mechanics (single-home).
+- **Sites:** `.claude/skills/vlt-release/references/choreography.md:178` (Stage 8 — the
+  site that bit); the sibling "report ends with a Next lifecycle move line" sentences in
+  `inbox-capture` (SKILL.md:22, references/roadmap-synthesis.md:85), `build-brief`
+  (SKILL.md:32/:177), `acceptance-discharge` (SKILL.md:29,
+  references/evidence-rubric.md:123), `cycle-closeout` (SKILL.md:28,
+  references/closeout-checklist.md:194), `roadmap-roundtable` (SKILL.md:28/:132),
+  `ideation-scaffold` (SKILL.md:28/:106); optionally one clarifying clause in
+  `vlt-lifecycle.md`'s standing-rule paragraph ("the foot of the roadmap" said plainly).
+- **Verification:** grep — every lifecycle skill that moves the position carries a
+  roadmap-foot restamp clause; none restates the map's rule body; `lifecycle-status`
+  (read-only, restamps nothing) correctly excluded.
+- **Out of scope:** any mechanical lint for a missing/stale foot stamp (a later item or
+  a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
+- **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
+  `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
+
 
 ## Closed
 
