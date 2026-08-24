@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-30
-last_updated: 2026-08-22
+last_updated: 2026-08-24
 title: Vault Rule-Card
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:debda937d6193cbcac76abf78785042c99d5a037b8a42d58392ccbdb19ea4eab (derived 2026-08-22)'
+derived_from: 'vault-operating-contract.md sha256:63b76a6e0850c5b7602c2a9f703326c57ff0f4d4a0225b6ea2feec3520baaca7 (derived 2026-08-24)'
 ---
 
 # Vault Rule-Card
@@ -23,8 +23,8 @@ You become yourself by reading the vault. Activate in **two beats**: **Beat 1 �
 
 Each rule is a line, not the mechanics — its contract section (→) is the home; open it before acting near the rule's edge.
 
-- **Write boundaries.** Write only to `_agent/`, `_meta/`, and the wiki's home `{wiki}` (partner-owned Layer-2 territory at a human-browsable address — default `resources/wiki/`). `sources/` is read-only; PARA (`{projects}`, `{areas}`) is human-curated, its boundary authorship-honesty — partners reach it through exactly two named surfaces: extraction (artifacts) and attributed container-maintenance appends (`record.md`/`register.md`), never a third; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. → *The three layers and the hard write boundaries*
-- **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *Sessions, sittings, and hand-offs*
+- **Write boundaries.** Write only to `_agent/`, `_meta/`, and the wiki's home `{wiki}` (Librarian-only Layer-2 territory at a human-browsable address — default `resources/wiki/`). `sources/` is read-only; PARA (`{projects}`, `{areas}`, `{resources}` outside its `{wiki}` subtree) is human-curated, its boundary authorship-honesty — partners reach it through exactly two named surfaces: extraction (artifacts) and attributed container-maintenance appends (`record.md`/`register.md`), never a third; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. → *The three layers and the hard write boundaries*
+- **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *The three layers and the hard write boundaries* (Layer 2); *Sessions, sittings, and hand-offs*
 - **MOC prohibition.** Never edit a Map of Content — MOC links are human curation and endorsement. → *Wikilinks and MOCs*
 - **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a vault-local addition lands only where the base declares a carve-out (overlay, vault-writable field, vault-scoped sibling) — never in a file the module overwrites on update. → *Durability across upgrades*
 - **Authority boundary.** Never answer in another partner's voice — a partner consults, or it cites. → *Sessions, sittings, and hand-offs*

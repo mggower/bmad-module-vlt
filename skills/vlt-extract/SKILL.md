@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/ or areas/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@5", "wiki-supersession@2", "frontmatter@13", "write-verification@3"]
+depends_on: ["extraction@6", "wiki-supersession@2", "frontmatter@13", "write-verification@3"]
 ---
 
 # vlt-extract
@@ -27,7 +27,7 @@ Through a short conversation (2–3 exchanges, woven naturally — not a numbere
 - **The topic** — concrete enough that a slug is obvious.
 - **The purpose** — a project brief, a reference doc to share, a weekly dashboard, a meeting one-pager? Purpose shapes structure.
 - **The reader** — the user's own use, a collaborator, future-self? Audience shapes tone and density.
-- **The target PARA folder, if already obvious** ("a project brief on X" → `projects/`); otherwise defer to Step 4.
+- **The target PARA folder, if already obvious** ("a project brief on X" → `projects/`; "a standing reference doc" → `resources/`); otherwise defer to Step 4.
 
 Confirm the brief before moving on.
 
@@ -53,11 +53,11 @@ Draft the artifact as prose shaped for the reader — not a dump of wiki content
 
 Prompt the user — no default:
 
-> "Which PARA folder — `projects/` or `areas/`?"
+> "Which PARA folder — `projects/`, `areas/`, or `resources/`?"
 
-If unsure: **`projects/`** = discrete work with a defined outcome/"done" state; **`areas/`** = ongoing commitments without an end (dashboards, standing references). For **reference material not tied to a commitment** (primers, how-tos): that lives in **the wiki itself** now — the human-browsable `{wiki}` — or in `areas/` when it serves an ongoing commitment; point the user at the relevant wiki pages (or offer a Librarian pass to enrich them) rather than extracting a resource doc (`{conventions}/extraction.md` — `resources/` is retired as an extraction target). The choice sets both the path and the `type:`.
+If unsure: **`projects/`** = discrete work with a defined outcome/"done" state; **`areas/`** = ongoing commitments without an end (dashboards, standing references); **`resources/`** = reference material as its own active domain (unbounded, no "done" — outside its `{wiki}` subtree, which is Librarian-only and never an extraction target). For **general knowledge that should compound**, the live choice is between **the wiki itself** — the human-browsable `{wiki}`, enriched via a Librarian pass — and a **`resources/` artifact** — a shaped, human-facing deliverable (`{conventions}/extraction.md`); the wiki-vs-artifact distinction is guidance, not a closure. The choice sets both the path and the `type:`.
 
-**Container-aware filing:** if the target layer holds **containers** (`{projects}/<slug>/` or `{areas}/<slug>/` directories — the operating contract, *PARA containers*), also ask **which container the artifact belongs to, or none** — an artifact belonging to a container files into that container's directory (`{projects}/<slug>/<artifact>.md`); a loose artifact at the layer root stays legal.
+**Container-aware filing:** if the target layer holds **containers** (`{projects}/<slug>/`, `{areas}/<slug>/`, or `{resources}/<slug>/` directories — the operating contract, *PARA containers*), also ask **which container the artifact belongs to, or none** — an artifact belonging to a container files into that container's directory (`{projects}/<slug>/<artifact>.md`); a loose artifact at the layer root stays legal.
 
 ## Step 5: Filename and near-duplicate check
 
@@ -71,14 +71,14 @@ Write `<target>/<slug>.md`.
 
 ```yaml
 ---
-type: <project | area>                # matches the target folder
+type: <project | area | resource>     # matches the target folder
 created: YYYY-MM-DD                    # immutable
 last_updated: YYYY-MM-DD               # set today; bump on every re-extraction
 title: <human-readable title>
 author: hybrid
 trust: reviewed                        # confirm by depth — see below
 topic: <subject area>
-status: <per-type enum ({conventions}/extraction.md) — project: draft|in-progress|complete; area: ongoing|retired>
+status: <per-type enum ({conventions}/extraction.md) — project: draft|in-progress|complete; area: ongoing|retired; resource: ongoing|retired>
 sources:
   - <wiki page 1>
   - <wiki page 2>

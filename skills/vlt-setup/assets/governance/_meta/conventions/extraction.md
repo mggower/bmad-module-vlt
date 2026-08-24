@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-22
+last_updated: 2026-08-24
 title: Extraction Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 5
+version: 6
 consumers: [vlt-extract, vlt-lint, vlt-track]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -23,7 +23,7 @@ This file is the **PARA-layer reference** — containers *and* extracted artifac
 
 ## What extraction is
 
-PARA artifacts (`projects/`, `areas/`) are **extracted from the wiki** (`{wiki}`), not promoted from research notes. The wiki is the living synthesis layer and remains the source of truth; an extracted artifact is a synthesized, human-oriented deliverable pulled from one or more wiki pages at a specific moment in time. (One bounded widening of the *personalization* provenance — for a deliverable that must reflect the user's lived state — is defined in *Personalized extraction* below; it does not add an artifact write-path, and it does not relax the rule that every method claim traces to a wiki page.)
+PARA artifacts (`projects/`, `areas/`, `resources/`) are **extracted from the wiki** (`{wiki}`), not promoted from research notes. The wiki is the living synthesis layer and remains the source of truth; an extracted artifact is a synthesized, human-oriented deliverable pulled from one or more wiki pages at a specific moment in time. (One bounded widening of the *personalization* provenance — for a deliverable that must reflect the user's lived state — is defined in *Personalized extraction* below; it does not add an artifact write-path, and it does not relax the rule that every method claim traces to a wiki page.)
 
 Research notes in `{research}` are dated snapshots. They rest once complete and are not promoted.
 
@@ -77,14 +77,15 @@ Pick slugs that will still make sense in a year. Avoid datestamps, version suffi
 |---------------|---------------|
 | `projects/` | `project` |
 | `areas/` | `area` |
+| `resources/` | `resource` (the `{wiki}` subtree is not a target folder) |
 
-`resources/` is **retired as an extraction target** as of this version — it is now the wiki's human-browsable home (`{wiki}` defaults to `resources/wiki/`; the operating contract's structure map). Legacy `type: resource` artifacts predating this version stay legal at the `resources/` root indefinitely — no backfill sweep, no re-type (the coexistence posture below, extended to the retired type; the legacy sentence also covers their `status: complete`). Where reference material goes now: **the wiki itself** — the human-browsable `{wiki}` — or `areas/` when it serves an ongoing commitment.
+`resources/` is a **live extraction target again as of this version** — a Layer 3 PARA zone with the same posture as `{projects}`/`{areas}` (the write-surface grant lives in the operating contract's Layer 3 and hard rule — mechanics there, never restated here); its `{wiki}` subtree is excluded — Layer-2 Librarian-only territory, not an extraction target. `type: resource` returns as live vocabulary. **Legacy posture preserved:** artifacts predating version 6 keep their standing legality — no backfill sweep, no re-type, and `status: complete` on a legacy `resource` file stays legal (the enum row below). Where general reference material *also* legitimately lives: **the wiki itself** — the human-browsable `{wiki}` — for knowledge that should compound, or `areas/` when it serves an ongoing commitment; routing guidance, not a closure.
 
 ## Required frontmatter for extracted artifacts
 
 ```yaml
 ---
-type: <project | area>
+type: <project | area | resource>
 created: YYYY-MM-DD                  # immutable
 last_updated: YYYY-MM-DD             # bumped on each re-extraction (overwrite-in-place)
 title: <human-readable title>
@@ -109,6 +110,7 @@ sources:
 |---------|----------------|------|
 | `project` | `draft \| in-progress \| complete` | matches the wiki/research enum (`frontmatter.md`) |
 | `area` | `ongoing \| retired` | unbounded work — no "done", only retirement |
+| `resource` | `ongoing \| retired` | unbounded, the `area` axis; **`complete` additionally admitted as a legacy-legal value on `resource` files** (pre-version-6 legality preserved) |
 
 Two rules ride the enums. **A `status:` value is a state, never a changelog** — history belongs in the container's `record.md` and in `last_updated`, never stuffed into the field. **Coexistence posture:** legacy values on files predating this convention stay legal, and there is **no backfill sweep** — a file adopts the enum on its next substantive edit (`vlt-lint` reports an out-of-enum value on a pre-adoption file as informational only: `para_status_unknown`). A **vault-grown** type or template declares its `status:` vocabulary **as schema in `{overlays}/extraction.overlay.md` at the type's birth** — never as an enum-in-comment inside a template.
 
@@ -143,7 +145,7 @@ If the re-extraction is so sweeping that the old artifact is effectively a diffe
 
 ## PARA containers
 
-A **container** is the unit of bounded or ongoing work in Layer 3 — a directory `{projects}/<slug>/` (bounded) or `{areas}/<slug>/` (unbounded) carrying 2–3 declared files. The *behavior* — the two-surface write rule, human-gated charters, whole-container archiving — lives in the operating contract (Layer 3, *PARA containers*); this section owns the **fields**. Sub-containers nest as directories (2–3 levels is typical); membership and containment are answered **by location**, no field. An extracted artifact belonging to a container files into the container's directory; a loose artifact at the layer root stays legal.
+A **container** is the unit of bounded or ongoing work in Layer 3 — a directory `{projects}/<slug>/` (bounded) or `{areas}/<slug>/` or `{resources}/<slug>/` (unbounded) carrying 2–3 declared files. The *behavior* — the two-surface write rule, human-gated charters, whole-container archiving — lives in the operating contract (Layer 3, *PARA containers*); this section owns the **fields**. Sub-containers nest as directories (2–3 levels is typical); membership and containment are answered **by location**, no field — with one carve-out answered **by name, not location**: the `{wiki}` subtree under `{resources}` is never a container, never a container member, and its pages are never PARA artifacts (the operating contract, Layer 2). An extracted artifact belonging to a container files into the container's directory; a loose artifact at the layer root (the `resources/` root included) stays legal.
 
 **`charter.md`** — the stable frame: outcome, scope, definition-of-done. Human-gated: partner-drafted at most, human-ratified.
 
@@ -166,7 +168,7 @@ status: <container enum below>
 | Container | `status:` enum |
 |-----------|----------------|
 | project container (bounded) | `open \| paused \| closed` |
-| area container (unbounded) | `active \| dormant \| retired` |
+| area or resource container (unbounded) | `active \| dormant \| retired` |
 
 A lifecycle transition the field records only as prose (e.g. project → area reclassification) is a `status:` change plus a location move, recorded as a dated `record.md` entry — no event machinery.
 

@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BRIEFED 2026-08-24 (briefs/build-1-crosslayer-populations.md); next: build build-1 via bmad-workflow-builder in a fresh session, then brief build-2'
+status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BRIEFED 2026-08-24 (briefs/build-2-resources-para-parity.md; E7 checks in the ledger); next: build build-2 via bmad-workflow-builder in a fresh session (exit: rewrite the brief status to a BUILT record with numbered deviations, delete any .decision-log.md, one commit), then brief build-3'
 module_code: 'vlt'
 created: '2026-08-24'
 updated: '2026-08-24'
@@ -1204,3 +1204,22 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   sweep neither discharges nor forfeits — it escalates to an owner ruling, its numbers
   counting as A11-11 evidence; anti-direction binds in every branch (no sampling, no
   `coverage_caps` removal).
+- [ ] **build-2 (resources-para-parity, briefed 2026-08-24):** brief
+  `factory/cycles/11-reachability/briefs/build-2-resources-para-parity.md`. Two checks
+  (= E7's ruled halves, restated per roundtable A5). **(1) `[ship-verifiable]` — GATES
+  closeout:** a context-free reader session given only the amended governance bundle (no
+  roadmap, no rulings) answers *whether and by what route* an artifact may come to live at
+  the `resources/` root — extraction as `type: resource`; container maintenance for
+  container files; the `{wiki}` subtree excluded as Librarian-only — derivable from the
+  amended text alone, a bare "yes, freely" failing (the A11-9 misread re-invited);
+  instrument: the brief's Verification-1 reader protocol, factory-side, runnable at rest;
+  evidence: the recorded answer in the brief's BUILT status; the no-fork clause is part of
+  the check (grant mechanics single-home in the operating contract, `extraction.md`
+  carries a pointer, never a restatement). *(The A13 provisional `vlt-lint` ack is not a
+  check here — build-6's bullet owns the bipartite completion within the same release.)*
+  **(2) `[field-contingent]` — does not gate:** a partner in a live vault resolves a
+  `resources/`-write legality question from the bundle **without escalating** (A11-10's
+  own acceptance shape); vault: `{field-vault}` (readable; its parked shelf gives it a
+  standing reason); event: the first partner session after the v0.15.0 upgrade touching a
+  `resources/` filing or write decision (e.g. relocating the parked shelf under the new
+  grant); unbounded — goes to the standing watch register at closeout.
