@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — captured 2026-08-24, awaiting ideation (scaffold + owner rulings + roundtable)'
+status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); next: roadmap-roundtable, then briefs'
 module_code: 'vlt'
 created: '2026-08-24'
 updated: '2026-08-24'
@@ -434,3 +434,747 @@ enough corpus under a budget, expense becomes refusal exactly as filed.
   it all verified.
 - **Owner rulings owed at ideation, flagged:** the A11-10 write-posture design ruling
   (four usable shapes named); the A11-11 direction-2 vs A10-18 sequencing ruling.
+
+## Ideation rulings — A11-1..A11-11 + the six Cycle-10 holds (owner-steered, 2026-08-24)
+
+**Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
+**COMPLETE — filled 2026-08-24 over five owner-steered rounds. Every slot is ruled.**
+Two rulings were **explicitly delegated to the clerk** by the owner and are marked as such
+(Q3's build placement; the Round-1 grouping cut, owner-adopted in full). `build-brief` gates
+on this section being filled — it is.
+
+**What each round settled.**
+- **Round 1 — the cycle's shape.** Nine builds *(eight as first ruled; corrected in Round
+  3)*, one release; **A10-18 is build-1** because closeout gates on it; **A11-2 and A11-11
+  directions 1–4 defer to Cycle 12**; `S-3` runs this cycle so Cycle 12 briefs over a
+  harvested spike. **Q2 dissolved rather than ordered.**
+- **Round 2 — the `resources/` grant.** `resources/` takes **PARA parity with
+  `{areas}`/`{projects}`** (Q1) — a **fifth shape, none of the filing's four**, overruling
+  the clerk's *explicitly closed* recommendation. **Full container model on the area axis**
+  (Q1a); the `extraction.md` retirement is **reversed, not scoped**, carrying a 5 → 6
+  handshake (Q1b); build-6 absorbs the widened `para_*` population and **queues behind
+  build-2** (Q1c); build-2 is rescoped and A11-5 moves to build-8 (Q1d); and **the wiki is a
+  Librarian-only zone** with a carve-out that must reach the nets, not just the contract
+  (Q1e).
+- **Round 3 — the vitals vocabulary.** A10-19 takes **directions 2 AND 3**; direction 1
+  rejected as outside the module's own two sanctioned routes. **Build-9 added** — the
+  Round-1 cut had wrongly scoped this as a ruling with no build.
+- **Round 4 — the postures.** D1 is **per-filing on a stated test**, not one blanket
+  posture; D2 confirms **no build carries two handshakes** and records permission-with-
+  verification as the general rule; D3 takes **the bounded middle** on A11-7's trigger.
+- **Round 5 — the tails.** E3, E5 and E7 each **split** into a ship-verifiable half that
+  gates and a field-contingent half that does not — the A4-4(5)/Arc-7-A3 lesson applied
+  preemptively. E8 re-carries untouched.
+
+**Deliberately left to the roundtable:** nothing is held open by name. The joints most worth
+the room's attention are recorded in the rulings themselves — build-2's size, build-6's new
+ordering dependency, and the four ship-verifiable checks now standing between this cycle and
+closeout. *(Roundtable A9: `S-3`'s harvest-or-kill obligation also stands at closeout per
+the register's orphan-spike gate, and the gating-check count grew with the A6–A10 splits —
+the E-ledger below is authoritative, not this sentence's count.)*
+
+Question numbering is the clerk's, for reference in session only; it implies no ordering or
+priority. Seeded from Cycle 11 capture runs 1+2 (2026-08-24) and the Cycle 10 closeout
+hand-off.
+
+**Batch population (17):** A11-1..A11-11 (captured this cycle) + the held Cycle-10
+captures A10-10, A10-12, A10-13, A10-15 C3, A10-18, A10-19.
+
+**What Round 1 settled.** The owner adopted the clerk's proposed cut in full (2026-08-24) —
+**this grouping is a clerk-drafted ruling, owner-adopted, and marked as such** (the Arc 9
+precedent for delegated rulings). Cycle 11 = **eight builds, one release** *(superseded
+Round 3 — nine builds; see build-9; roundtable A11)*, with A10-18
+first because closeout gates on it; **two items defer to Cycle 12** (A11-2 and A11-11
+directions 1–4); `S-3` runs this cycle so Cycle 12 briefs over a harvested spike.
+**Q2 is dissolved rather than answered** — deferring direction 2 removes the collision it
+asked about.
+
+**One grounding correction on the record** (clerk, Round 1): the skeleton's seeded material
+treated **A10-10 as adjacent to the decision-log cluster.** It is not — A10-10 is the
+`wiki-index` convention's row-format contradiction, a different convention entirely. It is
+grouped with the small edits below, not with A11-4/A10-12/A10-13.
+
+### Grouping & order
+
+**Cycle scope — RULED Round 1 (2026-08-24), amended Round 3.** Cycle 11 takes **16 of the
+17** *(count corrected — the enumeration below is authoritative; A11-11 split: direction 0
+in, 1–4 deferred; roundtable A11, 2026-08-24)*: A11-1,
+A11-3, A11-4, A11-5, A11-6, A11-7, A11-8, A11-9, A11-10 (build-2) *(stale "(as a ruling)"
+tags struck — roundtable A11)*, A11-11 **direction 0
+only**, A10-10, A10-12, A10-13, A10-15 C3, A10-18, A10-19 (build-9). **Deferred to
+Cycle 12:** A11-2 (spike-blocked; see *Spikes*) and A11-11 **directions 1–4**.
+**One release.** *(Round 3 amendment: Q3's ruling adds **build-9**, so the cycle is
+**nine** builds, not eight — A10-19 was scoped in Round 1 as a ruling with no build, which
+was wrong. See build-9.)*
+
+- **build-1 — A10-18, the crossLayerSlugs missing populations.** Ruled **first and
+  non-negotiable**: E1's bound debt discharges only on an executing sweep *after* this
+  predicate lands, so shipping it late leaves the gating sweep no window and carries the
+  debt a **fourth** cycle. Lands `sources/`, `{index}`, and non-`.md` linkables into the
+  full-mode coverage predicate, single-homed at `skills/vlt-lint/references/full-scale.md`
+  (step 1's `crossLayerSlugs` derivation).
+  - `binds:` E1, Q2
+  - `spike:` none
+  - *Scope obligation ruled into the build (Round 1, clerk-drafted, owner-adopted; **made
+    conditional — roundtable A10, owner-sanctioned 2026-08-24**):* the declaring-case
+    pricing in `tools/test-package-lint.py` applies **only if build-1 adds a
+    `package-lint.py` gate-check callable**. As ruled, build-1's deliverable is prose in
+    `skills/vlt-lint/references/full-scale.md` — and `_e4_harness_coverage`
+    (`tools/package-lint.py:857`, wired at `:1029`) introspects package-lint's **own**
+    check inventory, which that edit never enters, so the B9-1 trap as originally priced
+    cannot fire on this build. The at-rest verification the obligation was reaching for
+    lives in **E1(a)** instead.
+
+- **build-2 — A11-10 + A11-9, the `resources/` PARA-parity build.** *(Rescoped Round 2 —
+  was "A11-5 + A11-9, the relocation pair"; A11-5 moved to build-8 per Q1d.)* Lands the
+  Q1 grant across `vault-operating-contract.md:41`, `:64`, `:66`, `:68`, the structure
+  table's `wiki` row (its "partner-written" descriptor) and the *PARA containers*
+  paragraph *(`:64` + the wiki row added — roundtable A4: they are the loose surfaces a
+  partner actually reaches, per Q1e's own grounding)* (Q1a's area-shaped enums, Q1e's
+  Librarian-only `{wiki}` carve-out — **contract half only**; the `checks.md` half is
+  build-6 scope, per the A3 ownership split recorded under Q1e), plus `extraction.md:146`'s
+  location-based membership clause *(roundtable A4 — the hazard's origin, same file as the
+  `:81` rewrite, one handshake)*, and
+  rewrites `extraction.md`'s retirement at `:81` — a **rule change**: `version:` 5 → 6,
+  re-ack `[vlt-extract, vlt-lint, vlt-track]` in the same build (Q1b). **Ships before
+  build-6** (Q1c). Superseded drafting note follows:
+
+  ~~A11-5 + A11-9, the relocation pair. Both are prose downstream of the
+  0.14.0 wiki relocation, and both are downstream of **Q1**: A11-9's fix scopes
+  `extraction.md:81`'s retirement to extraction artifacts and **points at** the A11-10
+  ruling for "what else may live at that root" rather than answering it (the two must not
+  fork the answer). A11-5 adds clause (c) to the standing relocation-migration discipline
+  at `skills/vlt-upgrade/SKILL.md:75` — report, never auto-edit.~~ *(Strikethrough extended
+  over the whole superseded note — roundtable A11: the unstruck body still read as
+  actionable and instructed the obsolete scope-the-retirement plan. The live A11-5 clause
+  is fully restated in build-8; the no-fork constraint returns via E7(a), roundtable A5.)*
+  - `binds:` Q1, Q1a, Q1b, Q1c, Q1d, Q1e, D2, E7  *(D1 dropped Round 4 — it followed A11-5 to build-8)*
+  - `spike:` none
+  - **Round-2 resolution.** Q1 was ruled the opposite of what this bullet was drafted
+    against: `resources/` is **granted** PARA parity, not closed, so A11-9 is no longer a
+    prose-only fix. Q1a, Q1c, Q1d and Q1e are ruled and folded into the header above.
+    **Q1b ruled Round 2: reverse.** The build carries the `extraction.md` 5 → 6 handshake.
+    The Q1 set (Q1, Q1a–Q1e) is complete; build-2 is briefable once D1/D2 and its E7 tag
+    are settled.
+
+- **build-3 — A11-4 + A10-12 + A10-13, the decision-log cluster.** Grouped because this is
+  the batch's **only** `version:` bump + consumer re-ack; three separate builds would mean
+  three handshakes on one convention.
+  - `binds:` D1, D2
+  - `spike:` none
+
+- **build-4 — A11-1, the spec-candidate relay-leg retune.** `checks.md:48`. Sweeps the two
+  consumer sites restating the example vocabulary (`report.md:59`, `fix-and-file.md:50`) or
+  strands them.
+  - `binds:` E3
+  - `spike:` none
+  - *Scope obligation (roundtable A6):* the brief prices **the fixture dispatch record and
+    the at-rest run of the retuned leg** as same-build scope — no such fixture exists today
+    and nothing else builds one, so E3(a)'s ship-verifiable tag is only true once the
+    instrument is named and runnable (agent-run against the fixture is acceptable, but it
+    is named as the instrument).
+
+- **build-5 — A11-3, the council shortfall signal.**
+  `skills/vlt-setup/assets/workflows/vlt-review-council.js:148-152`. Council only — the
+  consult parity question was answered NO at grounding.
+  - `binds:` *(none yet — brief-time questions only; see* Questions deliberately left to
+    brief time *)*
+  - `spike:` none
+
+- **build-6 — A11-6, the closing net.** `para_type_unknown` / `para_author_unknown`.
+  **Absorbs Q1c** — the `para_*` population and the `checks.md:16` container carve-out
+  extend to `{resources}` with Q1a's enums, **and the `{wiki}` Librarian-only exclusion
+  lands in the same `checks.md` edit, never separately** *(roundtable A3 — the carve-out's
+  nets half is this build's, not build-2's; see the ownership split under Q1e)*.
+  **Must land after build-2** (Q1c).
+  **Ship-verifiable check (gates closeout — roundtable A3):** a fixture page under the wiki
+  subtree does not enter the extended `para_*` population at rest.
+  - `binds:` D1, Q1a, Q1c, Q1e *(Q1e added — roundtable A3)*
+  - `spike:` none
+
+- **build-7 — A11-7, the instrument rule.** Home confirmed at the operating contract's
+  *Honest reporting* (`vault-operating-contract.md:341`) + pointers from the two consumer
+  sites; the operating contract is deliberately not handshaked.
+  - `binds:` D3, E5
+  - `spike:` none
+
+- **build-8 — the small-edits build: A11-8 + A10-10 + A10-15 C3 + A11-5 + A11-11
+  direction 0.**
+  Four unrelated small fixes plus the instrumentation move, batched because each would
+  otherwise consume a build slot for a few lines. A11-8 genericizes the one shipped-surface
+  `vlt-core` instance at `skills/vlt-upgrade/SKILL.md:89` (no `version:` bump); A10-10
+  reconciles `wiki-index`'s row-format rule with its own worked example; A10-15 C3 is the
+  voice-rule single-homing; A11-11 direction 0 instruments the full-lint cost.
+  **A11-5 joined here Round 2 (Q1d)** — clause (c) on the standing relocation-migration
+  discipline at `skills/vlt-upgrade/SKILL.md:75` (any migration changing path resolution
+  greps `{overlays}/` for the affected path/key and surfaces hits as a human-gated review
+  bullet — **report, never auto-edit**); independent of the parity ruling, which is why it
+  left build-2.
+  - `binds:` D1, E6
+  - `spike:` none
+
+- **build-9 — A10-19, the vitals metric-vocabulary build.** *(Added Round 3; build
+  placement **delegated to the clerk** and ruled here.)* Carries **both** Q3 directions,
+  because both edit the same reader's metric vocabulary:
+  **direction 2** — the fourth bounded kind in `LOCAL_METRIC_KINDS` / `LOCAL_METRIC_LOCATOR`
+  / the required-field validation and a `derive_local_metrics` branch
+  (`skills/vlt-setup/assets/hooks/vlt-vitals.py:251-253`, `:376`), plus the schema header in
+  `skills/vlt-setup/assets/tripwires.yaml` (the registry header owns that schema);
+  **direction 3** — one counter in the existing `expired_pages` loop (`:617-634`) promoted
+  to canonical `METRICS`, and the note's denominator repaired.
+  - `binds:` Q3, E2
+  - `spike:` none
+  - *Why one build and not two, and why not build-8 (clerk's reasoning, recorded):* both
+    directions edit `vlt-vitals.py`'s metric vocabulary, so splitting them means **two edits
+    to the same reader in one cycle**. And direction 3 is *small in diff but not small in
+    consequence* — a canonical metric ships to **every** vault — so it does not belong in a
+    build whose framing is "small edits". Build-8 stays honestly small.
+  - *No release-gate trap here (checked):* `tools/package-lint.py:33-34` parses `METRICS`
+    **from the asset, never re-declared**, and compiles the reader — so a new canonical
+    metric and a new kind both ride in without a lint edit. This is **not** the build-1
+    situation; the difference is single-homing.
+  - *Scope (roundtable A7):* build-9 includes a **field notice** (the DA3 CHANGELOG-notice
+    precedent) naming the fourth kind and the lost-derive case it exists for — E2(b)'s
+    discharging event is a vault *declaring* the kind, and a declaration cannot come from a
+    vault that was never told the route exists (D1's own not-knowing failure mode, applied
+    to the cycle's field contract).
+
+**Deferral rationale, on the record (Round 1):**
+- **A11-11 directions 1–4** — the ~4.1 M-token total is the filing's own flagged estimate;
+  all four directions would be priced against a number nobody has measured, and direction 2
+  is sequencing-blocked behind build-1 regardless. Direction 0 ships this cycle so Cycle 12
+  decides on measurement. The anti-direction rides the deferral unchanged: **no sampling**,
+  and **no `coverage_caps` entry is ever removed to make a run look cleaner.**
+- **A11-2** — spike-blocked, and exposure is bounded (`.github/` is outside the
+  own-the-apply copy surface, so the handle never lands inside an installed vault). `S-3`
+  runs this cycle so Cycle 12 briefs over a harvested spike rather than rediscovering the
+  question at brief time.
+
+*Clerk's flagged residual risk, unruled and recorded rather than resolved:* if the cycle
+needs compressing later, **A11-7 defers most cleanly** (a long-standing absence, and D3's
+trigger-width question is genuinely unsettled — deferring buys a better rule). **Build-1
+is not a candidate for compression under any pressure.** And if Q-side ruling on A11-6
+picks *widen the vocabulary* over the closing net, **build-6 grows** — the estimate above
+assumes the closing net.
+
+### Pre-ideation rulings the capture demanded
+
+- **Q1 — A11-10: is `resources/` outside `{wiki}` partner-writable, and under what
+  discipline? — RULED Round 2 (2026-08-24).** **`resources/` is granted the same posture
+  as `{areas}` and `{projects}`** — it is a Layer 3 PARA zone, an active domain that
+  happens to contain the wiki. **None of the filing's four named shapes; the owner ruled a
+  fifth**, against a clerk recommendation of *explicitly closed* — that recommendation is
+  overruled and recorded here as overruled.
+
+  *Owner's reasoning, verbatim:* "grant resources the same rulings as areas and projects.
+  If it is an active domain that contains the wiki."
+
+  **Clerk's grounding, recorded because it strengthens the ruling and corrects the
+  clerk's own prior read** (the closed reading leaned on the hard rule's closed-form
+  *"write only to"* clause and the `_agent/`-scoped ad-hoc grant at `:64`; three shipped
+  facts cut the other way and the clerk had not weighed them):
+  1. **PARA is Projects–Areas–Resources–Archive.** Layer 3 being defined as
+     `{projects}`/`{areas}` only (`:66`) is the anomaly; this ruling restores the acronym
+     the layer is named for.
+  2. **The lint already models `resources/` as a peer layer.** `crossLayerSlugs`
+     (`skills/vlt-lint/references/full-scale.md`, step 1) qualifies every directory-valued
+     structure key *except* the wiki's own, governance, archive, and report dirs — and
+     explicitly excludes `{wiki}`'s subtree because it "nests under `{resources}` by
+     default." `resources/<not-wiki>/` is **already** a cross-layer linkable population.
+  3. **`type: resource` was never deleted, only retired.** `extraction.md`'s type table
+     and its retirement sentence keep legacy `type: resource` artifacts "legal at the
+     `resources/` root indefinitely." The zone was retired because the wiki moved in, not
+     because it was conceptually wrong.
+
+  **Forced consequences — new open slots below (Q1a–Q1d).** This ruling is larger than the
+  clerk's proposed cut priced for; it changes build-2's nature and D2's answer.
+
+- **Q1a — containers, artifacts, or both? — RULED Round 2 (2026-08-24): shape (C), full
+  parity, unbounded-shaped.** `resources/` gets the **full container model** — containers
+  *and* typed artifacts — **reusing the `area` axis** rather than inventing a third:
+  container `status:` `active | dormant | retired` on the charter, artifact `status:`
+  `ongoing | retired`. Grounding: the container model's organizing axis is bounded-vs-
+  unbounded *work*, and reference material has no honest definition-of-done; the owner's
+  own phrase — an "**active domain**" — is the area vocabulary exactly, so parity is
+  delivered with no invented axis and no fake definition-of-done.
+- **Q1b — the `extraction.md` retirement: reverse or scope? — RULED Round 2 (2026-08-24):
+  REVERSE.** Option (i) of two the clerk put up. The retirement at `extraction.md:81` is
+  **un-retired**, not narrowed; **`type: resource` returns as live vocabulary**; and the
+  build carries the handshake: **`version:` 5 → 6, re-ack `consumers: [vlt-extract,
+  vlt-lint, vlt-track]` in the same build.**
+
+  *Why reversal was forced in the first place:* `extraction.md:45` — "**Artifacts reach PARA
+  only through extraction**", with container maintenance as the only other named surface. A
+  PARA `resources/` whose retirement stood would have **containers but no artifact write
+  path**, leaving the filing's original motivation blocked for a new reason.
+
+  *The rejected alternative, recorded so the choice is visible:* **(ii) scope** the
+  retirement to the flat root / the legacy `type: resource` case, and let extraction into a
+  `resources/` **container** ride the area-shaped container rules Q1a adopted — leaning on
+  `:81`'s own escape clause ("`areas/` when it serves an ongoing commitment"). Cheaper: no
+  bump, no new vocabulary. **Rejected on three grounds:** (1) it is a lawyer's reading of a
+  flat sentence — deciding "retired as an extraction target" means *the root only* is
+  exactly the scope-not-carried-to-the-reader defect **A11-9 was filed against**, so the fix
+  would reproduce the defect it repairs; (2) a `resources/` container holding `type: area`
+  artifacts breaks the folder→type correspondence the table exists to state; (3) the zone
+  would have no type of its own, which contradicts "the same rulings as areas and projects"
+  — each of those has one.
+
+  **Concrete deliverables this ruling puts in build-2's scope:** un-retire `resources/` at
+  `:81`; restore the folder→type row (`resources/` → `resource`); add the artifact
+  `status:` enum row for `resource` — **`ongoing | retired`**, the area axis per Q1a,
+  **plus `complete` admitted as a legacy-legal value** *(roundtable A2, owner-ruled
+  enum-side over a net-side carve-out: `para_status_unknown` keys on this enum, so the
+  coexistence posture reaches build-6's extended net through its single home — without the
+  value, every legacy file would flag)*; keep
+  the **coexistence posture** so legacy `type: resource` files carrying `status: complete`
+  stay legal with no backfill sweep; bump and re-ack.
+- **Q1c — the `para_*` nets' population extends to `resources/`. — RULED Round 2
+  (2026-08-24): build-6 absorbs it, and build-6 gains an ordering constraint.**
+  `checks.md:16`'s container carve-out names container files "under a `{projects}`/`{areas}`
+  container directory" and `para_status_unknown` (`:17`) keys on per-type enums; both take
+  `{resources}` and the Q1a enums. **Build-6 must land after build-2** — the Round-1 order
+  did not require this, and does now. **Build-2's `vlt-lint` re-ack is recorded provisional
+  pending build-6 within the same release** *(roundtable A13: the ack would otherwise be
+  textually bipartite-consistent and behaviorally false until build-6's `checks.md` edits
+  land; build-6's brief owns the bipartite verification, and release-gate exposure is nil
+  since one release ships both)*.
+- **Q1d — does this need its own build? — RULED Round 2 (2026-08-24): rescope build-2.**
+  Build-2 becomes **A11-10 + A11-9 as one build** — the parity contract change and the
+  retirement rewrite are the same edit, one handshake, one coherent unit. **A11-5 moves to
+  build-8**, since the relocation-migration clause at `skills/vlt-upgrade/SKILL.md:75` has
+  nothing to do with parity. The cycle stays at **eight builds** *(superseded Round 3 —
+  nine builds; see build-9; roundtable A11)*.
+- **Q1e — the wiki nested inside a Layer 3 zone. — RULED Round 2 (2026-08-24): hazard
+  accepted, and the carve-out is narrower than a carve-out — "the wiki is a librarian only
+  zone."**
+
+  **The hazard, on the record:** `extraction.md:146` answers container membership **by
+  location, no field**. Once `resources/` is a PARA container zone, that rule reads
+  `resources/wiki/` as a member — and with the `para_*` nets extending to `resources/`
+  (Q1c), the wiki's pages become candidates for PARA container/artifact judgment. Unguarded,
+  this ruling would ship a **mass false-positive into the very nets build-6 is building**.
+  The `{wiki}` carve-out is therefore **correctness scope, not tidiness**, and it must reach
+  **both** the contract (`:66`/`:68`) and `checks.md`'s population — a contract-only
+  carve-out does not bind the nets.
+
+  **The owner's narrowing:** the wiki is not merely partner-owned territory that happens to
+  sit inside PARA — it is a **Librarian-only zone**. Writers other than the Librarian do not
+  write there.
+
+  *Clerk's grounding — the ruling matches shipped reality; it is the contract's prose that
+  is loose:*
+  - `skills/vlt-ingest/SKILL.md:13` — "**vlt-ingest is the single writer of canonical wiki
+    pages**". A single-writer rule already ships, expressed per-**op**.
+  - `skills/vlt-setup/assets/module-help.csv:3` — `vlt-agent-librarian`, "the keeper of the
+    collection — integrates sources, **keeps the wiki healthy and single-home**"; declared
+    outputs are "wiki / index / log / session / thread updates".
+  - `skills/vlt-groom/SKILL.md:35` — "a wiki-rung promotion is **never a direct wiki
+    write**" — a second op deferring to that single writer.
+  - Against those three, `vault-operating-contract.md:64`'s "**Partners own this layer
+    entirely — read, write, update**" is the loose statement, and it is the one a partner
+    reading the contract actually reaches.
+
+  **This is a fourth instance of the cycle's own through-line** — a rule that is declared
+  (single writer, in the op and the roster) and unreachable at the surface where it is
+  looked up (the contract). It is folded into build-2 as scope, not filed separately.
+  Contract prose is deliberately un-handshaked, so **no `version:` bump** for this half.
+
+  **Ownership split *(roundtable A3, 2026-08-24 — nine of twelve voices independently)*:**
+  the carve-out's **contract half** (`:64`, `:66`, `:68`, the structure table's `wiki` row,
+  and `extraction.md:146`'s location-based membership clause — the loose surfaces added per
+  A4) is **build-2 scope**; the **`checks.md` population half is build-6 scope**, landed
+  **atomically with the Q1c widening in the same edit, never separately** — build-2 would
+  otherwise write an exclusion into a population that does not yet contain `{resources}`,
+  and two builds would edit the same sentences blind to each other's diffs. Build-6's
+  `binds:` gains Q1e, and build-6 carries a ship-verifiable fixture check that **gates
+  closeout**: a page under the wiki subtree does not enter the extended `para_*` population
+  at rest.
+- **Q2 — A11-11 direction 2 vs A10-18: sequencing. — RULED Round 1 (2026-08-24):
+  DISSOLVED, not ordered.** Direction 2 defers to Cycle 12, so it no longer competes with
+  build-1 for the full-mode coverage predicate. The question is retired rather than
+  answered; if Cycle 12 takes direction 2, the sequencing question returns against whatever
+  state build-1 leaves.
+- **Q3 — A10-19: `local_metrics:` expressiveness. — RULED Round 3 (2026-08-24):
+  directions 2 AND 3; direction 1 rejected.** Build placement **delegated to the clerk** by
+  the owner and marked as such (the Arc 9 precedent for delegated rulings) — see build-9.
+
+  - **Direction 2 — a fourth bounded kind** (`frontmatter_key_count` or similar): `glob`
+    locator plus a `key:` field, one named semantic. **This is the direction that discharges
+    B10-4(4)**, because B10-4(4)'s event is *a vault declaring its lost derive* — the local
+    declaration path working.
+  - **Direction 3 — promote `pages_with_review_after` to canonical `METRICS`**: near-free.
+    `vlt-vitals.py:617-634` already walks `{wiki}` + `{research}` calling
+    `_read_frontmatter_review_after`; `scanned` counts pages and `ra is not None` **is** the
+    key-carrier predicate, so the number is already in hand inside a loop that already runs.
+    Also repairs the note's denominator — the capture's sharpening was that `scanned` is the
+    *wrong* denominator for judging staleness coverage.
+  - **Direction 1 — a content predicate on `file_count` — REJECTED.** The shipped bound
+    (`tripwires.yaml:16-18`, restated at `vlt-vitals.py:248-250`) authorizes exactly two
+    routes: "a new canonical metric **or** a new kind". Mutating an existing kind's
+    semantics is neither; and `matching:` would open a **query language** inside a
+    deliberately bounded declarative vocabulary — dissolving the very posture it claims to
+    keep.
+
+  **Grounding correction to the capture, on the record:** the capture states there is "no
+  content read anywhere in the evaluator". That is true of the **local-metrics** evaluator
+  only (`derive_local_metrics`, `:376-400`) — **not of the hook**, which already reads
+  frontmatter for `expired_pages`. The correction is what makes direction 3 near-free rather
+  than a new scan.
+
+  **Consequence for B10-4(4) if direction 3 had been ruled alone** (recorded because it was
+  the deciding argument): direction 3 makes the instance **moot, not discharged** — a
+  canonical metric is received, never declared, so it produces no local-declaration event.
+  Ruling both keeps the class fix and the instance fix distinct.
+
+  **Clerk's correction to its own Round-1 cut:** Round 1 scoped A10-19 as "a ruling, no build
+  attached". **That was wrong under all three directions** — each needs shipped code. E2's
+  "unblocks when Q3 is ruled" is likewise wrong: B10-4(4) unblocks when Q3's **mechanism
+  ships**. Both corrected below.
+
+### Cross-filing decide-once rulings
+
+- **D1 — write-time discipline vs detection net. — RULED Round 4 (2026-08-24): per-filing,
+  on a stated test — not one blanket posture.** The test is ruled into the roadmap so briefs
+  inherit it rather than re-deriving it:
+
+  > **Prefer the write-time rule where the writer passes a chokepoint the module controls.
+  > Choose a detection net where the failure mode is *not-knowing* — a rule cannot reach a
+  > writer who does not know it exists.**
+
+  | filing | who writes | chokepoint | failure mode | ruled |
+  |---|---|---|---|---|
+  | **A11-4** (build-3) | ceremonies (`vlt-mint` Step 2a and kin) | module-controlled | an off-subject trailing clause written *while following the rules* | **write-time** — subject-coherence discipline, **no new finding class** |
+  | **A11-5** (build-8) | the module author, in the factory, at build time | the tightest that exists | a path moves and overlays go unconsidered | **write-time** — clause (c), report-never-auto-edit |
+  | **A11-6** (build-6) | a partner in a live vault | none the module controls | **the writer does not know the vocabulary** | **detection** — the closing net |
+
+  *Both precedents are real and were weighed:* the **write-side** precedent at
+  `decision-log.md:99` (the verdict-provenance rule v2 is ceremony-enforced and "**no new
+  finding class ships with v2**"), against **R3** at `checks.md:38` (every new finding class
+  **owes a stated legal response** — detection is legitimate, never free).
+
+  *Why A11-6 breaks a blanket answer:* its failure mode is precisely not-knowing, so a
+  write-time rule addressed to that writer **cannot reach them by construction**.
+  Declare-at-birth already covers *declared* vocabulary; the undeclared case is the gap, and
+  only a net catches it. **The closing net carries its R3 stated-legal-response obligation
+  into build-6's scope.**
+
+  *Why A11-4 and A11-5 do not get nets:* their writers are inside module-controlled
+  ceremonies, so a net buys enforcement that already exists — and **A11-11, in this same
+  cycle, is the finding that lint cost scales with corpus.** The cheapest lint class is the
+  one not added.
+
+  **The irony, named rather than glossed:** A11-4 is a filing *about a rule that fails to
+  reach its readers*, and it is being fixed with another write-time rule. That holds only
+  because its writers pass a ceremony. **If the decision-log's authors turn out not to be
+  reliably ceremony-mediated in practice, A11-4 flips to detection and build-3 grows a
+  finding class** — recorded here as the condition that would reopen this ruling.
+
+  Binds builds 3, 6, 8.
+- **D2 — version-handshake obligations across the batch. — RULED Round 4 (2026-08-24):
+  inventory confirmed; no build in this cycle carries two handshakes; general permission
+  recorded as a verification obligation, not a prohibition.**
+
+  **The batch's handshake inventory, as ruled:**
+
+  | build | surface | bump | consumers to re-ack |
+  |---|---|---|---|
+  | 2 | `extraction.md` | **5 → 6** | `vlt-extract`, `vlt-lint`, `vlt-track` |
+  | 2 | `vault-operating-contract.md` | **none** — deliberately un-handshaked (single-home + pointers) | — |
+  | 3 | `decision-log.md` | **2 → 3** | `vlt-mint`, `vlt-upgrade`, `vlt-lint` *(roster read at `decision-log.md:12`)* |
+  | 7 | `vault-operating-contract.md` | none | — |
+  | 8 | `vlt-upgrade` SKILL prose | none | — |
+  | 8 | `wiki-index.md` (A10-10) | **conditional** — example-yields-to-rule = prose, no bump; rule-yields-to-example = rule change, **2 → 3** | `vlt-ingest`, `vlt-lint`, `vlt-lint-full.js` *(row added — roundtable A15: the inventory claimed completeness while omitting this handshaked surface)* |
+
+  **The literal question is not triggered.** Build-2 carries one handshake plus an
+  un-handshaked contract rewrite; build-3 carries one. The clerk had flagged "two handshakes
+  in one batch makes D2's open half live" — **live for the batch, not for any single build**,
+  and that distinction is recorded rather than resolved into a ruling nothing needed.
+
+  **The general rule, ruled:** a build **may** carry more than one handshake. The
+  version-handshake's actual requirement is **bipartite consistency** — every consumer listed
+  ↔ every ack current — which is checkable per-convention no matter how many ride in one
+  build. A blanket prohibition would be **a rule with no mechanism behind it**, which is this
+  cycle's own named failure mode; the obligation is verification, not abstinence.
+
+  **Build-3's bump is independent of D1.** A11-4 is ruled write-time with **no new finding
+  class**, but A10-12 and A10-13 remain convention changes to `decision-log.md` — so
+  **build-3 bumps regardless**. D1 changed A11-4's *mechanism*, not build-3's handshake
+  obligation.
+
+  Binds builds 2, 3.
+
+- **D3 — A11-7's trigger width. — RULED Round 4 (2026-08-24): the bounded middle.** The
+  trigger widens from "byte-exact verdicts" to **any verdict mechanically derived from an
+  external instrument's output — comparison, count, or enumeration**. Both halves of the
+  rule stand unchanged: (1) use an **unwrapped** instrument (a property named, not a tool,
+  so a future wrapper inherits the rule); (2) confirm it **actually ran** unwrapped and name
+  it in the record — "a record of the instrument named is not a record of the instrument
+  run."
+
+  *Both rejected phrasings, and why:*
+  - **The narrow original ("byte-exact")** is precise and testable and **demonstrably misses
+    the second real field instance** — the wrapped `find -newermt` returning all 147 wiki
+    pages where `os.stat` put the truth at 0/0/2/4 (issue #8, 2026-08-23T21:55:12Z): same
+    wrapper class, different verb, outside the trigger as drafted.
+  - **The wide phrasing ("any instrument whose output a verdict rests on")** covers both and
+    is **vacuous by breadth** — nearly every act rests on some instrument's output, and a
+    rule that applies to everything reaches nobody. **That is this cycle's own failure mode
+    approached from the opposite side**, and widening A11-7 into unreachability while fixing
+    reachability would be a poor trade.
+
+  *Why the middle is bounded and not a compromise:* the common factor in both field
+  instances is a verdict **mechanically derived from an external command's output**, where a
+  wrapper can silently rewrite it. "Mechanically derived" is the load-bearing bound — it
+  covers records stating a number or an identity that came from a tool, and excludes verdicts
+  the agent reasoned to. This follows CLAUDE.md's **narrow-the-population** doctrine: cut the
+  population precisely rather than write a broad rule plus exceptions.
+
+  *Home confirmed, and it fits:* `vault-operating-contract.md:341` (*Honest reporting*) is
+  about counts stating their denominator and blind spot — and the two field instances are
+  **one comparison and one count**, so a trigger spanning both sits naturally in this section
+  rather than straining it. The operating contract is deliberately un-handshaked: single-home
+  + pointers from the two consumer sites, **no `version:` bump** (consistent with D2).
+
+  *Effect on the three grounded sites:* unchanged for `skills/vlt-upgrade/SKILL.md:37` and
+  `skills/vlt-lint/references/checks.md:42` — both name no instrument, so both take the full
+  rule. The skill-asset manifest walk (`SKILL.md:38`) still takes **only the second half**,
+  since it already specifies `verify-skill-manifest.py` and in-process hashing. The
+  widening's practical effect: **scoping and enumeration queries now carry the rule** — the
+  exact class that failed in the field.
+
+  Binds build 7.
+
+- **D4 — A11-2's `rail_contract` bump.** **Rides A11-2's deferral to Cycle 12** (Round 1) —
+  no build in this cycle binds it. Carried, not answered.
+- *(add further decide-once rulings as rounds surface them)*
+
+### Spikes
+
+**The register is the record; this section is its view.** Mechanics:
+`factory/platform/spikes/README.md`.
+
+- `S-3` (github-notification-semantics) — **RULED Round 1 (2026-08-24): Cycle 11 runs it.** It moves to `running` when the
+  read actually starts — the register's ladder describes a read in progress, so it stays
+  `proposed` until then rather than being stamped in advance. Opened 2026-08-24 by capture against **A11-2**; timebox requires
+  reading current GitHub documentation **and** confirming against real repo behavior — a
+  docs-only read reports `verdict: reshape`, not `proceed`. Covers A11-2's carried open
+  questions 1 and 2. **A11-2 itself defers to Cycle 12**, which briefs over the harvested
+  spike; no Cycle 11 build binds `S-3` (every build bullet above reads `spike: none`).
+  Written back to the register file in this session.
+  **Run mechanics *(roundtable A9, 2026-08-24)*:** the read's window and actor are named —
+  **the owner runs it during Cycle 11's briefing stage**, before build-4 briefs. And at
+  Cycle 11 closeout, **carry-forward is not a legal disposition for `S-3` absent a new
+  owner ruling** — harvested or owner-killed only: the register's orphan-spike gate would
+  otherwise accept "explicitly carried forward" and lawfully nullify the very outcome the
+  Round-1 ruling exists to produce (Cycle 12 briefing over a *harvested* spike).
+
+Spikes this batch newly demands: **none** — ruled Round 1. No other item in the batch turns
+on an external unknown.
+
+### Evidence-debt dispositions
+
+- **E1 — B10-2(5)/B10-12(6), BOUND inherited debt, GATES this cycle's closeout.**
+  **RULED Round 1: attached to build-1. SPLIT, and the refusal posture stated *(roundtable
+  A10 owner-sanctioned + A1 — seven of twelve voices independently found the missing
+  posture, 2026-08-24)*.**
+  - **(a) [ship-verifiable] — GATES closeout.** The amended `crossLayerSlugs` derivation,
+    run against a fixture `vault_structure`, yields the three missing populations
+    (`sources/`, `{index}`, non-`.md` linkables) correctly at rest — the predicate is
+    verified before the field sweep spends the discharge window. *(E1 was the only E-item
+    Round 5 did not split; the debt everything gates on now has an at-rest half.)*
+  - **(b) [field — still gates, as bound].** Discharging event unchanged — an executing
+    full sweep whose missing-target flags survive verification (or a measured zero) **after
+    build-1 lands** the predicate's three missing populations. Criteria as amended by DA9.
+    **The gating run carries build-8's direction-0 instrumentation live**, and its budget is
+    sized from that evidence where available *(A1)*. **Refusal posture:** an
+    availability-failed sweep (the A11-11 dynamic — `status: 'failed'`, no persist) neither
+    discharges nor forfeits the debt; it **escalates to an owner ruling** — an
+    owner-authorized re-run at explicit budget, or a knowing re-carry — and the failed
+    run's instrumentation counts as A11-11 measurement evidence either way. The
+    anti-direction (no sampling, no `coverage_caps` removal) binds in every branch.
+- **E2 — B10-4(4), BLOCKED (unreachable), explicitly not a watch. — RULED Round 3
+  (2026-08-24): attached to build-9, and the unblock condition is CORRECTED.** ~~Unblocks
+  when Q3 is ruled~~ — **STRICKEN**: a ruling makes nothing declarable. B10-4(4) unblocks
+  when **direction 2's fourth kind ships**, and discharges when a vault then declares its
+  lost content-filtered derive. That is a **field-contingent** event by construction (it
+  needs a live vault's declaration), so it does **not** gate closeout — unlike E1. Parts 2
+  and 3 ride the same carry. **SPLIT *(roundtable A7, 2026-08-24)*:**
+  - **(a) [ship-verifiable] — GATES closeout.** A fixture `local_metrics:` declaration
+    expressing the known lost content-filtered derive (filing 190100's case) validates and
+    derives correctly at rest under build-9's fourth kind — the discharge route is proven
+    expressible before the field is asked to use it (otherwise BLOCKED silently converts to
+    a permanent watch through a kind that cannot state the one instance it exists for).
+  - **(b) [field-contingent — does not gate]** — the live vault actually declares it
+    (unchanged).
+- **E3 — A11-1 ~~rides B10-3(3)'s open tail~~ *(re-anchored — roundtable A6: B10-3(3) was
+  discharged whole on 2026-08-23, so the field half rode a vehicle that no longer exists;
+  it is now a fresh window with no B10-3 dependency)*. Attached to build-4. — RULED Round 5
+  (2026-08-24): SPLIT.**
+  - **(a) [ship-verifiable] — GATES closeout.** The retuned predicate computes correctly
+    against a **fixture** dispatch record: a single ask→answer round trip does **not** fire
+    `spec_candidate`; the amendment case does. Verifiable at rest. (B9-1's
+    reproducibility-instrument precedent — the instrument is factory-side and runnable at
+    rest, or the tag is not true.)
+  - **(b) [field-contingent]** — the false-fire rate actually collapses over a fresh
+    two-run observation window **opened by build-4's release** *(roundtable A6)*. Run 1
+    (2026-08-22) recorded conformant; field-measured baseline is 6 of 8 fires on single
+    round trips.
+- **E4 — A11-2's acceptance evidence is a live notification.** **Rides A11-2's deferral to
+  Cycle 12** (Round 1). The preserved constraint is unchanged: the trigger stays real, not
+  prose — a replacement ships only if the notification demonstrably fires.
+- **E5 — A11-7's field reproduction. Attached to build-7. — RULED Round 5 (2026-08-24):
+  SPLIT.**
+  - **(a) [ship-verifiable] — GATES closeout.** The rule lands at
+    `vault-operating-contract.md:341` with **both halves** stated (unwrapped instrument;
+    confirm-it-actually-ran-and-name-it) at D3's ruled trigger width, the two consumer sites
+    (`skills/vlt-upgrade/SKILL.md:37`, `skills/vlt-lint/references/checks.md:42`) carry
+    **pointers**, and no site restates the mechanics (the single-home check).
+  - **(b) [field-contingent]** — a real wrapped-instrument incident is actually caught.
+    Reproduces only in a vault whose shell installs a command-rewriting hook; other vaults
+    can verify only that the rule reads sensibly.
+- **E6 — A11-11's ~4.1 M-token total is the filing's own flagged estimate**, un-instrumented.
+  **RULED Round 1: direction 0 is a precondition on directions 1–4**, which is why those
+  defer to Cycle 12 and direction 0 ships in build-8. **SPLIT *(roundtable A8,
+  2026-08-24)*:**
+  - **(a) [ship-verifiable] — GATES closeout.** The direction-0 instrumentation exists and
+    emits its cost line on a fixture/at-rest run — the precondition Cycle 12 briefs over
+    cannot ship inert or be silently trimmed from build-8's batch.
+  - **(b) [field-contingent — does not gate]** — the live full-lint measurement itself.
+- **E7 — A11-9's cold read test. Attached to build-2. — RULED Round 5 (2026-08-24): SPLIT,
+  and RESTATED — the capture's acceptance no longer describes the build.** Under Q1b the
+  sentence at `extraction.md:81` is rewritten wholesale rather than scoped, so the filed
+  test ("a partner can tell the retirement is scoped to extraction artifacts") is obsolete.
+  - **(a) [ship-verifiable] — GATES closeout.** *(Restated — roundtable A5, 2026-08-24:
+    the actor is named, the question reshaped, the no-fork clause recovered.)*
+    **Instrument, named:** a context-free reader session given only the amended bundle (no
+    roadmap, no rulings) — factory-side, runnable at rest; the recorded answer is the
+    evidence. **Question:** *whether and by what route* may an artifact come to live at the
+    `resources/` root (extraction as `type: resource`; container maintenance) — derivable
+    from the amended text alone. A bare yes/no is not the test: `extraction.md:45`'s
+    artifacts-reach-PARA-only-through-extraction route survives the reversal, so "yes,
+    freely" would be the misread A11-9 was filed against, re-invited. **No-fork clause
+    (recovered from the capture):** the grant's mechanics single-home in the operating
+    contract; `extraction.md` carries a pointer, never a restatement — no-restatement is
+    part of this check.
+  - **(b) [field-contingent]** — a partner in a live vault actually resolves a
+    `resources/`-write question from the bundle **without escalating** (the filing's own
+    acceptance shape, A11-10).
+- **E8 — inherited registers. — RULED Round 5 (2026-08-24): CONFIRMED untouched.** C6-c,
+  B5-3..B5-9, the pre-Arc-5 and Arc-7 registers, Arc 9's item-6 standing watches, the four
+  released Cycle-10 watches (B10-7(4), B10-8(4), B10-8(5), B10-9(3) remainder), and the
+  DECLINE+WATCH pair (confidentiality-as-container-attribute, Maya's dissent preserved; and
+  propagation-debt) all **re-carry unchanged**. No build in this cycle touches them; they are
+  not re-decided here. **One noted growth *(roundtable A16)*:** build-2 enlarges the
+  container population the confidentiality-as-container-attribute watch observes
+  (`resources/` containers, including the nested Librarian-only zone) — the watch now
+  covers them; the decline is unchanged and the dissent stays on record.
+
+### Questions deliberately left to brief time
+
+Per-build, not cross-cutting. Seeded from the filings' carried-verbatim open questions; the
+owner may promote any of these into a ruling above instead.
+
+- **build-3 / A10-12** *(added — roundtable A14)* — the discovery route A10-12 adds must
+  state whether it is ceremony-mediated; if not, D1's recorded reopen clause applies **at
+  brief time** (not as a post-ship field discovery) and the subject-coherence finding class
+  enters build-3's scope. — *(brief-time)*
+- **build-4 / A11-1** — which candidate direction retunes the leg: count relay entries past
+  the first delivery; require the second entry to be a `deliver`-kind revisiting the same
+  artifact; or keep the count and require co-occurrence with the dated-revision-record
+  signal. — *(brief-time)*
+- **build-5 / A11-3** — does the moderator prompt need to know (so synthesis language
+  hedges), or is a return-level field enough? Is `available: false` worth partitioning from
+  a dead agent? Does anything downstream consume the council return positionally such that
+  a new key disturbs it? — *(brief-time)*
+- **build-8 / A11-5** *(moved from build-2, Q1d)* — the drafting recommendation (predicate-over-territory phrasing at
+  overlay-mint time) rides along or is dropped; report-never-auto-edit posture confirmed. —
+  *(brief-time)*
+- **build-6 / A11-6** — if the vocabulary widens: are partner names legal `author:` values,
+  and are non-artifact types legal residents of container folders? *(Note: this branch
+  grows build-6 — flagged in the grouping's residual-risk note.)* — *(brief-time)*
+- **build-8 / A11-8** — the genericized wording for `skills/vlt-upgrade/SKILL.md:89`
+  instance (a). — *(brief-time)*
+- **build-8 / A10-10** *(added — roundtable A15)* — which side yields, the rule or the
+  worked example? The answer decides `wiki-index.md`'s handshake: rule-yields-to-example is
+  a rule change (**2 → 3**, re-ack `vlt-ingest`/`vlt-lint`/`vlt-lint-full.js`);
+  example-yields-to-rule is a prose clarification, no bump. — *(brief-time)*
+- **build-8 / A11-2's residue grep** *(moved from Cycle 12 — roundtable A12: the deferral
+  rationale it rode, "exposure is bounded to `.github/`", is false for this question's
+  population, which is the own-the-apply copy surface)* — does the same person-name residue
+  exist elsewhere on shipped surface? One grep, run alongside A11-8's genericization;
+  findings file forward, fixes ride build-8 only if trivially in-class. **A11-2 proper
+  stays deferred as ruled.** — *(brief-time)*
+- *(add per-build brief-time questions as rounds surface them)*
+
+## Roundtable review — A11-1..A11-11 + the six Cycle-10 holds (2026-08-24)
+
+**Convened over the filled Ideation rulings above; the full installed roster, none excused
+(owner's call): Mary (business analyst), Winston (system architect), Amelia (senior
+engineer), John (product manager), Paige (tech writer), Sally (UX designer), Carson
+(brainstorming), Dr. Quinn (problem solver), Maya (design thinking), Victor (innovation
+strategist), Caravaggio (visual communication), Sophia (storyteller).** The owner seeded no
+joints — the room hunted cold. 41 raw findings merged to 16; every one converged to an
+amendment applied in-session. Session file:
+`_output/party-mode/2026-08-24-cycle11-roadmap-roundtable-session.md`.
+
+**Amendments (all applied above, each marked `*(roundtable A#)*` at its site):**
+- **A1** — E1(b): the gating sweep carries direction-0 instrumentation live; an
+  availability-failed sweep neither discharges nor forfeits — it escalates to an owner
+  ruling, its numbers counting as A11-11 evidence. *(7 of 12 voices independently.)*
+- **A2** — `complete` admitted to the `resource` enum as a legacy-legal value (Q1b), so the
+  coexistence posture reaches build-6's net through its single home. **Owner-ruled
+  enum-side** over a net-side carve-out; Quinn's carve-out variant conceded. *(5 voices.)*
+- **A3** — the Q1e carve-out's `checks.md` half is build-6 scope, atomic with the Q1c
+  widening; build-6 binds Q1e and gains a gating fixture check (wiki page out of the
+  extended `para_*` population at rest). *(9 voices — the review's largest cluster.)*
+- **A4** — Q1e's contract half gains `:64`, the structure table's `wiki` row, and
+  `extraction.md:146` (build-2).
+- **A5** — E7(a) restated: instrument named (context-free reader, amended bundle only),
+  question reshaped to route legibility, the capture's no-fork clause recovered.
+- **A6** — build-4 gains a scope obligation pricing the fixture dispatch record + at-rest
+  run; E3 re-anchored off the discharged B10-3(3) onto a fresh window opened by build-4's
+  release.
+- **A7** — E2 SPLIT: (a) fixture declaration of the known lost derive validates at rest —
+  gates; (b) the live declaration. Build-9 gains a DA3-style field notice.
+- **A8** — E6 SPLIT: (a) instrumentation emits on a fixture run — gates; (b) the live
+  measurement.
+- **A9** — S-3's run window/actor named (owner, during briefing, before build-4 briefs);
+  carry-forward ruled not a legal closeout disposition for S-3 absent a new owner ruling;
+  the "four checks" sentence corrected to defer to the E-ledger.
+- **A10** — **owner-sanctioned correction of the Round-1 clerk-drafted build-1 obligation**:
+  the declaring-case pricing is conditional on build-1 adding a `package-lint.py` gate-check
+  callable (`_e4_harness_coverage` cannot see a prose edit to `full-scale.md`); E1 gains
+  ship-verifiable half (a) — fixture derivation of the three populations at rest, gates.
+- **A11** — record hygiene: scope count corrected to 16-of-17; "eight builds" superseded in
+  two slots; build-2's obsolete drafting note fully struck; stale "(as a ruling)" tags on
+  A11-10/A10-19 replaced with their builds.
+- **A12** — the person-name residue grep moved from Cycle 12 to build-8's brief-time
+  questions (its deferral rationale was false for its population); A11-2 proper stays
+  deferred.
+- **A13** — build-2's `vlt-lint` re-ack recorded provisional pending build-6 within the
+  same release; build-6's brief owns the bipartite verification.
+- **A14** — build-3 brief-time question: is A10-12's discovery route ceremony-mediated? If
+  not, D1's reopen clause applies at brief time.
+- **A15** — D2's handshake inventory gains the omitted build-8/`wiki-index.md` row
+  (conditional bump); the A10-10 direction question added to brief time.
+- **A16** — E8 notes build-2's growth of the confidentiality-watch population; decline
+  unchanged, dissent preserved.
+
+**Rule adopted:**
+- **R1 — instrument-named-at-tag-time** *(owner-ruled: adopt, home `build-brief`)*: a
+  ship-verifiable tag names its at-rest instrument when ruled — B9-1's "or the tag is not
+  true" applied at the tag's birth. **Home edited this session:**
+  `.claude/skills/build-brief/references/brief-anatomy.md`, the tagging section, beside the
+  Arc-9 name-the-event rule. E7(a)/E3(a)/E6(a) were the instances that would have been
+  prevented.
+
+**Disputes: none OPEN.** Three choice-points were owner-ruled live: A2's mechanism
+(enum-side), A10's sanction (granted), R1's adoption (home edit now). Concessions on
+record: Amelia on E7(a)'s at-rest reading (conceded once the instrument was named); Quinn's
+net-side A2 variant (conceded to single-homing). No dissents survive the session.
+
+**Out-of-scope material for `factory/inbox/`:** none — every finding landed on this
+roadmap's own surfaces.
+
+**Keepsake:** `_output/party-mode/2026-08-24-cycle11-roadmap-roundtable.html`.

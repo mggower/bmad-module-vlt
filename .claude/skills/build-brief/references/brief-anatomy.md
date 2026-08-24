@@ -195,6 +195,15 @@ does, and it exists because Arc 3 could not close for eighteen days without it.
   Examples: a boundary-creating mint; a roster-changing mint; a spec authored and version-bumped;
   a vault-local asset edit; a maintainer citing a limit correctly.
 
+**A ship-verifiable check names its at-rest *instrument* at tag time.** *(Cycle 11
+roundtable R1, 2026-08-24.)* The B9-1 standard — "the instrument is factory-side and
+runnable at rest, or the tag is not true" — applies when the tag is written, not when
+closeout tries to grade it. Name the fixture, harness, or reader protocol (an agent-run
+check is legal, but it is *named as the instrument*, with what it is given and what the
+recorded evidence is). Three of Cycle 11's ruled checks carried the tag with no instrument
+behind it and had to be repaired at review; a tag that cannot name its instrument is the
+same wish as a field check that cannot name its event.
+
 **A field-contingent check names its discharging *event*, not only its vault.** *(Arc 9
 roundtable, 2026-08-20.)* "Discharges in the field" is not a bound — a debt whose discharge
 requires an event **nothing in the plan schedules** is the shape that produced the four-arc

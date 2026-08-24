@@ -55,3 +55,16 @@ that only reaches the docs reports `verdict: reshape` with what it learned, not
 The register's rule: visible at adoption, blocking at brief. This entry exists so Cycle
 11's ideation sees the question while it is still shaping scope — not so that anyone runs
 it before the owner has ruled whether a build depends on it.
+
+## Ideation ruling — Cycle 11, Round 1 (2026-08-24)
+
+**Cycle 11 runs this spike; A11-2 itself defers to Cycle 12.** Owner-adopted at
+`factory/cycles/11-reachability/roadmap.md`, *Ideation rulings → Spikes*. No Cycle 11
+build binds `S-3` — every build bullet in that cycle reads `spike: none` — so the spike
+is not blocking any brief this cycle. It runs so that Cycle 12 briefs A11-2 over a
+**harvested** spike rather than rediscovering the question at brief time, which is the
+register's stated purpose: visible at adoption, blocking at brief.
+
+`status:` stays `proposed` until a read actually begins; the ladder describes a read in
+progress, so stamping `running` in advance would name a state nobody is in. Whoever picks
+it up moves it, inside the timebox above.
