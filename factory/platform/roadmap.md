@@ -65,64 +65,6 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 - **Done-when:** Arc 11's ideation runs with the Spikes section populated and
   build-brief's gate live.
 
-### P-8 — the one build: `cycle` + `factory/` — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 11's capture opening at the new path)**
-
-**Build record (2026-08-23, commit `a9d8403` on `main`, mirrored to `private`):** the
-whole surface landed in one act — 221 tracked renames (history preserved), 17 files
-edited, 4 born. The `factory/` tree stands per §5B as ruled: `cycles/00-origins` +
-`01-field-signal` … `10-signal-integrity` (slugs from roadmap titles), `inbox/` (D2),
-`platform/`, `method/` (`cycles-were-arcs.md`), `CYCLE` pointer (reads `none`).
-Filing→cycle mapping ran mechanically (timestamp-token grep over the ten roadmaps),
-audited against close dates — 3 corrections (two `100000`/`150500` round-number false
-matches → cycle 10; the one unmatched 2026-06-14 filing → cycle 01 by slug grep).
-`cycle-closeout` renamed (D1) **with its archival mechanics rewritten to
-location-archival** (stamp CLOSED in place, reset CYCLE, the one remaining `mv` is
-inbox→`filings/`; headless JSON keys renamed `"arc"`→`"cycle"`, `"archived"`→`"closed"`
-— any consumer parsing those needs the same rename). All 9 skills + `vlt-lifecycle.md`
-+ CLAUDE.md re-pointed to `factory/CYCLE` resolution. **Gate:** new
-`tools/factory-paths-check.py` born red (15 stale paths mid-build) then PASS — 105
-concrete refs across 19 files. **Verified:** zero diff on `skills/vlt-*`,
-`.claude-plugin/`, and the 8 shipped provenance citations; all 48 remaining "arc"
-mentions deliberate (historical citations, identifiers, the D1 alias); one real
-`lifecycle-status` run derived clean against every new mechanism.
-**Deviations (deliberate, 3):** (1) cycle 10's roadmap moved whole, NOT split into
-roadmap/ledger/rulings — it is closed history and the split's payoff targets live
-roadmaps; Cycle 11 starts fresh. (2) CLAUDE.md's Git-&-publishing bullet and the release
-choreography's public-surface line got interim truthful rewrites (small P-9 overlap —
-both were false post-P-7; P-9 still owns the full rewrite). (3) New roadmap title shape
-set to `Cycle NN — <theme>` (no ruled shape existed; matches D3's milestone style).
-**Watch:** ideation-scaffold still points at "the roadmap's existing 2026-07-06 rulings
-section" as a shape exemplar — fine while closed roadmaps exist to read, but a fresh
-Cycle 11 roadmap won't contain it; candidate small follow-up.
-
-*(Adoption block: same as P-7. R1–R3 owner-ruled 2026-08-23. **R4 + D1–D4 all owner-ruled
-2026-08-23**, each on the record's recommendation: R4 rename forward only; D1
-`arc-closeout` → `cycle-closeout` with "close the arc" kept as alias for one cycle; D2
-keep `inbox-capture` + `factory/inbox/` (skill and directory agree — supersedes the
-record's §5B `field/` sketch); D3 `cycleN-vX.Y.Z` branches + `vlt-cycle-N` memory
-topics, existing artifacts untouched; D4 plain-numbered briefs (22 at build time) →
-`factory/cycles/00-origins/briefs/`, no archaeology. Counts re-derived at build: 192
-"arc" mentions in the 9 skills, 33 path refs.)*
-
-**Brief-lite:**
-- **Intent:** rename forward to *cycle* and move the lifecycle output to `factory/` in a single
-  act — the rename, the move and the path re-points touch the **same 9 skills and the same ~35
-  path references**, so splitting them re-opens the same files three times.
-- **Sites:** the 9 factory skills (~264 forward-facing "arc" mentions + ~35 `skills/reports` path
-  refs); `.claude/skills/vlt-lifecycle.md`; `CLAUDE.md` (lines ~14–47, 87–88); the `factory/` tree
-  and migration map per the record's §5B; one line in `factory/method/` recording *"Cycles 1–10
-  were called arcs"*; D1–D4 applied as ruled.
-- **Verification:** a new `tools/` path-existence check — every path a factory skill names
-  resolves — so the move gets a gate like every other build here; `grep -ri '\barcs\?\b'` over the
-  9 skills returns only deliberate historical references; **no diff in `skills/vlt-*`,
-  `.claude-plugin/`, or the provenance citations listed in the record's §5A**.
-- **Out of scope:** archived roadmap *contents*, code-comment provenance citations, identifiers
-  (`B11-3`/`A11-15`), relocating `tools/`, anything on the shipped surface, the GitHub mapping.
-- **Done-when:** Cycle 11's capture opens at `factory/cycles/11-<slug>/` and one real
-  `lifecycle-status` run reports clean against the new paths. *(That run is the item's
-  self-acceptance, per the channel contract.)*
-
-
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 11's milestone + build issues generated, not typed)**
 
 **Build record (2026-08-23):** `issue-triage` gained its second mode — **'sync the
@@ -563,3 +505,82 @@ it names no path.)*
   cycle says *what's happening now*.
 - **Out of scope:** the GitHub mapping (P-10); publishing a demo vault; rewriting git history.
 - **Done-when:** `main` carries the factory publicly and the stranger test passes.
+
+
+### P-8 — the one build: `cycle` + `factory/` — **CLOSED 2026-08-24 (self-accepted on the Cycle 11 `lifecycle-status` run)**
+
+**Self-acceptance run (2026-08-24):** a real `lifecycle-status` run derived Cycle 11's
+position end-to-end against the renamed-and-moved surface, and both halves of the
+done-when met in the same run. *The path:* the 2026-08-24 `inbox-capture` opened the
+cycle at **`factory/cycles/11-reachability/`** — the first cycle born at the new location
+rather than migrated into it, with `factory/CYCLE` resolving the pointer and the roadmap
+titled `Cycle 11 — reachability` per deviation (3)'s shape. *The clean derivation:* the
+run read `factory/CYCLE`, the cycle roadmap's frontmatter and headings, the (absent)
+`briefs/` directory, `factory/inbox/`, and the tags — every observable resolved at its
+`factory/` path, no stale `skills/reports/` fallback, no map row pointing anywhere dead —
+and reported **Awaiting ideation** with no path flags raised. *The gate, re-run:*
+`tools/factory-paths-check.py` → **PASS — 112 concrete path references resolve (20 files
+scanned)** (105/19 at build time; the delta is P-11's widening and the new cycle's own
+refs). The renamed skill answered to its new name in the same run (`cycle-closeout` is
+what the map's closable row now routes to).
+
+**Watch discharged by observation:** deviation-note's `ideation-scaffold` exemplar
+concern is now live — Cycle 11's roadmap is the first with no 2026-07-06 rulings section
+to read. Not fixed here (P-8 is closed on its done-when, not widened); recorded as a
+candidate follow-up, and **P-2 is the item that touches that file next**.
+
+
+**Build record (2026-08-23, commit `a9d8403` on `main`, mirrored to `private`):** the
+whole surface landed in one act — 221 tracked renames (history preserved), 17 files
+edited, 4 born. The `factory/` tree stands per §5B as ruled: `cycles/00-origins` +
+`01-field-signal` … `10-signal-integrity` (slugs from roadmap titles), `inbox/` (D2),
+`platform/`, `method/` (`cycles-were-arcs.md`), `CYCLE` pointer (reads `none`).
+Filing→cycle mapping ran mechanically (timestamp-token grep over the ten roadmaps),
+audited against close dates — 3 corrections (two `100000`/`150500` round-number false
+matches → cycle 10; the one unmatched 2026-06-14 filing → cycle 01 by slug grep).
+`cycle-closeout` renamed (D1) **with its archival mechanics rewritten to
+location-archival** (stamp CLOSED in place, reset CYCLE, the one remaining `mv` is
+inbox→`filings/`; headless JSON keys renamed `"arc"`→`"cycle"`, `"archived"`→`"closed"`
+— any consumer parsing those needs the same rename). All 9 skills + `vlt-lifecycle.md`
++ CLAUDE.md re-pointed to `factory/CYCLE` resolution. **Gate:** new
+`tools/factory-paths-check.py` born red (15 stale paths mid-build) then PASS — 105
+concrete refs across 19 files. **Verified:** zero diff on `skills/vlt-*`,
+`.claude-plugin/`, and the 8 shipped provenance citations; all 48 remaining "arc"
+mentions deliberate (historical citations, identifiers, the D1 alias); one real
+`lifecycle-status` run derived clean against every new mechanism.
+**Deviations (deliberate, 3):** (1) cycle 10's roadmap moved whole, NOT split into
+roadmap/ledger/rulings — it is closed history and the split's payoff targets live
+roadmaps; Cycle 11 starts fresh. (2) CLAUDE.md's Git-&-publishing bullet and the release
+choreography's public-surface line got interim truthful rewrites (small P-9 overlap —
+both were false post-P-7; P-9 still owns the full rewrite). (3) New roadmap title shape
+set to `Cycle NN — <theme>` (no ruled shape existed; matches D3's milestone style).
+**Watch:** ideation-scaffold still points at "the roadmap's existing 2026-07-06 rulings
+section" as a shape exemplar — fine while closed roadmaps exist to read, but a fresh
+Cycle 11 roadmap won't contain it; candidate small follow-up.
+
+*(Adoption block: same as P-7. R1–R3 owner-ruled 2026-08-23. **R4 + D1–D4 all owner-ruled
+2026-08-23**, each on the record's recommendation: R4 rename forward only; D1
+`arc-closeout` → `cycle-closeout` with "close the arc" kept as alias for one cycle; D2
+keep `inbox-capture` + `factory/inbox/` (skill and directory agree — supersedes the
+record's §5B `field/` sketch); D3 `cycleN-vX.Y.Z` branches + `vlt-cycle-N` memory
+topics, existing artifacts untouched; D4 plain-numbered briefs (22 at build time) →
+`factory/cycles/00-origins/briefs/`, no archaeology. Counts re-derived at build: 192
+"arc" mentions in the 9 skills, 33 path refs.)*
+
+**Brief-lite:**
+- **Intent:** rename forward to *cycle* and move the lifecycle output to `factory/` in a single
+  act — the rename, the move and the path re-points touch the **same 9 skills and the same ~35
+  path references**, so splitting them re-opens the same files three times.
+- **Sites:** the 9 factory skills (~264 forward-facing "arc" mentions + ~35 `skills/reports` path
+  refs); `.claude/skills/vlt-lifecycle.md`; `CLAUDE.md` (lines ~14–47, 87–88); the `factory/` tree
+  and migration map per the record's §5B; one line in `factory/method/` recording *"Cycles 1–10
+  were called arcs"*; D1–D4 applied as ruled.
+- **Verification:** a new `tools/` path-existence check — every path a factory skill names
+  resolves — so the move gets a gate like every other build here; `grep -ri '\barcs\?\b'` over the
+  9 skills returns only deliberate historical references; **no diff in `skills/vlt-*`,
+  `.claude-plugin/`, or the provenance citations listed in the record's §5A**.
+- **Out of scope:** archived roadmap *contents*, code-comment provenance citations, identifiers
+  (`B11-3`/`A11-15`), relocating `tools/`, anything on the shipped surface, the GitHub mapping.
+- **Done-when:** Cycle 11's capture opens at `factory/cycles/11-<slug>/` and one real
+  `lifecycle-status` run reports clean against the new paths. *(That run is the item's
+  self-acceptance, per the channel contract.)*
