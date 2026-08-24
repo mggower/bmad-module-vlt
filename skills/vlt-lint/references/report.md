@@ -33,6 +33,8 @@ flag_for_human:
   attestation_stale: [<page: last_updated > verified_at — quiet tier-1 re-run>, ...]
   attestation_census: {pages_total: N, fresh: N, stale: N, unattested_pre_adoption: N}   # full mode — the denominated wiki-wide census (checks.md, Attestation findings); never omitted in full mode (a zero-page wiki renders the denominated empty form {pages_total: 0, ...}); informational — nothing owed per se
   para_status_unknown: [<para-file: status 'X' outside the <type> enum — informational where created predates convention adoption>, ...]
+  para_type_unknown: [<para-file: type 'X' outside the recognized set — informational where created predates convention adoption>, ...]
+  para_author_unknown: [<para-file: author 'X' outside human|agent|hybrid — informational where created predates convention adoption>, ...]
   review_due: [<page — review_after YYYY-MM-DD past>, ...]
   research_zone: <M notes scanned; N carry revisit_after:>   # candidacy-pass denominator — a bare zero below is not health
   linkage_ripe: [<research-note — no absorption linkage: cited ∪ inbound wikilink ∪ shared sources>, ...]
