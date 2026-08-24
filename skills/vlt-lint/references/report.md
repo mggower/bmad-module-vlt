@@ -69,6 +69,8 @@ fixes_applied: [<summary>, ...]
 backlog_filed: [<merge item>, ...]
 rulings_recorded: [<finding — ruling appended YYYY-MM-DD>, ...]   # write-through events (Step 3) — empty when no lint-time ruling was recorded
 coverage_caps: [<what was NOT exhaustively checked — budget stop / near-dup cap / cluster cap>, ...]   # full-mode workflow only; empty when the sweep was exhaustive
+cost_accounting: {phases: [...], ...}   # full mode via the workflow — verbatim from the workflow return; inline/scoped runs render the literal: not instrumented (inline run)
+churn_since_last_full: <N of T pages changed since YYYY-MM-DD (instrument: <name>) | unmeasured (no prior full report) | not measured (scoped run)>
 ```
 
 **`files_checked` counting rule (Gap B):** count a page as *checked* only if it was actually read/scanned this run — distinct from `files_listed` (discovered in scope). When the fan-out workflow hits a budget or coverage cap, `files_checked < files_listed` and `coverage_caps` names what was skipped — **surface that; never report a capped sweep as exhaustive.** For a large full-mode sweep, you may additionally offer an HTML rendering if the host has a renderer — otherwise skip it.

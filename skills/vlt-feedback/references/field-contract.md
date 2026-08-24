@@ -20,6 +20,14 @@ Every filed issue carries the `rail_contract` value it was composed under; the
 factory intake compares the stamp against the current contract and flags a stale-shape
 filing for hand-handling instead of parsing it hopefully.
 
+## The voice rule
+
+Every write to the public tracker is **human-approved, byte-exact, every time**: the
+agent renders the exact title, body, and labels that would post, then halts for
+approval — **nothing posts without the gate, and there is no headless path across
+it.** This binds every surface of the rail — the filing skill, the factory's triage,
+and any future writer. Declined material is not posted and not retained.
+
 ## The payload field set
 
 Field ids are **normative**: the issue forms use them as each form field's `id:`, and

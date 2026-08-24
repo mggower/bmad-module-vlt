@@ -16,8 +16,8 @@ renders one batch table for the owner to rule.
 
 **Admission and decline remain owner verbs** — `github-intake`'s "What this file does not
 own" stays true. This skill grounds, drafts, and (only after the owner's batch ruling)
-applies the ruled results via `gh`. The agent never writes to the public tracker
-unapproved; there is no headless path across the gate.
+applies the ruled results via `gh` under the field contract's **voice rule**
+(single-homed there; no headless path across the gate).
 
 Every rail shape — labels, state flow, payload fields, `rail_contract` and its evolution
 rule — is single-homed at `skills/vlt-feedback/references/field-contract.md`. This file

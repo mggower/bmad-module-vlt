@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-06
-last_updated: 2026-07-06
+last_updated: 2026-08-24
 title: Wiki Index Conventions
 author: hybrid
 trust: reviewed
@@ -65,7 +65,7 @@ Each page is one list item: its wikilink, optionally a terse **structural tag**.
 
 ```markdown
 ## Coffee Brewing
-- [[extraction-methods]] · hub — how grind, time, and pressure shape a cup, split by speed
+- [[extraction-methods]] · hub
   - [[cold-brew]] · slow
   - [[espresso]] · fast
 ```

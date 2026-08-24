@@ -99,6 +99,34 @@ if (!pages.length || !indexPath || !conventionsPath) {
   return { error: 'vlt-lint-full requires { pages:[{slug,path}], indexPath, conventionsPath }. The vlt-lint SKILL discovers pages and passes live paths.' }
 }
 
+// ── Cost accounting (A11-11 direction 0) ─────────────────────────────────────
+// Per-phase spend, computed in plain JS from facts already in hand — agents
+// dispatched, model, workflow-composed prompt characters, and the runtime budget
+// delta where a budget is set (null otherwise, prompt_chars the honest fallback
+// estimate). No new agent asks, no fs reads, no schema change — facts, not
+// verdicts. Attached to BOTH return shapes: the findings return and the
+// status:'failed' near-total-shortfall return (a failed sweep's numbers are
+// still measurement evidence).
+const budgetSample = () => (budget.total ? budget.remaining() : null)
+const costPhases = []
+const costRow = (name, dispatched, model, promptChars, budgetBefore) => {
+  const after = budgetSample()
+  costPhases.push({
+    phase: name,
+    agents_dispatched: dispatched,
+    model,
+    prompt_chars: promptChars,
+    tokens_spent: budget.total && budgetBefore != null && after != null ? budgetBefore - after : null,
+  })
+}
+const costAccounting = () => ({
+  phases: costPhases,
+  pages_total: pages.length,
+  budget_total: budget.total || null,
+  budget_remaining_at_return: budgetSample(),
+  note: 'prompt_chars is workflow-composed prompt text only — agent-side file reads (page + convention bytes) are not visible from JS; tokens_spent is the runtime budget delta where a budget was set',
+})
+
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
@@ -191,6 +219,9 @@ const agentFailedSlugs = []
 const pageUnreadableSlugs = []
 let budgetCapped = false
 const CHUNK = 16
+const scanBudgetAt = budgetSample() // cost accounting: phase-start budget sample
+let scanDispatched = 0
+let scanPromptChars = 0
 for (let i = 0; i < pages.length; i += CHUNK) {
   if (budget.total && budget.remaining() < budgetFloor) {
     const msg = `budget guard: scanned ${scans.length}/${pages.length} pages before the remaining budget fell below ${budgetFloor} — the rest were NOT checked`
@@ -200,7 +231,10 @@ for (let i = 0; i < pages.length; i += CHUNK) {
     break
   }
   const chunk = pages.slice(i, i + CHUNK)
-  const part = await parallel(chunk.map((p) => () => agent(pageScanPrompt(p), { label: `scan:${p.slug}`, phase: 'Scan pages', schema: PAGE_SCAN, model: scanModel })))
+  const chunkPrompts = chunk.map((p) => pageScanPrompt(p))
+  scanDispatched += chunk.length
+  for (const t of chunkPrompts) scanPromptChars += t.length
+  const part = await parallel(chunk.map((p, k) => () => agent(chunkPrompts[k], { label: `scan:${p.slug}`, phase: 'Scan pages', schema: PAGE_SCAN, model: scanModel })))
   for (let k = 0; k < chunk.length; k++) {
     const r = part[k]
     if (!r) agentFailedSlugs.push(chunk[k].slug)
@@ -209,6 +243,7 @@ for (let i = 0; i < pages.length; i += CHUNK) {
   }
   log(`scanned ${scans.length}/${pages.length} pages`)
 }
+costRow('Scan pages', scanDispatched, scanModel, scanPromptChars, scanBudgetAt)
 // Loud degrade at the reduce boundary (A10-16 Defect 2): a dead agent adds a loud cap, never
 // vanishes. When the sweep scanned fewer pages than listed for any reason OTHER than the budget
 // guard already having capped, push a coverage cap naming the count + reason partition + the
@@ -240,6 +275,7 @@ if (scans.length === 0 || scans.length < Math.ceil(pages.length / 2)) {
     agent_failed: agentFailedSlugs,
     page_unreadable: pageUnreadableSlugs,
     coverage_caps: coverageCaps,
+    cost_accounting: costAccounting(), // A11-11 direction 0 — a failed sweep's numbers are still measurement evidence
     next: 're-run after confirming the vault-local workflow copy is current (vlt-upgrade); if the shortfall persists at full coverage, file it',
   }
 }
@@ -331,11 +367,12 @@ outer: for (let i = 0; !partialShortfall && i < scans.length; i++) {
 if (nearCapped) { const m = `near-duplicate comparison capped — not all page pairs were compared`; coverageCaps.push(m); log(m) }
 
 // ── Index pass (one agent, reads the live index + the computed page set) ─────
-const indexScan = await agent(
+const indexPrompt =
   `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${convRead('wiki-index')}. The wiki currently contains exactly these page slugs: ${[...pageSlugSet].join(', ')}. ` +
-    `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed ## Stubs entries; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`,
-  { label: 'index-drift', phase: 'Reduce + cross-page', schema: INDEX_SCAN, model: indexModel },
-)
+  `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed ## Stubs entries; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`
+const indexBudgetAt = budgetSample()
+const indexScan = await agent(indexPrompt, { label: 'index-drift', phase: 'Reduce + cross-page', schema: INDEX_SCAN, model: indexModel })
+costRow('Index pass', 1, indexModel, indexPrompt.length, indexBudgetAt)
 
 // ── Cross-page contradiction clusters (bounded; clusters by shared links) ────
 // Build clusters greedily from link adjacency, cap the number of clusters checked.
@@ -362,19 +399,22 @@ if (clusters.length > clusterCap) {
   log(m)
 }
 
+const clusterPrompt = (group) =>
+  `You are a cross-page contradiction checker. These wiki pages share topic/links and may conflict. For each, read its LIVE path. Pages: ${group.map((g) => `${g.slug} (${pages.find((p) => p.slug === g.slug)?.path || '?'})`).join('; ')}. ` +
+  `Key claims already extracted: ${JSON.stringify(group.map((g) => ({ slug: g.slug, claims: g.key_claims || [] })))}. ` +
+  `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line (per wiki-supersession@2): open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable. A disagreement recorded only as a bullet, heading, or plain prose — not an Obsidian > [!type] callout — is NOT documented (per wiki-supersession@2); report it in cross_page_contradictions. ` +
+  `ALSO report entity_collisions: the same proper noun recorded with incompatible attributes across two of these pages. PRECEDENCE — a conflict that is one name carrying incompatible attributes goes to entity_collisions and NOT to cross_page_contradictions; report it once, in one slot.`
+
+const clusterBudgetAt = budgetSample()
+const clusterPrompts = clustersToCheck.map((group) => clusterPrompt(group))
 const clusterResults = (
   await parallel(
-    clustersToCheck.map((group) => () =>
-      agent(
-        `You are a cross-page contradiction checker. These wiki pages share topic/links and may conflict. For each, read its LIVE path. Pages: ${group.map((g) => `${g.slug} (${pages.find((p) => p.slug === g.slug)?.path || '?'})`).join('; ')}. ` +
-          `Key claims already extracted: ${JSON.stringify(group.map((g) => ({ slug: g.slug, claims: g.key_claims || [] })))}. ` +
-          `Find incompatible claims ACROSS these pages that lack a supersession/contradiction callout (unhandled). SEPARATELY, for disagreements that ARE already documented with a Contradictions section or callout, split them by the callout's recorded "**Disposition:**" line (per wiki-supersession@2): open -> documented_open, adjudicable -> documented_adjudicable. A documented disagreement whose callout carries NO Disposition line goes to documented_undispositioned — do NOT infer a disposition for it, and never guess it into open or adjudicable. A disagreement recorded only as a bullet, heading, or plain prose — not an Obsidian > [!type] callout — is NOT documented (per wiki-supersession@2); report it in cross_page_contradictions. ` +
-          `ALSO report entity_collisions: the same proper noun recorded with incompatible attributes across two of these pages. PRECEDENCE — a conflict that is one name carrying incompatible attributes goes to entity_collisions and NOT to cross_page_contradictions; report it once, in one slot.`,
-        { label: 'contradict-cluster', phase: 'Reduce + cross-page', schema: CLUSTER_FINDINGS, model: clusterModel },
-      ),
+    clustersToCheck.map((group, k) => () =>
+      agent(clusterPrompts[k], { label: 'contradict-cluster', phase: 'Reduce + cross-page', schema: CLUSTER_FINDINGS, model: clusterModel }),
     )
   )
 ).filter(Boolean)
+costRow('Cluster pass', clustersToCheck.length, clusterModel, clusterPrompts.reduce((n, t) => n + t.length, 0), clusterBudgetAt)
 
 // ── Callout-seeded entity-pair pass (B5-2) ───────────────────────────────────
 // Greedy cluster consumption can split even directly-linked pages, and entity_collisions
@@ -416,17 +456,20 @@ if (seededPairs.length > pairCap) {
   log(m)
 }
 
+const pairPrompt = (pr) =>
+  `You are a cross-page entity-collision checker. A name-verification callout marked these two wiki pages as a suspect pair over the proper noun "${pr.name}". Read BOTH at their LIVE paths: ${pr.a} (${pages.find((p) => p.slug === pr.a)?.path || '?'}); ${pr.b} (${pages.find((p) => p.slug === pr.b)?.path || '?'}). ` +
+  `Judge the PAGES, not the callout: report entity_collisions — the same proper noun recorded with incompatible attributes across these two pages, as "page-a vs page-b: <name> — <attribute A> vs <attribute B>". PRECEDENCE — a conflict that is one name carrying incompatible attributes is an entity collision, never also a contradiction. Report nothing else; a marked pair whose pages do not actually collide returns empty (that is the pass working, not failing).`
+
+const pairBudgetAt = budgetSample()
+const pairPrompts = seededPairs.map((pr) => pairPrompt(pr))
 const seededResults = (
   await parallel(
-    seededPairs.map((pr) => () =>
-      agent(
-        `You are a cross-page entity-collision checker. A name-verification callout marked these two wiki pages as a suspect pair over the proper noun "${pr.name}". Read BOTH at their LIVE paths: ${pr.a} (${pages.find((p) => p.slug === pr.a)?.path || '?'}); ${pr.b} (${pages.find((p) => p.slug === pr.b)?.path || '?'}). ` +
-          `Judge the PAGES, not the callout: report entity_collisions — the same proper noun recorded with incompatible attributes across these two pages, as "page-a vs page-b: <name> — <attribute A> vs <attribute B>". PRECEDENCE — a conflict that is one name carrying incompatible attributes is an entity collision, never also a contradiction. Report nothing else; a marked pair whose pages do not actually collide returns empty (that is the pass working, not failing).`,
-        { label: `entity-pair:${pr.a}+${pr.b}`, phase: 'Reduce + cross-page', schema: PAIR_FINDINGS, model: clusterModel },
-      ),
+    seededPairs.map((pr, k) => () =>
+      agent(pairPrompts[k], { label: `entity-pair:${pr.a}+${pr.b}`, phase: 'Reduce + cross-page', schema: PAIR_FINDINGS, model: clusterModel }),
     )
   )
 ).filter(Boolean)
+costRow('Seeded-pair pass', seededPairs.length, clusterModel, pairPrompts.reduce((n, t) => n + t.length, 0), pairBudgetAt)
 // Duplication with cluster findings is impossible by construction — only never-compared pairs run.
 const seededCollisions = seededResults.flatMap((r) => (r.entity_collisions || []).map((f) => `${f} (callout-seeded)`))
 
@@ -512,4 +555,6 @@ return {
     seeded_pairs_total: seededPairsTotal,
   },
   coverage_caps: coverageCaps,
+  // A11-11 direction 0: the per-phase cost line, emitted on every completing run.
+  cost_accounting: costAccounting(),
 }

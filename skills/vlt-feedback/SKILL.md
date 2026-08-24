@@ -78,7 +78,9 @@ contract's order, plus the issue title (imperative, one line, no vault-local ter
 **exact** body bytes, and the label list that would be posted, then **HALT for the user's
 approval. Nothing posts without the gate.** This filing goes from a private vault to a
 public tracker, irreversibly — the user sees the exact public bytes first, every time.
-Declined material is not posted and not retained outside the session.
+Declined material is not posted and not retained outside the session. This gate enacts
+the field contract's **voice rule** (`references/field-contract.md`, *The voice rule* —
+single-homed there); this paragraph is its procedure, nothing more.
 
 ## Transport
 
