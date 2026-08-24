@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:63b76a6e0850c5b7602c2a9f703326c57ff0f4d4a0225b6ea2feec3520baaca7 (derived 2026-08-24)'
+derived_from: 'vault-operating-contract.md sha256:57df3488f721c98188ed1e05f11324639fdd80431d5a1f014b8f4345327b3666 (derived 2026-08-24)'
 ---
 
 # Vault Rule-Card
@@ -51,6 +51,6 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *The backlog — evolution intake* | Capture-is-cheap filing by address (backlog or relay), never building unasked — open when filing friction |
 | *Hygiene and grooming — the safety model* | Retire-by-reference, watermarks, gated interpretive rewrites, derivability, the *Decay contracts* table (every file class’s exit) — open before any groom/rotate/drain act |
 | *How to write* | The write disciplines: notes, synthesis, supersession — open before filing notes |
-| *Honest reporting — what a check may claim* | Denominators, blind spots, proxies — open before reporting any count |
+| *Honest reporting — what a check may claim* | Denominators, blind spots, proxies, instruments — open before reporting any count or deriving a verdict from an instrument's output |
 | *Grounding sufficiency — what a claim may rest on* | Machine-transcribed names, collision handling — open before naming a person from a low-trust source |
 | *Reading list* | The convention files and what each owns — open to find a convention's home |
