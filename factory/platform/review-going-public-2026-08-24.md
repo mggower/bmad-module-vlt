@@ -395,3 +395,15 @@ Nothing was fixed. Cycle 11's capture may open on this tree as it stands.
 Verification after fixes: factory-paths-check PASS (111 refs, 20 files); package-lint
 A/B/C/E PASS at 0.14.0; `git diff --name-only v0.14.0 HEAD -- 'skills/vlt-*'
 .claude-plugin/` empty (no shipped-surface touch).
+
+### F2 disposition (2026-08-24, owner-ruled)
+
+Split ruling: **(1)** the one shipped-surface occurrence (`skills/vlt-upgrade/SKILL.md`,
+Step 3 item 7's provenance note) is a **defect** — a shipped skill must be
+recipient-agnostic — and is FILED to
+`factory/inbox/2026-08-24-085505-vlt-upgrade-names-a-real-install-on-shipped-surface.md`
+for Cycle 11 capture (shipped surface → cycle roadmap, never a platform fix).
+**(2)** the ~179 factory-record files keep the name under the publish-as-is posture
+(names no path — the vlt-sayari precedent). The P-9 record's overstated verification
+line carries a dated correction defining "personal-token" as the three scrubbed tokens.
+F2 is closed as a review finding; the shipped-surface repair is now the filing's.

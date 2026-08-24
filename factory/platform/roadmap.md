@@ -465,7 +465,14 @@ evolves" + a truthful Notable-files list; `factory/method/README.md` indexes the
 homes; CLAUDE.md's Git & publishing rewritten to the factory-public posture. Verified:
 zero personal-token hits across all tracked files, factory-paths-check PASS (107 refs),
 package-lint A/B/C/E PASS at 0.14.0, stranger test walked (README = what, tracker =
-how it evolves, `factory/CYCLE` = now). **Push shape — owner-ruled at publish:** the
+how it evolves, `factory/CYCLE` = now). **[Correction 2026-08-24, off review finding
+F2: "personal-token" here means exactly the three scrubbed tokens — the owner's
+username, `/Users/` paths, and the field vault's real *path*. The vault's *name*
+(`vlt-core`) was never a scrub target and remains throughout the factory record under
+the same publish-as-is posture ruled for vlt-sayari (names no path). Its one
+shipped-surface occurrence was owner-ruled a defect 2026-08-24 and filed to
+`factory/inbox/2026-08-24-085505-…` for Cycle 11 capture — shipped surface routes
+through the cycle roadmap, never this channel.]** **Push shape — owner-ruled at publish:** the
 P-7..P-9 commits were **squashed to one publication commit `b785abd`** parented on the
 v0.14.0 release commit, so public history carries no pre-scrub file states; the full
 build-by-build history survives on the private mirror's `p7-p9-history` branch.
