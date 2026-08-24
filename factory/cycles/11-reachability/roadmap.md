@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); next: roadmap-roundtable, then briefs'
+status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BRIEFED 2026-08-24 (briefs/build-1-crosslayer-populations.md); next: build build-1 via bmad-workflow-builder in a fresh session, then brief build-2'
 module_code: 'vlt'
 created: '2026-08-24'
 updated: '2026-08-24'
@@ -1178,3 +1178,29 @@ net-side A2 variant (conceded to single-homing). No dissents survive the session
 roadmap's own surfaces.
 
 **Keepsake:** `_output/party-mode/2026-08-24-cycle11-roadmap-roundtable.html`.
+
+## Deferred acceptance ledger
+
+*(Populated per build at brief time; checks tagged ship-verifiable vs field-contingent per
+build-brief §9. The authoritative split rulings live in §Evidence-debt dispositions above —
+a bullet here restates its build's checks, never re-rules them. Only ship-verifiable checks
+gate closeout; E1(b) is the ruled exception — field, and it still gates, as bound.)*
+
+- [ ] **build-1 (crosslayer-populations, briefed 2026-08-24):** brief
+  `factory/cycles/11-reachability/briefs/build-1-crosslayer-populations.md`. Two checks
+  (= E1's ruled halves). **(1) `[ship-verifiable]` — GATES closeout:** the amended
+  `crossLayerSlugs` derivation, run against a fixture `vault_structure`, yields the three
+  missing populations (`sources/` nested incl. non-`.md`, `{index}`'s slug, a non-`.md`
+  linkable in an unmapped `_agent/` dir) correctly at rest, and the standing exclusions
+  (wiki page population, governance, cold storage, report dirs) survive the widening —
+  instrument: the brief's Verification-1 fixture tree + agent-run derivation protocol,
+  factory-side, runnable at rest; evidence: the derived-vs-expected record in the brief's
+  BUILT status. **(2) `[field — still gates, as bound]` — the B10-2(5)/B10-12(6)
+  inherited-debt re-discharge, criteria as amended by DA9:** an executing full-mode
+  `vlt-lint` sweep on `{field-vault}` (owner-run, first post-release full lint) whose
+  missing-target flags survive verification — or a measured zero — after build-1's
+  predicate lands; the run carries build-8's direction-0 instrumentation live, budget
+  sized from that evidence where available; refusal posture (A1): an availability-failed
+  sweep neither discharges nor forfeits — it escalates to an owner ruling, its numbers
+  counting as A11-11 evidence; anti-direction binds in every branch (no sampling, no
+  `coverage_caps` removal).
