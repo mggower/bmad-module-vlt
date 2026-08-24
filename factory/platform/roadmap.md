@@ -36,7 +36,8 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 - Mechanical boundary check (D6 spirit): a `plat:` commit touching `skills/vlt-*` or
   `.claude-plugin/` should fail `package-lint`. Until built, the boundary is
   honor-system — flag any breach here.
-- CLAUDE.md pointer to this ledger (one line, point-at-the-map).
+- ~~CLAUDE.md pointer to this ledger (one line, point-at-the-map).~~ **DISCHARGED
+  2026-08-24** — one line above CLAUDE.md's Standing rules section, owner-prompted.
 
 ---
 
@@ -286,6 +287,37 @@ and this ledger's closed records quote retired paths by design.)*
 - **Done-when:** the widened check is green on the live tree, the F3-class fixture is
   red-then-green, and one real run rides a lifecycle transition (capture or closeout)
   as its self-acceptance.
+
+### P-12 — require PRs into `main` (choreography-aware) — **queued**
+
+*(Queued 2026-08-24, owner-raised at the going-public closeout. The trivial half
+shipped same day, outside any item: branch protection on `main` now blocks force
+pushes and deletion and **requires linear history** (the ff-merge discipline,
+server-enforced; `enforce_admins: true`). What remains is the design half — the owner
+wants **everything** to reach `main` via a PR, and that collides with two live
+workflows: `vlt-release` Stage 6 ff-merges and pushes `main` directly, and `plat:`
+commits land on `main` directly. Flipping the protection on without redesigning those
+would brick the next release at its final stage.)*
+
+**Brief-lite:**
+- **Intent:** every change to `main` arrives as a PR — review surface, CI hook point,
+  and the just-shipped PR template (build ID + brief + build-issue links) actually
+  exercised, closing the loop P-10 opened.
+- **Sites:** `.claude/skills/vlt-release/references/choreography.md` Stage 6 (ff-merge
+  + push → push the cycle branch, open a PR via `gh pr create --fill` against the
+  template, merge it — linear-history-compatible merge mode ruled at build time:
+  rebase-merge vs. merge-commit-with-linear-history-off is the design call); the
+  `plat:` commit convention in this ledger's contract header (platform work lands on a
+  short-lived branch + PR); the branch-protection rule itself gains
+  `required_pull_request_reviews` (0 approvals — solo maintainer; the PR is the
+  record, not a gate on another human) once both workflows are converted.
+- **Verification:** one real `plat:` change lands via PR with the template filled;
+  the branch-protection API state matches the ruled config; a `vlt-release` dry walk
+  of Stage 6 confirms the choreography's commands agree with the protection.
+- **Out of scope:** required status checks / CI (nothing runs in Actions yet — a later
+  item can wire package-lint there); protection on the private mirror.
+- **Done-when:** the next release reaches `main` through a PR without breaking the
+  choreography's gate sequence, and direct pushes to `main` are refused server-side.
 
 
 ## Closed

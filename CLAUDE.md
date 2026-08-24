@@ -51,6 +51,10 @@ overlays, capabilities) as module source.
    ship-verifiable checks gate cycle closeout** — see `build-brief` §9 and
    `cycle-closeout` Stage 1.
 
+Off-cadence factory-side work (anything `vlt-upgrade` doesn't deliver to vaults) runs on
+the **platform ledger** at `factory/platform/roadmap.md` — the channel contract (boundary
+test, WIP limit, numbering, self-acceptance) is single-homed there.
+
 ## Standing rules (violations here have bitten before)
 
 - **Governance SSoT:** the governance bundle lives ONLY at
