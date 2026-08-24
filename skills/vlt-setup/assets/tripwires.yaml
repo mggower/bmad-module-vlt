@@ -42,9 +42,15 @@
 #                                       `glob`, dated by its dated filename or
 #                                       frontmatter date — NEVER mtime (git
 #                                       operations and copies corrupt mtimes)
+#                   frontmatter_key_count — count of files matching `glob` whose
+#                                       frontmatter carries the key named by
+#                                       `key:` (presence with a non-empty value;
+#                                       the value itself is never parsed)
 #   glob / path — the kind's vault-relative locator; `{key}` structure-map
 #                 logical names resolve the way the reader's own derivations
 #                 do (e.g. "{research}/**/*.md")
+#   key         — frontmatter_key_count only: the frontmatter key whose
+#                 carriers are counted (a bare key token, e.g. review_after)
 #   definition  — one line of prose (the METRICS-table analogue, so the
 #                 vitals report renders the value denominated)
 # A malformed or unresolvable declaration is a LOUD per-entry error, never a

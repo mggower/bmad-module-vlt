@@ -214,6 +214,10 @@ METRICS = {
     "expired_pages": (
         "pages under {wiki} + {research} whose frontmatter `review_after:` is in the past"
     ),
+    "pages_with_review_after": (
+        "pages under {wiki} + {research} whose frontmatter carries `review_after:` — "
+        "the eligible population `expired_pages` is judged against (its honest denominator)"
+    ),
     "classifier_streak": (
         "consecutive most-recent readable classifier verdicts in "
         "_agent/mint/decision-log.md that are `non-boundary:` (denominated: of M "
@@ -248,8 +252,13 @@ THRESHOLD_RE = re.compile(r"^\s*(>=|<=|==|>|<|≥|≤)\s*(\d+)\s*$")
 # bounded count/size/age kinds ({tripwires} header owns the schema). A derive
 # beyond these kinds routes upstream (a new canonical metric or a new kind),
 # never into a hand-edit of this module-owned reader.
-LOCAL_METRIC_KINDS = {"file_count", "bytes", "days_since_newest"}
-LOCAL_METRIC_LOCATOR = {"file_count": "glob", "bytes": "path", "days_since_newest": "glob"}
+LOCAL_METRIC_KINDS = {"file_count", "bytes", "days_since_newest", "frontmatter_key_count"}
+LOCAL_METRIC_LOCATOR = {
+    "file_count": "glob",
+    "bytes": "path",
+    "days_since_newest": "glob",
+    "frontmatter_key_count": "glob",
+}
 LOCAL_METRIC_REQUIRED = ["id", "kind", "definition"]
 
 
@@ -323,6 +332,14 @@ def parse_local_metrics(text):
         locator = LOCAL_METRIC_LOCATOR.get(kind)
         if locator and not d.get(locator):
             probs.append(f"kind `{kind}` requires a `{locator}:` locator field")
+        if kind == "frontmatter_key_count":
+            if not d.get("key"):
+                probs.append("kind `frontmatter_key_count` requires a `key:` frontmatter-key field")
+            elif not re.match(r"^[A-Za-z_][\w-]*$", d["key"]):
+                probs.append(
+                    f"malformed `key:` `{d['key']}` (want a bare key token, e.g. review_after) — "
+                    "a malformed key must not silently count zero"
+                )
         if d.get("id") in METRICS:
             probs.append(
                 "shadows a canonical metric id — the canonical table stays "
@@ -403,6 +420,11 @@ def derive_local_metrics(vault_root, smap, defs, today=None):
                 else:
                     values[mid] = None
                     notes[mid] = f"{spec} absent — underivable (no record yet)"
+            elif kind == "frontmatter_key_count":
+                values[mid] = sum(
+                    1 for f in vault_root.glob(spec)
+                    if f.is_file() and _frontmatter_has_key(f, d["key"])
+                )
             elif kind == "days_since_newest":
                 newest = None
                 matched = 0
@@ -493,6 +515,25 @@ def _read_frontmatter_review_after(path):
         if m:
             return m.group(1)
     return None
+
+
+def _frontmatter_has_key(path, key):
+    """True iff the file's YAML frontmatter carries `key:` with a non-empty
+    value (presence only — the value is never parsed or judged; the bounded
+    scan discipline of _read_frontmatter_review_after)."""
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return False
+    if not text.startswith("---"):
+        return False
+    key_re = re.compile(rf"^{re.escape(key)}:\s*\S")
+    for line in text.split("\n")[1:60]:
+        if line.strip() == "---":
+            break
+        if key_re.match(line.strip()):
+            return True
+    return False
 
 
 def _dir_bytes(directory):
@@ -614,9 +655,12 @@ def derive_metrics(vault_root, smap, today=None):
         metrics["oldest_drainable_section_days"] = 0
         notes["open_pointers"] = "no _agent/dispatch.md — dispatch has never run (a zero of zero rows)"
 
-    # expired_pages over {wiki} + {research}.
+    # expired_pages + pages_with_review_after over {wiki} + {research} (one
+    # walk — the carrier count is the eligible population expired_pages is
+    # judged against, its honest denominator).
     expired = 0
     scanned = 0
+    carriers = 0
     for zone_key in ("wiki", "research"):
         zone = vault_root / smap[zone_key].rstrip("/")
         if not zone.is_dir():
@@ -625,12 +669,15 @@ def derive_metrics(vault_root, smap, today=None):
             scanned += 1
             ra = _read_frontmatter_review_after(page)
             if ra is not None:
+                carriers += 1
                 d = _days_since(ra, today)
                 if d is not None and d > 0:
                     expired += 1
     metrics["expired_pages"] = expired
+    metrics["pages_with_review_after"] = carriers
     notes["expired_pages"] = (
-        f"{scanned} pages scanned; a page without `review_after:` is evergreen and cannot expire"
+        f"of {carriers} pages carrying `review_after:` ({scanned} scanned); a page "
+        "without the key is evergreen and cannot expire"
     )
 
     # classifier_streak from the mint decision log (disposition 6): streak of
