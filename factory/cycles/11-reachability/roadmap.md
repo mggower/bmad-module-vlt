@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BUILT 2026-08-24, build-3 BRIEFED 2026-08-24 (briefs/build-3-decision-log-cluster.md; checks in the ledger; A14 answered YES — the A10-12 route is ceremony-mediated, D1 reopen clause not triggered, no finding class enters build-3; superseding note: the A10-12 disposition rosters vlt-ingest as a fourth decision-log writer/consumer, so build-3''s re-ack walks FOUR consumers — D2''s three-consumer row reflects the pre-brief roster as read, its bipartite ruling unchanged); next: build build-3 via bmad-workflow-builder in a fresh session (exit: rewrite the brief status to a BUILT record with numbered deviations, delete any .decision-log.md, one commit), then brief build-4 (S-3 must be owner-run before build-4 briefs, per roundtable A9)'
+status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BUILT 2026-08-24, build-3 BRIEFED 2026-08-24 (briefs/build-3-decision-log-cluster.md; checks in the ledger; A14 answered YES — the A10-12 route is ceremony-mediated, D1 reopen clause not triggered, no finding class enters build-3; superseding note: the A10-12 disposition rosters vlt-ingest as a fourth decision-log writer/consumer, so build-3''s re-ack walks FOUR consumers — D2''s three-consumer row reflects the pre-brief roster as read, its bipartite ruling unchanged), build-3 BUILT 2026-08-24 (commit 9ccc653 — decision-log v3, four-consumer walk; per the brief''s own BUILT status), build-5 BRIEFED 2026-08-24 (briefs/build-5-council-shortfall.md; checks in the ledger; brief-time answers: the signal is BOTH return-level fields and a conditional moderator shortfall segment — no SYNTHESIS schema change; available:false partitioned from a dead agent by cause, free at the existing two filter stages; downstream consumption is key-based everywhere, additive keys safe, lensesFielded name/shape frozen for the v3 provenance vocabulary); ORDERING NOTE: build-4 is deliberately briefed out of order — it waits on the owner-run S-3 spike (roundtable A9); the owner ruled this session that builds 5+ brief and build while S-3 runs, build-4 briefs once S-3 is harvested; next: build build-5 via bmad-workflow-builder in a fresh session (exit: rewrite the brief status to a BUILT record with numbered deviations, delete any .decision-log.md, one commit), then brief build-6 (post-build-2, its Q1c ordering satisfied)'
 module_code: 'vlt'
 created: '2026-08-24'
 updated: '2026-08-24'
@@ -1249,3 +1249,22 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   entry — a standing reason); event: the first post-v0.15.0 ingest run surfacing a
   deviation, or the vault's own supersession act followed by the next upgrade's
   reconcile pass; unbounded — goes to the standing watch register at closeout.
+- [ ] **build-5 (council-shortfall, briefed 2026-08-24):** brief
+  `factory/cycles/11-reachability/briefs/build-5-council-shortfall.md`. Two checks.
+  **(1) `[ship-verifiable]` — GATES closeout:** the council shortfall signal behaves
+  correctly at rest across full / partial / zero panels — a partial run returns
+  `lensesSelected` + `lensesMissing` (causes partitioned `unavailable` vs `failed`)
+  alongside an unchanged `lensesFielded`, injects the shortfall segment into the moderator
+  prompt, and logs the partial-panel line; a full run adds no shortfall segment and changes
+  no prior key; the zero case keeps its existing loud degraded return, now carrying the same
+  two fields; instrument (R1): the brief's Verification-1 fixture harness — a factory-side
+  Node script with stubbed runtime globals and scripted lens results, run at rest against
+  the shipped workflow source with `args` delivered as a JSON string; evidence: the three
+  recorded case results in the brief's BUILT status. **(2) `[field-contingent]` — does not
+  gate:** a real partial-shortfall council run in a live vault surfaces the signal
+  end-to-end — a gated mint or debate in which at least one lens dies or a persona is
+  unreadable produces a synthesis that visibly hedges and (mint mode) a captured verdict
+  whose reasoning shows the shortfall; vault: `{field-vault}` (readable; runs gated mints
+  and debates routinely); event: the first post-v0.15.0 council run actually suffering a
+  lens shortfall — a fault condition nothing schedules, unbounded by construction; goes to
+  the standing watch register at closeout.

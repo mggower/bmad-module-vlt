@@ -38,7 +38,7 @@ workflow('vlt-review-council', {
 })
 ```
 
-The workflow selects the panel (full panel for a debate, the fixed `kind → council` map for a mint), spawns the lenses in parallel (independent reads — they don't see each other's positions), and returns the structured verdict: `consensus` / `disputedResolved` / `disputedOpen` / `recommendedActions` (plus `verdict` = pass/revise/reject for a mint). It degrades gracefully if a lens persona is missing.
+The workflow selects the panel (full panel for a debate, the fixed `kind → council` map for a mint), spawns the lenses in parallel (independent reads — they don't see each other's positions), and returns the structured verdict: `consensus` / `disputedResolved` / `disputedOpen` / `recommendedActions` (plus `verdict` = pass/revise/reject for a mint). It degrades gracefully if a lens persona is missing — and a partial panel says so: the return names the lenses selected, fielded, and missing (with cause), and the synthesis is told not to read as a full panel.
 
 ## Step 3: Return or file the verdict
 

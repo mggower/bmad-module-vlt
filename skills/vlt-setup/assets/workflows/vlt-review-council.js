@@ -145,11 +145,29 @@ const lensPrompt = (lens) =>
     : '') +
   `Return your position from your single axis.\n\n--- SUBJECT (${mode}${kind ? `, kind: ${kind}` : ''}) ---\n${subject}`
 
-const positions = (
-  await parallel(lenses.map((lens) => () => agent(lensPrompt(lens), { label: `lens:${lens}`, phase: 'Lenses', schema: VERDICT })))
+// Capture the raw parallel results BEFORE filtering — the shortfall signal (A11-3) needs
+// the denominator (lenses selected) and the names+causes of what dropped out. The two
+// filter stages distinguish the causes for free: a falsy entry is a died/empty agent
+// ('failed', transient infrastructure); `available: false` is an unreadable persona
+// ('unavailable', points at the personasPath / governance install).
+const rawResults = await parallel(
+  lenses.map((lens) => () => agent(lensPrompt(lens), { label: `lens:${lens}`, phase: 'Lenses', schema: VERDICT }))
 )
+const positions = rawResults.filter(Boolean).filter((p) => p.available !== false)
+const lensesSelected = lenses.slice()
+const lensesMissing = lenses
+  .map((lens, i) => {
+    const r = rawResults[i]
+    if (!r) return { lens, cause: 'failed' } // agent died / returned nothing
+    if (r.available === false) return { lens, cause: 'unavailable' } // persona file unreadable
+    return null
+  })
   .filter(Boolean)
-  .filter((p) => p.available !== false)
+// The partial case gains the same loudness class the zero case already has — a log() line.
+// No error threshold, no quorum: a partial panel may be legitimate; the ask is that it says so.
+if (lensesMissing.length > 0 && positions.length > 0) {
+  log(`partial panel: ${positions.length} of ${lensesSelected.length} lenses fielded — missing: ${lensesMissing.map((m) => `${m.lens} (${m.cause})`).join(', ')}`)
+}
 
 if (positions.length === 0) {
   log('every selected lens was unavailable — moderator-only synthesis is not meaningful; returning a degraded verdict.')
@@ -158,6 +176,8 @@ if (positions.length === 0) {
     kind,
     reviewRequired: true,
     degraded: true,
+    lensesSelected,
+    lensesMissing,
     note: 'no persona lenses could be read (check the personasPath / governance install) — no panel verdict produced',
     ...(mode === 'mint' ? { verdict: 'revise', changes: ['re-run once the review-lens personas are installed (vlt-setup installs the governance bundle)'] } : {}),
   }
@@ -172,6 +192,9 @@ const moderatorPrompt =
   `You are the Moderator of a vlt review-council panel. ` +
   `Read the moderator persona at the LIVE path ${personasPath}/moderator.md and follow its "Activation Prompt" — you synthesize, you do not argue or hold a stance. ` +
   `Below are the fielded lens positions. Map them faithfully into the structured verdict: Consensus (only where ALL fielded lenses truly agree), Disputed-resolved (only with checkable reasoning), Disputed-open (name genuine unresolved disagreements — do not paper over them), and Recommended actions (concrete, attributable). ` +
+  (lensesMissing.length > 0
+    ? `PANEL SHORTFALL: only ${positions.length} of ${lensesSelected.length} selected lenses fielded — missing: ${lensesMissing.map((m) => `${m.lens} (${m.cause})`).join(', ')}. Synthesize ONLY the fielded positions; your synthesis language must not present this as a full panel — say "the fielded lenses" where it matters, and do not attribute silence to the missing lenses. A partial panel is not itself an error; the shortfall must simply be visible in your output. `
+    : '') +
   (mode === 'mint'
     ? `This is a MINT review: also return a single \`verdict\` of pass / revise / reject. Use 'revise' with a concrete \`changes\` list when the lenses raise fixable concerns; 'reject' with a \`reason\` only when a lens surfaces a disqualifying structural problem; 'pass' when concerns are minor or absent. HARD RULE (no boundary without a bell): a boundary-creating mint that lacks its Enforcement section, or carries an incomplete deferral (any of deferral_metric / deferral_threshold / review_after missing), is 'revise' or 'reject' — never 'pass'.`
     : `This is a DEBATE: do NOT return a pass/revise/reject verdict — leave \`verdict\` unset; the four sections are the product.`) +
@@ -180,7 +203,7 @@ const moderatorPrompt =
 const synthesis = await agent(moderatorPrompt, { label: 'moderator', phase: 'Synthesis', schema: SYNTHESIS })
 
 if (!synthesis) {
-  return { mode, kind, reviewRequired: true, degraded: true, note: 'moderator synthesis failed', positions }
+  return { mode, kind, reviewRequired: true, degraded: true, lensesSelected, lensesMissing, note: 'moderator synthesis failed', positions }
 }
 
 return {
@@ -188,5 +211,7 @@ return {
   kind: kind || null,
   reviewRequired: true,
   lensesFielded: positions.map((p) => p.lens),
+  lensesSelected,
+  lensesMissing,
   ...synthesis,
 }
