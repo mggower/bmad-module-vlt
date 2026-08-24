@@ -1,15 +1,15 @@
 ---
 type: note
 created: 2026-07-29
-last_updated: 2026-08-15
+last_updated: 2026-08-24
 title: Decision-Log Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 2
-consumers: [vlt-mint, vlt-upgrade, vlt-lint]
+version: 3
+consumers: [vlt-mint, vlt-upgrade, vlt-lint, vlt-ingest]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -36,14 +36,14 @@ Each entry is a dated block:
 
 ```markdown
 ## [YYYY-MM-DD] <kind> — <one-line subject>
-- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement
+- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement | deviation
 - ref: <governed object>    # e.g. conventions/frontmatter.md | overlays/extraction.overlay.md | capabilities/families/<name> | partners/<name>
 - verdict: <verdict> (<provenance>) — <reasoning>   # or `non-boundary: <why>` / `council-none`
 - convention: <name> <old→new>          # convention-edit ONLY — the version delta
 <free-form detail: what was decided and why>
 ```
 
-- **`kind:`** makes the log **scopable by class** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry.
+- **`kind:`** makes the log **scopable by class** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry. A **`deviation`** licenses a **scoped exception while the governed rule stands unchanged**: its `ref:` names the rule deviated from; it is a **gated** kind (`verdict:` with provenance required, per v2); it carries **no `convention:` line** (that line stays convention-edit ONLY — nothing moved); and it is **outside the reconcile pass's superseding-entry scan by design** — nothing changed, so no superseding entry can or need exist. It stays live until superseded like any entry.
 - **`ref:`** names the **governed object**, making an entry findable **by subject**, not only by date — it is the machine key `vlt-lint`'s read-before-flag matches on. It is **required on every new entry**: every entry names a governed object (a mint names the minted thing, a convention edit names the convention, a retirement names the retiree), and a conditional key would re-create the classifiability gap one tier down.
 
 ### Verdict provenance (v2)
@@ -55,6 +55,12 @@ A **gated** entry's `verdict:` records *how the verdict was reached*, not only w
 - **`(user-ruled — panel not fielded: <why>)`** — the council could not be fielded and the **user** explicitly ruled the verdict in the live session. The *why* is **required**, never optional: an entry that cannot say why the panel was not fielded is an improvisation, not a ruling. Only the user may substitute for the panel — a minting context never reviews its own staging (see `vlt-mint`, Step 2a).
 
 Provenance is required on every **new** gated entry from v2 on. `non-boundary:` and `council-none` entries carry none (there was no panel to account for). **No backfill** — append-only means pre-v2 entries without the facet are *pre-facet*, a third honest tier of the classifiability tail, surfaced, never silently swept.
+
+### Subject coherence (v3)
+
+**One entry, one governed subject.** An entry's prose stays on its `ref:` subject; a rule or ruling about a *different* governed object gets its **own entry** under its own `ref:` (or its own home), never a trailing clause. The why lives in the rule itself: every reader that matters resolves by subject — `vlt-upgrade`'s reconcile pass scopes by `kind:`+`ref:`, `vlt-lint`'s read-before-flag matches by `ref:` — so an off-subject trailing clause is unreachable **by construction**; the better the ref discipline, the more invisible the clause.
+
+Applies to every **new** entry from v3 on. **No backfill** — append-only means pre-v3 entries are read as written. The rule is **write-side** — enforced by the rostered write beats (the v2 verdict-provenance posture) — and is *not* covered by the read-before-flag check, which keys on `ref:` only. No new finding class ships with v3; a build that later adds a subject-coherence checker owes that check its own stated legal response.
 
 ## The classifiability tail
 
@@ -78,6 +84,9 @@ This is the **third application of the never-silent supersession principle**, wh
 - `vlt-mint`'s ceremonies — gated mints, stage promotions, the self-grow one-liner.
 - `vlt-upgrade`'s write-through — upgrade-time rulings.
 - `vlt-lint`'s write-through — lint-time rulings on governance findings.
+- `vlt-ingest`'s write-through — in-session user rulings on a governance deviation surfaced mid-ingest.
+
+An op outside this roster **never appends**: it surfaces the deviation and the user's ruling, and the record lands through a rostered route — the discovering op where rostered; otherwise `vlt-lint`'s write-through at the next sweep or `vlt-upgrade`'s at upgrade time.
 
 **Readers** — every one derives from the recorded entries:
 

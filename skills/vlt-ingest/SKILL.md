@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@13", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@3"]
+depends_on: ["frontmatter@13", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@3", "decision-log@3"]
 ---
 
 # vlt-ingest
@@ -24,6 +24,8 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 **Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked standalone with no partner, omit the tag.
 
 **Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*). These govern every write; honor them exactly.
+
+**Decision-log write-through (a standing rule, not a step — a deviation can surface at any step):** when an ingest surfaces a governance deviation — a convention that cannot be satisfied as written — and the **user rules on it in-session**, append the ruling to `_agent/mint/decision-log.md` in the shape single-homed at `{conventions}/decision-log.md` — follow it; do not restate the entry mechanics here. This records the user's decision, never this op deciding; the write-through **never stamps `adoption_first_instance:`** (that stamp is the authorized ceremonies' — `vlt-mint` Step 4). No ruling → nothing to append; surfacing alone is not an entry.
 
 ## Step 1: Re-ingest check
 

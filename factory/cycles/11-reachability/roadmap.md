@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BRIEFED 2026-08-24 (briefs/build-2-resources-para-parity.md; E7 checks in the ledger); next: build build-2 via bmad-workflow-builder in a fresh session (exit: rewrite the brief status to a BUILT record with numbered deviations, delete any .decision-log.md, one commit), then brief build-3'
+status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BUILT 2026-08-24, build-3 BRIEFED 2026-08-24 (briefs/build-3-decision-log-cluster.md; checks in the ledger; A14 answered YES — the A10-12 route is ceremony-mediated, D1 reopen clause not triggered, no finding class enters build-3; superseding note: the A10-12 disposition rosters vlt-ingest as a fourth decision-log writer/consumer, so build-3''s re-ack walks FOUR consumers — D2''s three-consumer row reflects the pre-brief roster as read, its bipartite ruling unchanged); next: build build-3 via bmad-workflow-builder in a fresh session (exit: rewrite the brief status to a BUILT record with numbered deviations, delete any .decision-log.md, one commit), then brief build-4 (S-3 must be owner-run before build-4 briefs, per roundtable A9)'
 module_code: 'vlt'
 created: '2026-08-24'
 updated: '2026-08-24'
@@ -1223,3 +1223,29 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   standing reason); event: the first partner session after the v0.15.0 upgrade touching a
   `resources/` filing or write decision (e.g. relocating the parked shelf under the new
   grant); unbounded — goes to the standing watch register at closeout.
+- [ ] **build-3 (decision-log-cluster, briefed 2026-08-24):** brief
+  `factory/cycles/11-reachability/briefs/build-3-decision-log-cluster.md`. Three checks.
+  **(1) `[ship-verifiable]` — GATES closeout:** the decision-log handshake is
+  bipartite-consistent at `version: 3` with the **four**-consumer roster (`vlt-mint`,
+  `vlt-upgrade`, `vlt-lint`, `vlt-ingest` — the A10-12 disposition rosters vlt-ingest,
+  so the walk is four consumers, one more than D2's as-read row) — every consumer
+  listed ↔ every ack current; instrument: `tools/package-lint.py` Group E (E1),
+  factory-side, runnable at rest; evidence: the clean Group E line recorded in the
+  brief's BUILT status. **(2) `[ship-verifiable]` — GATES closeout:** the three
+  additions read coherently at the single home and nowhere else — *Subject coherence
+  (v3)* present with the no-new-finding-class + later-checker-owes-response clause
+  (D1); the `deviation` kind in the enum with its stated contract (gated, `ref:` = the
+  rule deviated from, no `convention:` line, outside the reconcile scan by design); the
+  Writers roster at four with the non-writer hand-off naming only rostered routes; no
+  consumer restates mechanics (vlt-ingest's new beat is a pointer — single-home check);
+  instrument: the brief's Verification items 2–4 protocol (agent-run read + greps
+  against the shipped tree), factory-side, at rest; evidence: the recorded results in
+  the brief's BUILT status. **(3) `[field-contingent]` — does not gate:** the new
+  routes are actually used — a mid-ingest governance deviation ruled in-session lands
+  as a rostered `vlt-ingest` write-through entry, and/or the vault supersedes its
+  observed `convention-edit`+`convention: … unchanged` workaround entry with a `kind:
+  deviation` entry the next `vlt-upgrade` reconcile pass reads clean; vault:
+  `{field-vault}` (readable; holds both the two ingest-run entries and the workaround
+  entry — a standing reason); event: the first post-v0.15.0 ingest run surfacing a
+  deviation, or the vault's own supersession act followed by the next upgrade's
+  reconcile pass; unbounded — goes to the standing watch register at closeout.
