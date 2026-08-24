@@ -18,7 +18,7 @@ a move). *(Cycles 1–10 were called arcs — `factory/method/cycles-were-arcs.m
 | 1 | Field notes | live vaults (owner relays for vaults without inbox access) | — (files land in `factory/inbox/`) |
 | 1t | Rail triage (remote filings only) | agent grounds + drafts; **owner rules the batch** | `issue-triage` |
 | 2 | Capture | skill | `inbox-capture` |
-| 3 | Ideate | **owner-steered, deliberately unformalized** | `ideation-scaffold` lays the empty rulings skeleton; the deciding stays the owner's (rulings recorded in the roadmap's Ideation rulings section) |
+| 3 | Ideate | **owner-steered, deliberately unformalized** | `ideation-scaffold` lays the empty rulings skeleton; the deciding stays the owner's (rulings recorded in the roadmap's Ideation rulings section). External unknowns get **spikes**, tracked in the register at `factory/platform/spikes/` (mechanics single-homed in its `README.md`) — visible at adoption, blocking at brief |
 | 4 | Review | skill convenes; **owner rules disputes live** | `roadmap-roundtable` (skippable only by an explicit owner waiver recorded in the roadmap) |
 | 5 | Brief | skill | `build-brief` |
 | 6 | Build | fresh builder session per brief (via `bmad-workflow-builder`) | — (obligations: implement the brief, unit-verify at rest, rewrite the brief `status:` to a BUILT record with numbered deviations, delete any `.decision-log.md`, one commit) |
@@ -42,6 +42,8 @@ read-only and reports every active position:
 | Open roadmap has captured filings with no build assignment in its Ideation rulings section | Awaiting ideation | `ideation-scaffold` lays the skeleton, then the owner fills the rulings in session |
 | Ideation rulings for the batch are filled but no Roundtable review record (nor owner waiver) covers them | Awaiting review | `convene the roundtable` (`roadmap-roundtable`) |
 | A Roundtable review record carries OPEN disputes | Review unresolved | owner rules the open disputes (that closes the record) |
+| A `factory/platform/spikes/S-N-*.md` whose `opened_by:` names the open cycle reads `status: running` | Spike running | finish the read inside its timebox, then fill `sources:`/`findings:`/`verdict:` and set `harvested` (a spent timebox reports `reshape`, not `kill`) |
+| A `factory/platform/spikes/S-N-*.md` whose `opened_by:` names the open cycle reads `status: proposed` | Spike open | run the spike — read the **actual external source**, not its docs or memory of it — then harvest it |
 | Rulings name build N, a Roundtable review record (or waiver) covers the batch, and no `factory/cycles/<CYCLE>/briefs/build-N-*.md` exists | Ready to brief | `brief build N` (`build-brief`) |
 | A brief's `status:` is `BRIEFED …` (not BUILT) | Ready to build | fresh builder session implements that brief |
 | Every cycle brief is BUILT and no `vX.Y.Z` tag exists for the cycle's version | Ready to release | `release vlt X.Y.Z` (`vlt-release`) |
@@ -75,8 +77,9 @@ A `blocked` verdict is a skill doing its job — but it must never be a dead end
 - **`build-brief` blocked** — four causes, four routes: missing ideation rulings →
   `ideation-scaffold` lays the skeleton, owner fills it in session; missing roundtable
   record (and no waiver) or OPEN disputes on it → `convene the roundtable` /
-  owner rules the disputes; an open spike obligation → run the spike (read the
-  actual external source), record SPIKE CLOSED in the roadmap; an unruled evidence debt →
+  owner rules the disputes; a `spike:` field unfilled or naming a spike that is not yet
+  `harvested`/`consumed` → run the spike (read the actual external source) and harvest it in
+  the register, or have the owner rule the build `spike: none`; an unruled evidence debt →
   owner disposition in the rulings. Then re-invoke `brief build N`.
 - **`vlt-release` gate failure** → fix the named gate's cause, re-run from stage 1
   (stages are idempotent up to the failure point).
@@ -88,7 +91,9 @@ A `blocked` verdict is a skill doing its job — but it must never be a dead end
   `factory/inbox/` and let capture route it into a build.
 - **`cycle-closeout` blocked** → an undischarged ledger routes to `acceptance-discharge`;
   a discharged-but-uncarried tail routes to an owner carry-forward ruling; a missing tag
-  routes to `vlt-release`.
+  routes to `vlt-release`; an **orphan spike** (opened by this cycle, still
+  `proposed`/`running`) routes to an owner batch ruling — harvest it, kill it with a
+  recorded reason, or carry it forward to the next cycle.
 
 ## Standing rule: a report's terminal routing line is authoritative
 

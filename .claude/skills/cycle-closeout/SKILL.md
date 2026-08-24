@@ -50,7 +50,8 @@ the report rather than assumed. On completion, emit only:
 ```
 
 `status` is `blocked` with a one-line `reason` when the precondition gate fails (an undischarged
-ledger item with no owner carry-forward ruling, or the release not yet tagged) — no files are
+ledger item with no owner carry-forward ruling, the release not yet tagged, or an orphan spike
+this cycle opened and left `proposed`/`running`) — no files are
 moved or edited in that case. Point at `acceptance-discharge` in the reason when the ledger is
 the cause.
 

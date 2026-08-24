@@ -57,7 +57,8 @@ only:
 
 `status` is `blocked` with a one-line `reason` when the Readiness gate fails (ideation rulings
 for this build are missing, the batch has no Roundtable review record nor owner waiver — or
-the record carries OPEN disputes, a spike obligation it depends on is open, or a declared
+the record carries OPEN disputes, its `spike:` field is unfilled or names a spike that is not
+yet `harvested`/`consumed`, or a declared
 evidence debt is neither attached nor ruled not-blocking) or when Re-ground turns up a
 roadmap-contradicting site the owner must rule on. **Blocked is the correct outcome in those
 cases** — do not author a brief to avoid it.
@@ -85,7 +86,9 @@ refs drift (the roadmap is append-only and edited across the cycle's life):
   only — so a ruling can govern build N without ever naming it. Arc 9's B9-6 was bound by three
   such rulings, including the ordering constraint that would have shipped a checker against a
   metric home that did not exist. If the bullet carries no `binds:` line, reconstruct it before
-  authoring and say so in the brief.
+  authoring and say so in the brief. **Read the bullet's `spike:` field too** — the
+  Readiness gate turns on it, and where it names an `S-N` the register file's findings are
+  part of the brief's grounding, not just a gate token.
 - Any **Capture addendum** section naming build N — mid-cycle scope deltas owner-ruled after
   the roundtable stamped the batch (`inbox-capture` owns the posture). Its dated addendum
   rulings are part of build N's binding record: the brief folds the addendum filing's
@@ -123,10 +126,19 @@ emit `blocked` with a one-line `reason` (interactive: surface it and ask the own
   — *unless* an addendum ruling records a moved joint, in which case a
   `## Roundtable review — addendum` record must cover it (none → block; the route is the
   roundtable delta).
-- **Spike obligations are closed.** Any spike the roadmap lists as a precondition for this
-  build's brief (lifecycle step 3: external unknowns get spikes) shows a **SPIKE CLOSED**
-  record. An open spike → block (the brief would reason from docs/memory instead of the real
-  external source).
+- **Spike obligations are closed.** Read build N's **`spike:`** field in the Ideation rulings
+  grouping (lifecycle step 3: external unknowns get spikes). It must read `none`, or name an
+  `S-N` whose register file at `factory/platform/spikes/S-N-*.md` carries
+  `status: harvested` or `status: consumed`. Anything else → block: a `proposed`/`running`
+  spike (the brief would reason from docs and memory instead of the real external source), an
+  `S-N` with no register file (the id resolves to nothing), or an **unfilled `spike:` field**
+  (an absent ruling is not `none` — the owner says whether a build waits on a spike, not the
+  briefer). Register mechanics are single-homed at `factory/platform/spikes/README.md`.
+  A pre-register roadmap that carries a dated **SPIKE CLOSED** record instead of a `spike:`
+  field satisfies this gate as written — cycles before Cycle 11 predate the register.
+  <br>On a **consuming** run (the gate passed on a named `S-N`), append this build to that
+  register file's `consumed_by:` and set `status: consumed` — appended, never replaced; a
+  spike may be consumed by more than one build.
 - **Evidence debts are dispositioned.** Any design-stage evidence debt the roadmap ties to
   this build is either attached, or explicitly ruled not-blocking-the-brief in the rulings. An
   undischarged, unruled debt the brief depends on → block; one that only gates *acceptance*

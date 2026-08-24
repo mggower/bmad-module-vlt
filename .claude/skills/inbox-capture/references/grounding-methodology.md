@@ -31,6 +31,26 @@ A filing may carry open questions it deliberately didn't resolve. Carry them int
 as-is (a labeled "open design questions" note) rather than resolving them yourself — that
 resolution is ideation's job, not capture's.
 
+## When grounding hits an external unknown
+
+Sometimes grounding cannot finish, because the answer isn't in module source at all: it lives
+in an external tool's real behavior, an upstream package's actual code, a live vault's real
+content. That is a **spike** (CLAUDE.md step 3: read the actual external source, never its
+docs or your memory of them), and the question is at its sharpest right now — at the moment
+grounding failed to answer it.
+
+Open a `proposed` stub in the spike register: one file at
+`factory/platform/spikes/S-N-<slug>.md`, id one past the highest existing, with the question
+written in the one form that matters — *what would a real source have to say?* Mechanics
+(ids, statuses, frontmatter, the gates) are single-homed at
+`factory/platform/spikes/README.md`; point at it, never restate it. Note the stub's id in the
+filing's capture so ideation sees it.
+
+**A stub is a question with an id, not a ruling.** Capture never runs the spike, never rules
+that a build depends on it, and never lets the unknown silently become an assumption in the
+capture text — say plainly that the claim is ungrounded pending `S-N`. Whether it binds a
+build is ideation's call; whether it blocks a brief is `build-brief`'s gate.
+
 ## Cross-filing relationships
 
 When two or more filings in the same run share a pattern, a dependency, or one adopts a

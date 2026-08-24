@@ -55,6 +55,14 @@ batch, any proposed-grouping material the capture left (carry it as *capture's p
 unaccepted* — never promote it to a ruling), and any spike obligations or evidence debts
 the captures name.
 
+Then read the **spike register** at `factory/platform/spikes/` — its mechanics (ids,
+statuses, frontmatter, the gates) are single-homed at `factory/platform/spikes/README.md`;
+point at it, never restate it. Collect every register file whose `status:` is `proposed`
+or `running`, including any stub `inbox-capture` opened while grounding this batch. Those
+are the open questions the batch inherits, and the skeleton must show them: **a spike
+that is invisible at adoption gets rediscovered at brief time, which is the most
+expensive moment to find it.**
+
 ## Scaffold
 
 Append a new section to the roadmap:
@@ -66,12 +74,22 @@ target `build-brief` already understands). Skeleton slots, each either seeded wi
 questions from Discovery or left as an explicit `*(owner to fill)*` placeholder:
 
 - **Grouping & order** — which builds, numbered, and which filings each folds in. Build
-  numbering is itself an owner call; placeholders, not proposed numbers.
+  numbering is itself an owner call; placeholders, not proposed numbers. Lay each build
+  bullet with two one-line fields for the owner to fill: **`binds:`** (the ruling-id
+  roster — see the standing rule below) and **`spike:`** (`none`, or the `S-N` this
+  build's brief depends on). `spike:` is what `build-brief` gates on; an unfilled field
+  is not `none` and blocks, which is correct — the owner says whether a build waits on a
+  spike, never the briefer.
 - **Pre-ideation rulings the capture demanded** — seed each flagged ruling as a question.
 - **Cross-filing decide-once rulings** — decisions that resolve the same question across
   filings identically.
-- **Spike obligations** — external unknowns needing a read-the-actual-source spike before
-  a brief; each carries SPIKE OPEN until a dated SPIKE CLOSED record replaces it.
+- **Spikes** — external unknowns needing a read-the-actual-source spike before a brief.
+  List every open register entry Discovery collected as one line —
+  `S-N (<slug>) — <status> — <question>` — plus a `*(owner to fill)*` slot for spikes
+  this batch newly demands. **The register is the record; this section is its view.** An
+  owner ruling here (open a spike, kill one, rule a build `spike: none`) is written back
+  to the register file in the same session — status and `verdict:` live there, never only
+  in roadmap prose. Mechanics: `factory/platform/spikes/README.md`.
 - **Evidence-debt dispositions** — each debt attached, or ruled not-blocking, per build.
 - **Questions deliberately left to brief time** — per-build, not cross-cutting.
 

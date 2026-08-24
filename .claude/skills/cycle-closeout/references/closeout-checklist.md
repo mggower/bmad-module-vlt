@@ -12,7 +12,7 @@ owner.
 
 ## Stage 1 — Precondition gate
 
-The cycle may close only when **both** hold:
+The cycle may close only when **all three** hold:
 
 - **Ledger discharged.** Every item in the Deferred acceptance ledger is either checked
   (`- [x]`) with a dated evidence line, or carries an explicit owner carry-forward ruling
@@ -41,10 +41,21 @@ The cycle may close only when **both** hold:
   cannot.
 - **Release shipped.** The cycle's release version is tagged and pushed. Verify with
   `git tag` — the tag for the cycle's shipped version (e.g. Arc 3 → `v0.6.0`) must exist.
+- **No orphan spikes** *(platform P-2, 2026-08-24)*. Read `factory/platform/spikes/` and
+  check every register file whose `opened_by:` names the closing cycle. None may still read
+  `status: proposed` or `status: running`. Each must be one of: **harvested** (the source was
+  read; `verdict:` filled), **killed** by an owner ruling (`status: harvested`,
+  `verdict: kill`, with the reason in the file — a question that turned out not to need
+  answering), or **explicitly carried forward** to the next cycle, which re-stamps its
+  `opened_by:` and lists it in Stage 2's carry-forwards. A cycle does not close over a
+  question nobody answered and nobody killed — that is how an external unknown becomes
+  invisible and gets re-derived from memory two cycles later. Register mechanics are
+  single-homed at `factory/platform/spikes/README.md`; the kill-or-carry ruling is the
+  **owner's**, so surface the orphans and take one batch ruling rather than deciding.
 
-If either fails, **stop before moving anything**: report `blocked` with the specific open
-items (or the missing tag), and point at `acceptance-discharge` when an undischarged ledger
-is the cause. Closing over unresolved acceptance is the exact failure this gate exists to
+If any fails, **stop before moving anything**: report `blocked` with the specific open
+items (the missing tag, or the orphan spike ids), and point at `acceptance-discharge` when
+an undischarged ledger is the cause. Closing over unresolved acceptance is the exact failure this gate exists to
 prevent — do not offer to "close anyway."
 
 ## Stage 2 — Record carry-forwards
