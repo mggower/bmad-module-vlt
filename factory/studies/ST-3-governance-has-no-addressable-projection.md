@@ -13,6 +13,7 @@ cited_by:
   - 'factory/cycles/11-reachability/filings/2026-08-24-102813-full-lint-cost-scales-with-corpus-not-with-change.md (the filing this session produced)'
   - 'factory/cycles/11-reachability/roadmap.md §A11-11 (captured CONFIRMED; direction 0 shipped in build-8, directions 1–4 deferred to Cycle 12)'
   - 'factory/studies/ST-2-location-as-proxy-for-trust.md §RC2 (this study derived the same cause from the cost side, one day earlier)'
+  - 'factory/cycles/12-proxy-claims/roadmap.md §A12-1 and §A12-2 (capture 2026-08-25 — two fresh field instances of the exact-facts-from-LLMs residue this study names as a contributing factor; both are B5-3(2)''s five-cycle watch firing)'
 superseded_by: ''
 ---
 

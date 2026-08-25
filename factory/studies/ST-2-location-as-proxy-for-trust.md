@@ -14,6 +14,7 @@ cited_by:
   - 'factory/platform/roadmap.md §P-15 (the retirement rail — the RC2 fix, built 2026-08-25)'
   - 'factory/platform/roadmap.md §P-14 (the study register — this register exists because of this study'"'"'s §Why this study is here)'
   - 'factory/studies/ST-3-governance-has-no-addressable-projection.md §Convergence with ST-2 (RC2 derived independently one day earlier, from the cost side)'
+  - 'factory/cycles/12-proxy-claims/roadmap.md §A12-3 (capture 2026-08-25 — grounded against v0.15.0/HEAD; RC1 confirmed line-for-line, RC2 confirmed as channelled by P-15)'
 superseded_by: ''
 ---
 
