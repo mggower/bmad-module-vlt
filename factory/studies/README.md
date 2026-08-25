@@ -1,26 +1,49 @@
 # The study register
 
-**Single home for study mechanics** (platform P-14, 2026-08-25). Every other site that cites
-a study carries a pointer here and never restates the ids, the frontmatter, or the boundary.
+**Single home for study mechanics** (platform P-14). Every other site that cites a study
+carries a pointer here and never restates the ids, the frontmatter, or the boundary.
 
 A **study** is a cross-cycle, problem-shaped **root-cause analysis**: the durable record of a
 diagnosis that outlives any one cycle and that filings, captures, and briefs can rest on by
 citation instead of by restatement.
 
-## Why the register exists
+The register exists because a diagnosis with nowhere tracked to live does not survive. It is
+distilled into whatever artifact was due that day — which carries the *symptom*, because a
+symptom is what that artifact is shaped to carry — and the cause is lost. Cycles later the
+same cause is re-derived from scratch, and the loop pays twice for one answer. A study is the
+tracked, citable path that makes the first derivation reusable: a filing says *see `ST-N`*
+rather than restating an analysis badly or dropping it entirely.
 
-The 2026-08-20 PARA analysis diagnosed its root cause correctly, lived in `_output/` —
-**gitignored** — and was distilled into a filing that carried the *symptom* but not the
-*cause*. The cause never entered the factory record. It re-surfaced five days and two releases
-later as an independent re-derivation by the owner, who arrived at the same answer without
-reference to having proposed it before. That convergence is good evidence the answer is right
-and equally good evidence that the loop dropped it the first time.
+## Opening a study
 
-The loss was not a filing-discipline failure. **The document had nowhere tracked to live.**
-This ledger's own stood-up note and P-5 both cite `_output/brainstorming/…` as provenance —
-the factory record's links point into untracked space. The register is the fix: a tracked,
-citable path, so a filing can say *see `ST-N`* rather than restating an analysis badly or
-losing it entirely.
+Open one when the diagnosis is bigger than the thing that provoked it — when *why does this
+keep happening?* has an answer that will still be true next cycle and that is about more than
+the one artifact in front of you. Typical openers: an owner problem-solving session that
+reached a cause but no fix; a capture whose grounding kept finding one shape under three
+unrelated filings; a roundtable that named a structural cause with no build to attach it to.
+
+Do **not** open one for a defect with a known fix (that is a filing), for an external unknown
+(that is a spike), or for how the factory itself works (that is a method note). The boundary
+table below is the full cut.
+
+Anyone may open one. There is no adoption gate and no owner ruling required — see *Citable,
+never blocking*.
+
+## Using a study
+
+- **Cite it, don't copy it.** A citing site states its own claim in its own scope and names
+  the `ST-N`. It never carries both the claim and the derivation — that is the duplication
+  the register exists to end.
+- **Append yourself to `cited_by:`.** The citing site's path goes in the study's `cited_by:`
+  list, appended, never replaced. That list is how a study's reach stays visible: it is the
+  evidence that a cause is still live, and the trail a later repair follows to find everything
+  that rested on it.
+- **Argue with it.** A study is a diagnosis, not a ruling. Disagreeing is ordinary work; the
+  register records the disagreement rather than resolving it. Where a later study replaces the
+  diagnosis, it stamps `superseded_by:` on the old one and says at its own name what changed.
+- **Read it whole before resting on it.** A study carries its rejected alternatives and what
+  its own session got wrong. Those are load-bearing: they are how you tell a cause that was
+  tested from a cause that was merely first.
 
 ## The boundary against its neighbours
 
@@ -31,17 +54,21 @@ losing it entirely.
 | **Method note** (`factory/method/`) | the factory's own practice | there | *how does the factory work?* |
 | **Filing** (`factory/inbox/`) | one field instance | inbox → its cycle's `filings/` | *what broke, where?* |
 
-A filing is bounded to what a vault experienced; a study is bounded to a *cause*. Where a
-filing's claim rests on a study, it cites the `ST-N` path and states the claim — never both
-the claim and its full derivation.
+A filing is bounded to what a vault experienced; a study is bounded to a *cause*.
 
-**A study is self-contained, and that is the one place it diverges from the spike register.**
-A spike's harvest lives in the cycle directory that produced it and the register entry points
-at it. A study has no such durable source: the session artifact it distils lives in
-gitignored `_output/`, which is exactly the failure being fixed. So a study **carries its
-diagnosis in full** — the evidence, the causal chain, the rejected alternatives, and what the
-session got wrong. The `_output/` path is recorded as the session's provenance, and is never
-load-bearing; assume it is gone.
+**A study is self-contained, and that is the one place it diverges from the spike register**,
+which points at a harvest it does not carry (mechanics: `factory/platform/spikes/README.md`).
+
+A study has no such durable source. The working session it distils is a **transcript, not a
+record**: it carries the factory's unscrubbed specifics — machine paths, real vault paths, the
+owner's name — and hundreds of lines of method ceremony around the diagnosis, so it can be
+neither published as-is nor read cheaply by a citing site. A spike's harvest has neither
+problem: it is written into the cycle directory as a tracked, already-public artifact.
+
+So a study **carries its diagnosis in full**: the evidence, the causal chain, the rejected
+alternatives, and what the session got wrong. Where a source artifact exists it is named in
+`session:` as provenance only, never load-bearing. Write every study as if that path is
+already gone.
 
 ## Files and ids
 
@@ -76,27 +103,33 @@ half of what a register is for.
 
 **A study gates nothing.** The spike register earns lifecycle gates because an unread external
 source makes a brief reason from memory; a study is a diagnosis anyone may cite, argue with, or
-ignore with reasons. Adding a second set of adoption gates across five skills would be the
-accretion the register's own first two entries were written about. If a study should bind a
-build, ideation says so as a ruling — the register does not say it for them.
+ignore with reasons. A second set of adoption gates across five skills would be the accretion
+the register's own first two entries were written about. If a study should bind a build,
+ideation says so as a ruling — the register does not say it for them.
 
-## What is *not* in the register
+## What does not earn an entry
 
-Back-fill was bounded to the two entries below (P-14 out-of-scope). Deliberately unmigrated,
-named here so the register's silence is a recorded choice rather than an oversight:
+The test is the **cause**, not the fix. Ask: *would naming this cause change how a later cycle
+reads a problem it has not met yet?* A cause whose repair already shipped still passes if the
+answer is yes — the repair is recorded in `cited_by:`, and the study stays `standing`.
 
-- `_output/problem-solution-2026-08-08.md` — extending module-owned skills without editing
-  source (resolved into the dispatch generalization).
-- `_output/problem-solution-2026-08-19.md` — the single-machine feedback loop (resolved: the
-  GitHub filing rail shipped).
-- `_output/problem-solution-2026-08-24.md` — full lint's cost curve outrunning the wiki it
-  audits.
-- `_output/brainstorming/` memlogs — a different artifact class (generative, not diagnostic).
-  A later item if they prove worth tracking.
+Two near-misses, stated so the line holds under pressure:
 
-The first three are problem-solving sessions that **reached their fix**; the register exists
-for diagnoses that outlive their cycle, and a spent one earns no entry merely by sharing a
-filename shape. Any of them can be back-filled later if a live question starts resting on it.
+- **A cause local to the thing it explained.** Not *it reached its fix* — a shipped fix retires
+  nothing. The test is whether the cause generalizes past the artifact that carried it. A
+  diagnosis that bottoms out in one file's design is that file's commit message.
+- **Generative artifacts** — brainstorms, memlogs, option sketches. A different class: they
+  produce candidates, not diagnoses.
+
+**A live diagnosis is never excluded.** Where the fix is deferred, unbuilt, or only partly
+shipped, the cause is by construction still doing work — read the cycle record before judging a
+session spent. The register's silence about a specific document is a choice, and the item that
+made it records which document and why.
+
+*(The bolded guard is here because this register's own build failed it: `ST-3` was excluded at
+back-fill as "reached its fix" when its cause was live and deferred to the next cycle. The
+earlier criterion also contradicted the `status:` rule above — a repaired cause stays
+`standing` once inside, while "reached its fix" barred it at the door.)*
 
 ## Register
 
@@ -104,6 +137,7 @@ filename shape. Any of them can be back-filled later if a live question starts r
 |---|---|---|---|---|
 | `ST-1` | para-write-path-single-door | standing | 2026-08-20 | One vault posture shipped as a universal invariant; permission fused to provenance in one verb |
 | `ST-2` | location-as-proxy-for-trust | standing | 2026-08-25 | PARA location carries a trust claim `trust:` already carries; the loop can process defects but not obsolescence |
+| `ST-3` | governance-has-no-addressable-projection | standing | 2026-08-24 | A convention's only unit is the whole file, so every consumer needing a slice pays for all of it; and full-mode lint has no memory across runs |
 
 *(This table is a convenience index over the files, which are authoritative. It lists every
 register file — a completeness claim it can keep only because the directory is its population;

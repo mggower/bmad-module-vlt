@@ -13,6 +13,7 @@ cited_by:
   - 'factory/inbox/2026-08-25-111322-para-location-is-used-as-a-proxy-for-trust.md'
   - 'factory/platform/roadmap.md §P-15 (the retirement rail — the RC2 fix, built 2026-08-25)'
   - 'factory/platform/roadmap.md §P-14 (the study register — this register exists because of this study'"'"'s §Why this study is here)'
+  - 'factory/studies/ST-3-governance-has-no-addressable-projection.md §Convergence with ST-2 (RC2 derived independently one day earlier, from the cost side)'
 superseded_by: ''
 ---
 
@@ -104,6 +105,13 @@ location rule — build-6, shipping the honesty nets across PARA — instead rei
 nets landed **beside** the prohibition rather than **in place of** it.
 
 **RC2 is why RC1 survived four attempts to fix it.**
+
+*(Independently derived one day earlier, from the cost side: the 2026-08-24 full-lint session
+found that "every honesty repair correctly added coverage guards; none of them ever removed
+work," and concluded that **a guard's cost should be reviewed on the same cadence as its
+correctness**. Same cause, different subsystem, no contact between the two sessions — see
+`ST-3` §Convergence with ST-2. That session was itself excluded from this register at
+back-fill, which makes three derivations of one cause and one of them lost twice.)*
 
 ## Contributing factors
 

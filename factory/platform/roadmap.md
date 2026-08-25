@@ -261,14 +261,31 @@ are both `standing`: `ST-2` sharpens `ST-1`'s primary cause and adds the process
 does not refute its second-verb design (out-priced, not wrong). Each says so at the other's
 name.
 
-**Deviation (1), flagged.** The brief-lite's back-fill scope said "from `_output/`, scrubbed."
-Three neighbouring `problem-solution-*` sessions (2026-08-08, 08-19, 08-24) were **deliberately
-not** back-filled, and the README's *What is not in the register* section names each: all three
-reached their fix, and the register exists for diagnoses that outlive their cycle — a spent one
-earns no entry by sharing a filename shape. Named so the silence is a recorded choice.
+**Deviation (1), flagged — and half of it was an error, corrected 2026-08-25.** The brief-lite's
+back-fill scope said "from `_output/`, scrubbed." Three neighbouring `problem-solution-*`
+sessions (2026-08-08 — extending module-owned skills without editing source; 2026-08-19 — the
+single-machine feedback loop; 2026-08-24 — full lint's cost curve) were **deliberately not**
+back-filled. **08-08 and 08-19 reached their fix and stand excluded. 08-24 did not, and its
+exclusion was an error** — its cause is live, captured as Cycle 11's **A11-11**, graded
+CONFIRMED, with **directions 1–4 deferred to Cycle 12** and only the instrumentation shipped.
+It is now back-filled as **`ST-3`**. Named **here**, so the silence is a recorded choice; the
+README states the criterion, not the roster (a dated list of untracked paths is build-time
+bookkeeping, not study mechanics).
 
-**Verification (at rest).** `uv run tools/factory-paths-check.py` PASS (124 refs, 20 files —
-the new register paths resolve); a scrub grep over every new and edited file for machine paths,
+**What the error was, since it is the item's own subject matter.** The excluded session's
+Key Insight 4 — *"every honesty repair correctly added coverage guards; none of them ever
+removed work… a guard's cost should be reviewed on the same cadence as its correctness"* — is
+`ST-2`'s **RC2** and **P-15**'s baseline claim, derived a day earlier from the cost side. So
+this register's back-fill dropped a live third derivation of the very cause the register and
+the retirement rail were both built to stop losing. The criterion that produced it ("reached
+its fix") also contradicted the README's own `status:` rule, which keeps a repaired cause
+`standing` once inside. **The criterion has been replaced with a cause-reusability test carrying
+an explicit guard that a live diagnosis is never excluded**, and the miss is recorded at
+`ST-3`'s head and in the README rather than quietly repaired. *(Found by the tech-writer review
+pass, 2026-08-25.)*
+
+**Verification (at rest).** `uv run tools/factory-paths-check.py` PASS (re-run after the
+2026-08-25 review corrections; the new register paths, including `ST-3`, resolve); a scrub grep over every new and edited file for machine paths,
 the owner's name, and partner-local names returns clean; the filing's citation resolves to a
 tracked path on disk, which is the done-when's own test performed early. The remaining clause
 is the Cycle 12 capture run named above.
