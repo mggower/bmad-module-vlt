@@ -94,15 +94,40 @@ correctly grounded, correctly briefed, correctly built and cleanly released, wit
 violated at any stage, and still deliver something the owner did not expect. There is no gate
 this passes through, because there is nothing to gate.
 
-**The worked instance is the session that produced this study.** Cycle 12's ideation, read live:
-fourteen questions RULED across six rounds — the lint cost joint, the five-cycle carry, the
-convention bump, the `_vault/` posture, the P-14 withholding — every one of them
-*diagnosis-shaped*. And the **Grouping & order** section, which is the only part that determines
-what actually ships, stood entirely empty: cycle scope unfilled, every `build-N` bullet
-unfilled, every `binds:` and `spike:` unfilled. The owner had ruled fourteen substantive things
-and had not yet ruled **what ships**, and nothing in the section's shape made that gap legible.
-Downstream, `build-brief` infers scope from a `binds:` roster nobody filled
+**The worked instance is the session that produced this study — recorded in two readings, hours
+apart, because the second one corrects the first and is the more useful of the two.**
+
+**Reading 1 (afternoon 2026-08-25).** Cycle 12's ideation, live: fourteen questions RULED across
+six rounds — the lint cost joint, the five-cycle carry, the convention bump, the `_vault/`
+posture, the P-14 withholding — every one of them *diagnosis-shaped*. And the **Grouping &
+order** section, the only part that determines what actually ships, stood entirely empty: cycle
+scope unfilled, every `build-N` bullet unfilled, every `binds:` and `spike:` unfilled. Fourteen
+substantive rulings, and *what ships* not yet ruled, with nothing in the section's shape making
+that gap legible. Downstream, `build-brief` infers scope from a `binds:` roster nobody filled
 (`build-brief` SKILL.md:88 — *"If the bullet carries no `binds:` line, reconstruct…"*).
+
+**Reading 2 (evening, same day) — the section is complete.** Rounds 7 and 8 ran; the ideation
+section grew from 505 to 897 lines; zero `*(owner to fill)*` slots remain; five builds carry
+filled `binds:` and `spike:` rosters. **The first reading's phrasing — "stood entirely empty" —
+is therefore true only of the hours in which it was taken, and is corrected here rather than
+quietly deleted:** a study that records a stale observation as though it were permanent commits
+the error the whole register is about.
+
+**What the second reading found is the stronger evidence.** The section closed on this line:
+*"The grouping below is **clerk-drafted and owner-adopted in full** (2026-08-25), on the Arc 9 /
+Cycle 11 precedent."* The single highest-stakes ruling in a cycle — what ships — was not ruled
+from the material; it was **drafted by the clerk and adopted whole**, and that is named as
+established practice across three cycles. So (b) is not that the scope question goes unanswered.
+It is that the scope question is **routinely answered by the party that assembled the evidence**,
+because there is no promise-shaped statement the owner could rule against instead. The gap the
+first reading saw was real, and it closes by the route this study is about.
+
+*In fairness to the practice and against this study's own thesis:* the adopted grouping defends
+itself on facts where it can — build-1's bullet reads *"Grouped on a hard constraint, not
+preference: all four edit `pageScanPrompt` and its schema."* That is exactly the fact-shaped
+material a six-field packet would carry, arriving inside a draft instead of ahead of one. The
+cause is not that the clerk had nothing true to say; it is that the true things reached the
+owner already assembled into a conclusion.
 
 ## Root cause (c) — the loop has no measure of its own legibility
 
@@ -214,6 +239,16 @@ filled it. A written status standing in for a live one, still reading as true.
   mis-reads the 2026-07-12 ruling as the cause of the problem when that ruling is what made the
   problem visible. Recorded here rather than deleted, because a repair that fixes the feeling
   while erasing the measurement is the failure mode this whole study is about.
+
+  **Recorded 2026-08-25 evening, and it raises the stakes of this rejection:** ruling by
+  exception is not a hypothetical the study is declining to adopt — it is **already the
+  standing practice for cycle grouping**, cited to an Arc 9 / Cycle 11 precedent and exercised
+  again in Cycle 12 (§Root cause (b), reading 2). This bullet therefore rejects a *practice*,
+  not a proposal, and nothing in this study authorizes changing that practice: a study gates
+  nothing, the precedent is the owner's, and it may well be the right call for grouping
+  specifically, where the constraints are often mechanical. What the study does claim is
+  narrower and survives either way — while grouping is adopted whole, **no reading of the
+  loop's legibility is being taken at the one ruling that matters most.**
 - **"Add a comprehension gate."** Rejected: five skills already carry adoption gates, and a sixth
   set is the accretion `ST-2`/`ST-3` were written about. The repairs this cause implies are
   *shape* changes (a field, a directory rule, a grade), not new gates.
