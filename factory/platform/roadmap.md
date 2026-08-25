@@ -43,7 +43,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ## Active (WIP 1/2)
 
-### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 11's milestone + build issues generated, not typed)**
+### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
 **Build record (2026-08-23):** `issue-triage` gained its second mode — **'sync the
 tracker'**, mechanics single-homed at the new
@@ -74,7 +74,22 @@ owner-directed, seam-bound, flagged as before.
 - **Out of scope:** flipping source-of-truth to issues (a later item, only if this proves out);
   **any change to the field contract or its labels** (shipped surface → arc roadmap, and a
   `rail_contract` bump).
-- **Done-when:** Cycle 11's roadmap is readable as a milestone by someone who never opens a file.
+- **Done-when:** the open cycle's roadmap is readable as a milestone by someone who never
+  opens a file. *(Amended 2026-08-25, owner-ruled: the clause read "Cycle 11's roadmap" and
+  became **unsatisfiable** when Cycle 11 closed 2026-08-25 with zero milestones ever created —
+  `gh api repos/:owner/:repo/milestones` empty, no `B11-<i>` issues, every tracker issue
+  filer-authored and unmilestoned. Under `acceptance-discharge`'s rubric that is not a waiting
+  state but **BLOCKED (unreachable)** — no future event satisfies a sentence naming a closed
+  cycle — so the owner re-bound it rather than let a dead clause hold a slot. The subject is now
+  the open cycle, not a numbered one, so a missed window re-binds itself instead of needing this
+  ruling again. Retro-projecting the closed Cycle 11 was rejected: it satisfies the letter and
+  misses the verification's point, which wants a **live** cycle legible on the tracker.)*
+
+**Sequencing (recorded 2026-08-25).** `tracker-sync` mints `B<NN>-<i>` issues per **ruled**
+build, so it cannot produce them until ideation has numbered the builds. The discharge path is:
+`inbox-capture` opens Cycle 12 → `ideation-scaffold` + owner rulings number the builds →
+`sync the tracker` (owner batch gate) → that run **is** the self-acceptance; record its date
+here. Only the third step is new work.
 
 
 ## Queued
