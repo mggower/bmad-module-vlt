@@ -52,7 +52,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10 and P-15 are both BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-15 and P-14 are all BUILT-awaiting and consume no slot, per the contract header)
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
@@ -201,6 +201,83 @@ vault-local content added. The remaining verification clauses are field-side by
 construction — the fixture-filing route, the beat's exercise, and a brief carrying the clause
 answered all discharge on the Cycle 12 run named below.
 
+
+### P-14 — the study register: give root-cause analyses a tracked home — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's `inbox-capture` folding a study-citing filing)**
+
+*(Filed 2026-08-25, from the PARA problem-solving session. The session's own finding:
+the 2026-08-20 analysis diagnosed the PARA root cause correctly, lived in `_output/`
+— **gitignored** — and was distilled into a filing that carried the symptom but not the
+cause. The cause never entered the factory record, and re-surfaced five days and two
+releases later as an independent re-derivation by the owner. The loss was not a filing
+discipline failure; the document had nowhere tracked to live. Note this ledger already
+cites `_output/brainstorming/…` as provenance in its own stood-up note and in P-5 — the
+factory record's own links point into untracked space.)*
+
+**Brief-lite:**
+- **Intent:** a durable, citable home for **studies** — cross-cycle, problem-shaped
+  root-cause analyses that outlive any one cycle and that filings rest on. A filing
+  should cite a study by tracked path instead of restating it or losing it.
+- **Sites:** new `factory/studies/` with `README.md` as **single home** (what a study is,
+  the naming shape, and the boundary against neighbours — a **spike** reads an *external*
+  source before a brief (P-2's register); a **study** diagnoses *internal* structure
+  across cycles; a **method** note records how the factory works). Entries are
+  `ST-N-<slug>.md`. Back-fill **ST-1** (2026-08-20, PARA write-path — the stranded one)
+  and **ST-2** (2026-08-25, location-as-proxy-for-trust) from `_output/`, scrubbed to
+  placeholders per the publication rules. One clause in CLAUDE.md's lifecycle section
+  pointing at the register (point-at-the-map, no restated mechanics).
+- **Verification:** `factory-paths-check` PASS; the 2026-08-25 PARA filing's provenance
+  paragraph resolves to a tracked `ST-2` path rather than declaring itself
+  self-contained-because-`_output/`-is-gitignored; no personal or machine-specific
+  content in either back-fill (grep for machine paths, owner username, field-vault name).
+- **Out of scope:** gates in the lifecycle skills (P-2's spike register earns those; a
+  study is *citable*, not *blocking* — adding a second set of adoption gates across five
+  skills is exactly the accretion this session was convened about); migrating
+  `_output/brainstorming/` wholesale (brainstorm memlogs are a different artifact class
+  — a later item if they prove worth tracking); any change to shipped surface.
+- **Done-when:** Cycle 12's `inbox-capture` folds a filing that cites a study, and the
+  citation resolves to a tracked path.
+
+**Build record (2026-08-25).** `factory/studies/` stood up with `README.md` as single home:
+what a study is; the boundary against **spike** (reads an *external* source pre-brief),
+**method** note (how the factory works), and **filing** (one field instance); `ST-N-<slug>`
+register-global ids; the frontmatter shape; and the register index. Two back-fills landed —
+**`ST-1`** (2026-08-20, the PARA write-path analysis that stranded) and **`ST-2`** (2026-08-25,
+location-as-proxy-for-trust), each self-contained, each scrubbed. The 2026-08-25 PARA filing's
+provenance paragraph now **cites `ST-2`** instead of declaring itself
+self-contained-because-`_output/`-is-gitignored. CLAUDE.md gained a three-line pointer below
+the platform-ledger clause (point-at-the-map; no restated mechanics).
+
+**Design note (1), stated because it diverges from P-2's register.** A spike entry is a
+**pointer** — its harvest lives in the cycle directory that produced it. A study has no durable
+source to point at: the session artifact is in gitignored `_output/`, which is the failure being
+fixed. So a study **carries its diagnosis in full**, and the `_output/` path is recorded as
+provenance only, never load-bearing. The README states this so the two registers are not read
+as the same shape.
+
+**Design note (2).** `status: superseded` means a later study **replaced the diagnosis**, not
+that the problem was fixed — and a superseded study stays in the register. Knowing what the
+factory believed, and why it was wrong, is half of what a register is for. `ST-1` and `ST-2`
+are both `standing`: `ST-2` sharpens `ST-1`'s primary cause and adds the process cause, and
+does not refute its second-verb design (out-priced, not wrong). Each says so at the other's
+name.
+
+**Deviation (1), flagged.** The brief-lite's back-fill scope said "from `_output/`, scrubbed."
+Three neighbouring `problem-solution-*` sessions (2026-08-08, 08-19, 08-24) were **deliberately
+not** back-filled, and the README's *What is not in the register* section names each: all three
+reached their fix, and the register exists for diagnoses that outlive their cycle — a spent one
+earns no entry by sharing a filename shape. Named so the silence is a recorded choice.
+
+**Verification (at rest).** `uv run tools/factory-paths-check.py` PASS (124 refs, 20 files —
+the new register paths resolve); a scrub grep over every new and edited file for machine paths,
+the owner's name, and partner-local names returns clean; the filing's citation resolves to a
+tracked path on disk, which is the done-when's own test performed early. The remaining clause
+is the Cycle 12 capture run named above.
+
+**Built-awaiting inventory is now three (P-10, P-15, P-14) — the contract header's threshold.**
+The header defers a separate section or second cap "until built-awaiting inventory reaches
+three." It has. Flagged as an **owner call**, not acted on: three items with named discharging
+events and bounds may still be cheaper to read in place than to re-file into a section. The
+ruling belongs on the ledger either way.
 
 ## Queued
 
@@ -397,42 +474,6 @@ repaired by hand the same day; this item closes the recurrence path.)*
   a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
 - **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
   `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
-
-### P-14 — the study register: give root-cause analyses a tracked home — **queued**
-
-*(Filed 2026-08-25, from the PARA problem-solving session. The session's own finding:
-the 2026-08-20 analysis diagnosed the PARA root cause correctly, lived in `_output/`
-— **gitignored** — and was distilled into a filing that carried the symptom but not the
-cause. The cause never entered the factory record, and re-surfaced five days and two
-releases later as an independent re-derivation by the owner. The loss was not a filing
-discipline failure; the document had nowhere tracked to live. Note this ledger already
-cites `_output/brainstorming/…` as provenance in its own stood-up note and in P-5 — the
-factory record's own links point into untracked space.)*
-
-**Brief-lite:**
-- **Intent:** a durable, citable home for **studies** — cross-cycle, problem-shaped
-  root-cause analyses that outlive any one cycle and that filings rest on. A filing
-  should cite a study by tracked path instead of restating it or losing it.
-- **Sites:** new `factory/studies/` with `README.md` as **single home** (what a study is,
-  the naming shape, and the boundary against neighbours — a **spike** reads an *external*
-  source before a brief (P-2's register); a **study** diagnoses *internal* structure
-  across cycles; a **method** note records how the factory works). Entries are
-  `ST-N-<slug>.md`. Back-fill **ST-1** (2026-08-20, PARA write-path — the stranded one)
-  and **ST-2** (2026-08-25, location-as-proxy-for-trust) from `_output/`, scrubbed to
-  placeholders per the publication rules. One clause in CLAUDE.md's lifecycle section
-  pointing at the register (point-at-the-map, no restated mechanics).
-- **Verification:** `factory-paths-check` PASS; the 2026-08-25 PARA filing's provenance
-  paragraph resolves to a tracked `ST-2` path rather than declaring itself
-  self-contained-because-`_output/`-is-gitignored; no personal or machine-specific
-  content in either back-fill (grep for machine paths, owner username, field-vault name).
-- **Out of scope:** gates in the lifecycle skills (P-2's spike register earns those; a
-  study is *citable*, not *blocking* — adding a second set of adoption gates across five
-  skills is exactly the accretion this session was convened about); migrating
-  `_output/brainstorming/` wholesale (brainstorm memlogs are a different artifact class
-  — a later item if they prove worth tracking); any change to shipped surface.
-- **Done-when:** Cycle 12's `inbox-capture` folds a filing that cites a study, and the
-  citation resolves to a tracked path.
-
 
 ## Closed
 

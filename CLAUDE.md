@@ -55,6 +55,10 @@ Off-cadence factory-side work (anything `vlt-upgrade` doesn't deliver to vaults)
 the **platform ledger** at `factory/platform/roadmap.md` — the channel contract (boundary
 test, WIP limit, numbering, self-acceptance) is single-homed there.
 
+Cross-cycle **root-cause analyses** — diagnoses that outlive any one cycle and that filings
+rest on — live in the **study register** at `factory/studies/`, `README.md` its single home.
+A filing cites `ST-N` rather than restating a study or losing it to gitignored `_output/`.
+
 ## Standing rules (violations here have bitten before)
 
 - **Governance SSoT:** the governance bundle lives ONLY at

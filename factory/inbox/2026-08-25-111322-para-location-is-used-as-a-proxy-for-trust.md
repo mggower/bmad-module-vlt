@@ -5,8 +5,11 @@ cycles (tracker #11, open, zero comments); the Arc 9 A9-1 grounding correction f
 (57 PARA files, **0 of 56 attested**); a full read of the shipped contract, `extraction.md`,
 `vlt-extract`, `vlt-query`, `vlt-track` and the `para_*` checks at v0.15.0/HEAD. Classification:
 **defect — structural**, fifth appearance of one cause. Provenance: owner problem-solving session
-2026-08-25; this filing is deliberately self-contained because the session artifact lives in the
-**gitignored** `_output/` and cannot be cited as a durable source._
+2026-08-25, recorded in full as **`factory/studies/ST-2-location-as-proxy-for-trust.md`** — cite
+the study for the derivation, the rejected packages, and the settled owner rulings; this filing
+states the claim and its grounding, not the analysis behind it. (`ST-1` is the 2026-08-20
+re-derivation of the same ground, back-filled from the artifact that stranded in gitignored
+`_output/` — the loss this register exists to prevent.)_
 
 ## The defect
 
