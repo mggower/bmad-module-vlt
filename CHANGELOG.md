@@ -23,6 +23,8 @@ are derived from.
 
 **Also in this release.** Full-mode `vlt-lint` keeps a per-page findings cache at `_agent/lint-cache.yaml` — extracted facts keyed on the page's own digest crossed with a ruleset fingerprint, never verdicts. It is vault-local, rewritten whole each full run, never wake-read, and safe to delete (the next run simply goes cold). The report's new `lint_cache:` line states `scanned N / cached M of T` beside the fingerprint the reused records were adjudicated under, so a cached run can never read as a fresh sweep. **The first full lint after this upgrade is a cold run** — every fingerprint input moved.
 
+**Changed paths:** `.claude-plugin/marketplace.json`, `CLAUDE.md`, `skills/vlt-agent-creative`, `skills/vlt-extract`, `skills/vlt-feedback`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-query`, `skills/vlt-review-council`, `skills/vlt-setup`, `skills/vlt-track`, `skills/vlt-upgrade`
+
 ## v0.15.0 — 2026-08-24
 
 **Cycle 11** — the reachability cycle.
