@@ -24,8 +24,19 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 - **Self-acceptance:** an item closes when the changed skill/tool is exercised once by
   a real lifecycle run. No closeout ceremony; record the exercising run's date on the
   item.
-- **WIP limit 2.** New items queue below the line. The channel is a rail, not a second
-  roadmap.
+- **WIP limit 2 — on work in flight, not on finished work waiting.** New items queue below
+  the line. The channel is a rail, not a second roadmap. An item that is **BUILT and awaiting
+  self-acceptance consumes no slot**: it needs no design, no code, no decisions, only an
+  exogenous lifecycle run. Counting it re-coupled the channel to the cycle cadence through the
+  back door — the one thing "cadence separates" exists to prevent — and the limit was
+  owner-overridden three times in flagged queue-jumps before anyone named the cause
+  (*ruled 2026-08-25, off the P-2 discharge: both slots then read full while zero design or
+  build work was in flight*). **Each built-awaiting item must name its discharging event and
+  bound on its entry**; where that event cannot occur it is not a waiting state but
+  **BLOCKED (unreachable)** and routes to an owner ruling — the grade and its rubric are
+  `acceptance-discharge`'s, not restated here (P-10's re-binding, 2026-08-25, is the worked
+  example). No separate section or second cap until built-awaiting inventory reaches three;
+  below that the bookkeeping would cost more than the sprawl it guards against.
 - **Skill budget:** the channel adds at most **one** new factory skill ever
   (`issue-triage`); all other platform work extends existing skills/tools.
 - **Visibility floor:** each cycle-closeout notes "platform work landed during this
@@ -41,7 +52,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 1/2)
+## Active (WIP 0/2 — P-10 is BUILT-awaiting and consumes no slot, per the contract header)
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
@@ -111,6 +122,11 @@ here. Only the third step is new work.
   for the visibility line.
 - **Out of scope:** any automated candidate detection (agent-initiated platform
   filings stay a brainstorm future); spike rows (P-2's).
+  *(Amended 2026-08-25: the platform observable rows should render **built-awaiting** as a
+  position in its own right — evidence "entry reads BUILT, awaiting self-acceptance", next move
+  = the discharging event the entry names, per the contract header's WIP clause. It is the
+  mechanism half of that clause; the contract half shipped as a ledger edit the same day and
+  needs no build.)*
 - **Done-when:** one real lifecycle-status run shows the platform lane and one real
   capture run exercises the routing fork (or reports no marked filings).
 
@@ -282,6 +298,41 @@ repaired by hand the same day; this item closes the recurrence path.)*
   a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
 - **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
   `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
+
+### P-14 — the study register: give root-cause analyses a tracked home — **queued**
+
+*(Filed 2026-08-25, from the PARA problem-solving session. The session's own finding:
+the 2026-08-20 analysis diagnosed the PARA root cause correctly, lived in `_output/`
+— **gitignored** — and was distilled into a filing that carried the symptom but not the
+cause. The cause never entered the factory record, and re-surfaced five days and two
+releases later as an independent re-derivation by the owner. The loss was not a filing
+discipline failure; the document had nowhere tracked to live. Note this ledger already
+cites `_output/brainstorming/…` as provenance in its own stood-up note and in P-5 — the
+factory record's own links point into untracked space.)*
+
+**Brief-lite:**
+- **Intent:** a durable, citable home for **studies** — cross-cycle, problem-shaped
+  root-cause analyses that outlive any one cycle and that filings rest on. A filing
+  should cite a study by tracked path instead of restating it or losing it.
+- **Sites:** new `factory/studies/` with `README.md` as **single home** (what a study is,
+  the naming shape, and the boundary against neighbours — a **spike** reads an *external*
+  source before a brief (P-2's register); a **study** diagnoses *internal* structure
+  across cycles; a **method** note records how the factory works). Entries are
+  `ST-N-<slug>.md`. Back-fill **ST-1** (2026-08-20, PARA write-path — the stranded one)
+  and **ST-2** (2026-08-25, location-as-proxy-for-trust) from `_output/`, scrubbed to
+  placeholders per the publication rules. One clause in CLAUDE.md's lifecycle section
+  pointing at the register (point-at-the-map, no restated mechanics).
+- **Verification:** `factory-paths-check` PASS; the 2026-08-25 PARA filing's provenance
+  paragraph resolves to a tracked `ST-2` path rather than declaring itself
+  self-contained-because-`_output/`-is-gitignored; no personal or machine-specific
+  content in either back-fill (grep for machine paths, owner username, field-vault name).
+- **Out of scope:** gates in the lifecycle skills (P-2's spike register earns those; a
+  study is *citable*, not *blocking* — adding a second set of adoption gates across five
+  skills is exactly the accretion this session was convened about); migrating
+  `_output/brainstorming/` wholesale (brainstorm memlogs are a different artifact class
+  — a later item if they prove worth tracking); any change to shipped surface.
+- **Done-when:** Cycle 12's `inbox-capture` folds a filing that cites a study, and the
+  citation resolves to a tracked path.
 
 
 ## Closed
