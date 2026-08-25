@@ -586,6 +586,70 @@ the derivation and for the four other repairs it implies; this item is only the 
 - **Done-when:** the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
   on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
 
+**PARKED 2026-08-25, and this block is the whole parked set** — owner ruling, taken while
+Cycle 12 was still open. Everything below reopens together.
+
+*Recorded per A12-5's shape (Cycle 12 build-5): an exit condition records the **blocker's
+shape** and the reference, never a pre-authorized sequence of moves. So no command list and no
+"then do X" below — only what is unsettled, where its grounding lives, and what state ends the
+park.*
+
+- **Exit condition (shape, not a trigger):** Cycle 12 ships. Nothing here is actioned before
+  that — three of the repairs touch `ideation-scaffold` and `build-brief`, which Cycle 12 used
+  mid-flight. The park does not expire on a date and nothing schedules it; `cycle-closeout`'s
+  carry-forward record is where it should surface.
+- **If Cycle 12's shape changes before it ships** (a build dropped, a ruling reversed, the
+  grouping re-cut) this block does not silently survive it — re-read the two P-16 questions
+  above against whatever actually shipped. That is the A12-5 failure mode this block exists to
+  avoid: a parked record that reads as still-authorized after the thing it rested on moved.
+
+**The two P-16 questions** are stated in full above (the `promise:`/`title:` relation, then the
+Readiness-gate treatment A/B/C). They are not restated here.
+
+**Homeless items — unsettled, and this is their only tracked home:**
+
+1. **The reversibility rubric has no definition in the tree.** The three grades used by the
+   six-field shape are: **CHEAP** — change it next cycle, nothing shipped; **STICKY** — it is in
+   vaults, unwinding needs a migration; **ONE-WAY** — a convention bump plus re-ack, or a
+   governance rule other runs cite. Recorded here because they existed nowhere on disk. *Known
+   defect:* the dry run could not grade its own option (A) — "nothing shipped" and "a governance
+   rule others cite" point at different grades for a factory-side gate, so the clerk wrote the
+   disagreement rather than picking. Unsettled: whether the rubric gets a tracked home, and how
+   that clause conflict resolves.
+2. **Field 4 (*what happens if you say nothing*) leans structurally toward the status quo**,
+   because the status quo is what it describes. Unsettled: keep, reshape, or drop. Known to be
+   the shape's sharpest flaw; ordering it after options mitigates and does not remove it.
+3. **Fields 5 and 6 collapse into each other on platform-channel questions** — roughly 40%
+   restatement when nothing ships and no version bumps, because "which files get re-edited" and
+   "how hard to unwind" are the same question there. They separate cleanly on shipped work.
+   Unsettled: whether they merge for platform items only.
+4. **Whether the six-field shape gets a tracked home at all before Cycle 13.** The field list
+   survives in `ST-4` §Disposition; the withholding protocol survives in `ST-4` §The sharpest
+   acceptance test. What survives nowhere else: the per-question marks — **ruled / stalled /
+   routed** — and the two numbers a run reports (how many of a batch ruled with no read, and
+   where the stalls clustered). Recorded here for that reason. Unsettled: file it as a method
+   note, leave it in `ST-4`, or leave it unwritten until a second run.
+5. **Who clerks the first clean legibility reading, and on what.** It cannot be the session that
+   produced `ST-4` or this entry — both have given the owner recommendations on `promise:`,
+   which is what made the 2026-08-25 dry run a *format* test rather than a measurement. Earliest
+   honest venue: the first ideation batch after Cycle 12 ships. Unsettled: venue and clerk.
+6. **`P-17` and `P-18` are not queued.** Their diagnoses are carried in `ST-4` §Disposition —
+   *inbox holds unclaimed only, filings migrate at capture* (repairs root cause (d)) and *a
+   `NEVER-VERIFIABLE` acceptance grade* (lets a tail die rather than carry). Unsettled: whether
+   they enter the queue at all. Nothing is lost by leaving them out — the causes are tracked.
+7. **`ST-4`'s scope precedent awaits nobody, and that is deliberate — but it is unratified.**
+   The study is the register's first factory-side entry; the descriptive-vs-causal cut it rests
+   on was the clerk's call, stated at the head of the file for a later reader to overrule in
+   place. No ruling is owed. Recorded so the reopening does not mistake silence for ratification.
+
+**The dry-run packet itself is not tracked.** It lives only in the transcript of the session
+that assembled it (2026-08-25) and will not survive. Deliberate: it re-derives in ~15 minutes
+and 9 reads from four files — `factory/platform/roadmap.md` (this entry),
+`.claude/skills/build-brief/SKILL.md`, `.claude/skills/ideation-scaffold/SKILL.md`,
+`.claude/skills/vlt-release/references/choreography.md` — plus two confirmatory reads
+(`build-brief/references/brief-anatomy.md`, `tools/package-lint.py`). Its durable findings are
+the corrections already applied above and in `ST-4`; nothing else in it is load-bearing.
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**

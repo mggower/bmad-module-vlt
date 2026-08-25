@@ -311,6 +311,11 @@ filled it. A written status standing in for a live one, still reading as true.
 the fix is deferred, which is precisely the condition under which the register README says a
 diagnosis is *never excluded*.
 
+**Parked 2026-08-25, whole.** The parked set — the two `promise:`/gate questions, the
+instrument's three open shape questions, and the unqueued repairs — is single-homed in
+`factory/platform/roadmap.md` §P-16's **PARKED** block, with its exit condition recorded as a
+shape rather than a trigger. It is not restated here.
+
 Repairs this cause implies, in the order they were converged on — each to be argued on its own
 merits when its channel opens, none authorized by this study, which gates nothing:
 
