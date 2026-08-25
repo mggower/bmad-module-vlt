@@ -44,6 +44,30 @@ retirement into a fifth exception:
   the mechanism that earns it. Whether it retires, narrows, or survives is ideation's ruling;
   a capture that quietly converts it into a new exception has re-filed the symptom.
 
+## Does this cause already have a study?
+
+*(Platform P-14, folded 2026-08-25.)* Ask it once per filing, at the moment you have the cause
+in hand and are already reading source: **does `factory/studies/` hold this cause already?** The
+register is small; `ls` plus the README's index table is the whole check.
+
+- **It does** — the capture **cites the `ST-N`** and states only what is new: the fresh
+  instance, the residual scope, and any way the filing sharpens or contradicts the study. Do not
+  re-derive the diagnosis in the roadmap; that duplication is what the register exists to end.
+  Append the capture to the study's `cited_by:`.
+- **It does not, and the cause is bigger than this filing** — say so in the capture. Whether a
+  study gets opened is the author's call and needs no ruling (`factory/studies/README.md`,
+  *Opening a study* and *Citable, never blocking*); an unopened one is a missed chance, never a
+  blocked capture.
+
+**This is a prompt, not a gate.** No filing is held, and a run that asks and finds nothing has
+answered it. The whole cost is one question against a directory listing.
+
+*Why it is here:* the register's failure mode is not "no studies written" — it is **a cause
+re-derived that a study already holds**, which has now happened twice (ST-1 → ST-2 at five days;
+the 2026-08-24 session → ST-2's RC2 at one day). Both times the register was empty or tiny, so
+size was never the problem: **nobody thought to look.** Grounding is the one beat that is
+already reading source for a cause, which makes it the only cheap place to ask.
+
 ## Open design questions
 
 A filing may carry open questions it deliberately didn't resolve. Carry them into the roadmap

@@ -290,6 +290,36 @@ the owner's name, and partner-local names returns clean; the filing's citation r
 tracked path on disk, which is the done-when's own test performed early. The remaining clause
 is the Cycle 12 capture run named above.
 
+**Scope addition, owner-ruled 2026-08-25 — the re-derivation detector.** Folded into P-14
+*before* self-acceptance rather than opened as its own item: one non-blocking clause in
+`inbox-capture`'s `references/grounding-methodology.md` — **"does this filing's cause already
+have a study?"** — asked at the one beat already reading source for a cause. Cited → the capture
+names the `ST-N`, states only the residual, appends to `cited_by:`; not cited → say so, and
+opening a study stays the author's call. **Not a gate**, so *Citable, never blocking* is
+untouched, and P-14's out-of-scope line (no second set of adoption gates across five skills)
+does not bite: one clause, one skill, no hold.
+
+*Grounds for folding rather than opening:* the clause lives in the same skill, fires at the same
+moment, and is exercised by the same event as P-14's own done-when — P-15's "one item, not
+three" argument pointing the other way. *Grounds for building it now rather than waiting:* the
+detector has **two observed instances** (ST-1 → ST-2 at five days; the 2026-08-24 session →
+ST-2's RC2 at one day), and both occurred while the register was empty or tiny — so "small
+enough to remember" is the condition under which it already failed twice. The failure was never
+volume; **nobody thought to look.** Flagged as scope touching a built item so it reads as a
+ruling, not creep.
+
+**Watch (attached to this item's discharging event) — partial supersession.** `superseded_by:`
+is a whole-file scalar and cannot express what `ST-2` did to `ST-1`: RC-A sharpened into RC1,
+RC-B left standing ("out-priced, not wrong"). The relationship survives only in prose, in two
+sections that must be read to be found — **a register whose schema cannot express partial
+obsolescence, describing a loop that could not express partial obsolescence.** Deliberately
+**not** designed now: the population is **one**, and a schema change grounded in a single
+instance is a rule ahead of its mechanism — the fault the roundtable hunts, and poor form to
+ship out of the item just reviewed for that class of problem. Re-examined at this item's
+self-acceptance (Cycle 12's `inbox-capture`), by which point a second instance may exist and
+would show whether the fix is scalar→list, a `supersedes:` field with per-cause granularity, or
+nothing. *(Owner-ruled 2026-08-25 off the tech-writer review.)*
+
 **Built-awaiting inventory is now three (P-10, P-15, P-14) — the contract header's threshold.**
 The header defers a separate section or second cap "until built-awaiting inventory reaches
 three." It has. Flagged as an **owner call**, not acted on: three items with named discharging
