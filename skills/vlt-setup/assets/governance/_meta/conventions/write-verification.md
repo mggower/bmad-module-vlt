@@ -52,7 +52,7 @@ A write never blocks on its own verification: **fix what you can, flag what you 
 
 ## Scope rule (self-marker)
 
-Attestation is a **self-marker, not a quality grade**. Lint flags only *unmarked cells claiming to be self* — files carrying vault frontmatter (`type: wiki|research|project|area|resource` with `author: agent|hybrid`) and no attestation — never bare human files. `daily/`, raw `sources/` deposits, and human-authored PARA files are out of jurisdiction. This exemption is load-bearing for lint-report trust.
+Attestation is a **self-marker, not a quality grade**. Lint flags only *unmarked cells claiming to be self* — files carrying vault frontmatter (`type: wiki|research|project|area|resource` with `author: agent|hybrid`) and no attestation — never bare human files. `daily/`, raw `sources/` deposits, and human-authored PARA files are out of jurisdiction. This exemption is load-bearing for lint-report trust. **Jurisdiction boundary.** Attestation is out of frontmatter-validity jurisdiction: a file's missing or stale attestation is an *attestation* finding — never a frontmatter-validity defect, and never an unmarked supersession. Frontmatter validity judges the base schema (`frontmatter.md`, *Base frontmatter*); attestation is judged by this rule, against the `verified_by:` / `verified_at:` fields `frontmatter.md` defines under *Write attestation (agent-written artifacts)*. Same file, orthogonal axes.
 
 ## Tier membership and promotion
 

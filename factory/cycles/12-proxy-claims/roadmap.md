@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 12 — proxy claims'
-status: 'OPEN — **IDEATED 2026-08-25** (nine owner-steered rounds; every slot ruled) and **REVIEWED at the roadmap roundtable 2026-08-25** (nine voices; six owner rulings, one remitted dispute converged 4/4). Cycle 12 = **four builds, one release** (build-4 moved to the platform channel, roundtable R-5): b1 page-scanner corrections + waste removal (A12-1 symptom, A12-2 cause, Q6 prose clarification, A11-11 direction 1 — grouped because all four edit one prompt block); b2 change-keyed findings cache (direction 2, queued behind b1); b3 the PARA posture (A12-3 all six steps, Package C, steps 2+6 in one build); b4 the amendment trigger (A11-2 + E4, spike S-3 harvested); b5 parked-interim guidance (vlt-feedback). **Two retirements rather than carries** — B5-3(2) DISCHARGED on the letter after five cycles (graded leg-by-leg against the live reports) and b2(2) retired into A12-3. **Declared for Cycle 13** (not deferred): A11-11 direction 4 + A12-1''s cause-fix instrument. **Platform:** a new P-N takes A12-4 + A12-5''s module side with a done-when per move; P-14 self-acceptance WITHHELD until its grounding prompt is corrected; P-15 self-accepts on the roundtable + briefs (bound: this cycle''s roundtable, else BLOCKED). **Four capture claims overturned by grounding this session:** ST-1''s C4 already shipped (grounding: + method_in_grounding, so Q5 dissolved); A12-2''s convention clause is a prose clarification not a rule change (no 13→14, no 9-consumer re-ack); A12-1''s cause fix is neither direction 4 nor a JS refactor (the workflow has no page text — it needs a new deterministic pre-pass instrument); and CHANGELOG.md has no delivery path to a vault (referenced only by factory skills). No ST-4 opened — the test ran in session and found A12-5 distinct from ST-2 RC2 but on the filing side (known bounded fix). **Round 9 amendment:** E8''s close-#11 ruling STRICKEN — the owner had already answered #11 by comment (2026-08-25 17:06Z) and the shipped mirror rule keeps it open while its filing is active; Round 8 had ruled from the capture''s morning observation without re-checking the tracker, which is this cycle''s own proxy failure committed by the session ruling on it. #11''s binding moved from b2(2) to A12-3''s acceptance; no owner action remains on it, and the comment is cited into the new P-N as a live hand-executed instance of A12-4''s fix. Capture ran in two passes; both on the record — see the capture narrative, item 16. Next: **roadmap-roundtable**, then briefs.'
+status: 'OPEN — **IDEATED 2026-08-25** (nine owner-steered rounds; every slot ruled) and **REVIEWED at the roadmap roundtable 2026-08-25** (nine voices; six owner rulings, one remitted dispute converged 4/4). Cycle 12 = **four builds, one release** (build-4 moved to the platform channel, roundtable R-5): b1 page-scanner corrections + waste removal (A12-1 symptom, A12-2 cause, Q6 prose clarification, A11-11 direction 1 — grouped because all four edit one prompt block); b2 change-keyed findings cache (direction 2, queued behind b1); b3 the PARA posture (A12-3 all six steps, Package C, steps 2+6 in one build); b4 the amendment trigger (A11-2 + E4, spike S-3 harvested); b5 parked-interim guidance (vlt-feedback). **Two retirements rather than carries** — B5-3(2) DISCHARGED on the letter after five cycles (graded leg-by-leg against the live reports) and b2(2) retired into A12-3. **Declared for Cycle 13** (not deferred): A11-11 direction 4 + A12-1''s cause-fix instrument. **Platform:** a new P-N takes A12-4 + A12-5''s module side with a done-when per move; P-14 self-acceptance WITHHELD until its grounding prompt is corrected; P-15 self-accepts on the roundtable + briefs (bound: this cycle''s roundtable, else BLOCKED). **Four capture claims overturned by grounding this session:** ST-1''s C4 already shipped (grounding: + method_in_grounding, so Q5 dissolved); A12-2''s convention clause is a prose clarification not a rule change (no 13→14, no 9-consumer re-ack); A12-1''s cause fix is neither direction 4 nor a JS refactor (the workflow has no page text — it needs a new deterministic pre-pass instrument); and CHANGELOG.md has no delivery path to a vault (referenced only by factory skills). No ST-4 opened — the test ran in session and found A12-5 distinct from ST-2 RC2 but on the filing side (known bounded fix). **Round 9 amendment:** E8''s close-#11 ruling STRICKEN — the owner had already answered #11 by comment (2026-08-25 17:06Z) and the shipped mirror rule keeps it open while its filing is active; Round 8 had ruled from the capture''s morning observation without re-checking the tracker, which is this cycle''s own proxy failure committed by the session ruling on it. #11''s binding moved from b2(2) to A12-3''s acceptance; no owner action remains on it, and the comment is cited into the new P-N as a live hand-executed instance of A12-4''s fix. Capture ran in two passes; both on the record — see the capture narrative, item 16. **BRIEFING under way (2026-08-25): build-1 BRIEFED** — `briefs/build-1-page-scanner-corrections.md`, six acceptance checks in the ledger (3 ship-verifiable + gating, 3 field-contingent); brief-time it dropped the cache-hostile reorder as a measured no-op (676-token prefix vs a 1,024-token floor), re-measured E6 headroom (PAGE_SCAN 3223 → 3081 once `key_claims` drops), and corrected one more drifted cite (A7''s `:514-516` → `:496`/`:516`). Next: **`brief build 3`** (order 1 → 3 → 2).'
 module_code: 'vlt'
 created: '2026-08-25'
-updated: '2026-08-25 (IDEATION — rulings filled over eight rounds; next: roadmap-roundtable)'
+updated: '2026-08-25 (BRIEF — build-1 briefed; roundtable reviewed, no open disputes; next: `brief build 3`)'
 derives_from:
   - 'factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md'
   - 'factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md'
@@ -987,11 +987,25 @@ them — **the authoritative current numbering is the table in `## Next lifecycl
     `:94` defaults `scanModel` to `haiku`. The 58 KB that dominates is `convRead` **tool
     output — never in a cacheable prefix under any ordering**. Brief confirms the prefix
     clears the floor, **else the reorder is dropped**. *(Builder.)*
+    <br>**ANSWERED at brief time (2026-08-25, build-1 brief §Brief-time dispositions 1): the
+    reorder is DROPPED.** Measured at HEAD: `pageScanPrompt` = **2,803 B**; the variable head
+    (`${p.path}` / `${p.slug}`) is only the first **100 B**, so the invariant remainder
+    available as a cacheable prefix is **2,703 B ≈ 676 tokens** — below the 1,024-token floor
+    and far below Haiku's 2,048, and A4's reduction of `:202` shrinks it further. *A2's
+    companion figure re-measured the same session with package-lint's own E6 extractor:
+    `PAGE_SCAN` = **3223**, and F4's `key_claims` drop takes it to **3081** — so the schema
+    clauses spend against **619** chars of headroom, not 477.*
   - **A7 — the `wiki-index@2` pin STAYS.** Drop the `convRead('wiki-index')` at `:201` only;
     `:371` (`indexPrompt`) still judges against it. Pin at `:11` and `consumers:` at
     `wiki-index.md:12` **unchanged**; build-1 re-runs R4's fan-out audit and records the pin
     survives. *(Builder + Amelia.)* Checked and clean: the `category:`-matches-H2 binding is
-    computed **in JS** at `:514-516`, so the drop breaks nothing *(Quinn)*.
+    computed **in JS** at ~~`:514-516`~~, so the drop breaks nothing *(Quinn)*.
+    <br>**⚠ GROUNDING CORRECTION at brief time (2026-08-25, build-1 brief F5) — the cite has
+    drifted again.** At HEAD the binding is `h2set` built at **`:496`** and consumed at
+    **`:516`** (`category_no_match`). Quinn's finding is unchanged and the drop still breaks
+    nothing; only the cite is superseded. *This is the third stale line-cite this cycle has
+    caught in build-1's own site list (A1 caught two) — it is the live instance of the pattern
+    already queued for `factory/inbox/` as out-of-scope item 4.*
   - **A8 — Q6's clause moves home (owner ruling R-2).** See Q6 as amended: it lands in
     **`write-verification.md` §Scope rule (self-marker)**, not `frontmatter.md`.
   - **A9 — carry the `per frontmatter@13` marker** R4 (`:16-21`) requires on any restated
@@ -2449,7 +2463,14 @@ that never does; this cycle has one of each, which is the honest outcome."* (Ame
    capture and nine ideation rounds (A1/A4). Candidate: cites re-verified at brief time.
 5. **Candidate — `.github/` has no row in the platform boundary table** (R-5).
 
-### Next lifecycle move
+### Routing at the close of review (2026-08-25 — historical; DISCHARGED by build-1's brief)
+
+*This is the roundtable's own exit routing, kept as part of its record. **It is not the file's
+authoritative next move** — that is the single terminal `## Next lifecycle move` block at the
+foot of this file, per the lifecycle map's standing rule that a report's terminal routing line
+is authoritative. Restamped by `build-brief` on 2026-08-25 when build-1's brief landed; the
+duplicate terminal block this file used to carry (still routing to the roundtable that had
+already run) was collapsed into that one block in the same run.*
 
 **`brief build 1`** (`build-brief`) — the record is in place and **there are no OPEN disputes**;
 R-6 converged 4/4 and R-1..R-5 are owner-ruled. Order: **1 → 3 → 2** (build-2 now queues behind
@@ -2463,17 +2484,71 @@ form per `factory/cycles/11-reachability/roadmap.md` §Deferred acceptance ledge
 roundtable (A55/Quinn) — the section was missing and every brief this cycle would have gated
 against it.*
 
-*(empty — awaiting the first brief)*
+- [ ] **build-1 (page-scanner-corrections, briefed 2026-08-25):** brief
+  `factory/cycles/12-proxy-claims/briefs/build-1-page-scanner-corrections.md`. Six checks —
+  three ship-verifiable (all gate), three field-contingent (none gate).
+  **(1) `[ship-verifiable]` — GATES closeout:** `JSON.stringify(PAGE_SCAN).length ≤ 3700`
+  after the edits (A2's hard release gate) — instrument: package-lint **Group E6**
+  (`tools/package-lint.py:900`, the node-subprocess measurement), run at rest; baseline
+  measured this session **3223** at HEAD, **3081** once `key_claims` is dropped, so the new
+  clauses spend against 619 chars; evidence: the four schema lengths + the Group E PASS line
+  recorded in the brief's BUILT `status:`.
+  **(2) `[ship-verifiable]` — GATES closeout:** the narrowed extraction holds on a page built
+  to break it — given the edited `pageScanPrompt` + `PAGE_SCAN`, a scanner returns **exactly**
+  the two genuine wikilinks (fenced DQL, code-span `![[File.base]]` embeds, code-span table
+  cells and a bare source filename in a `## Sources` list all contribute **zero**),
+  `frontmatter_valid: true` on an unattested-but-valid page, no attestation complaint in
+  `unmarked_supersession`, and all 14 required fields populated (A4's reduction guard) —
+  instrument: the brief's Verification-3 single-agent reader probe (haiku, matching `:94`)
+  against a temp fixture, factory-side and at rest; evidence: the returned JSON recorded
+  verbatim in the BUILT `status:`.
+  **(3) `[ship-verifiable]` — GATES closeout:** the waste is gone and the handshake survived
+  it — `key_claims` absent from `:155` **and** the cluster prompt; `convRead('wiki-index')`
+  absent from `pageScanPrompt` while `wiki-index@2` stays pinned at `:11` and
+  `wiki-index.md:12` still lists `vlt-lint-full.js` (A7); `:202` reduced (A4);
+  `write-verification.md` still `version: 3` / 5 consumers — **no bump, no re-ack** (Q6, R-2)
+  — instrument: the brief's Verification-4 fan-out audit (the workflow's own R4 rule at
+  `:16-21`) + the Verification-7 greps + package-lint Groups A/B/C/E; evidence: the recorded
+  audit result, grep outputs and PASS line.
+  **(4) `[field-contingent]` — does not gate:** the next real full lint reports **zero**
+  `missing_targets` entries sourced from a code span or from bare non-wikilink text, against
+  the corpus that produced ten of ten false flags on 2026-08-24 — event: the owner runs
+  `vlt-lint --full` on `{field-vault}` after upgrading it to this cycle's release; performer:
+  the owner (standing rule); vault: `{field-vault}` only — it is the sole install carrying the
+  obsidian-dataview/obsidian-bases pages that produce the class; bound: the first full lint
+  after the release, no later than Cycle 13's `inbox-capture`.
+  **(5) `[field-contingent]` — does not gate:** on that same run, a page missing
+  `verified_by:`/`verified_at:` appears in the attestation slots (`unattested_write` /
+  `attestation_census`) and **not** in `malformed_frontmatter` and **not** in
+  `unmarked_supersessions`, and the census reads correctly **without hand-folding duplicates**
+  (the 2026-08-24 run needed 20 folded by hand) — event/performer/vault/bound: as (4).
+  **(6) `[field-contingent]` — does not gate:** on that same run,
+  `cost_accounting.phases[Scan pages].prompt_chars` sits materially below the 2026-08-24
+  baseline at comparable `pages_total`. Stated honestly and **deliberately not gating**: the
+  1.2 MB/run `wiki-index` saving is agent-side and invisible to this instrument by its own
+  declared blind spot (`vlt-lint-full.js:127`) — the convention-read saving is **not** graded
+  from this number — event/performer/vault/bound: as (4).
 
 ## Next lifecycle move
 
-**Convene the roundtable** — run `roadmap-roundtable` over the filled Ideation rulings above,
-before any brief. `build-brief` gates on the review record; skipping is an explicit owner
-waiver written into this roadmap, never a silence.
+*This is the file's **single** terminal routing block, and it is authoritative
+(`.claude/skills/vlt-lifecycle.md` §"a report's terminal routing line is authoritative"). It is
+restamped by every lifecycle skill that moves the position. **Restamped 2026-08-25 by
+`build-brief` when build-1's brief landed** — and in the same run the file's defect was
+repaired: it carried **two** `Next lifecycle move` sections, this one still routing to a
+roundtable that had already run on 2026-08-25 while the mid-file one carried the true position.
+The mid-file section is now titled §"Routing at the close of review" and marked historical.*
+
+**`brief build 3`** (`build-brief`) — **build-1 is BRIEFED**
+(`briefs/build-1-page-scanner-corrections.md`, 2026-08-25; six acceptance checks in the
+Deferred acceptance ledger above, three ship-verifiable and gating). Build-3 has no predecessor
+and is briefed next; **build-2 is briefed and built last** (order **1 → 3 → 2**, roundtable
+A11). A fresh builder session may implement build-1 via `bmad-workflow-builder` in parallel —
+briefing build-3 does not wait on it.
 
 **Ideation is COMPLETE** (2026-08-25, nine owner-steered rounds — every slot ruled; see the
 rulings section's round summary) and **REVIEWED** (roadmap roundtable, 2026-08-25 — see the review
-record below). The cycle is **four builds, one release** — build-4 moved to the platform channel at
+record above). The cycle is **four builds, one release** — build-4 moved to the platform channel at
 the roundtable (R-5):
 
 | build | subject | `spike:` |
@@ -2486,7 +2561,9 @@ the roundtable (R-5):
 *(Renumbered at the roundtable: **the amendment trigger moved to the platform channel** —
 ruling R-5, `.github/` is never delivered to vaults. **Four builds, one release.**)*
 
-**What the roundtable carries into the room, beyond the ordinary joint-hunt:**
+**What the roundtable carried into the room, beyond the ordinary joint-hunt** *(written before
+the session; kept as the record of what it was asked to test — all four items were tested and
+are answered in the review record above)*:
 
 1. **P-15's obsolescence beat self-accepts here, and A12-3 is the finding it was built to
    catch.** P-15's bound is hard: *"If Cycle 12 reaches its roundtable without the beat
