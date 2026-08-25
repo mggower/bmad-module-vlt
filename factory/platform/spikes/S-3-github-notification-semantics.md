@@ -149,6 +149,18 @@ A11-2 brief:
 > not participated in? (Needs a second account or a real third-party filer; observation
 > via the inbox UI, or via API after granting the `notifications` scope.)
 
+### Cycle 12 ideation ruling (2026-08-25) — no successor spike
+
+Cycle 12's ideation ruled this spike's `reshape` residual **does not get a successor `S-N`**
+(`factory/cycles/12-proxy-claims/roadmap.md` §Ideation rulings, Spikes). Reasons on the
+record there; in short: the residual is an **act-and-observe**, not a read, so it falls
+outside this register's boundary — and the harvest itself says it *"coincides with A11-2's
+own acceptance evidence."* It therefore becomes **A11-2's field-contingent acceptance
+check**, and `status:` stays `harvested` (which `build-brief`'s gate accepts) until A11-2's
+brief cites it, at which point `build-brief` moves it to `consumed` and fills `consumed_by:`.
+
+**A11-2 + E4 are built in Cycle 12** on the semantics this harvest settled.
+
 ### Post-harvest addendum (2026-08-24, owner act)
 
 Minutes after this harvest, the owner flipped the repo watch to **All Activity** — the
