@@ -5,6 +5,24 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.16.0 — 2026-08-25
+
+**Cycle 12** — the proxy-claims cycle.
+
+- **Build 1 — page-scanner corrections + waste removal:** the full-lint page scanner stops reading raw text as link structure and frontmatter validity as attestation, and sheds the reads it never used.
+- **Build 2 — the change-keyed findings cache:** full lint stops re-judging pages nothing changed, and says how many it reused and under which ruleset.
+- **Build 3 — the PARA posture:** PARA stops using location as a proxy for trust — honest, attested frontmatter becomes the entry condition, containers declare their own `writers:`, and lint enforces it.
+- **Build 4 — parked-interim guidance:** a park records the blocker's shape, and something re-reads it at the upgrade that can invalidate it.
+
+**Governance rule changes crossing v0.16.0 — read these before writing.**
+
+1. **PARA's entry condition changed** (`vault-operating-contract.md` **Layer 3** + `{conventions}/extraction.md` **v7**). Location is no longer the proxy for trust: the entry condition is now **honest, attested frontmatter** rather than a closed set of named write surfaces. A container may declare its own `writers:` on its `charter.md`; **an undeclared container is `open`**. Consequence for a vault: a partner may now file an honest `author: agent` / `trust: raw` document into `{projects}`/`{areas}`/`{resources}` **outside `{wiki}`**, wherever no ancestor `charter.md` refuses it. If you want a container closed, declare `writers:` on its charter — silence now means open, not closed.
+2. **`vlt-lint` gains `para_writer_unauthorized`** — a PARA write into a container whose ancestor charter's `writers:` does not admit the author is now a finding.
+3. **`{conventions}/decision-log.md` v4** — a new `kind: parked-interim` entry records a blocker's shape at the moment work parks against it. `vlt-upgrade`'s reconcile pass re-reads those entries at the upgrade that can invalidate them and surfaces them as `parked_interims_review:`.
+4. **Retired in this release:** the Layer-3 **location prohibition** and the **surface-count prohibition** are **gone**. Any local rule, overlay or habit that reasons "PARA writes are illegal because of *where* they land" or "there are exactly N legal write surfaces" is now reasoning from a retired rule — re-derive it against the attestation-based entry condition above.
+
+**Also in this release.** Full-mode `vlt-lint` keeps a per-page findings cache at `_agent/lint-cache.yaml` — extracted facts keyed on the page's own digest crossed with a ruleset fingerprint, never verdicts. It is vault-local, rewritten whole each full run, never wake-read, and safe to delete (the next run simply goes cold). The report's new `lint_cache:` line states `scanned N / cached M of T` beside the fingerprint the reused records were adjudicated under, so a cached run can never read as a fresh sweep. **The first full lint after this upgrade is a cold run** — every fingerprint input moved.
+
 ## v0.15.0 — 2026-08-24
 
 **Cycle 11** — the reachability cycle.

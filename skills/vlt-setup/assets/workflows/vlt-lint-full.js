@@ -44,6 +44,16 @@ export const meta = {
 //     stubSlugs:       [string] (optional)// slugs cataloged under {index}'s "## Stubs" section (the SKILL parses
 //                                          //   them) — a [[link]] to a registered stub is a RECORDED gap, not a
 //                                          //   missing target. default []. (B5-3)
+//     pageHashes:      {slug: sha256} (optional) // content digest per page, computed by the SKILL with an
+//                                          //   unwrapped instrument it names in the record. Absent → no page
+//                                          //   is cacheable this run (a cold sweep, stated, never silent).
+//     cachedScans:     [{slug, key, scan}] (optional) // prior PAGE_SCAN records the SKILL read from the
+//                                          //   sidecar (_agent/lint-cache.yaml). A record is reusable iff its
+//                                          //   `key` equals the key recomputed here from THIS run's inputs.
+//                                          //   default []. (A11-11 direction 2)
+//     rulesetFingerprint: string (optional)// the SKILL-side half of the fingerprint (module version, the
+//                                          //   vlt-lint pin vector, the merged convention digests, the check
+//                                          //   catalog digest). Absent → cold sweep.
 //     today:           string  (optional) // 'YYYY-MM-DD' — the SKILL passes it (scripts have no Date.now());
 //                                          //   needed to compute review_due; absent → review_due not computed
 //                                          //   (reported as a coverage cap).
@@ -84,6 +94,11 @@ const overlayNames = (Array.isArray(a.overlayNames) ? a.overlayNames : []).map((
 const crossLayerSlugs = (Array.isArray(a.crossLayerSlugs) ? a.crossLayerSlugs : []).map(normalizeTarget).filter(Boolean)
 const stubSlugs = (Array.isArray(a.stubSlugs) ? a.stubSlugs : []).map(normalizeTarget).filter(Boolean)
 const today = typeof a.today === 'string' ? a.today : ''
+// Findings-cache args (A11-11 direction 2). All three optional; any one absent → a cold sweep.
+// Read from the PARSED `a` above, never from the raw `args` string.
+const pageHashes = (a.pageHashes && typeof a.pageHashes === 'object' && !Array.isArray(a.pageHashes)) ? a.pageHashes : {}
+const cachedScans = Array.isArray(a.cachedScans) ? a.cachedScans : []
+const rulesetFingerprint = typeof a.rulesetFingerprint === 'string' ? a.rulesetFingerprint : ''
 const budgetFloor = a.budgetFloor || 40_000
 // Cluster cap scales with the wiki size — a fixed 12 sat one below the 13 natural clusters on the
 // live wiki and falsely tripped the coverage cap every run. Floor of 12 holds for small wikis. (#3 §6)
@@ -200,7 +215,44 @@ const pageScanPrompt = (p) =>
   `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@13 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@13 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
   `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later.`
 
+// The scan-surface fingerprint (A10). Any edit to the prompt's invariant half or to
+// PAGE_SCAN changes it, so a sidecar written under the old surface cannot be reused —
+// build-1 rewrote both in this very release, which is why this exists. The variable head
+// (${p.path}/${p.slug}) is stripped by building the canonical string from empty fields, so
+// the value is page-independent. No crypto import exists here (and none is needed: this
+// half only has to change whenever the text changes) — the strong digest is the SKILL's.
+const fnv1a = (str) => {
+  let h = 0x811c9dc5
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i)
+    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0
+  }
+  return h.toString(16).padStart(8, '0')
+}
+const canonicalScan = pageScanPrompt({ path: '', slug: '' }) + ' ' + JSON.stringify(PAGE_SCAN)
+const scanFingerprint = fnv1a(canonicalScan) + fnv1a(canonicalScan.split('').reverse().join('')) + canonicalScan.length.toString(16)
+
+// The composite per-page key, and the split of the page list (A11-11 direction 2).
+// A record is reusable iff its recorded key equals the key recomputed from THIS run's
+// inputs — the page's own digest crossed with the two fingerprint halves. Nothing in the
+// sidecar is ever a SOURCE of that comparison, only its object: a corrupt, forged or stale
+// record cannot serve a stale finding, it can only cause a cache miss. (Brief disposition 3
+// — this is the recorded-state branch of the contract's derive-first rule, not the
+// inferred-from-residue branch.)
+const runKey = (slug) => `${pageHashes[slug] || ''}|${scanFingerprint}|${rulesetFingerprint}`
+const cacheBySlug = new Map(cachedScans.filter((c) => c && c.slug && c.key && c.scan).map((c) => [c.slug, c]))
+const reusable = (p) => !!(pageHashes[p.slug] && rulesetFingerprint &&
+  cacheBySlug.get(p.slug) && cacheBySlug.get(p.slug).key === runKey(p.slug))
+const toScan = pages.filter((p) => !reusable(p))
+const reused = pages.filter(reusable)
+
 const scans = []
+// The FRESH half — records this run actually dispatched an agent for. `files_checked` is
+// denominated on this (Gap B rule unchanged: scanned this run), and so are both fan-out
+// guards below (brief dispositions 10 and 11) — the cache must never make up the numbers
+// for agents that died.
+const freshScans = []
+const freshBySlug = new Map()
 const coverageCaps = []
 // Loud degrade (B7-6): an old caller passing no overlay args gets a base-only sweep with
 // its cap on the record — never a silent base-only judgment.
@@ -221,15 +273,15 @@ const CHUNK = 16
 const scanBudgetAt = budgetSample() // cost accounting: phase-start budget sample
 let scanDispatched = 0
 let scanPromptChars = 0
-for (let i = 0; i < pages.length; i += CHUNK) {
+for (let i = 0; i < toScan.length; i += CHUNK) {
   if (budget.total && budget.remaining() < budgetFloor) {
-    const msg = `budget guard: scanned ${scans.length}/${pages.length} pages before the remaining budget fell below ${budgetFloor} — the rest were NOT checked`
+    const msg = `budget guard: scanned ${freshScans.length}/${toScan.length} pages needing a scan (${reused.length} reused from the findings cache) before the remaining budget fell below ${budgetFloor} — the rest were NOT checked`
     coverageCaps.push(msg)
     log(msg)
     budgetCapped = true
     break
   }
-  const chunk = pages.slice(i, i + CHUNK)
+  const chunk = toScan.slice(i, i + CHUNK)
   const chunkPrompts = chunk.map((p) => pageScanPrompt(p))
   scanDispatched += chunk.length
   for (const t of chunkPrompts) scanPromptChars += t.length
@@ -238,20 +290,20 @@ for (let i = 0; i < pages.length; i += CHUNK) {
     const r = part[k]
     if (!r) agentFailedSlugs.push(chunk[k].slug)
     else if (r.available === false) pageUnreadableSlugs.push(chunk[k].slug)
-    else scans.push(r)
+    else { freshScans.push(r); freshBySlug.set(chunk[k].slug, r) }
   }
-  log(`scanned ${scans.length}/${pages.length} pages`)
+  log(`scanned ${freshScans.length}/${toScan.length} pages (${reused.length} reused from the findings cache)`)
 }
 costRow('Scan pages', scanDispatched, scanModel, scanPromptChars, scanBudgetAt)
 // Loud degrade at the reduce boundary (A10-16 Defect 2): a dead agent adds a loud cap, never
 // vanishes. When the sweep scanned fewer pages than listed for any reason OTHER than the budget
 // guard already having capped, push a coverage cap naming the count + reason partition + the
 // failed slugs — mirroring the overlay/budget-guard cap posture above.
-if (!budgetCapped && scans.length < pages.length) {
+if (!budgetCapped && freshScans.length < toScan.length) {
   const parts = []
   if (agentFailedSlugs.length) parts.push(`${agentFailedSlugs.length} agent-rejected [${agentFailedSlugs.join(', ')}]`)
   if (pageUnreadableSlugs.length) parts.push(`${pageUnreadableSlugs.length} page-unreadable [${pageUnreadableSlugs.join(', ')}]`)
-  const m = `partial sweep: scanned ${scans.length}/${pages.length} pages — ${parts.join(', ')}; the rest were NOT checked`
+  const m = `partial sweep: scanned ${freshScans.length}/${toScan.length} pages needing a scan (${reused.length} reused from the findings cache, ${pages.length} listed) — ${parts.join(', ')}; the rest were NOT checked`
   coverageCaps.push(m)
   log(m)
 }
@@ -259,24 +311,38 @@ if (!budgetCapped && scans.length < pages.length) {
 // Near-total shortfall → error, never a findings report (A10-16 Defect 2, disposition 3):
 // below MAJORITY coverage the cross-page reduce is dominated by absent pages and any "clean"
 // bucket is far more likely shortfall than health (the exact 0.7%-coverage field failure). The
-// guard is scans.length === 0 (the hard sub-case) OR scans.length < ceil(pages.length / 2). The
-// error shape carries status:'failed' and NO findings buckets — distinct from a report, mirroring
+// guard is freshScans.length === 0 (the hard sub-case) OR freshScans.length < ceil(toScan.length / 2).
+// The error shape carries status:'failed' and NO findings buckets — distinct from a report, mirroring
 // the args-guard error convention above. Owner-adjustable threshold.
-if (scans.length === 0 || scans.length < Math.ceil(pages.length / 2)) {
-  const msg = `near-total fan-out shortfall: only ${scans.length}/${pages.length} listed pages scanned (below the majority-coverage floor) — a findings report over this set cannot be honest. The most likely cause is a stale vault-local workflow copy; re-run after confirming the workflow copy is current.`
+// It measures the DISPATCHED population, not the corpus (brief disposition 11): with cached
+// records spliced in, a corpus-denominated floor would pass on a run where every dispatched
+// agent died, because the cache made up the numbers. A fully-cached run has no fan-out and
+// therefore no fan-out shortfall — the guard is skipped when toScan is empty.
+if (toScan.length > 0 && (freshScans.length === 0 || freshScans.length < Math.ceil(toScan.length / 2))) {
+  const msg = `near-total fan-out shortfall: only ${freshScans.length}/${toScan.length} pages needing a scan were scanned (below the majority-coverage floor; ${reused.length} of ${pages.length} listed pages were reused from the findings cache) — a findings report over this set cannot be honest. The most likely cause is a stale vault-local workflow copy; re-run after confirming the workflow copy is current.`
   log(msg)
   return {
     status: 'failed',
     mode: 'full',
     reason: msg,
     files_listed: pages.length,
-    files_checked: scans.length,
+    files_checked: freshScans.length,
+    files_cached: reused.length,
     agent_failed: agentFailedSlugs,
     page_unreadable: pageUnreadableSlugs,
     coverage_caps: coverageCaps,
     cost_accounting: costAccounting(), // A11-11 direction 0 — a failed sweep's numbers are still measurement evidence
     next: 're-run after confirming the vault-local workflow copy is current (vlt-upgrade); if the shortfall persists at full coverage, file it',
   }
+}
+
+// The corpus the whole-corpus reduce runs over: fresh scans and reused cached FACTS
+// together, assembled in page order so a run's findings never depend on which pages
+// happened to be cached. The reduce, the index pass and the cluster/pair passes all still
+// run over the WHOLE corpus every run — the cache buys recomputation, never coverage.
+for (const p of pages) {
+  const rec = freshBySlug.get(p.slug) || (reusable(p) ? cacheBySlug.get(p.slug).scan : null)
+  if (rec) scans.push(rec)
 }
 
 // ── JS reduce: the link graph (free — no agents) ─────────────────────────────
@@ -496,7 +562,9 @@ const h2set = new Set(indexScan ? indexScan.h2_headings || [] : [])
 return {
   mode: 'full',
   // GAP B — files_checked counting rule: pages an agent actually SCANNED (not merely listed).
-  files_checked: scans.length,
+  files_checked: freshScans.length,
+  // Reused under an unchanged key — ADJUDICATED this run, not scanned (A11-11 direction 2).
+  files_cached: reused.length,
   files_listed: pages.length,
   fix_now: {
     orphans,
@@ -555,4 +623,9 @@ return {
   coverage_caps: coverageCaps,
   // A11-11 direction 0: the per-phase cost line, emitted on every completing run.
   cost_accounting: costAccounting(),
+  // A11-11 direction 2: the fingerprint the reused records were adjudicated under (null on a
+  // cold run), and the fresh records the SKILL writes back to _agent/lint-cache.yaml. This
+  // workflow stays READ-ONLY — it returns the records, the SKILL persists them.
+  cache_fingerprint: rulesetFingerprint ? `${scanFingerprint}|${rulesetFingerprint}` : null,
+  fresh_scans: freshScans,
 }

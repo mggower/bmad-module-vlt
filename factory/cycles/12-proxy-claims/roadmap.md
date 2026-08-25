@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 12 — proxy claims'
-status: 'OPEN — **IDEATED 2026-08-25** (nine owner-steered rounds; every slot ruled) and **REVIEWED at the roadmap roundtable 2026-08-25** (nine voices; six owner rulings, one remitted dispute converged 4/4). Cycle 12 = **four builds, one release** (build-4 moved to the platform channel, roundtable R-5): b1 page-scanner corrections + waste removal (A12-1 symptom, A12-2 cause, Q6 prose clarification, A11-11 direction 1 — grouped because all four edit one prompt block); b2 change-keyed findings cache (direction 2, queued behind b1); b3 the PARA posture (A12-3 all six steps, Package C, steps 2+6 in one build); b4 the amendment trigger (A11-2 + E4, spike S-3 harvested); b5 parked-interim guidance (vlt-feedback). **Two retirements rather than carries** — B5-3(2) DISCHARGED on the letter after five cycles (graded leg-by-leg against the live reports) and b2(2) retired into A12-3. **Declared for Cycle 13** (not deferred): A11-11 direction 4 + A12-1''s cause-fix instrument. **Platform:** a new P-N takes A12-4 + A12-5''s module side with a done-when per move; P-14 self-acceptance WITHHELD until its grounding prompt is corrected; P-15 self-accepts on the roundtable + briefs (bound: this cycle''s roundtable, else BLOCKED). **Four capture claims overturned by grounding this session:** ST-1''s C4 already shipped (grounding: + method_in_grounding, so Q5 dissolved); A12-2''s convention clause is a prose clarification not a rule change (no 13→14, no 9-consumer re-ack); A12-1''s cause fix is neither direction 4 nor a JS refactor (the workflow has no page text — it needs a new deterministic pre-pass instrument); and CHANGELOG.md has no delivery path to a vault (referenced only by factory skills). No ST-4 opened — the test ran in session and found A12-5 distinct from ST-2 RC2 but on the filing side (known bounded fix). **Round 9 amendment:** E8''s close-#11 ruling STRICKEN — the owner had already answered #11 by comment (2026-08-25 17:06Z) and the shipped mirror rule keeps it open while its filing is active; Round 8 had ruled from the capture''s morning observation without re-checking the tracker, which is this cycle''s own proxy failure committed by the session ruling on it. #11''s binding moved from b2(2) to A12-3''s acceptance; no owner action remains on it, and the comment is cited into the new P-N as a live hand-executed instance of A12-4''s fix. Capture ran in two passes; both on the record — see the capture narrative, item 16. **BRIEFING under way (2026-08-25): build-1 BRIEFED** — `briefs/build-1-page-scanner-corrections.md`, six acceptance checks in the ledger (3 ship-verifiable + gating, 3 field-contingent); brief-time it dropped the cache-hostile reorder as a measured no-op (676-token prefix vs a 1,024-token floor), re-measured E6 headroom (PAGE_SCAN 3223 → 3081 once `key_claims` drops), and corrected one more drifted cite (A7''s `:514-516` → `:496`/`:516`). **build-3 BRIEFED** — `briefs/build-3-para-posture.md`, thirteen F-sites and fifteen brief-time dispositions, nine acceptance checks in the ledger (5 ship-verifiable + gating, 4 field-contingent); it rules A55 option **(b)** (the gating instrument is a named agent-run reader probe over a temp fixture vault — a `package-lint` callable is impossible, E4 introspects `package-lint.py` callables only), rules Q5/A30 by **narrowing the hard invariant''s population to extracted artifacts** and `checks.md:48`''s to `trust: reviewed`-and-above (D5 elimination on a shipped field), prices A31 as **no `frontmatter.md` bump** and A32 as **no fourth workflow ack**, expands the `extraction.md` walk to **four** consumer acks (A26 adds `vlt-query`), picks `contract:64` as A21''s canonical home, and re-grades A34''s DECLINE as **standing with its watch re-pointed**. Five more stale cites corrected on grounding. **build-4 BRIEFED** — `briefs/build-4-parked-interim-guidance.md` (A12-5''s vault side; note the roundtable renumbering — the ideation bullets still call it build-5), seven F-sites and nine brief-time dispositions, six acceptance checks in the ledger (4 ship-verifiable + gating, 2 field-contingent); it answers A37 by putting the record in the **mint decision log** under a new `kind: parked-interim` re-read by `vlt-upgrade`''s reconcile pass (`decision-log.md` **3 → 4**, five acks — four re-acks plus `vlt-feedback`''s first pin), answers A39 by **single-homing the rule in the convention with `vlt-mint:104` pointing at it** while keeping the two park mechanisms separate, and enters A40''s grading honestly as **one prohibition added, none retired**. Three more stale cites corrected on grounding (thirteen this cycle), plus **A46''s BLOCKED grading found stale** — build-3 shipped the `governance_rule_changes:` key it waits on; recorded for an owner re-grade, not acted on. **Build-1 and build-3 are both BUILT** (`f134190`, `5585877`). Next: **a fresh builder session on build-4**, then **`brief build 2`** (order 1 → 3 → 2; build-2 is also the release build).'
+status: 'OPEN — **IDEATED 2026-08-25** (nine owner-steered rounds; every slot ruled) and **REVIEWED at the roadmap roundtable 2026-08-25** (nine voices; six owner rulings, one remitted dispute converged 4/4). Cycle 12 = **four builds, one release** (build-4 moved to the platform channel, roundtable R-5): b1 page-scanner corrections + waste removal (A12-1 symptom, A12-2 cause, Q6 prose clarification, A11-11 direction 1 — grouped because all four edit one prompt block); b2 change-keyed findings cache (direction 2, queued behind b1); b3 the PARA posture (A12-3 all six steps, Package C, steps 2+6 in one build); b4 the amendment trigger (A11-2 + E4, spike S-3 harvested); b5 parked-interim guidance (vlt-feedback). **Two retirements rather than carries** — B5-3(2) DISCHARGED on the letter after five cycles (graded leg-by-leg against the live reports) and b2(2) retired into A12-3. **Declared for Cycle 13** (not deferred): A11-11 direction 4 + A12-1''s cause-fix instrument. **Platform:** a new P-N takes A12-4 + A12-5''s module side with a done-when per move; P-14 self-acceptance WITHHELD until its grounding prompt is corrected; P-15 self-accepts on the roundtable + briefs (bound: this cycle''s roundtable, else BLOCKED). **Four capture claims overturned by grounding this session:** ST-1''s C4 already shipped (grounding: + method_in_grounding, so Q5 dissolved); A12-2''s convention clause is a prose clarification not a rule change (no 13→14, no 9-consumer re-ack); A12-1''s cause fix is neither direction 4 nor a JS refactor (the workflow has no page text — it needs a new deterministic pre-pass instrument); and CHANGELOG.md has no delivery path to a vault (referenced only by factory skills). No ST-4 opened — the test ran in session and found A12-5 distinct from ST-2 RC2 but on the filing side (known bounded fix). **Round 9 amendment:** E8''s close-#11 ruling STRICKEN — the owner had already answered #11 by comment (2026-08-25 17:06Z) and the shipped mirror rule keeps it open while its filing is active; Round 8 had ruled from the capture''s morning observation without re-checking the tracker, which is this cycle''s own proxy failure committed by the session ruling on it. #11''s binding moved from b2(2) to A12-3''s acceptance; no owner action remains on it, and the comment is cited into the new P-N as a live hand-executed instance of A12-4''s fix. Capture ran in two passes; both on the record — see the capture narrative, item 16. **BRIEFING under way (2026-08-25): build-1 BRIEFED** — `briefs/build-1-page-scanner-corrections.md`, six acceptance checks in the ledger (3 ship-verifiable + gating, 3 field-contingent); brief-time it dropped the cache-hostile reorder as a measured no-op (676-token prefix vs a 1,024-token floor), re-measured E6 headroom (PAGE_SCAN 3223 → 3081 once `key_claims` drops), and corrected one more drifted cite (A7''s `:514-516` → `:496`/`:516`). **build-3 BRIEFED** — `briefs/build-3-para-posture.md`, thirteen F-sites and fifteen brief-time dispositions, nine acceptance checks in the ledger (5 ship-verifiable + gating, 4 field-contingent); it rules A55 option **(b)** (the gating instrument is a named agent-run reader probe over a temp fixture vault — a `package-lint` callable is impossible, E4 introspects `package-lint.py` callables only), rules Q5/A30 by **narrowing the hard invariant''s population to extracted artifacts** and `checks.md:48`''s to `trust: reviewed`-and-above (D5 elimination on a shipped field), prices A31 as **no `frontmatter.md` bump** and A32 as **no fourth workflow ack**, expands the `extraction.md` walk to **four** consumer acks (A26 adds `vlt-query`), picks `contract:64` as A21''s canonical home, and re-grades A34''s DECLINE as **standing with its watch re-pointed**. Five more stale cites corrected on grounding. **build-4 BRIEFED** — `briefs/build-4-parked-interim-guidance.md` (A12-5''s vault side; note the roundtable renumbering — the ideation bullets still call it build-5), seven F-sites and nine brief-time dispositions, six acceptance checks in the ledger (4 ship-verifiable + gating, 2 field-contingent); it answers A37 by putting the record in the **mint decision log** under a new `kind: parked-interim` re-read by `vlt-upgrade`''s reconcile pass (`decision-log.md` **3 → 4**, five acks — four re-acks plus `vlt-feedback`''s first pin), answers A39 by **single-homing the rule in the convention with `vlt-mint:104` pointing at it** while keeping the two park mechanisms separate, and enters A40''s grading honestly as **one prohibition added, none retired**. Three more stale cites corrected on grounding (thirteen this cycle), plus **A46''s BLOCKED grading found stale** — build-3 shipped the `governance_rule_changes:` key it waits on; recorded for an owner re-grade, not acted on. **build-2 BRIEFED — the cycle''s last brief** — `briefs/build-2-change-keyed-findings-cache.md`, seven F-sites and twelve brief-time dispositions, six acceptance checks in the ledger (4 ship-verifiable + gating, 2 field-contingent); it homes the sidecar at `_agent/lint-cache.yaml` as a **fixed agent-zone path, not a `vault_structure` key** (routing around the still-open C6-b merge-config defect), answers **A13** by showing the reuse decision is computed from primary sources every run so the sidecar is only ever the *object* of the comparison and never a *source* of it, **upholds Mary''s dissent on A14** (`checks.md:50` survives intact — the populations are disjoint, so D5 has no overlap to eliminate), rules **A15**''s `lint-debt` ration **stands with its reason recorded**, and narrows the **B10-12** version-skew refusal from `files_checked: 0` to *adjudicated-nothing* so a fully-cached run is not refused. **Two more grounding corrections (fifteen this cycle), and one of them is a MECHANISM correction:** A10''s cache key read as the workflow''s own pin line, but `vlt-lint-full.js:12` contains **no `extraction` pin at all** — a key built on it would have failed to invalidate on build-3, the exact build A11 ordered build-2 to queue behind; the pin vector of record is **`vlt-lint/SKILL.md:4`**, which carries both `extraction@7` and `decision-log@4`. **All four builds BRIEFED; builds 1, 3 and 4 BUILT** (`f134190`, `5585877`, `0e76901`). **A46''s stale BLOCKED grading re-checked and still unacted — an owner re-grade of `P-17`, now flagged by two briefs.** Next: **a fresh builder session on build-2**, then the cycle is **RELEASE-READY** — `release vlt 0.16.0`, **held for the owner''s explicit approval**; the version is not an owner ruling on record (branch-implied, and already written into shipped text at `vlt-upgrade/SKILL.md:124`), and the release bumps BOTH version strings (still 0.15.0 at this stamp).'
 module_code: 'vlt'
 created: '2026-08-25'
-updated: '2026-08-25 (BRIEF — builds 1, 3 and 4 briefed; builds 1 and 3 BUILT at `f134190` and `5585877`; roundtable reviewed, no open disputes; next: a fresh builder session on build-4, then `brief build 2`)'
+updated: '2026-08-25 (BRIEF COMPLETE — all four builds briefed; builds 1, 3 and 4 BUILT at `f134190`, `5585877` and `0e76901`; roundtable reviewed, no open disputes; next: a fresh builder session on build-2, then RELEASE-READY — `release vlt 0.16.0`, held for owner approval)'
 derives_from:
   - 'factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md'
   - 'factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md'
@@ -2664,6 +2664,67 @@ against it.*
   `inbox-capture`. *Dependency stated: ungradeable before (5) discharges — if (5) routes to an
   owner ruling, so does this.*
 
+- [ ] **build-2 (change-keyed-findings-cache, briefed 2026-08-25):** brief
+  `factory/cycles/12-proxy-claims/briefs/build-2-change-keyed-findings-cache.md`. Six checks —
+  four ship-verifiable (all gate), two field-contingent (neither gates). **This is the cycle's
+  release build**, so the release gate rides check (4). A12's shape honoured exactly: the
+  ship-verifiable half is the sidecar **at rest on a two-run temp fixture**; the live
+  `churn`-ratio saving is field-contingent and gates nothing.
+  **(1) `[ship-verifiable]` — GATES closeout:** the two-run fixture — on a temp fixture vault of
+  ≥ 6 pages, run 1 (no sidecar) writes `_agent/lint-cache.yaml` with a fingerprint and one record
+  per page and reports `lint_cache: scanned T / cached 0 of T … cold (no prior cache)`; run 2,
+  with one page's bytes edited and nothing else changed, dispatches **exactly one** scan agent
+  and reports `files_checked: 1` / `files_cached: T-1` under the same fingerprint — instrument:
+  the brief's Verification-5 harness run against the shipped workflow source with stubbed
+  `agent`/`parallel`/`phase`/`log`/`budget` and a real temp fixture, factory-side and at rest;
+  evidence: the three count triples and both `lint_cache:` lines recorded verbatim in the BUILT
+  `status:`.
+  **(2) `[ship-verifiable]` — GATES closeout:** findings parity — the cold run and the
+  fully-cached run over the same fixture return **byte-identical** `fix_now`, `flag_for_human`
+  and `opportunities` blocks, and the one-page-changed run's reduce is still correct across the
+  whole corpus (orphans and `missing_targets` computed over all T pages, not over the 1
+  rescanned) — instrument: Verification-5's runs 1–3 compared with an **unwrapped** `diff` whose
+  invocation is named in the record (the contract's instrument rule, `contract:351`); evidence:
+  the diff result and the third run's `missing_targets`/`orphans`.
+  **(3) `[ship-verifiable]` — GATES closeout:** each of the three predecessor builds invalidates
+  the cache, and the release's first full run is COLD (A10) — four mutations against a sidecar
+  written under the current fingerprint, one at a time: `module_version` 0.15.0 → 0.16.0;
+  `vlt-lint/SKILL.md:4`'s pin vector with `extraction@7` reverted to `@6` (build-3); the same
+  line with `decision-log@4` reverted to `@3` (build-4); one character of `pageScanPrompt`'s
+  invariant half or of `PAGE_SCAN` (build-1). Each yields `files_cached: 0` and a `lint_cache:`
+  line reading `cold (fingerprint changed)` — instrument: the Verification-5 harness plus a
+  fingerprint-recomputation probe over the four mutated inputs, at rest; evidence: the four
+  fingerprints and the four cold lines.
+  **(4) `[ship-verifiable]` — GATES closeout:** the release gate and the honesty surfaces survive
+  the build — `uv run tools/package-lint.py --expect-version 0.16.0` exits **0** with **C6**
+  green against the re-derived `vault-rule-card.md` sha and **E6** showing `PAGE_SCAN` unchanged
+  at **3598**; both version strings read `0.16.0`; the B10-12 refusal still fires on a stale-copy
+  simulation and does **not** fire on a fully-cached run (the narrowed predicate, brief
+  disposition 10); and `coverage_caps` is unchanged in count (A16) — instrument: `package-lint`'s
+  own D/C6/E6 run plus the brief's Verification-4 and Verification-10 greps, at rest; evidence:
+  the PASS summary line, the new contract sha, the card byte count and the V4 returns.
+  **(5) `[field-contingent]` — does not gate:** the saving is real at live churn — on the first
+  full lint after the release's own cold run, `files_cached` is materially greater than
+  `files_checked` at comparable `pages_total`, and
+  `cost_accounting.phases[Scan pages].agents_dispatched` falls proportionally against the
+  2026-08-24 baseline of 146 — event: the owner runs `vlt-lint --full` on `{field-vault}`
+  **twice** after upgrading it to v0.16.0 (the first is the stated cold run, the second is the
+  measurement); performer: the owner (standing rule); vault: `{field-vault}` only — the sole
+  install with a 146-page wiki and a measured churn history; bound: the second full lint after
+  the release, no later than Cycle 13's `inbox-capture`. *Stated honestly: this is the number
+  direction 2 exists for, and it deliberately gates nothing — a fixture proves the mechanism,
+  only the field proves the ratio.*
+  **(6) `[field-contingent]` — does not gate:** the v0.16.0 rule-change notification actually
+  renders — `vlt-upgrade`'s `governance_rule_changes:` comes back non-empty carrying all four
+  facts the brief's F6 requires (the Layer-3/`extraction@7` entry-condition change with the
+  `writers:`/undeclared-is-`open` consequence, `para_writer_unauthorized`, `decision-log@4`'s
+  `kind: parked-interim`, and the named retirement), sourced from this build's CHANGELOG entry
+  rather than from a diff — event: the owner's `vlt-upgrade` run on `{field-vault}` crossing
+  0.15.0 → 0.16.0; performer: the owner; vault: `{field-vault}` (the only install crossing this
+  boundary from 0.15.0); bound: that upgrade run, no later than Cycle 13's `inbox-capture`.
+  *First live exercise of build-3's F11 key, and the only check that proves the CHANGELOG entry
+  was written as a functional input rather than as release prose.*
+
 ## Grounding corrections issued at brief time — build-3 (2026-08-25)
 
 *The superseding notes `build-brief`'s Re-ground stage owes the roadmap, so this file does not
@@ -2762,49 +2823,104 @@ kinds as a six-item list that **omits `deviation`**, which shipped at v3. Adding
 would leave both two behind, so both become point-at-the-map — the standing rule that *lists
 claiming completeness drift*.
 
+## Grounding corrections issued at brief time — build-2 (2026-08-25)
+
+*The superseding notes the Re-ground stage owes this file. **The capture and roundtable bodies
+above are append-only and are not rewritten** — these notes supersede specific cites within
+them. Two cites had drifted; one of them corrected a **mechanism input**, not merely a line
+number; none contradicted an ideation ruling, so none blocked.*
+
+**Cite drift (two — the fourteenth and fifteenth this cycle has logged).**
+
+| roadmap cite | at HEAD (`0e76901`) | source of the drift |
+|---|---|---|
+| **A14** — `checks.md:49`, quoting *"never prior lint reports (`{lint_reports}` is not read; reports stay walker-exempt)"* | **`checks.md:50`** (the *Spec candidates* bullet). `:49` at HEAD is the *personalized-extraction firewall* | build-3's catalog work shifted the bullet by one — a sibling build in the same release |
+| **A10** — *"the convention `version:` pins … the scan was judged under"*, read as the workflow's own pin line | the pin vector of record is **`vlt-lint/SKILL.md:4`**, not `vlt-lint-full.js:12` | roundtable approximation, and the more serious of the two |
+
+**⚠ The A10 correction is a mechanism correction, not a cite correction — recorded loudly.**
+`vlt-lint-full.js:12` reads `["frontmatter@13", "wiki-supersession@2", "wiki-index@2",
+"write-verification@3"]`. **`extraction` is not in it and never was**, because the page scanners
+do not judge against `extraction.md`. Build-3 bumped `extraction.md` **6 → 7** and added
+`para_writer_unauthorized`; **neither moves a character of `:12`.** A cache key built on the
+workflow's own pins would therefore have failed to invalidate on **the exact build the
+roundtable ordered build-2 to queue behind** — A11's ordering ruling would have been enforced
+in prose and violated in fact. The pin vector of record is `vlt-lint/SKILL.md:4`, which at HEAD
+carries **both** build-3's `extraction@7` **and** build-4's `decision-log@4`. A10's finding is
+unchanged and its ruling stands; only its mechanism input is superseded. *(This is the cycle's
+own thesis turning up inside the build that exists to fix it: a pin line standing in for "the
+ruleset this was judged under", still standing in after the ruleset moved somewhere else.)*
+
+**Cites re-verified and standing, recorded because the brief rests on them:** all three of
+build-4's restated moved lines hold at HEAD — `vlt-upgrade/SKILL.md:113` (the report key),
+`:126` (its prose), `:134` (persist-verify) — as do `:45` (the derive-first worked instance),
+`:111` (`governance_rule_changes:`) and `:124` (its **"Crossing v0.16.0"** worked example);
+`vault-operating-contract.md:349` (the derive-first boundary clause) and `:351` (the instrument
+rule); `checks.md:42` (the read-before-flag preface); `decision-log.md:48`/`:108`/`:118`;
+`report.md:43`; `tripwires.yaml:83-89`; `vault-rule-card.md:11` (`derived_from:`, card at
+**7,106 B** against an 8,000 B budget); and build-1's eight moved workflow cites.
+
+**⚠ A46's stale grading is UNCHANGED and still unacted — second brief to carry it forward.**
+Build-4's brief found it; this brief re-checked it and it still stands stale
+(`vlt-upgrade/SKILL.md:111` exists at HEAD). It is an **owner** re-grade of platform item
+**`P-17`**, surfaced again in the routing block below so it is seen at release.
+
 ## Next lifecycle move
 
 *This is the file's **single** terminal routing block, and it is authoritative
 (`.claude/skills/vlt-lifecycle.md` §"a report's terminal routing line is authoritative"). It is
 restamped by every lifecycle skill that moves the position. **Restamped 2026-08-25 by
-`build-brief` when build-4's brief landed.** *(Earlier the same day it was restamped when
-build-3's brief landed, and before that when build-1's — and in that first run the file's defect
-was repaired: it carried **two** `Next lifecycle move` sections, this one still routing to a
-roundtable that had already run while the mid-file one carried the true position. The mid-file
-section is now titled §"Routing at the close of review" and marked historical.)*
+`build-brief` when build-2's brief landed — the cycle's last brief.** *(Earlier the same day it
+was restamped when build-4's, build-3's and build-1's briefs landed; in that first run the
+file's defect was repaired — it carried **two** `Next lifecycle move` sections, this one still
+routing to a roundtable that had already run. The mid-file section is now titled §"Routing at
+the close of review" and marked historical.)*
 
-**Two moves, in this order.**
+**Every build in the cycle is now briefed. Two moves, in this order.**
 
-**(a) A fresh builder session implements build-4** (`bmad-workflow-builder`) —
-`briefs/build-4-parked-interim-guidance.md`, 2026-08-25; seven F-sites, nine brief-time
+**(a) A fresh builder session implements build-2** (`bmad-workflow-builder`) —
+`briefs/build-2-change-keyed-findings-cache.md`, 2026-08-25; seven F-sites, twelve brief-time
 dispositions, six acceptance checks in the Deferred acceptance ledger above (**four
-ship-verifiable and gating**, two field-contingent). Exit obligations: rewrite the brief's
-`status:` to a **BUILT** record with **numbered deviations**, delete any `.decision-log.md` from
-the working tree (*not* `_agent/mint/decision-log.md` — the brief's V9 spells out the collision),
-one commit for the build.
+ship-verifiable and gating**, two field-contingent). It is the cycle's **last** build and its
+**release build**: it carries the dual version bump, the `--expect-version` gate and the
+**v0.16.0 `CHANGELOG.md` entry** build-3's deviation 4 left owing (`vlt-upgrade/SKILL.md:122`
+makes that entry a *functional input* to `governance_rule_changes:`, not release prose). Exit
+obligations: rewrite the brief's `status:` to a **BUILT** record with **numbered deviations**,
+delete any `.decision-log.md` from the working tree (*not* `_agent/mint/decision-log.md`), one
+commit on `cycle12-v0.16.0` — **and stop before the tag.**
 
-**(b) `brief build 2`** (`build-brief`) — build-2 is the **last** build to be briefed and built
-(order **1 → 3 → 2**, roundtable A11 — it queues behind build-1 *and* build-3, because build-3
-bumps `extraction.md` 6 → 7 and adds a lint check, both of which change what a cached finding
-*means*, and A10's cache key must carry both). **Build-2 is also the cycle's release build**
-(D3 — one release, whole cycle): the dual version bump, the `--expect-version` gate and the tag
-ride its brief. **Build-4 is independent of build-2's ordering constraint** — it touches
-`vlt-feedback`, the decision-log convention and `vlt-upgrade`, a file set disjoint from
-`vlt-lint-full.js` — but its `decision-log.md` **3 → 4** bump is part of what build-2's cache
-key must fingerprint, so build-2's brief is written after build-4's text is fixed (it is, as of
-this stamp), not after build-4 is built.
+**(b) The cycle is then RELEASE-READY: `release vlt 0.16.0`** (`vlt-release`) — one dual version
+bump (`.claude-plugin/marketplace.json` `"version"` **and**
+`skills/vlt-setup/assets/module.yaml` `module_version`, both still reading **0.15.0** at this
+stamp), the `uv run tools/package-lint.py --expect-version 0.16.0` gate (**tag only on exit 0**,
+PASS line in the commit message), then ff-merge → tag → push.
+**🛑 The release is HELD for the owner's explicit approval, and the target version is NOT an
+owner ruling on record.** `0.16.0` is the branch-implied target (`cycle12-v0.16.0`), already
+written into build-4's brief and — decisively — **already shipped into a shipped surface** by
+build-3 at `vlt-upgrade/SKILL.md:124` (*"Crossing v0.16.0…"*). A different number requires
+editing that line. The owner confirms the number and gives the go.
 
 **Build state:** build-1 **BUILT** (`f134190`, eight F-sites, eight numbered deviations);
-build-3 **BUILT** (`5585877`, thirteen F-sites); build-4 **BRIEFED**, awaiting a fresh builder
-session; build-2 **unbriefed**. Branch `cycle12-v0.16.0`. Build-4's builder session and build-2's
-briefing may run in parallel.
+build-3 **BUILT** (`5585877`, thirteen F-sites, five deviations); build-4 **BUILT** (`0e76901`,
+seven F-sites, two deviations); build-2 **BRIEFED**, awaiting a fresh builder session. Branch
+`cycle12-v0.16.0`. **All four briefs written; three of four builds built.**
 
-**Carried out of build-4's briefing, for whoever briefs build-2:** the brief logged **three more
-stale line-cites** (see §"Grounding corrections issued at brief time — build-4"), taking this
-cycle's running total to **thirteen**. **Re-derive every `file:line` against HEAD; never trust a
-cite carried in this roadmap.** Also carried: **A46's BLOCKED grading is stale** — build-3
-shipped the `governance_rule_changes:` key it waits on. That is an **owner re-grade**, recorded
-by build-4's brief and performed by nobody yet.
+**Carried out of build-2's briefing, for the builder and for the release:**
+- **Re-derive every `file:line` against HEAD; never trust a cite carried in this roadmap.**
+  Fifteen stale cites have now been caught this cycle — and build-2's brief caught the first one
+  that would have changed a *mechanism* (A10's pin vector), not merely a line number.
+- **A46's BLOCKED grading is stale and remains unacted — an OWNER re-grade of `P-17`.** Build-3
+  shipped the `governance_rule_changes:` key A46 says A12-5's module side waits on
+  (`vlt-upgrade/SKILL.md:111`). **Two briefs have now flagged this.** It is surfaced here so the
+  owner sees it at release rather than at Cycle 13's capture.
+- **Owner acts still outstanding at release:** hand-deliver build-3's re-derive notice to
+  `{field-vault}`'s known PARA park (A57); run the parked-interim survey against `{field-vault}`
+  (E6), bounded to before Cycle 13's `inbox-capture` and reporting a list, not a count (A56).
+- **For Cycle 13's ideation, on roundtable A51 and build-2's out-of-scope item 2:** direction 2
+  **retires direction 4's own cost case**. After this build at `churn 5 of 146` the
+  convention-read pool falls from `ST-3`'s 8.6 MB/run to ~0.29 MB/run and direction 4's marginal
+  saving to ~0.19 MB/run. Rule direction 4 on `ST-3` cause (a) — *projection binds every future
+  fan-out consumer*, which survives direction 2 untouched — and **re-measure the residual pool
+  against build-2's acceptance check (5), never against the stale 8.6 MB figure.**
 
 **Ideation is COMPLETE** (2026-08-25, nine owner-steered rounds — every slot ruled; see the
 rulings section's round summary) and **REVIEWED** (roadmap roundtable, 2026-08-25 — see the review
@@ -2849,8 +2965,21 @@ archives against A12-3's acceptance (E8). **Platform:**
 open **`P-17`** — **not `P-16`, which is already taken** by *"the `promise:` line"*, filed
 2026-08-25 and explicitly *"waits for Cycle 12 to ship"* (A47) — carrying **A12-4 only**;
 A12-5's module side is **BLOCKED (unreachable)** until A33's `governance_rule_changes:` key
-exists (A46). **P-14 self-acceptance is withheld** until its grounding prompt is corrected (Q10).
+exists (A46). <br>**⚠ A46 SUPERSEDED ON GROUNDING (2026-08-25, build-4's and build-2's briefs) —
+the key EXISTS at `vlt-upgrade/SKILL.md:111`, shipped by build-3 (`5585877`). The BLOCKED grading
+is stale and the re-grade is an owner act on `P-17`; two briefs have now flagged it and it is
+carried in the routing block above.** **P-14 self-acceptance is withheld** until its grounding
+prompt is corrected (Q10).
 **P-15 does NOT self-accept on this session** — its done-when is roundtable **and** briefs (A49).
+<br>**Observation recorded at the last brief (2026-08-25), not a self-acceptance:** A49's second
+half is now *materially* satisfied — **all four** of this cycle's briefs carry the retirement
+clause answered (build-3 pre-named D2's marquee retirement and shipped it plus two build-time
+additions; build-1, build-4 and build-2 each answered it with reasoning, and build-2 examined
+three beat-produced candidates and refused all three, entering **zero** honestly). Per A48 and
+A50, the closeout's retirement count should record **which retirements were pre-named and which
+beat-produced**, and note that the beat also produced three *reasoned refusals* — a rail that
+fires and says no is not the same as a rail that never fired. **P-15's self-acceptance remains
+the platform channel's act, not this file's.**
 
 **Added by the roundtable:**
 - **At closeout: write the E8 register token as `B5-4..B5-9`**, never the old string (A58).
