@@ -41,112 +41,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 2/2)
-
-### P-2 — spike register + adoption-visible/brief-blocking gates — **open: BUILT 2026-08-24, awaiting self-acceptance (Cycle 11's ideation running with the Spikes section populated)**
-
-**Build record (2026-08-24).** All six sites landed.
-
-- **The register** — `factory/platform/spikes/`, with `README.md` as the **single home** for
-  spike mechanics: `S-N` global ids (allocated once, never reused, never renumbered), the
-  four-rung ladder `proposed → running → harvested → consumed`, the frontmatter parse target,
-  and one line per gate. Two rules written down that the brainstorm implied but nobody had
-  stated: **harvest artifacts stay in the cycle directory that produced them** (archival is
-  location — the register entry is a pointer, never a copy), and **a spent timebox reports
-  `verdict: reshape`, not `kill`** (`kill` is for a question that turned out not to need
-  answering).
-- **`ideation-scaffold`** — Discovery now reads the register for `proposed`/`running` entries;
-  the skeleton's *Spike obligations* bullet became a **Spikes** section that renders them as a
-  view over the register, with owner rulings written back to the register file in-session; the
-  **Grouping & order** bullet now lays a **`spike:`** field beside `binds:` on every build
-  bullet.
-- **`build-brief`** — the Readiness gate turns on that field: `none`, or an `S-N` whose
-  register file reads `harvested`/`consumed`. Three distinct block causes named
-  (open spike / id resolves to no file / **unfilled field**), plus the consuming-run
-  obligation to append `consumed_by:`. Discovery reads the field alongside `binds:`; the
-  headless `blocked` reason updated.
-- **`cycle-closeout`** — Stage 1 went from two preconditions to three: the **orphan-spike
-  check**. No spike whose `opened_by:` names the closing cycle may still read
-  `proposed`/`running`; each is harvested, owner-killed with a recorded reason, or explicitly
-  carried forward (re-stamping `opened_by:`). Kill-or-carry is an **owner batch ruling**, not
-  the skill's. Headless `blocked` reason updated.
-- **`inbox-capture`** — `references/grounding-methodology.md` gained *When grounding hits an
-  external unknown*: open a `proposed` stub, because the question is sharpest at the moment
-  grounding failed to answer it. Bound stated explicitly — **a stub is a question with an id,
-  not a ruling**; capture never runs the spike, never binds a build, and must say plainly that
-  a claim is ungrounded pending `S-N` rather than letting the unknown become an assumption.
-- **`vlt-lifecycle.md`** — two observable rows (**Spike running**, **Spike open**) placed after
-  *Review unresolved* and before *Ready to brief*, so an open spike is reported ahead of
-  ready-to-brief under the table's first-match ordering; the `build-brief` blocked route
-  rewritten from "SPIKE CLOSED in the roadmap" to the register gate; a new orphan-spike route
-  on `cycle-closeout` blocked; the step-3 owner row points at the register.
-  `lifecycle-status` needed **no edit** — the map is its spec.
-
-**Back-fits (the brief-lite's verification).** `S-1` (the PARA container harvest, legacy `S1`,
-Cycle 9 → consumed Cycle 10) and `S-2` (the graduation projection baseline, legacy `SPIKE-2`,
-Cycle 3) — both `consumed`, both `verdict: proceed`, both pointing at their harvest artifacts
-in place. Per-cycle local names are preserved as `legacy_id:` rather than renumbered.
-**Finding surfaced by the back-fit:** both harvests are cited in their roadmaps at pre-P-8
-`skills/reports/` paths. Those roadmaps are closed and append-only, so the stale citations
-stand as history and the register entries are now the live pointers — an unplanned worked
-argument for the register itself (*a spike artifact outlives the path its citers wrote down*),
-recorded in both entries.
-
-**Deviation (deliberate, 1): `S-3` opened, and the register is not empty at hand-off.**
-Cycle 11's capture had already flagged A11-2's open question 1 (GitHub notification semantics)
-as *"an external unknown … register it per P-2's spike register when that lands."* It landed,
-so the flag was materialized as `S-3` (`proposed`) rather than left as roadmap prose — which
-also gives the done-when a live subject and exercises the birth path end to end. The Cycle 11
-roadmap was **not** edited to point at it: `ideation-scaffold`'s Discovery collects it from the
-register by `opened_by:`, which is the design working. Its bound is inherited from A11-2 and
-written into the file — the trigger must demonstrably fire, so **a docs-only read reports
-`reshape`, not `proceed`.**
-
-**At-rest verification (2026-08-24):**
-- `tools/factory-paths-check.py` → **PASS, 120 concrete path references resolve (20 files
-  scanned)** — 112 before the build; the 8 new register references all resolve.
-- Pointer grep: all five gate sites (`ideation-scaffold`, `build-brief`,
-  `cycle-closeout/references/closeout-checklist.md`,
-  `inbox-capture/references/grounding-methodology.md`, `vlt-lifecycle.md`) name
-  `factory/platform/spikes/` and point at the README; **the ladder and the frontmatter shape
-  appear in full only in the README** — each gate names just the field it turns on.
-- Vocabulary grep: `proposed`/`running`/`harvested`/`consumed` used identically at every site;
-  no surviving "SPIKE CLOSED" gate language outside the deliberate pre-Cycle-11 compatibility
-  clause in `build-brief`.
-- Desk-check against live state: the map's *Spike open* row fires on `S-3` (its `opened_by:`
-  names Cycle 11) → the next `lifecycle-status` run reports a spike position that did not exist
-  before this build; `cycle-closeout` would now **block** Cycle 11 over `S-3` until it is
-  harvested, killed, or carried — which is the teeth the item was opened for.
-- Personal-information sweep over every new and edited file: clean (A11-2's literal handle is
-  described, never reproduced).
-
-**Out of scope, honored:** closed cycles' spike history beyond `S-1`/`S-2` is not migrated. The
-one known unmigrated artifact — the B10-12 harness-classifier-ceiling spike — is **named in the
-README** so the register's silence about it is a recorded choice rather than an oversight.
-
-**Candidate follow-up (not taken):** `CLAUDE.md:24` states the spike-before-brief rule and does
-not point at the register. It is outside this item's sites and the rule text is still true;
-a one-line pointer is a cheap future item.
-
-**Brief-lite:**
-- **Intent:** give spikes durable IDs and lifecycle teeth: visible at adoption,
-  blocking at brief (the ruling that survived the brainstorm — blocking *adoption*
-  front-loads spikes at their dumbest moment; S3 proved questions sharpen after
-  ideation).
-- **Sites:** `factory/platform/spikes/S-N-<slug>.md` register (status:
-  proposed/running/harvested/consumed; timebox; `verdict: proceed/reshape/kill`);
-  `ideation-scaffold` gains a Spikes section; `build-brief` gates on candidate spike
-  field = `none` or `S-N harvested`; `cycle-closeout` gains an orphan-spike check;
-  `inbox-capture` may open a spike stub when grounding hits an external unknown;
-  `vlt-lifecycle.md` gains spike observable rows (an open/running spike is a lifecycle
-  position with a named next move) so `lifecycle-status` sees the register.
-  *(Amended 2026-08-21: spike map rows folded in from the untracked-ideas sweep —
-  they're siblings of this item's gates.)*
-- **Verification:** back-fit S1 (PARA harvest) and spike2 into the register shape;
-  grep the three gate sites for agreement.
-- **Out of scope:** migrating closed arcs' spike history beyond S1/spike2.
-- **Done-when:** Cycle 11's ideation runs with the Spikes section populated and
-  build-brief's gate live.
+## Active (WIP 1/2)
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 11's milestone + build issues generated, not typed)**
 
@@ -696,3 +591,147 @@ topics, existing artifacts untouched; D4 plain-numbered briefs (22 at build time
 - **Done-when:** Cycle 11's capture opens at `factory/cycles/11-<slug>/` and one real
   `lifecycle-status` run reports clean against the new paths. *(That run is the item's
   self-acceptance, per the channel contract.)*
+
+### P-2 — spike register + adoption-visible/brief-blocking gates — **CLOSED 2026-08-25 (self-accepted on Cycle 11's ideation, briefing, and closeout)**
+
+**Self-acceptance run — 2026-08-25 (recorded retroactively; the exercising runs are Cycle
+11's, 2026-08-24/25).** Five of the six sites were exercised by real lifecycle runs before
+anyone recorded it; a `lifecycle-status`-adjacent read of the ledger surfaced the gap.
+
+- **`ideation-scaffold`** — Cycle 11's ideation carries a populated **`### Spikes`** section
+  (`factory/cycles/11-reachability/roadmap.md:952`). It collected `S-3` from the register by
+  `opened_by:` with **no roadmap edit pointing at it** — the design's central claim, working.
+  Ruled at `:963-972`: no Cycle 11 build binds `S-3`; "Spikes this batch newly demands: none".
+- **`ideation-scaffold` (Grouping & order)** — all nine build bullets carry the `spike:` field
+  beside `binds:` (`roadmap.md:517`, `:552`, `:564`, `:570`, `:582`, `:593`, `:599`, `:614`,
+  `:626`).
+- **`build-brief`** — the readiness gate read the field on every build; each brief's status
+  records its disposition. **Build-4 is the load-bearing instance**: it held for `S-3`'s
+  harvest (the A9 window) and briefed only after, recording `spike: none (the S-3 sequencing
+  was A9's window constraint…)` at `briefs/build-4-relay-leg-retune.md:37`.
+- **`inbox-capture`** — `S-3` was born through the external-unknown stub path
+  (`opened_by: 'capture — Cycle 11 (A11-2, open question 1…)'`), which is the rung this build
+  added.
+- **`cycle-closeout`** — the orphan-spike precondition was live at the 2026-08-25 closeout and
+  **passed** because `S-3` reads `harvested` (`verdict: reshape`, honoring the docs-only-read
+  bound written into the file). An unharvested `S-3` would have blocked the closeout — the
+  teeth the item was opened for, in position.
+- **`vlt-lifecycle.md`** — its two spike rows are `lifecycle-status`'s spec; the map needed no
+  edit and got none.
+
+**Caveat on record: the gate's blocking branch is unexercised.** Every Cycle 11 build read
+`spike: none`, so `build-brief` fired only its pass-through branch. The channel contract's bar
+is "exercised once by a real lifecycle run", which this clears — but the first build that
+actually binds an open `S-N` will be the first test of the block itself. Cycle 12's A11-2 build
+binds `S-3` (already `harvested`), so the *consuming* path — `build-brief` appending
+`consumed_by:` — gets its first exercise there; the true blocking branch waits on a spike that
+is still `proposed`/`running` at brief time.
+
+**Deviation from the done-when, immaterial:** the done-when said "Cycle 11's ideation runs with
+the Spikes section populated **and build-brief's gate live**". Both held. It did not anticipate
+that the register would be non-empty at hand-off (the `S-3` deviation in the build record), which
+is what made the ideation exercise non-vacuous — the section rendered a real entry, not an empty view.
+
+
+**Build record (2026-08-24).** All six sites landed.
+
+- **The register** — `factory/platform/spikes/`, with `README.md` as the **single home** for
+  spike mechanics: `S-N` global ids (allocated once, never reused, never renumbered), the
+  four-rung ladder `proposed → running → harvested → consumed`, the frontmatter parse target,
+  and one line per gate. Two rules written down that the brainstorm implied but nobody had
+  stated: **harvest artifacts stay in the cycle directory that produced them** (archival is
+  location — the register entry is a pointer, never a copy), and **a spent timebox reports
+  `verdict: reshape`, not `kill`** (`kill` is for a question that turned out not to need
+  answering).
+- **`ideation-scaffold`** — Discovery now reads the register for `proposed`/`running` entries;
+  the skeleton's *Spike obligations* bullet became a **Spikes** section that renders them as a
+  view over the register, with owner rulings written back to the register file in-session; the
+  **Grouping & order** bullet now lays a **`spike:`** field beside `binds:` on every build
+  bullet.
+- **`build-brief`** — the Readiness gate turns on that field: `none`, or an `S-N` whose
+  register file reads `harvested`/`consumed`. Three distinct block causes named
+  (open spike / id resolves to no file / **unfilled field**), plus the consuming-run
+  obligation to append `consumed_by:`. Discovery reads the field alongside `binds:`; the
+  headless `blocked` reason updated.
+- **`cycle-closeout`** — Stage 1 went from two preconditions to three: the **orphan-spike
+  check**. No spike whose `opened_by:` names the closing cycle may still read
+  `proposed`/`running`; each is harvested, owner-killed with a recorded reason, or explicitly
+  carried forward (re-stamping `opened_by:`). Kill-or-carry is an **owner batch ruling**, not
+  the skill's. Headless `blocked` reason updated.
+- **`inbox-capture`** — `references/grounding-methodology.md` gained *When grounding hits an
+  external unknown*: open a `proposed` stub, because the question is sharpest at the moment
+  grounding failed to answer it. Bound stated explicitly — **a stub is a question with an id,
+  not a ruling**; capture never runs the spike, never binds a build, and must say plainly that
+  a claim is ungrounded pending `S-N` rather than letting the unknown become an assumption.
+- **`vlt-lifecycle.md`** — two observable rows (**Spike running**, **Spike open**) placed after
+  *Review unresolved* and before *Ready to brief*, so an open spike is reported ahead of
+  ready-to-brief under the table's first-match ordering; the `build-brief` blocked route
+  rewritten from "SPIKE CLOSED in the roadmap" to the register gate; a new orphan-spike route
+  on `cycle-closeout` blocked; the step-3 owner row points at the register.
+  `lifecycle-status` needed **no edit** — the map is its spec.
+
+**Back-fits (the brief-lite's verification).** `S-1` (the PARA container harvest, legacy `S1`,
+Cycle 9 → consumed Cycle 10) and `S-2` (the graduation projection baseline, legacy `SPIKE-2`,
+Cycle 3) — both `consumed`, both `verdict: proceed`, both pointing at their harvest artifacts
+in place. Per-cycle local names are preserved as `legacy_id:` rather than renumbered.
+**Finding surfaced by the back-fit:** both harvests are cited in their roadmaps at pre-P-8
+`skills/reports/` paths. Those roadmaps are closed and append-only, so the stale citations
+stand as history and the register entries are now the live pointers — an unplanned worked
+argument for the register itself (*a spike artifact outlives the path its citers wrote down*),
+recorded in both entries.
+
+**Deviation (deliberate, 1): `S-3` opened, and the register is not empty at hand-off.**
+Cycle 11's capture had already flagged A11-2's open question 1 (GitHub notification semantics)
+as *"an external unknown … register it per P-2's spike register when that lands."* It landed,
+so the flag was materialized as `S-3` (`proposed`) rather than left as roadmap prose — which
+also gives the done-when a live subject and exercises the birth path end to end. The Cycle 11
+roadmap was **not** edited to point at it: `ideation-scaffold`'s Discovery collects it from the
+register by `opened_by:`, which is the design working. Its bound is inherited from A11-2 and
+written into the file — the trigger must demonstrably fire, so **a docs-only read reports
+`reshape`, not `proceed`.**
+
+**At-rest verification (2026-08-24):**
+- `tools/factory-paths-check.py` → **PASS, 120 concrete path references resolve (20 files
+  scanned)** — 112 before the build; the 8 new register references all resolve.
+- Pointer grep: all five gate sites (`ideation-scaffold`, `build-brief`,
+  `cycle-closeout/references/closeout-checklist.md`,
+  `inbox-capture/references/grounding-methodology.md`, `vlt-lifecycle.md`) name
+  `factory/platform/spikes/` and point at the README; **the ladder and the frontmatter shape
+  appear in full only in the README** — each gate names just the field it turns on.
+- Vocabulary grep: `proposed`/`running`/`harvested`/`consumed` used identically at every site;
+  no surviving "SPIKE CLOSED" gate language outside the deliberate pre-Cycle-11 compatibility
+  clause in `build-brief`.
+- Desk-check against live state: the map's *Spike open* row fires on `S-3` (its `opened_by:`
+  names Cycle 11) → the next `lifecycle-status` run reports a spike position that did not exist
+  before this build; `cycle-closeout` would now **block** Cycle 11 over `S-3` until it is
+  harvested, killed, or carried — which is the teeth the item was opened for.
+- Personal-information sweep over every new and edited file: clean (A11-2's literal handle is
+  described, never reproduced).
+
+**Out of scope, honored:** closed cycles' spike history beyond `S-1`/`S-2` is not migrated. The
+one known unmigrated artifact — the B10-12 harness-classifier-ceiling spike — is **named in the
+README** so the register's silence about it is a recorded choice rather than an oversight.
+
+**Candidate follow-up (not taken):** `CLAUDE.md:24` states the spike-before-brief rule and does
+not point at the register. It is outside this item's sites and the rule text is still true;
+a one-line pointer is a cheap future item.
+
+**Brief-lite:**
+- **Intent:** give spikes durable IDs and lifecycle teeth: visible at adoption,
+  blocking at brief (the ruling that survived the brainstorm — blocking *adoption*
+  front-loads spikes at their dumbest moment; S3 proved questions sharpen after
+  ideation).
+- **Sites:** `factory/platform/spikes/S-N-<slug>.md` register (status:
+  proposed/running/harvested/consumed; timebox; `verdict: proceed/reshape/kill`);
+  `ideation-scaffold` gains a Spikes section; `build-brief` gates on candidate spike
+  field = `none` or `S-N harvested`; `cycle-closeout` gains an orphan-spike check;
+  `inbox-capture` may open a spike stub when grounding hits an external unknown;
+  `vlt-lifecycle.md` gains spike observable rows (an open/running spike is a lifecycle
+  position with a named next move) so `lifecycle-status` sees the register.
+  *(Amended 2026-08-21: spike map rows folded in from the untracked-ideas sweep —
+  they're siblings of this item's gates.)*
+- **Verification:** back-fit S1 (PARA harvest) and spike2 into the register shape;
+  grep the three gate sites for agreement.
+- **Out of scope:** migrating closed arcs' spike history beyond S1/spike2.
+- **Done-when:** Cycle 11's ideation runs with the Spikes section populated and
+  build-brief's gate live.
