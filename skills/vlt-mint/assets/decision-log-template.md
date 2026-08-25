@@ -1,8 +1,9 @@
 # Mint Decision Log
 
-_The vault's permanent record of every gated decision — mints, capability changes, convention
-edits, stage promotions, upgrade-time rulings, retirements. Institutional memory: it lives in
-the agent zone and survives every module upgrade. **Append-only.**_
+_The vault's permanent record of every gated decision — mints, convention edits, upgrade-time
+rulings and the rest; the kinds are enumerated once, in the entry schema at
+`_meta/conventions/decision-log.md`. Institutional memory: it lives in the agent zone and
+survives every module upgrade. **Append-only.**_
 
 **Read order.** Faithful append-only writing yields **strict oldest-first** — the first entry
 below is the oldest, the last is the newest. A file whose dated headings are **not** in

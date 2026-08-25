@@ -1,6 +1,6 @@
 ---
 name: vlt-feedback
-depends_on: []
+depends_on: ["decision-log@4"]
 description: "File a field note upstream to the Vault module's public tracker as a labelled GitHub issue — classify honestly (defect / pattern / candidate), scrub it of vault paths and personal-domain content, render the exact public payload and halt for the user's approval, then post via gh with origin-vault and contract-version stamps. Use when the user says 'file this upstream', 'send feedback to the module', 'report this to the module', or when a partner has proposed a filing and the user says go. Invoked-only — a partner may propose a filing; only the user's explicit go executes. Degrades loudly: missing or unauthenticated gh yields a named error plus a paste-ready local filing, never a silent drop."
 ---
 
@@ -103,6 +103,24 @@ gh issue create --repo <feedback_repo> --title "<title>" --body "<body>" \
 
 Show the user the created issue URL. Every posted body carries the `origin_vault`,
 `module_version`, and `rail_contract` sections — the stamps the factory intake reads.
+
+## The park a filing leaves behind
+
+**When it fires.** After the created issue URL is shown above — **or** after the outbox file is written on the failure path (below); a filing that failed transport still parks the vault — ask one question: *is the vault holding an interim arrangement until the module answers this?* If **no**, nothing happens. If **yes**, **offer** to record it. Human-gated, never automatic — nothing appends as a side effect of a filing (the invoked-only posture above).
+
+**What the record is.** On the user's go, append one entry to `_agent/mint/decision-log.md` under `kind: parked-interim`, with `ref:` naming the governed object the park is against. The entry schema, the `ref:` key, the verdict-provenance form, the classifiability tail and the supersession idiom are **single-homed at `{conventions}/decision-log.md`** — read them there; restate them nowhere.
+
+**The three things the entry must carry:**
+
+- **The blocker, stated as a claim about current shipped behavior** — what the module does *today* that forces the interim. Never a prediction of what the ruling will say.
+- **The filing reference** — the issue URL, or (where transport failed) the outbox path plus the title the filing would carry.
+- **The standing instruction** — *when the ruling lands, re-derive the unwind against the rules in force at unwind time.*
+
+**The prohibition.** *An exit condition never records a pre-authorized command sequence.* Its home is `{conventions}/decision-log.md`, *Parked interims* — read the rule there. The one-line reason, so the writer understands rather than obeys: **the rule the unwind depends on can move underneath the record, and a command sequence goes wrong silently while a description of the blocker goes stale visibly.**
+
+**Population.** This governs parks recorded from here on; it repairs nothing already written. An existing park whose exit is a command sequence is **superseded**, never rewritten — the log is append-only.
+
+**Who reads it.** `vlt-upgrade`'s decision-log reconcile pass surfaces every **live** park in its post-flight report, so the record is not write-only: the release that can invalidate a park is the moment the park is surfaced.
 
 ## The failure path — paste-ready, never a silent drop
 

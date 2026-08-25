@@ -1,7 +1,7 @@
 ---
 name: vlt-lint
 description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions (the `lint-debt` tripwire — `{tripwires}` — is the counter behind this phrase). Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything.
-depends_on: ["frontmatter@13", "wiki-index@2", "wiki-supersession@2", "extraction@7", "write-verification@3", "spec@2", "consult@1", "decision-log@3"]
+depends_on: ["frontmatter@13", "wiki-index@2", "wiki-supersession@2", "extraction@7", "write-verification@3", "spec@2", "consult@1", "decision-log@4"]
 ---
 
 # vlt-lint

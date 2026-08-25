@@ -1,15 +1,15 @@
 ---
 type: note
 created: 2026-07-29
-last_updated: 2026-08-24
+last_updated: 2026-08-25
 title: Decision-Log Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 3
-consumers: [vlt-mint, vlt-upgrade, vlt-lint, vlt-ingest]
+version: 4
+consumers: [vlt-mint, vlt-upgrade, vlt-lint, vlt-ingest, vlt-feedback]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -20,7 +20,7 @@ adoption_first_instance: null        # stamped by the first authorized-ceremony 
 
 > **Overlay note:** This is the pristine base (overwrite-safe on upgrade). A vault's local additions live in `{overlays}/decision-log.overlay.md`, read together with this file — **append-only**. See the operating contract, *Durability across upgrades*. Edit the overlay for a vault-local addition; edit this base only for a generic rule change bound upstream.
 
-The **mint decision log** is the vault's permanent, upgrade-durable record of every gated decision — mints, capability changes, convention edits, stage promotions, upgrade-time rulings, retirements. This file single-homes its mechanics: the entry schema (including the `ref:` machine key), the classifiability tail, and the supersession idiom. Every writer appends in this shape and every reader derives from it; both point here rather than restating.
+The **mint decision log** is the vault's permanent, upgrade-durable record of every gated decision — mints, convention edits, upgrade-time rulings and the rest; **the kinds are enumerated once, in the entry schema below**. This file single-homes its mechanics: the entry schema (including the `ref:` machine key), the classifiability tail, and the supersession idiom. Every writer appends in this shape and every reader derives from it; both point here rather than restating.
 
 ## What the log is and where it lives
 
@@ -36,7 +36,7 @@ Each entry is a dated block:
 
 ```markdown
 ## [YYYY-MM-DD] <kind> — <one-line subject>
-- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement | deviation
+- kind: mint | capability-change | convention-edit | stage-promotion | upgrade-ruling | retirement | deviation | parked-interim
 - ref: <governed object>    # e.g. conventions/frontmatter.md | overlays/extraction.overlay.md | capabilities/families/<name> | partners/<name>
 - verdict: <verdict> (<provenance>) — <reasoning>   # or `non-boundary: <why>` / `council-none`
 - convention: <name> <old→new>          # convention-edit ONLY — the version delta
@@ -44,6 +44,7 @@ Each entry is a dated block:
 ```
 
 - **`kind:`** makes the log **scopable by class** — it is how `vlt-upgrade`'s reconcile pass finds gated `convention-edit`/`upgrade-ruling` entries with no accounted-for superseding entry. A **`deviation`** licenses a **scoped exception while the governed rule stands unchanged**: its `ref:` names the rule deviated from; it is a **gated** kind (`verdict:` with provenance required, per v2); it carries **no `convention:` line** (that line stays convention-edit ONLY — nothing moved); and it is **outside the reconcile pass's superseding-entry scan by design** — nothing changed, so no superseding entry can or need exist. It stays live until superseded like any entry.
+- A **`parked-interim`** records that the vault is **holding an interim arrangement pending an upstream ruling it has filed**. Its `ref:` names the governed object the park is against; it is a **gated** kind (`verdict:` with provenance required, per v2 — the human accepting the offer is the gate, so `(user-ruled — panel not fielded: <why>)` with its required *why* is the ordinary form); and it carries **no `convention:` line** (nothing moved). Unlike `deviation`, it **is inside the reconcile pass's superseding-entry scan** — being superseded when the ruling lands is the whole point of the kind. The rule its exit condition must obey is *Parked interims (v4)* below.
 - **`ref:`** names the **governed object**, making an entry findable **by subject**, not only by date — it is the machine key `vlt-lint`'s read-before-flag matches on. It is **required on every new entry**: every entry names a governed object (a mint names the minted thing, a convention edit names the convention, a retirement names the retiree), and a conditional key would re-create the classifiability gap one tier down.
 
 ### Verdict provenance (v2)
@@ -61,6 +62,18 @@ Provenance is required on every **new** gated entry from v2 on. `non-boundary:` 
 **One entry, one governed subject.** An entry's prose stays on its `ref:` subject; a rule or ruling about a *different* governed object gets its **own entry** under its own `ref:` (or its own home), never a trailing clause. The why lives in the rule itself: every reader that matters resolves by subject — `vlt-upgrade`'s reconcile pass scopes by `kind:`+`ref:`, `vlt-lint`'s read-before-flag matches by `ref:` — so an off-subject trailing clause is unreachable **by construction**; the better the ref discipline, the more invisible the clause.
 
 Applies to every **new** entry from v3 on. **No backfill** — append-only means pre-v3 entries are read as written. The rule is **write-side** — enforced by the rostered write beats (the v2 verdict-provenance posture) — and is *not* covered by the read-before-flag check, which keys on `ref:` only. No new finding class ships with v3; a build that later adds a subject-coherence checker owes that check its own stated legal response.
+
+### Parked interims (v4)
+
+**An exit condition records the blocker's shape and the filing reference — never a pre-authorized command sequence.** State the blocker as a claim about **current shipped behavior** — what the module does today that forces the interim — never as a prediction of what the ruling will say. State the resume instruction as *re-derive the unwind against the rules in force at unwind time*.
+
+**The why, once:** a park's confidence is inherited from the rule it was written against, and that rule can move. An **unmet** exit is visible — the vault checks, sees it unsatisfied, and waits. An **invalidated** exit reads as *satisfied and pre-authorized*, and a later reader executes a move that is now illegal. A description of the blocker degrades **visibly**; a command sequence degrades **silently**.
+
+**Resolution is supersession**, per *Supersession idiom* below: the resolving entry carries `supersedes:` and the park is marked in place. A **live** park is one no later entry supersedes — exactly what `vlt-upgrade`'s reconcile pass reads.
+
+Applies to every **new** entry from v4 on. **No backfill** — append-only means a pre-existing park with a command-sequence exit is **superseded**, never rewritten (the same posture as v2's provenance rule and v3's subject coherence).
+
+**Two shipped park mechanisms, one rule.** A `vlt-feedback` park is against an **upstream ruling** and resumes on a **release** (surfaced by `vlt-upgrade`'s reconcile pass). A `vlt-mint` park is against an **unfieldable council** and resumes on an **activation-time scan** (`vlt-mint`, the resume scan and the park fallback). The mechanisms stay separate — merging them would force one mechanism to carry two resume paths — and both are governed by the rule stated here.
 
 ## The classifiability tail
 
@@ -85,12 +98,13 @@ This is the **third application of the never-silent supersession principle**, wh
 - `vlt-upgrade`'s write-through — upgrade-time rulings.
 - `vlt-lint`'s write-through — lint-time rulings on governance findings.
 - `vlt-ingest`'s write-through — in-session user rulings on a governance deviation surfaced mid-ingest.
+- `vlt-feedback`'s parking offer — `parked-interim` entries, human-gated, after a filing is posted or written to the outbox.
 
 An op outside this roster **never appends**: it surfaces the deviation and the user's ruling, and the record lands through a rostered route — the discovering op where rostered; otherwise `vlt-lint`'s write-through at the next sweep or `vlt-upgrade`'s at upgrade time.
 
 **Readers** — every one derives from the recorded entries:
 
-- `vlt-upgrade`'s reconcile pass — scopes by `kind:`.
+- `vlt-upgrade`'s reconcile pass — scopes by `kind:`, for `convention-edit`/`upgrade-ruling` and for `parked-interim`.
 - `vlt-lint`'s read-before-flag — matches a governance finding's governed object by `ref:` against **live** entries.
 
 **No inference of rationale, ever:** a reader may *cite* a recorded ruling or *admit absence* — never reconstruct *why* a divergence happened from a diff.
@@ -106,6 +120,8 @@ Stage and owner are declared in this file's own frontmatter, per `frontmatter.md
 There is no deferral: the check exists, its owner is named, and its moment is named, all as of this convention's first version.
 
 The **verdict-provenance rule (v2)** is **write-side** — enforced by the ceremonies that write gated entries (`vlt-mint` Step 2a is the first) — and is *not* covered by the read-before-flag check, which keys on `ref:` only. No new finding class ships with v2; a build that later adds a provenance checker owes that check its own stated legal response.
+
+The **parked-interim rule (v4)** is likewise **write-side** — enforced by the ceremony that writes the entry (`vlt-feedback`'s parking offer is the first) — and is *not* covered by the read-before-flag check, which keys on `ref:` only. No new finding class ships with v4; a build that later adds a parked-interim checker owes that check its own stated legal response.
 
 ## Reading list
 
