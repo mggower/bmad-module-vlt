@@ -522,6 +522,45 @@ repaired by hand the same day; this item closes the recurrence path.)*
 - **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
   `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
 
+### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **queued**
+
+*(Filed 2026-08-25, from an owner brainstorming session on the loop's comprehension problem
+— memlog + keepsake at `_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/`,
+untracked, provenance only. **Not actioned mid-flight by owner ruling**: three of the session's
+directions touch `ideation-scaffold` and `build-brief`, which Cycle 12 is mid-way through
+using, and changing the scaffold's contract against a half-filled skeleton risks a section that
+parses under neither shape. This item waits for Cycle 12 to ship.)*
+
+**The cause it repairs — `ST-4`** (*provenance is staffed, cognition is not*; root cause (b):
+no promise artifact stands between the diagnosis chain and the implementation chain, so the first
+vault-facing sentence anywhere is the CHANGELOG, written after the surprise). Read the study for
+the derivation and for the four other repairs it implies; this item is only the first of them.
+`ST-4` gates nothing — the scope ruling below is this item's, not the study's.
+
+- **Intent:** every build bullet carries a one-sentence, vault-facing **`promise:`** line
+  written at ruling time — *after this ships, a vault owner running `vlt-<x>` sees Y instead of
+  Z* — so scope is ruled against promises rather than against filing ids, and the sentence is
+  reused (not re-invented) at acceptance and in the CHANGELOG.
+- **Sites:** `.claude/skills/ideation-scaffold/SKILL.md:76-80` (the grouping bullet — a third
+  one-line field beside `binds:` and `spike:`, same `*(owner to fill)*` discipline) and its
+  standing-rule section at `:114` if the roster rule is the right home for the parallel rule;
+  `.claude/skills/build-brief/SKILL.md:83-88` (Discovery reads the bullet — carry the
+  `promise:` into the brief's scope statement, never re-author it);
+  `.claude/skills/vlt-release/references/choreography.md:59` (the CHANGELOG entry's shape cites
+  the build's `promise:` as its source). **Owner-ruled open question, not settled here:**
+  whether `build-brief` *gates* on an unfilled `promise:` as it gates on `spike:`. Gating makes
+  it real and makes it a governance change; not gating makes it advisory and probably decorative.
+- **Verification:** grep — bipartite agreement between the scaffold's emitted field and
+  `build-brief`'s reader; a scaffolded skeleton on a real cycle shows the field present and
+  empty; no site restates another's mechanics (single-home).
+- **Out of scope:** the wider comprehension-debt repair this session produced — the
+  seven-field ruling shape, ruling-by-exception (a reversal of the 2026-07-12 "an empty slot is
+  honest, a guessed answer is a lifecycle violation" ruling, which belongs to the roundtable,
+  not to this channel), the generated ideation view, and the `NEVER-VERIFIABLE` acceptance
+  grade. Also out: retro-writing promises for shipped builds.
+- **Done-when:** the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
+  on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**
