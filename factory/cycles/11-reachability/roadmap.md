@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 11 — reachability'
-status: 'open — ideation COMPLETE 2026-08-24 (5 rounds; 9 builds, one release, A10-18 first); roundtable COMPLETE 2026-08-24 (A1–A16 applied, R1 homed, no open disputes); briefing — build-1 BUILT 2026-08-24, build-2 BUILT 2026-08-24, build-3 BRIEFED 2026-08-24 (briefs/build-3-decision-log-cluster.md; checks in the ledger; A14 answered YES — the A10-12 route is ceremony-mediated, D1 reopen clause not triggered, no finding class enters build-3; superseding note: the A10-12 disposition rosters vlt-ingest as a fourth decision-log writer/consumer, so build-3''s re-ack walks FOUR consumers — D2''s three-consumer row reflects the pre-brief roster as read, its bipartite ruling unchanged), build-3 BUILT 2026-08-24 (commit 9ccc653 — decision-log v3, four-consumer walk; per the brief''s own BUILT status), build-5 BRIEFED 2026-08-24 (briefs/build-5-council-shortfall.md; checks in the ledger; brief-time answers: the signal is BOTH return-level fields and a conditional moderator shortfall segment — no SYNTHESIS schema change; available:false partitioned from a dead agent by cause, free at the existing two filter stages; downstream consumption is key-based everywhere, additive keys safe, lensesFielded name/shape frozen for the v3 provenance vocabulary); build-5 BUILT 2026-08-24 (commit 9a5e1d0 — shortfall signal per the brief''s own BUILT status); ORDERING NOTE RESOLVED: build-4''s A9 window is satisfied — S-3 harvested 2026-08-24 (owner-delegated run, verdict reshape, commit cba331a + addendum 08f564f), so build-4 briefed in order; build-4 BRIEFED 2026-08-24 (briefs/build-4-relay-leg-retune.md; checks in the ledger; brief-time answers: retune direction 1 sharpened by the relay rail''s shape/key semantics — the leg counts ≥2 same-key `handoff`-shaped entries, constructible only via the idempotency ladder''s checked-off → re-notify branch (the rail''s own revised-spec event), directions 2 and 3 rejected on grounding; signal vocabulary becomes `re-relay (2 same-key handoff entries)` with the repeat partition''s clause refresh as the one-time migration; superseding note: the capture''s "two consumer sites" is now three — re-grounding found `skills/vlt-upgrade/SKILL.md:80` (proto-spec retrofit) restating the ≥2-relay signal verbatim, swept as pointer in the same build (grounding addition, brief F4); the A6 fixture + at-rest run priced as Verification-1, the E3(a) instrument); build-4 BUILT 2026-08-24 (commit 4d147d0 — relay leg retuned to same-key handoff re-relays, three consumer sites swept; per the brief''s own BUILT status); build-6 BRIEFED 2026-08-24 (briefs/build-6-para-closing-net.md; checks in the ledger; Q1c ordering satisfied — build-2 BUILT; brief-time answers: the widening branch NOT taken per D1 — partner names are not legal author: values (identity homes in attestation/entry attribution) and non-artifact types are not legal PARA residents (overlay-declare, retype, or relocate), both new nets take the sibling informational-pre-adoption posture and route flag_for_human, vlt-lint-full.js not edited (the para scan is SKILL jurisdiction; avoids a needless E5 ack-surface touch); A13 bipartite verification owned by this brief — builder records the build-2 provisional extraction@6 ack RESOLVED in the BUILT status beside Group E); build-6 BUILT 2026-08-24 (commit 025e769 — para closing net, population widened to {resources}, wiki excluded by name, A13 provisional RESOLVED; per the brief''s own BUILT status), build-7 BRIEFED 2026-08-24 (briefs/build-7-instrument-rule.md; checks in the ledger; brief-time dispositions: rule lands as a new bolded paragraph after the Honest reporting boundary clause at D3''s width; the manifest walk at vlt-upgrade SKILL.md:38 gains a one-clause second-half pointer per D3''s "only the second half applies"; rule-card scope = section-map row refresh + sha re-stamp under C6, no new act-blocking line; no pointer proliferation beyond the named sites; shipped text names the property, never a tool or vault; grounding note: checks.md consumer site shifted :42 → :43 by build-6''s insertion — trivial, no correction owed); build-7 BUILT 2026-08-24 (commit 853024b — instrument rule at Honest reporting + pointers + C6 rule-card restamp; per the brief''s own BUILT status); build-8 BRIEFED 2026-08-24 (briefs/build-8-small-edits.md; checks in the ledger; brief-time dispositions: A10-10 the example yields to the rule — prose clarification, NO bump, D2''s conditional wiki-index row resolves to the no-bump branch (version: 2 stands, no re-ack); A11-8 wording "a field vault''s firewall ruling"; A11-5 drafting recommendation DROPPED (vault-side authoring surface, no filed defect), report-never-auto-edit confirmed, hits surface under a new Step-4 `overlay_rules_review:` schema key; A12 residue grep RUN — zero in-class person-name residue on shipped surface (8 hits, all dispositioned: marketplace author metadata = the CLAUDE.md deliberate exception; field-contract.md:49 + module.yaml:74 = repo-address identifiers, functional, distinct in kind from A11-2''s @mention trigger, which stays deferred); direction-0 design: cost accounting JS-computed in the workflow, emitted on BOTH return shapes per A1, churn measurement SKILL-side in full-scale.md step 4 under D3''s instrument rule by pointer; all sites re-ground HOLDS, no grounding corrections owed); build-8 BUILT 2026-08-24 (commit 86a05e8 — small-edits batch: vlt-core genericized, overlay-walk clause (c) + overlay_rules_review: key, wiki-index example yields no-bump, voice rule single-homed, cost_accounting instrumented on both returns; per the brief''s own BUILT status); build-9 BRIEFED 2026-08-24 (briefs/build-9-vitals-metric-vocabulary.md — the last brief; checks in the ledger; all capture sites re-ground HOLDS (vlt-vitals.py:251-253/:376/:617-634, tripwires.yaml header) and the clerk''s no-release-gate-trap note re-verified — package-lint.py:386 imports METRICS from the asset, never re-declared; brief-time dispositions: fourth kind named frontmatter_key_count with presence-only semantics (value never parsed — the direction-1 rejection protected), key: requirement homed as kind-specific validation in parse_local_metrics not LOCAL_METRIC_REQUIRED, E2(a)''s fixture declares under a non-shadowing id since direction 3 makes the literal id a shadow error (the shadow case itself checked), E2(b)''s event sharpened to the first genuine frontmatter_key_count declaration (the literal instance arrives canonically at upgrade), the A7 field notice staged verbatim in the brief and bound to vlt-release Stage 3''s v0.15.0 CHANGELOG entry per the DA3 mechanism with a ship-verifiable ledger check gating on it, R1 not applicable — vocabulary and mechanism ship in the same commit); build-9 BUILT 2026-08-24 (commit 240a5c5 — fourth kind frontmatter_key_count + pages_with_review_after canonical; per the brief''s own BUILT status); **v0.15.0 SHIPPED 2026-08-24 (builds 1-9), @ 93c342f, annotated tag v0.15.0 (d74db02) pushed to origin with main** — release commit carries the lint PASS line (package-lint: A/B/C/E PASS, D PASS — vlt 0.15.0, exit 0); Stage 3 CHANGELOG entry includes build-9''s staged field notice verbatim (disposition 6 / ledger check 2''s subject); next: live acceptance batched to the next vlt-upgrade run on a live vault (owner action), then acceptance-discharge'
+status: 'CLOSED 2026-08-25 — the reachability cycle, retired by cycle-closeout. Shipped v0.15.0 2026-08-24 @ 93c342f (tag v0.15.0; builds 1-9, one release). Acceptance DISCHARGED 2026-08-24 over the vlt-core 0.15.0 upgrade + the first post-release full lint (_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml, _agent/lint-reports/2026-08-24-1700-lint.yaml, vault commit 09f1f18): every gating check green; builds 1/7/8 discharged whole; the three-cycle B10-2(5)/B10-12(6) inherited debt RETIRED on its bound (crossLayerSlugs false-positive class measured zero; the residual page-scanner code-span class owner-ruled fresh signal and filed). Still open elsewhere: (1) six non-gating field tails released to the standing watch register — b2(2) a partner resolves a resources/-write legality question from the bundle without escalating; b3(3) the decision-log''s new routes used live (a rostered vlt-ingest write-through entry and/or a kind: deviation supersession read clean by the next reconcile); b4(2) the false-fire window at run 1 of 2 (zero single-round-trip fires so far — trigger: the second owner-run post-upgrade vlt-lint); b5(2) a live council lens-shortfall surfacing end-to-end; b6(3) resolution half — the vault''s stated legal response (overlay-declare / retype / relocate) to the caught draft-night instance; b9(3) the first live frontmatter_key_count declaration (B10-4(4) parts 2-3 ride it) — plus build-8''s overlay_rules_review unbounded tail (A11-5''s live exercise). (2) A11-2 + E4 deferred to Cycle 12; spike S-3 harvested (verdict: reshape) awaits that build — the preserved constraint stands: the trigger stays real, not prose. (3) A11-11 directions 1-4 deferred to Cycle 12; their ideation consumes the direction-0 live numbers (cost_accounting persisted; churn_since_last_full 5 of 146, instrument python3 os.stat). (4) The E8 inherited registers re-carry unchanged: C6-c, B5-3..B5-9, the pre-Arc-5 and Arc-7 registers, Arc 9 item-6 watches, Cycle-10 released watches (B10-7(4), B10-8(4), B10-8(5), B10-9(3) remainder), and the DECLINE+WATCH pair (confidentiality-as-container-attribute — A16''s noted growth: the watch now covers resources/ containers incl. the Librarian-only zone; propagation-debt). (5) Two fresh defect filings await Cycle 12 inbox-capture: 2026-08-24-173001 (lint page scanner counts code-span wikilinks) + 2026-08-24-173002 (page scanner double-reports missing attestation). Filings: 9 archived to filings/ — 7 by acceptance-discharge, 2 at closeout under the per-filing criterion (180100/A11-4: its subject-coherence clause discharged in b3 check 2, b3''s open tail belongs to A10-12/A10-13; 142822/A11-9: its E7(a) cold-read clause discharged, b2''s open tail is A11-10''s acceptance shape per roundtable A5); issues #4, #8, #10 closed. Held in the active inbox, issues open where they exist: 2026-08-22-150000 (A11-1), 2026-08-23-111410 (A11-3), 2026-08-23-190200 (A11-6), 2026-08-24-142828 (A11-10, #11), 2026-08-21-150214/150215 (A10-12/A10-13, #6/#7), 2026-08-23-190100 (A10-19), 2026-08-23-110913 (A11-2, deferred). This cycle is closed — do not append.'
 module_code: 'vlt'
 created: '2026-08-24'
-updated: '2026-08-24'
+updated: '2026-08-25'
 derives_from:
   - 'factory/inbox/2026-08-22-150000-spec-candidate-relay-leg-fires-on-ordinary-round-trips.md'
   - 'factory/inbox/2026-08-23-110913-amendment-trigger-should-not-be-a-personal-handle.md'
@@ -1186,7 +1186,7 @@ build-brief §9. The authoritative split rulings live in §Evidence-debt disposi
 a bullet here restates its build's checks, never re-rules them. Only ship-verifiable checks
 gate closeout; E1(b) is the ruled exception — field, and it still gates, as bound.)*
 
-- [ ] **build-1 (crosslayer-populations, briefed 2026-08-24):** brief
+- [x] **build-1 (crosslayer-populations, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-1-crosslayer-populations.md`. Two checks
   (= E1's ruled halves). **(1) `[ship-verifiable]` — GATES closeout:** the amended
   `crossLayerSlugs` derivation, run against a fixture `vault_structure`, yields the three
@@ -1204,6 +1204,17 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   sweep neither discharges nor forfeits — it escalates to an owner ruling, its numbers
   counting as A11-11 evidence; anti-direction binds in every branch (no sampling, no
   `coverage_caps` removal).
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): check (1) DISCHARGED — E1(a) fixture derivation exact-match
+  recorded in the brief's BUILT status (non-vacuous: pre-amendment prose fails all three
+  populations). Check (2) DISCHARGED by owner ruling — the sweep executed post-release
+  (145/146, loud coverage caps), build-8's direction-0 instrumentation ran live, and the
+  B10-2(5)/B10-12(6) crossLayerSlugs false-positive class measured ZERO; the 10 raw
+  missing-target flags this run were all a distinct new class (page scanner counts
+  wikilinks inside backtick code spans), owner-ruled fresh signal and filed to
+  `factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md`, not
+  a survival of the bound debt. **The three-cycle B10-2(5)/B10-12(6) inherited debt
+  RETIRES on its bound.** Anti-direction held in every branch (no sampling, no
+  `coverage_caps` removal).*
 - [ ] **build-2 (resources-para-parity, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-2-resources-para-parity.md`. Two checks
   (= E7's ruled halves, restated per roundtable A5). **(1) `[ship-verifiable]` — GATES
@@ -1223,6 +1234,14 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   standing reason); event: the first partner session after the v0.15.0 upgrade touching a
   `resources/` filing or write decision (e.g. relocating the parked shelf under the new
   grant); unbounded — goes to the standing watch register at closeout.
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade
+  `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint
+  `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): check (1)
+  DISCHARGED — reader-protocol answer recorded in the brief's BUILT status; the upgrade's
+  governance refresh confirms the amended contract text live (every live-vs-incoming
+  governance delta was Build 2/Build 7 upstream text, no local edit). STILL-OPEN: check
+  (2) — first post-upgrade partner session resolving a `resources/`-write legality question
+  without escalating; trigger: vault-side first use (the parked shelf), unbounded.*
 - [ ] **build-3 (decision-log-cluster, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-3-decision-log-cluster.md`. Three checks.
   **(1) `[ship-verifiable]` — GATES closeout:** the decision-log handshake is
@@ -1249,6 +1268,13 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   entry — a standing reason); event: the first post-v0.15.0 ingest run surfacing a
   deviation, or the vault's own supersession act followed by the next upgrade's
   reconcile pass; unbounded — goes to the standing watch register at closeout.
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): checks (1)+(2) DISCHARGED — Group E bipartite clean at
+  decision-log v3 / four consumers (release lint PASS line: A/B/C/E PASS, exit 0) and the
+  Verification 2–4 reads recorded in the brief's BUILT status; the upgrade refreshed the
+  vault's decision-log baseline v2→v3 with no base divergence. STILL-OPEN: check (3) — the
+  upgrade's own reconcile pass fired clean (no undisposed subjects) but no post-0.15.0
+  ingest deviation or supersession of the workaround entry has occurred; trigger:
+  vault-side first use, unbounded.*
 - [ ] **build-5 (council-shortfall, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-5-council-shortfall.md`. Two checks.
   **(1) `[ship-verifiable]` — GATES closeout:** the council shortfall signal behaves
@@ -1268,6 +1294,10 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   and debates routinely); event: the first post-v0.15.0 council run actually suffering a
   lens shortfall — a fault condition nothing schedules, unbounded by construction; goes to
   the standing watch register at closeout.
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): check (1) DISCHARGED — the three recorded fixture-harness
+  case results (full / partial / zero panels) in the brief's BUILT status. STILL-OPEN:
+  check (2) — no post-0.15.0 council run has suffered a lens shortfall; trigger: vault-side
+  fault condition, unbounded.*
 - [ ] **build-4 (relay-leg-retune, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-4-relay-leg-retune.md`. Two checks (= E3's
   ruled halves, re-anchored per roundtable A6). **(1) `[ship-verifiable]` — GATES
@@ -1289,6 +1319,13 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   attributable to single round-trip traffic (a one-time `signal changed` refresh on a
   surviving standing candidate is the designed migration, not a false fire); goes to the
   standing watch register at closeout.
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): check (1) DISCHARGED — fixture derivation, three consumer
+  sites, and the zero-grep recorded in the brief's BUILT status. Check (2) STILL-OPEN at
+  run 1 of 2 with strongly favorable evidence: the first post-upgrade full lint fired
+  `spec_candidate` exactly once — the standing penny-treat-rotation item refreshed in place
+  with `signal changed` (the designed one-time migration) — and `spec_candidate_standing: 0`
+  over 30 scanned handoff docs, zero single-round-trip fires against the 6-of-8 baseline;
+  trigger: the second owner-run post-upgrade `vlt-lint`.*
 - [ ] **build-6 (para-closing-net, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-6-para-closing-net.md`. Three checks.
   **(1) `[ship-verifiable]` — GATES closeout (roundtable A3):** a fixture page under the
@@ -1314,7 +1351,14 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   originated there); event: the first post-v0.15.0 lint run over that instance if it
   remains unremediated — otherwise the first partner write landing off-vocabulary, a fault
   condition nothing schedules; unbounded — goes to the standing watch register at closeout.
-- [ ] **build-7 (instrument-rule, briefed 2026-08-24):** brief
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): checks (1)+(2) DISCHARGED — fixture derivation recorded in
+  the brief's BUILT status; A13 provisional RESOLVED beside the Group E line. Check (3)
+  catch-half DISCHARGED — the first post-0.15.0 lint caught the filing's own live instance:
+  `projects/fantasy-2026/draft-night-dashboard-intent.md` fired BOTH `para_type_unknown`
+  (type 'note') and `para_author_unknown` (author 'creative'), post-adoption, loud;
+  resolution-half STILL-OPEN — awaits the vault's stated legal response (overlay-declare /
+  retype / relocate); trigger: vault-side maintenance act.*
+- [x] **build-7 (instrument-rule, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-7-instrument-rule.md`. Two checks (= E5's
   ruled halves). **(1) `[ship-verifiable]` — GATES closeout:** the instrument rule lands
   at the operating contract's *Honest reporting* single home
@@ -1341,7 +1385,15 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   pre-flight/divergence derivation executes under the hook — the run is scheduled (the
   owner runs upgrades), but a *caught incident* is a fault condition nothing schedules;
   unbounded — goes to the standing watch register at closeout.
-- [ ] **build-8 (small-edits, briefed 2026-08-24):** brief
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): check (1) DISCHARGED — recorded read verdict, single-home
+  grep, and lint PASS line in the brief's BUILT status. Check (2) DISCHARGED by owner
+  ruling on the check's first branch: the first post-0.15.0 `vlt-upgrade` run in the
+  hook-carrying vault performed its pre-flight and base-divergence derivations "unwrapped
+  by construction — the rtk diff wrapper was never invoked", naming `python3 difflib` +
+  in-process `hashlib.sha256` in its record and citing the instrument rule as the live
+  obligation; the lint's `churn_since_last_full` likewise names its instrument
+  (`python3 os.stat`). Item DISCHARGED whole.*
+- [x] **build-8 (small-edits, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-8-small-edits.md`. Three checks (check 1
   = E6(a), check 3 = E6(b), split per roundtable A8). **(1) `[ship-verifiable]` — GATES
   closeout (E6(a)):** the direction-0 instrumentation exists and emits its cost line on
@@ -1375,6 +1427,14 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   A second, unbounded tail rides the watch register: the first relocation migration in
   a live vault actually rendering `overlay_rules_review:` with a real hit (A11-5's
   exercise — a fault-shaped event nothing schedules).
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): checks (1)+(2) DISCHARGED — harness outputs (completing +
+  shortfall), grep outputs, and PASS line in the brief's BUILT status. Check (3)
+  DISCHARGED by owner ruling — the first post-release full lint persists `cost_accounting`
+  (per-phase agents/model/prompt-chars; `tokens_spent` null because no budget was set,
+  stated in the report's own note) and `churn_since_last_full: 5 of 146 pages
+  (instrument: python3 os.stat)`, the same run as E1(b)'s gating sweep; Cycle 12's
+  directions 1–4 ideation consumes these numbers. The `overlay_rules_review:` tail rides
+  the standing watch register per this bullet's own text. Item DISCHARGED whole.*
 - [ ] **build-9 (vitals-metric-vocabulary, briefed 2026-08-24):** brief
   `factory/cycles/11-reachability/briefs/build-9-vitals-metric-vocabulary.md`. Three
   checks (checks 1 and 3 = E2's ruled halves per roundtable A7; check 2 = the A7
@@ -1406,12 +1466,30 @@ gate closeout; E1(b) is the ruled exception — field, and it still gates, as bo
   rare human-gated registry write that nothing schedules; B10-4(4) discharges on it, and
   B10-4 parts 2 and 3 ride the same carry; goes to the standing watch register at
   closeout.
+  *Discharge run 2026-08-24 (evidence relayed 2026-08-24: vlt-core 0.15.0 upgrade `_agent/upgrade-reports/2026-08-24-1604-upgrade.yaml` + first post-release full lint `_agent/lint-reports/2026-08-24-1700-lint.yaml`, vault commit 09f1f18): checks (1)+(2) DISCHARGED — fixture-harness case results in
+  the brief's BUILT status; `CHANGELOG.md` `## v0.15.0` carries the staged notice
+  (`frontmatter_key_count`, the `review_after:` lost-derive case, `pages_with_review_after`
+  canonical). STILL-OPEN: check (3) — no genuine field declaration of the fourth kind yet
+  (the upgrade refreshed `vlt-vitals.py` as a proven pure upstream delta; the vault's
+  existing local metric is a prior kind); trigger: human-gated registry write, unbounded;
+  B10-4(4) rides it.*
 
 ## Next lifecycle move
 
-**v0.15.0 SHIPPED — live acceptance is the move.** The owner runs `vlt-upgrade` on a live
-vault; once that upgrade evidence exists, `acceptance-discharge` discharges this cycle's
-deferred ledger (all 9 build items unchecked as of this stamp). *(Stamp appended
-2026-08-24 by a lifecycle-status-surfaced repair — the v0.15.0 release run updated the
-frontmatter `status:` but omitted the foot restamp the lifecycle map's standing rule
-requires; frontmatter and this line now agree.)*
+**This cycle is closed — do not append.** CLOSED 2026-08-25 by `cycle-closeout`: v0.15.0
+shipped and tagged, every gating check discharged 2026-08-24, the B10-2(5)/B10-12(6) bound
+debt retired, 9 filings archived to `filings/` (issues #4/#8/#10 closed), `factory/CYCLE`
+reset to none. The carry-forwards are recorded in this roadmap's frontmatter `status:`
+("Still open elsewhere") — Cycle 12's `inbox-capture` re-lists them from there, together
+with the held inbox filings and the two fresh 2026-08-24-1730xx defect filings.
+
+*Superseded discharge-time note follows (historical):*
+
+
+**Acceptance discharged 2026-08-24 — `cycle-closeout` is the move.** Every gating check is
+discharged (builds 1/7/8 ticked whole; the B10-2(5)/B10-12(6) bound debt retired on its
+bound); the six remaining STILL-OPEN tails (builds 2/3/4/5/6/9) are all non-gating and go
+to the standing watch register at closeout. The owner elects `close the cycle`
+(`cycle-closeout`); the two fresh defect filings (page-scanner code spans, attestation
+double-report) await Cycle 12's `inbox-capture`. *(Restamped by the 2026-08-24
+acceptance-discharge run, per the lifecycle map's standing rule.)*
