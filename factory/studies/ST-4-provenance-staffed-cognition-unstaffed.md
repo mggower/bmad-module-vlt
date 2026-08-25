@@ -9,7 +9,7 @@ session: '_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/ (
 causes:
   - '(a) Provenance is fully staffed and cognition is unstaffed — every artifact in the loop is shaped for durable re-reading, none is shaped for the decision being made today, so the owner reads a record where a decision surface is needed.'
   - '(b) There is no promise artifact between the diagnosis chain and the implementation chain — nothing states the vault-visible delivered difference until the CHANGELOG, which is written after the surprise.'
-  - '(c) The clerk is forbidden a view and then asked to prepare a decision — recommendation and authority were fused, so removing the clerk''s steering also removed the loop''s only staffed reading of the evidence.'
+  - '(c) The loop has no measure of its own legibility, and a recommendation — wherever one appears — silently substitutes for one. Needing a read is the symptom of (a); supplying one masks it, which is why the opacity survived cycles of otherwise good sessions.'
   - '(d) The inbox uses location as a proxy for lifecycle status — one directory encoding a four-state machine whose only exit is success, so the queue can grow but not drain.'
 cited_by:
   - 'factory/platform/roadmap.md §P-16 (the `promise:` line — queued 2026-08-25, deferred past Cycle 12 by owner ruling)'
@@ -27,6 +27,16 @@ is causal, recurring, and cross-cycle — four symptoms in four subsystems from 
 it is filed here. That widens the register. A later reader who thinks the widening was wrong
 should say so in this file rather than quietly renumbering it; the register records
 disagreement rather than resolving it.
+
+**Amended 2026-08-25, same day, on an owner challenge** — *"the recommendations have been
+important in getting through ideation mostly because I don't understand. A true test of clarity
+will be the ability to rule without a recommendation, not that the recommendation itself is
+explicitly bad."* The first version of this file named root cause (c) as *recommendation and
+authority were removed together* and prescribed **ruling by exception** as its repair. That was
+wrong, and wrong in the most useful way: it mistook the instrument for the disease. The
+superseded framing is preserved below in §Root cause (c) and §Rejected alternatives so a later
+reader can see what this register believed for one afternoon and why it did not survive contact
+with the owner.
 
 ## The presenting complaint
 
@@ -94,26 +104,38 @@ and had not yet ruled **what ships**, and nothing in the section's shape made th
 Downstream, `build-brief` infers scope from a `binds:` roster nobody filled
 (`build-brief` SKILL.md:88 — *"If the bullet carries no `binds:` line, reconstruct…"*).
 
-## Root cause (c) — the clerk is forbidden a view, then asked to prepare a decision
+## Root cause (c) — the loop has no measure of its own legibility
 
 `ideation-scaffold` is explicit: *"Act as the ideation session's clerk… it scaffolds the
 recording, never the deciding"*, *"clerk, not advisor: capture, read back, never steer"*, and
 *"a slot the owner hasn't filled stays visibly empty; an empty slot is honest, a guessed answer
 is a lifecycle violation"* (ruled 2026-07-12).
 
-The intent is sound and the ruling protects something real: an owner who rubber-stamps a clerk's
-proposal is not steering. But **recommendation and authority were removed together.** The party
-required to have read all the evidence is the one party forbidden from saying what it thinks the
-evidence means, so the reading is never staffed by anyone, and the owner receives the least
-processed material in the building and is asked for the most consequential judgment.
+**That ruling is correct, and it is not this cause.** The prohibition did not create the
+opacity — it *exposed* it. What the loop lacks is not a staffed opinion; it is any way to tell
+whether its own material is legible.
 
-This is a **TRIZ contradiction**, not a trade-off: the clerk must not steer (or authority is
-theatre) *and* the owner cannot decide without a reading (or comprehension collapses). It is
-resolvable by separating the two along an axis other than existence — by **time and label** (the
-clerk's read is written before the question, marked non-binding, and the owner's confirm is one
-word), or by **person** (the roster carries the recommendation; the clerk stays mute). The
-factory already runs the second pattern successfully: `roadmap-roundtable` convenes agents who
-*are* allowed views, and records dissents. Ideation has no equivalent.
+A recommendation is a **diagnostic instrument, not a remedy**. Where one is offered and the
+owner rules comfortably off it, exactly one fact has been established: the owner could not have
+ruled without it. That is a reading on the legibility gauge, and it is the only reading the loop
+has ever taken. The failure is that nothing records it. The recommendation is consumed, the
+ruling lands, the session moves on, and cause (a) — the unstaffed decision surface — is neither
+repaired nor detected, because it was comfortably worked around. **A cycle can therefore run for
+years on recommendations, produce good rulings, and never discover that its material was never
+readable.** That is the recurrence path this cause names, and it is why the symptom outlived so
+many otherwise excellent sessions.
+
+The corollary is the test. Legibility is not measurable by asking whether the owner understood —
+they did, having just been told. It is measurable only by **withholding the read and seeing
+whether the ruling still comes**. See §The sharpest acceptance test.
+
+**What this cause is not.** It is not an argument for supplying more recommendations, and not an
+argument for a clerk with a licensed voice. Both make the gauge unreadable by pinning it at the
+top. Where a recommendation is genuinely needed — a call the evidence cannot settle — the
+factory already has a venue built for it, staffed by parties who *are* allowed views and whose
+dissents go on record: `roadmap-roundtable`. Routing an opinion there costs a session and leaves
+a trace. Routing it into the clerk's seat costs nothing and leaves none, which is precisely what
+makes it corrosive.
 
 ## Root cause (d) — the inbox is location-as-proxy-for-status
 
@@ -184,6 +206,14 @@ filled it. A written status standing in for a live one, still reading as true.
   preserves a **diagnosis across cycles**; the missing artifact preserves a **decision context
   within a session**. The register solves the memory half of the problem, which is the half the
   loop was already good at. It is orthogonal, not overlapping.
+- **"Give the clerk a licensed voice — the read is written non-binding, the owner confirms in a
+  word."** This study's own first draft recommended it, and the owner rejected it the same day.
+  It is the plausible-and-wrong answer: it would relieve the symptom completely and permanently,
+  and in doing so would make the crutch structural and destroy the only instrument the loop has
+  for detecting its own opacity. Every ruling would feel fine and none would be evidence. It also
+  mis-reads the 2026-07-12 ruling as the cause of the problem when that ruling is what made the
+  problem visible. Recorded here rather than deleted, because a repair that fixes the feeling
+  while erasing the measurement is the failure mode this whole study is about.
 - **"Add a comprehension gate."** Rejected: five skills already carry adoption gates, and a sixth
   set is the accretion `ST-2`/`ST-3` were written about. The repairs this cause implies are
   *shape* changes (a field, a directory rule, a grade), not new gates.
@@ -198,6 +228,12 @@ filled it. A written status standing in for a live one, still reading as true.
   note)"*. The reversal was then re-reversed on the descriptive-vs-causal cut recorded at the top
   of this file. Both reversals are on the record because the boundary is genuinely close, and a
   later reader deserves to know this entry was argued rather than assumed.
+- It named the clerk's forbidden view as a root cause and prescribed ruling-by-exception as the
+  repair — inverting instrument and disease. Corrected the same day by the owner (see the
+  amendment note at the top). The residue of that error reached two other places before it was
+  caught: the seven-field ruling shape below carried *clerk's read* as a default field, and the
+  roundtable was named as the venue for a reversal of the 2026-07-12 ruling that should never
+  have been proposed.
 - It proposed applying the repair to Cycle 12's still-open slots mid-flight. The owner ruled
   against it — three of the directions touch `ideation-scaffold` and `build-brief`, which Cycle
   12 is mid-way through using, and a contract change against a half-filled skeleton risks a
@@ -215,17 +251,39 @@ merits when its channel opens, none authorized by this study, which gates nothin
 1. **`promise:` line per build** — queued as **P-16**. The cheapest repair for (b): one
    vault-facing sentence at ruling time, reused at acceptance and in the CHANGELOG.
 2. **Inbox holds unclaimed only; filings migrate at capture** — repairs (d) directly.
-3. **A seven-field ruling shape** (question, evidence `file:line`, options, clerk's read, default
-   if silent, cost of being wrong, reversibility) — repairs (a) at its source, and is the
-   precondition for any generated decision view.
-4. **Ruling by exception** — repairs (c), and is a **reversal of a standing 2026-07-12 ruling**.
-   It belongs to `roadmap-roundtable`, not to a queued platform item.
-5. **A `NEVER-VERIFIABLE` acceptance grade** — lets a tail die rather than carry when no
+3. **A six-field ruling shape** — question, evidence (`file:line`), options, default if silent,
+   cost of being wrong, reversibility. Every field is a **fact**, and that is the whole design
+   constraint: the shape repairs (a) by making the material readable, never by telling the owner
+   what to think. *(The first draft of this study listed a seventh field, **clerk's read**. It is
+   struck on the amendment above: an opinion slot on every question is ruling-by-exception
+   arriving one field at a time, and it would pin the gauge (c) describes. If a call genuinely
+   cannot be settled from the six facts, that is a roundtable question, and the six-field record
+   is what makes it identifiable as one.)*
+4. **A `NEVER-VERIFIABLE` acceptance grade** — lets a tail die rather than carry when no
    plausible event can discharge it.
+
+**Not a repair, struck on the amendment:** *ruling by exception* / a licensed clerk voice. See
+§Rejected alternatives. Nothing in this study proposes reopening the 2026-07-12 ruling.
 
 ## The sharpest acceptance test
 
-The next time an ideation session runs, the owner should be able to answer, without opening the
-roadmap: **what will be different in a vault after this cycle ships, and what am I risking if I
-am wrong?** If that requires reading a 1,300-line record, this cause is still standing, whatever
-has shipped against it.
+**Withhold the read.** Run an ideation session in which no recommendation is offered on any
+question — the clerk supplies the six facts and nothing else — and see whether the rulings still
+come, at the same pace and the same confidence.
+
+That is the only test that measures the thing. Asking whether the owner understood is worthless
+directly after they have been told; comfort with a recommendation in hand establishes exactly
+one fact, which is that the recommendation was load-bearing. So the instrument is its absence.
+
+Two readings, both informative:
+
+- **The rulings come.** The material is legible. Cause (a) is retired for that class of question,
+  whatever else remains open.
+- **The session stalls the moment the read is withheld.** The cause is standing, no matter what
+  has shipped against it — and the stall is not a failure of the session. It is the first
+  measurement this loop has ever taken of its own legibility, and it localizes the gap to the
+  exact questions where it stalled.
+
+A secondary check, cheap and worth taking at the same time: without opening the roadmap, can the
+owner say **what will be different in a vault after this cycle ships, and what they are risking
+if they are wrong?** If that requires reading a 1,300-line record, (a) and (b) are both live.
