@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/ or areas/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@6", "wiki-supersession@2", "frontmatter@13", "write-verification@3"]
+depends_on: ["extraction@7", "wiki-supersession@2", "frontmatter@13", "write-verification@3"]
 ---
 
 # vlt-extract
@@ -10,7 +10,7 @@ depends_on: ["extraction@6", "wiki-supersession@2", "frontmatter@13", "write-ver
 
 Extraction turns wiki knowledge into a PARA artifact — a curated, human-oriented deliverable filed into `projects/` or `areas/`. The wiki stays the source of truth; the artifact is a synthesis shaped for a specific reader at a specific moment. It reaches the wiki **only** (no web, no research notes, no source files — extracting from anything but the curated wiki bypasses the curation that makes it trustworthy). The output is a deliverable, not a transcript of wiki content — a project brief, an area dashboard, or (for standing reference material) a pointer to the browsable wiki itself. Runs interactively (the interview shapes the artifact) or headless ("extract a project brief on X").
 
-PARA is the human-curated layer, its boundary drawn by authorship-honesty; **extraction is the sanctioned artifact path into it** (the operating contract's Layer 3 names one other surface — container maintenance appends — which is not this skill's) — this skill does not touch canonical wiki pages.
+PARA is the human-curated layer, its boundary drawn by authorship-honesty — the layer's **entry condition** is honest, attested frontmatter plus a container posture that admits the writer (the operating contract, Layer 3, is the home). **Extraction is *a* disposition into that layer** — the one that turns accumulated wiki knowledge into a curated artifact entering at `author: hybrid` / `trust: reviewed` — not the only path in; this skill does not touch canonical wiki pages.
 
 ## On Activation
 
@@ -35,7 +35,7 @@ Confirm the brief before moving on.
 
 Read `{index}` first, then read fully every relevant page (err toward more — a missed page is a gap in the artifact). Brief the user: "The wiki has N pages on this — `<page1>`, `<page2>`, `<page3>`. I'll synthesize these." Ask whether any are missing or should be excluded.
 
-**Hard gate:** extraction requires **at least 2 contributing wiki pages.** If only one (or none) covers the topic, **stop** — a one-page extraction just duplicates the page. Offer the real alternatives instead: a richer wiki pass first (`vlt-ingest` a source, or `vlt-research` the topic), or simply link the single page. Proceed only if the user explicitly overrides with a reason.
+**Thin-wiki caveat (surfaced, not a stop):** an extraction resting on fewer than 2 contributing wiki pages largely duplicates the page it came from. Say so, and name the better paths — a richer wiki pass first (`vlt-ingest` a source, or `vlt-research` the topic), or simply link the single page. If the user still wants the artifact, proceed and carry the caveat into the deliverable; honest, attested frontmatter is what the layer asks of it, not page count.
 
 ## Step 3: Synthesize
 
@@ -115,4 +115,4 @@ Report the result (what was extracted, to which folder, and "verification passed
 
 - **Extraction is curation, not retrieval.** If it reads like concatenated wiki pages, it was copied, not extracted. Shape it for the reader.
 - **Re-extraction is the common case.** Wiki topics evolve and artifacts go stale — overwrite in place (bumping `last_updated`), with supersession callouts for substantively changed claims, rather than spawning a near-duplicate.
-- **A thin wiki is a stop, not a caveat.** Fewer than two pages → offer a wiki pass or a direct link; don't synthesize thin air.
+- **A thin wiki is a caveat you surface, not thin air you synthesize.** Fewer than two pages → name it, offer a wiki pass or a direct link, and proceed only on the user's say-so.

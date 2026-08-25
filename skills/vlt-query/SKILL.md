@@ -1,13 +1,14 @@
 ---
 name: vlt-query
 description: Answer a question by synthesizing from the vault wiki. Use when the user asks something the wiki might speak to — 'what do I know about X', 'what have I read on Y', 'what's my current thinking on Z', or wants a comparison/synthesis/decision-support grounded in their own curated sources. Reads the wiki only (no web — for that, use vlt-research).
+depends_on: ["extraction@7", "frontmatter@13"]
 ---
 
 # vlt-query
 
 ## Overview
 
-A query is not just a lookup — it synthesizes knowledge built up over time and, when the answer is valuable, files it back so the wiki compounds. What sets it apart from a normal chat answer: **it is grounded in sources the user curated.** Every significant claim cites a wiki page or research note; anything from general knowledge is marked as such. vlt-query reads the wiki only — it never reaches the web. Runs interactively or headless ("what do I know about X").
+A query is not just a lookup — it synthesizes knowledge built up over time and, when the answer is valuable, files it back so the wiki compounds. What sets it apart from a normal chat answer: **it is grounded in sources the user curated.** Every significant claim cites a wiki page in `sources:`; a research note or external reference is cited in `grounding:` (the segregation rule — `{conventions}/extraction.md`: `sources:` is wiki-only method provenance, `grounding:` carries evidence and relations). Anything from general knowledge is marked as such. vlt-query reads the wiki only — it never reaches the web. Runs interactively or headless ("what do I know about X").
 
 ## On Activation
 
@@ -44,6 +45,10 @@ File the answer back when it earns persistence — use the rubric, not a gut cal
 When filing:
 
 - **A one-off investigation answer** → write a `{research}/YYYY-MM-DD-HHmmss-<slug>.md` note directly. Frontmatter per `{conventions}/frontmatter.md`: `type: research`, `created`, `title`, `author: agent`, `trust: raw`, `topic`, `status: complete`, `sources:` (the pages/notes consulted) — **no `key:`**.
+- **An answer the user wants to keep as reference material** → file it into PARA: `{projects}/`, `{areas}/`, or `{resources}/` (outside the `{wiki}` subtree), at the container the user names or loose at a layer root. This is legal because PARA's entry condition is honest, attested frontmatter, not a location (the operating contract, Layer 3) — so file it **as what it is**, with no relabeling, no pointer-container indirection, and no bespoke carve-out. Carry `author: agent`, `trust: raw` (an unreviewed agent answer makes no verified-provenance claim; `reviewed` and above are the human's to set), a recognized `type:`, the write-verification attestation pair, and:
+  - **`sources:` — wiki pages only** (`{conventions}/extraction.md`, the segregation rule).
+  - **`grounding:` — required for this class, not optional**: the `{research}` notes and any external evidence the answer rested on. An artifact that omits it drops its provenance silently.
+  Before writing, resolve the container's **write posture** — the `writers:` of the nearest declaring ancestor container; where none declares, the posture is `open` and the write is legal (the operating contract, *The three layers and the hard write boundaries*). Where a declared posture does not admit `agent`, propose the write to the human instead of making it.
 - **A synthesis that belongs as a canonical wiki page** → **hand it to the Librarian** (`vlt-ingest` is the single writer of canonical pages). Propose the page and the claims; do not write or edit the wiki page here.
 - Append a partner-tagged entry to `{log}`:
 

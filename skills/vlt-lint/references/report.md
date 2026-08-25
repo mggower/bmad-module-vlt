@@ -35,6 +35,7 @@ flag_for_human:
   para_status_unknown: [<para-file: status 'X' outside the <type> enum — informational where created predates convention adoption>, ...]
   para_type_unknown: [<para-file: type 'X' outside the recognized set — informational where created predates convention adoption>, ...]
   para_author_unknown: [<para-file: author 'X' outside human|agent|hybrid — informational where created predates convention adoption>, ...]
+  para_writer_unauthorized: [<para-file: writer 'X' not in nearest declaring ancestor's writers: [...] — informational where created predates convention adoption>, ...]
   review_due: [<page — review_after YYYY-MM-DD past>, ...]
   research_zone: <M notes scanned; N carry revisit_after:>   # candidacy-pass denominator — a bare zero below is not health
   linkage_ripe: [<research-note — no absorption linkage: cited ∪ inbound wikilink ∪ shared sources>, ...]

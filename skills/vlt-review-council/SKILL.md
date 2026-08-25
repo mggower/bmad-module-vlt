@@ -48,7 +48,7 @@ The workflow selects the panel (full panel for a debate, the fixed `kind → cou
 
 ## This skill does not…
 
-- Write to `{wiki}`, PARA, `sources/`, or the human zones — a file-back flows through the Librarian.
+- Write to `{wiki}`, `sources/`, or the human zones, or file into PARA yourself — a file-back flows through the Librarian.
 - **Re-implement the panel in prose** — the workflow is the one engine; this SKILL invokes it, it does not hand-spawn lenses.
 - **Implement** a debate's recommendation or a mint — it produces the verdict; building is `vlt-mint`'s or a partner's job.
 - **Guess** its mode or fabricate a `kind` — the caller names them.

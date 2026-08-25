@@ -9,7 +9,7 @@ topic: vault-meta, conventions
 status: complete
 sources: []
 version: 13
-consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-lint-full.js]
+consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-query, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
 enforcement_moment: lint run
@@ -172,7 +172,7 @@ Defined in `extraction.md` (the canonical reference; not duplicated here). Summa
 
 - The layer splits into **containers** (`charter.md`/`record.md`/`register.md` under a `{projects}`/`{areas}`/`{resources}` container directory — `type: charter | record | register`, container `status:` enums on the charter, attribution-per-entry, no attestation pair) and **extracted artifacts** (loose at the layer root, or filed into a container's directory).
 - Artifacts: `author: hybrid`, `trust: reviewed` at extraction.
-- `type:` mapped to target folder: `projects/` → `project`; `areas/` → `area`; `resources/` → `resource`, live again as of extraction v6 (`extraction.md`; the `{wiki}` subtree is not a target folder).
+- `type:` mapped to target folder: `projects/` → `project`; `areas/` → `area`; `resources/` → `resource`, live again as of extraction v6 (`extraction.md`; the nested `{wiki}` subtree is not a target folder — the operating contract, Layer 2, is the canonical statement).
 - `status:` from the per-type enums in `extraction.md` (legacy values coexist — no backfill).
 - `sources:` lists the wiki pages that fed the extraction; optional `grounding:` carries non-wiki evidence/relations (the field above; segregation rule in `extraction.md`).
 
