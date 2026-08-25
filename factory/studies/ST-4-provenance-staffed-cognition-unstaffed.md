@@ -8,7 +8,7 @@ opened_by: 'owner problem-solving session (brainstorm, Ideate-for-me stance)'
 session: '_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/ (untracked — provenance only; memlog + keepsake)'
 causes:
   - '(a) Provenance is fully staffed and cognition is unstaffed — every artifact in the loop is shaped for durable re-reading, none is shaped for the decision being made today, so the owner reads a record where a decision surface is needed.'
-  - '(b) There is no promise artifact between the diagnosis chain and the implementation chain — nothing states the vault-visible delivered difference until the CHANGELOG, which is written after the surprise.'
+  - '(b) The vault-facing sentence exists but is authored in the wrong chain by the wrong party — a brief''s `title:` is collected verbatim into the CHANGELOG, so the delivered difference is first stated at brief time by the briefer. The owner never writes one and so never rules against one: the gap is who and when, not that nothing exists.'
   - '(c) The loop has no measure of its own legibility, and a recommendation — wherever one appears — silently substitutes for one. Needing a read is the symptom of (a); supplying one masks it, which is why the opacity survived cycles of otherwise good sessions.'
   - '(d) The inbox uses location as a proxy for lifecycle status — one directory encoding a four-state machine whose only exit is success, so the queue can grow but not drain.'
 cited_by:
@@ -88,11 +88,42 @@ The loop has a **diagnosis chain** (filing → capture → ruling) and an **impl
 (brief → build → release). The diagnosis chain describes what is broken. The implementation
 chain describes which sites change. **Neither states what a vault owner will see afterwards.**
 
-The first sentence anywhere in the loop written in vault-facing terms is the `CHANGELOG.md`
-entry, authored at Stage 8 of `vlt-release` — after the build has shipped. So a cycle can be
-correctly grounded, correctly briefed, correctly built and cleanly released, with no rule
-violated at any stage, and still deliver something the owner did not expect. There is no gate
-this passes through, because there is nothing to gate.
+**Corrected 2026-08-25, third amendment.** The first version of this section claimed *"the first
+sentence anywhere in the loop written in vault-facing terms is the `CHANGELOG.md` entry, authored
+at Stage 8 of `vlt-release` — after the build has shipped."* **That is false, and the false
+version is preserved here because how it was caught matters more than the correction.** A
+vault-facing per-build sentence already exists and is written earlier than the release: a brief's
+**`title:`** is *"**public prose**: it is collected verbatim into the module's `CHANGELOG.md`
+entry for the release this build ships in"* (`.claude/skills/build-brief/references/brief-anatomy.md:30-31`),
+and the release step collects *"one bullet per build collected from each open-cycle brief's
+`title:`"* (`.claude/skills/vlt-release/references/choreography.md:61-62`).
+
+So the cause is **narrower and sharper than first stated**. The loop does produce a vault-facing
+sentence per build. It is authored:
+
+- **in the wrong chain** — at brief time, inside the implementation chain, after the diagnosis
+  chain has closed and after scope was ruled; and
+- **by the wrong party** — by the briefer. `brief-anatomy.md:30-31` makes `title:` the briefer's
+  field. The owner does not write it, and there is no earlier field they could write instead.
+
+The consequence is unchanged and is what the owner reported: **the owner never states the
+delivered difference and therefore never rules against one.** Scope is ruled against filing ids
+and cause diagnoses, and the sentence that would have made the delivery legible is composed
+downstream by the party implementing it. A cycle can be correctly grounded, correctly briefed,
+correctly built and cleanly released, with no rule violated at any stage, and still deliver
+something the owner did not expect — not because nothing was ever written down, but because the
+only thing written down was written after the moment it could have been ruled on, by someone
+else.
+
+**How this was caught, and why it belongs in the study rather than only in a commit.** It was
+found by the first dry run of this study's own instrument (2026-08-25) — a clerk assembling a
+six-field packet, forbidden a recommendation, whose **evidence** field required quoting the
+tree rather than summarising it. The quote surfaced `brief-anatomy.md:30-31`, which no
+recommendation-shaped answer had ever surfaced across the sessions that produced this study or
+the platform item resting on it. That is one data point, not a validation, and it was found on
+a *format* dry run whose legibility reading was degraded by design. But it is a data point in
+the direction the instrument predicts: **a summary of grounding preserves a conclusion, and a
+quotation of grounding preserves what the conclusion left out.**
 
 **The worked instance is the session that produced this study — recorded in two readings, hours
 apart, because the second one corrects the first and is the more useful of the two.**
