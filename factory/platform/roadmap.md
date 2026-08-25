@@ -540,21 +540,46 @@ the derivation and for the four other repairs it implies; this item is only the 
 - **Intent:** every build bullet carries a one-sentence, vault-facing **`promise:`** line
   written at ruling time — *after this ships, a vault owner running `vlt-<x>` sees Y instead of
   Z* — so scope is ruled against promises rather than against filing ids, and the sentence is
-  reused (not re-invented) at acceptance and in the CHANGELOG.
+  reused (not re-invented) at acceptance and in the CHANGELOG. **Amended 2026-08-25 — see the
+  correction below; the CHANGELOG half of this intent rests on a premise that was wrong.**
 - **Sites:** `.claude/skills/ideation-scaffold/SKILL.md:76-80` (the grouping bullet — a third
   one-line field beside `binds:` and `spike:`, same `*(owner to fill)*` discipline) and its
   standing-rule section at `:114` if the roster rule is the right home for the parallel rule;
   `.claude/skills/build-brief/SKILL.md:83-88` (Discovery reads the bullet — carry the
   `promise:` into the brief's scope statement, never re-author it);
-  `.claude/skills/vlt-release/references/choreography.md:59` (the CHANGELOG entry's shape cites
-  the build's `promise:` as its source). **Owner-ruled open question, not settled here:**
-  whether `build-brief` *gates* on an unfilled `promise:` as it gates on `spike:`. Gating makes
-  it real and makes it a governance change; not gating makes it advisory and probably decorative.
+  `.claude/skills/vlt-release/references/choreography.md:61-62` (the sentence that names the
+  CHANGELOG bullet source — **corrected from `:59`**, which opens the paragraph but is not the
+  clause in question).
+
+  **Correction, 2026-08-25, from the first `ST-4` instrument dry run.** This entry was written
+  on the premise that the CHANGELOG is the *first* vault-facing sentence in the loop. It is not.
+  A brief's **`title:`** is already *"public prose … collected verbatim into the module's
+  `CHANGELOG.md` entry"* (`.claude/skills/build-brief/references/brief-anatomy.md:30-31`), and
+  `choreography.md:61-62` collects *"one bullet per build … from each open-cycle brief's
+  `title:`"*. So a vault-facing per-build sentence exists today; it is authored at **brief
+  time** by the **briefer**. `ST-4` root cause (b) is corrected to match: the gap is *who and
+  when*, not that nothing exists. **This entry never mentioned `title:` — it was not considered
+  when the item was queued.**
+
+  **Prior open question this raises, ahead of the gate question below:** given that `title:`
+  already reaches the CHANGELOG, what relation does `promise:` bear to it — does `promise:`
+  become the CHANGELOG bullet source in place of `title:`, does it feed `title:` at brief time,
+  or do the two coexist with different jobs? Unsettled; not settled here.
+
+  **Owner-ruled open question, not settled here:** which treatment `build-brief`'s Readiness
+  gate gives an unfilled `promise:` — **(A)** blocking, the treatment `spike:` has
+  (`build-brief` SKILL.md:129-135); **(B)** non-blocking carry-when-present, which has no
+  precedent in the tree; or **(C)** non-blocking reconstruct-and-disclose, the treatment
+  `binds:` has (`build-brief` SKILL.md:88). *(The original phrasing here — "gating makes it real
+  … not gating makes it advisory and probably decorative" — is **struck**. It was a
+  recommendation written into a tracked file, which is the failure `ST-4` root cause (c) names:
+  it would have pre-framed the question for every later reader of this entry. The three-option
+  form above is the dry-run packet's, and the packet is where the grounding lives.)*
 - **Verification:** grep — bipartite agreement between the scaffold's emitted field and
   `build-brief`'s reader; a scaffolded skeleton on a real cycle shows the field present and
   empty; no site restates another's mechanics (single-home).
 - **Out of scope:** the wider comprehension-debt repair this session produced — the
-  seven-field ruling shape, ruling-by-exception (a reversal of the 2026-07-12 "an empty slot is
+  six-field ruling shape, ruling-by-exception (a reversal of the 2026-07-12 "an empty slot is
   honest, a guessed answer is a lifecycle violation" ruling, which belongs to the roundtable,
   not to this channel), the generated ideation view, and the `NEVER-VERIFIABLE` acceptance
   grade. Also out: retro-writing promises for shipped builds.
