@@ -69,6 +69,20 @@ posture or is withdrawn"). A brief that ships nothing ahead of its mechanism sta
 applicable` in one line. *(Section landed 2026-08-17 at the Arc 8 roundtable — R1's declared
 home from Arc 7, written here for the first time; R4 landed the same day in §7.)*
 
+**Retirement clause — required whenever the build ships enforcement.** *(Platform P-15,
+2026-08-25.)* A numbered disposition names the prohibition this build's check, net, or gate
+makes redundant — with its `file:line` — and either retires it in this build or records why it
+survives (a population the mechanism does not cover; a retirement ruled for a later build).
+A build that ships no enforcement states `Retirement: not applicable` in one line.
+
+This is R1 read backwards. R1 catches a **rule ahead of its mechanism**; this catches a
+**mechanism that arrives beside the rule it obsoletes** instead of in place of it — which is
+how eleven cycles retired zero rules while adding many, and how one root cause returned as a
+symptom five times. The moment a net ships is the only moment anyone is looking at both halves
+at once, so the question is asked here rather than left for a future filing to rediscover as
+friction. Where the answer is a retirement this build does not make, the disposition names the
+build or files a `supersession` note (`factory/inbox/README.md`) — never a silent survival.
+
 ## 4. F-sites
 
 One `## F<n> — <what it touches>` section per file or feature the build changes. Each states:

@@ -25,6 +25,25 @@ does X" assertion):
   might turn out to already be half-shipped) — say what's left, not what the filing originally
   asked for.
 
+## Grounding a `supersession` filing
+
+*(Platform P-15, 2026-08-25.)* A filing marked `class: supersession` claims a shipped
+protection is now **redundant**, not broken (`factory/inbox/README.md` defines the class).
+Grounding it is a different question from grounding a defect, and reading it as one turns a
+retirement into a fifth exception:
+
+- **Verify both halves separately.** The rule still exists and still binds (cite its
+  `file:line`); the named mechanism shipped and its **population covers the rule's**. A
+  mechanism covering a narrower population does not supersede — say so, and say what is left
+  uncovered. That gap, not the rule, is the residual scope.
+- **The outcome grade is about the claim, not the fix.** CONFIRMED here means *the redundancy
+  is real*; GAP CONFIRMED means the mechanism does not yet cover what the rule stands in for.
+  Do not grade it **SUPERSEDED** — that grade means the module already fixed what a filing
+  reported, and the collision reads a live retirement as stale news.
+- **Capture the retirement, not a carve-out.** The captured entry names the rule to retire and
+  the mechanism that earns it. Whether it retires, narrows, or survives is ideation's ruling;
+  a capture that quietly converts it into a new exception has re-filed the symptom.
+
 ## Open design questions
 
 A filing may carry open questions it deliberately didn't resolve. Carry them into the roadmap

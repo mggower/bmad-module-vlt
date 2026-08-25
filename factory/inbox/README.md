@@ -18,6 +18,30 @@ is one dated markdown note (`YYYY-MM-DD-HHmmss-slug.md`) written by a partner or
    filing moves to the consuming cycle's `filings/` directory. The active inbox holds only
    **un-captured** filings.
 
+## When the filing is not a defect — `supersession`
+
+*(Platform P-15, 2026-08-25.)* Almost every filing here describes something that **broke**:
+friction hit in anger, a defect, a gap. A **`supersession`** filing describes the opposite —
+*this protection is now redundant, because X now enforces what it was standing in for.* A
+prohibition written when the honest fields had no teeth stops earning its place the moment a
+net enforces them, and nothing else in the loop can say so: obsolescence produces no field
+pain, only friction that reads as normal governance.
+
+A supersession filing is an ordinary dated note in this directory, marked `class: supersession`
+in its opening line, and it carries **both halves** or it is not one:
+
+1. **The rule now redundant** — its exact site (`file:line`), and what it was standing in for.
+2. **The mechanism that supersedes it** — what shipped, where, and why its population covers
+   the rule's. "Something better exists now" is a wish; "check *Y* at `<site>` enforces the
+   same claim across the same population" is a filing.
+
+It asks for a **retirement**, not another exception — a filing that ends in a new carve-out
+has diagnosed the symptom. Capture grounds it like any other filing (`inbox-capture`); the
+roundtable's obsolescence beat is where a retirement found *inside* a plan lands instead.
+
+**Not to be confused with the `SUPERSEDED` grounding grade**, which means the module already
+fixed what a filing reported. Here supersession is the filing's *claim*, not its verdict.
+
 ## Remote filings
 
 - Filings can also arrive as GitHub issues on the module's public tracker and are

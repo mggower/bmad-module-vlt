@@ -52,7 +52,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 1/2 — P-10 is BUILT-awaiting and consumes no slot, per the contract header)
+## Active (WIP 0/2 — P-10 and P-15 are both BUILT-awaiting and consume no slot, per the contract header)
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
@@ -102,7 +102,7 @@ build, so it cannot produce them until ideation has numbered the builds. The dis
 `sync the tracker` (owner batch gate) → that run **is** the self-acceptance; record its date
 here. Only the third step is new work.
 
-### P-15 — the retirement rail: let the loop process obsolescence, not only defects — **open: queued for build, gates Cycle 12's roundtable**
+### P-15 — the retirement rail: let the loop process obsolescence, not only defects — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's roundtable + its briefs)**
 
 *(Filed 2026-08-25 from the PARA problem-solving session, as its **Root Cause 2**. The
 evidence is Cycle 11's own build-6: it extended the `para_*` honesty nets across the whole
@@ -170,6 +170,36 @@ cycles**; any non-zero is a change of kind.
 P-3/P-5/P-6/P-11/P-12/P-13/P-14. Not an override — no cap is exceeded — but a **precedence
 call** on the stated dependency above, flagged here per house practice rather than left to
 be inferred from position.
+
+**Build record (2026-08-25).** All three sites landed, plus one flagged addition:
+
+1. `roadmap-roundtable` — the joints frame gained the reverse fault ("a mechanism that
+   quietly obsoletes the rule it was written to stand in for and leaves it standing"); Hunt
+   gained **§The obsolescence beat (required, every run)** with the mandatory-return clause;
+   Converge's record item (3) now carries the beat's outcome — each retirement finding, or an
+   explicit `Obsolescence: none found` line. Silence is no longer a legal record.
+2. `factory/inbox/README.md` — **§When the filing is not a defect — `supersession`**: the
+   class, its two required halves (the redundant rule with its site; the mechanism whose
+   population covers it), the retirement-not-carve-out bar, and an explicit disambiguation
+   from the `SUPERSEDED` **grounding grade**, which means the opposite (already fixed).
+   Additive; no existing filing shape moved.
+3. `build-brief` — `references/brief-anatomy.md` §3 gained the **Retirement clause** beside
+   R1 (it is R1 read backwards: R1 catches a rule ahead of its mechanism, this catches a
+   mechanism landing *beside* the rule it obsoletes); SKILL.md's Exit gate now fails a brief
+   that leaves it blank, alongside the R1/R4 line.
+
+**Deviation (1), flagged.** A fourth site was edited:
+`inbox-capture/references/grounding-methodology.md` gained **§Grounding a `supersession`
+filing**. The brief-lite's own verification requires that a fixture supersession filing
+"routes at capture without being mistaken for a defect", and capture's grade vocabulary
+already contained a `SUPERSEDED` outcome meaning *the module already fixed this* — a live
+retirement would have graded as stale news. Four lines of routing, no existing grade changed.
+
+**Verification (at rest).** Grep of all four sites confirms each clause present at the named
+home; `uv run tools/factory-paths-check.py` PASS (123 refs, 20 files). No personal or
+vault-local content added. The remaining verification clauses are field-side by
+construction — the fixture-filing route, the beat's exercise, and a brief carrying the clause
+answered all discharge on the Cycle 12 run named below.
 
 
 ## Queued

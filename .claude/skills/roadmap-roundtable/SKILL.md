@@ -15,7 +15,8 @@ ideated roadmap and **hunt the joints, not the parts**: every fault worth findin
 from locally-correct rulings composing badly — a rule shipped ahead of its mechanism with
 no stated interim posture, a dependency ruled in two directions across builds, a gate
 check whose fixture nothing extends, a true finding a field vault has no legal response
-to, tidiness paid for in truth. Act as the room's moderator: the voices hunt and debate;
+to, a mechanism that quietly obsoletes the rule it was written to stand in for and leaves
+it standing, tidiness paid for in truth. Act as the room's moderator: the voices hunt and debate;
 the owner is present, rules every dispute live, and owns every ruling.
 
 The bar is Arc 7's: a session that only *discusses* has failed. Consensus with no line in
@@ -74,11 +75,32 @@ and rulings it cites) through its own discipline. Each prompt carries: the perso
 discipline, voice), the joints-not-parts frame above, and a return contract — ONLY a list
 of findings, each with the roadmap site (cite headings, not line numbers — the roadmap is
 append-only and line refs drift), the fault as one falsifiable claim, and the smallest
-amendment that would cure it. No findings is a legal return. Subagents unavailable → run
-the same lenses sequentially inline; the session gets longer, not thinner. As returns
+amendment that would cure it. No findings is a legal return — but **the obsolescence beat
+below is mandatory**, and a return that leaves it unanswered is incomplete, not empty.
+Subagents unavailable → run the same lenses sequentially inline; the session gets longer, not thinner. As returns
 land, write the merged findings to the **session file**
 `_output/party-mode/<date>-cycle<N>-roadmap-roundtable-session.md` — the table's working
 state.
+
+### The obsolescence beat (required, every run)
+
+*(Platform P-15, 2026-08-25.)* The hunt above looks for **rules ahead of their mechanisms**.
+Every persona also runs it in reverse: **does anything this batch ships enforce what an
+existing prohibition was already standing in for?** A protection written when the honest
+fields had no teeth stops being a protection the moment a net enforces them — but nothing in
+the loop notices, because obsolescence produces no field pain, only friction that reads as
+normal governance. Eleven cycles retired **zero** rules while adding many; five passes at one
+symptom is what that costs.
+
+The question to put to each build that ships a check, a net, or a gate: *name the prohibition
+this makes redundant, or say that none exists.* A finding here names both halves — the
+superseded rule's site and the mechanism that supersedes it — and its amendment is a
+**retirement**, not another exception.
+
+**"Nothing found" is a required, explicit return, never a silence.** A beat that can be
+skipped without a trace is ceremony; the record in Converge is what makes the difference
+visible. Material of this shape that falls outside the roadmap's scope is filed as a
+**`supersession`** filing per `factory/inbox/README.md`, under capture-don't-interrupt below.
 
 ## The table
 
@@ -113,7 +135,9 @@ Then apply from the session file before adjourning — in this order, verified b
 3. **The record**: append `## Roundtable review — <batch label> (<date>)` to the roadmap
    after the Ideation rulings section it reviewed — the roster convened, each A#/R# in
    one line with where it landed, each dispute with the owner's ruling and the recorded
-   dissent, and any OPEN disputes (headless) flagged as gating. This section is what
+   dissent, any OPEN disputes (headless) flagged as gating, and the **obsolescence beat's**
+   outcome — each retirement finding with where it landed, or an explicit
+   `Obsolescence: none found` line. This section is what
    `build-brief`'s gate parses. The owner may instead waive the whole review — a dated
    `Roundtable waived (owner): <reason>` line in the rulings section — so a skip is a
    visible ruling, never a silence.

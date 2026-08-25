@@ -164,6 +164,11 @@ on disk. This is the load-bearing step this skill exists to make unforgettable.
 - **R1/R4 present** — the brief carries the Interim-posture (R1) disposition and the
   Enumeration-widening (R4) statement (`references/brief-anatomy.md` §3 and §7), each either
   substantive or an explicit one-line `not applicable`. Absent → the brief is not complete.
+- **The retirement clause is answered** — the brief carries the Retirement disposition
+  (`references/brief-anatomy.md` §3): the prohibition this build's enforcement makes
+  redundant, named with its site, or an explicit one-line `Retirement: not applicable`.
+  A blank is not an answer; a build that ships a net without asking what it obsoletes is how
+  the rule set only ever grows *(platform P-15, 2026-08-25)*.
 - **Scrub the `title:`** before reporting complete: re-read the authored title and confirm it
   carries no personal or vault-local content. It ships verbatim into the public `CHANGELOG.md`
   (see `references/brief-anatomy.md` §1). A title that does not pass is rewritten, not shipped.
