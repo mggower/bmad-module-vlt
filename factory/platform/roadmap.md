@@ -650,6 +650,67 @@ and 9 reads from four files — `factory/platform/roadmap.md` (this entry),
 (`build-brief/references/brief-anatomy.md`, `tools/package-lint.py`). Its durable findings are
 the corrections already applied above and in `ST-4`; nothing else in it is load-bearing.
 
+### P-18 — specimen custody: give field observations a carrier — **queued**
+
+*(Filed 2026-08-26, from an owner problem-solving session on the acceptance gate's oscillation
+— session artifact at `_output/problem-solution-2026-08-26.md`, gitignored, provenance only.
+Routed here, not inbox: every site is a factory skill, `factory/inbox/README.md`, or closeout
+mechanics — `vlt-upgrade` delivers none of them. **Scoped deliberately to Tier A of the study's
+nine components**; the other two tiers are named in Out of scope with their preconditions, per
+P-6's form.)*
+
+**The cause it repairs — `ST-5`** (*specimens have no owner*; primary cause: no lifecycle stage
+owns field-specimen preservation, so verification instruments are built at the point of least
+evidence — from the shape of the fix rather than the shape of the failure). The direct evidence
+is the Cycle 12 build-1 trace: **20 specimens observed, 2 filed, 2 captured, 0 reaching the
+brief**, after which the briefer synthesized a fixture that passed at rest while the field failed
+twice. Read the study for the derivation, the six causes, the rejected alternatives and the
+falsifier. `ST-5` gates nothing — the scope ruling below is this item's, not the study's.
+
+**Brief-lite:**
+- **Intent:** make a field observation survive to the instrument that grades it. Today a filing
+  may report *"18 entries"* where 18 slugs were observed, capture grounds only against module
+  source (*"ground every filing claim against current module source"* — code, never corpora), and
+  `acceptance-discharge` holds complete specimens at the moment of maximum evidence while being
+  told *"Read only what the item names. Don't go spelunking."* The stage with the specimens has
+  no authority to use them; the stage that must build the instrument has none left to build from.
+- **Sites:** `factory/inbox/README.md` (filing shape gains a **specimen manifest** section — full
+  slug set plus the minimal triggering fragment; a bare count where a set was observable is a
+  defect in the filing) · `.claude/skills/acceptance-discharge/references/evidence-rubric.md`
+  (the FAILED and BLOCKED grades must emit a complete manifest with the filing they already
+  mandate) · `.claude/skills/inbox-capture/` (second grounding axis: where a filing carries a
+  count, dereference the named report and recover the set) · `factory/cycles/NN-<slug>/fixtures/`
+  established by convention so the manifest materializes as a tracked, frozen fixture · the
+  ledger gains a per-build **specimen retention** number.
+- **Verification:** at rest — the 2026-08-26 filing
+  (`…-attestation-misroute-survives-the-jurisdiction-narrowing.md`) already carries a complete
+  6/6 manifest unprompted and is the conformance fixture for the new filing shape; the
+  2026-08-24 filing (2/20) is the negative control that must fail it.
+- **Out of scope, named not omitted:**
+  - **Tier B — instrument provenance (`ST-5` C6/C7):** every check declares
+    `population-shaped`/`specimen-derived`/`synthetic` with synthetic requiring justification,
+    and carries negative controls in both directions. **Deferred because its substance was
+    already obtained by owner ruling** — Cycle 13's ideation ruled Q4 *"THE INSTRUMENT IS THE
+    REAL CORPUS AND IT GATES."* That is the ninth hand-applied brake in the series `ST-5`
+    documents, not a mechanism; open Tier B when a build with **no prior failure behind it**
+    reaches brief-time and reaches for a synthetic fixture unchallenged.
+  - **Tier C — gating honesty (`ST-5` C8/C9):** narrow closeout's non-gating clause to
+    *field-contingent **and not yet fired***, routing a fired-and-failed check to an owner
+    ruling; decay unfired checks on a date or run-count bound. **Precondition: Tier A must
+    first produce one cycle of real manifests** — landing C8 first would tighten gating on
+    checks that still could not be made good, which is the strict era rediscovered.
+  - **The in-cycle repair lane:** a shipped cycle staying open to capture for repairs of its own
+    acceptance failures. Touches release policy and ruling D3; `ST-5` records it as a live option
+    it does not recommend either way. **Owner call, not queued here.**
+  - **A specimen register (`factory/specimens/`, `SP-N`):** generated and **rejected** on the
+    study register's own accretion warning. The manifest lives inside the filing and is cited by
+    path — the root is *no owner*, not *no register*.
+- **Done-when (self-acceptance):** the next `acceptance-discharge` run grading a FAILED or
+  BLOCKED item emits a complete specimen manifest with its filing, **or** an `inbox-capture` run
+  recovers a specimen set from a count-only filing. Either exercises the changed surface on a
+  real lifecycle run.
+
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**
