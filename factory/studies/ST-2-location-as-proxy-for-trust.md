@@ -12,9 +12,10 @@ causes:
 cited_by:
   - 'factory/inbox/2026-08-25-111322-para-location-is-used-as-a-proxy-for-trust.md'
   - 'factory/platform/roadmap.md §P-15 (the retirement rail — the RC2 fix, built 2026-08-25)'
-  - 'factory/platform/roadmap.md §P-14 (the study register — this register exists because of this study'"'"'s §Why this study is here)'
+  - 'factory/platform/roadmap.md §P-14 (the study register — this register exists because of this study''s §Why this study is here)'
   - 'factory/studies/ST-3-governance-has-no-addressable-projection.md §Convergence with ST-2 (RC2 derived independently one day earlier, from the cost side)'
   - 'factory/cycles/12-proxy-claims/roadmap.md §A12-3 (capture 2026-08-25 — grounded against v0.15.0/HEAD; RC1 confirmed line-for-line, RC2 confirmed as channelled by P-15)'
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-6 (capture 2026-08-26 — the `type:` leg of the Layer-3 entry condition did not move with the boundary when 0.16.0 replaced location with attestation; RC1 repair-residue, not a new cause)'
 superseded_by: ''
 ---
 

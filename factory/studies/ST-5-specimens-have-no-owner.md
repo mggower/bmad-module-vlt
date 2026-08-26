@@ -13,7 +13,8 @@ causes:
   - 'Closeout cannot distinguish a field check that never fired from one that fired and failed, so it applies Arc 3''s remedy to Cycle 12''s opposite disease.'
   - 'Ship-day capture boundary + one-release-whole-cycle compose to guarantee every acceptance failure is exported to the next cycle.'
   - 'The factory built a durable register for diagnoses, which are re-derivable, and none for observations, which are not.'
-cited_by: []
+cited_by:
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-1 (capture 2026-08-26 — Cycle 13 check (2)''s instrument was the recorded returns, and those returns were all bare-form: the subset the guard handles. The substitution that made the check pass is visibly why it passed — cause 2, with a clean specimen)'
 superseded_by: ''
 ---
 

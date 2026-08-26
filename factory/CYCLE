@@ -1,4 +1,4 @@
 # Names the open cycle — one line, `NN-<slug>` (a directory under factory/cycles/).
 # "none" between cycles: the previous cycle is closed and the next capture has not run.
 # inbox-capture updates this line when it opens a cycle; cycle-closeout resets it to none.
-13-trusted-returns
+14-no-enforcement-point
