@@ -14,6 +14,7 @@ cited_by:
   - 'factory/cycles/11-reachability/roadmap.md §A11-11 (captured CONFIRMED; direction 0 shipped in build-8, directions 1–4 deferred to Cycle 12)'
   - 'factory/studies/ST-2-location-as-proxy-for-trust.md §RC2 (this study derived the same cause from the cost side, one day earlier)'
   - 'factory/cycles/12-proxy-claims/roadmap.md §A12-1 and §A12-2 (capture 2026-08-25 — two fresh field instances of the exact-facts-from-LLMs residue this study names as a contributing factor; both are B5-3(2)''s five-cycle watch firing)'
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-8 (capture 2026-08-26 — the findings cache''s `rulesetFingerprint` Defect 2 is attributed to this cause by name: an algorithm DESCRIBED for each caller to re-derive rather than single-homed as executable steps, i.e. a fingerprint with no machine-addressable definition. Roundtable 2026-08-26 sharpened it — Q6 moves only the COMPOSITION into the workflow, so the component digests keep no instrument, merge order, encoding or algorithm and half the cause survives the repair)'
 superseded_by: ''
 ---
 

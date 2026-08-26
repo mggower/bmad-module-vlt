@@ -13,6 +13,8 @@ causes:
 cited_by:
   - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-7 (the instance that provoked this study — grounded 2026-08-26)'
   - 'factory/cycles/14-no-enforcement-point/roadmap.md §Ideation rulings D4 (the owner ruling to open it)'
+  - 'factory/inbox/2026-08-21-150214-decision-log-writer-roster-admits-no-discovery-site.md (origin: mggower/bmad-module-vlt#6) — INSTANCE 2, still UNCAPTURED in the inbox. Recorded by the roundtable 2026-08-26 because its later capture grounds against module source, not studies, and would otherwise re-derive this cause from scratch — the exact failure D4 opened this study to prevent.'
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §Roundtable review (2026-08-26) — the review found a FRESH instance in the cycle''s own plan: Q1''s structured PAGE_SCAN enum is fail-CLOSED where the residue rule it replaces was fail-OPEN, so a scanner meeting a schema break outside the enum''s roster must mis-file or drop it. Cured by requiring an explicit unclassified member (shipped precedent: `sources_vs_prose`''s `no_prose_section`).'
 superseded_by: ''
 ---
 

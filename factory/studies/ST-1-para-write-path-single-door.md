@@ -13,6 +13,7 @@ cited_by:
   - 'factory/cycles/10-signal-integrity/filings/2026-08-20-093000-para-write-path-single-door-wrong-shape.md (the filing distilled from this session — it carried the symptom, not the cause)'
   - 'factory/studies/ST-2-location-as-proxy-for-trust.md (the re-derivation five days later; ST-2 §Why this study is here explains what was lost)'
   - 'factory/cycles/12-proxy-claims/roadmap.md §A12-3 (capture 2026-08-25 — the filing''s six steps re-derive C1/C2/C3/C5; C4 provenance segregation and RC-B permission-fused-to-provenance are NOT carried, flagged there as the un-carried half)'
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §Ideation rulings Q4 (roundtable 2026-08-26 — Q4 rules A14-7''s jurisdiction narrowing BY ARTIFACT CLASS rather than by writer, citing this study''s permission-fused-to-provenance cause by name as the reason to refuse the writer-shaped axis; the roundtable then found the class test has no mechanical discriminator, so the refusal stands but the replacement does not yet bind)'
 superseded_by: ''
 ---
 
