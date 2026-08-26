@@ -13,6 +13,8 @@ are derived from.
 
 **No governance rule changes cross v0.16.1** — no convention `version:` moves, no consumer re-acks owed.
 
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-lint`, `skills/vlt-setup`
+
 ## v0.16.0 — 2026-08-25
 
 **Cycle 12** — the proxy-claims cycle.
