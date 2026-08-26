@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 12 — proxy claims'
-status: 'OPEN — **v0.16.0 SHIPPED 2026-08-25** (builds 1-4 @ `216bea2`, tagged `v0.16.0`, pushed to origin). Cycle 12 = four builds, one release, built in order 1 -> 3 -> 2 with build-4 independent: b1 page-scanner corrections @ `f134190`, b3 the PARA posture @ `5585877`, b4 parked-interim guidance @ `0e76901`, b2 the change-keyed findings cache @ `93797b9` (the release build). Two convention rule changes shipped with full re-acks — `extraction.md` 6 -> 7 (four consumers) and `decision-log.md` 3 -> 4 (five consumers); handshake bipartite-clean at the gate (9 conventions, 39 pins). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, exit 0. **Ideated + roundtable-reviewed 2026-08-25** (nine owner-steered rounds, nine voices, six owner rulings, one dispute converged 4/4). **Deferred acceptance ledger is undischarged** — acceptance is batched to the owner''s next `vlt-upgrade` run on a live vault. **Open owner acts, none gated by the release:** re-grade A46/`P-17` (build-3 shipped the `governance_rule_changes:` key, so its BLOCKED-unreachable grading is stale — flagged by three briefs); hand-deliver build-3''s re-derive notice to `{field-vault}`''s PARA park (A57); run the parked-interim survey (E6, a list not a count, bounded before Cycle 13''s `inbox-capture`). Next: **owner runs `vlt-upgrade` on a live vault**, then `acceptance-discharge`.'
+status: 'OPEN — **v0.16.0 SHIPPED 2026-08-25** (builds 1-4 @ `216bea2`, tagged `v0.16.0`, pushed to origin). Cycle 12 = four builds, one release, built in order 1 -> 3 -> 2 with build-4 independent: b1 page-scanner corrections @ `f134190`, b3 the PARA posture @ `5585877`, b4 parked-interim guidance @ `0e76901`, b2 the change-keyed findings cache @ `93797b9` (the release build). Two convention rule changes shipped with full re-acks — `extraction.md` 6 -> 7 (four consumers) and `decision-log.md` 3 -> 4 (five consumers); handshake bipartite-clean at the gate (9 conventions, 39 pins). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, exit 0. **Ideated + roundtable-reviewed 2026-08-25** (nine owner-steered rounds, nine voices, six owner rulings, one dispute converged 4/4). **Acceptance PARTIALLY DISCHARGED 2026-08-26** over the `{field-vault}` 0.15.0 → 0.16.0 upgrade (2026-08-25 17:54) and the first post-release full lint (cold, 146/146 pages). **All 16 ship-verifiable checks PASS — the closeout gate is GREEN** (`cycle-closeout` gates on ship-verifiable only). Of the 11 field-contingent checks: **4 DISCHARGED** (b1(4) `missing_targets: []` against the corpus that produced ten-of-ten false flags; b1(6) Scan-pages `prompt_chars` 473,622 → 356,676 at equal page count; b3(8) + b2(6) `governance_rule_changes:` rendering non-empty with all four required facts), **6 STILL-OPEN first-exercise tails** — b3(6) next scheduled `vlt-brief` issue, b3(7) a partner''s first `{resources}`-write legality call, b3(9) a human-ratified `writers:` on a live charter (declaring population is **1** — the vault holds exactly one `charter.md`), b4(5) a real park through `vlt-feedback` + b4(6) coupled to it, b2(5) the **second** full lint where the churn saving is measured (this one was the predicted cold run, A10 confirmed in the field) — and **1 FAILED**: b1(5), attestation complaints still misrouting into `malformed_frontmatter` (5 of 7) and `unmarked_supersessions` (1), hand-folded "same as the 2026-08-24 run", **second consecutive run**; filed `factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md` for Cycle 13 `inbox-capture`, **not re-carried**. No filing archived — every ledger item is split, so none has all its clauses discharged. **Open owner acts, none gated by the release:** re-grade A46/`P-17` (build-3 shipped the `governance_rule_changes:` key, so its BLOCKED-unreachable grading is stale — flagged by three briefs); hand-deliver build-3''s re-derive notice to `{field-vault}`''s PARA park (A57); run the parked-interim survey (E6, a list not a count, bounded before Cycle 13''s `inbox-capture`). Next: **`cycle-closeout`** — the ship-verifiable gate is green; closeout rules the six open tails forward as standing watches and carries the b1(5) failure to Cycle 13 as its filing.'
 module_code: 'vlt'
 created: '2026-08-25'
-updated: '2026-08-25 (RELEASED — v0.16.0 shipped @ `216bea2`, annotated tag pushed; all four briefs BUILT, release commit carries the package-lint PASS line; next: live acceptance via the owner''s `vlt-upgrade` run)'
+updated: '2026-08-26 (ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed; ledger annotated per item. Superseded: 2026-08-25 (RELEASED — v0.16.0 shipped @ `216bea2`, annotated tag pushed; all four briefs BUILT, release commit carries the package-lint PASS line))'
 derives_from:
   - 'factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md'
   - 'factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md'
@@ -2529,6 +2529,35 @@ against it.*
   declared blind spot (`vlt-lint-full.js:127`) — the convention-read saving is **not** graded
   from this number — event/performer/vault/bound: as (4).
 
+
+  **Acceptance 2026-08-26 (`acceptance-discharge`, evidence: the `{field-vault}` 0.15.0 → 0.16.0
+  upgrade at `_agent/upgrade-ledger.md` §0.16.0 + `{lint_reports}/2026-08-25-1600-lint.yaml`, the
+  first post-release full lint, cold, 146/146 pages).** Split — **NOT ticked, one check FAILED.**
+  **Upgrade-side/ship-verifiable DISCHARGED:** (1) `PAGE_SCAN` **3598 ≤ 3700**, E6 PASS
+  (brief BUILT `status:` V1); (2) the reader probe returned the two genuine wikilinks with all
+  four traps at zero, `frontmatter_valid: true` unattested, 14/14 fields (V3, verbatim JSON in
+  the brief); (3) `key_claims` → 0 hits, `wiki-index@2` pin surviving on `indexPrompt`,
+  `write-verification.md` still `version: 3`/5 consumers (V4/V7). **(4) DISCHARGED —**
+  `missing_targets: []` at `:9`, **zero**, against the same unchanged obsidian-dataview /
+  obsidian-bases corpus that produced **ten of ten** false flags on 2026-08-24; the code-span
+  exclusion landed. **(6) DISCHARGED —** `cost_accounting.phases[Scan pages].prompt_chars`
+  **473,622 → 356,676** at identical `pages_total: 146` (−116,946, −24.7%), matching V8's
+  predicted ≈ −112 KB/run; the Cluster pass fell **123,172 → 42,279** on the `key_claims` drop.
+  (The 1.2 MB/run agent-side convention saving remains invisible to this instrument by its own
+  declared blind spot, as the check states — not graded from this number.)
+  **(5) FAILED — the defect recurred.** Report `:241`: one entry under `unmarked_supersessions`
+  (`execution-to-judgment-shift`) and **5 of 7** `malformed_frontmatter` entries
+  (`bistec-encebollado`, `k-curve-career-divergence`, `kettl`, `llm-wiki-pattern`,
+  `obsidian-bases`) were all "missing `verified_by`/`verified_at`" — attestation complaints
+  misrouted, **"folded into the attestation census, same as the 2026-08-24 run"**, the exact
+  hand-fold the check forbids. Magnitude fell 20 → 6; shape unchanged; **second consecutive
+  run**. Diagnosis: F2/F3 shipped the per-slot prohibition without the *terminal class* the
+  2026-08-24 filing's fix direction asked for, so the complaint routes to whichever slot is
+  still open — and the at-rest probe could not observe it, being built to test the two closed
+  slots. **Filed:** `factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md`
+  → routes to Cycle 13 `inbox-capture`. **Not re-carried as STILL-OPEN** — the discharging
+  event occurred and the check did not pass.
+
 - [ ] **build-3 (para-posture, briefed 2026-08-25):** brief
   `factory/cycles/12-proxy-claims/briefs/build-3-para-posture.md`. Nine checks — five
   ship-verifiable (all gate), four field-contingent (none gate). The filing's request that
@@ -2607,6 +2636,51 @@ against it.*
   bound: Cycle 13's `inbox-capture` — **and if none declares by then, that routes to an owner
   ruling on whether A33's notification is sufficient, not to a fourth re-carry.**
 
+
+  **Acceptance 2026-08-26 (`acceptance-discharge`, same evidence base).** Split — **NOT ticked;
+  no FAILED, three genuine first-exercise tails.** **All five ship-verifiable DISCHARGED:**
+  (1) handshake bipartite-clean after `extraction.md` **6 → 7** — `extraction.md:11-12`
+  `version: 7` / `consumers: [vlt-extract, vlt-lint, vlt-track, vlt-query]`, exactly four
+  `extraction@7` acks and no strays, `frontmatter.md` unbumped at `13` with `consumers:` 9 → 10,
+  `write-verification.md` untouched at `3`/5; Group E PASS (brief BUILT `status:` V1/V2).
+  (2) contract re-derived **twice** (the second after deviation 2's resolver clause) —
+  `shasum -a 256` `670170b8…6c97` matching `vault-rule-card.md:11`; card **7,106 B** against
+  `RULE_CARD_BUDGET = 8,000`, C6 green. (3) the seven-grep retirement battery — six at 0, the
+  `{wiki}` carve-out **surviving** (A19); the battery found a **sixth** undeclared site the
+  table missed (`extraction.md:26`, `vlt-track/SKILL.md:21`), which is the completeness rule
+  working. (4) a `para_*` finding produced by an **ordinary** `vlt-lint` run over the fixture,
+  negative control firing. (5) the resolver as ruled — nearest declaring ancestor, inheritance,
+  undeclared → `open` → PASS, `{wiki}` removed at population time; the probe's first run
+  surfaced the **`author: hybrid` hole** (every charter, schema-mandated `hybrid`, escaped the
+  join), fixed at `contract:68` + `checks.md:19` and re-run.
+  **(8) DISCHARGED — the vault was told.** The upgrade report's `governance_rule_changes:`
+  (`_agent/upgrade-reports/2026-08-25-1754-upgrade.yaml:16-22`) came back **non-empty with six
+  entries**, `:17` naming the PARA entry-condition change with the `writers:` /
+  undeclared-is-`open` consequence and `:18` naming **both retirements** by name with the
+  re-derive instruction. First live render of build-3's F11 key.
+  **STILL-OPEN (three, all with named triggers):**
+  **(6)** `trust: raw` representable-and-present in PARA outside `{wiki}` — the newest
+  `vlt-brief` issue is `_agent/briefs/ai-tech-industry/2026-08-24-issue-003.md`, **pre-upgrade**;
+  no scheduled issue has run since. The only `trust: raw` outside `{wiki}` today is the
+  pre-existing `resources/workflow/wispr-obsidian-shortcut.md`, not a post-upgrade write.
+  Event/trigger: the owner's next scheduled `vlt-brief` issue; bound: Cycle 13 `inbox-capture`.
+  *(One live run also closes tracker #11.)*
+  **(7)** a partner resolving a `{resources}`-write legality question from the rewritten bundle
+  without escalating — no `{resources}` write has been attempted post-upgrade. Trigger: any
+  partner session attempting one, observed by the owner; bound: Cycle 13 `inbox-capture`.
+  **(9)** a human-ratified `writers:` line on a live `charter.md` — **zero** `writers:`
+  declarations vault-wide today. ⚠ **Reachability note the owner should carry into that
+  ruling, not a re-grade:** the executor reports the entire PARA tree holds **exactly one**
+  `charter.md` (`projects/fantasy-2026`), declaring no `writers:` — so the posture resolved
+  `open` for all 60 PARA files and `para_writer_unauthorized` fired on an **empty population**
+  in its first release (`para_writer_unauthorized: []` at `:114`). The fall-through is correct
+  and deliberate; the point is that the declaring population is 1, so "no vault declared by the
+  bound" would be weak evidence about the mechanism. This is **not** BLOCKED — the trigger
+  exists (a human declaring on that one charter, and A33's notification has now fired to prompt
+  it) — but the check's own escape hatch already anticipates it: if none declares by Cycle 13's
+  `inbox-capture`, that **routes to an owner ruling on whether A33's notification is
+  sufficient, not to a fourth re-carry**.
+
 - [ ] **build-4 (parked-interim-guidance, briefed 2026-08-25):** brief
   `factory/cycles/12-proxy-claims/briefs/build-4-parked-interim-guidance.md`. Six checks — four
   ship-verifiable (all gate), two field-contingent (neither gates). A40's grading rides the
@@ -2663,6 +2737,33 @@ against it.*
   performer: the owner (standing rule); vault: `{field-vault}`; bound: Cycle 13's
   `inbox-capture`. *Dependency stated: ungradeable before (5) discharges — if (5) routes to an
   owner ruling, so does this.*
+
+
+  **Acceptance 2026-08-26 (`acceptance-discharge`, same evidence base).** Split — **NOT ticked;
+  no FAILED, two coupled first-exercise tails.** **All four ship-verifiable DISCHARGED:**
+  (1) handshake bipartite-clean after `decision-log.md` **3 → 4** — five consumers, five acks,
+  no stray pin, Group E PASS (brief BUILT `status:`). (2) the fixture re-read surfaced
+  **exactly** the one live `kind: parked-interim` entry — not the superseded one, not the
+  `deviation` entry — and rendered `parked_interims_review: []` present-not-omitted over an
+  empty log. (3) the prohibition ships attached to an artifact and stated **once**; both
+  drifting completeness glosses gone (six-grep battery). (4) `parked_interims_review:` present
+  in the Step-4 schema block, key-order render + persist key-set verify passing,
+  `migrations_run` gaining **no** token with the reason recorded at the leg.
+  **Live corroboration of (2)'s empty-case half:** the real upgrade report renders
+  `parked_interims_review: []` at `_agent/upgrade-reports/2026-08-25-1754-upgrade.yaml:24` —
+  **present, not omitted**, over a vault with no parks. This is the at-rest property confirmed
+  in the field; it is *not* check (6), which needs a non-empty render.
+  **STILL-OPEN (two, coupled):**
+  **(5)** a real park recorded through the new step — `grep -n "parked-interim"
+  _agent/mint/decision-log.md` → **0 matches**; no `vlt-feedback` filing has parked since the
+  release. Trigger: the owner's next `vlt-feedback` filing of a blocker the vault holds an
+  interim against (invoked-only, approval-gated); bound: Cycle 13 `inbox-capture`. *The brief's
+  own honest statement stands and the owner should hold it: **nothing in the plan schedules a
+  new upstream blocker.** If none occurs by the bound, this routes to an owner ruling on whether
+  the mechanism is graded on (2)'s at-rest evidence alone — **not to a re-carry** (A56).*
+  **(6)** ungradeable before (5) discharges, as the check itself declares — the empty render is
+  confirmed live (above), the non-empty render needs (5)'s entry to exist first. Trigger: the
+  first `vlt-upgrade` after (5); bound: as (5). *If (5) routes to an owner ruling, so does this.*
 
 - [ ] **build-2 (change-keyed-findings-cache, briefed 2026-08-25):** brief
   `factory/cycles/12-proxy-claims/briefs/build-2-change-keyed-findings-cache.md`. Six checks —
@@ -2724,6 +2825,47 @@ against it.*
   boundary from 0.15.0); bound: that upgrade run, no later than Cycle 13's `inbox-capture`.
   *First live exercise of build-3's F11 key, and the only check that proves the CHANGELOG entry
   was written as a functional input rather than as release prose.*
+
+
+  **Acceptance 2026-08-26 (`acceptance-discharge`, same evidence base).** Split — **NOT ticked;
+  no FAILED, one genuine first-exercise tail.** **All four ship-verifiable DISCHARGED:**
+  (1) the two-run fixture — run 1 `files_checked 6 / files_cached 0`, sidecar with 6 records;
+  run 2 (one page's bytes edited) `files_checked 1 / files_cached 5`, **exactly one** agent
+  dispatched, same `cache_fingerprint`, reduce still correct over all six. (2) findings parity —
+  `/usr/bin/diff` (unwrapped, named) over the cold and fully-cached `fix_now`/`flag_for_human`/
+  `opportunities` blocks exited **0**, both `sha256:45cc87b1e3b4…`; the fully-cached run
+  dispatched **0** agents against a fan-out stubbed to throw. (3) all four fingerprint mutations
+  forced cold (`module_version`, `extraction` 7→6, `decision-log` 4→3, one char of
+  `pageScanPrompt`), four fingerprints recorded. (4) the release gate —
+  `uv run tools/package-lint.py --expect-version 0.16.0` **exit 0**,
+  `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, C6 green on the re-derived sha, E6
+  `PAGE_SCAN` unchanged at **3598**; the B10-12 refusal fires on a stale-copy sim, **not** on a
+  fully-cached run, **and does** on a half-cached run whose fan-out all died — the case that
+  passes wrongly if the guard stays denominated on `pages.length`; `coverage_caps` unchanged.
+  **(6) DISCHARGED — the CHANGELOG entry worked as a functional input.**
+  `governance_rule_changes:` came back non-empty carrying **all four** facts F6 requires:
+  the Layer-3/`extraction@7` entry-condition change with the `writers:`/undeclared-is-`open`
+  consequence (`:17`), the named retirement of both prohibitions with the re-derive instruction
+  (`:18`), `para_writer_unauthorized` (`:19`), and `decision-log@4`'s `kind: parked-interim`
+  (`:20`) — plus `:21` on `extraction@7` and `:22` correctly marking the lint cache
+  *"operational, not a rule change"*. Sourced from the CHANGELOG, not from a diff.
+  **A10 CONFIRMED IN THE FIELD:** the release's first full run **was** cold —
+  `lint_cache: "cold (no _agent/lint-cache.yaml existed, and the 0.15.0 -> 0.16.0 release moved
+  module_version, the extraction pin 6 -> 7 and the decision-log pin 3 -> 4, so every prior
+  record would have been invalidated anyway) — scanned 146 / cached 0 of 146 pages; written
+  2026-08-25 under fingerprint 8a90c46fcba0e377173f|60c3ac0c3fc866ba"`, with
+  `files_checked: 146 / files_cached: 0` at `:3-4`. The sidecar wrote (150.5 KB on disk). The
+  mechanism is live; the predicted cold run is exactly what the field produced.
+  **STILL-OPEN (one):**
+  **(5)** the churn-ratio saving — this run is the **stated cold run**, i.e. the *first* of the
+  two the check requires; `files_cached: 0` is its predicted value, not a failure. Event: the
+  owner runs `vlt-lint --full` on `{field-vault}` a **second** time, where the measurement lands
+  (`files_cached` materially greater than `files_checked` at comparable `pages_total`, and
+  `agents_dispatched` falling against the 2026-08-24 baseline of 146; this run held at 146 as a
+  cold run must). Trigger: the owner (standing rule); bound: the second full lint after the
+  release, no later than Cycle 13 `inbox-capture`. **Live cost datum for that comparison,
+  recorded now:** 172 agents / 10.3M subagent tokens / 1,894 tool calls / ~60 min wall clock for
+  146 pages + 25 clusters, at `churn_since_last_full: 5 of 146`.
 
 ## Grounding corrections issued at brief time — build-3 (2026-08-25)
 
