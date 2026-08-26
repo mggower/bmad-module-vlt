@@ -15,6 +15,7 @@ causes:
   - 'The factory built a durable register for diagnoses, which are re-derivable, and none for observations, which are not.'
 cited_by:
   - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-1 (capture 2026-08-26 — Cycle 13 check (2)''s instrument was the recorded returns, and those returns were all bare-form: the subset the guard handles. The substitution that made the check pass is visibly why it passed — cause 2, with a clean specimen)'
+  - 'factory/cycles/14-no-enforcement-point/roadmap.md §A14-8 (capture 2026-08-26 — the cleanest specimen the register holds: build-2 proved the findings cache on a two-run temp fixture inside ONE harness invocation, where the SKILL-side write step was stubbed, so the only seam that breaks in the field was the one the at-rest instrument could not exercise. Cause 2. Compounded by cause 3 — the field check that would have caught it, b2(5), was tagged field-contingent and therefore did not gate, so v0.16.0 shipped a mechanism that has never once worked on a green ship-verifiable ledger.)'
 superseded_by: ''
 ---
 

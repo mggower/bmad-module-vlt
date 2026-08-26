@@ -3,7 +3,7 @@ title: 'Cycle 12 — proxy claims'
 status: 'OPEN — **v0.16.0 SHIPPED 2026-08-25** (builds 1-4 @ `216bea2`, tagged `v0.16.0`, pushed to origin). Cycle 12 = four builds, one release, built in order 1 -> 3 -> 2 with build-4 independent: b1 page-scanner corrections @ `f134190`, b3 the PARA posture @ `5585877`, b4 parked-interim guidance @ `0e76901`, b2 the change-keyed findings cache @ `93797b9` (the release build). Two convention rule changes shipped with full re-acks — `extraction.md` 6 -> 7 (four consumers) and `decision-log.md` 3 -> 4 (five consumers); handshake bipartite-clean at the gate (9 conventions, 39 pins). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, exit 0. **Ideated + roundtable-reviewed 2026-08-25** (nine owner-steered rounds, nine voices, six owner rulings, one dispute converged 4/4). **Acceptance PARTIALLY DISCHARGED 2026-08-26** over the `{field-vault}` 0.15.0 → 0.16.0 upgrade (2026-08-25 17:54) and the first post-release full lint (cold, 146/146 pages). **All 16 ship-verifiable checks PASS — the closeout gate is GREEN** (`cycle-closeout` gates on ship-verifiable only). Of the 11 field-contingent checks: **4 DISCHARGED** (b1(4) `missing_targets: []` against the corpus that produced ten-of-ten false flags; b1(6) Scan-pages `prompt_chars` 473,622 → 356,676 at equal page count; b3(8) + b2(6) `governance_rule_changes:` rendering non-empty with all four required facts), **6 STILL-OPEN first-exercise tails** — b3(6) next scheduled `vlt-brief` issue, b3(7) a partner''s first `{resources}`-write legality call, b3(9) a human-ratified `writers:` on a live charter (declaring population is **1** — the vault holds exactly one `charter.md`), b4(5) a real park through `vlt-feedback` + b4(6) coupled to it, b2(5) the **second** full lint where the churn saving is measured (this one was the predicted cold run, A10 confirmed in the field) — and **1 FAILED**: b1(5), attestation complaints still misrouting into `malformed_frontmatter` (5 of 7) and `unmarked_supersessions` (1), hand-folded "same as the 2026-08-24 run", **second consecutive run**; filed `factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md` for Cycle 13 `inbox-capture`, **not re-carried**. No filing archived — every ledger item is split, so none has all its clauses discharged. **Open owner acts, none gated by the release:** re-grade A46/`P-17` (build-3 shipped the `governance_rule_changes:` key, so its BLOCKED-unreachable grading is stale — flagged by three briefs); hand-deliver build-3''s re-derive notice to `{field-vault}`''s PARA park (A57); run the parked-interim survey (E6, a list not a count, bounded before Cycle 13''s `inbox-capture`). Next: **`cycle-closeout`** — the ship-verifiable gate is green; closeout rules the six open tails forward as standing watches and carries the b1(5) failure to Cycle 13 as its filing.'
 module_code: 'vlt'
 created: '2026-08-25'
-updated: '2026-08-26 (BOUNDED TAILS RULED AT THE BOUND — the six field-contingent tails bounded to "Cycle 13 inbox-capture" landed on Cycle 14''s capture instead; 3 DISCHARGED (b3(6) on substance by owner ruling, b4(5), b4(6)), 1 CLOSED by owner ruling (b3(9) — A33''s notification sufficient, no re-carry), 1 CARRIED with a corrected bound (b2(5) — the original bound was unsatisfiable, a release invalidated the cache between the two sweeps), 1 STILL OPEN (b3(7)). Field-contingent ledger now 7/11. See §Owner ruling — the six bounded tails at their bound. Earlier: ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed)'
+updated: '2026-08-26 (BOUNDED TAILS RULED AT THE BOUND — the six field-contingent tails bounded to "Cycle 13 inbox-capture" landed on Cycle 14''s capture instead; 3 DISCHARGED (b3(6) on substance by owner ruling, b4(5), b4(6)), 1 CLOSED by owner ruling (b3(9) — A33''s notification sufficient, no re-carry), **1 FAILED (b2(5) — the findings cache cannot round-trip; an earlier same-day CARRIED ruling is superseded in place)**, 1 STILL OPEN (b3(7)). Field-contingent ledger 7/11 + 1 FAILED. See §Owner ruling — the six bounded tails at their bound. Earlier: ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed)'
 derives_from:
   - 'factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md'
   - 'factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md'
@@ -2946,30 +2946,43 @@ field-contingent check whose discharging population is a *single vault artifact*
 in the field on the day it was written. That is `ST-5`'s territory — instruments built at the point
 of least evidence — and it is named here so the third instance does not re-derive it.
 
-**b2(5) — CARRIED with a corrected bound (owner ruling, 2026-08-26). Re-carry is legal here: this
-tail carries no no-re-carry clause.**
+**b2(5) — FAILED (2026-08-26, same day, on a live test of the corrected bound).**
 
-The second full sweep **did** run — 2026-08-26 10:46, 146 pages — and it came back cold.
-`_agent/lint-reports/2026-08-26-1046-lint.yaml:146`: *"cold (ruleset fingerprint changed —
-module_version 0.16.0 → 0.16.1 crossed earlier today; prior sidecar written 2026-08-25 under
-`8a90c46fcba0e377173f|60c3ac0c3fc866ba`, this run `bda9b0752f5e85c51743|980d749d9acf418e`).
-scanned 146 / cached 0 of 146"*.
+⚠ **This supersedes an earlier ruling in this same section, made hours before and committed.** That
+ruling read: *"This is not owner inaction, and it is not a defect — it is build-2 check (3) working
+exactly as specified"*, and CARRIED the tail with a corrected bound of *two consecutive full runs
+under the same ruleset fingerprint*. **The corrected bound was then tested and the check failed it.**
+The reasoning was wrong in one specific way worth recording: the cold run *was* correctly attributed
+to the 0.16.0 → 0.16.1 crossing, and that attribution **masked a mechanism that would have missed
+regardless**. An honest report line pointed at the wrong cause.
 
-**This is not owner inaction, and it is not a defect — it is build-2 check (3) working exactly as
-specified**: each predecessor build invalidates the cache and the release's first full run is COLD
-(A10). The v0.16.1 release landed *between* the two sweeps the measurement needs. **The original
-bound was unsatisfiable by construction**, because it never said the two sweeps must share a
-fingerprint.
+**The test.** A second full sweep on `{field-vault}`, run deliberately as this check's acceptance
+test: **146 pages, 0 of 146 changed** since the 10:46 sweep (instrument: `python3
+os.path.getmtime`, unwrapped), byte-identical corpus, same `module_version`, same conventions, **no
+release in between** — i.e. the corrected bound, satisfied. Result: **146 queued for fresh scan, 0
+served from cache.** The sweep was cancelled before completion; the verdict did not need it to
+finish.
 
-**Corrected bound:** the second full sweep **after any release, with no release between the two
-sweeps** — i.e. two consecutive full runs under the same ruleset fingerprint. The measurement is
-unchanged (`files_cached` materially greater than `files_checked` at comparable `pages_total`, and
-`agents_dispatched` falling against the 2026-08-24 baseline of 146). The live cost datum recorded
-in the ledger bullet above stands as the comparison baseline.
+**Two independent defects, either alone sufficient for a permanent 100% miss rate**, both grounded
+factory-side against shipped source: (1) the sidecar schema mismatch — `full-scale.md` step 5 tells
+the SKILL to write the workflow's returned `fresh_scans`, which are raw PAGE_SCAN objects carrying
+no `key` and no `scan` wrapper, while the reader at `vlt-lint-full.js:243` requires all three and
+`:344` dereferences `.scan`; and (2) `rulesetFingerprint` has no single-homed deterministic
+algorithm — `full-scale.md` step 2 names the inputs and specifies no digest construction, so two
+runs over an identical ruleset compute different values (`980d749d9acf418e` vs `66d27a0e6cd8fabe`).
 
-*Status: the owner is running that second sweep on `{field-vault}` directly (2026-08-26, no release
-in between — the 0.16.1 sidecar written at 10:46 is the warm baseline). Grade pending its
-`lint_cache:` line.*
+**Grade: FAILED.** Not carried, not re-bounded. There is no bound at which a structurally
+unreachable mechanism discharges. **Filed:**
+`factory/inbox/2026-08-26-141838-findings-cache-cannot-round-trip-writer-and-reader-disagree.md`,
+captured as Cycle 14 §A14-8.
+
+⚠ **The instrument lesson is `ST-5`'s, and it is exact.** Build-2's checks (1)–(3) proved the cache
+on a two-run temp fixture *inside one harness invocation*, where the SKILL-side write step never ran
+because the harness stubbed it. The one seam that breaks in the field is the one the at-rest
+instrument could not exercise — an instrument authored from the fix's shape, unable to observe what
+the fix's author did not anticipate. **And the field check that would have caught it was b2(5)
+itself, which was written as field-contingent and therefore did not gate.** Cycle 12 shipped a
+mechanism that has never once worked, with a green ship-verifiable ledger.
 
 **b3(7) — STILL OPEN, not ruled.** A partner resolving a `{resources}`-write legality question from
 the rewritten bundle without escalating. No evidence either way exists on disk: this check requires
@@ -2980,8 +2993,10 @@ escalate — which would not be a failure of the rewritten bundle but of the two
 waiting on.*
 
 **Tally at the bound: 6 tails → 3 DISCHARGED (b3(6), b4(5), b4(6)), 1 CLOSED by ruling (b3(9)),
-1 CARRIED with a corrected bound (b2(5), grade pending a live sweep), 1 STILL OPEN (b3(7)).**
-Cycle 12's field-contingent ledger is 7 of 11 discharged and no longer holds a no-re-carry item.
+1 FAILED (b2(5) — tested and refuted the same day; filed and captured as A14-8), 1 STILL OPEN
+(b3(7)).** Cycle 12's field-contingent ledger is 7 of 11 discharged, **1 FAILED**, and holds no
+no-re-carry item. The FAILED one is the cycle's first: v0.16.0 shipped the findings cache with a
+green ship-verifiable ledger, and the mechanism has never once worked in the field.
 
 ## Grounding corrections issued at brief time — build-3 (2026-08-25)
 

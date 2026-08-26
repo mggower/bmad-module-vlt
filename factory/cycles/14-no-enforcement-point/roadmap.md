@@ -3,7 +3,7 @@ title: 'Cycle 14 — no enforcement point'
 status: 'OPEN — captured 2026-08-26, 7 filings grounded against module source at v0.16.1. Not yet ideated. **This cycle carries Cycle 13''s closeout gate**: Cycle 13 shipped v0.16.1 and then FAILED acceptance check (2) on live field evidence; it is closed to capture (ship day is the capture boundary) and cannot close until a Cycle 14 build repairs the guard. **A14-1 is that repair and is the cycle''s gating entry.** Scope was owner-ruled at capture (2026-08-26): defects and blockers from Cycles 12–13 only, net-new capability deferred — see §Owner ruling — debt-clearing scope.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 7 filings captured and graded; 1 filing deferred by owner ruling; **Cycle 12''s six bounded tails ruled at the bound in the same session** — 3 discharged, 1 closed by ruling, 1 carried with a corrected bound, 1 still open; authoritative record in Cycle 12''s roadmap)'
+updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; **8 filings** captured and graded — A14-8 arrived same-day from the b2(5) acceptance test and refutes it; 1 filing deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound in the same session — 3 discharged, 1 closed by ruling, **1 FAILED (b2(5))**, 1 still open; authoritative tail record in Cycle 12''s roadmap)'
 derives_from:
   - 'factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md'
   - 'factory/inbox/2026-08-26-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md'
@@ -12,6 +12,7 @@ derives_from:
   - 'factory/inbox/2026-08-26-123153-lint-mandates-strict-yaml-persist-with-no-yaml-library.md'
   - 'factory/inbox/2026-08-26-125529-recognized-type-names-no-owning-convention.md'
   - 'factory/inbox/2026-08-26-141418-layer-3-open-entry-vs-closed-verified-by-roster.md'
+  - 'factory/inbox/2026-08-26-141838-findings-cache-cannot-round-trip-writer-and-reader-disagree.md'
 predecessor: 'factory/cycles/13-trusted-returns/roadmap.md (Cycle 13 — SHIPPED v0.16.1 @ `c18c591` 2026-08-26; OPEN and GATE-SHUT for acceptance, closed to capture, cannot close without a Cycle 14 repair)'
 intent: >
   Cycle 13 shipped a guard on the premise that a rule stated in a prompt and enforced nowhere
@@ -50,13 +51,16 @@ inside. Cycle 13's own §Carried forward already named the general answer (*ever
 value that is mechanically checkable at the reduce is checked there*) and deferred it once.
 The field has now paid for that deferral three times in one sweep.
 
-**The stated-mandate seam (A14-4, A14-5).** A promise written into a schema or a reference with
+**The stated-mandate seam (A14-4, A14-5, A14-8).** A promise written into a schema or a reference with
 nothing shipped that could keep it. `sources_vs_prose_mismatches` sits in the `fix_now:` slot —
 the slot meaning *safe to apply serially without judgment* — and the auto-fix procedure it would
 be applied by never mentions it (A14-4). `report.md` requires the persisted report parse as
 strict YAML "whole, in both homes" and the module ships nothing that emits it and nothing that
 checks it (A14-5). Both are the Cycle 13 premise one layer out from the workflow: an instruction
-at a site with no enforcement point.
+at a site with no enforcement point. **A14-8 is the seam's purest form and arrived after this
+section was first written**: the findings cache's record shape is a contract stated in code on the
+read side and in prose on the write side, meeting at a file on disk that nothing validates — so the
+mechanism has never once worked, and no shipped instrument could see it.
 
 **The roster seam (A14-6, A14-7).** Two shipped governance surfaces that each answer correctly
 and answer differently. Layer 3's entry condition requires "a recognized `type:`" and never names
@@ -106,7 +110,7 @@ general posture. **Any resolution that gives the reduce ground truth needs a pay
 dependency; the owner would then re-admit it by ruling. Capture does not pre-empt that — it
 records the joint so the ruling is made with it in view.
 
-## Capture — 7 filings (grounded against module source 2026-08-26, at v0.16.1 @ `c18c591`)
+## Capture — 8 filings (grounded against module source 2026-08-26, at v0.16.1 @ `c18c591`)
 
 Every `file:line` below was re-derived this run against working-tree source; none was taken from
 a filing on faith. Where a filing's own `provenance_guess` was checked and held, that is stated —
@@ -498,6 +502,92 @@ rosters meeting authorized actors, and reading A14-7 as ST-1 would flatten the d
 opened is the author's call and gates nothing. Naming it here so the third instance does not
 re-derive it from scratch.
 
+### A14-8. The findings cache cannot round-trip — the writer and the reader disagree, and no instrument can see it (2026-08-26) — `factory/inbox/2026-08-26-141838-findings-cache-cannot-round-trip-writer-and-reader-disagree.md`
+
+*Captured the same day the cycle opened, from a `{field-vault}` session run deliberately as Cycle
+12 b2(5)'s acceptance test. It joins the opening Capture rather than a mid-cycle addendum: this
+cycle's batch has not been ideation-ruled or roundtable-stamped, so the addendum posture does not
+apply. **It refutes b2(5), which was graded FAILED in Cycle 12's ledger the same day** — the
+authoritative record is `factory/cycles/12-proxy-claims/roadmap.md` §Owner ruling — the six bounded
+tails at their bound.*
+
+**CONFIRMED — Defect 1, the sidecar schema mismatch, and the root cause is the spec.**
+The reader requires `{slug, key, scan}`: `vlt-lint-full.js:243` filters
+`cachedScans.filter((c) => c && c.slug && c.key && c.scan)` and `:344` dereferences
+`cacheBySlug.get(p.slug).scan`. The spec tells the SKILL to write something else —
+`skills/vlt-lint/references/full-scale.md` step 5, findings-cache sub-bullet: *"one record per page
+adjudicated this run — the workflow's returned `fresh_scans`."* But `fresh_scans` is the array of
+**raw PAGE_SCAN returns** (`:293` pushes the agent's `r` unmodified; `:723` returns it as-is), which
+carry no `key` and are not wrapped. **Following the spec literally produces a sidecar the reader
+discards whole.** On disk: `_agent/lint-cache.yaml` holds 146 flat records and
+`grep -c "^    key:"` returns **0**.
+
+The key is derivable — `:722` returns `cache_fingerprint` as exactly
+`${scanFingerprint}|${rulesetFingerprint}`, and `:242`'s `runKey` is
+`${pageHashes[slug]}|${scanFingerprint}|${rulesetFingerprint}`, so the correct record is
+`{slug, key: "${pageHashes[slug]}|${cache_fingerprint}", scan: <entry>}`. **That derivation is
+nowhere in the spec** and must be reverse-engineered from workflow source by every implementer.
+
+**Sharpened — the written sidecar is lossy, not merely mis-nested.** It stores `fingerprint:` once
+at the top level (`_agent/lint-cache.yaml:1`) and **no per-page digest anywhere**, so it cannot
+express the reader's key even in principle. A reader-side fix alone cannot rescue an existing
+sidecar; the file has to be rewritten. Worth knowing before anyone proposes tolerating the flat
+shape.
+
+**CONFIRMED — Defect 2, `rulesetFingerprint` has no deterministic algorithm.** `full-scale.md`
+step 2 enumerates the inputs in order — `module_version`; the skill's `depends_on:` pin vector
+verbatim; each judged convention's digest **as merged with its overlay**; the digest of
+`references/checks.md` — and specifies **no digest construction**: no separator, no hash algorithm,
+no encoding, no truncation, no canonical member list. Two runs over an identical ruleset therefore
+compute different values; the field observed `980d749d9acf418e` against an independent
+`66d27a0e6cd8fabe` over a provably unchanged ruleset. Since `reusable()` (`:244-245`) requires
+`rulesetFingerprint` non-empty **and** an exact key match, **the cache is structurally incapable of
+hitting across sessions — the only case it exists for.**
+
+**GAP CONFIRMED — the failure is invisible to every shipped instrument, and that is the durable
+finding.** The version-skew defence (`full-scale.md` step 4) refuses only when `files_checked`
+**and** `files_cached` are **both** `0`. A run that cold-scans everything *because the cache is
+broken* reports `files_checked: 146` — full coverage, honest report, no refusal — and is
+indistinguishable from a healthy cold run. **Nothing checks that a cache written by run N is
+readable by run N+1.** Every instrument reports the cache's *counts*, never its *round-trip*.
+
+**This is the cycle's through-line, and A14-8 is its cleanest instance.** A contract stated in one
+place (the reader's filter, in code) and restated as prose in another (the spec's write
+instruction), with **no enforcement point where the two meet**. The seam is a file on disk that
+nothing validates. Defect 2 is the same shape at one remove: an algorithm *described* for each
+caller to re-derive rather than single-homed as executable steps — the `ST-3` cause (governance has
+no machine-addressable projection) reappearing as a fingerprint with no machine-addressable
+definition.
+
+**Cites `ST-5`, and sharpens it with the cleanest specimen the register has.** Build-2's
+ship-verifiable checks (1)–(3) proved the cache on a two-run temp fixture **inside one harness
+invocation, where the SKILL-side write step never ran because the harness stubbed it**. The one
+seam that breaks in the field is precisely the one the at-rest instrument could not exercise —
+ST-5's second cause, exactly. And the compounding half: **the field check that would have caught it
+was b2(5), tagged field-contingent and therefore non-gating** — ST-5's third cause (*one tag
+resolves a check's blocking power from its grading modality*). Cycle 12 shipped a mechanism that
+has never once worked, on a green ship-verifiable ledger. Append this capture to ST-5's `cited_by:`.
+
+**Residual scope.** Five directions, the field's own, re-ordered by grounding:
+
+1. **Move the wrapping into the workflow** — return write-ready `{slug, key, scan}` records instead
+   of raw `fresh_scans`, so read and write shapes cannot drift apart again. Preferred over
+   documenting the derivation: it removes the seam rather than describing it.
+2. **Move `rulesetFingerprint`'s computation into the workflow**, or single-home it as executable
+   steps (canonical member order, separator, digest, truncation). Same argument.
+3. **A round-trip acceptance check** — write the sidecar, read it back, assert every record is
+   reusable against an unchanged corpus. This is what the cancelled sweep manually stood in for,
+   and its absence is what made both defects invisible. **Ship-verifiable at rest**, so it can gate.
+4. Amend `full-scale.md` step 5 to state the record shape and key derivation explicitly — the
+   fallback if 1 is not taken.
+5. **Widen the step-4 refusal predicate** (or add a distinct signal) so "cold because the cache was
+   unreadable" is distinguishable from "cold because the ruleset legitimately moved."
+
+**Note for ideation — this one is cheap and it is not on the #13 joint.** Unlike A14-1..A14-3 and
+Cycle 13 carry 1, nothing here needs the reduce to read page bytes. `pageHashes` already crosses the
+seam (`:47-49`), the workflow already returns `cache_fingerprint`, and every fix is a shape or a
+single-homing. It is the one entry in this cycle that can be taken without ruling question 2 first.
+
 ## Carried forward from Cycle 13 — live, grounded, un-built
 
 Recorded in `factory/cycles/13-trusted-returns/roadmap.md` §Carried forward (ruled OUT of the
@@ -543,16 +633,17 @@ reasoning, and the superseded ledger notes — is single-homed at
 
 | tail | the check, in one line | outcome at the bound |
 |---|---|---|
-| b2(5) | the `churn`-ratio saving is real at live churn | **CARRIED, corrected bound** — the original was unsatisfiable; v0.16.1 invalidated the cache between the two sweeps |
+| b2(5) | the `churn`-ratio saving is real at live churn | **FAILED** — the corrected bound was tested the same day and refuted; filed and captured as **A14-8** |
 | b3(6) | `trust: raw` representable-and-present in PARA (`ST-2`'s own test) | **DISCHARGED on substance** (owner ruling) — the ledger's evidence note was stale |
 | b3(7) | a partner resolves a `{resources}`-write legality question without escalating | **STILL OPEN** — needs owner observation; no disk evidence either way |
 | b3(9) | a vault declares `writers:` on a container it had framed in prose | **CLOSED by owner ruling** — A33's notification sufficient, no re-carry |
 | b4(5) | a real park recorded through the new `vlt-feedback` step | **DISCHARGED** — two parks, both against rail-filed blockers |
 | b4(6) | the next `vlt-upgrade` renders a non-empty `parked_interims_review:` | **DISCHARGED** — first live non-empty render |
 
-**None of the six enters Cycle 14 as build scope** — none is a defect, and §Owner ruling admits
-only defects and blockers. Cycle 12's field-contingent ledger stands at **7 of 11 discharged** and
-**no longer holds a no-re-carry item**.
+**Five of the six do not enter Cycle 14 as build scope** — none of those five is a defect, and
+§Owner ruling admits only defects and blockers. **b2(5) is the exception: it FAILED**, and the
+defects behind it enter as **A14-8**. Cycle 12's field-contingent ledger stands at **7 of 11
+discharged, 1 FAILED**, and holds no no-re-carry item.
 
 **Three things this cycle inherits from the ruling, none of them build scope:**
 
