@@ -3,7 +3,7 @@ title: 'Cycle 14 — no enforcement point'
 status: 'OPEN — captured 2026-08-26, 7 filings grounded against module source at v0.16.1. Not yet ideated. **This cycle carries Cycle 13''s closeout gate**: Cycle 13 shipped v0.16.1 and then FAILED acceptance check (2) on live field evidence; it is closed to capture (ship day is the capture boundary) and cannot close until a Cycle 14 build repairs the guard. **A14-1 is that repair and is the cycle''s gating entry.** Scope was owner-ruled at capture (2026-08-26): defects and blockers from Cycles 12–13 only, net-new capability deferred — see §Owner ruling — debt-clearing scope.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 7 filings captured and graded; 1 filing deferred by owner ruling; Cycle 12''s six bounded tails recorded as bound-landed)'
+updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 7 filings captured and graded; 1 filing deferred by owner ruling; **Cycle 12''s six bounded tails ruled at the bound in the same session** — 3 discharged, 1 closed by ruling, 1 carried with a corrected bound, 1 still open; authoritative record in Cycle 12''s roadmap)'
 derives_from:
   - 'factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md'
   - 'factory/inbox/2026-08-26-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md'
@@ -527,41 +527,50 @@ posture work; none is net-new capability, so all three are admitted under §Owne
    that measurement. **It FAILED, so the measurement does not exist**: whatever build takes this
    must produce it, and the successor named by Cycle 13 is the build that takes carry 2.
 
-## Cycle 12's six bounded tails — the bound landed on this run
+## Cycle 12's six bounded tails — the bound landed on this run, and was ruled
 
 Cycle 12 shipped v0.16.0 and its acceptance left six field-contingent checks open, each bounded to
 **"Cycle 13's `inbox-capture`"**. Cycle 13's capture was a narrow patch capture that explicitly did
 not trigger the attachment (Cycle 13 §Owner ruling — narrow-capture carve-out), and Cycle 13 is now
-closed to capture without ever running a full batch. **This run is that batch, so the bound lands
-here, today.**
+closed to capture without ever having run a full batch. **This run is that batch, so the bound
+landed here.**
 
-None of the six is a defect, so under §Owner ruling none is admitted as Cycle 14 build scope. They
-are recorded because their bounds are now due and three of them carry explicit no-re-carry text.
+**The tails were ruled in the same session, against evidence re-gathered from `{field-vault}` at
+the bound rather than from the ledger's last-known state.** The authoritative record — grades,
+reasoning, and the superseded ledger notes — is single-homed at
+`factory/cycles/12-proxy-claims/roadmap.md` §Owner ruling — the six bounded tails at their bound
+(2026-08-26). It is **not** restated here. Outcome only:
 
-| tail | the check, in one line | status at the bound |
+| tail | the check, in one line | outcome at the bound |
 |---|---|---|
-| b2(5) | the `churn`-ratio saving is real at live churn | unmet — needs a second live full sweep at low churn |
-| b3(6) | `trust: raw` becomes representable and present in PARA (`ST-2`'s own test) | unmet — the `vlt-brief` shelf is parked pending A14-6 |
-| b3(7) | a partner resolves a `{resources}`-write legality question from the rewritten bundle without escalating | unmet |
-| b3(9) | a vault declares `writers:` on a container it had framed in prose | unmet — **no-re-carry** |
-| b4(5) | a real park is recorded through the new `vlt-feedback` step | **arguably met** — see below |
-| b4(6) | the next `vlt-upgrade` renders a **non-empty** `parked_interims_review:` | unmet, and coupled to b4(5) |
+| b2(5) | the `churn`-ratio saving is real at live churn | **CARRIED, corrected bound** — the original was unsatisfiable; v0.16.1 invalidated the cache between the two sweeps |
+| b3(6) | `trust: raw` representable-and-present in PARA (`ST-2`'s own test) | **DISCHARGED on substance** (owner ruling) — the ledger's evidence note was stale |
+| b3(7) | a partner resolves a `{resources}`-write legality question without escalating | **STILL OPEN** — needs owner observation; no disk evidence either way |
+| b3(9) | a vault declares `writers:` on a container it had framed in prose | **CLOSED by owner ruling** — A33's notification sufficient, no re-carry |
+| b4(5) | a real park recorded through the new `vlt-feedback` step | **DISCHARGED** — two parks, both against rail-filed blockers |
+| b4(6) | the next `vlt-upgrade` renders a non-empty `parked_interims_review:` | **DISCHARGED** — first live non-empty render |
 
-**b4(5) may in fact have discharged, and this run is the first evidence.** Its check is that a real
-park is recorded through the new step, triggered by *"the owner's next `vlt-feedback` filing of a
-blocker the vault holds an interim against."* Cycle 13's discharge run records **two live
-`kind: parked-interim` entries against issues #15 and #16** — which are A14-6 and A14-7, filed
-through the rail and materialized by this run's intake. The brief's own honest caveat was that
-*"nothing in the plan schedules a new upstream blocker"*; two arrived anyway. **Capture does not
-grade acceptance checks** — that is `acceptance-discharge`'s job against Cycle 12's ledger — but
-the evidence now exists and the discharge run should be pointed at it. b4(6) is coupled and
-becomes gradeable on the next `vlt-upgrade`.
+**None of the six enters Cycle 14 as build scope** — none is a defect, and §Owner ruling admits
+only defects and blockers. Cycle 12's field-contingent ledger stands at **7 of 11 discharged** and
+**no longer holds a no-re-carry item**.
 
-**b3(9), b4(5) and b4(6) carry explicit no-re-carry text** (Cycle 12's A56 lesson): if unmet at the
-bound, each *"routes to an owner ruling on whether the mechanism is graded on the at-rest evidence
-alone — **not to a re-carry**."* That ruling is now due. It belongs to `acceptance-discharge` or
-`cycle-closeout` over Cycle 12's ledger, **not to this cycle's ideation**, and it is named here so
-the bound is not silently missed a second time.
+**Three things this cycle inherits from the ruling, none of them build scope:**
+
+1. **A14-6's filing is stale against its own vault, and its capture should be read knowing that.**
+   Tracker #15 describes moving the `vlt-brief` shelf to a `{resources}` address as prospective;
+   the shelf has been at `resources/briefs/` since before the 2026-08-26 10:46 lint, which
+   enumerates all five issues by path in `para_type_unknown`. The defect A14-6 reports is
+   unaffected — the two conventions still disagree — but the framing *"moving the shelf today
+   would put files into the PARA population"* is past tense, and the files are already there under
+   a recorded park.
+2. **b3(7) interacts with A14-6 and A14-7.** Both are live parks against the same bundle, so a
+   partner attempting a `{resources}` write today may legitimately escalate — which would not be a
+   failure of the rewritten bundle but of the two vocabularies it is waiting on. b3(7) is
+   effectively ungradeable until those two rule.
+3. **The b3(9) population problem is `ST-5` material.** A field-contingent check whose discharging
+   population was a *single vault artifact* was not gradeable in the field on the day it was
+   written. Named in the Cycle 12 ruling; carried here so the instrument work has the third
+   instance.
 
 ## Also carried, not a filing
 

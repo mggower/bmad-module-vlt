@@ -3,7 +3,7 @@ title: 'Cycle 12 — proxy claims'
 status: 'OPEN — **v0.16.0 SHIPPED 2026-08-25** (builds 1-4 @ `216bea2`, tagged `v0.16.0`, pushed to origin). Cycle 12 = four builds, one release, built in order 1 -> 3 -> 2 with build-4 independent: b1 page-scanner corrections @ `f134190`, b3 the PARA posture @ `5585877`, b4 parked-interim guidance @ `0e76901`, b2 the change-keyed findings cache @ `93797b9` (the release build). Two convention rule changes shipped with full re-acks — `extraction.md` 6 -> 7 (four consumers) and `decision-log.md` 3 -> 4 (five consumers); handshake bipartite-clean at the gate (9 conventions, 39 pins). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, exit 0. **Ideated + roundtable-reviewed 2026-08-25** (nine owner-steered rounds, nine voices, six owner rulings, one dispute converged 4/4). **Acceptance PARTIALLY DISCHARGED 2026-08-26** over the `{field-vault}` 0.15.0 → 0.16.0 upgrade (2026-08-25 17:54) and the first post-release full lint (cold, 146/146 pages). **All 16 ship-verifiable checks PASS — the closeout gate is GREEN** (`cycle-closeout` gates on ship-verifiable only). Of the 11 field-contingent checks: **4 DISCHARGED** (b1(4) `missing_targets: []` against the corpus that produced ten-of-ten false flags; b1(6) Scan-pages `prompt_chars` 473,622 → 356,676 at equal page count; b3(8) + b2(6) `governance_rule_changes:` rendering non-empty with all four required facts), **6 STILL-OPEN first-exercise tails** — b3(6) next scheduled `vlt-brief` issue, b3(7) a partner''s first `{resources}`-write legality call, b3(9) a human-ratified `writers:` on a live charter (declaring population is **1** — the vault holds exactly one `charter.md`), b4(5) a real park through `vlt-feedback` + b4(6) coupled to it, b2(5) the **second** full lint where the churn saving is measured (this one was the predicted cold run, A10 confirmed in the field) — and **1 FAILED**: b1(5), attestation complaints still misrouting into `malformed_frontmatter` (5 of 7) and `unmarked_supersessions` (1), hand-folded "same as the 2026-08-24 run", **second consecutive run**; filed `factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md` for Cycle 13 `inbox-capture`, **not re-carried**. No filing archived — every ledger item is split, so none has all its clauses discharged. **Open owner acts, none gated by the release:** re-grade A46/`P-17` (build-3 shipped the `governance_rule_changes:` key, so its BLOCKED-unreachable grading is stale — flagged by three briefs); hand-deliver build-3''s re-derive notice to `{field-vault}`''s PARA park (A57); run the parked-interim survey (E6, a list not a count, bounded before Cycle 13''s `inbox-capture`). Next: **`cycle-closeout`** — the ship-verifiable gate is green; closeout rules the six open tails forward as standing watches and carries the b1(5) failure to Cycle 13 as its filing.'
 module_code: 'vlt'
 created: '2026-08-25'
-updated: '2026-08-26 (ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed; ledger annotated per item. Superseded: 2026-08-25 (RELEASED — v0.16.0 shipped @ `216bea2`, annotated tag pushed; all four briefs BUILT, release commit carries the package-lint PASS line))'
+updated: '2026-08-26 (BOUNDED TAILS RULED AT THE BOUND — the six field-contingent tails bounded to "Cycle 13 inbox-capture" landed on Cycle 14''s capture instead; 3 DISCHARGED (b3(6) on substance by owner ruling, b4(5), b4(6)), 1 CLOSED by owner ruling (b3(9) — A33''s notification sufficient, no re-carry), 1 CARRIED with a corrected bound (b2(5) — the original bound was unsatisfiable, a release invalidated the cache between the two sweeps), 1 STILL OPEN (b3(7)). Field-contingent ledger now 7/11. See §Owner ruling — the six bounded tails at their bound. Earlier: ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed)'
 derives_from:
   - 'factory/inbox/2026-08-24-173001-lint-page-scanner-counts-code-span-wikilinks.md'
   - 'factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md'
@@ -2866,6 +2866,122 @@ against it.*
   release, no later than Cycle 13 `inbox-capture`. **Live cost datum for that comparison,
   recorded now:** 172 agents / 10.3M subagent tokens / 1,894 tool calls / ~60 min wall clock for
   146 pages + 25 clusters, at `churn_since_last_full: 5 of 146`.
+
+## Owner ruling — the six bounded tails at their bound (2026-08-26)
+
+*Every one of Cycle 12's six field-contingent tails was bounded to **"Cycle 13's `inbox-capture`."**
+Cycle 13's capture was a narrow patch capture that explicitly did not trigger the attachment
+(Cycle 13 §Owner ruling — narrow-capture carve-out), and Cycle 13 shipped and closed to capture
+without ever running a full batch. **Cycle 14's `inbox-capture` on 2026-08-26 is that batch, so
+the bound landed there** — recorded at `factory/cycles/14-no-enforcement-point/roadmap.md`
+§Cycle 12's six bounded tails. This section records the grades and the owner rulings taken in
+that session, against evidence re-gathered from `{field-vault}` at the bound rather than from the
+ledger's last-known state.*
+
+*The ledger bullets above are append-only and are **not** rewritten; this section supersedes their
+STILL-OPEN notes where it says so.*
+
+**b4(5) — DISCHARGED (grading, not a ruling).** A real park recorded through the new step. The
+ledger's own instrument — `grep -n "parked-interim" _agent/mint/decision-log.md` — returned **0**
+at the discharge run and returns **two entries** at the bound, both dated 2026-08-26:
+`decision-log.md:1197` (agent-lane `type:` in the PARA population, `ref: conventions/extraction.md`,
+filing #15) and `:1255` (partner-sitting writes to Layer 3 left unattested,
+`ref: conventions/write-verification.md`, filing #16). The trigger fired exactly as specified —
+*the owner's next `vlt-feedback` filing of a blocker the vault holds an interim against*. **The
+brief's honest caveat is worth preserving rather than quietly overwritten:** it stated that
+*nothing in the plan schedules a new upstream blocker*, and that was true; two arrived anyway,
+from the 0.16.1 sweep. The check discharged on its own terms, not on a re-reading of them.
+
+**b4(6) — DISCHARGED (grading, not a ruling).** The non-empty render.
+`_agent/upgrade-reports/2026-08-26-1046-upgrade.yaml:18-20` renders `parked_interims_review:` with
+**both** entries, each naming its convention, its park and its filing URL. The conditional half is
+satisfied more strongly than the check asked: each line states the `governance_rule_changes:`
+relationship explicitly — *"This run's `governance_rule_changes` is empty: the rules this park
+rests on did not move at 0.16.1, and the filing is still open."* The coupling to b4(5) is resolved
+because b4(5) discharged; this is the first live non-empty render of build-4's key.
+
+**b3(6) — DISCHARGED on substance (owner ruling, 2026-08-26).**
+
+⚠ **The ledger's STILL-OPEN note for this check is stale and is superseded here.** It records the
+newest `vlt-brief` issue at `_agent/briefs/ai-tech-industry/2026-08-24-issue-003.md` and states
+*"the only `trust: raw` outside `{wiki}` today is the pre-existing
+`resources/workflow/wispr-obsidian-shortcut.md`."* Neither holds at the bound. The shelf is at
+**`resources/briefs/`** — a `{resources}` address, i.e. in PARA — carrying five issues across three
+series, every one `type: research` / `author: agent` / `trust: raw`, with **no relabeling, no
+pointer-container indirection and no bespoke carve-out**. The 2026-08-26 10:46 full lint enumerates
+all five by path independently (`_agent/lint-reports/2026-08-26-1046-lint.yaml:34`). Tracker #15,
+filed at 12:55 the same day, still describes moving the shelf as prospective — so the filing is
+stale against the vault too, and A14-6's capture should be read with that in mind.
+
+**The ruling.** The check names **`ST-2`'s own test** as its authority — *"if no `raw` content
+appears there after the entry-condition change, the change did not take"* — and says **"regardless
+of contract text."** Outcome **(a) `raw` appears honestly** is satisfied, on five files, verified by
+an instrument that is not the vault's own claim. The specified event (*the first scheduled issue
+after the release*) was **a way of producing that state, not the state itself**; the state exists
+and was reached without falsifying `author:` (outcome (c) refuted explicitly). Graded
+**DISCHARGED**. *Recorded honestly: the five files predate the release, so this discharges the
+check's substance and does **not** evidence that a post-0.16.0 scheduled run behaves correctly.
+That is a weaker claim than the event would have supported, and the ruling accepts it knowingly.*
+
+**b3(9) — CLOSED by owner ruling: A33's notification is sufficient (2026-08-26).** No re-carry.
+
+Evidence at the bound, independently confirmed: the vault holds **exactly one** `charter.md`
+(`projects/fantasy-2026`), declaring **no** `writers:`, and `para_writer_unauthorized: []` at
+`_agent/lint-reports/2026-08-26-1046-lint.yaml:38` carries the report's own note — *"no charter in
+the vault declares `writers:`, so every container's posture is `open` and every file PASSES
+(0.16.0 rule: silence means open, not closed)."*
+
+The check's own escape hatch is invoked as written: *if none declares by the bound, that routes to
+an owner ruling on whether A33's notification is sufficient, **not to a fourth re-carry***. The
+owner rules it **sufficient**. Reasoning on record: the mechanism is already proven at rest —
+build-3 check (5) discharged the resolver whole (nearest declaring ancestor, inheritance,
+undeclared → `open` → PASS, `{wiki}` removed at population time), and its first run surfaced and
+fixed the `author: hybrid` hole. A33's notification fired to prompt declaration. With a declaring
+population of **1**, "no vault declared by the bound" was never going to be evidence about the
+mechanism, and the ledger's own ⚠ note said so before the bound arrived. Waiting longer buys
+nothing this check can spend.
+
+⚠ **The population problem is the durable finding here, and it outlives this grade.** A
+field-contingent check whose discharging population is a *single vault artifact* was not gradeable
+in the field on the day it was written. That is `ST-5`'s territory — instruments built at the point
+of least evidence — and it is named here so the third instance does not re-derive it.
+
+**b2(5) — CARRIED with a corrected bound (owner ruling, 2026-08-26). Re-carry is legal here: this
+tail carries no no-re-carry clause.**
+
+The second full sweep **did** run — 2026-08-26 10:46, 146 pages — and it came back cold.
+`_agent/lint-reports/2026-08-26-1046-lint.yaml:146`: *"cold (ruleset fingerprint changed —
+module_version 0.16.0 → 0.16.1 crossed earlier today; prior sidecar written 2026-08-25 under
+`8a90c46fcba0e377173f|60c3ac0c3fc866ba`, this run `bda9b0752f5e85c51743|980d749d9acf418e`).
+scanned 146 / cached 0 of 146"*.
+
+**This is not owner inaction, and it is not a defect — it is build-2 check (3) working exactly as
+specified**: each predecessor build invalidates the cache and the release's first full run is COLD
+(A10). The v0.16.1 release landed *between* the two sweeps the measurement needs. **The original
+bound was unsatisfiable by construction**, because it never said the two sweeps must share a
+fingerprint.
+
+**Corrected bound:** the second full sweep **after any release, with no release between the two
+sweeps** — i.e. two consecutive full runs under the same ruleset fingerprint. The measurement is
+unchanged (`files_cached` materially greater than `files_checked` at comparable `pages_total`, and
+`agents_dispatched` falling against the 2026-08-24 baseline of 146). The live cost datum recorded
+in the ledger bullet above stands as the comparison baseline.
+
+*Status: the owner is running that second sweep on `{field-vault}` directly (2026-08-26, no release
+in between — the 0.16.1 sidecar written at 10:46 is the warm baseline). Grade pending its
+`lint_cache:` line.*
+
+**b3(7) — STILL OPEN, not ruled.** A partner resolving a `{resources}`-write legality question from
+the rewritten bundle without escalating. No evidence either way exists on disk: this check requires
+the owner to *observe* a partner session attempting such a write, and none is recorded. Carried
+unchanged, bound to Cycle 14's closeout. *Note the interaction: A14-6 and A14-7 are both live parks
+against the same bundle, so a partner attempting a `{resources}` write today may legitimately
+escalate — which would not be a failure of the rewritten bundle but of the two vocabularies it is
+waiting on.*
+
+**Tally at the bound: 6 tails → 3 DISCHARGED (b3(6), b4(5), b4(6)), 1 CLOSED by ruling (b3(9)),
+1 CARRIED with a corrected bound (b2(5), grade pending a live sweep), 1 STILL OPEN (b3(7)).**
+Cycle 12's field-contingent ledger is 7 of 11 discharged and no longer holds a no-re-carry item.
 
 ## Grounding corrections issued at brief time — build-3 (2026-08-25)
 
