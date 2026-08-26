@@ -5,6 +5,14 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.16.1 — 2026-08-26
+
+**Cycle 13** — trusted returns. A single-build patch.
+
+- **Build 1 — reduce-side guards:** the full-lint reduce stops taking the page scanner's `frontmatter_valid` / `frontmatter_issue` claim on faith. An issue naming only the attestation pair, or only a claimed-missing *optional* field, is refused entry to `malformed_frontmatter` and `unmarked_supersessions` — both exclusions are conjunctions, so a page that is genuinely malformed **and** unattested still reports, and a claim the reduce cannot positively identify always reports. The attestation fact is not lost: it was already reported through `unattested_write` and `attestation_census`, computed independently from the same returned values, so what the guard removes is a duplicate. `malformed_frontmatter` also gains the check definition, exclusions and legal response it never had (`vlt-lint/references/checks.md`) and a documented report slot (`references/report.md`).
+
+**No governance rule changes cross v0.16.1** — no convention `version:` moves, no consumer re-acks owed.
+
 ## v0.16.0 — 2026-08-25
 
 **Cycle 12** — the proxy-claims cycle.

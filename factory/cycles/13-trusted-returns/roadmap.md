@@ -3,7 +3,7 @@ title: 'Cycle 13 — trusted returns'
 status: 'OPEN — opened 2026-08-26 by a **narrow patch capture** (one filing, one build, targeting a v0.16.1 patch release). Cycle 12 shipped v0.16.0 on 2026-08-25 and is therefore closed to capture (ship day, not closeout day, is the capture boundary) while remaining open for `acceptance-discharge` and `cycle-closeout`. **This capture is deliberately narrow and the title is provisional** — the cycle has one filing so far; the through-line and title are to be revisited when the first full capture batch lands. **Ideation COMPLETE 2026-08-26** — one build, `spike: none`, roundtable owner-waived on `joint moved: none`: **build-1 fixes the two JS-side instances** (the attestation misroute + the invented requirement, both at `vlt-lint-full.js:609`), cut for a **v0.16.1** patch. Finding 4 (the paraphrased verbatim field) and the general posture are **BACKLOGGED** — see §Carried forward, incl. the open routing question that the patch tag would close Cycle 13 to capture. Acceptance instrument ruled to the **six real pages that failed**, ship-verifiable so it gates. **build-1 BRIEFED 2026-08-26** — `briefs/build-1-reduce-side-guards.md`; four acceptance checks in the ledger (three ship-verifiable, all gating; one field-contingent). Brief-time grounding found `malformed_frontmatter` to be the module''s only **unhomed** finding class — one occurrence, no definition, no legal response, no report slot — owner-ruled **HOME IT, GUARD IT**, with the retirement named and deferred. Next: **a fresh builder session** implements the brief via `bmad-workflow-builder`.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created)'
+updated: '2026-08-26 (opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
 derives_from:
   - 'factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md'
 predecessor: 'factory/cycles/12-proxy-claims/roadmap.md (Cycle 12 — SHIPPED v0.16.0 @ `216bea2` 2026-08-25; OPEN for acceptance/closeout, closed to capture)'
@@ -394,6 +394,20 @@ and does not pre-empt that study.*
 2. **The general posture (Q3's "true fix").** *Every agent-returned value that is mechanically
    checkable at the reduce is checked there.* The durable answer to A13-1's diagnosis; larger
    than a patch.
+3. **Retiring `malformed_frontmatter` itself** — *named and deferred by build-1's brief-time
+   disposition 6, recorded here in the same run, per P-15 (a retirement is named, never silently
+   survived).* Once build-1's guard lands, the class's genuine population is "schema breaks that
+   are not attestation and not invented" — which may be fully covered by the documented
+   `frontmatter_drift` (`vlt-lint-full.js:573-575`). **Not taken in build-1:** retiring a shipped
+   finding class is a behavioral removal that needs a *measured* population before it is safe, and
+   build-1's own acceptance produces exactly that measurement (check (2) records what genuinely
+   reaches the class). **Successor named:** the Cycle 13+ build that takes Q3's general posture
+   (carry 2 above) also takes this retirement, informed by build-1's field numbers. Note the same
+   ⚠ routing question below applies to this carry.
+   *Not carried, deliberately:* the prompt-side prohibitions at `vlt-lint-full.js:159`/`:168` that
+   build-1's guard makes redundant are **kept**, as defence in depth — they remain correct, they
+   are cheap, and a scanner that honours them produces less work for the guard. Stated so a later
+   reader does not read their survival as an oversight.
 
 **⚠ Open routing question — where these land.** If **v0.16.1 ships out of Cycle 13**, then by
 `inbox-capture`'s own rule (*ship day, not closeout day, is the capture boundary*) Cycle 13

@@ -63,6 +63,7 @@ flag_for_human:
   spec_candidate: [<handoff-doc — signal re-relay (2 same-key handoff entries) | dated revision record; new | signal changed (item updated); owner <partner>; M prior declines honored>, ...]   # loud entries only: new candidates + standing candidates whose signal changed (Step 2's repeat partition)
   spec_candidate_standing: <N standing candidate(s) — previously filed, open backlog item, signal unchanged: <paths>>   # the quiet line — derived from {backlog} open items, never prior reports; renders (denominated zero included) whenever _agent/handoffs/ is non-empty; no line when it is empty
   thin_pages: [<page>, ...]
+  malformed_frontmatter: [<page: what is wrong>, ...]   # frontmatter absent/unparseable or a page-schema break the field-level frontmatter_drift does not cover; an attestation-only complaint (→ unattested_write) and a claimed-missing OPTIONAL field (→ not a finding) are excluded at the reduce, never listed here
 opportunities:
   high_value_gaps: unmeasured     # no producer exists (the fan-out computes no gap candidates) — render the literal, never [] and never omit: an empty list would claim "measured, none found"
   near_duplicates: [<page-a + page-b (signal)>, ...]

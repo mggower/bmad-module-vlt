@@ -545,6 +545,89 @@ const collect = (key) => scans.flatMap((s) => (s[key] || []).map((v) => `${s.slu
 const summaryIssue = (s) => !(s.summary || '').trim() ? 'summary missing' : s.summary.length > 160 ? `over-length (${s.summary.length} chars)` : ''
 const attested = (s) => !!(s.verified_by && s.verified_at) // present = both non-empty
 const isStale = (s) => attested(s) && !!s.last_updated && s.last_updated > s.verified_at
+
+// ── Reduce-side guards on the frontmatter-validity claim (A13-1 F1/F3/F5) ────────────────
+// This reduce used to admit `frontmatter_valid === false` and print `frontmatter_issue`
+// unread. The PAGE_SCAN descriptions already forbid routing a missing attestation pair into
+// a validity defect (see frontmatter_valid) or an unmarked supersession (see
+// unmarked_supersession), and that text is correct — but a schema description is an
+// INSTRUCTION, not an enforcement point. Cycle 12 build-1 shipped exactly that prohibition
+// and the very next two full sweeps reported the defect unchanged (20 entries hand-folded
+// 2026-08-24, 6 on 2026-08-25). So what the reduce can decide WITHOUT page content, it now
+// decides here, at the only point in the pipeline that can enforce it.
+//
+// The guards only ever REFUSE an entry; they never add one, and they never fire on a claim
+// they cannot positively identify (see the residue rule below) — the failure direction is
+// over-reporting, never swallowing a genuine schema break.
+
+// The page-required frontmatter set is the WIKI PAGE SCHEMA's ({conventions}/frontmatter.md,
+// *Wiki pages* — base fields plus the wiki additions), deliberately NOT PAGE_SCAN.required
+// above: that list governs what the AGENT must RETURN, not what a PAGE must CARRY. Conflating
+// the two is the defect this guards — a scanner reported a page as invalid for `missing
+// review_after` because review_after is a required RETURN value, while the page schema
+// documents it as OPTIONAL (absence = evergreen). Where the two disagree, the page schema governs.
+const PAGE_REQUIRED_FRONTMATTER = ['type', 'created', 'title', 'author', 'trust', 'last_updated', 'summary', 'category', 'topic', 'status', 'sources']
+// Documented-optional page slots — absence is conformant, so "missing X" over one of these is
+// not a finding at all (frontmatter@13, *Wiki pages*).
+const PAGE_OPTIONAL_FRONTMATTER = ['review_after', 'source_type', 'review_note']
+// Attestation is a self-marker under write-verification@3's Scope rule: its absence is never a
+// validity defect and never an unmarked supersession. It is reported independently, from the
+// same returned values, by unattested_write and attestation_census below.
+const ATTESTATION_FRONTMATTER = ['verified_by', 'verified_at']
+const KNOWN_FRONTMATTER = PAGE_REQUIRED_FRONTMATTER.concat(PAGE_OPTIONAL_FRONTMATTER, ATTESTATION_FRONTMATTER)
+// Scanned longest-key-first so a key that contains another is never shredded by it —
+// `source_type` must match as `source_type`, not leave a `source` crumb behind once `type` ate it.
+const KNOWN_FRONTMATTER_BY_LENGTH = KNOWN_FRONTMATTER.slice().sort((a, b) => b.length - a.length)
+
+// Case- and punctuation-insensitive normalization, so `verified_by`, "verified by",
+// "`verified_by`/`verified_at`" and "Missing verified_at." all read the same.
+const normalizeClaim = (text) => ` ${String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `
+const claimWords = (field) => field.replace(/_/g, ' ')
+// The residue rule — the "and NOTHING else" half of both dispositions. Strip every recognized
+// frontmatter key and the bare connective filler a complaint uses to join them; whatever is
+// left is a claim this reduce cannot decide. Non-empty residue ⇒ no guard fires and the entry
+// reports, so "malformed AND unattested" survives as a finding while "missing verified_by,
+// verified_at" does not.
+const CLAIM_FILLER = ['missing', 'absent', 'no', 'not', 'present', 'and', 'or', 'also', 'the', 'a', 'an', 'is', 'are', 'both', 'plus', 'with', 'field', 'fields', 'key', 'keys', 'frontmatter', 'page']
+// One pass over the claim: consume every recognized key longest-first, recording which were
+// named and leaving the rest as residue.
+const parseClaim = (text) => {
+  let norm = normalizeClaim(text)
+  const named = new Set()
+  for (const f of KNOWN_FRONTMATTER_BY_LENGTH) {
+    const token = ` ${claimWords(f)} `
+    if (!norm.includes(token)) continue
+    named.add(f)
+    norm = norm.split(token).join(' ')
+  }
+  return { named, residue: norm.split(' ').filter((w) => w && !CLAIM_FILLER.includes(w)).join(' ') }
+}
+const fieldsNamed = (claim, set) => set.filter((f) => claim.named.has(f))
+
+// Disposition 1 — the attestation-only complaint. The test is "attestation and NOTHING else",
+// never "mentions attestation": a page that is genuinely malformed AND also unattested must
+// still be reported. The refused entry loses no fact — the page's unattestedness is already
+// reported, computed independently from attested() over the same returned values, through
+// unattested_write and attestation_census. Refusing here removes a DUPLICATE, not a finding.
+const attestationOnlyComplaint = (text) => {
+  const claim = parseClaim(text)
+  return fieldsNamed(claim, ATTESTATION_FRONTMATTER).length > 0 &&
+    fieldsNamed(claim, PAGE_REQUIRED_FRONTMATTER).length === 0 &&
+    claim.residue === ''
+}
+
+// Disposition 2 — the invented requirement. "missing X" where X is documented-optional of a
+// page is not a finding at all. Unlike disposition 1 this refusal carries NO fact anywhere —
+// the requirement does not exist — so the entry is simply dropped. That asymmetry is
+// deliberate: disposition 1 drops a duplicate, disposition 2 drops a non-event.
+const inventedRequirement = (text) => {
+  const claim = parseClaim(text)
+  return fieldsNamed(claim, PAGE_OPTIONAL_FRONTMATTER).length > 0 &&
+    fieldsNamed(claim, PAGE_REQUIRED_FRONTMATTER).length === 0 &&
+    claim.residue === ''
+}
+
+const refusedFrontmatterClaim = (text) => attestationOnlyComplaint(text) || inventedRequirement(text)
 // The attestation census (E6/B10-11): the denominated wiki-wide line for the browsable
 // wiki — pure arithmetic over the attestation values the scanners ALREADY return (no new
 // ask, no PAGE_SCAN change). fresh = attested and current; stale = attested but
@@ -573,7 +656,12 @@ return {
     frontmatter_drift: scans
       .filter((s) => s.topic_is_list === false || summaryIssue(s))
       .map((s) => `${s.slug}: ${[s.topic_is_list === false ? 'topic not a list' : '', summaryIssue(s)].filter(Boolean).join('; ')}`),
-    unmarked_supersessions: collect('unmarked_supersession'),
+    // Guarded at the CALL SITE, never inside collect() (:542) — collect is generic and shared,
+    // and a guard inside it would silently narrow every other class built on it. The filter runs
+    // on the raw returned value rather than collect's `slug: value` string, so a slug can never
+    // be mistaken for claim text. A13-1 Finding 1's sixth entry (an attestation complaint) arrived
+    // here after the same prompt-side prohibition was ignored.
+    unmarked_supersessions: scans.flatMap((s) => (s.unmarked_supersession || []).filter((v) => !attestationOnlyComplaint(v)).map((v) => `${s.slug}: ${v}`)),
     sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose === 'diverge').map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: vs prose Sources diverge'}`),
   },
   flag_for_human: {
@@ -606,7 +694,12 @@ return {
     // it composes contradiction_scan: from its own run facts.
     entity_collisions: flat('entity_collisions').concat(seededCollisions),
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
-    malformed_frontmatter: scans.filter((s) => s.frontmatter_valid === false).map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
+    // The scan's `frontmatter_valid: false` claim is no longer taken on faith: an issue that is
+    // ONLY an attestation complaint, or ONLY a claimed-missing optional field, is refused entry
+    // (see the reduce-side guards above for why the prompt cannot enforce this and the reduce can).
+    malformed_frontmatter: scans
+      .filter((s) => s.frontmatter_valid === false && !refusedFrontmatterClaim(s.frontmatter_issue))
+      .map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,
   },
   opportunities: {
