@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 12 — proxy claims'
-status: 'OPEN — **v0.16.0 SHIPPED 2026-08-25** (builds 1-4 @ `216bea2`, tagged `v0.16.0`, pushed to origin). Cycle 12 = four builds, one release, built in order 1 -> 3 -> 2 with build-4 independent: b1 page-scanner corrections @ `f134190`, b3 the PARA posture @ `5585877`, b4 parked-interim guidance @ `0e76901`, b2 the change-keyed findings cache @ `93797b9` (the release build). Two convention rule changes shipped with full re-acks — `extraction.md` 6 -> 7 (four consumers) and `decision-log.md` 3 -> 4 (five consumers); handshake bipartite-clean at the gate (9 conventions, 39 pins). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.0`, exit 0. **Ideated + roundtable-reviewed 2026-08-25** (nine owner-steered rounds, nine voices, six owner rulings, one dispute converged 4/4). **Acceptance PARTIALLY DISCHARGED 2026-08-26** over the `{field-vault}` 0.15.0 → 0.16.0 upgrade (2026-08-25 17:54) and the first post-release full lint (cold, 146/146 pages). **All 16 ship-verifiable checks PASS — the closeout gate is GREEN** (`cycle-closeout` gates on ship-verifiable only). Of the 11 field-contingent checks: **4 DISCHARGED** (b1(4) `missing_targets: []` against the corpus that produced ten-of-ten false flags; b1(6) Scan-pages `prompt_chars` 473,622 → 356,676 at equal page count; b3(8) + b2(6) `governance_rule_changes:` rendering non-empty with all four required facts), **6 STILL-OPEN first-exercise tails** — b3(6) next scheduled `vlt-brief` issue, b3(7) a partner''s first `{resources}`-write legality call, b3(9) a human-ratified `writers:` on a live charter (declaring population is **1** — the vault holds exactly one `charter.md`), b4(5) a real park through `vlt-feedback` + b4(6) coupled to it, b2(5) the **second** full lint where the churn saving is measured (this one was the predicted cold run, A10 confirmed in the field) — and **1 FAILED**: b1(5), attestation complaints still misrouting into `malformed_frontmatter` (5 of 7) and `unmarked_supersessions` (1), hand-folded "same as the 2026-08-24 run", **second consecutive run**; filed `factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md` for Cycle 13 `inbox-capture`, **not re-carried**. No filing archived — every ledger item is split, so none has all its clauses discharged. **Open owner acts, none gated by the release:** re-grade A46/`P-17` (build-3 shipped the `governance_rule_changes:` key, so its BLOCKED-unreachable grading is stale — flagged by three briefs); hand-deliver build-3''s re-derive notice to `{field-vault}`''s PARA park (A57); run the parked-interim survey (E6, a list not a count, bounded before Cycle 13''s `inbox-capture`). Next: **`cycle-closeout`** — the ship-verifiable gate is green; closeout rules the six open tails forward as standing watches and carries the b1(5) failure to Cycle 13 as its filing.'
+status: 'CLOSED 2026-08-26. **v0.16.0 SHIPPED 2026-08-25** @ `216bea2`, tag `v0.16.0` pushed (4 builds: b1 `f134190`, b3 `5585877`, b4 `0e76901`, b2 `93797b9`; `extraction.md` 6 → 7 and `decision-log.md` 3 → 4 both re-acked). **Acceptance: 16/16 ship-verifiable DISCHARGED — the gate passed on ship-verifiable checks only, as the rule requires.** Field-contingent: 11 checks → **8 discharged, 1 FAILED (b2(5)), 1 closed by owner ruling (b3(9)), 1 released as a standing watch (b3(7))**. Evidence base: the owner''s `vlt-upgrade` onto v0.16.0 and the 2026-08-25/26 full lint sweeps on `{field-vault}`, plus the 2026-08-26 bounded-tail ruling session (§Owner ruling — the six bounded tails at their bound). ⚠ **The `[x]` count is not a measure of what this cycle proved** — b3(7) was released unexercised and keeps its `- [ ]`, and b2(5) FAILED. **Still open elsewhere:** b2(5) as inherited debt repaired by Cycle 14 build-2 (A14-8); A12-2''s attestation-misroute clause, now in its **third** cycle (Cycle 14 A14-1, which gates Cycle 13''s closeout); b3(7) as a released watch, re-readable only after Cycle 14 build-3; A12-4 and A12-5''s module side on the platform channel, unbuilt (`P-17` not queued); and **A11-11 direction 4 + A12-1''s cause-fix instrument, declared for Cycle 13 and not built there** — see §Carried forward past Cycle 12. **This cycle is closed — do not append.**'
 module_code: 'vlt'
 created: '2026-08-25'
 updated: '2026-08-26 (BOUNDED TAILS RULED AT THE BOUND — the six field-contingent tails bounded to "Cycle 13 inbox-capture" landed on Cycle 14''s capture instead; 3 DISCHARGED (b3(6) on substance by owner ruling, b4(5), b4(6)), 1 CLOSED by owner ruling (b3(9) — A33''s notification sufficient, no re-carry), **1 FAILED (b2(5) — the findings cache cannot round-trip; an earlier same-day CARRIED ruling is superseded in place)**, 1 STILL OPEN (b3(7)). Field-contingent ledger 7/11 + 1 FAILED. See §Owner ruling — the six bounded tails at their bound. Earlier: ACCEPTANCE PARTIALLY DISCHARGED — 16/16 ship-verifiable PASS, 4/11 field-contingent discharged, 6 open tails, 1 FAILED + filed)'
@@ -2866,6 +2866,101 @@ against it.*
   release, no later than Cycle 13 `inbox-capture`. **Live cost datum for that comparison,
   recorded now:** 172 agents / 10.3M subagent tokens / 1,894 tool calls / ~60 min wall clock for
   146 pages + 25 clusters, at `churn_since_last_full: 5 of 146`.
+
+## Carried forward past Cycle 12 (recorded at closeout, 2026-08-26)
+
+*The authoritative hand-off point. The next cycle's `inbox-capture` re-lists these from this
+closed roadmap; anything left off here is silently dropped. Cycle 14 was already open when this
+cycle closed, so several of these were consumed by its capture the same day — each says so.*
+
+**Inherited debt — exercised and FAILED, with a named repair:**
+
+1. **b2(5) — the findings cache has never worked.** Carried from Cycle 12 build-2 — **FAILED**
+   2026-08-26 on a live test of its corrected bound (146 pages, 0 changed, same fingerprint: 146
+   queued, 0 served). Two defects, either alone fatal: the sidecar schema mismatch, and
+   `rulesetFingerprint` having no deterministic algorithm. **Filed** as
+   `factory/inbox/2026-08-26-141838-findings-cache-cannot-round-trip-writer-and-reader-disagree.md`,
+   **captured** as Cycle 14 §A14-8, **assigned** to Cycle 14 build-2, whose round-trip check
+   **GATES** under that cycle's D3 ruling. *Consumed by Cycle 14's capture — carried here for the
+   record, not as an open action.*
+
+2. **A12-2's clause — the attestation misroute, now in its third cycle.** Carried from Cycle 12
+   build-1 check (5), FAILED 2026-08-26 → filed as `…075130-attestation-misroute…` → Cycle 13
+   A13-1 → shipped v0.16.1 → **FAILED again** on the first live post-upgrade sweep → Cycle 14
+   §A14-1, which **gates Cycle 13's closeout**. Its filing
+   (`factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md`)
+   **stays in the active inbox** — see Stage 5 below.
+
+**Released standing watch — field-contingent, never fired:**
+
+3. **b3(7) — a partner resolving a `{resources}`-write legality question from the rewritten bundle
+   without escalating.** Never exercised: no `{resources}` write was attempted post-upgrade, and no
+   evidence exists either way on disk. **Released, not ticked** — the check keeps its `- [ ]`.
+   ⚠ **It is arguably ungradeable until Cycle 14 build-3 ships**: A14-6 and A14-7 are both live
+   `parked-interim` entries against the same bundle, so a partner attempting such a write today may
+   legitimately escalate — which would be those two vocabularies failing, not the rewritten bundle.
+   Re-read it after Cycle 14 build-3, against a bundle that is no longer waiting on itself.
+
+**Routed to the platform channel — ruled out of this cycle at ideation (Q3), unbuilt:**
+
+4. **A12-4 — a ruling answered by a release never reaches the issue that asked for it**
+   (`factory/inbox/2026-08-25-111323-ruling-shipped-by-release-never-resolved-its-filing-issue.md`).
+   Ruled **not a cycle build**; its diagnosis is carried in `ST-4` and `P-17` **is not queued**
+   (`factory/platform/roadmap.md`). Filing **stays active**.
+
+5. **A12-5's module side** — the parked-interim exit condition as a module-level concern
+   (`factory/inbox/2026-08-25-111324-parked-interim-exit-condition-silently-invalidated-by-its-ruling.md`).
+   The **vault side shipped as build-4 and fully discharged**; the module side was ruled to the
+   platform channel and is unbuilt. Filing **stays active** on that half.
+
+**Declared for Cycle 13 at this cycle's ideation, and not built there:**
+
+6. **A11-11 direction 4** and **A12-1's cause-fix instrument** — both declared for Cycle 13 in this
+   cycle's Grouping & order. Cycle 13 shipped a single patch build and took neither. Neither is
+   captured into Cycle 14. **These are the two items most at risk of being silently dropped** —
+   they have now passed one cycle unbuilt and are named here so the next capture can re-list them.
+
+**Standing, unchanged:** the pre-Cycle-12 watch register carried in Cycle 11's closed roadmap is
+not re-listed here — read it there. This section records only what Cycle 12 itself originated or
+re-graded.
+
+## Closeout record — filings (2026-08-26)
+
+*Which filing moved under which criterion, recorded so the next closeout inherits a rule rather
+than re-deciding it (`cycle-closeout` Stage 5). The criterion is **per-filing, not per-build**: a
+filing moves when every clause traceable to **it** is discharged **and** the build's remaining
+tails are attributable to a **different** filing.*
+
+**Moved into `factory/cycles/12-proxy-claims/filings/` (2):**
+
+- **`…173001-lint-page-scanner-counts-code-span-wikilinks.md`** (A12-1) — its clause is build-1
+  check (4), DISCHARGED (`missing_targets: []`, zero, against the corpus that produced ten of ten
+  false flags). Build-1's one remaining tail, check (5), is **A12-2's**. Textbook condition 1 + 2.
+- **`…111322-para-location-is-used-as-a-proxy-for-trust.md`** (A12-3) — its clauses are build-3
+  checks (6), DISCHARGED on substance by owner ruling, and (9), CLOSED by owner ruling with **no
+  re-carry**. Build-3's remaining tail, check (7), is the retired Cycle-11 carry-forward b2(2) —
+  subject of a **different** filing (the `{resources}`-write posture, tracker #11).
+  *Judgment call recorded: (9) was closed by ruling rather than discharged by evidence. A ruling
+  that closes with no carry-forward resolves a clause; a ruling that releases it as a watch does
+  not. If a later closeout disagrees, this is the sentence to argue with.*
+
+**Held live in `factory/inbox/` (3):**
+
+- **`…173002-page-scanner-double-reports-missing-attestation.md`** (A12-2) — its own clause,
+  build-1 (5), **FAILED**. Inherited debt, now in its third cycle (Cycle 14 A14-1). The criterion's
+  plain case.
+- **`…111323-ruling-shipped-by-release-never-resolved-its-filing-issue.md`** (A12-4) — ruled **not
+  a cycle build** at ideation (Q3) and routed to the platform channel, where `P-17` is not queued.
+  It has no build in this cycle to have shipped.
+- **`…111324-parked-interim-exit-condition-silently-invalidated-by-its-ruling.md`** (A12-5) — its
+  **vault side** shipped as build-4 and fully discharged; its **module side** was routed to the
+  platform channel and is unbuilt. Held on that half.
+  *Judgment call recorded: a filing whose scope was split, with one half routed off-cycle and
+  unbuilt, is not fully discharged. Holding it keeps the inbox honest about outstanding work; the
+  alternative reading — that only this cycle's ledger counts — would move it. Not widened here.*
+
+**Issues closed: none.** All five filings are factory-filed and carry no `origin:` header, so none
+has a tracker issue to close (`cycle-closeout` Stage 5, *Materialized filings close their issue*).
 
 ## Owner ruling — the six bounded tails at their bound (2026-08-26)
 
