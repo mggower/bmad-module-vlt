@@ -3,7 +3,7 @@ title: 'Cycle 14 — no enforcement point'
 status: 'OPEN — captured 2026-08-26, 7 filings grounded against module source at v0.16.1. Not yet ideated. **This cycle carries Cycle 13''s closeout gate**: Cycle 13 shipped v0.16.1 and then FAILED acceptance check (2) on live field evidence; it is closed to capture (ship day is the capture boundary) and cannot close until a Cycle 14 build repairs the guard. **A14-1 is that repair and is the cycle''s gating entry.** Scope was owner-ruled at capture (2026-08-26): defects and blockers from Cycles 12–13 only, net-new capability deferred — see §Owner ruling — debt-clearing scope.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; **8 filings** captured and graded — A14-8 arrived same-day from the b2(5) acceptance test and refutes it; 1 filing deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound in the same session — 3 discharged, 1 closed by ruling, **1 FAILED (b2(5))**, 1 still open; authoritative tail record in Cycle 12''s roadmap)'
+updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; **8 filings** captured and graded — A14-8 arrived same-day from the b2(5) acceptance test and refutes it; 1 filing deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound in the same session — 3 discharged, 1 closed by ruling, **1 FAILED (b2(5))**, 1 still open; authoritative tail record in Cycle 12''s roadmap) · ideation skeleton laid 2026-08-26 by ideation-scaffold — 8 Q + 5 D + 5 E slots seeded, all UNFILLED; no open spike inherited; build-brief gates until the owner fills it'
 derives_from:
   - 'factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md'
   - 'factory/inbox/2026-08-26-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md'
@@ -703,27 +703,235 @@ Carried here so ideation sees them together rather than one filing at a time.
    claim about `write-verification.md`'s tier-1 item, not only about a lint slot. Blast radius
    unmeasured.
 
+## Ideation rulings — A14-1..A14-8 (owner-steered, 2026-08-26)
+
+**Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
+**OPEN — skeleton laid 2026-08-26, no slot filled.** `build-brief` gates on this section being
+filled; it is not yet. Every slot below is either a seeded question from the capture or an
+explicit `*(owner to fill)*` placeholder — **an empty slot is honest; a guessed answer is a
+lifecycle violation.**
+
+Seeded from the Cycle 14 capture run (2026-08-26, 8 filings). Question numbering is the clerk's,
+for in-session reference only; it implies no ordering or priority.
+
+**Two constraints the capture established that ideation inherits rather than decides:**
+
+- **A14-1 gates Cycle 13's closeout.** Cycle 13 shipped v0.16.1 and FAILED acceptance check (2)
+  by owner ruling on live field evidence; it is closed to capture and has no discharge path left.
+  Only a shipped repair moves it. Whatever build takes A14-1 is the one that reopens Cycle 13.
+- **A14-7 — and A14-6 under a widening reading — forces a convention `version:` bump and a
+  same-build re-ack of every consumer.** `write-verification.md` is at `version: 3` with 5
+  consumers. Cycle 13 shipped with no bump owed; this cycle will not. See D2.
+
+### Grouping & order
+
+*(owner to fill — which builds, numbered, and which filings each folds in. Build numbering is the
+owner's call; no numbers are proposed here.)*
+
+- **build-N — `*(owner to fill: filings)*`**
+  - `binds:` *(owner to fill — the ruling-id roster governing this build)*
+  - `spike:` *(owner to fill — `none`, or the `S-N` this build's brief depends on)*
+
+- **build-N — `*(owner to fill: filings)*`**
+  - `binds:` *(owner to fill)*
+  - `spike:` *(owner to fill)*
+
+- **build-N — `*(owner to fill: filings)*`**
+  - `binds:` *(owner to fill)*
+  - `spike:` *(owner to fill)*
+
+*(Add or remove build bullets as ruled. Every bullet needs both fields filled — an unfilled
+`spike:` is **not** `none` and blocks `build-brief`, which is correct: the owner says whether a
+build waits on a spike, never the briefer.)*
+
+**Material the capture left as an unaccepted proposal, not a ruling.** The capture observed that
+A14-8 *"is the one entry in this cycle that can be taken without ruling Q1 or Q2 first"* — nothing
+in it needs the reduce to read page bytes. That is an observation about dependencies, **not a
+proposed grouping**, and it is recorded here so ideation has it rather than rediscovering it.
+
+### Pre-ideation rulings the capture demanded
+
+- **Q1 — instances, or the posture?** A14-1, A14-2, A14-3 and Cycle 13 carry-forward 1 are four
+  faces of one seam: the reduce performing exact work over agent-returned values it cannot verify.
+  Repairing them individually reopens Cycle 13's gate soonest; taking Cycle 13 carry-forward 2's
+  general posture (*every agent-returned value that is mechanically checkable at the reduce is
+  checked there*) answers all four and the next one. **The capture flagged this as the ruling that
+  determines the cycle's size, and noted Q2 and Q6 depend on it.**
+  → *(owner to fill)*
+
+- **Q2 — does the posture re-admit tracker #13?** Every mechanical-verification direction needs
+  ground truth the workflow structurally cannot fetch (`vlt-lint-full.js:36-38`), i.e. a SKILL-side
+  per-page arg on the `pageHashes` precedent (`:47-49`) — which moves the joint against #13's ~84KB
+  inline-args payload cost. #13 was **deferred as net-new at capture by owner ruling**; if the
+  posture is taken it becomes a **dependency**, and re-admitting it is an owner ruling. Depends on Q1.
+  → *(owner to fill)*
+
+- **Q3 — A14-6: pointer, or vocabulary?** If the whole defect is that `vault-operating-contract.md:66`
+  never names the convention that owns "a recognized `type:`", the fix is a pointer plus a handshake.
+  If the two conventions must be reconciled (`frontmatter.md:71` non-exhaustive incl. `research`, vs
+  `checks.md:19`'s closed set), it is a vocabulary decision — and `para_author_unknown` is in the
+  population too, with no overlay escape at all. **The capture recommends testing the pointer reading
+  first**, because `checks.md:19` already ships "declare the vault-grown type as overlay schema" as a
+  stated legal response, which is the filing's own option 4.
+  → *(owner to fill)*
+
+- **Q4 — A14-7: widen the value set, or narrow the jurisdiction?** Widening admits a partner
+  identifier or an in-sitting sentinel — keeps every Layer 3 artifact attested, weakens the field's
+  meaning, and owes a story for what the value is checked against. Narrowing exempts partner-sitting
+  writes in §Scope rule the way container files already are (`extraction.md:188`) — **has shipped
+  precedent**, is honest about what the pair records today, is the cheaper edit, and costs structural
+  coverage of a real class. Either bumps `write-verification.md` from `version: 3`.
+  → *(owner to fill)*
+
+- **Q5 — A14-5: which direction, given the `machine_tools` cost?** The capture re-ordered the
+  filing's own list: (1) a **validation beat** — the gap is the unchecked "parses whole in both
+  homes" claim, not a missing emitter; (2) state the no-dependency requirement + JSON-subset emission
+  in `report.md` (pure documentation, zero cost); (3) allow `.json` as an alternative persist (touches
+  the both-homes rule directly); (4) ship an emitter — **costs a `machine_tools` row in the same
+  build** per that block's writer clause, which is why it ranks last here and first in the filing.
+  → *(owner to fill)*
+
+- **Q6 — A14-8: fix the shapes, or remove the seam?** The field named five directions. The capture's
+  reading is that (1) moving the record wrapping **into the workflow** and (2) moving
+  `rulesetFingerprint`'s computation into the workflow are strictly better than documenting either,
+  because they remove the derivation rather than describing it. Also open: (5) whether the step-4
+  refusal predicate widens so "cold because unreadable" is distinguishable from "cold because the
+  ruleset moved."
+  → *(owner to fill)*
+
+- **Q7 — A14-1's false safety comment.** `vlt-lint-full.js:559-561` asserts the guards *"never fire
+  on a claim they cannot positively identify — the failure direction is over-reporting, never
+  swallowing a genuine schema break."* The field refuted the safety property. Whatever build takes
+  A14-1 must **correct the comment or retire the claim** — a shipped comment asserting a refuted
+  property is the same defect one level out. Ruling needed on which.
+  → *(owner to fill)*
+
+- **Q8 — Cycle 13 carry-forward 3, the `malformed_frontmatter` retirement.** Its named successor is
+  the build that takes Q1's general posture. It was deferred because retiring a shipped finding class
+  needs a **measured** population first — and Cycle 13's check (2), which was to be that measurement,
+  **FAILED**. So the measurement does not exist and the taking build must produce it. Ruling needed
+  on whether the retirement rides this cycle at all.
+  → *(owner to fill)*
+
+### Cross-filing decide-once rulings
+
+- **D1 — the `verbatim` enforcement question, decided once.** `PAGE_SCAN` marks fields *verbatim* in
+  schema descriptions (`:158`, `:162`) and Cycle 13 established a schema description is an
+  instruction, not an enforcement point. Two faces are live: **paraphrase** (Cycle 13 carry-forward 1,
+  `summary`) and **re-encoding** (A14-3, `category`, HTML entities). A third surface is exposed and
+  has not fired: `h2set` is built from the *index scanner's* returned `h2_headings` (`:643`), so a
+  `&amp;` on the index side falsifies **every page in that category at once**. Decide the enforcement
+  posture once across all three rather than per-field.
+  → *(owner to fill)*
+
+- **D2 — the handshake scope for this cycle, decided once.** Q4 bumps `write-verification.md`
+  (`version: 3`, 5 consumers) under either direction. Q3 under a widening reading touches
+  `frontmatter.md` (`version: 13`) and/or `extraction.md` (`version: 7`, 4 consumers). Rule the total
+  bump-and-re-ack set once, in one build, so the bipartite-consistency check is satisfied in a single
+  edit rather than re-derived per build. `build-brief` gates on it.
+  → *(owner to fill)*
+
+- **D3 — the ship-verifiable / field-contingent tagging posture for this cycle.** ⚠ **The capture
+  and the Cycle 12 ruling both flag this as the cycle's most consequential procedural decision.**
+  b2(5) was tagged field-contingent, therefore did not gate, and v0.16.0 shipped a findings cache
+  **that has never once worked** on a green ship-verifiable ledger (A14-8; `ST-5` causes 2 and 3
+  compounding). A14-8's round-trip check is gradeable **at rest**, so nothing forces it to be
+  field-contingent. Precedent for the correction exists: B7-6 retired the four-cycle A4-4(5) debt
+  precisely by tagging it ship-verifiable so it gated. Rule the posture once, for every check this
+  cycle writes.
+  → *(owner to fill)*
+
+- **D4 — is "a closed roster meeting an actor the surrounding rules authorize" a named pattern?**
+  Three live instances: A14-7 (`verified_by` roster vs the contract's open writer set), the Cycle-10
+  decision-log Writers-roster filing (`origin: mggower/bmad-module-vlt#6`, still in the inbox), and
+  arguably A14-6 in the vocabulary register rather than the writer register. **No study holds this
+  cause** — `ST-1` is adjacent but bottoms out in one verb's shape. Opening `ST-6` gates nothing and
+  is the author's call (`factory/studies/README.md`, *Citable, never blocking*); the ruling here is
+  whether this cycle patches the instances or names the cause first.
+  → *(owner to fill)*
+
+- **D5 — the named-to-be-rejected directions, recorded so no brief re-derives them.** A14-2's
+  candidate 3 (ask the scanner to return links more carefully) and A14-3's candidate 3 (loosen the
+  category comparison) were each named to be rejected **by their own filings**, and the capture
+  agreed: the first is the prompt-side fix whose failure is Cycle 13's entire premise; the second
+  retires real drift findings to work around a transport defect. Confirm as standing, or reopen.
+  → *(owner to fill)*
+
+### Spikes
+
+**Register read 2026-08-26** (`factory/platform/spikes/`; mechanics single-homed at its `README.md`).
+**No `proposed` or `running` entries — this batch inherits no open spike.** The capture opened none:
+every claim in all eight filings was groundable against module source in the working tree, and no
+grounding hit an external unknown.
+
+- `S-1` (para-container-harvest) — **consumed** (verdict `proceed`; Cycle 9 → consumed Cycle 10).
+- `S-2` (projection-baseline) — **consumed** (verdict `proceed`; Cycle 3).
+- `S-3` (github-notification-semantics) — **harvested, unconsumed** (verdict `reshape`, run
+  2026-08-24, owner-delegated; opened for Cycle 11 A11-2, which deferred to Cycle 12). `harvested`
+  is the state the gates accept, so it is available to any build that wants it. Listed here so it is
+  not rediscovered at brief time — **not** a claim that this batch needs it.
+
+**Spikes this batch newly demands:** *(owner to fill — `none`, or new `S-N` entries. An owner ruling
+here (open a spike, kill one, rule a build `spike: none`) is written back to the register file in
+the same session; status and `verdict:` live there, never only in roadmap prose.)*
+
+### Evidence-debt dispositions
+
+*(owner to fill — attach each debt to a build, or rule it not-blocking.)*
+
+- **E1 — A14-4's root-cause guess is unverified.** The filing argues the `fix_now` classification was
+  set from the check's *detectability* rather than its *remediability*. Capture could neither confirm
+  nor refute this from source; it is recorded as the filer's reasoning. A fix does not depend on it.
+  → *(owner to fill)*
+
+- **E2 — A14-4's qualifier has an unmeasured blast radius.** The filing argues *"frontmatter is the
+  source of truth"* needs re-scoping — authoritative about what a page *claims to rest on*, not what
+  it *actually cites*. That is a claim about `write-verification.md`'s tier-1 item, not only about a
+  lint slot. Neither the filing nor the grounding measured how far it reaches.
+  → *(owner to fill)*
+
+- **E3 — A14-7's counts are single-vault.** 27 unattested / 5 attested / 0 partner-sitting-attested
+  are `{field-vault}`-local. They establish the class is large and ordinary there; they establish no
+  rate for vaults generally, and the filing does not claim they do.
+  → *(owner to fill)*
+
+- **E4 — Cycle 13 carry-forward 3 has no population measurement.** See Q8: the measurement was to be
+  Cycle 13 check (2), which FAILED. Retiring `malformed_frontmatter` without one is a behavioral
+  removal on unmeasured grounds.
+  → *(owner to fill)*
+
+- **E5 — A14-6's own filing is stale against its vault.** Tracker #15 describes moving the
+  `vlt-brief` shelf to a `{resources}` address as prospective; the shelf has been at
+  `resources/briefs/` since before the 2026-08-26 10:46 lint, which enumerates all five issues in
+  `para_type_unknown`. **The reported defect is unaffected** — the two conventions still disagree —
+  but a brief quoting the filing's framing would assert a false premise about vault state.
+  → *(owner to fill)*
+
+### Questions deliberately left to brief time
+
+*(owner to fill — per-build, not cross-cutting. Empty until the grouping is ruled.)*
+
 ## Next lifecycle move
 
-**Owner-steered ideation** (`ideation-scaffold`, then the rulings section of this roadmap). The
-grouping, order and scope rulings this cycle needs are named in §Open design questions above;
-question 1 is the one that determines the cycle's size and should be ruled first, because
-questions 2 and 6 depend on it.
+**The owner fills the Ideation rulings section above.** The skeleton is laid and every slot is
+empty — 8 pre-ideation questions (Q1..Q8), 5 cross-filing decide-once rulings (D1..D5), 5
+evidence debts (E1..E5), and a Grouping & order section whose build bullets need numbers,
+filings, `binds:` and `spike:`. `build-brief` gates on this section being filled.
 
-Two constraints ideation must carry, both already grounded:
+**Rule Q1 first.** It determines the cycle's size, and Q2 and Q8 depend on it.
 
-- **A14-1 gates Cycle 13's closeout.** Whatever build takes it should be ordered first and
-  released first; Cycle 13 cannot close until it ships and its check (2) is re-graded.
-- **A14-7 (and a widening reading of A14-6) forces a convention `version:` bump and a same-build
-  re-ack of all five `write-verification.md` consumers.** Cycle 13 shipped with no bump owed; this
-  cycle will not, and `build-brief` gates on the handshake being bipartite-consistent.
+Three things to carry into the session, all established at capture and none of them ideation's to
+re-derive:
 
-Per `factory/platform/spikes/README.md`, the Spikes section of ideation must be populated (P-2's
-self-acceptance rides on a cycle running ideation with it filled). **No spike was opened by this
-capture** — every claim in all seven filings was groundable against module source in the working
-tree, and no grounding hit an external unknown.
+- **A14-1 gates Cycle 13's closeout** — whatever build takes it reopens Cycle 13, and should be
+  ordered and released first.
+- **D3 is the cycle's most consequential procedural ruling.** b2(5) was field-contingent, did not
+  gate, and v0.16.0 shipped a findings cache that has never once worked on a green ledger. A14-8's
+  round-trip check is gradeable at rest; nothing forces it to be field-contingent.
+- **A14-8 is off the #13 joint** — it needs no ground-truth args, so it can be taken without ruling
+  Q1 or Q2 first. An observation about dependencies, not a proposed grouping.
 
-After ideation rules, each ruled build goes to `build-brief` (`brief build N`). The roadmap
-roundtable (`roadmap-roundtable`) runs over the filled rulings before the first brief, or is
-waived by an explicit owner ruling recorded in this roadmap — `build-brief` gates on the record,
-and silence is not a waiver.
+**Once the rulings are filled, the move is `convene the roundtable`** (`roadmap-roundtable`) over
+the filled rulings — the installed roster hunts the plan's joints before any brief. Skipping it is
+an explicit owner waiver recorded in this roadmap, never a silence; `build-brief` gates on the
+record. Briefs (`brief build N`) follow the review.
