@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 13 — trusted returns'
-status: 'OPEN — **v0.16.1 SHIPPED 2026-08-26** (build 1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`, exit 0; handshake bipartite-clean (9 conventions, 39 pins); no convention `version:` moved and no consumer re-ack was owed. **Deferred acceptance ledger is UNDISCHARGED** — acceptance is batched to the owner''s next `vlt-upgrade` run on a live vault. ⚠ **Read before discharging:** acceptance check (2) PASSES on its literal terms but is **NON-PROBATIVE as run** — the six live probes over the real pages all returned clean, so the guard was never exercised; the misroute is **stochastic** (6 of 146 pages at ~4%, so 0-of-6 on a re-probe is the expected result, not evidence of a fix). It was closed on a probative variant replaying the returns the field produced 2026-08-25. That is a **subject substitution** and needs an owner ruling at discharge, not a silent tick — and the standing correction is that this check''s instrument should be the **recorded returns**, not the pages (`ST-5`: the specimen was never the page). ⚠ **Cycle 13 is now CLOSED TO CAPTURE** (ship day is the capture boundary), so the three §Carried forward items — Finding 4, the general reduce-side posture, and the deferred `malformed_frontmatter` retirement — must open **Cycle 14**. Next: **owner runs `vlt-upgrade` on a live vault**, then `acceptance-discharge`.'
+status: 'OPEN — **v0.16.1 SHIPPED 2026-08-26** (build 1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`, exit 0; handshake bipartite-clean (9 conventions, 39 pins); no convention `version:` moved and no consumer re-ack was owed. **Acceptance discharged 2026-08-26 and the cycle DID NOT PASS ITS GATE** — build-1''s ledger item is 2 of 4 discharged: **(1) and (3) DISCHARGED** (harness arrays; and the class-homing greps + `package-lint` re-run at rest by the discharge run), **(2) FAILED and it GATES**, **(4) FAILED** (field-contingent, does not gate). (2) was graded DISCHARGED earlier the same day under an owner-ruled subject substitution and **that discharge was REVERSED by owner ruling** hours later when the first live post-upgrade full sweep refuted the check on a named subject — `execution-to-judgment-shift` reached `malformed_frontmatter` anyway. **Root cause, reproduced at rest:** the reduce-side guard''s residue rule (`claim.residue === ''`) assumes the scanner states a bare claim; a scanner that **cites the rule it is applying** defeats the conjunction on two legs at once, because the citation leaves prose residue *and* names `type:`/`author:` inside the rule''s own text. Nothing about the pages changed — only the scanner''s phrasing did. **Cycle 13 CANNOT CLOSE**: closeout is gated on (2), and repairing it needs a build-2. ⚠ Standing correction unchanged (`ST-5`): this check''s instrument should be the recorded returns, not the pages — and the 2026-08-26 evidence sharpens it, because the *recorded* returns were themselves an unrepresentative subset (all bare-form). ⚠ **Cycle 13 is CLOSED TO CAPTURE** (ship day is the capture boundary), so the three §Carried forward items — Finding 4, the general reduce-side posture, and the deferred `malformed_frontmatter` retirement — plus the **three filings this discharge run filed** must open **Cycle 14**. Next: **`inbox-capture` to open Cycle 14**, which captures the guard defect and briefs the repair.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
+updated: '2026-08-26 (acceptance-discharge run — 2 discharged, 2 FAILED, (2) gate SHUT, 3 filings filed, cycle cannot close; earlier: opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
 derives_from:
   - 'factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md'
 predecessor: 'factory/cycles/12-proxy-claims/roadmap.md (Cycle 12 — SHIPPED v0.16.0 @ `216bea2` 2026-08-25; OPEN for acceptance/closeout, closed to capture)'
@@ -496,17 +496,106 @@ gates against it.*
   Cycle 12 lesson (a build's central promise riding entirely on an ungated field check) applied at
   brief time rather than after a failure.*
 
+  ---
+
+  **Acceptance-discharge run 2026-08-26** (evidence: `{field-vault}` upgrade-ledger entry
+  `[2026-08-26 10:46] vlt 0.16.0 → 0.16.1 (own)`, module source @ `d1e3a9c`; and the first
+  post-upgrade full-mode sweep `_agent/lint-reports/2026-08-26-1046-lint.yaml`, 146/146 pages,
+  0 cached). **Item left UNCHECKED — the split is 2 discharged / 2 FAILED, and one of the
+  failures GATES.**
+
+  - **(1) DISCHARGED 2026-08-26** — V1 harness arrays in the brief's BUILT `status:`: the five
+    attestation-only `malformed_frontmatter` entries and the one attestation
+    `unmarked_supersession` refused; **four** negative controls survive (the brief required
+    three; a prose-half compound was added at build time and is the one that caught the
+    residue-rule gap).
+  - **(3) DISCHARGED 2026-08-26** — re-verified at rest by the discharge run, not banked from
+    the build: `grep -rn "malformed_frontmatter" skills/` → exactly **3** hits
+    (`skills/vlt-lint/references/report.md:66`, `skills/vlt-lint/references/checks.md:15`,
+    workflow emitter); `collect()` at `vlt-lint-full.js:542` string-compared byte-identical to
+    `5bc53f6~1`; workflow `:11` pin line unchanged and `skills/vlt-lint/SKILL.md` untouched by
+    the build commit; `uv run tools/package-lint.py --expect-version 0.16.1` → exit 0,
+    `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`; both version strings at `0.16.1`.
+    *Correction on record:* the BUILT `status:` cites the emitter at `:688`; it is at `:700`.
+    No commit after `5bc53f6` touched the file — a stale mid-build line number, not a defect.
+  - **(2) FAILED 2026-08-26 — GATES closeout, and this REVERSES a same-day discharge.**
+    Graded DISCHARGED earlier on 2026-08-26 under an owner-ruled subject substitution (the
+    recorded 2026-08-25 field returns replayed through the shipped guard, in place of the
+    briefed live re-probe, which had returned clean on all six and was non-probative). The
+    first live post-upgrade sweep then **refuted the check on a named subject**:
+    `execution-to-judgment-shift` — one of the six — reached `malformed_frontmatter` as an
+    attestation-only complaint (report `:113`). The substitution is now visibly *why* it
+    passed: the replayed 2026-08-25 returns were all **bare-form**, and bare-form is exactly
+    the subset the guard handles, so the instrument could not observe the failure mode the
+    check was written to catch — the defect (2)'s own binding warned about for Cycle 12
+    build-1's fixture, reproduced with a different instrument. **Owner ruling 2026-08-26: grade
+    FAILED, gate stays shut** — (2) carries the gate so build-1's central promise would not
+    ride an ungated field check, and a green (2) against a field-refuted promise would close
+    Cycle 13 on a trusted return, in the cycle named for refusing them. Filing:
+    `factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md`.
+  - **(4) FAILED 2026-08-26 — field-contingent, does not gate.** Clause 1 false
+    (`execution-to-judgment-shift` is an attestation complaint in `malformed_frontmatter`;
+    `costa-rican-village-dog` is one in `unmarked_supersessions`, and appears in
+    `unattested_write` too — the exact duplicate the guard shipped to remove). Clause 2 false
+    (`empyrean-series-overview`: claimed-missing `review_after`, a documented-optional slot —
+    disposition 2's own target). Clause 3 false — all 3 `unmarked_supersessions` entries and 2
+    of 3 `malformed_frontmatter` entries were refuted **by hand** (5 folds, against the 20 of
+    2026-08-24 and 6 of 2026-08-25 the check named as its baseline). Same filing as (2).
+
+  **Root cause, reproduced at rest against the shipped source by the discharge run.** Both
+  predicates end in `claim.residue === ''`. `parseClaim()` strips recognized frontmatter keys
+  plus a fixed `CLAIM_FILLER` list and treats the remaining prose as residue; non-empty residue
+  ⇒ no guard fires. A scanner that **cites the rule it is applying** defeats the conjunction on
+  two independent legs at once — the citation leaves prose residue *and* names `type:`/`author:`,
+  real `PAGE_REQUIRED_FRONTMATTER` members, inside the rule's own quoted text. Verified by
+  running the shipped predicates over the real claims: the 2026-08-25 bare form → `residue=""`,
+  REFUSED; the 2026-08-26 rule-citing form → `named=[verified_by, verified_at, author, type]`,
+  `residue="lacks per write verification md scope rule files wiki research agent hybrid require
+  attestation"`, NOT refused. **Nothing about the pages changed — only the scanner's phrasing
+  did.** The guard's population is not the defect's population; it is the subset whose wording
+  happened to be terse. Build-1's own premise (a rule stated in the prompt and enforced nowhere
+  does not bind) recurs one level up: the enforcement point now *parses scanner-returned free
+  text* in order to decide whether to trust a scanner-returned claim.
+
 
 ## Next lifecycle move
 
-**Owner-steered ideation** on A13-1 — the five open design questions above are the ideation
-agenda, and questions 1 and 3 set the build's scope. Record the rulings in an
-`## Ideation rulings` section (with each build bullet's `binds:` and `spike:` fields — `spike:`
-is expected to read `none`, since nothing here is an external unknown, but that is the owner's
-ruling to state, not the briefer's).
+*(Rewritten by the acceptance-discharge run 2026-08-26. The prior text — "owner-steered
+ideation, then brief build 1" — was discharged by build-1 shipping and is preserved in git.)*
 
-Then `brief build 1`. Note that `build-brief`'s readiness gate also wants either a
-`## Roundtable review` record or an explicit `Roundtable waived (owner)` line in the rulings —
-Finding 7's partial joint is the material fact for that decision: if the owner scopes Finding 4
-in, a joint moves and a roundtable delta is the indicated route; if the patch is Findings 1 + 5
-only, no joint moves and a waiver is clean.
+**`inbox-capture`, opening Cycle 14.** Cycle 13 **cannot close**: acceptance check (2) is
+ship-verifiable, GATES closeout, and is FAILED by owner ruling on live field evidence. There is
+no discharge path left inside this cycle — (2) is refuted, not waiting, so no re-run of
+`acceptance-discharge` can move it. Only a shipped repair can, and Cycle 13 is closed to
+capture (ship day is the capture boundary).
+
+Cycle 14's capture batch inherits, at minimum:
+
+1. **The three filings this discharge run filed** (`factory/inbox/`, all dated 2026-08-26) —
+   `…-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md` (the
+   gating one), `…-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md`,
+   `…-164502-html-escaped-scanner-return-fails-an-exact-comparison.md`.
+2. **The three §Carried forward items** — Finding 4, the general reduce-side posture (Q3's
+   backlog), and the deferred `malformed_frontmatter` retirement.
+3. **Cycle 12's six bounded tails** — b2(5), b3(6), b3(7), b3(9), b4(5), b4(6). Per §Owner
+   ruling — narrow-capture carve-out, they attach to **Cycle 13's first FULL capture batch**,
+   which the narrow patch capture explicitly did not trigger. Cycle 13 never ran one and is now
+   closed to capture, so **Cycle 14's capture is that batch** and the bounds land there.
+4. **The `{field-vault}` overlay staleness surfaced by the 0.16.1 upgrade** —
+   `vault-operating-contract.overlay.md` §D's parenthetical names Layer-3 territory as
+   "`{projects}` and `{areas}`"; `{resources}` has been Layer-3 since 0.15.0. Report-only and
+   correctly not fixed by the upgrade (an overlay is vault-owned and append-only).
+
+**The shape worth carrying into ideation:** three of this sweep's four false findings came from
+the reduce trusting scanner-returned **text** — prose, an enumeration, an encoding — rather than
+positively identified structure. Q3 backlogged the general reduce-side posture as "named, not
+omitted"; the field has now paid for that deferral once. Whether Cycle 14 fixes the three
+instances or the posture is the ideation question, and the evidence for taking the posture is
+materially stronger than it was on 2026-08-26 morning.
+
+**Owner action outstanding:** the vault has not run `vlt-feedback` — the `{field-vault}` session
+flagged that as the vault owner's call, so nothing from this sweep is filed upstream on the
+public tracker yet. The two live `kind: parked-interim` entries (issues #15, #16) both reproduced
+exactly in the lint — 5 `type: research` briefs and 27 unattested PARA files, counts matching the
+parked entries to the file — and both remain valid on their own terms; v0.16.1 moved nothing
+they rest on.
