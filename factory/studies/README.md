@@ -139,6 +139,7 @@ earlier criterion also contradicted the `status:` rule above — a repaired caus
 | `ST-2` | location-as-proxy-for-trust | standing | 2026-08-25 | PARA location carries a trust claim `trust:` already carries; the loop can process defects but not obsolescence |
 | `ST-3` | governance-has-no-addressable-projection | standing | 2026-08-24 | A convention's only unit is the whole file, so every consumer needing a slice pays for all of it; and full-mode lint has no memory across runs |
 | `ST-4` | provenance-staffed-cognition-unstaffed | standing | 2026-08-25 | Every lifecycle artifact is written to be re-read later and none to be read now; the vault-facing sentence is authored in the wrong chain by the wrong party; the loop has no measure of its own legibility, so a recommendation silently substitutes for one; the inbox uses location as a proxy for status |
+| `ST-5` | specimens-have-no-owner | standing | 2026-08-26 | Field specimens have no owner, so instruments are built at the point of least evidence — from the fix's shape, not the failure's; and one tag welds blocking power to grading modality |
 
 *(This table is a convenience index over the files, which are authoritative. It lists every
 register file — a completeness claim it can keep only because the directory is its population;
