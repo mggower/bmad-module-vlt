@@ -308,11 +308,20 @@ mechanics — none of which `vlt-upgrade` delivers to vaults. Per CLAUDE.md they
 with the patch in flight. Scope, numbering and the WIP limit are the owner's ruling under that
 ledger's channel contract. **This study makes none of them — a study gates nothing.**
 
-**Available immediately, needing no ruling.** Cycle 13's open design question 4 (*what is the
-acceptance instrument?*) is answerable from **C6 + C7** today: the 2026-08-26 filing already
-carries all six specimen slugs, and the cycle's own capture already proposes them *"tagged
-ship-verifiable so it gates."* That is a C6 instance obtainable inside the patch build, before any
-platform item exists.
+**C6 was reached independently, by hand, before this study existed — and that is confirming
+evidence, not a coincidence.** Cycle 13's ideation ruled its open question 4 on 2026-08-26:
+*"THE INSTRUMENT IS THE REAL CORPUS AND IT GATES — the six pages that failed 2026-08-25, tagged
+ship-verifiable; a fixture built only over the changed surfaces does NOT satisfy it."* Its
+build-1 brief's check (2) names all six specimen slugs and gates closeout, and the build's ratio
+is **three ship-verifiable to one field-contingent**, against Cycle 12 build-1's three-to-three.
+
+That is C6 and C7's substance, obtained correctly, under the pressure of a live failure — and
+obtained as **a per-build owner ruling, not a mechanism change**. It is therefore the ninth
+hand-applied brake in the series this study documents, and a live instance of loop **B1**: the
+factory reaches the right answer one tail at a time, which is precisely what keeps pressure off
+the default. The next build with no failure behind it inherits nothing. **A later reader should
+treat this as the strongest available evidence for the diagnosis, and as the reason C1–C5 (custody
+without a prior failure to motivate it) matter more than C6, not less.**
 
 **Read alongside `ST-4`.** Its named cause — *every lifecycle artifact is written to be re-read
 later and none to be read now* — is this finding on the cognition axis; this study is the same
