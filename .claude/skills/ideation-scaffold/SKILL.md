@@ -105,8 +105,9 @@ landed (re-read), then report.
 they are the session's agenda. If the owner wants to fill it now, stay and record their
 rulings verbatim into the slots (clerk, not advisor: capture, read back, never steer).
 
-**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
-obligation, the chat report a copy *(platform P-13)*.
+**Restamp the cycle roadmap's foot** with this move before reporting — its **last block**, below
+any earlier routing. The roadmap's foot is the obligation, the chat report a copy
+*(platform P-13)*.
 
 **Next lifecycle move** (routing contract): owner fills the rulings in session; once the
 rulings are filled, the move is `convene the roundtable` (`roadmap-roundtable`) — briefs

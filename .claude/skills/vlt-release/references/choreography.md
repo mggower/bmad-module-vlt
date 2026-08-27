@@ -175,7 +175,7 @@ Gate: the record reflects the shipped release and points at what's next.
   `vX.Y.Z SHIPPED <date> (builds …), @ <sha>, tagged vX.Y.Z`).
 - Remind the owner to sync project memory (the cycle roadmap memory topic) with the shipped
   state — builds/release landed.
-- **Restamp the cycle roadmap's foot** with the **Next lifecycle move**, then end the report
+- **Restamp the cycle roadmap's foot** — its **last block**, below any earlier routing — with the **Next lifecycle move**, then end the report
   with the same line (routing contract — `.claude/skills/vlt-lifecycle.md`). **The roadmap's
   foot is the obligation; the chat report is a copy.** This stage said "the report" until
   2026-08-27, and it resolved to the chat report alone — the v0.15.0 run left Cycle 11's

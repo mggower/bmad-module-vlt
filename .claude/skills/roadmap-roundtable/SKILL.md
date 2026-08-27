@@ -179,8 +179,9 @@ Then apply from the session file before adjourning — in this order, verified b
 **Interactive:** state where the record landed, enumerate A#/R#/rulings in one line each,
 name any out-of-scope material to file to `factory/inbox/`, and point at the keepsake.
 
-**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
-obligation, the chat report a copy *(platform P-13)*.
+**Restamp the cycle roadmap's foot** with this move before reporting — its **last block**, below
+any earlier routing. The roadmap's foot is the obligation, the chat report a copy
+*(platform P-13)*.
 
 **Next lifecycle move** (routing contract): with the record in place and no OPEN
 disputes, `brief build N` (`build-brief`) for the first build the rulings name. OPEN

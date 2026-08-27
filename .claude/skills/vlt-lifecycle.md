@@ -108,7 +108,15 @@ frontmatter said step 4.
 capture, ideation-scaffold, roadmap-roundtable, build-brief, release, acceptance-discharge,
 cycle-closeout. One line, written **into the foot of the open cycle roadmap** — the file the
 next reader opens — naming the current next move, and it must agree with that roadmap's
-frontmatter `status:`. Where they disagree, the frontmatter is the position and the terminal
+frontmatter `status:`.
+
+**"Foot" means the last block in the file, not the last `## Next lifecycle move` heading.**
+*(Sharpened 2026-08-27 after a restamp landed in the existing heading with superseded routing
+still below it — which is this very rule's defect, committed while obeying it.)* An append-only
+roadmap accumulates routing blocks; a reader scrolls to the **end**, so a new stamp placed above
+older routing is invisible and the stale block still routes them. When a prior stamp exists,
+demote it under a `— historical record` heading and write the new one **last**, saying plainly
+that it is authoritative. If anything at all follows the stamp, it is not the foot. Where they disagree, the frontmatter is the position and the terminal
 line is the defect.
 
 **The chat report carries the same line, but emitting it there does not discharge the

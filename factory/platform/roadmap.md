@@ -345,6 +345,18 @@ discharge run, which is why it is the cheapest and clearest of the four):
 | 14 | build-3 check (4), class membership | Tested single-home-**ness** (defined in exactly one file) and never compared **membership** between the naming sites and the defining site | Contradiction shipped in v0.17.0; hot-fixed as v0.17.1 the same day |
 | 14 | build-5 check (6), the park's resolution | Predicted the `write-verification.md` park would unpark **because the hot-fix cured the charter membership** — testing *what the fix does*, never the property (*the park's blocker is cleared*). The park's actual blocker is the **refused partner-sitting reading** and the unchanged `verified_by` roster, which the hot-fix does not touch | **FAILED** on the 0.17.1 upgrade — the park was **re-surfaced, not unparked**, blocker intact for 27 files. Field-contingent, so no gate was breached and nothing shipped broken |
 
+**Fifth instance, and the first the item CAUGHT rather than reconstructed — 2026-08-27, on
+[P-13]'s own done-when.** A day after both items shipped, the adversary question was run against
+P-13's check (*"the next lifecycle run leaves the roadmap's foot restamped without being
+prompted"*) and found a reachable passing-violating state immediately: **the check passes when
+the agent that authored the clause runs the skill in the same session**, while the property — *a
+reader who did not write the clause restamps* — goes untested. Two real runs had already passed
+it that way. P-13's done-when was **widened rather than closed**, which is this item's prescribed
+cure applied for the first time. Two things this instance establishes that the reconstructed four
+could not: the question **works prospectively** (minutes, at rest, no field escape), and it is
+**not self-exempting** — the item's own neighbour was written beside its own fix, in one sitting,
+by one author, and inherited that framing exactly like the rest.
+
 **The fourth instance is the one that scopes the intervention, because it was observed in REAL
 TIME.** Instances 1–3 were reconstructed after an escape. Instance 4 was graded by the very next
 `acceptance-discharge` run, hours after the check was written — and its refuting evidence was
@@ -568,9 +580,43 @@ its existing homes, not a new home.
 **No shipped surface touched** — every edit is under `.claude/skills/`, so the channel's
 delivery boundary holds.
 
-**Done-when (unchanged):** the next lifecycle run that moves the position leaves the roadmap's
-foot restamped **without being prompted**. Cycle 14's next `acceptance-discharge` is the likely
-first exercise; Cycle 13's acceptance re-run would also do it.
+**Done-when — WIDENED 2026-08-27, by [P-20]'s question run against this item's own check.**
+
+Original: *"the next lifecycle run that moves the position leaves the roadmap's foot restamped
+without being prompted."* **That check was incomplete, and the adversary question found it the
+day both items shipped:**
+
+> **Property it protects:** a lifecycle skill's text reliably causes the roadmap's foot to be
+> restamped — *by a reader who did not write the clause*.
+> **Passing-but-violated state:** the check passes when the agent that **authored** the clause
+> runs the skill **in the same session**, with the change still in working memory, while the
+> property — a cold reader restamps — goes untested.
+
+That state is not hypothetical. It is what happened: the 2026-08-27 Cycle 13
+`acceptance-discharge` and `cycle-closeout` runs both restamped unprompted, and both were the
+authoring session. **The evidence is real but contaminated**, and P-13 is therefore **NOT closed
+on it**. This is the item's own instance of the failure P-20 exists for — a check written beside
+its fix, in one sitting, by one author, inheriting that fix's framing.
+
+**Corroborating: the clause was demonstrably not self-sufficient.** The first restamp landed
+inside the roadmap's existing `## Next lifecycle move` heading with superseded routing still
+below it — the exact defect this item exists to prevent, committed while obeying it. It was
+self-caught from the **map's** rule (*"the reader trusts the END"*), not from the clause's own
+wording, which said only *"the roadmap's foot."* A cold reader has the wording and not the
+author's working memory.
+
+**Wording repair shipped the same day.** The precise definition landed in `vlt-lifecycle.md`,
+where the mechanics are single-homed — *"**Foot** means the **last block in the file**, not the
+last `## Next lifecycle move` heading"*, plus the demote-prior-stamp-under-a-`— historical
+record`-heading procedure and the closing test (*if anything at all follows the stamp, it is not
+the foot*). The seven **operative** clauses gained a six-word pointer-grade precision (*"its
+**last block**, below any earlier routing"*); the seven overview clauses are unchanged, and no
+consumer restates the map's rule body.
+
+**Done-when (widened):** the next lifecycle run that moves the position leaves the roadmap's
+foot restamped without being prompted **in a session that did not author the clause** — a cold
+exercise. Cycle 14's next `acceptance-discharge` is the first available one. Record that run's
+date here; the two 2026-08-27 runs stand as evidence the mechanism works, not as the close.
 
 **Out of scope, unchanged and now more clearly earned:** no mechanical lint for a missing or
 stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadmap's last

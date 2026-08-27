@@ -186,8 +186,9 @@ on disk. This is the load-bearing step this skill exists to make unforgettable.
 and any grounding corrections issued (with the superseding notes they wrote into the roadmap).
 Ideation is not re-opened.
 
-**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
-obligation, the chat report a copy *(platform P-13)*.
+**Restamp the cycle roadmap's foot** with this move before reporting — its **last block**, below
+any earlier routing. The roadmap's foot is the obligation, the chat report a copy
+*(platform P-13)*.
 
 **Next lifecycle move** (routing contract): a **fresh builder session** implements this
 brief via `bmad-workflow-builder` (the brief's `status:` line says exactly this). Name the

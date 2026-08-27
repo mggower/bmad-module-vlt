@@ -191,7 +191,7 @@ Summarize the close:
 - **Front door:** README fixed, or already a pointer (unchanged).
 - **Memory:** topic file + index line synced.
 
-**Restamp the foot of the roadmap being closed** with the **Next lifecycle move**, then end the
+**Restamp the foot of the roadmap being closed** — its **last block**, below any earlier routing — with the **Next lifecycle move**, then end the
 report with the same line (routing contract — `.claude/skills/vlt-lifecycle.md`). **The
 roadmap's foot is the obligation; the chat report is a copy** *(platform P-13)* — and it matters
 most here, where the roadmap becomes a permanent archive nobody will restamp later. The cycle is

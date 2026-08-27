@@ -81,8 +81,8 @@ session's context.
 
 ## Handoff
 
-This skill's job ends at a grounded, current roadmap doc. **Restamp that roadmap's foot** with
-the **Next lifecycle move**, then close the run with the same line (routing contract,
+This skill's job ends at a grounded, current roadmap doc. **Restamp that roadmap's foot** — its **last block**,
+below any earlier routing — with the **Next lifecycle move**, then close the run with the same line (routing contract,
 `.claude/skills/vlt-lifecycle.md`) — **the roadmap's foot is the obligation; the chat report is
 a copy** *(platform P-13)*. Normally
 *owner-steered ideation* — the owner rules on grouping, order, and scope, recorded in the
