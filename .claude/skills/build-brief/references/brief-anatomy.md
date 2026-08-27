@@ -218,6 +218,51 @@ recorded evidence is). Three of Cycle 11's ruled checks carried the tag with no 
 behind it and had to be repaired at review; a tag that cannot name its instrument is the
 same wish as a field check that cannot name its event.
 
+### The adversary question (required, per ship-verifiable check)
+
+*(Platform P-20, 2026-08-27.)* Beside the instrument declaration above, every ship-verifiable
+check answers one question, and **the answer is recorded in this section**:
+
+> **Name the property this check exists to protect. Now construct a state where the check
+> PASSES and the property is VIOLATED.**
+
+If such a state exists and is reachable on the shipped surface, the check is incomplete —
+**widen it, or add a second check**, before the brief is complete. If no such state can be
+constructed, write that down: *"property: …; no passing-violating state found."* A check that
+survived the question must be visibly distinct from one that was never asked, so **a silent
+pass is not an answer** — the same standard the obsolescence beat already holds
+(`roadmap-roundtable`).
+
+**Why this sits here and not in a review stage.** A check inherits the blind spot of the fix it
+was written beside: the same reasoning designs the repair and its acceptance check, in one
+sitting, from one framing. A briefer who has just ruled *"define the class in one place"* writes
+a check verifying one definition exists — the property they meant to protect, *every site that
+names it agrees*, is never tested because it was never stated **separately from the fix**. A
+second reviewer inherits that framing and does not cure it; only restating the property on its
+own terms does. Ask the question of your own check, at the moment you write it.
+
+**Worked positive — Cycle 14 build-3 check (4).** Property: *the Layer-3 operational-record class
+has one consistent definition.* Passing-but-violated state: *a second site names the class with
+different members.* Every clause of the check held and the property was violated at
+`extraction.md:84` vs `:190`; the contradiction shipped in v0.17.0 and was hot-fixed as v0.17.1
+the same day. The question would have found it at brief time in minutes.
+
+**Worked negatives — the question must not flag everything.** Cycle 14 build-1 check (2) was
+graded on six real subjects with its instrument proven failable against the prior release's code;
+build-2 check (1) runs three times precisely because two runs cannot observe reused-half loss.
+Both were adversarially constructed already and answer the question cleanly. A pass that flags
+every check is noise, not an instrument.
+
+**Where the roadmap already names the property**, the answer here must **reconcile with it** —
+the roundtable's instrument beat records properties at plan time, before any check exists (see
+`.claude/skills/roadmap-roundtable/SKILL.md`). A brief that protects a different property than
+the plan named states which is right and why; silently substituting one is the defect this
+question exists to catch, one stage later.
+
+**Field-contingent checks are out of scope for the question** — not because they are exempt from
+rigor, but because the intervention is scoped to the checks that gate. A field-contingent check
+that fires and fails is still a defect (Cycle 14 build-5 (6) is the recorded instance).
+
 **A field-contingent check names its discharging *event*, not only its vault.** *(Arc 9
 roundtable, 2026-08-20.)* "Discharges in the field" is not a bound — a debt whose discharge
 requires an event **nothing in the plan schedules** is the shape that produced the four-arc

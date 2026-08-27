@@ -164,6 +164,11 @@ on disk. This is the load-bearing step this skill exists to make unforgettable.
 - **R1/R4 present** — the brief carries the Interim-posture (R1) disposition and the
   Enumeration-widening (R4) statement (`references/brief-anatomy.md` §3 and §7), each either
   substantive or an explicit one-line `not applicable`. Absent → the brief is not complete.
+- **The adversary question is answered per ship-verifiable check** — each carries the named
+  property it protects and either a widening (or a second check) or an explicit
+  *"no passing-violating state found"* (`references/brief-anatomy.md` §9). A silent pass is
+  indistinguishable from a skipped one and is not an answer; absent → the brief is not complete.
+  Field-contingent checks are outside the question's scope *(platform P-20, 2026-08-27)*.
 - **The retirement clause is answered** — the brief carries the Retirement disposition
   (`references/brief-anatomy.md` §3): the prohibition this build's enforcement makes
   redundant, named with its site, or an explicit one-line `Retirement: not applicable`.

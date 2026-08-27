@@ -75,8 +75,9 @@ and rulings it cites) through its own discipline. Each prompt carries: the perso
 discipline, voice), the joints-not-parts frame above, and a return contract — ONLY a list
 of findings, each with the roadmap site (cite headings, not line numbers — the roadmap is
 append-only and line refs drift), the fault as one falsifiable claim, and the smallest
-amendment that would cure it. No findings is a legal return — but **the obsolescence beat
-below is mandatory**, and a return that leaves it unanswered is incomplete, not empty.
+amendment that would cure it. No findings is a legal return — but **the obsolescence and
+instrument beats below are both mandatory**, and a return that leaves either unanswered is
+incomplete, not empty.
 Subagents unavailable → run the same lenses sequentially inline; the session gets longer, not thinner. As returns
 land, write the merged findings to the **session file**
 `_output/party-mode/<date>-cycle<N>-roadmap-roundtable-session.md` — the table's working
@@ -101,6 +102,27 @@ superseded rule's site and the mechanism that supersedes it — and its amendmen
 skipped without a trace is ceremony; the record in Converge is what makes the difference
 visible. Material of this shape that falls outside the roadmap's scope is filed as a
 **`supersession`** filing per `factory/inbox/README.md`, under capture-don't-interrupt below.
+
+### The instrument beat (required, every run)
+
+*(Platform P-20, 2026-08-27.)* The two beats above hunt the **plan**. This one hunts what will
+**grade** it. Checks do not exist yet at review time — they are authored at brief time, one
+stage later — and that is exactly why this beat is here: the briefer who designs a repair
+designs its acceptance check in the same sitting from the same framing, and a check written
+that way tests *what the fix does* rather than *the property it was meant to protect*. The
+roundtable is the last position in the loop that can state the property **before** anyone has a
+fix to state it in terms of.
+
+The question to put to each build that ships a check, a net, or a gate: *name the property its
+acceptance must protect, stated without reference to the fix.* A finding here names the build
+and the property in one falsifiable sentence, and its amendment writes that property into the
+roadmap's rulings, where `build-brief` reads it back — its adversary question must reconcile the
+authored check against the property recorded here
+(`.claude/skills/build-brief/references/brief-anatomy.md` §9).
+
+**"No instruments named yet" is a legal return; silence is not.** Where a build's rulings name
+no check, net, or gate, say so explicitly — the same standard as the obsolescence beat, and for
+the same reason: a beat that can be skipped without a trace is ceremony.
 
 ## The table
 
@@ -135,9 +157,11 @@ Then apply from the session file before adjourning — in this order, verified b
 3. **The record**: append `## Roundtable review — <batch label> (<date>)` to the roadmap
    after the Ideation rulings section it reviewed — the roster convened, each A#/R# in
    one line with where it landed, each dispute with the owner's ruling and the recorded
-   dissent, any OPEN disputes (headless) flagged as gating, and the **obsolescence beat's**
+   dissent, any OPEN disputes (headless) flagged as gating, the **obsolescence beat's**
    outcome — each retirement finding with where it landed, or an explicit
-   `Obsolescence: none found` line. This section is what
+   `Obsolescence: none found` line — and the **instrument beat's** outcome: each build that
+   ships a check, net, or gate with the property its acceptance must protect, or an explicit
+   `Instruments: none named` line. This section is what
    `build-brief`'s gate parses. The owner may instead waive the whole review — a dated
    `Roundtable waived (owner): <reason>` line in the rulings section — so a skip is a
    visible ruling, never a silence.
