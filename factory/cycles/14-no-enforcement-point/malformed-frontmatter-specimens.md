@@ -111,19 +111,48 @@ wiki corpus ships in this repo.*
 > specimen is adjudicated, one by one against its page, as a genuine schema break. The class's
 > cardinality is **recorded but is not the check.**
 
-Fill the table below from that sweep — one row per page reaching the class, and the fragment must
-be the **minimal trigger**, not a summary:
+**FILLED 2026-08-27** from `{lint_reports}/2026-08-27-1104-lint.yaml` — the first full
+`vlt-lint --full` sweep on `{field-vault}` after the 0.16.1 → **0.16.2** upgrade
+(`{upgrade_reports}/2026-08-27-0947-upgrade.yaml`). Owner-run, read-only. `lint_cache: cold`
+(ruleset fingerprint moved with `module_version`), `files_checked: 146` of `files_listed: 146`.
 
-| slug | minimal triggering fragment | `frontmatter_defect` | `_fields` | adjudication |
-|---|---|---|---|---|
-| *(unfilled — awaiting the first full sweep after release 1)* | | | | |
+| slug | minimal triggering fragment | adjudication |
+|---|---|---|
+| `ai-ghost-work` | orphaned frontmatter list items written **outside** `sources:` | **GENUINE** |
+| `career-history-as-evidence` | same class — *and it parses cleanly under PyYAML*, i.e. a semantic mis-key a parse test alone passes | **GENUINE** |
+| `creatine-monohydrate` | orphaned frontmatter list items outside `sources:` | **GENUINE** |
+| `fantasy-platform-read-access` | orphaned frontmatter list items outside `sources:` | **GENUINE** |
+| `nfl-2026-position-rankings` | same class — parses cleanly under PyYAML, still correctly flagged | **GENUINE** |
+| `seattle-seahawks` | orphaned frontmatter list items outside `sources:` (4 genuinely new entries) | **GENUINE** |
+| `single-nutrient-claims` | orphaned frontmatter list items outside `sources:` | **GENUINE** |
+| `technical-hiring-pipeline` | same class — parses cleanly under PyYAML, still correctly flagged | **GENUINE** |
+| `barbacoa` | *"summary exceeds 160 characters (171)"* | **REFUTED** — the parsed scalar is under the limit; the scanner counted the raw YAML line, quoting included |
+| `l-theanine` | *"summary exceeds 160 characters (161)"* | **REFUTED** — same instrument artefact |
 
-- corpus size (`files_checked`): *unfilled*
-- sweep date: *unfilled*
-- attestation-only: *unfilled* (bound: **0**)
-- claimed-missing optional: *unfilled* (bound: **0**)
-- genuine schema breaks: *unfilled* (bound: **all remaining**)
-- **VERDICT:** *unfilled*
+**Resolution limit, recorded not papered over.** The 8 genuine specimens are persisted by the
+sweep as a **class** with its slugs, not per-slug fragments, and all 8 were repaired in the same
+run (`fix_now.frontmatter_drift` / `fixes_applied`), so the triggering bytes no longer exist on
+disk and a per-slug minimal fragment is not re-derivable after the fact. This is the **same
+resolution bound** the 2026-08-24 baseline hit, and it is itself the datum for the successor: the
+instrument's specimen resolution is capped by what the sweep chooses to record before it fixes.
+The class fragment is verbatim from the report; 5 of the 8 pages were unparseable YAML before the
+fix, 3 were not.
+
+- corpus size (`files_checked`): **146**
+- sweep date: **2026-08-27** (`2026-08-27-1104-lint.yaml`)
+- attestation-only: **0** (bound: **0**) — **MET**
+- claimed-missing optional: **0** (bound: **0**) — **MET**
+- genuine schema breaks: **8 of 10** (bound: **all remaining**) — **NOT MET**
+- **VERDICT: the bound FAILS on its third leg.** Both classes build-1's reduce-side repair was
+  written to refuse are at **zero**, down from a baseline where they were 100% (2026-08-24, 18/18),
+  86% (2026-08-25, 6/7) and 67% (2026-08-26, 2/3) of the class. But 2 of the 10 remaining specimens
+  are **not** genuine schema breaks. They escape by a **different mechanism** than the one build-1
+  closed — not a rule-citing scanner defeating a reduce-side conjunction, but a scanner-side
+  measurement bug: the summary-length test measures the raw frontmatter line instead of the parsed
+  scalar, and both refutations sit within 11 characters of the limit. Filed the same day as
+  `factory/inbox/2026-08-27-160000-summary-length-check-counts-the-raw-yaml-line.md`.
+  **The number that transfers with E4 to the retirement build is therefore 10 flagged / 8 genuine
+  / 2 refuted at 146 pages — a 20% false-positive rate, not zero.**
 
 **⚠ The first full lint after release 1 is COLD by construction.** Build-1 rewrites both halves of
 `canonicalScan`, so every existing `_agent/lint-cache.yaml` record is unreusable and the sweep
