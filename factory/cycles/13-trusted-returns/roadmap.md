@@ -1,22 +1,9 @@
 ---
 title: 'Cycle 13 — trusted returns'
-status: 'OPEN — **v0.16.1 SHIPPED 2026-08-26** (build 1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`, exit 0; handshake bipartite-clean (9 conventions, 39 pins); no convention `version:` moved and no consumer re-ack was owed. **Acceptance discharged 2026-08-26 and the cycle DID NOT PASS ITS GATE** — build-1''s ledger item is 2 of 4 discharged: **(1) and (3) DISCHARGED** (harness arrays; and the class-homing greps + `package-lint` re-run at rest by the discharge run), **(2) FAILED and it GATES**, **(4) FAILED** (field-contingent, does not gate). (2) was graded DISCHARGED earlier the same day under an owner-ruled subject substitution and **that discharge was REVERSED by owner ruling** hours later when the first live post-upgrade full sweep refuted the check on a named subject — `execution-to-judgment-shift` reached `malformed_frontmatter` anyway. **Root cause, reproduced at rest:** the reduce-side guard''s residue rule (`claim.residue === ''`) assumes the scanner states a bare claim; a scanner that **cites the rule it is applying** defeats the conjunction on two legs at once, because the citation leaves prose residue *and* names `type:`/`author:` inside the rule''s own text. Nothing about the pages changed — only the scanner''s phrasing did. ~~**Cycle 13 CANNOT CLOSE**: closeout is gated on (2), and repairing it needs a build-2.~~
-**SUPERSEDED 2026-08-27 — ACCEPTANCE DISCHARGED, THE GATE IS CLEAR, THE CYCLE IS CLOSABLE.**
-The repair was not a build-2 but **Cycle 14 build-1**, shipped as **v0.16.2 @ `bd985a6`** and
-carrying a check authored (Cycle 14 roundtable A21) to re-grade this one. Discharge pass 2 on
-2026-08-27 graded **(2) DISCHARGED** on two independent instruments — the check''s own named
-reader probe over the six real subjects, and the first post-repair live 146-page sweep
-(`2026-08-27-1104-lint.yaml`, verified independently by the run) — and **(4) DISCHARGED** on an
-**owner-ruled, explicitly stated event substitution** (its named event fired under the defective
-v0.16.1 code and could never pass). **All four checks discharged; the ledger item is TICKED.**
-Two things `cycle-closeout` must still rule, neither of them a gate: **(4)''s bound was MISSED**
-(it read "no later than Cycle 13''s first FULL capture batch" — Cycle 14''s 2026-08-26 capture was
-that batch), and (4) **fired-and-failed while gating nothing**, a second real instance for
-[P-18] Tier C. Cycle 13 remains **closed to capture**; its three carried-forward items and three
-filings were consumed by Cycle 14''s capture as planned. ⚠ Standing correction unchanged (`ST-5`): this check''s instrument should be the recorded returns, not the pages — and the 2026-08-26 evidence sharpens it, because the *recorded* returns were themselves an unrepresentative subset (all bare-form). ⚠ **Cycle 13 is CLOSED TO CAPTURE** (ship day is the capture boundary), so the three §Carried forward items — Finding 4, the general reduce-side posture, and the deferred `malformed_frontmatter` retirement — plus the **three filings this discharge run filed** must open **Cycle 14**. Next: **`inbox-capture` to open Cycle 14**, which captures the guard defect and briefs the repair.'
+status: '**CLOSED 2026-08-27** — the trusted-returns cycle. **SHIPPED v0.16.1 2026-08-26**, build-1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin. Release gate clean (`package-lint: A/B/C/E PASS, D PASS`; handshake bipartite-clean, 9 conventions / 39 pins; no convention `version:` moved). **Acceptance: FULLY DISCHARGED over two passes.** Pass 1 (2026-08-26) graded 2 of 4 and the cycle FAILED its gate — check (2) was refuted in the field on a named subject hours after release, and an earlier same-day discharge of (2) was REVERSED by owner ruling because it had passed on a silently substituted, all-bare-form subject set. **Pass 2 (2026-08-27) discharged the remaining two and the ledger item is TICKED.** The repair was not a Cycle 13 build-2 but **Cycle 14 build-1, shipped as v0.16.2 @ `bd985a6`**, carrying a check authored for exactly this re-grade (Cycle 14 roundtable A21). **(2) DISCHARGED on two independent instruments that both had to hold:** the check''s own named reader probe over the six real subjects (post-reduce `malformed_frontmatter: []`, `unmarked_supersessions: []`, all six still carried in `unattested_write`), and — verified independently by the discharge run rather than banked from the build — the first post-repair live 146-page sweep `2026-08-27-1104-lint.yaml`, where each of the six slugs occurs exactly once and always inside `unattested_write`. That live sweep is precisely the gap-closer build-1''s probe had named in its own deviation 4. **(4) DISCHARGED on an owner-ruled, explicitly stated event substitution** (field-contingent, gated nothing): its named event — the first full sweep after the v0.16.1 upgrade — fired on 2026-08-26 and failed, and could never pass, because the code it measured was defective; 2026-08-27-1104 is the first in-anger measurement with the repair present. Stating the substitution was deliberate — a *silently* substituted discharge is what produced the pass-1 reversal, and pass 2 did not repeat it. ⚠ **(4)''s bound was MISSED and the record keeps it visible:** the bound read "no later than Cycle 13''s first FULL capture batch", Cycle 14''s 2026-08-26 capture was that batch, and (4) was still failing then. **Owner-ruled at closeout 2026-08-27: recorded here, nothing carried** — the bound governed *when* (4) had to be graded, not what it asserts, and the assertion now holds on real field evidence. ⚠ **(4) also fired-and-FAILED while gating nothing**, passing straight through closeout''s non-gating clause — the exact gap **platform [P-18] Tier C** names (*narrow the clause to field-contingent **and not yet fired***). Tier C is unbuilt and its Tier A precondition unmet, so the loose rule ran; logged to P-18 as its **second real instance**, not treated as a defect of this cycle. **The ledger''s single `[x]` is a real measure here** — one build, four checks, all four exercised and graded on real evidence; none was released unexercised. **Still open elsewhere: NOTHING carries forward from this cycle.** Every carry it recorded was consumed by Cycle 14''s capture (2026-08-26) before this close: its three §Carried forward items (the paraphrased-verbatim field, Q3''s general reduce-side posture, the deferred `malformed_frontmatter` retirement) admitted at Cycle 14 §Carried forward; its three discharge-filed filings in Cycle 14''s `derives_from:`; Cycle 12''s six bounded tails landed on Cycle 14''s capture as the FULL batch the narrow-capture carve-out pointed them at; the `{field-vault}` overlay staleness carried as Cycle 14 item 10 (vault-side owner action); and the outstanding `vlt-feedback` action discharged when the vault filed issues #12–16 on 2026-08-26. Filing `2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md` archived to `filings/` (no `origin:` header — never materialized from an issue, so no issue is owed a close). Cycle 13 was **closed to capture** from ship day and never reopened. **This cycle is closed — do not append.**'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (acceptance-discharge run — 2 discharged, 2 FAILED, (2) gate SHUT, 3 filings filed, cycle cannot close; earlier: opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
+updated: '**2026-08-27 (CLOSED by `cycle-closeout` — gate passed on a ticked ledger, a pushed `v0.16.1` tag and zero orphan spikes; nothing carried forward, every carry already consumed by Cycle 14''s capture; filing archived; `factory/CYCLE` reset to none)**; 2026-08-27 (acceptance-discharge PASS 2 — (2) and (4) both DISCHARGED, ledger item TICKED, gate CLEAR); 2026-08-26 (acceptance-discharge run — 2 discharged, 2 FAILED, (2) gate SHUT, 3 filings filed, cycle cannot close; earlier: opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
 derives_from:
   - 'factory/inbox/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md'
 predecessor: 'factory/cycles/12-proxy-claims/roadmap.md (Cycle 12 — SHIPPED v0.16.0 @ `216bea2` 2026-08-25; OPEN for acceptance/closeout, closed to capture)'
@@ -689,27 +676,26 @@ they rest on.
 
 ## Next lifecycle move
 
-*(Restamped by the `acceptance-discharge` run 2026-08-27, pass 2. **This block is the foot and
-it is authoritative** — everything above it under "Next lifecycle move — historical record" is
-the routing that stood while the gate was shut, kept for the record and superseded here. The
-roadmap's foot is the obligation, the chat report a copy: the map's standing rule, restated as
-a per-skill clause by platform **P-13**.)*
+*(Restamped by the `cycle-closeout` run 2026-08-27. **This block is the foot and it is
+authoritative**; everything above it under "Next lifecycle move — historical record", and the
+`acceptance-discharge` pass-2 block this replaces, are the routings that stood while the cycle
+was open. The roadmap's foot is the obligation, the chat report a copy — the map's standing
+rule, restated as a per-skill clause by platform **P-13**. It matters most here: this file is
+now permanent archive and nobody will restamp it again.)*
 
-**`cycle-closeout` — "close the cycle".** Acceptance is fully discharged: all four of build-1's
-checks are graded, the ledger item is **ticked**, and the ship-verifiable gate that held this
-cycle shut since 2026-08-26 is **clear**. `v0.16.1` is tagged and pushed; the single filing this
-cycle derives from is archived to `filings/`.
+**⛔ This cycle is CLOSED — do not append.** The loop restarts at field signal.
 
-Two conditions on that run, neither of them a gate:
+**`inbox-capture`.** Uncaptured filings already sit in `factory/inbox/` (five dated
+2026-08-27, filed by Cycle 14's builds and discharge runs), so capture is the immediate move —
+but note it will **not** find a clean open-cycle slate: **Cycle 14 is open and code-complete**,
+with three releases shipped (v0.16.2 / v0.17.0 / v0.17.1) and its own acceptance still
+undischarged. Cycle 13's close does not advance Cycle 14; the two are independent tracks.
 
-1. **Hand-point `factory/CYCLE` at `13-trusted-returns` and restore it to the open cycle
-   immediately after.** Two cycles are open and the pointer holds one line. **Never headless
-   while that is true.**
-2. **Closeout must rule two recorded items:** **(4)'s MISSED bound** (*"no later than Cycle 13's
-   first FULL capture batch"* — Cycle 14's 2026-08-26 capture was that batch, and (4) was still
-   failing then), and (4) having **fired-and-failed while gating nothing** — the second real
-   instance of the gap [P-18] Tier C names, recorded as evidence for that tier rather than as a
-   defect of this cycle.
+**Nothing from this roadmap carries forward.** Every carry it recorded was consumed by Cycle
+14's capture on 2026-08-26, before this close — the three §Carried forward items, the three
+discharge-filed filings, Cycle 12's six bounded tails, and the `{field-vault}` overlay
+staleness. A future `inbox-capture` re-listing carry-forwards from closed roadmaps should find
+**none** here. That is a real zero, not an omission.
 
-Cycle 13 stays **closed to capture**; its three carried-forward items and three filings were
-consumed by Cycle 14's capture as planned, and nothing here reopens them.
+`factory/CYCLE` was hand-pointed at `13-trusted-returns` for the discharge and closeout runs and
+**restored immediately after each** — two cycles were open and the pointer holds one line.

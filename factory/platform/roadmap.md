@@ -944,6 +944,16 @@ falsifier. `ST-5` gates nothing — the scope ruling below is this item's, not t
   recovers a specimen set from a count-only filing. Either exercises the changed surface on a
   real lifecycle run.
 
+**Tier C — second real instance, 2026-08-27.** Cycle 13's acceptance check (4) **fired on
+2026-08-26, FAILED, and gated nothing**, passing straight through closeout's non-gating clause;
+it was re-graded DISCHARGED a day later on a repair that shipped in a *different cycle*. That is
+exactly the state Tier C's narrowing (*field-contingent **and not yet fired***) exists to catch:
+a fired-and-failed check is not a waiting check, and today nothing distinguishes them. Recorded
+as evidence for the tier, not acted on — **Tier C's precondition (Tier A producing one cycle of
+real manifests) is still unmet**, and landing C8 ahead of it is the strict-era mistake this item
+already refuses. *(Same run also recorded a MISSED bound on (4) — owner-ruled recorded-only at
+closeout, since the bound governed when the check was graded, not what it asserts.)*
+
 **Trigger near-miss recorded 2026-08-27 (Tier B).** Tier B's opening condition is *"a build with
 no prior failure behind it reaches brief-time and reaches for a synthetic fixture unchallenged."*
 Cycle 14 **build-3's brief reached for a synthetic fixture at its check (3)** — unavoidably:
