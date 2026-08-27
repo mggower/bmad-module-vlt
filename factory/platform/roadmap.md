@@ -785,6 +785,82 @@ mistake and is explicitly refused below.
   check against the snapshot **and** the discharge record names which corpus graded each item.
 
 
+### P-20 — the check adversary: attack the checks, not the fix — **queued**
+
+*(Filed 2026-08-27, from an owner observation at the end of Cycle 14's two-release day: *"we need a
+better release review/test process — the last few releases have had a lot of defects and this has
+become expensive."* Routed here, not inbox: every site is a factory skill — `vlt-upgrade` delivers
+none of them. Cross-referenced to [P-18] Tier B and [P-19].)*
+
+**The cause it repairs — a check inherits the blind spot of the fix it was written beside.** The
+same reasoning that designs a repair designs its acceptance check, in the same sitting, from the
+same framing. A briefer who has just ruled *"define the class in one place"* writes a check that
+verifies one definition exists. The property they meant to protect — *every site that names it
+agrees* — is never tested, because it was never stated separately from the fix.
+
+**This is not a hypothesis. It is the same failure three cycles running, and it is the ONLY failure
+mode that has escaped to the field in that span:**
+
+| Cycle | Check | The blind spot | Cost |
+|---|---|---|---|
+| 12 | b2(5), findings cache | Tagged **field-contingent**, so it never gated; the fixture stubbed the SKILL-side writer — the exact seam that broke | Shipped broken, undetected **three cycles** |
+| 13 | check (2), reduce-side guard | The instrument could be **defeated by the thing it measured** (a scanner citing the rule it applies) | Refuted in the field **within hours**; cycle could not close |
+| 14 | build-3 check (4), class membership | Tested single-home-**ness** (defined in exactly one file) and never compared **membership** between the naming sites and the defining site | Contradiction shipped in v0.17.0; hot-fixed as v0.17.1 the same day |
+
+**Confirmed the same day the item was filed.** v0.17.1's repair built the membership comparison build-3 check (4) lacked, and it immediately found a **sixth** enumerating site the defect's own filing had missed — `vault-operating-contract.md:66`, the Layer-3 **entry condition itself**. It also caught that a naive member insert would ship a *new* contradiction: `:190`'s predicate said the class is *append-shaped*, and a charter is not. **A hand-written enumeration of the defect found 5 sites and one wrong predicate; the mechanical comparison found 6 and the predicate.** That gap — between what careful reading finds and what asking the adversary question finds — is this item's whole argument, measured.
+
+**The counter-evidence matters too, and it is what scopes this item.** On the 2026-08-27 two-release
+day, every *other* defect was caught before it shipped — three by briefer grounding (a roundtable
+amendment that was factually wrong about live code; a second wrong about which rules three lines
+restated; a roadmap `Touches` list missing a file), three by builder verification (a brief that
+contradicted itself; an incomplete grounding pass; a pre-measurement off by 4), one at the release
+gate (a re-ack count conflating acks with prose recitations). **Grounding and at-rest verification
+are working. The gap is specifically in the checks.**
+
+**Brief-lite:**
+- **Intent:** make each ship-verifiable check state the property it protects, then try to break the
+  check rather than the fix.
+- **The mechanic, one question per ship-verifiable check:** *"Name the property this check exists to
+  protect. Now construct a state where the check **passes** and the property is **violated**."*
+  If such a state exists and is reachable, the check is incomplete — widen it, or add a second.
+  Worked example (build-3 check (4)): property = *the class has one consistent definition*;
+  passing-but-violated state = *a second site names the class with different members*. That is
+  exactly the defect that shipped, findable at brief time in minutes.
+- **Sites:** `build-brief`'s check anatomy (the adversary question sits beside the existing seam
+  declaration under R1 — same slot, same discipline) · `roadmap-roundtable` (the roster already
+  hunts the plan's joints; this points one voice at the *instruments* rather than the plan) ·
+  the brief's acceptance section records the answer, so a check that survived the question is
+  visibly distinct from one never asked.
+- **Verification:** at rest — run the question against Cycle 14's shipped checks. It **must** find
+  build-3 check (4) (a known positive) and **must not** flag build-1 check (2) or build-2 check (1)
+  (known negatives — both were adversarially constructed already: check (2) was graded on six real
+  subjects and its instrument proven failable against the prior release's code; check (1)'s fixture
+  is three runs precisely because two cannot observe reused-half loss). A pass that flags everything
+  is noise, not an instrument.
+- **Out of scope, named not omitted:**
+  - **A new review stage or an extra reviewer.** Refused on the cause: a reviewer reading the brief
+    inherits the brief's framing, which is the defect. The intervention has to be a *question that
+    reframes*, not a *person who re-reads*.
+  - **Anything about grounding or at-rest verification discipline.** Both are working — see the
+    counter-evidence above. Widening this item to "release quality" would dilute it into the generic
+    review stage the previous bullet refuses.
+  - **Release cost / cadence.** The owner's expense complaint on 2026-08-27 was **three forced cold
+    sweeps in one day**, and that is release *granularity*, not defect rate: release 1 was split
+    deliberately to reopen Cycle 13's gate and the hot-fix was an owner-chosen third cut. Two of the
+    three were scheduling decisions. The structural answer is [P-19]'s frozen corpus plus Cycle 14
+    build-2's cache repair (routine sweeps become warm again). **Do not justify P-20 on cost** — it
+    buys correctness, and the sweeps are a separate lever.
+  - **Automating the question.** It is a reasoning prompt, not a lint rule. If a mechanical subset
+    emerges (e.g. "every enumeration of a set named in >1 site is compared"), that is a package-lint
+    check earned later, on evidence.
+- **Relationship to the neighbours:** [P-18] Tier B declares *what kind* of evidence a check rests
+  on; [P-19] declares *which corpus* supplies it; **P-20 asks whether the check tests the right
+  property at all.** Provenance, population, and validity — three different questions about one
+  instrument. P-20 is independent of both and blocked by neither.
+- **Done-when (self-acceptance):** the next cycle's briefing runs the adversary question on its
+  ship-verifiable checks and **either** widens at least one check **or** records that each survived
+  — the answer on record either way, since a silent pass is indistinguishable from a skipped one.
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**
