@@ -5,6 +5,33 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.17.0 — 2026-08-27
+
+**Cycle 14** — no enforcement point. Release 2 of the cycle: builds 2, 3 and 4.
+
+- **Build 2 — the findings cache: write-ready records, an in-workflow composed key, and an executable sidecar writer:** the cache shipped two releases ago and has never once worked. The page scanner now returns write-ready records, the cache key is composed inside the workflow rather than assumed, and the sidecar is written by a real shipped script (`skills/vlt-lint/scripts/lint-cache.py`) instead of by prose instruction.
+- **Build 3 — governance: the PARA type vocabulary gets a named owner, the attestation roster gets a class it can honestly exempt, and the handshake gets an enforcement point that can see prose:** three conventions move rules, nineteen consumer acknowledgments are re-pinned in the same build, and the version-handshake gains a release-gate check (E7) so a stale ack cannot reach a tag.
+- **Build 4 — lint references: a destructive fix direction gets routed by the scanner, and the report persist gets the parse check it has always asserted:** the `sources_vs_prose` fix direction is routed by the scanner rather than left to the reader, and a persisted lint report is now parse-checked against the claim the contract makes about it.
+
+**Governance rule changes crossing v0.17.0 — read these before writing.**
+
+1. **`{conventions}/write-verification.md` v3 → v4** — the **Layer-3 operational-record class is exempt from attestation jurisdiction**. Attestation no longer claims jurisdiction over records the vault writes about its own operation; the exemption is a named class, cited to `extraction.md`, not a case-by-case judgement. A partner may now write an operational record that would previously have been refused or reported as unattested.
+2. **`{conventions}/extraction.md` v7 → v8** — the PARA recognized **`type:` vocabulary is now a closed, named set**. The vocabulary has an owner and an enumeration; a `type:` outside the set is no longer silently tolerated. Re-derive any local rule or overlay that assumed the `type:` space was open.
+3. **`{conventions}/frontmatter.md` v13 → v14** — re-pinned in coordination with the two rule changes above; consumers re-acknowledge in the same build.
+
+Every consumer acknowledgment of the three moved conventions was **re-pinned in the same build** (**19 acks** across 11 shipped files — `write-verification@4` 5, `frontmatter@14` 10, `extraction@8` 4), and the bipartite handshake check passes in both directions at release time — 9 conventions, 39 consumer pins, consistent. A further **8 in-prose version citations** inside `vlt-lint-full.js` were re-stated to match; these are recitations, not acknowledgments, and are newly guarded by the `E7` release-gate check this version adds — before it, nothing could see them.
+
+**The findings cache sidecar moves from `_agent/lint-cache.yaml` to `_agent/lint-cache.json`**, and is now written by a shipped script (`skills/vlt-lint/scripts/lint-cache.py`) rather than by prose instruction. The legacy `.yaml` file is **deleted automatically on first run**. There is **no migration** — prior records were unusable by construction.
+
+**The first full lint after this release is COLD BY CONSTRUCTION.** Three separate fingerprint movers cross release 2: build 2 rewrites the record shape, build 3 moves two convention digests, and build 4 moves `checks.md`'s. Every existing sidecar record is therefore unreusable and `lint_cache:` will honestly report `cached 0`. This is **expected and is not a cache regression**. Note this is the **second forced cold sweep today** — v0.16.2 caused the first.
+
+**Persisted lint reports may now be `.json` as well as `.yaml`** (`.yaml` remains the default).
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-dispatch`, `skills/vlt-extract`, `skills/vlt-groom`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-query`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-track`, `tools/package-lint.py`, `tools/test-package-lint.py`
+
+
+**Auto-fix placement, stated where it was missing.** `references/fix-and-file.md` Step 3 now requires a `sources_vs_prose` entry to be added **as a member of the existing `sources:` list** — never a top-level key or a loose item outside it — and to **re-parse the frontmatter after the edit**, on the rule that a page whose frontmatter no longer parses is a defect the fixer caused, not a finding it cleared. Field-driven: a 2026-08-27 full sweep found 8 pages carrying orphaned frontmatter items written outside `sources:` by the previous sweep's own Step-3 fix, **5 of them unparseable**. The class had no written procedure, so the fixer improvised — the harm this version's `sources_vs_prose` routing exists to end.
+
 ## v0.16.2 — 2026-08-27
 
 **Cycle 14** — no enforcement point. Release 1 of the cycle: build 1 alone, a repair patch.
