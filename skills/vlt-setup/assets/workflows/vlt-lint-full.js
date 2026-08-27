@@ -175,8 +175,8 @@ const PAGE_SCAN = {
     summary: { type: 'string', description: 'the frontmatter summary: value verbatim (empty if absent)' },
     frontmatter_defect_fields: { type: 'array', items: { type: 'string' }, description: 'bare key names, one per entry; else empty' },
     frontmatter_defect_detail: { type: 'string', description: 'the break in words; else empty' },
-    sources_vs_prose: { type: 'string', enum: ['match', 'diverge', 'no_prose_section'], description: 'GAP B tri-state (match | diverge | no_prose_section) — apply the prompt Gap B rule, per write-verification@4' },
-    sources_vs_prose_detail: { type: 'string', description: "what diverges when sources_vs_prose is 'diverge'; empty otherwise" },
+    sources_vs_prose: { type: 'string', enum: ['match', 'diverge_prose_gap', 'diverge_frontmatter_gap', 'diverge_unclassified', 'no_prose_section'], description: 'GAP B verdict — apply the prompt Gap B rule, per write-verification@4' },
+    sources_vs_prose_detail: { type: 'string', description: 'the diverging entries; else empty' },
     stale_unmarked: { type: 'array', items: { type: 'string' }, description: 'time-bound claims past shelf life lacking a [!stale] marker' },
     within_page_contradictions: { type: 'array', items: { type: 'string' }, description: 'incompatible claims inside this one page' },
     unmarked_supersession: { type: 'array', items: { type: 'string' }, description: 'silently-updated/conflicting claims lacking a [!superseded]/[!stale] callout, or consensus claims lacking citations. A missing or stale attestation is NEVER an unmarked supersession (per write-verification@4 Scope rule).' },
@@ -226,7 +226,7 @@ const convRead = (name) =>
     : `${conventionsPath}/${name}.md`
 
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@14 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@14 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@4, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@14 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@14 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@4, the wiki-page tier-1 item: frontmatter is the source of truth); where both exist and an entry in one is not traceable in the other, report the DIRECTION: 'diverge_prose_gap' when every divergent entry is one frontmatter carries and the prose section lacks; 'diverge_frontmatter_gap' when every divergent entry is one the prose section cites and frontmatter lacks; 'diverge_unclassified' when both kinds are present OR you cannot tell which side is missing the entry — that is the safe answer and it is flagged for a human, never auto-fixed, so never guess a direction; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
   `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later. ` +
   `The frontmatter verdict is STRUCTURED, and it is three fields, not prose. frontmatter_defect is exactly one of: 'none' — the frontmatter block is present, parses, and satisfies the wiki-page schema; 'missing_required' — the block parses but one or more schema keys are absent, and you list EXACTLY those keys in frontmatter_defect_fields; 'malformed_block' — the frontmatter block is absent entirely, or its delimiters/YAML cannot be parsed at all; 'unclassified' — a genuine break that fits none of the above, with the words in frontmatter_defect_detail. Never force a break into a member that fits badly — 'unclassified' exists precisely so an unforeseen break is reported honestly rather than mis-filed, and it is never discarded downstream. frontmatter_defect_fields carries BARE frontmatter key names only, one per entry — \`summary\`, not "missing summary field", never a sentence, never a phrase, never a rule citation. A rule citation, a justification, or any explanatory wording belongs in frontmatter_defect_detail and NEVER in frontmatter_defect_fields. When frontmatter_defect is 'none', frontmatter_defect_fields is empty and frontmatter_defect_detail is empty.`
 
@@ -792,7 +792,12 @@ return {
     // and attestation_census, computed from attested() over the same returned values), and the
     // hand-fold is recorded in the sweep's fixes_applied: so it stays countable.
     unmarked_supersessions: scans.flatMap((s) => (s.unmarked_supersession || []).map((v) => `${s.slug}: ${v}`)),
-    sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose === 'diverge').map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: vs prose Sources diverge'}`),
+    // A14-4: the class routes on the scanner's RETURNED verdict, never on sources_vs_prose_detail's
+    // free text (D1 — a schema description is not an enforcement point, and reduce-side prose
+    // parsing is the debt build-1 retired). Only the prose-gap direction is auto-fixable: adding
+    // the frontmatter entries the prose section omits deletes nothing. The other two directions
+    // land in flag_for_human.sources_vs_prose_unresolved below.
+    sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose === 'diverge_prose_gap').map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: entries missing from the prose Sources section'}`),
   },
   flag_for_human: {
     // Exact match against the extracted H2 set, computed here (B5-3) — the strict category↔H2
@@ -836,6 +841,13 @@ return {
     malformed_frontmatter: scans
       .filter((s) => s.frontmatter_defect && s.frontmatter_defect !== 'none' && !refusedFrontmatterClaim(s))
       .map((s) => `${s.slug}: ${frontmatterDefectText(s)}`),
+    // A14-4, the flagged half: the prose section cites entries frontmatter lacks (reconciling it
+    // mechanically would DELETE a real citation — a provenance judgment, never a serial fix), and
+    // the unclassifiable divergence (the closed enum's escape member, A35). Both are reported,
+    // neither is ever auto-applied.
+    sources_vs_prose_unresolved: scans
+      .filter((s) => s.sources_vs_prose === 'diverge_frontmatter_gap' || s.sources_vs_prose === 'diverge_unclassified')
+      .map((s) => `${s.slug}: ${s.sources_vs_prose_detail || (s.sources_vs_prose === 'diverge_frontmatter_gap' ? 'prose Sources cites entries absent from frontmatter sources:' : 'divergence the scanner could not direction-classify')}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,
   },
   opportunities: {

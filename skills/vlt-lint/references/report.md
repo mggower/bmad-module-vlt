@@ -1,6 +1,6 @@
 # vlt-lint — reference: Step 5 — the structured report (+ Tips)
 
-Read on reaching Step 5. The fenced report block is strict YAML as a whole — emitted fenced in-session and **persisted as the plain `.yaml` file** (`vlt-lint` Step 6) — same content, no fence; keep it parsing whole in both homes.
+Read on reaching Step 5. The fenced report block is **strict YAML as a whole**, and it stays YAML in-session — that is the human-readable home. `vlt-lint` Step 6 then **persists** it, as `.yaml` (the default) **or** `.json`: same content, no fence, **content-verbatim** — unabridged, unreordered and unreworded, never a second authoring act. The persist step's mechanics are **not** restated here; they live at `vlt-lint/SKILL.md`, Step 6. **No dependency:** emitting the report must require no library the vault does not already have — which is why the block is written in the **JSON subset of YAML**: every scalar a JSON string (double-quoted, JSON-escaped), every list entry `- <json>`, nested maps by indentation. That makes the block mechanically translatable into the `.json` home without re-authoring it, and makes every vault's output identical instead of independently invented. **Keep it parsing whole in both homes** — a requirement with an enforcement point, not an assertion: the module's release gate parses real persisted reports before the tag, because "it looked fine" had never once been tested against LLM-authored YAML carrying em-dashes, colons inside values, arrows and quoted strings.
 
 ## Step 5: Emit the structured report
 
@@ -18,7 +18,7 @@ fix_now:
   index_drift: [<what was fixed>, ...]
   frontmatter_drift: [<page: summary missing/over-length | topic string→list | category typo repointed>, ...]
   unmarked_supersessions_fixed: [<page: claim>, ...]
-  sources_vs_prose_mismatches: [<page: frontmatter sources vs prose Sources diverge>, ...]
+  sources_vs_prose_mismatches: [<page: frontmatter sources: entries missing from the prose Sources section — auto-fixed>, ...]
 flag_for_human:
   category_no_match: [<page: category 'X' matches no index H2 — needs a category decision>, ...]
   convention_drift: [<convention@version → consumer acks @N (stale) | <consumer> unacknowledged | <consumer> dangling/not-installed>, ...]
@@ -64,6 +64,7 @@ flag_for_human:
   spec_candidate_standing: <N standing candidate(s) — previously filed, open backlog item, signal unchanged: <paths>>   # the quiet line — derived from {backlog} open items, never prior reports; renders (denominated zero included) whenever _agent/handoffs/ is non-empty; no line when it is empty
   thin_pages: [<page>, ...]
   malformed_frontmatter: [<page: what is wrong>, ...]   # frontmatter absent/unparseable or a page-schema break the field-level frontmatter_drift does not cover; an attestation-only complaint (→ unattested_write) and a claimed-missing OPTIONAL field (→ not a finding) are excluded at the reduce, never listed here
+  sources_vs_prose_unresolved: [<page: prose Sources cites entries absent from frontmatter sources:, or a divergence the scanner could not direction-classify — never auto-fixed>, ...]
 opportunities:
   high_value_gaps: unmeasured     # no producer exists (the fan-out computes no gap candidates) — render the literal, never [] and never omit: an empty list would claim "measured, none found"
   near_duplicates: [<page-a + page-b (signal)>, ...]
