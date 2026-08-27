@@ -817,6 +817,34 @@ for where `{field-vault}` should pay its owed sweep.*
   opposite error (deleting them by association) was equally available from the old text. A
   ship-verifiable check greps that none of the retired symbols survives.
 
+  ⚠ **SUPERSEDED IN PART — grounding correction at brief time (2026-08-26, `build-brief`)**, recorded
+  per `grounding-at-brief-time.md`'s two-place rule. Re-derived against working-tree source at
+  v0.16.1 (`c18c591`), the file being `skills/vlt-setup/assets/workflows/vlt-lint-full.js`, 724 lines:
+  - **`CLAIM_FILLER` is at `:591`, not `:589`** — `:586-590` is the residue-rule comment. (A29
+    corrected four cites in this region and this one survived the pass.)
+  - **`parseClaim` is at `:594-604`, not `:593-603`** — `:592-593` is its comment. (Q1 ruling 1
+    already carried `:594-604`; §Grouping's list carried `:593-603`. The former is right.)
+  - **`KNOWN_FRONTMATTER_BY_LENGTH`'s comment spans `:578-579`**, not `:579` alone.
+  - **`PAGE_REQUIRED_FRONTMATTER` / `PAGE_OPTIONAL_FRONTMATTER` have NO live *code* role today** —
+    `:563-568` is a **comment block**, and every code reference to the two sets is inside the
+    machinery A37 retires (`:577`, `:614-615`, `:625-626`). Their survival is therefore something
+    build-1 must **make true**, not merely preserve: the brief rules that the rewritten dispositions
+    classify `frontmatter_defect_fields` against these sets directly (set containment replacing
+    `fieldsNamed`). **Grounding addition:** `KNOWN_FRONTMATTER` (`:577`) is dead once `:580` goes and
+    joins the retirement list as an eighth symbol; `ATTESTATION_FRONTMATTER` (`:576`) survives.
+  - **`:664` RULED** (A2's third option): the guard is **retired**, because once the predicate takes
+    a structured record it cannot be applied to a free-text string at all. Structuring
+    `unmarked_supersession` is refused on **measured** grounds — `PAGE_SCAN` closes at **3688 of
+    3700** after the ruled repair — and would flip the deferred `:168` dissent into a ruling, which
+    is ideation's act. `:559-561`'s retirement (Q7) is therefore unconditional. Compensations on
+    record: `:168` KEPT (A-R1), an R1 interim posture, and a gating acceptance check that **measures**
+    the A13-1 Finding 1 exposure and decides §Carried forward item 9.
+  - **Schema budget re-measured with package-lint's own `_E6_NODE_EXTRACTOR`**: baseline **3598**
+    (A1 confirmed); the brief's ruled shape lands at **3688 ≤ 3700**, paid for by retiring
+    `frontmatter_valid` (`:159`) **whole** as well as `frontmatter_issue` (`:163`).
+  - **Scope is otherwise unchanged.** Brief:
+    `factory/cycles/14-no-enforcement-point/briefs/build-1-structured-claim-return.md`.
+
   **⚠ RETIRES `:159`; KEEPS `:168` — owner ruling, roundtable 2026-08-26** *(roundtable A-R1)*.
   `:159`'s prohibition (208 chars) becomes **unexpressible by construction** once the disposition is
   an enum — the enum's range excludes the route rather than forbidding it in prose — and **its 208
@@ -1697,6 +1725,85 @@ and A4-4(5) to four.)*
    `unmarked_supersession` is structured, the dissent becomes the ruling.**
 10. **`{field-vault}` overlay staleness** — vault-side owner action, unchanged (§Also carried).
 
+
+## Deferred acceptance ledger
+
+*Per-build `- [ ] **build-N (<slug>, briefed <date>):** …` bullets, appended by `build-brief`; form
+per `factory/cycles/13-trusted-returns/roadmap.md` §Deferred acceptance ledger. Created 2026-08-26
+with build-1's append — the section did not exist, and every brief in this cycle gates against it.
+**Cycle ruling D3 as amended (roundtable A17) governs every bullet: BOUNDED ⇒ ship-verifiable ⇒ it
+GATES**; per rule **R1** each ship-verifiable check names which seam its instrument crosses.
+Also to be recorded here by build-3's brief: **Cycle 12's b3(7)**, inherited unread and landing on
+release 2's acceptance run (roundtable A25).*
+
+- [ ] **build-1 (structured-claim-return, briefed 2026-08-26):** brief
+  `factory/cycles/14-no-enforcement-point/briefs/build-1-structured-claim-return.md`. **Eight checks
+  — all `[ship-verifiable]`, all GATE; none field-contingent.** Release 1, cut alone; ⚠ **the first
+  full lint after it is COLD by construction** (`scanFingerprint` moves — `:232-233`), never a cache
+  regression.
+  **(1) `[ship-verifiable]` — at rest — GATES:** the defeat mechanism is gone and the escape reports
+  — over the V1 harness against shipped source, the attestation-only case is refused **whether or not
+  `_detail` carries the 2026-08-26 rule-citing text**, the invented-requirement case is dropped, and
+  all five controls survive (genuine break, compound break, `unclassified`, `malformed_block`,
+  genuine unmarked supersession) — instrument: the V1 harness, stubbed
+  `agent`/`parallel`/`phase`/`log`/`budget`, `args` as a JSON string, factory-side at rest;
+  seam: **scan → reduce**; evidence: the four arrays verbatim in the BUILT `status:`.
+  **(2) `[ship-verifiable]` — at rest — GATES: ⚠ THIS RE-GRADES CYCLE 13's ACCEPTANCE CHECK (2)**
+  (roundtable A21) — the six subjects of `13-trusted-returns/roadmap.md:468-477`, re-scanned with the
+  **post-build** `PAGE_SCAN` and prompt and run through the shipped rewritten reduce, reach **neither**
+  `malformed_frontmatter` nor `unmarked_supersessions`, while `unattested_write` /
+  `attestation_census` still carry them — instrument: a single-agent reader probe over **read-only
+  copies of those six pages** from `{field-vault}` (never written) plus the shipped reduce, at rest;
+  seam: **page bytes → scanner → reduce**, end-to-end, the only check here that crosses the agent;
+  **binding, carried verbatim from Cycle 13's (2): a fixture built to exercise only the surfaces this
+  build changes does NOT satisfy this check**; evidence: returned JSON + post-reduce arrays verbatim.
+  **Without this check release 1 could ship and Cycle 13 still not close.**
+  **(3) `[ship-verifiable]` — at rest — GATES:** the retirement landed whole and the survivors live —
+  `grep -n "parseClaim\|fieldsNamed\|KNOWN_FRONTMATTER\|normalizeClaim\|claimWords\|CLAIM_FILLER\|frontmatter_issue\|frontmatter_valid" skills/`
+  returns **zero**; the three surviving constant sets are **referenced from the rewritten predicates**,
+  not merely defined; `node --check` parses; `:168` and `:550-557` byte-identical to v0.16.1 —
+  instrument: the V3 greps + `node --check`; seam: **source agreement across the shipped tree** (named
+  as such, not dressed as behavioural); evidence: grep outputs verbatim.
+  **(4) `[ship-verifiable]` — at the release gate — GATES:** `JSON.stringify(PAGE_SCAN).length ≤ 3700`
+  re-measured by **package-lint's own `_E6_NODE_EXTRACTOR`** (never a source char count; baseline
+  3598, ruled shape 3688), and `uv run tools/package-lint.py --expect-version X.Y.Z` exits **0** with
+  both version strings bumped — instrument: package-lint Groups E and D; seam: **source literal →
+  runtime serialization**; evidence: the measured length + the PASS summary line in the release commit.
+  **(5) `[ship-verifiable]` — at rest — GATES:** the category seam is closed on **both** sides and no
+  looser — page-side and index-side `&amp;` forms each produce no `category_no_match`, numeric refs
+  decode, and all three controls still flag (different category, case difference, leading space; D5
+  — strictness not softened) — instrument: the V2 fixture against the shipped reduce; seam: **index
+  scanner → reduce** and **page scanner → reduce**; evidence: the six `category_no_match` arrays.
+  **(6) `[ship-verifiable]` — bounded to the first full `{field-vault}` sweep after release 1 —
+  GATES:** the Q8/E4 `malformed_frontmatter` measurement, **as a specimen set with a bound it can
+  fail** — **zero** post-repair specimens are attestation-only complaints, **zero** are
+  claimed-missing documented-optional fields, and **every** remaining specimen is adjudicated one by
+  one against its page as a genuine schema break (the cardinality is recorded, and is **not** the
+  check); deliverable: slug + **minimal triggering fragment** per page, with corpus size and date,
+  materialized under `factory/cycles/14-no-enforcement-point/` and summarized in the BUILT `status:`
+  — instruments, **two and different** (A19): the persisted `{lint_reports}` archive for the
+  pre-change baseline (no new sweep needed), and a **live** full sweep post-change (this build changes
+  the return's shape, so pre-change recorded returns are free text the new schema cannot emit, and no
+  wiki corpus ships in this repo); seam: **live page corpus → scanner → reduce** at 146-page scale;
+  event: the owner runs `vlt-lint --full` on `{field-vault}` after upgrading to release 1;
+  performer: the owner; vault: `{field-vault}` only. ⚠ **E4 is BOUND by this check, not discharged**
+  — the debt transfers with the number to the build that takes the retirement (§Carried forward 5).
+  **(7) `[ship-verifiable]` — bounded to the same sweep as (6) — GATES:** the `:664` retirement's
+  exposure, measured not assumed — **no** `unmarked_supersessions` entry in that sweep is an
+  attestation-only complaint and `fixes_applied:` records **no** hand-fold of a misrouted attestation
+  entry, against a baseline where all three entries of the 2026-08-26 sweep were false and one was
+  exactly this — instrument: the same live sweep read against the `{lint_reports}` archive baseline;
+  seam: **prompt instruction (`:168`) → scanner return → reduce**, the one seam this build knowingly
+  leaves with no reduce-side enforcement point; event/performer/vault: as (6). **If it fails, the
+  `:168` dissent (Victor, Amelia) becomes the ruling and `unmarked_supersession` is structured by the
+  successor build — this number exists to make that decision** (§Carried forward 9).
+  **(8) `[ship-verifiable]` — at rest — GATES:** the vault-facing catalogue no longer asserts the
+  refuted claim — `checks.md:15` carries **no** conjunction/residue prose and **no** over-reporting
+  *guarantee*, describes the structured verdict and its two exclusions, states that an `unclassified`
+  defect always reports, and keeps the class's legal response (R3); `checks.md:14` states the
+  entity-decoded, still-exact category binding; `grep -rn "residue\|Both exclusions are conjunctions"
+  skills/` returns **zero** — instrument: the V3 greps + a read of the two lines, at rest; seam:
+  **module source → vault-read documentation**; evidence: grep output + the two rewritten lines.
 
 ## Roundtable review — A14-1..A14-8, the four-build batch (2026-08-26)
 

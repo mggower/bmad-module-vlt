@@ -145,7 +145,7 @@ const costAccounting = () => ({
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
-  required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_valid', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
+  required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_defect', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
   properties: {
     slug: { type: 'string' },
     available: { type: 'boolean', description: 'false if the page file could not be read' },
@@ -156,11 +156,12 @@ const PAGE_SCAN = {
     verified_at: { type: 'string', description: "the frontmatter verified_at value verbatim (empty if absent)" },
     review_after: { type: 'string', description: "the frontmatter review_after date verbatim (empty if absent)" },
     outbound_links: { type: 'array', items: { type: 'string' }, description: 'raw [[wikilink]] inner text of every outbound link, verbatim; do not normalize. A link is [[ ]]-delimited text and nothing else — bare text, a filename or a path outside [[ ]] is not a link, and a [[wikilink]] in an inline backtick span or fenced code block is documentation, never a link (per frontmatter@13 rule 5).' },
-    frontmatter_valid: { type: 'boolean', description: 'frontmatter present and well-formed. Absent verified_by:/verified_at: is NOT a validity defect (per write-verification@3 Scope rule) — attestation is reported through the verified_by/verified_at values above.' },
+    frontmatter_defect: { type: 'string', enum: ['none', 'missing_required', 'malformed_block', 'unclassified'], description: 'none | missing_required (keys in _fields) | malformed_block (absent/unparseable) | unclassified (_detail)' },
     category: { type: 'string', description: "the frontmatter category: value verbatim (empty if missing)" },
     topic_is_list: { type: 'boolean', description: 'true if topic: is a YAML list; false if a delimited string or missing' },
     summary: { type: 'string', description: 'the frontmatter summary: value verbatim (empty if absent)' },
-    frontmatter_issue: { type: 'string', description: 'what is wrong if frontmatter_valid is false' },
+    frontmatter_defect_fields: { type: 'array', items: { type: 'string' }, description: 'bare key names, one per entry; else empty' },
+    frontmatter_defect_detail: { type: 'string', description: 'the break in words; else empty' },
     sources_vs_prose: { type: 'string', enum: ['match', 'diverge', 'no_prose_section'], description: 'GAP B tri-state (match | diverge | no_prose_section) — apply the prompt Gap B rule, per write-verification@3' },
     sources_vs_prose_detail: { type: 'string', description: "what diverges when sources_vs_prose is 'diverge'; empty otherwise" },
     stale_unmarked: { type: 'array', items: { type: 'string' }, description: 'time-bound claims past shelf life lacking a [!stale] marker' },
@@ -212,8 +213,9 @@ const convRead = (name) =>
     : `${conventionsPath}/${name}.md`
 
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge frontmatter validity and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@13 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@13 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
-  `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later.`
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@13 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@13 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@3, the wiki-page tier-1 item: frontmatter is the source of truth); 'diverge' only when both exist and an entry in one is not traceable in the other; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
+  `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later. ` +
+  `The frontmatter verdict is STRUCTURED, and it is three fields, not prose. frontmatter_defect is exactly one of: 'none' — the frontmatter block is present, parses, and satisfies the wiki-page schema; 'missing_required' — the block parses but one or more schema keys are absent, and you list EXACTLY those keys in frontmatter_defect_fields; 'malformed_block' — the frontmatter block is absent entirely, or its delimiters/YAML cannot be parsed at all; 'unclassified' — a genuine break that fits none of the above, with the words in frontmatter_defect_detail. Never force a break into a member that fits badly — 'unclassified' exists precisely so an unforeseen break is reported honestly rather than mis-filed, and it is never discarded downstream. frontmatter_defect_fields carries BARE frontmatter key names only, one per entry — \`summary\`, not "missing summary field", never a sentence, never a phrase, never a rule citation. A rule citation, a justification, or any explanatory wording belongs in frontmatter_defect_detail and NEVER in frontmatter_defect_fields. When frontmatter_defect is 'none', frontmatter_defect_fields is empty and frontmatter_defect_detail is empty.`
 
 // The scan-surface fingerprint (A10). Any edit to the prompt's invariant half or to
 // PAGE_SCAN changes it, so a sidecar written under the old surface cannot be reused —
@@ -547,25 +549,41 @@ const attested = (s) => !!(s.verified_by && s.verified_at) // present = both non
 const isStale = (s) => attested(s) && !!s.last_updated && s.last_updated > s.verified_at
 
 // ── Reduce-side guards on the frontmatter-validity claim (A13-1 F1/F3/F5) ────────────────
-// This reduce used to admit `frontmatter_valid === false` and print `frontmatter_issue`
-// unread. The PAGE_SCAN descriptions already forbid routing a missing attestation pair into
-// a validity defect (see frontmatter_valid) or an unmarked supersession (see
-// unmarked_supersession), and that text is correct — but a schema description is an
+// This reduce used to admit the scanner's boolean validity verdict and print its free-text
+// issue slot unread. The PAGE_SCAN descriptions already forbid routing a missing attestation
+// pair into a validity defect (see the frontmatter verdict's description) or an unmarked
+// supersession (see unmarked_supersession), and that text is correct — but a schema description is an
 // INSTRUCTION, not an enforcement point. Cycle 12 build-1 shipped exactly that prohibition
 // and the very next two full sweeps reported the defect unchanged (20 entries hand-folded
 // 2026-08-24, 6 on 2026-08-25). So what the reduce can decide WITHOUT page content, it now
 // decides here, at the only point in the pipeline that can enforce it.
 //
-// The guards only ever REFUSE an entry; they never add one, and they never fire on a claim
-// they cannot positively identify (see the residue rule below) — the failure direction is
-// over-reporting, never swallowing a genuine schema break.
+// Cycle 14 build-1 removed the parse rather than tuning it. The verdict now arrives
+// STRUCTURED — frontmatter_defect (a closed enum), frontmatter_defect_fields (bare key names)
+// and frontmatter_defect_detail — so the guards classify a machine-shaped value instead of
+// interpreting prose. The prior mechanism was defeated in the field on 2026-08-26 by a scanner
+// that merely CITED the rule it was applying: the quoted rule named real required keys and left
+// leftover prose behind, defeating the closing conjunction on two independent legs at once.
+// Nothing about the pages had changed; only the phrasing had. Set containment over a bare field
+// list cannot be defeated by wording.
+//
+// The invariant, restated for the structured return: the guards only ever REFUSE an entry, they
+// never add one, and they fire ONLY on frontmatter_defect === 'missing_required' whose field
+// list is non-empty and lies WHOLLY inside a known set. 'unclassified' and 'malformed_block' are
+// never refused by either disposition — 'unclassified' is the deliberate fail-OPEN escape, the
+// member a scanner reaches for when a genuine break fits no other, and it always reports. So the
+// failure direction remains over-reporting, never swallowing a genuine schema break — but that is
+// now a property of the enum's escape member rather than of a filler word list, and it is TESTED
+// by this build's acceptance (check 1's five controls) rather than asserted here.
 
 // The page-required frontmatter set is the WIKI PAGE SCHEMA's ({conventions}/frontmatter.md,
 // *Wiki pages* — base fields plus the wiki additions), deliberately NOT PAGE_SCAN.required
 // above: that list governs what the AGENT must RETURN, not what a PAGE must CARRY. Conflating
-// the two is the defect this guards — a scanner reported a page as invalid for `missing
+// the two is the defect these sets guard — a scanner reported a page as invalid for `missing
 // review_after` because review_after is a required RETURN value, while the page schema
 // documents it as OPTIONAL (absence = evergreen). Where the two disagree, the page schema governs.
+// Their live role since build-1: frontmatter_defect_fields is classified by set containment
+// against them directly — that arithmetic IS the "and NOTHING else" half of both dispositions.
 const PAGE_REQUIRED_FRONTMATTER = ['type', 'created', 'title', 'author', 'trust', 'last_updated', 'summary', 'category', 'topic', 'status', 'sources']
 // Documented-optional page slots — absence is conformant, so "missing X" over one of these is
 // not a finding at all (frontmatter@13, *Wiki pages*).
@@ -574,60 +592,49 @@ const PAGE_OPTIONAL_FRONTMATTER = ['review_after', 'source_type', 'review_note']
 // validity defect and never an unmarked supersession. It is reported independently, from the
 // same returned values, by unattested_write and attestation_census below.
 const ATTESTATION_FRONTMATTER = ['verified_by', 'verified_at']
-const KNOWN_FRONTMATTER = PAGE_REQUIRED_FRONTMATTER.concat(PAGE_OPTIONAL_FRONTMATTER, ATTESTATION_FRONTMATTER)
-// Scanned longest-key-first so a key that contains another is never shredded by it —
-// `source_type` must match as `source_type`, not leave a `source` crumb behind once `type` ate it.
-const KNOWN_FRONTMATTER_BY_LENGTH = KNOWN_FRONTMATTER.slice().sort((a, b) => b.length - a.length)
 
-// Case- and punctuation-insensitive normalization, so `verified_by`, "verified by",
-// "`verified_by`/`verified_at`" and "Missing verified_at." all read the same.
-const normalizeClaim = (text) => ` ${String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `
-const claimWords = (field) => field.replace(/_/g, ' ')
-// The residue rule — the "and NOTHING else" half of both dispositions. Strip every recognized
-// frontmatter key and the bare connective filler a complaint uses to join them; whatever is
-// left is a claim this reduce cannot decide. Non-empty residue ⇒ no guard fires and the entry
-// reports, so "malformed AND unattested" survives as a finding while "missing verified_by,
-// verified_at" does not.
-const CLAIM_FILLER = ['missing', 'absent', 'no', 'not', 'present', 'and', 'or', 'also', 'the', 'a', 'an', 'is', 'are', 'both', 'plus', 'with', 'field', 'fields', 'key', 'keys', 'frontmatter', 'page']
-// One pass over the claim: consume every recognized key longest-first, recording which were
-// named and leaving the rest as residue.
-const parseClaim = (text) => {
-  let norm = normalizeClaim(text)
-  const named = new Set()
-  for (const f of KNOWN_FRONTMATTER_BY_LENGTH) {
-    const token = ` ${claimWords(f)} `
-    if (!norm.includes(token)) continue
-    named.add(f)
-    norm = norm.split(token).join(' ')
-  }
-  return { named, residue: norm.split(' ').filter((w) => w && !CLAIM_FILLER.includes(w)).join(' ') }
-}
-const fieldsNamed = (claim, set) => set.filter((f) => claim.named.has(f))
+// The "and NOTHING else" test, as set arithmetic over the returned field list. A list qualifies
+// only if it is non-empty, every entry is a bare key inside `set`, and no entry is a page-REQUIRED
+// key. The last clause is what keeps a COMPOUND claim reporting ("malformed AND unattested" names
+// a required key alongside the attestation pair, so it satisfies no containment) — and it is
+// checked explicitly rather than inferred from the sets being disjoint today, because the three
+// sets are hand-maintained: a later edit that promotes a key from optional to required without
+// removing it from the optional list would otherwise silently teach a guard to swallow a genuine
+// requirement. Anything not a bare key name (a sentence, a rule citation) is in no set and so
+// qualifies nowhere — the defeat mechanism has no purchase here.
+const whollyWithin = (fields, set) =>
+  Array.isArray(fields) && fields.length > 0 &&
+  fields.every((f) => typeof f === 'string' && set.includes(f)) &&
+  !fields.some((f) => PAGE_REQUIRED_FRONTMATTER.includes(f))
 
 // Disposition 1 — the attestation-only complaint. The test is "attestation and NOTHING else",
 // never "mentions attestation": a page that is genuinely malformed AND also unattested must
 // still be reported. The refused entry loses no fact — the page's unattestedness is already
 // reported, computed independently from attested() over the same returned values, through
 // unattested_write and attestation_census. Refusing here removes a DUPLICATE, not a finding.
-const attestationOnlyComplaint = (text) => {
-  const claim = parseClaim(text)
-  return fieldsNamed(claim, ATTESTATION_FRONTMATTER).length > 0 &&
-    fieldsNamed(claim, PAGE_REQUIRED_FRONTMATTER).length === 0 &&
-    claim.residue === ''
-}
+const attestationOnlyComplaint = (s) =>
+  s.frontmatter_defect === 'missing_required' && whollyWithin(s.frontmatter_defect_fields, ATTESTATION_FRONTMATTER)
 
 // Disposition 2 — the invented requirement. "missing X" where X is documented-optional of a
 // page is not a finding at all. Unlike disposition 1 this refusal carries NO fact anywhere —
 // the requirement does not exist — so the entry is simply dropped. That asymmetry is
 // deliberate: disposition 1 drops a duplicate, disposition 2 drops a non-event.
-const inventedRequirement = (text) => {
-  const claim = parseClaim(text)
-  return fieldsNamed(claim, PAGE_OPTIONAL_FRONTMATTER).length > 0 &&
-    fieldsNamed(claim, PAGE_REQUIRED_FRONTMATTER).length === 0 &&
-    claim.residue === ''
-}
+const inventedRequirement = (s) =>
+  s.frontmatter_defect === 'missing_required' && whollyWithin(s.frontmatter_defect_fields, PAGE_OPTIONAL_FRONTMATTER)
 
-const refusedFrontmatterClaim = (text) => attestationOnlyComplaint(text) || inventedRequirement(text)
+const refusedFrontmatterClaim = (s) => attestationOnlyComplaint(s) || inventedRequirement(s)
+// The finding line, rendered from the structured verdict rather than echoed from free text.
+const frontmatterDefectText = (s) => {
+  const fields = (Array.isArray(s.frontmatter_defect_fields) ? s.frontmatter_defect_fields : []).filter(Boolean)
+  const detail = String(s.frontmatter_defect_detail || '').trim()
+  if (s.frontmatter_defect === 'missing_required') {
+    return `missing required frontmatter: ${fields.join(', ') || '(unnamed)'}${detail ? ` — ${detail}` : ''}`
+  }
+  if (s.frontmatter_defect === 'malformed_block') {
+    return `frontmatter block absent or unparseable${detail ? ` — ${detail}` : ''}`
+  }
+  return `unclassified frontmatter defect${detail ? `: ${detail}` : ''}`
+}
 // The attestation census (E6/B10-11): the denominated wiki-wide line for the browsable
 // wiki — pure arithmetic over the attestation values the scanners ALREADY return (no new
 // ask, no PAGE_SCAN change). fresh = attested and current; stale = attested but
@@ -640,7 +647,23 @@ const attestation_census = {
   stale: scans.filter(isStale).length,
   unattested_pre_adoption: scans.filter((s) => !attested(s)).length,
 }
-const h2set = new Set(indexScan ? indexScan.h2_headings || [] : [])
+// Transport normalization for the category↔H2 seam (A14-3). Both sides of that comparison are
+// AGENT-returned — the page's category: and the index's H2 list — and an agent that HTML-escapes
+// what it read returns `Energy &amp; Clean Tech` for a page carrying `Energy & Clean Tech`. On the
+// page side that falsifies one page; on the INDEX side it falsifies every page in that category at
+// once. Decoding is done at the comparison seam and NOT on intake into `scans`, so the stored scan
+// record stays a byte-faithful verbatim agent return. Single pass by construction — the replace
+// runs once over the source string, so `&amp;amp;` decodes to `&amp;` and never cascades to `&`.
+const HTML_ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
+const decodeEntities = (text) => String(text == null ? '' : text).replace(
+  /&(?:#(\d+)|#[xX]([0-9a-fA-F]+)|([a-zA-Z]+));/g,
+  (m, dec, hex, name) => {
+    if (dec !== undefined) { const n = parseInt(dec, 10); return n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : m }
+    if (hex !== undefined) { const n = parseInt(hex, 16); return n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : m }
+    return Object.prototype.hasOwnProperty.call(HTML_ENTITIES, name) ? HTML_ENTITIES[name] : m
+  },
+)
+const h2set = new Set((indexScan ? indexScan.h2_headings || [] : []).map(decodeEntities))
 
 return {
   mode: 'full',
@@ -656,18 +679,37 @@ return {
     frontmatter_drift: scans
       .filter((s) => s.topic_is_list === false || summaryIssue(s))
       .map((s) => `${s.slug}: ${[s.topic_is_list === false ? 'topic not a list' : '', summaryIssue(s)].filter(Boolean).join('; ')}`),
-    // Guarded at the CALL SITE, never inside collect() (:542) — collect is generic and shared,
-    // and a guard inside it would silently narrow every other class built on it. The filter runs
-    // on the raw returned value rather than collect's `slug: value` string, so a slug can never
-    // be mistaken for claim text. A13-1 Finding 1's sixth entry (an attestation complaint) arrived
-    // here after the same prompt-side prohibition was ignored.
-    unmarked_supersessions: scans.flatMap((s) => (s.unmarked_supersession || []).filter((v) => !attestationOnlyComplaint(v)).map((v) => `${s.slug}: ${v}`)),
+    // UNGUARDED since Cycle 14 build-1, deliberately and on the record (owner ruling A-R1).
+    // This site used to filter attestation-only complaints out of the class, because A13-1
+    // Finding 1's sixth entry arrived here after the same prompt-side prohibition was ignored.
+    // Once the predicate takes a STRUCTURED record instead of text it cannot be applied to a
+    // free-text string at all — `unmarked_supersession` is an array of prose and Cycle 14 build-1
+    // does not structure it (PAGE_SCAN closes at 3688 of a 3700 budget; there is no room, and
+    // structuring it is the successor build's act). So the guard here is not removed by
+    // preference, it becomes inexpressible, and the A13-1 exposure returns. The only remaining
+    // depth for this class is the prompt-side prohibition in unmarked_supersession's own schema
+    // description — which this cycle's own D1 rules is never an enforcement point, and which
+    // :550-557 records was already field-refuted once. That is a live dissent (Victor, Amelia),
+    // carried not resolved, and the exposure is MEASURED by acceptance check 7 rather than
+    // assumed away: if that sweep finds an attestation-only entry here, the dissent becomes the
+    // ruling and the successor build structures unmarked_supersession.
+    // Interim posture until then: entries in this class are read as CANDIDATES, not verdicts —
+    // an entry naming only verified_by/verified_at is refuted by the reader and no fix is
+    // applied (the page's unattestedness is already reported independently by unattested_write
+    // and attestation_census, computed from attested() over the same returned values), and the
+    // hand-fold is recorded in the sweep's fixes_applied: so it stays countable.
+    unmarked_supersessions: scans.flatMap((s) => (s.unmarked_supersession || []).map((v) => `${s.slug}: ${v}`)),
     sources_vs_prose_mismatches: scans.filter((s) => s.sources_vs_prose === 'diverge').map((s) => `${s.slug}: ${s.sources_vs_prose_detail || 'frontmatter sources: vs prose Sources diverge'}`),
   },
   flag_for_human: {
     // Exact match against the extracted H2 set, computed here (B5-3) — the strict category↔H2
-    // binding is case-sensitive by design: no trimming, no case folding.
-    category_no_match: indexScan ? scans.filter((s) => !h2set.has(s.category)).map((s) => `${s.slug}: category '${s.category || '(none)'}' matches no H2`) : [],
+    // binding is case-sensitive by design: no trimming, no case folding. HTML entities are
+    // decoded on BOTH sides first (A14-3) as a transport normalization — a scanner escaping what
+    // it read is a transport artefact, not a category difference — and that is the ONLY latitude:
+    // the comparison itself is no looser than before.
+    category_no_match: indexScan
+      ? scans.filter((s) => !h2set.has(decodeEntities(s.category))).map((s) => `${s.slug}: category '${decodeEntities(s.category) || '(none)'}' matches no H2`)
+      : [],
     // Attestation findings (write-verification contract). PARA files are outside this workflow's
     // page set (it sweeps {wiki}) — para_missing_attestation is a structural slot the SKILL fills
     // from its own PARA jurisdiction scan; it is emitted here so the report shape is complete.
@@ -694,12 +736,13 @@ return {
     // it composes contradiction_scan: from its own run facts.
     entity_collisions: flat('entity_collisions').concat(seededCollisions),
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
-    // The scan's `frontmatter_valid: false` claim is no longer taken on faith: an issue that is
-    // ONLY an attestation complaint, or ONLY a claimed-missing optional field, is refused entry
-    // (see the reduce-side guards above for why the prompt cannot enforce this and the reduce can).
+    // The scan's frontmatter verdict is no longer taken on faith: a 'missing_required' naming
+    // ONLY the attestation pair, or ONLY documented-optional fields, is refused entry (see the
+    // reduce-side guards above for why the prompt cannot enforce this and the reduce can).
+    // 'unclassified' and 'malformed_block' are never refused — they always report.
     malformed_frontmatter: scans
-      .filter((s) => s.frontmatter_valid === false && !refusedFrontmatterClaim(s.frontmatter_issue))
-      .map((s) => `${s.slug}: ${s.frontmatter_issue || 'invalid'}`),
+      .filter((s) => s.frontmatter_defect && s.frontmatter_defect !== 'none' && !refusedFrontmatterClaim(s))
+      .map((s) => `${s.slug}: ${frontmatterDefectText(s)}`),
     index_malformed: indexScan ? !!indexScan.malformed : false,
   },
   opportunities: {
