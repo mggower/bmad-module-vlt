@@ -327,7 +327,7 @@ Every operational file class carries its exit — a decay verb, or an exemption 
 | `{upgrade_ledger}`, `{overlays}` (incl. `.skill-manifest.sanctioned`, the manifest's sanction record), `{tripwires}` | exempt — slow, human-gated accumulators (one entry per upgrade / append-only local rules / one line per sanctioned migration edit / rare wire edits); their append-only declarations stand | — | — | — |
 | `{archive}` | exempt by definition — cold storage, outside every live-read enumeration; git-tracked, readable markdown | — | — | — |
 
-A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract. A **structured report-emitting** verb persists its report verbatim as a dated plain `.yaml` file under its report dir, declared in these tables in the act that creates it (retention-at-birth); report dirs are walker-exempt **by their rows here — never by a separate list**; legacy `.md` report files predating this rule stay legal, no backfill.
+A new accumulating agent-zone file class enters this table in the act that creates it — no accumulator ships without a declared decay contract. A **structured report-emitting** verb persists its report content-verbatim as a dated plain file under its report dir, in the format that verb declares, declared in these tables in the act that creates it (retention-at-birth); report dirs are walker-exempt **by their rows here — never by a separate list**; legacy `.md` report files predating this rule stay legal, no backfill.
 
 ## How to write
 
