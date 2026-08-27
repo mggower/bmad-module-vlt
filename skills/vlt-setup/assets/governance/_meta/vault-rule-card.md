@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:265922bb1caa2dd984df9f06fcea42f98a4622e2ef84543c68a168e3a2fcbe88 (derived 2026-08-25)'
+derived_from: 'vault-operating-contract.md sha256:990faf0a95eea68c1159ad658cc67ce9d4fa89b5fbc77171b7e999d8d8dc77ae (derived 2026-08-27)'
 ---
 
 # Vault Rule-Card

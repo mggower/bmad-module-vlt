@@ -1,6 +1,155 @@
 ---
 title: 'Build #2 — the findings cache: write-ready records, an in-workflow composed key, and an executable sidecar writer (the cache shipped two releases ago and has never once worked)'
-status: 'BRIEFED 2026-08-27 — build via bmad-workflow-builder in a fresh session'
+status: >
+  BUILT 2026-08-27 — every F-site landed; **7 of 8 acceptance checks are gradeable at rest and all
+  7 PASS**; (8) is field-contingent, does not gate, and is UNFILLED by construction (it needs two
+  consecutive `{field-vault}` sweeps under an unchanged ruleset, per A26). Version bump NOT taken —
+  it belongs to the release step (`vlt-release`). Branch `cycle14-release2`.
+
+  **Sites changed.**
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js` (767 → 870 lines): `:50-55` the `cachedScans`
+  arg doc re-pointed at `_agent/lint-cache.json` read through `lint-cache.py`, records named as the
+  previous run's returned `cache_records`; `:56-70` `rulesetFingerprint:` retired as an arg and
+  replaced by the `rulesetComponents:` named-slot contract (F1 edit 1); `:114` reads
+  `rulesetComponents` off the PARSED `a` with the object-and-not-array shape `:112` uses
+  (F1 edit 2, the `:72-77` runtime contract intact); `:250-282` the composition — `RULESET_SLOTS`,
+  `rulesetSlotsMissing`, `composeRulesetFingerprint()` and `const rulesetFingerprint`, sited
+  immediately after `scanFingerprint` so both halves read together, commented with **why the
+  composition is here and the component digests are not** (F1 edit 3); `:291-295` the `runKey`
+  comment extended — three terms unchanged in shape, third term's provenance moved, `scanFingerprint`
+  stays a term and why (F1 edit 4); `:297-305` `cacheRecordsRead` / `cacheRejected` with step 2's
+  *stated in the report* mandate named as what they enforce (F1 edit 5); `:319-325` the
+  incomplete-components coverage cap (deviation 2); `:426-450` `cacheRecords` built after the
+  `outbound_links` normalization pass, keyed on `p.slug`, fresh and reused through one code path,
+  emitted only when `pageHashes[p.slug]` and the composed fingerprint are both non-empty
+  (disposition 3, F1 edit 6); `:855-870` the return — `fresh_scans:` **retired**, `cache_records:`,
+  `cache_records_read:`, `cache_rejected:` added, `cache_fingerprint` unchanged, the READ-ONLY
+  sentence kept and extended with the write-ready clause.
+  **NEW shipped file:** `skills/vlt-lint/scripts/lint-cache.py` (F2) — the module's first `vlt-lint`
+  script and `skills/vlt-lint/scripts/` its first script dir. PEP 723, `requires-python = ">=3.9"`,
+  **no dependencies**; `read` exits 0 for ok/missing/unparseable alike; `write` is temp-file +
+  `os.replace`, deletes a legacy `_agent/lint-cache.yaml` and reports `legacy_removed`; both modes
+  print one JSON object; the docstring names its two callers and declines to duplicate the `:245`
+  record predicate.
+  `skills/vlt-lint/references/full-scale.md` (F3, build-2 owns the file): `:8` step 2 — the
+  *"a digest over, in this order"* clause **retired outright** (A40) and replaced by the component
+  contract with the digests as executable steps (`shasum -a 256`, base-then-overlay, UTF-8, first
+  16 hex lowercase), the read command line, the *order does not matter, the workflow sorts* clause,
+  the composition pointed at `vlt-lint-full.js` rather than restated, the standing cold-run mandate
+  kept **verbatim** with one clause naming its two instruments; `:9` step 3 — `rulesetFingerprint`
+  → `rulesetComponents` in the arg list **and** in the resume clause; `:12` step 5 — the write
+  command line, `cache_records` as what is written, A6's reason stated, the legacy-deletion clause,
+  every kept clause (rewritten-whole, facts-never-verdicts, not-a-report, safely-deletable) intact,
+  and the report-composition rule extended with `cache_records_read` / `cache_rejected`.
+  Untouched, as briefed: step 1's `crossLayerSlugs` predicate, step 4 in full, `:13`.
+  `skills/vlt-lint/references/report.md` (F4): `:77` the rejected pair added to **both** the warm
+  and the cold branch; `:88` the Findings-cache paragraph extended — never omitted, `rejected 0` on
+  a cold run means no records were read. `:3` and `:13` untouched (build-4's).
+  `skills/vlt-lint/SKILL.md:74` (F5): the **cache sentence only** — `.yaml` → `.json` plus
+  *written by `scripts/lint-cache.py`*. The persist sentence on the same line is byte-identical
+  (build-4's).
+  `skills/vlt-setup/assets/governance/_meta/vault-operating-contract.md:325` (F6): the Decay row's
+  key becomes `` `_agent/lint-cache.json` ``; the exemption's reasoning is byte-identical.
+  `skills/vlt-setup/assets/governance/_meta/vault-rule-card.md:11` (F6): `derived_from:` re-stamped
+  to `sha256:990faf0a95eea68c1159ad658cc67ce9d4fa89b5fbc77171b7e999d8d8dc77ae (derived 2026-08-27)`;
+  body unchanged, `RULE_CARD_BUDGET` not approached.
+  `skills/vlt-setup/assets/module.yaml:88-89` (F7): the `uv` row's `needed_by:` widened to name
+  vlt-lint's findings-cache script; `absent:` widened with the never-fails-because-its-cache-did
+  clause. No new `machine_tools` row.
+  **New factory records (never copied into a vault):**
+  `factory/cycles/14-no-enforcement-point/lint-cache-roundtrip.mjs` (V1/V2) and
+  `factory/cycles/14-no-enforcement-point/lint-cache-documented-invocation.mjs` (V3).
+
+  **Verification, actually run.**
+  **V1/V2 — `node factory/cycles/14-no-enforcement-point/lint-cache-roundtrip.mjs`: ALL CHECKS
+  PASS.** The shipped workflow source (stubbed `agent`/`parallel`/`phase`/`log`/`budget`, `args`
+  delivered as a JSON **string**) and the shipped `lint-cache.py` as a **subprocess** for every read
+  and every write against a real temp vault dir. **Nothing on the write path is stubbed** — that is
+  the whole repair. Six-page corpus. Run 1: `status=missing read=0 | files_checked=6 files_cached=0
+  files_listed=6 cache_records=6 cache_records_read=0 cache_rejected=0 | written=6`. Run 2:
+  `status=ok read=6 | files_checked=0 files_cached=6 files_listed=6 cache_records=6
+  cache_records_read=6 cache_rejected=0 | written=6`. Run 3: identical to run 2, and the sidecar
+  file compares **byte-for-byte equal** to run 2's — which is also the proof of `normalizeTarget`
+  idempotence (the stored `outbound_links` are the normal form, deviation 6). One reused record
+  verbatim: `{"slug":"alpha","key":"sha256-alpha-0|225f762e874613e61b05|af7e8840f80e6a94b9","scan":{…"outbound_links":["zeta"]…}}`.
+  Negatives: a `PAGE_SCAN` differing by one character → `files_cached=0 files_checked=6
+  cache_rejected=0` and a different middle key term (`de4e2b3e77b9da241b06`); one changed ruleset
+  component → `files_cached=0` and a different third term (`681eef8090a59f8cb9`); neither changed →
+  `files_cached=6`. Ordering: the same components with shuffled keys compose the identical
+  `cache_fingerprint` `225f762e874613e61b05|af7e8840f80e6a94b9`. Completeness: a components object
+  missing two slots → `cache_fingerprint: null`, `files_cached: 0`, `cache_records: 0`, and the cap
+  *"findings cache cold: rulesetComponents incomplete — absent or empty slots [pin_vector,
+  checks_digest]; no page was reusable this run"*. Flat pre-repair sidecar (the field's own shape),
+  **cold branch**: `cache_records_read=6 cache_rejected=6 files_cached=0`; **warm branch including
+  zero**: `cache_records_read=6 cache_rejected=0`; mixed 3+3 sidecar: `read=6 rejected=3 cached=3`.
+  A page with no `pageHashes` entry produces **no** record. The writer deleted a seeded legacy
+  `_agent/lint-cache.yaml` and reported `legacy_removed: true`.
+  **V3 — `node factory/cycles/14-no-enforcement-point/lint-cache-documented-invocation.mjs`: ALL
+  CHECKS PASS.** Both command lines extracted verbatim from `full-scale.md` and executed (deviation
+  3): missing → `exit 0 {"status": "missing", …}`; corrupt → `exit 0 {"status": "unparseable", …}`;
+  the documented write → `exit 0 {"written": 1, "path": …, "legacy_removed": false}`; read-back →
+  `exit 0 {"status": "ok", … "count": 1}`.
+  **V4 — retirements.** `grep -rn "fresh_scans" skills/` → **0**.
+  `grep -rn "a digest over, in this order" skills/` → **0**. `lint-cache\.yaml` → 2 hits, both the
+  legacy-deletion mechanism itself (deviation 1); excluding those, **0**. Survivors present: the
+  reader filter `c && c.slug && c.key && c.scan` (1), the READ-ONLY sentence (1), step 4's
+  version-skew defence (1). `node --check` and `python3 -m py_compile` both clean.
+  **V5 — E6, measured with package-lint's own `_E6_NODE_EXTRACTOR`, never a source char count:**
+  `PAGE_SCAN` **3688** (budget 3700) — unmoved from build-1. `INDEX_SCAN` 823, `CLUSTER_FINDINGS`
+  1630, `PAIR_FINDINGS` 376.
+  **V6 — manifest coverage, verified not assumed:** `verify-skill-manifest.py --write` against a
+  temp root wrote 34 entries including `.claude/skills/vlt-lint/scripts/lint-cache.py`. No widening
+  owed (structural scope holds for a new `scripts/` dir).
+  **Packaging lint** — `uv run tools/package-lint.py` → `A/B/C/E PASS, D SKIPPED — vlt 0.16.2`,
+  exit 0. **C6 isolated: PASS** (rule card re-stamped). **E6 isolated: PASS.** Handshake Group E
+  passes and nothing was owed in substance (no `version:` moved, the `:11` ack untouched).
+  **Scrub** — no personal or vault-local content in any changed file; `find . -name
+  ".decision-log.md"` → nothing; no `__pycache__`/`.pyc` left.
+
+  **Deviations (numbered).**
+  1. **V4's retirement grep is not literally zero and cannot be.** The brief's command
+  `grep -rn "fresh_scans\|lint-cache\.yaml\|a digest over, in this order" skills/` returns two
+  `lint-cache.yaml` hits: `scripts/lint-cache.py:49` `LEGACY = "lint-cache.yaml"` and
+  `full-scale.md:12`'s clause saying the script removes it. Both are **required by disposition 1** —
+  the writer deletes the legacy file **by name**, so the name must exist in the shipped surface.
+  Retirement 3 retires the `.yaml` as a **legal sidecar path**, and naming it as the file to delete
+  is that retirement's own mechanism, not its survival. The grep is reported narrowed
+  (`| grep -v "legacy\|LEGACY"` → 0); the other two terms return 0 unqualified.
+  2. **The incomplete-components coverage cap is pushed a few lines below the composition, not at
+  it.** The composition sits immediately after `scanFingerprint` as F1 edit 3 requires, but
+  `coverageCaps` is not declared until the fan-out block. So the composition computes
+  `rulesetSlotsMissing` and the cap is pushed at the first point `coverageCaps` exists, immediately
+  above the overlay cap it mirrors. Behaviourally identical; the alternative was hoisting
+  `coverageCaps` above a block that has been stable for four cycles.
+  3. **V3 substitutes the doc's own placeholders before executing.** `$SKILL`, `{project-root}`,
+  `<cache_fingerprint>` and `<path|->` are placeholders the Scrub rule *requires* the shipped prose
+  to carry, so a literally-unsubstituted execution is impossible by construction. The harness
+  substitutes exactly those four and alters nothing else — every flag name, order and quoting runs
+  as written, which is what check (4) is about. It also fails if extraction finds anything but
+  exactly two command lines.
+  4. **V3 is a second durable harness file, not a section of V1's.** The brief names V3's instrument
+  as "the extract-and-execute harness" with no path. It is
+  `factory/cycles/14-no-enforcement-point/lint-cache-documented-invocation.mjs` — separate because
+  its subject is the prose-to-executable seam, not the round trip, and it must be able to fail
+  independently.
+  5. **Two controls beyond the brief.** A **mixed** sidecar (3 well-formed + 3 flat → `read=6
+  rejected=3 cached=3`) proves `cache_rejected` counts records rather than reporting a boolean; and
+  a seeded legacy `.yaml` proves the writer's deletion clause. Additive, no scope moved.
+  6. **The brief's grounding correction on the stored payload is CONFIRMED, and now proven.** The
+  stored `outbound_links` are the normalized form (`["zeta"]` from `["[[zeta.md|alias]]"]`), not the
+  scanner's verbatim extraction — build-1's brief disposition 6 is wrong on the letter, as this
+  brief says. Run 3 ≡ run 2 byte-for-byte is the idempotence proof, so it is harmless.
+  7. **The `status: 'failed'` near-total-shortfall return does NOT carry `cache_records_read` /
+  `cache_rejected` / `cache_records`.** Stated rather than discovered: F1 edit 6 scopes the success
+  return only, and step 4 refuses such a run before any report is written, so there is no report
+  line for the pair to render into. Left as briefed.
+  8. **The rule card's `last_updated:` was NOT moved**, only `derived_from:`. This matches every
+  prior C6 re-stamp in this repo (`93797b9`, `853024b` both moved `derived_from:` alone) and the
+  owner ruling that the card's body is unchanged.
+
+  **Next:** `brief build 3` (ordered after this build so `PAGE_SCAN` settles once before the re-ack
+  pass reads it — A3). Build-4 rebases its `full-scale.md` / `report.md` / `SKILL.md:74` edits onto
+  this state and re-grounds; the edit surfaces are disjoint by sentence as F3/F4/F5 state.
 module_code: 'vlt'
 created: '2026-08-27'
 derives_from:

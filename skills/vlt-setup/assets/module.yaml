@@ -85,8 +85,8 @@ machine_tools:
     needed_by: "vlt-feedback (issue transport pre-flight)"
     absent: "degrades to the paste-ready outbox failure path (named error gh-missing)"
   - tool: uv
-    needed_by: "vlt-setup / vlt-upgrade merge + manifest scripts (PEP 723 inline deps)"
-    absent: "config/help/manifest merges cannot run — install uv before setup or upgrade"
+    needed_by: "vlt-setup / vlt-upgrade merge + manifest scripts and vlt-lint's findings-cache script (PEP 723 inline deps)"
+    absent: "config/help/manifest merges cannot run — install uv before setup or upgrade; a full-mode vlt-lint sweep still runs and renders lint_cache: cold — the sweep never fails because its cache did"
   - tool: python3
     needed_by: "the vlt-vitals SessionStart hook (enforcement kit)"
     absent: "hook prints only its own error line — loud, never silent-green"

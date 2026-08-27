@@ -48,12 +48,25 @@ export const meta = {
 //                                          //   unwrapped instrument it names in the record. Absent → no page
 //                                          //   is cacheable this run (a cold sweep, stated, never silent).
 //     cachedScans:     [{slug, key, scan}] (optional) // prior PAGE_SCAN records the SKILL read from the
-//                                          //   sidecar (_agent/lint-cache.yaml). A record is reusable iff its
-//                                          //   `key` equals the key recomputed here from THIS run's inputs.
-//                                          //   default []. (A11-11 direction 2)
-//     rulesetFingerprint: string (optional)// the SKILL-side half of the fingerprint (module version, the
-//                                          //   vlt-lint pin vector, the merged convention digests, the check
-//                                          //   catalog digest). Absent → cold sweep.
+//                                          //   sidecar (_agent/lint-cache.json, read through
+//                                          //   vlt-lint/scripts/lint-cache.py) — they are the PREVIOUS run's
+//                                          //   returned `cache_records`, handed back verbatim. A record is
+//                                          //   reusable iff its `key` equals the key recomputed here from
+//                                          //   THIS run's inputs. default []. (A11-11 direction 2; A14-8)
+//     rulesetComponents: {…}   (optional) // the SKILL-side INPUTS to the ruleset half of the fingerprint —
+//                                          //   named slots, never a list and never a pre-joined string:
+//                                          //     module_version:     string  — the installed module_version
+//                                          //     pin_vector:         string  — vlt-lint's own depends_on: pins, verbatim
+//                                          //     convention_digests: {name: digest} — merged (base + overlay) per
+//                                          //                                  convention judged; ORDER DOES NOT
+//                                          //                                  MATTER, this script sorts by name
+//                                          //     checks_digest:      string  — references/checks.md merged digest
+//                                          //   The SKILL computes the digests (it has filesystem access, this
+//                                          //   script has none — see the no-filesystem note above); this script
+//                                          //   COMPOSES them into `rulesetFingerprint`. Any slot missing or empty
+//                                          //   → the fingerprint is '' → a cold sweep, with a coverage_caps entry
+//                                          //   naming the absent slots. `rulesetFingerprint` is NOT an accepted
+//                                          //   arg: it is composed here, never passed. (A14-8, Q6.2)
 //     today:           string  (optional) // 'YYYY-MM-DD' — the SKILL passes it (scripts have no Date.now());
 //                                          //   needed to compute review_due; absent → review_due not computed
 //                                          //   (reported as a coverage cap).
@@ -98,7 +111,7 @@ const today = typeof a.today === 'string' ? a.today : ''
 // Read from the PARSED `a` above, never from the raw `args` string.
 const pageHashes = (a.pageHashes && typeof a.pageHashes === 'object' && !Array.isArray(a.pageHashes)) ? a.pageHashes : {}
 const cachedScans = Array.isArray(a.cachedScans) ? a.cachedScans : []
-const rulesetFingerprint = typeof a.rulesetFingerprint === 'string' ? a.rulesetFingerprint : ''
+const rulesetComponents = (a.rulesetComponents && typeof a.rulesetComponents === 'object' && !Array.isArray(a.rulesetComponents)) ? a.rulesetComponents : {}
 const budgetFloor = a.budgetFloor || 40_000
 // Cluster cap scales with the wiki size — a fixed 12 sat one below the 13 natural clusters on the
 // live wiki and falsely tripped the coverage cap every run. Floor of 12 holds for small wikis. (#3 §6)
@@ -234,6 +247,40 @@ const fnv1a = (str) => {
 const canonicalScan = pageScanPrompt({ path: '', slug: '' }) + ' ' + JSON.stringify(PAGE_SCAN)
 const scanFingerprint = fnv1a(canonicalScan) + fnv1a(canonicalScan.split('').reverse().join('')) + canonicalScan.length.toString(16)
 
+// The ruleset half — COMPOSED HERE, from the SKILL's named component slots (A14-8, Q6.2).
+// Why the composition is here and the component digests are not: this script has no
+// filesystem access (see the header), so the SKILL must compute the digests; but a
+// composition stated in prose for the SKILL to execute is exactly the defect A14-8 names —
+// one contract, two implementations, no enforcement point where they meet. So the SKILL
+// supplies INPUTS and this file supplies the ALGORITHM, once. The canonical order is code,
+// never prose: module_version, pin_vector, every convention digest as `name=digest` with
+// names sorted lexicographically, then checks_digest — joined with '|'. A caller passing the
+// same components in a different key order composes the identical value. The digest itself is
+// the same fnv1a-pair-plus-length construction scanFingerprint uses: no crypto import exists
+// here and none is needed — this half only has to change whenever its inputs change, and the
+// strong digest is the SKILL's (full-scale.md step 2 names the instrument).
+const RULESET_SLOTS = ['module_version', 'pin_vector', 'convention_digests', 'checks_digest']
+const rulesetSlotsMissing = RULESET_SLOTS.filter((k) => {
+  const v = rulesetComponents[k]
+  if (k === 'convention_digests') {
+    if (!v || typeof v !== 'object' || Array.isArray(v)) return true
+    const names = Object.keys(v).filter((n) => String(v[n] || '').length > 0)
+    return names.length === 0
+  }
+  return typeof v !== 'string' || v.length === 0
+})
+// Completeness is enforced, not assumed: any slot missing or empty ⇒ '' ⇒ reusable() is false
+// for every page ⇒ a cold sweep, with a named cap (the same loud-degrade posture the overlay
+// args carry below).
+const composeRulesetFingerprint = () => {
+  if (rulesetSlotsMissing.length) return ''
+  const cd = rulesetComponents.convention_digests
+  const pairs = Object.keys(cd).sort().map((n) => `${n}=${String(cd[n])}`)
+  const canonical = [String(rulesetComponents.module_version), String(rulesetComponents.pin_vector), ...pairs, String(rulesetComponents.checks_digest)].join('|')
+  return fnv1a(canonical) + fnv1a(canonical.split('').reverse().join('')) + canonical.length.toString(16)
+}
+const rulesetFingerprint = composeRulesetFingerprint()
+
 // The composite per-page key, and the split of the page list (A11-11 direction 2).
 // A record is reusable iff its recorded key equals the key recomputed from THIS run's
 // inputs — the page's own digest crossed with the two fingerprint halves. Nothing in the
@@ -241,8 +288,21 @@ const scanFingerprint = fnv1a(canonicalScan) + fnv1a(canonicalScan.split('').rev
 // record cannot serve a stale finding, it can only cause a cache miss. (Brief disposition 3
 // — this is the recorded-state branch of the contract's derive-first rule, not the
 // inferred-from-residue branch.)
+// The key's three terms are unchanged in shape (A4); only the THIRD term's provenance moved —
+// it is now COMPOSED here from the SKILL-supplied components above, so two conformant executors
+// cannot disagree about it. scanFingerprint stays a term: it is workflow-internal by
+// construction (the SKILL cannot compute it), and dropping it would make a sidecar written
+// under one PAGE_SCAN reusable under another.
 const runKey = (slug) => `${pageHashes[slug] || ''}|${scanFingerprint}|${rulesetFingerprint}`
 const cacheBySlug = new Map(cachedScans.filter((c) => c && c.slug && c.key && c.scan).map((c) => [c.slug, c]))
+// The enforcement point for full-scale.md step 2's standing mandate — "a missing, unparseable
+// or schema-mismatched sidecar is a cold run, STATED IN THE REPORT, never a silent full sweep
+// presented as a cached one" (A39). The mandate has existed since the cache shipped with
+// nothing anywhere that could see it: in the field 146 flat records were passed in, the filter
+// above discarded every one, and the report said only `cold`. These two numbers ship WITH each
+// other — a bare rejected count is a cardinality with no referent (ST-5).
+const cacheRecordsRead = cachedScans.length
+const cacheRejected = cacheRecordsRead - cacheBySlug.size
 const reusable = (p) => !!(pageHashes[p.slug] && rulesetFingerprint &&
   cacheBySlug.get(p.slug) && cacheBySlug.get(p.slug).key === runKey(p.slug))
 const toScan = pages.filter((p) => !reusable(p))
@@ -256,6 +316,13 @@ const scans = []
 const freshScans = []
 const freshBySlug = new Map()
 const coverageCaps = []
+// Loud degrade (A14-8): an incomplete rulesetComponents object is a cold sweep with the absent
+// slots NAMED — never a silent cold run whose cause has to be guessed from a miss count.
+if (rulesetSlotsMissing.length) {
+  const m = `findings cache cold: rulesetComponents incomplete — absent or empty slots [${rulesetSlotsMissing.join(', ')}]; no page was reusable this run`
+  coverageCaps.push(m)
+  log(m)
+}
 // Loud degrade (B7-6): an old caller passing no overlay args gets a base-only sweep with
 // its cap on the record — never a silent base-only judgment.
 if (!overlaysPath) {
@@ -355,6 +422,32 @@ phase('Reduce + cross-page')
 // bare [[#anchor]]) are dropped, not compared.
 for (const s of scans) s.outbound_links = (s.outbound_links || []).map(normalizeTarget).filter(Boolean)
 const nslug = (s) => normalizeTarget(s.slug)
+
+// The WRITE-READY records the SKILL persists (A14-8, A6). Built here, after the corpus is
+// assembled and normalized, so the stored payload is exactly the payload the reduce
+// adjudicated — one site, no snapshot to keep in sync. One record per page adjudicated this
+// run, FRESH AND REUSED: the shipped spec used to hand back fresh records only and ask the
+// SKILL to re-add "the reused records that are still valid", where validity is a key match
+// against scanFingerprint — a workflow-internal value the SKILL structurally cannot compute.
+// The SKILL is never asked to re-derive reusability. It writes what it is handed.
+//   - slug is p.slug, the SKILL-SUPPLIED slug from the page list, never the agent-returned
+//     s.slug: the key's first term is pageHashes[p.slug], and keying a record by an
+//     agent-returned string would let a scanner's typo poison a page's cache line.
+//   - key is runKey(p.slug) for every record. For a reused page the recomputed key is by
+//     definition equal to the reused record's key — that is what made it reusable — so one
+//     code path serves both halves and there is no fresh/reused branch to keep in agreement.
+//   - a record is emitted only when pageHashes[p.slug] and rulesetFingerprint are BOTH
+//     non-empty; otherwise the key is degenerate (`|scanFp|`) and storing it is storing junk
+//     that can never hit. A cold run with no components rewrites the sidecar with records: [].
+//   - the payload carries outbound_links in the NORMAL FORM (normalized in place just above).
+//     normalizeTarget is idempotent, so a stored record adjudicates identically next run.
+const cacheRecords = []
+if (rulesetFingerprint) {
+  for (const p of pages) {
+    const rec = freshBySlug.get(p.slug) || (reusable(p) ? cacheBySlug.get(p.slug).scan : null)
+    if (rec && pageHashes[p.slug]) cacheRecords.push({ slug: p.slug, key: runKey(p.slug), scan: rec })
+  }
+}
 
 // Filesystem-truth page set (A10-17 root fix): valid-target space is every page that
 // EXISTS on disk (the input page list the SKILL globbed), not only pages whose agent scan
@@ -760,8 +853,18 @@ return {
   // A11-11 direction 0: the per-phase cost line, emitted on every completing run.
   cost_accounting: costAccounting(),
   // A11-11 direction 2: the fingerprint the reused records were adjudicated under (null on a
-  // cold run), and the fresh records the SKILL writes back to _agent/lint-cache.yaml. This
-  // workflow stays READ-ONLY — it returns the records, the SKILL persists them.
+  // cold run), and the records the SKILL writes back to _agent/lint-cache.json. This
+  // workflow stays READ-ONLY — it returns the records, the SKILL persists them. The records
+  // are WRITE-READY (A14-8, A6): the SKILL persists them through vlt-lint's
+  // scripts/lint-cache.py exactly as handed over, and never derives a key or a reusability
+  // judgment itself.
   cache_fingerprint: rulesetFingerprint ? `${scanFingerprint}|${rulesetFingerprint}` : null,
-  fresh_scans: freshScans,
+  cache_records: cacheRecords,
+  // Step 2's "stated in the report" mandate, given numbers (A39): how many records were read
+  // from the sidecar, and how many of them the reader filter above discarded as
+  // schema-mismatched. The denominator ships with the count, and report.md renders both on
+  // BOTH branches including zero — `rejected 0` on a cold run means no records were read, not
+  // that the cache is healthy.
+  cache_records_read: cacheRecordsRead,
+  cache_rejected: cacheRejected,
 }
