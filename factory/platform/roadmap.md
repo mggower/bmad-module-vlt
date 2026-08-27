@@ -798,14 +798,36 @@ same framing. A briefer who has just ruled *"define the class in one place"* wri
 verifies one definition exists. The property they meant to protect — *every site that names it
 agrees* — is never tested, because it was never stated separately from the fix.
 
-**This is not a hypothesis. It is the same failure three cycles running, and it is the ONLY failure
-mode that has escaped to the field in that span:**
+**This is not a hypothesis. It is the same failure three cycles running — now four recorded
+instances — and it is the ONLY failure mode that has escaped to the field in that span** (the
+fourth, added 2026-08-27, did **not** escape: it was field-contingent and was caught by the next
+discharge run, which is why it is the cheapest and clearest of the four):
 
 | Cycle | Check | The blind spot | Cost |
 |---|---|---|---|
 | 12 | b2(5), findings cache | Tagged **field-contingent**, so it never gated; the fixture stubbed the SKILL-side writer — the exact seam that broke | Shipped broken, undetected **three cycles** |
 | 13 | check (2), reduce-side guard | The instrument could be **defeated by the thing it measured** (a scanner citing the rule it applies) | Refuted in the field **within hours**; cycle could not close |
 | 14 | build-3 check (4), class membership | Tested single-home-**ness** (defined in exactly one file) and never compared **membership** between the naming sites and the defining site | Contradiction shipped in v0.17.0; hot-fixed as v0.17.1 the same day |
+| 14 | build-5 check (6), the park's resolution | Predicted the `write-verification.md` park would unpark **because the hot-fix cured the charter membership** — testing *what the fix does*, never the property (*the park's blocker is cleared*). The park's actual blocker is the **refused partner-sitting reading** and the unchanged `verified_by` roster, which the hot-fix does not touch | **FAILED** on the 0.17.1 upgrade — the park was **re-surfaced, not unparked**, blocker intact for 27 files. Field-contingent, so no gate was breached and nothing shipped broken |
+
+**The fourth instance is the one that scopes the intervention, because it was observed in REAL
+TIME.** Instances 1–3 were reconstructed after an escape. Instance 4 was graded by the very next
+`acceptance-discharge` run, hours after the check was written — and its refuting evidence was
+**already on disk when the check was written**: the **0.17.0** post-flight, hours before build-5 was
+briefed, had already named the actual blocker (*"narrowed it by ARTIFACT CLASS ONLY … explicitly
+refusing the partner-sitting reading the park was built on … the park's substantive blocker
+STANDS"*) and had already counted the charter omission as **one file of 29**. It was flagged in
+session before the hot-fix was ruled. **The brief wrote the check from the fix's framing anyway.**
+
+That is the sharpest available statement of this item's cause: **the blind spot is not missing
+evidence, and it is therefore not curable by more grounding or another reviewer.** The briefer had
+the refutation in hand and did not apply it, because the question they were answering was *"what
+does this fix achieve?"* rather than *"what property am I protecting, and could this check pass
+while it is violated?"*. It also confirms the item's own **out-of-scope** ruling: a second reviewer
+reading that brief would have inherited the same framing and the same in-hand-but-unapplied
+evidence. Graded at `factory/cycles/14-no-enforcement-point/roadmap.md` §build-5 (6) (discharge
+pass 2, 2026-08-27); no inbox filing was drafted for it — the signal is factory-side and its home is
+this item.
 
 **Confirmed the same day the item was filed.** v0.17.1's repair built the membership comparison build-3 check (4) lacked, and it immediately found a **sixth** enumerating site the defect's own filing had missed — `vault-operating-contract.md:66`, the Layer-3 **entry condition itself**. It also caught that a naive member insert would ship a *new* contradiction: `:190`'s predicate said the class is *append-shaped*, and a charter is not. **A hand-written enumeration of the defect found 5 sites and one wrong predicate; the mechanical comparison found 6 and the predicate.** That gap — between what careful reading finds and what asking the adversary question finds — is this item's whole argument, measured.
 
