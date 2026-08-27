@@ -82,3 +82,41 @@ Full record: `_agent/mint/decision-log.md`, entry `[2026-08-18] convention-edit`
 ## Bonus — an instrument note worth shipping
 
 The vault-side investigation nearly missed the divergence: a plain `diff` reported "Files are identical" while `md5` disagreed. The cause is a local shell hook rewriting `diff` → `rtk diff`, which prints an `[ok] Files are identical` summary rather than a byte comparison. Not a module defect, but if any module doc or skill instructs a base-vs-baseline comparison, it should specify **checksums or a real line differ**, never bare `diff` — a wrapped `diff` fails toward "no divergence," which is the dangerous direction.
+
+## Addendum — 2026-08-27, three conventions moved and the handshake reported 39/39 twice
+
+_Relayed from the `vlt-core-upgrade` session after `{field-vault}` took both of the day's upgrades
+(0.16.2 → 0.17.0, then the 0.17.0 → 0.17.1 hot-fix). Vault commits `aa42f05` and `a92741e`; reports
+at `{upgrade_reports}/2026-08-27-1157-upgrade.yaml` and `-1328-upgrade.yaml`. The original claim
+holds unchanged; the scale of the instance is new._
+
+**The 2026-08-18 filing rested on two vault-grown ops and a single-convention example. Today the
+same gap ran across three conventions in one day, twice.**
+
+`vlt-brief` — a vault-grown op, preserved as a local mint on both runs — carries
+`depends_on: ["frontmatter@14", "write-verification@4"]`. Cycle 14 moved **three** conventions
+(`write-verification` 3→4→5, `frontmatter` 13→14, `extraction` 7→8→9) and re-acked **19 shipped
+consumers** in build-3, then 9 more in build-5. `vlt-brief` was in neither pass, because it is in no
+shipped convention's `consumers:` list and — per this filing's own table — **has no durable way to
+be**.
+
+It was re-pinned **by hand, twice, on user direction**: `frontmatter@13→@14` and
+`write-verification@3→@4` at 0.17.0, then `@4→@5` at 0.17.1. Deltas were read with `difflib`
+against the prior tags and the encoded sections were md5-identical both times — so the work was
+purely the pin edit, which is exactly the treadmill this filing named.
+
+**The sharpest part is what the gate said while this was true.** `handshake-check.py` returned
+**9 conventions, 39 consumer pins — bipartite-consistent** at *both* releases, and package-lint's
+E1/E5 agreed independently. The handshake was not wrong: `vlt-brief` is not in any `consumers:`
+list, so there was nothing for it to find. **The check is correct and the vault is stale at the
+same time, and no instrument in the module can hold both facts.**
+
+Cycle 14 shipped **E7** on the same day — a new gate check that catches in-prose version pins the
+handshake could not see (it fired on `vlt-lint-full.js:684` during the hot-fix and would have failed
+that release). E7 closes the *shipped-surface* half of exactly this class. **The vault-grown half is
+what this filing is about, and it stayed open through the release that closed the other half.**
+
+**Fresh grounding for capture:** the vault-wide pin sweep is clean across all 9 conventions
+including `extraction@9` — so nothing is broken today. The cost is not breakage; it is that
+correctness here is **maintained by hand at every convention bump**, and its only evidence that it
+happened is a human remembering to do it.
