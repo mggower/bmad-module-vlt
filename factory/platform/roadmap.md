@@ -710,6 +710,80 @@ falsifier. `ST-5` gates nothing — the scope ruling below is this item's, not t
   recovers a specimen set from a count-only filing. Either exercises the changed surface on a
   real lifecycle run.
 
+**Trigger near-miss recorded 2026-08-27 (Tier B).** Tier B's opening condition is *"a build with
+no prior failure behind it reaches brief-time and reaches for a synthetic fixture unchallenged."*
+Cycle 14 **build-3's brief reached for a synthetic fixture at its check (3)** — unavoidably:
+nothing executable implements `para_missing_attestation` (`vlt-lint-full.js` carries a structural
+slot only; the PARA scan is SKILL-side prose, so the check is an agent reading prose). **Tier B is
+NOT opened on it** — the reach was *challenged and recorded in the brief*, which is the opposite of
+the unchallenged case Tier B waits for, and A14-7 is a prior failure behind it. Recorded because the
+near-miss is evidence about **where the trigger actually sits**: the condition as written turns on
+*unchallenged*, and a briefer who names the reach honestly will keep clearing the bar while the
+underlying gap — a rule with no executable enforcement point — stays open. If a second challenged
+reach lands before an unchallenged one, the trigger's wording is the thing to revisit, not the tier.
+
+### P-19 — the acceptance corpus: freeze it, and say which checks bind to it — **queued**
+
+*(Filed 2026-08-27, from an owner observation during Cycle 14's release-2 run: the live field
+vault's wiki has grown to the point where a full lint per release is expensive — measured that day
+at **146 files checked, 146 cold, 0 cached**, against 377 markdown files in the vault. Routed here,
+not inbox: every site is a factory skill or process doc — `vlt-upgrade` delivers none of them.
+**Cross-referenced to [P-18] Tier B**; see the shared-brief note under Out of scope.)*
+
+**The cause it repairs — the corpus moves underneath the measurement.** This is *not* `ST-5`'s
+cause (*specimens have no owner*) and is not repaired by fixing it: with perfect specimen custody
+and perfectly honest provenance labels, two releases' sweeps over a **growing** vault still are not
+comparable — a real regression and three months of new pages present identically. Cost is the
+symptom the owner felt; **reproducibility is the defect.** Scoping this item on cost would be a
+mistake and is explicitly refused below.
+
+**Brief-lite:**
+- **Intent:** make acceptance evidence reproducible across releases by binding corpus-shaped checks
+  to a **frozen, dated, real** corpus, and by making every check say which corpus it rests on.
+- **Sites:** a **snapshot manifest** (tracked) recording what the snapshot *is* — snapshot date,
+  file count, source vault as a placeholder — while the snapshot itself stays **local-only and
+  gitignored** (the factory is public; a real vault snapshot is the owner's personal content and
+  can never be tracked — this is the constraint that shapes the whole item) · `build-brief`'s check
+  anatomy gains a **corpus declaration** alongside the seam each ship-verifiable check already names
+  under R1 · `acceptance-discharge` records, per item, which corpus graded it · a **re-snapshot
+  policy**: refreshing is a dated event with a recorded reason, so *"the corpus changed"* is never a
+  silent explanation for a changed result.
+- **The split the declaration enforces:** *mechanism* checks need no corpus (most already grade at
+  rest under D3-as-amended — Cycle 14 graded 6/8, 7/7 and 7/7 at rest across builds 1–3);
+  *population* questions (*"how many pages predate this rule"*) may bind to the snapshot;
+  *currency* questions (*"did this upgrade preserve the mints that exist right now"*) **may not** —
+  they are about the live vault by definition.
+- **Verification:** at rest — a corpus-shaped check from a shipped brief is re-run against the
+  snapshot and against the live vault, and the difference between the two results is *explained by
+  the manifest's delta*, not unaccounted. Cycle 14 build-1's checks (6)/(7) are the available
+  worked pair.
+- **Out of scope, named not omitted:**
+  - **A synthetic or authored test vault — generated and REJECTED, reason on record.** A corpus
+    built to exercise checks passes because it was built to. That is how Cycle 12's findings cache
+    shipped broken (b2(5): a fixture that stubbed the seam that failed), and it is what Cycle 13's
+    check (2) binding forbids in as many words: *a fixture exercising only the surfaces this build
+    changes does not satisfy it.* Build-1's check (2) re-graded PASS on 2026-08-27 **because** it
+    ran against six real subjects. The snapshot is *real content, frozen* — not content authored
+    for the test.
+  - **Retiring live-vault acceptance.** The snapshot is an addition. Upgrade-preservation,
+    post-flight evidence, and every currency question stay live.
+  - **Sweep cost.** Cycle 14 build-2's cache repair is the answer to that, shipping in release 2;
+    146/146 cold is the broken cache, not the vault's size. **P-19 must not be justified on speed**
+    — that framing would make it the licence to dodge a live check the first time one is
+    inconvenient.
+  - **Shared brief with [P-18] Tier B.** The two are one declaration in halves — Tier B says *what
+    kind* of evidence a check rests on (`population-shaped`/`specimen-derived`/`synthetic`), P-19
+    says *which corpus* supplies it. **If both are open at brief time they get ONE brief.** They
+    are kept as two items because their causes differ, because Tier B is gated on a trigger that
+    may not fire for cycles while this problem is live now, and because either is useful without
+    the other.
+- **The guardrail it must survive:** Cycle 13's ideation ruled **"THE INSTRUMENT IS THE REAL CORPUS
+  AND IT GATES."** A frozen snapshot is still a real corpus, so P-19 does not overturn that ruling —
+  but the ruling is the boundary, and any drift from *frozen real* toward *authored* is the ruling
+  being broken, not interpreted.
+- **Done-when (self-acceptance):** the next release's acceptance runs at least one corpus-shaped
+  check against the snapshot **and** the discharge record names which corpus graded each item.
+
 
 ## Closed
 
