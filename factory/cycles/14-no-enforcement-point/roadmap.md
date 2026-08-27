@@ -614,6 +614,25 @@ Cycle 13 carry 1, nothing here needs the reduce to read page bytes. `pageHashes`
 seam (`:47-49`), the workflow already returns `cache_fingerprint`, and every fix is a shape or a
 single-homing. It is the one entry in this cycle that can be taken without ruling question 2 first.
 
+⚠ **SUPERSEDED IN PART — grounding correction at brief time (2026-08-27, `build-brief`)**, recorded
+per `grounding-at-brief-time.md`'s two-place rule. Every `file:line` in this capture was derived
+against **v0.16.1**; build-1 shipped as **v0.16.2** and took `vlt-lint-full.js` from 724 to **767
+lines**. Re-derived against the working tree at `bd985a6`: reader filter **`:245`** (was `:243`);
+`runKey` **`:244`** (was `:242`); `reusable` **`:246-247`** (was `:244-245`); `.scan` deref
+**`:346`** (was `:344`); `reused` **`:249`** (was `:248`); `freshScans.push(r)` **`:295`** (was
+`:293`); `cache_fingerprint` **`:765`** (was `:722`); `fresh_scans` **`:766`** (was `:723`); the
+READ-ONLY comment **`:762-766`** (was `:719-723`); `scanFingerprint` **`:234-235`** (was `:232-233`);
+"no filesystem access" **`:26-28`** (was `:36-38`). `pageHashes`' arg doc at `:47-49` **HOLDS**.
+**Scope is unchanged by every one of these; only the numbers moved.**
+**One substantive correction, beyond line drift:** the capture and build-1's brief both describe the
+sidecar's payload as the scanner's **verbatim** `PAGE_SCAN` return. It is not — **`:356` mutates the
+scan objects in place** (`s.outbound_links = (…).map(normalizeTarget)`) and `freshScans` holds those
+same references, so what is returned for the sidecar carries **normalized** link targets, today as
+well as after build-2. It is harmless because `normalizeTarget` (`:81-87`) is idempotent — and
+build-2's brief makes that an **asserted** property (its run-2 ≡ run-3 identity check) rather than an
+assumed one. Brief:
+`factory/cycles/14-no-enforcement-point/briefs/build-2-findings-cache.md`.
+
 ## Carried forward from Cycle 13 — live, grounded, un-built
 
 Recorded in `factory/cycles/13-trusted-returns/roadmap.md` §Carried forward (ruled OUT of the
@@ -929,6 +948,42 @@ for where `{field-vault}` should pay its owed sweep.*
   in the field. The round-trip check gates the **module at rest**; it cannot observe a **vault**
   whose sidecar is schema-mismatched. This costs no new argument and is **not** the step-4 widening
   Q6 declined — that refusal predicate stays as ruled.
+
+  ⚠ **BRIEFED 2026-08-27 — the five open questions this block left are RULED**
+  (`briefs/build-2-findings-cache.md`; line cites re-derived against v0.16.2 — see the superseding
+  note on §Capture → A14-8). In summary, so no later reader re-derives them from prose:
+  - **A4 (depends on build-1)** — honoured: every fixture is built against post-build-1 source, and
+    `runKey`'s shape is **unchanged** (`:244`); only its third term's provenance moves. Acceptance
+    check (2) asserts a record keyed under a different `PAGE_SCAN` is not reusable.
+  - **A6 (fresh AND reused)** — the workflow returns `cache_records: [{slug, key, scan}]` for every
+    adjudicated page, keyed on the SKILL-supplied `p.slug`, one code path for both halves; the SKILL
+    is never asked to re-derive reusability. `fresh_scans:` **retires** (P-15).
+  - **A5 (three runs, executable writer)** — **option (a) taken: the writer is built.**
+    `skills/vlt-lint/scripts/lint-cache.py` (stdlib-only, read + write modes, atomic, exit 0 on
+    missing/unparseable) does every read and write in the cold → warm → warm fixture, so nothing
+    but the page-scanner agents is stubbed. The residual — the SKILL *transcribing* 146 records into
+    inline workflow args — is named out of scope (tracker #13's territory, Q2) and watched by the
+    one field-contingent check, which **does not gate**.
+  - **A7b (the sidecar's format)** — **RULED `.json`, and it is the only legal format** (not a
+    permission like Q5's). The writer is now a script, so the hand-emission property A7b turned on
+    is gone; a YAML writer would need `pyyaml` or a hand-rolled second serializer. The legacy
+    `_agent/lint-cache.yaml` is **deleted** by the writer, not converted (Q6: unmigratable).
+    ⚠ **Cost, priced:** `vault-operating-contract.md:325` enumerates the sidecar **by literal path**
+    in the Decay contracts table, so the rename is an **R4 enumeration widening into the governance
+    bundle** and package-lint **C6** requires `_meta/vault-rule-card.md`'s `derived_from: sha256:` to
+    be re-stamped in the same build.
+  - **A39 (`cache_rejected:`)** — returned **with its denominator** (`cache_records_read`), rendered
+    on **both** the warm and the cold branch of `report.md:77`, including zero.
+  - **A8 (`full-scale.md` shared with build-4)** — **RULED: build-2 OWNS `full-scale.md`** (steps 2,
+    3 and 5); **build-4 cites this brief** and confines itself to step 4 and `:13`, which build-2
+    does not touch. A second, finer collision the roadmap did not name: **`vlt-lint/SKILL.md:74`
+    carries both the cache sentence (build-2) and the report-persist sentence (build-4) on one
+    line** — disjoint sentences, build-2 first; likewise `report.md` (`:77`/`:88` build-2 vs `:3`
+    build-4).
+  - **The brief-time question as posed** ("components as a list or a pre-joined string") — **neither:
+    a named-slot object**, because a positional list re-creates in prose the ordering contract A40
+    retires, and a pre-joined string leaves composition SKILL-side. The workflow sorts convention
+    names; order is code, not prose.
 
 - **build-3 — governance: A14-6 (the `type:` vocabulary) + A14-7 (the `verified_by` roster).** The
   handshake build. `write-verification.md` 3 → 4 (5 re-acks) + `frontmatter.md` 13 → 14 (10
@@ -1804,6 +1859,84 @@ release 2's acceptance run (roundtable A25).*
   entity-decoded, still-exact category binding; `grep -rn "residue\|Both exclusions are conjunctions"
   skills/` returns **zero** — instrument: the V3 greps + a read of the two lines, at rest; seam:
   **module source → vault-read documentation**; evidence: grep output + the two rewritten lines.
+
+- [ ] **build-2 (findings-cache, briefed 2026-08-27):** brief
+  `factory/cycles/14-no-enforcement-point/briefs/build-2-findings-cache.md`. **Eight checks — seven
+  `[ship-verifiable]`, all GATE; one `[field-contingent]`, which does NOT.** Release 2 (with builds
+  3 and 4); ⚠ **the first full lint after release 2 is COLD by construction** (build-2 rewrites the
+  record shape *and* the sidecar's filename; builds 3/4 move convention and `checks.md` digests) —
+  **release 1 already forced one cold sweep, so this cycle knowingly costs two (A26)**, and
+  `{field-vault}` pays its owed COMPLETE sweep on the **second** sweep after release 2.
+  **(1) `[ship-verifiable]` — at rest — GATES:** the sidecar round-trips over **three** runs with a
+  **real writer** — cold → warm → warm; run 2 is `files_checked: 0` / `files_cached: N` /
+  `cache_rejected: 0`, and run 3 is **identical to run 2** (same N, same per-record `key`, same
+  `scan` payloads). The third run is the check (A5(a)): a two-run fixture cannot observe reused-half
+  loss — if run 2 dropped the reused records the sidecar would empty and a two-run check would still
+  pass — instrument: `factory/cycles/14-no-enforcement-point/lint-cache-roundtrip.mjs` over the
+  **shipped** workflow source **and the shipped `skills/vlt-lint/scripts/lint-cache.py`**, temp vault
+  dir, `args` as a JSON string, only the page-scanner agents stubbed; seam: **workflow return →
+  serialize (shipped script) → file on disk → parse (shipped script) → workflow consume** — the exact
+  seam b2(5)'s harness stubbed and the only seam that has ever broken; evidence: the three returns
+  and both sidecar files verbatim.
+  **(2) `[ship-verifiable]` — at rest — GATES:** a record keyed under a **different `PAGE_SCAN` is
+  NOT reusable** (A4's stated interface) — a workflow copy whose `PAGE_SCAN` differs by one character
+  yields `files_cached: 0` with `cache_rejected: 0`; changing only a ruleset component likewise
+  yields 0; changing neither yields full reuse — instrument: the patched-workflow control on the same
+  harness; seam: **`PAGE_SCAN` + prompt text → `scanFingerprint` → the composed per-page key**, the
+  term the composition move could silently drop; evidence: the three `files_cached` values.
+  **(3) `[ship-verifiable]` — at rest — GATES:** the **reused half is returned, not lost** (A6) —
+  `cache_records.length === files_checked + files_cached === files_listed` on the warm run, every
+  record carries a non-empty `slug`/`key`/`scan`, a page with no `pageHashes` entry produces **no**
+  record, and `fresh_scans` is **absent** from the return (retirement) — instrument: assertions over
+  the run-2 return; seam: **workflow adjudication → the SKILL's write instruction**, where the spec
+  previously asked the SKILL to re-derive a reusability judgment it structurally cannot compute;
+  evidence: the counts + one reused record verbatim.
+  **(4) `[ship-verifiable]` — at rest — GATES:** the **documented invocation is the executable one**
+  — the two command lines extracted **verbatim from `full-scale.md`** (steps 2 and 5) run as written
+  against a temp vault fixture and exit 0; a **missing** sidecar returns `status: "missing"` at
+  exit 0 and a **corrupt** one `status: "unparseable"` at exit 0, never an error (step 2's standing
+  mandate) — instrument: the extract-and-execute harness; seam: **prose instruction → shipped
+  executable**, the seam A14-8 names as having no enforcement point; evidence: the extracted command
+  lines + the three exit codes and status strings.
+  **(5) `[ship-verifiable]` — at rest — GATES:** the fingerprint is **deterministic, complete and
+  single-homed** — the same components in a **different key order** compose the identical value; a
+  missing slot composes `''`, goes cold, and pushes a `coverage_caps` entry naming the absent slots;
+  `full-scale.md` step 2 carries the **executable** component recipe (`shasum -a 256`,
+  base-then-overlay merge order, UTF-8, first-16-hex lowercase) and
+  `grep -n "a digest over, in this order" …/full-scale.md` returns **zero** (A40's retirement must
+  not survive beside its replacement) — instrument: the ordering/completeness controls + the grep +
+  a read of the rewritten step 2; seam: **SKILL-computed component digests → workflow-composed
+  fingerprint** (Defect 2's composition half) **and prose recipe → SKILL execution** (Defect 2's
+  digest half, which A7 shows the composition move alone does not reach); evidence: the two composed
+  values + the cold-run cap text.
+  **(6) `[ship-verifiable]` — at rest — GATES:** a **schema-mismatched sidecar is COUNTED and
+  STATED** (A39) — seeded with K records in the field's own **flat pre-repair shape**, the run
+  returns `cache_records_read: K`, `cache_rejected: K`, `files_cached: 0`, and `report.md:77`
+  renders the rejected pair on its **cold** branch. The field failure (146 read, 146 discarded, a
+  report that said only `cold`) cannot recur silently — instrument: the flat-shape control + a read
+  of `report.md:77`/`:88`; seam: **vault sidecar file → workflow reader filter (`:245`) → report
+  line**, the mandate that has been prose with no enforcement point since it shipped; evidence: the
+  two counts + the rendered line.
+  **(7) `[ship-verifiable]` — at the release gate — GATES:** `uv run tools/package-lint.py
+  --expect-version X.Y.Z` exits **0** with both version strings bumped; **C6 passes with
+  `_meta/vault-rule-card.md` re-stamped** against the edited operating contract (the R4 rename's
+  priced cost); **E6 measures `PAGE_SCAN` unchanged at 3688** — build-2 must not move build-1's
+  schema — instrument: package-lint Groups A/B/C/D/E at the release commit; seam: **source tree →
+  release gate**, specifically the derived-artifact seam a contract edit opens and the schema-budget
+  seam a sibling build could disturb; evidence: the PASS summary line in the release commit message.
+  **(8) `[field-contingent]` — does NOT gate:** the cache actually **hits in a vault** — two
+  consecutive `vlt-lint --full` sweeps on `{field-vault}` under an **unchanged** ruleset, the second
+  reporting `files_cached > 0`, `cache_rejected: 0`, and the fingerprint it reused under (the first
+  time the mechanism has worked since it shipped); event: the owner runs `vlt-lint --full` after
+  upgrading to release 2 (that sweep is cold by construction) and then a **second** time with no
+  release, overlay edit or convention change in between — **A26 already schedules that second sweep
+  as the slot where `{field-vault}` pays its owed COMPLETE sweep**; performer: the owner; vault:
+  `{field-vault}` only (no wiki corpus ships in this repo). **Tagged field-contingent because the
+  roundtable verified in session (A17b) that b2(5)'s identical two-sweep event was CORRECTLY tagged
+  so and that D3 does not reach it** — and **A14-8's discharge rests on checks (1)–(6)**, which cover
+  the seam that broke with an executable writer, which is what A5 demanded and b2(5) did not have.
+  This check is the residual named at the brief's §Out of scope 4: the SKILL invoking the script and
+  transcribing 146 records into inline workflow args at scale. **A watch, not the proof.**
 
 ## Roundtable review — A14-1..A14-8, the four-build batch (2026-08-26)
 
