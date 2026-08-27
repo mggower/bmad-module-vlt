@@ -300,7 +300,7 @@ const cacheBySlug = new Map(cachedScans.filter((c) => c && c.slug && c.key && c.
 // presented as a cached one" (A39). The mandate has existed since the cache shipped with
 // nothing anywhere that could see it: in the field 146 flat records were passed in, the filter
 // above discarded every one, and the report said only `cold`. These two numbers ship WITH each
-// other — a bare rejected count is a cardinality with no referent (ST-5).
+// other — a bare rejected count is a cardinality with no referent.
 const cacheRecordsRead = cachedScans.length
 const cacheRejected = cacheRecordsRead - cacheBySlug.size
 const reusable = (p) => !!(pageHashes[p.slug] && rulesetFingerprint &&
