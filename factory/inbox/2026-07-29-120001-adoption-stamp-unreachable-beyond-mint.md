@@ -41,3 +41,38 @@ the mint ceremony — exactly the "declared-and-unexercised surface" smell the a
 drain, now produced by the arc's own instrument. Wants either a second authorized writer (an
 owner-ruled stamp beat somewhere on the consult/spec paths), or an explicit statement that the
 axis measures mint-borne adoption only.
+
+## Addendum — 2026-08-27, factory-side re-grounding (evidence strengthened, claim unchanged)
+
+_Surfaced by the owner reading `vlt-upgrade`'s post-flight after the v0.16.2 upgrade
+(`_agent/upgrade-reports/2026-08-27-0947-upgrade.yaml`): "consult declared 32 days with no first
+instance? i have definitely used consult a number of times." Re-derived against vlt-core, read-only.
+The original claim holds unchanged; three facts make it sharper._
+
+1. **Four instances now, not two.** `_agent/dispatch.md` carries `consult:` blocks at
+   `2026-07-26 19:21` (librarian → chef, ×2 — the pair this filing already named),
+   `2026-08-18 13:28` and `2026-08-19 10:55` (both career-strategist → creative).
+   `_meta/conventions/consult.md` still reads `adoption_first_instance: null`. The convention's own
+   definition of the record (*"a dated `consult:` block in `_agent/dispatch.md`"*) is satisfied four
+   times over, so the correct value is `2026-07-26` and has been for a month.
+
+2. **The dishonest window is measured, not predicted.** This filing said the axis reads *declared,
+   no first instance yet* "indefinitely". The 2026-08-27 post-flight renders
+   `"consult: declared, no first instance yet (created 2026-07-26 — 32 days)"` — and the
+   parenthetical age is the instrument reporting the size of its own error.
+
+3. **The sharpest instance: `vlt-lint` enforced the convention and the axis still says
+   unadopted.** The first 2026-07-26 consult exists *because* a lint run raised `consult_missing`
+   and the vault closed it by having the consult — recorded in the relay at `dispatch.md:188`
+   (*"Surfaced by a retroactive consult (2026-07-26) closing a `consult_missing` lint finding — the
+   spec bound the Chef and never asked him"*). So the enforcement point fired, the convention was
+   honored on its own terms, and the adoption axis reports it unexercised. **That is the Cycle 14
+   through-line — a rule the module states, a place named responsible for it, and that place unable
+   to carry out the judgment the rule requires — arising inside the instrument built to measure
+   adoption.** It also means the two dispositions this filing offers are not equivalent: "the axis
+   measures mint-borne adoption only" would have to explain why a lint-enforced consult is not
+   adoption.
+
+_Uncaptured as of 2026-08-27 by the Cycle 14 scope ruling (defects and blockers from Cycles 12–13
+only; net-new deferred). Candidate for Cycle 15 capture — this addendum exists so the evidence is
+not re-derived then._
