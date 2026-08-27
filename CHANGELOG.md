@@ -5,6 +5,26 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.17.1 — 2026-08-27
+
+**Cycle 14** — no enforcement point. A hot-fix patch: build 5, repairing a contradiction shipped in v0.17.0 earlier the same day.
+
+- **Build 5 — the operational-record class has one membership:** `extraction.md` v8 named the Layer-3 operational-record class twice with **different members**, and the attestation exemption followed the narrower one. A `charter` file was simultaneously a recognized PARA `type:` and outside the class that recognition places it in. Six sites across four files are brought into agreement, and the class's defining property is restated so `charter` is a member on its own terms rather than forced into a predicate (*append-shaped*) it does not satisfy.
+
+**Governance rule changes crossing v0.17.1 — read these before writing.**
+
+1. **The Layer-3 operational-record class is `charter | record | register` — all three.** This is the membership `{conventions}/extraction.md` already stated at its recognized-`type:` set and at its attestation posture; the class's own definition site and the attestation exemption named only two of the three. The class is now stated identically at every site that enumerates it.
+2. **A `charter` file is exempt from attestation jurisdiction.** `{conventions}/write-verification.md` **v4 → v5** — the *Scope rule* exemption now covers `type: charter` alongside `type: record` and `type: register`. A partner may now legally leave a `charter` unattested where yesterday it could not, and `vlt-lint` no longer reports one under `para_missing_attestation`. **This corrects a contradiction shipped in v0.17.0**: v0.17.0 introduced the class exemption with the wrong membership, so the one artifact class most likely to be human-ratified rather than agent-attested stayed in jurisdiction.
+3. **`{conventions}/extraction.md` v8 → v9** — the class's definition site carries the corrected membership. Ruled a rule change rather than a prose correction because that line is the convention's appointed home for the answer (*"cited there, defined here"*) and the correction moves a shipped check's population.
+
+Every consumer acknowledgment of both moved conventions was **re-pinned in the same build** (9 acks — `write-verification@5` 5, `extraction@9` 4), and the bipartite handshake check passes in both directions at release time — 9 conventions, 39 consumer pins, consistent. `{conventions}/frontmatter.md` **stays at v14 — no movement**: it already named all three members correctly and carries no edit in this release. One in-prose version citation inside `vlt-lint-full.js` was re-stated to match, caught by the `E7` release-gate check added in v0.17.0 — its first real catch.
+
+`vault-operating-contract.md`'s Layer-3 entry condition also named the class with two members. It was **not** in the field filing and was found only by the membership-agreement check this build introduces — the check compares *members* across every enumerating site, where the v0.17.0 check compared only *how many sites define the class* and so could not see a membership disagreement at all.
+
+**The first full lint after this release is COLD BY CONSTRUCTION.** Both moved conventions' digests feed the ruleset fingerprint, so every existing sidecar record is unreusable and `lint_cache:` will honestly report `cached 0`. This is **expected and is not a cache regression**. Note this is the **third forced cold sweep today** — v0.16.2 caused the first and v0.17.0 the second.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-extract`, `skills/vlt-ingest`, `skills/vlt-lint`, `skills/vlt-query`, `skills/vlt-research`, `skills/vlt-setup`, `skills/vlt-track`
+
 ## v0.17.0 — 2026-08-27
 
 **Cycle 14** — no enforcement point. Release 2 of the cycle: builds 2, 3 and 4.
