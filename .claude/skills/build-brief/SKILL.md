@@ -29,7 +29,9 @@ building (a separate session, per brief) are out of scope.
 **Lifecycle position:** step 5 (Brief) of the loop mapped in
 `.claude/skills/vlt-lifecycle.md` — see it for the full flow, the routes out of each
 `blocked` cause, and the routing contract. Every report this skill emits ends with a
-**Next lifecycle move** line.
+**Next lifecycle move** line. The same line is **restamped into the open cycle roadmap's
+foot** in the run that moves the position — the chat report alone does not discharge it
+*(the map's standing rule; platform P-13)*.
 
 ## Conventions
 
@@ -183,6 +185,9 @@ on disk. This is the load-bearing step this skill exists to make unforgettable.
 **Interactive:** state where the brief landed, that its acceptance checks are in the ledger,
 and any grounding corrections issued (with the superseding notes they wrote into the roadmap).
 Ideation is not re-opened.
+
+**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
+obligation, the chat report a copy *(platform P-13)*.
 
 **Next lifecycle move** (routing contract): a **fresh builder session** implements this
 brief via `bmad-workflow-builder` (the brief's `status:` line says exactly this). Name the

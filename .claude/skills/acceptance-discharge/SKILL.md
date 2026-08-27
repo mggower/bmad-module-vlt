@@ -27,7 +27,9 @@ it, and it either discharges what's ready or tells you the upgrade hasn't happen
 **Lifecycle position:** step 8b (acceptance discharge) of the loop mapped in
 `.claude/skills/vlt-lifecycle.md` — see it for the full flow and the routing contract.
 Every report this skill emits ends with a **Next lifecycle move** line; a discharge run
-must never leave the owner without an actionable next step.
+must never leave the owner without an actionable next step. The same line is **restamped
+into the open cycle roadmap's foot** in the run that moves the position — the chat report
+alone does not discharge it *(the map's standing rule; platform P-13)*.
 
 **The vault is read-only without exception.** This skill reads a live vault to gather
 evidence and writes nothing into it — no fixes, no cleanup, no annotations. A defect found in

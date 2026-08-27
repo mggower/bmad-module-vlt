@@ -106,9 +106,17 @@ frontmatter said step 4.
 
 **Every lifecycle skill restamps that line on exit**, in the same run that moves the position:
 capture, ideation-scaffold, roadmap-roundtable, build-brief, release, acceptance-discharge,
-cycle-closeout. One line, at the foot of the report, naming the current next move — and it must
-agree with the frontmatter `status:`. Where they disagree, the frontmatter is the position and
-the terminal line is the defect.
+cycle-closeout. One line, written **into the foot of the open cycle roadmap** — the file the
+next reader opens — naming the current next move, and it must agree with that roadmap's
+frontmatter `status:`. Where they disagree, the frontmatter is the position and the terminal
+line is the defect.
+
+**The chat report carries the same line, but emitting it there does not discharge the
+obligation.** *(Platform P-13, 2026-08-27.)* This paragraph said "the foot of the report" until
+today, and "report" resolved to the chat report alone: the v0.15.0 release run updated Cycle 11's
+frontmatter and wrote no foot restamp, leaving that roadmap **zero** stamps across its whole
+lifecycle where Cycles 9/10 carry 2–3. Two homes, one line — the roadmap's foot is the one that
+outlives the session.
 
 ## The routing contract
 

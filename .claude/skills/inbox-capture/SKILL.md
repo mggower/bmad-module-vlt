@@ -19,7 +19,9 @@ here — this skill's output is a grounded roadmap, not a build plan.
 
 **Lifecycle position:** step 2 (Capture) of the loop mapped in
 `.claude/skills/vlt-lifecycle.md` — see it for the full flow and the routing contract.
-Every report this skill emits ends with a **Next lifecycle move** line.
+Every report this skill emits ends with a **Next lifecycle move** line. The same line is
+**restamped into the open cycle roadmap's foot** in the run that moves the position — the
+chat report alone does not discharge it *(the map's standing rule; platform P-13)*.
 
 ## Conventions
 

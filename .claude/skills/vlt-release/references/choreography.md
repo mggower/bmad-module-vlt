@@ -175,8 +175,11 @@ Gate: the record reflects the shipped release and points at what's next.
   `vX.Y.Z SHIPPED <date> (builds …), @ <sha>, tagged vX.Y.Z`).
 - Remind the owner to sync project memory (the cycle roadmap memory topic) with the shipped
   state — builds/release landed.
-- End the report with the **Next lifecycle move** (routing contract —
-  `.claude/skills/vlt-lifecycle.md`): live acceptance is batched to the next `vlt-upgrade`
+- **Restamp the cycle roadmap's foot** with the **Next lifecycle move**, then end the report
+  with the same line (routing contract — `.claude/skills/vlt-lifecycle.md`). **The roadmap's
+  foot is the obligation; the chat report is a copy.** This stage said "the report" until
+  2026-08-27, and it resolved to the chat report alone — the v0.15.0 run left Cycle 11's
+  roadmap with zero stamps across its whole lifecycle *(platform P-13)*. Live acceptance is batched to the next `vlt-upgrade`
   run on a live vault, **an owner action** — name it as the move. Once that upgrade
   evidence exists, `acceptance-discharge` discharges the cycle's deferred ledger. This
   skill's job ends at the push + stamp.

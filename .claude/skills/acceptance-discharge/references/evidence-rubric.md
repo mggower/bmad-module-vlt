@@ -120,9 +120,10 @@ the event that will discharge each and its trigger), how many FAILED or BLOCKED 
 its drafted filing). List filings archived and filings held. Name the first-exercise tails
 explicitly so the owner sees exactly what acceptance is still waiting on.
 
-End with the **Next lifecycle move** (routing contract — `.claude/skills/vlt-lifecycle.md`),
-derived from the run's aggregate outcome; a discharge run must never end on a bare state
-description:
+**Restamp the cycle roadmap's foot** with the **Next lifecycle move**, then end the report with
+the same line (routing contract — `.claude/skills/vlt-lifecycle.md`), derived from the run's
+aggregate outcome; a discharge run must never end on a bare state description. **The roadmap's
+foot is the obligation; the chat report is a copy** *(platform P-13)*:
 
 - **Every item checked or owner-carried** → next move is `cycle-closeout` ("close the cycle").
 - **STILL-OPEN tails remain** → for each, name the discharging event AND who or what

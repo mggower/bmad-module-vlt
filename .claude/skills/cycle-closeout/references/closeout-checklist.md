@@ -191,8 +191,11 @@ Summarize the close:
 - **Front door:** README fixed, or already a pointer (unchanged).
 - **Memory:** topic file + index line synced.
 
-End with the **Next lifecycle move** (routing contract — `.claude/skills/vlt-lifecycle.md`):
-the cycle is closed, so the loop restarts at field signal — "next filings (or the recorded
+**Restamp the foot of the roadmap being closed** with the **Next lifecycle move**, then end the
+report with the same line (routing contract — `.claude/skills/vlt-lifecycle.md`). **The
+roadmap's foot is the obligation; the chat report is a copy** *(platform P-13)* — and it matters
+most here, where the roadmap becomes a permanent archive nobody will restamp later. The cycle is
+closed, so the loop restarts at field signal — "next filings (or the recorded
 carry-forwards) go through `inbox-capture`, which will find a clean open-cycle slate and
 re-list the carry-forwards from this now-closed roadmap." If uncaptured filings already
 sit in `factory/inbox/`, say so and name `inbox-capture` as the immediate move. When blocked, the

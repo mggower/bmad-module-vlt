@@ -25,7 +25,9 @@ failing: a cycle must never close over unresolved acceptance.
 
 **Lifecycle position:** step 8c (cycle retirement, the loop's final move) of the loop mapped
 in `.claude/skills/vlt-lifecycle.md` — see it for the full flow and the routing contract.
-Every report this skill emits ends with a **Next lifecycle move** line.
+Every report this skill emits ends with a **Next lifecycle move** line. The same line is
+**restamped into the foot of the roadmap it is closing** in the run that moves the position
+— the chat report alone does not discharge it *(the map's standing rule; platform P-13)*.
 
 ## Conventions
 

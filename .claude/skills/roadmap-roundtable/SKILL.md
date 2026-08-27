@@ -26,7 +26,9 @@ session, and every dissent is recorded rather than dropped.
 **Lifecycle position:** the Review step of the loop mapped in
 `.claude/skills/vlt-lifecycle.md`, after ideation rulings are filled and before any brief.
 `build-brief` gates on this skill's roadmap record (or an explicit owner waiver). Every
-report ends with a **Next lifecycle move** line.
+report ends with a **Next lifecycle move** line. The same line is **restamped into the open
+cycle roadmap's foot** in the run that moves the position — the chat report alone does not
+discharge it *(the map's standing rule; platform P-13)*.
 
 ## On Activation
 
@@ -176,6 +178,9 @@ Then apply from the session file before adjourning — in this order, verified b
 
 **Interactive:** state where the record landed, enumerate A#/R#/rulings in one line each,
 name any out-of-scope material to file to `factory/inbox/`, and point at the keepsake.
+
+**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
+obligation, the chat report a copy *(platform P-13)*.
 
 **Next lifecycle move** (routing contract): with the record in place and no OPEN
 disputes, `brief build N` (`build-brief`) for the first build the rulings name. OPEN

@@ -25,7 +25,9 @@ lifecycle violation.
 **Lifecycle position:** step 3 (Ideate) of the loop mapped in
 `.claude/skills/vlt-lifecycle.md` — this skill is the recording scaffold for the
 owner-steered session, not the session itself. Every report ends with a
-**Next lifecycle move** line.
+**Next lifecycle move** line. The same line is **restamped into the open cycle roadmap's
+foot** in the run that moves the position — the chat report alone does not discharge it
+*(the map's standing rule; platform P-13)*.
 
 ## On Activation
 
@@ -102,6 +104,9 @@ landed (re-read), then report.
 **Interactive:** state where the skeleton landed and enumerate the seeded questions —
 they are the session's agenda. If the owner wants to fill it now, stay and record their
 rulings verbatim into the slots (clerk, not advisor: capture, read back, never steer).
+
+**Restamp the cycle roadmap's foot** with this move before reporting — the roadmap's foot is the
+obligation, the chat report a copy *(platform P-13)*.
 
 **Next lifecycle move** (routing contract): owner fills the rulings in session; once the
 rulings are filled, the move is `convene the roundtable` (`roadmap-roundtable`) — briefs

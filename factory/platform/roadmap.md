@@ -52,7 +52,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-15, P-14 and P-20 are all BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-15, P-14, P-20 and P-13 are all BUILT-awaiting and consume no slot, per the contract header)
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
@@ -482,12 +482,111 @@ survived. The instrument beat self-accepts on the next `roadmap-roundtable` run.
 
 ---
 
-**Built-awaiting inventory is now FOUR (P-10, P-15, P-14, P-20) — past the contract header's
-threshold.** The header defers a separate section or second cap "until built-awaiting inventory
-reaches three." It reached three on 2026-08-25 and **four on 2026-08-27**. Flagged as an
+### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **open: BUILT 2026-08-27, awaiting self-acceptance (the next lifecycle run that moves the position)**
+
+*(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
+Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
+`Next lifecycle move` stamps across its whole lifecycle, where Cycles 9/10 carry 2–3.
+Mechanical cause: `vlt-release` choreography Stage 8 says "End the **report** with the
+Next lifecycle move", and "report" resolved to the chat report only. The instance was
+repaired by hand the same day; this item closes the recurrence path.)*
+
+- **Intent:** every lifecycle skill's text says explicitly that the terminal routing
+  restamp is written **into the open cycle roadmap's foot** (the map's Arc 9 standing
+  rule), not only emitted in the chat report — one clause each, pointing at the map,
+  never restating its mechanics (single-home).
+- **Sites:** `.claude/skills/vlt-release/references/choreography.md:178` (Stage 8 — the
+  site that bit); the sibling "report ends with a Next lifecycle move line" sentences in
+  `inbox-capture` (SKILL.md:22, references/roadmap-synthesis.md:85), `build-brief`
+  (SKILL.md:32/:177), `acceptance-discharge` (SKILL.md:29,
+  references/evidence-rubric.md:123), `cycle-closeout` (SKILL.md:28,
+  references/closeout-checklist.md:194), `roadmap-roundtable` (SKILL.md:28/:132),
+  `ideation-scaffold` (SKILL.md:28/:106); optionally one clarifying clause in
+  `vlt-lifecycle.md`'s standing-rule paragraph ("the foot of the roadmap" said plainly).
+- **Verification:** grep — every lifecycle skill that moves the position carries a
+  roadmap-foot restamp clause; none restates the map's rule body; `lifecycle-status`
+  (read-only, restamps nothing) correctly excluded.
+- **Out of scope:** any mechanical lint for a missing/stale foot stamp (a later item or
+  a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
+- **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
+  `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
+
+---
+
+**BUILT 2026-08-27** (`plat:` commit — all sites are tracked factory skills). **Eleven clauses
+across nine files, plus the root fix in the map.**
+
+**⚠ The brief-lite's "optional" was wrong, and the optional edit turned out to be the root.**
+The Sites line called the `vlt-lifecycle.md` clause *"optionally one clarifying clause"*. It is
+not optional: **the map's own standing-rule paragraph said "One line, at the foot of the
+report"** — the map, which is the single home of the rule, was itself the source of the
+ambiguity every consumer skill inherited. Repairing the eleven consumer clauses while leaving
+that sentence standing would have left every reader one hop from the wrong reading. The map is
+therefore the **first** edit, not an afterthought:
+
+- `.claude/skills/vlt-lifecycle.md` — *"One line, written **into the foot of the open cycle
+  roadmap** — the file the next reader opens"*, plus a short dated paragraph recording that the
+  wording said "report" until today and what that cost (Cycle 11's roadmap: **zero** stamps
+  across its whole lifecycle, against 2–3 in Cycles 9/10).
+
+**The eleven consumer clauses**, one pair per position-moving skill — the overview sentence that
+states the obligation, and the operative site where the line is actually written:
+
+| Skill | Overview clause | Operative clause |
+|---|---|---|
+| `inbox-capture` | `SKILL.md` | `references/roadmap-synthesis.md` Handoff |
+| `ideation-scaffold` | `SKILL.md` | `SKILL.md` Handoff |
+| `roadmap-roundtable` | `SKILL.md` | `SKILL.md` Handoff |
+| `build-brief` | `SKILL.md` | `SKILL.md` Handoff |
+| `vlt-release` | `SKILL.md` | `references/choreography.md` **Stage 8 — the site that bit** |
+| `acceptance-discharge` | `SKILL.md` | `references/evidence-rubric.md` |
+| `cycle-closeout` | `SKILL.md` | `references/closeout-checklist.md` |
+
+Every clause is a **pointer**: it names the roadmap's foot as the obligation and the chat report
+as a copy, then defers to the map. **None restates the map's rule body** (the frontmatter-agreement
+clause and the append-only rationale appear nowhere outside `vlt-lifecycle.md`) — single-home
+discipline held. Two sites per skill matches the doubling these skills already had for the
+"report ends with a Next lifecycle move" sentence; it is the same sentence, corrected in both
+its existing homes, not a new home.
+
+**Two skill-specific wordings, deliberately not uniform:**
+- `cycle-closeout` says *"the foot of the roadmap **it is closing**"* — it resets `factory/CYCLE`
+  to `none`, so "the open cycle roadmap" would name nothing by the time the stamp lands. This is
+  also where the clause matters most: that roadmap becomes a permanent archive nobody restamps later.
+- `vlt-release`'s Stage 8 carries the dated instance record, because that is the exact line whose
+  "report" resolved to the chat report in the v0.15.0 run.
+
+**Verification — the brief-lite's grep test, all four legs green:**
+
+| Leg | Expected | Result |
+|---|---|---|
+| Coverage | all 7 position-moving skills carry the clause | **7/7**, two sites each |
+| Exclusion | `lifecycle-status` (read-only, restamps nothing) not touched | **0 hits** — and `issue-triage` also **0**, excluded on the same ground: it moves *rail* state, never the cycle's lifecycle position *(named here rather than silently omitted; the brief-lite's site list did not mention it)* |
+| Single-home | no consumer restates the map's rule body | **0 hits** outside `vlt-lifecycle.md` |
+| Gates | tree still clean | `factory-paths-check` **PASS** (128 refs, 20 files); `package-lint` **A/B/C/E PASS, D SKIPPED** |
+
+**No shipped surface touched** — every edit is under `.claude/skills/`, so the channel's
+delivery boundary holds.
+
+**Done-when (unchanged):** the next lifecycle run that moves the position leaves the roadmap's
+foot restamped **without being prompted**. Cycle 14's next `acceptance-discharge` is the likely
+first exercise; Cycle 13's acceptance re-run would also do it.
+
+**Out of scope, unchanged and now more clearly earned:** no mechanical lint for a missing or
+stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadmap's last
+`Next lifecycle move` agrees with its frontmatter `status:`"* is exactly the shape P-6's
+tranche takes, and it should be earned there on evidence rather than invented here.
+
+
+---
+
+**Built-awaiting inventory is now FIVE (P-10, P-15, P-14, P-20, P-13) — well past the contract
+header's threshold.** The header defers a separate section or second cap "until built-awaiting
+inventory reaches three." It reached three on 2026-08-25 and **five on 2026-08-27**. Flagged as an
 **owner call**, not acted on: four items with named discharging events and bounds may still be
 cheaper to read in place than to re-file into a section. The ruling belongs on the ledger either
-way, and it is now one item overdue. *(Count updated 2026-08-27 at P-20's build; the original
+way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
+itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
 note is preserved above in substance, not re-derived.)*
 
 ## Queued
@@ -656,35 +755,6 @@ would brick the next release at its final stage.)*
   item can wire package-lint there); protection on the private mirror.
 - **Done-when:** the next release reaches `main` through a PR without breaking the
   choreography's gate sequence, and direct pushes to `main` are refused server-side.
-
-### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **queued**
-
-*(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
-Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
-`Next lifecycle move` stamps across its whole lifecycle, where Cycles 9/10 carry 2–3.
-Mechanical cause: `vlt-release` choreography Stage 8 says "End the **report** with the
-Next lifecycle move", and "report" resolved to the chat report only. The instance was
-repaired by hand the same day; this item closes the recurrence path.)*
-
-- **Intent:** every lifecycle skill's text says explicitly that the terminal routing
-  restamp is written **into the open cycle roadmap's foot** (the map's Arc 9 standing
-  rule), not only emitted in the chat report — one clause each, pointing at the map,
-  never restating its mechanics (single-home).
-- **Sites:** `.claude/skills/vlt-release/references/choreography.md:178` (Stage 8 — the
-  site that bit); the sibling "report ends with a Next lifecycle move line" sentences in
-  `inbox-capture` (SKILL.md:22, references/roadmap-synthesis.md:85), `build-brief`
-  (SKILL.md:32/:177), `acceptance-discharge` (SKILL.md:29,
-  references/evidence-rubric.md:123), `cycle-closeout` (SKILL.md:28,
-  references/closeout-checklist.md:194), `roadmap-roundtable` (SKILL.md:28/:132),
-  `ideation-scaffold` (SKILL.md:28/:106); optionally one clarifying clause in
-  `vlt-lifecycle.md`'s standing-rule paragraph ("the foot of the roadmap" said plainly).
-- **Verification:** grep — every lifecycle skill that moves the position carries a
-  roadmap-foot restamp clause; none restates the map's rule body; `lifecycle-status`
-  (read-only, restamps nothing) correctly excluded.
-- **Out of scope:** any mechanical lint for a missing/stale foot stamp (a later item or
-  a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
-- **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
-  `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
 
 ### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **queued**
 
