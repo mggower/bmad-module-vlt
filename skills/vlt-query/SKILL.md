@@ -1,7 +1,7 @@
 ---
 name: vlt-query
 description: Answer a question by synthesizing from the vault wiki. Use when the user asks something the wiki might speak to — 'what do I know about X', 'what have I read on Y', 'what's my current thinking on Z', or wants a comparison/synthesis/decision-support grounded in their own curated sources. Reads the wiki only (no web — for that, use vlt-research).
-depends_on: ["extraction@8", "frontmatter@14"]
+depends_on: ["extraction@9", "frontmatter@14"]
 ---
 
 # vlt-query

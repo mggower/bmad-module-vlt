@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-25
+last_updated: 2026-08-27
 title: Extraction Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 8
+version: 9
 consumers: [vlt-extract, vlt-lint, vlt-track, vlt-query]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -187,7 +187,7 @@ A lifecycle transition the field records only as prose (e.g. project → area re
 
 **`register.md`** *(optional)* — decisions and open questions: `type: register`; the recommended shape is numbered questions as `question · evidence · options · decider · pick` rows, with verification/assignment queues as prose idioms — documented here, not enforced by lint.
 
-**The operational-record class.** `record` and `register` name an **artifact class**, not merely a filename position: a Layer-3 operational record is dated, append-shaped, attributed per entry, and carries **no** attestation pair. `record.md`/`register.md` inside a container are the container instances of that class; a Layer-3 operational record a partner writes **outside** a container carries the same `type:` and the same posture, and is judged by this schema for the same reason. The class is the discriminator the attestation scope rule tests (`write-verification.md`, *Scope rule* — cited there, defined here).
+**The operational-record class.** `charter`, `record` and `register` — **all three**, the same membership the recognized `type:` set states above in this file — name an **artifact class**, not merely a filename position: a Layer-3 operational record is an **operational record, not a knowledge artifact**, attributed in its own body (per dated entry for `record`/`register`, in the frame itself for `charter`) rather than by an attestation pair, and it carries **no** `verified_by:`/`verified_at:` pair. `record`/`register` are additionally dated and append-shaped; `charter` is the stable frame — a **shape difference within one class**, never a membership difference, and the class is what the attestation exemption keys on. `charter.md`/`record.md`/`register.md` inside a container are the container instances of that class; a Layer-3 operational record a partner writes **outside** a container carries the same `type:` and the same posture, and is judged by this schema for the same reason. The class is the discriminator the attestation scope rule tests (`write-verification.md`, *Scope rule* — cited there, defined here).
 
 **Attestation posture:** container files are **operational records, not knowledge artifacts** — attribution rides each dated entry; they carry **no** `verified_by:`/`verified_at:` pair (`vlt-lint`'s `para_missing_attestation` carve-out judges them by this schema, not the artifact attestation rule). The `trust:` ladder above is the container-relevant trust answer — no separate container trust field exists. The three `type:` values (`charter`, `record`, `register`) are members of the **recognized `type:` set for the PARA population** stated above in this file — declared here, no contract edit owed.
 

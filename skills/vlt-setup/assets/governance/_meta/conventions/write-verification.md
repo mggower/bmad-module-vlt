@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-06
-last_updated: 2026-08-21
+last_updated: 2026-08-27
 title: Write-Verification Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 4
+version: 5
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -52,7 +52,7 @@ A write never blocks on its own verification: **fix what you can, flag what you 
 
 ## Scope rule (self-marker)
 
-Attestation is a **self-marker, not a quality grade**. Lint flags only *unmarked cells claiming to be self* — files carrying vault frontmatter (`type: wiki|research|project|area|resource` with `author: agent|hybrid`) and no attestation — never bare human files. `daily/`, raw `sources/` deposits, and human-authored PARA files are out of jurisdiction, **and so is the Layer-3 operational-record class — files whose `type:` is `record` or `register` (`extraction.md`, *PARA containers* — the class definition and its attestation posture live there, not here). The exemption is by artifact class, never by writer: a partner sitting is not a jurisdiction, and fusing permission to provenance is the write-path failure this exemption exists to prevent. A Layer-3 knowledge artifact written in a sitting is in jurisdiction like any other.** This exemption is load-bearing for lint-report trust. **Jurisdiction boundary.** Attestation is out of frontmatter-validity jurisdiction: a file's missing or stale attestation is an *attestation* finding — never a frontmatter-validity defect, and never an unmarked supersession. Frontmatter validity judges the base schema (`frontmatter.md`, *Base frontmatter*); attestation is judged by this rule, against the `verified_by:` / `verified_at:` fields `frontmatter.md` defines under *Write attestation (agent-written artifacts)*. Same file, orthogonal axes.
+Attestation is a **self-marker, not a quality grade**. Lint flags only *unmarked cells claiming to be self* — files carrying vault frontmatter (`type: wiki|research|project|area|resource` with `author: agent|hybrid`) and no attestation — never bare human files. `daily/`, raw `sources/` deposits, and human-authored PARA files are out of jurisdiction, **and so is the Layer-3 operational-record class — files whose `type:` is `charter`, `record` or `register` (`extraction.md`, *PARA containers* — the class definition and its attestation posture live there, not here). The exemption is by artifact class, never by writer: a partner sitting is not a jurisdiction, and fusing permission to provenance is the write-path failure this exemption exists to prevent. A Layer-3 knowledge artifact written in a sitting is in jurisdiction like any other.** This exemption is load-bearing for lint-report trust. **Jurisdiction boundary.** Attestation is out of frontmatter-validity jurisdiction: a file's missing or stale attestation is an *attestation* finding — never a frontmatter-validity defect, and never an unmarked supersession. Frontmatter validity judges the base schema (`frontmatter.md`, *Base frontmatter*); attestation is judged by this rule, against the `verified_by:` / `verified_at:` fields `frontmatter.md` defines under *Write attestation (agent-written artifacts)*. Same file, orthogonal axes.
 
 ## Tier membership and promotion
 

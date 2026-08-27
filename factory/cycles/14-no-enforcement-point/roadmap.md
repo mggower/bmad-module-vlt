@@ -2450,6 +2450,51 @@ which GATE. **Cycle 14 cannot close today.**
   discharge run unfired, that is no longer a waiting state and the honest reading is that nothing
   will ever cause it — re-grade it BLOCKED and file it then.**
 
+### Build-5 (charter-membership-repair, briefed + built 2026-08-27) — the hot-fix's ledger
+
+*Appended by build-5's record (`briefs/build-5-charter-membership-repair.md`). The repair of the
+contradiction this cycle's own build-3 shipped in v0.17.0, filed
+`factory/inbox/2026-08-27-171000-operational-record-class-has-two-memberships.md`, owner-ruled
+hot-fix-now. Checks (1)-(4) are **ship-verifiable and GATE** per D3-as-amended; each names its seam
+per R1. **All four were graded at rest during the build and all four PASS.***
+
+- [ ] **build-5 (1):** `[ship-verifiable — GATES]` Every site in the shipped surface that
+  enumerates the Layer-3 **operational-record class** names exactly `charter | record | register`.
+  **Instrument:** the membership-agreement check — the comparison build-3's check (4) lacked, which
+  tested single-home-ness (the class is *defined* once) and never compared *members*.
+  **Seam crossed:** factory script → shipped governance bundle + `vlt-lint` references, at rest.
+  **— GRADED AT BUILD 2026-08-27: PASS**, 10/10 enumerating sites agree. The check found a **sixth**
+  site the filing had not (`vault-operating-contract.md:66`, the Layer-3 entry condition), which a
+  site-list copied from the filing would have shipped still broken.
+- [ ] **build-5 (2):** `[ship-verifiable — GATES]` Both moved conventions are bipartite-consistent
+  in **both** directions, and no consumer still pins `extraction@8` or `write-verification@4`.
+  **Instrument:** package-lint `E1` + `E5` + a stray-pin grep. **Seam crossed:** convention
+  `consumers:` ↔ consumer `depends_on:`, including the asset-node half.
+  **— GRADED AT BUILD 2026-08-27: PASS.** `write-verification` 4→5 (5 consumers re-acked),
+  `extraction` 8→9 (4 re-acked); `frontmatter` deliberately held at 14 (not edited).
+- [ ] **build-5 (3):** `[ship-verifiable — GATES]` `vault-rule-card.md`'s `derived_from:` sha256
+  equals the shipped contract's digest, the contract having been edited at `:66`.
+  **Instrument:** package-lint `C6`. **Seam crossed:** derived artifact → its source contract.
+  **— GRADED AT BUILD 2026-08-27: PASS** (re-stamped to `8f8a7116…`).
+- [ ] **build-5 (4):** `[ship-verifiable — GATES]` No workflow body recites a stale convention pin
+  after the `write-verification` bump. **Instrument:** package-lint `E7`. **Seam crossed:** workflow
+  prose ↔ that file's own `// depends_on:` header.
+  **— GRADED AT BUILD 2026-08-27: PASS.** `vlt-lint-full.js:684` recited `write-verification@4` and
+  would have failed the release un-repaired — **E7 working as designed on its second release.**
+- [ ] **build-5 (5):** `[field-contingent]` — **does NOT gate.** On `{field-vault}`, after the
+  v0.17.1 upgrade, the next full `vlt-lint` sweep reports the `charter` file **out** of
+  `para_missing_attestation` jurisdiction: the unattested Layer-3 count outside `{wiki}` in
+  jurisdiction falls **28 → 27**, both the `record` and the `charter` file exempted. **Event:** the
+  owner runs `vlt-upgrade` to 0.17.1 then one `vlt-lint --full`. **Performer:** the owner.
+  **Tagged field-contingent** because it needs a live corpus and an owner-initiated sweep — nothing
+  in the build, release or upgrade causes it. This is the check that measures the defect's actual
+  measured harm being undone, on the very file that surfaced it.
+- [ ] **build-5 (6):** `[field-contingent]` — **does NOT gate.** `{field-vault}`'s
+  `write-verification.md` park resolves **fully** on the 0.17.1 upgrade — the *partial* resolution
+  recorded on the 2026-08-27 discharge run (build-3 (6)) was blocked by exactly this contradiction.
+  **Event:** the post-upgrade `parked_interims_review` shows the park unparked, not re-parked.
+  **Performer:** the owner.
+
 ## Roundtable review — A14-1..A14-8, the four-build batch (2026-08-26)
 
 **Convened** over the filled Ideation rulings, before any brief, per `.claude/skills/vlt-lifecycle.md`
