@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 14 — no enforcement point'
-status: 'OPEN — captured 2026-08-26, **8 filings** grounded against module source at v0.16.1. **IDEATION COMPLETE** (four owner-steered rounds, every slot ruled): **4 builds, 2 releases** — b1 reduce-side (A14-1 + A14-3), b2 findings cache (A14-8), b3 governance (A14-6 + A14-7, 2 conventions / 15 re-acks **+ 7 in-prose pins the handshake gate cannot see; the roundtable found the true figure may be 3 conventions / 19 re-acks — settled at build-3''s brief**), b4 lint references (A14-4 + A14-5); **build-1 is released alone** because it **gates Cycle 13''s closeout**. Cycle-wide ruling D3, **as amended at the roundtable**: a **bounded** check (at rest, at the release gate, or on the next ordinary upgrade) is ship-verifiable and it GATES — an at-rest instrument is one sufficient bound, not the criterion. `ST-6` opened at D4. Scope was owner-ruled at capture — defects and blockers from Cycles 12–13 only, net-new deferred (tracker #13). **ROUNDTABLE COMPLETE 2026-08-26** — 32 amendments applied, 2 rules, 4 owner-ruled disputes (2 dissents on record), 0 open, 6 retirements; `build-brief`''s gate is satisfied. **Next: `brief build 1`.** Predecessor Cycle 12 CLOSED 2026-08-26; Cycle 13 remains OPEN and gate-shut until b1 ships.'
+status: 'OPEN — captured 2026-08-26, **8 filings** grounded against module source at v0.16.1. **IDEATION COMPLETE** (four owner-steered rounds, every slot ruled): **4 builds, 2 releases** — b1 reduce-side (A14-1 + A14-3), b2 findings cache (A14-8), b3 governance (A14-6 + A14-7, 2 conventions / 15 re-acks **+ 7 in-prose pins the handshake gate cannot see; the roundtable found the true figure may be 3 conventions / 19 re-acks — settled at build-3''s brief**), b4 lint references (A14-4 + A14-5); **build-1 is released alone** because it **gates Cycle 13''s closeout**. Cycle-wide ruling D3, **as amended at the roundtable**: a **bounded** check (at rest, at the release gate, or on the next ordinary upgrade) is ship-verifiable and it GATES — an at-rest instrument is one sufficient bound, not the criterion. `ST-6` opened at D4. Scope was owner-ruled at capture — defects and blockers from Cycles 12–13 only, net-new deferred (tracker #13). **ROUNDTABLE COMPLETE 2026-08-26** — 32 amendments applied, 2 rules, 4 owner-ruled disputes (2 dissents on record), 0 open, 6 retirements; `build-brief`''s gate is satisfied. **RELEASE 1 SHIPPED 2026-08-27 — v0.16.2 @ `bd985a6`, tag `v0.16.2` (`594b958`), build-1 built at `ceb5cb2`; package-lint A/B/C/E PASS, D PASS.** Build-1''s 8 acceptance checks are ALL ship-verifiable and ALL GATE (D3-as-amended); **6 of 8 graded at rest, 6/6 PASS** — including **check (2), which re-grades Cycle 13''s refuted acceptance check on six real vault subjects: PASS. Cycle 13''s closeout gate is REOPENED.** Checks (6) and (7) bound to the first live full sweep after upgrade. **Next: two independent tracks — owner runs `vlt-upgrade` on `{field-vault}` for release-1 acceptance; and `brief build 2` toward release 2 (builds 2, 3, 4).** Predecessor Cycle 12 CLOSED 2026-08-26; Cycle 13 remains OPEN, now gate-open, awaiting its acceptance re-run.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 8 filings captured and graded; 1 deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound; **IDEATION COMPLETE — filled over four owner-steered rounds, every slot ruled: 4 builds, 2 releases, build-1 cut alone to reopen Cycle 13''s gate; ST-6 opened**; **ROUNDTABLE CONVENED + CONVERGED 2026-08-26 — full 13-voice roster, 32 amendments, 2 rules, 4 disputes ruled, 6 retirements, D5 confirmed**; next: brief build 1)'
+updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 8 filings captured and graded; 1 deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound; **IDEATION COMPLETE — filled over four owner-steered rounds, every slot ruled: 4 builds, 2 releases, build-1 cut alone to reopen Cycle 13''s gate; ST-6 opened**; **ROUNDTABLE CONVENED + CONVERGED 2026-08-26 — full 13-voice roster, 32 amendments, 2 rules, 4 disputes ruled, 6 retirements, D5 confirmed**); **2026-08-27 — build-1 BRIEFED, BUILT @ `ceb5cb2` and RELEASED as v0.16.2 @ `bd985a6`, tag `v0.16.2` pushed to origin; 6/6 at-rest acceptance checks PASS incl. the Cycle 13 re-grade**; next: `vlt-upgrade` for acceptance + `brief build 2`)'
 derives_from:
   - 'factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md'
   - 'factory/inbox/2026-08-26-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md'
@@ -1951,7 +1951,27 @@ carried as a live item.
 
 ## Next lifecycle move
 
-**`brief build 1`** (`build-brief`). ✅ **The roundtable CONVENED 2026-08-26 and its record is
+**Two independent tracks — neither waits on the other.**
+
+1. **Release-1 acceptance:** the owner runs `vlt-upgrade` on `{field-vault}`, then
+   `run acceptance discharge`. Build-1's checks **(6)** and **(7)** are bound to that first live
+   full sweep; the other six are graded at rest and PASS.
+2. **Toward release 2:** **`brief build 2`** (`build-brief`), then builds 3 and 4 — build-3 ordered
+   after build-2 so `PAGE_SCAN` settles once before the re-ack pass reads it (A3).
+
+⚠ **Before running `acceptance-discharge` or `cycle-closeout` against CYCLE 13, hand-point
+`factory/CYCLE` at `13-trusted-returns` and restore it immediately after** — two cycles are open
+and the pointer holds one line (A24, restated at the foot of this roadmap). Never run either headless
+while that is true.
+
+*(Superseded 2026-08-27: this line previously routed to `brief build 1`. **Build-1 is BRIEFED, BUILT
+@ `ceb5cb2`, and RELEASED as v0.16.2 @ `bd985a6`, tag `v0.16.2` pushed to origin.** Its check (2)
+re-graded Cycle 13's refuted acceptance check on six real vault subjects: **PASS — Cycle 13's
+closeout gate is REOPENED.**)*
+
+---
+
+**Historical — the routing that stood until release 1.** ✅ **The roundtable CONVENED 2026-08-26 and its record is
 above** (§Roundtable review — A14-1..A14-8, the four-build batch): 32 amendments applied, 2 rules
 declared, 4 disputes owner-ruled live with 2 dissents on record, **no OPEN disputes**, and the
 obsolescence beat run to 6 retirements and 5 explicit negatives. `build-brief`'s gate is satisfied.
