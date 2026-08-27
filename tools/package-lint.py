@@ -847,6 +847,72 @@ def _e5_asset_nodes(root: Path, conventions: dict) -> list:
     return failures
 
 
+
+def _e7_asset_prose_pin_currency(root: Path, conventions: dict) -> list:
+    """E7 (build-3, Cycle 14): in-prose pin currency inside workflow assets.
+
+    E3's stray-pin net deliberately excludes vlt-setup/assets/** and E5 reads
+    only the `// depends_on:` header line, so a workflow that recites a
+    convention BY VERSION in its prose — schema descriptions, agent prompts,
+    code comments — can carry a stale pin through a green handshake and ship it
+    to every vault. This is not a consumption question (the asset declares in
+    its header); it is a CURRENCY question. Every `name@version` token in a
+    workflow body, anchored on the known convention names, must equal that
+    file's own header ack for the same convention. A body pin naming a
+    convention the header does not ack also FAILs (the reverse drift).
+
+    Scope: skills/vlt-setup/assets/workflows/*.js, every line except the single
+    `// depends_on:` header line E5 owns. Anchored on set(conventions) exactly
+    as E3 is, never a bare \\w+@\\d+. A workflow whose header is missing or
+    unparseable is E5's failure, not E7's — E7 stays silent there rather than
+    double-reporting one defect.
+    """
+    failures = []
+    if not conventions:
+        return failures
+    pattern = re.compile(
+        r"\b(" + "|".join(re.escape(n) for n in sorted(conventions)) + r")@(\d+)\b"
+    )
+    wf_dir = root / WORKFLOWS_DIR
+    for wf in sorted(wf_dir.glob("*.js")) if wf_dir.is_dir() else []:
+        rel = wf.relative_to(root)
+        lines = wf.read_text(encoding="utf-8").splitlines()
+        headers = [m for line in lines for m in [_DEPENDS_ON_LINE_RE.match(line)] if m]
+        if len(headers) != 1:
+            continue  # E5's leg
+        try:
+            raw = json.loads(headers[0].group(1))
+            assert isinstance(raw, list) and all(
+                isinstance(x, str) and _ASSET_PIN_RE.match(x) for x in raw
+            )
+        except Exception:
+            continue  # E5's leg
+        header_pins = {}
+        for x in raw:
+            name, _, ver = x.partition("@")
+            header_pins[name] = ver
+        for lineno, line in enumerate(lines, start=1):
+            if _DEPENDS_ON_LINE_RE.match(line):
+                continue
+            for m in pattern.finditer(line):
+                name, ver = m.group(1), m.group(2)
+                acked = header_pins.get(name)
+                if acked is None:
+                    failures.append(
+                        f"asset prose pin: {rel}:{lineno} recites {name}@{ver} but the file's "
+                        f"`// depends_on:` header does not ack {name} at all — a body pin naming "
+                        f"an undeclared convention is the reverse drift; add it to the header and "
+                        f"to {name}'s consumers:, or rewrite the reference as a version-free pointer"
+                    )
+                elif acked != ver:
+                    failures.append(
+                        f"asset prose pin: {rel}:{lineno} recites {name}@{ver} but the file's "
+                        f"`// depends_on:` header acks {name}@{acked} — an in-prose pin left stale "
+                        f"by a handshake bump ships a wrong citation to every vault; move the body "
+                        f"token with the header"
+                    )
+    return failures
+
 # E4 (build B7-1, standing rule R2): the gate-check inventory is structural —
 # every module-level callable whose name matches this pattern IS a gate check,
 # so a new check enters the inventory the moment it is defined, with no
@@ -1028,6 +1094,7 @@ def check_group_e(root: Path) -> list:
         + _e3_stray_pin(root, set(conventions))
         + _e4_harness_coverage()
         + _e5_asset_nodes(root, conventions)
+        + _e7_asset_prose_pin_currency(root, conventions)
         + _e6_schema_size_budget(root)
     )
 

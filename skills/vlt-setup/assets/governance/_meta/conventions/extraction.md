@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 7
+version: 8
 consumers: [vlt-extract, vlt-lint, vlt-track, vlt-query]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -80,6 +80,8 @@ Pick slugs that will still make sense in a year. Avoid datestamps, version suffi
 | `resources/` | `resource` (the `{wiki}` subtree is not a target folder — the operating contract, Layer 2, is the canonical statement) |
 
 A fourth artifact type is **readable but not target-derived**: **`moc`** — a Map of Content, a curated index of links living in a PARA folder. It is named here so it is recognizable schema (`vlt-lint`'s `para_type_unknown` set) and so the MOC rule can key on content type; MOCs are **human-curated and human-edited only** (the operating contract, *Wikilinks and MOCs*).
+
+**The recognized `type:` set for the PARA population — this file is its home.** A file in the `para_*` population (under `{projects}`, `{areas}`, `{resources}`, the `{wiki}` subtree removed by name at selection time — the operating contract, Layer 2) carries a `type:` from the **closed** set: the artifact types `project | area | resource | moc` above, the **operational-record class** `charter | record | register` (*PARA containers* below), and any vault-declared schema in `{overlays}/extraction.overlay.md` (the declare-at-birth rule). **Closed for this population, and this statement is what the operating contract's Layer-3 entry condition points at** for its *recognized `type:`* leg. `frontmatter.md`'s non-exhaustive canonical `type:` list governs the base/agent lane — wiki pages, research notes, sessions, notes, ideas — and **does not answer here**. A module-canonical but **non-PARA** `type:` (`wiki`, `research`, `session`, `note`, `idea`) sitting in a PARA folder is therefore a **mis-typed or mis-placed artifact**, never unrecognized vocabulary: the response is to retype it to the target folder's `type:` per the mapping above, or to relocate it to that type's home zone — never to declare module vocabulary as vault-grown overlay schema.
 
 `resources/` is a **live extraction target again as of this version** — a Layer 3 PARA zone with the same posture as `{projects}`/`{areas}` (the write-surface grant lives in the operating contract's Layer 3 and hard rule — mechanics there, never restated here); its `{wiki}` subtree is excluded (the operating contract, Layer 2 — the canonical statement of the qualifier; not restated here). `type: resource` returns as live vocabulary. **Legacy posture preserved:** artifacts predating version 6 keep their standing legality — no backfill sweep, no re-type, and `status: complete` on a legacy `resource` file stays legal (the enum row below). Where general reference material *also* legitimately lives: **the wiki itself** — the human-browsable `{wiki}` — for knowledge that should compound, or `areas/` when it serves an ongoing commitment; routing guidance, not a closure.
 
@@ -185,7 +187,9 @@ A lifecycle transition the field records only as prose (e.g. project → area re
 
 **`register.md`** *(optional)* — decisions and open questions: `type: register`; the recommended shape is numbered questions as `question · evidence · options · decider · pick` rows, with verification/assignment queues as prose idioms — documented here, not enforced by lint.
 
-**Attestation posture:** container files are **operational records, not knowledge artifacts** — attribution rides each dated entry; they carry **no** `verified_by:`/`verified_at:` pair (`vlt-lint`'s `para_missing_attestation` carve-out judges them by this schema, not the artifact attestation rule). The `trust:` ladder above is the container-relevant trust answer — no separate container trust field exists. The three `type:` values (`charter`, `record`, `register`) ride `frontmatter.md`'s declared non-exhaustive `type:` list — named here, no contract edit owed.
+**The operational-record class.** `record` and `register` name an **artifact class**, not merely a filename position: a Layer-3 operational record is dated, append-shaped, attributed per entry, and carries **no** attestation pair. `record.md`/`register.md` inside a container are the container instances of that class; a Layer-3 operational record a partner writes **outside** a container carries the same `type:` and the same posture, and is judged by this schema for the same reason. The class is the discriminator the attestation scope rule tests (`write-verification.md`, *Scope rule* — cited there, defined here).
+
+**Attestation posture:** container files are **operational records, not knowledge artifacts** — attribution rides each dated entry; they carry **no** `verified_by:`/`verified_at:` pair (`vlt-lint`'s `para_missing_attestation` carve-out judges them by this schema, not the artifact attestation rule). The `trust:` ladder above is the container-relevant trust answer — no separate container trust field exists. The three `type:` values (`charter`, `record`, `register`) are members of the **recognized `type:` set for the PARA population** stated above in this file — declared here, no contract edit owed.
 
 ## Reading list
 

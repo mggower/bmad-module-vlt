@@ -29,7 +29,7 @@ flag_for_human:
   counter_unknown_metric: [<convention | overlay §section: enforcement_counter names no canonical or registry-declared metric id>, ...]
   overlay_rule_undeclared: [<overlay §section: rule-shaped section, no per-section declaration>, ...]
   convention_meta_missing: [<convention: missing version and/or consumers keys>, ...]
-  para_missing_attestation: [<para-file: vault type + author agent|hybrid, no attestation>, ...]
+  para_missing_attestation: [<para-file: vault type + author agent|hybrid, no attestation — excludes the operational-record class; informational where created predates convention adoption>, ...]
   unattested_write: [<page (created YYYY-MM-DD) — informational where created predates convention adoption>, ...]
   attestation_stale: [<page: last_updated > verified_at — quiet tier-1 re-run>, ...]
   attestation_census: {pages_total: N, fresh: N, stale: N, unattested_pre_adoption: N}   # full mode — the denominated wiki-wide census (checks.md, Attestation findings); never omitted in full mode (a zero-page wiki renders the denominated empty form {pages_total: 0, ...}); informational — nothing owed per se

@@ -1,6 +1,6 @@
 ---
 name: "vlt-setup"
-depends_on: ["frontmatter@13"]
+depends_on: ["frontmatter@14"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 

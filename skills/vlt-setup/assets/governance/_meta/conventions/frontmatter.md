@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 13
+version: 14
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-query, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -68,7 +68,7 @@ trust: <raw | reviewed | verified | canonical>
 | `verified` | Key claims checked against primary sources |
 | `canonical` | Integrated into personal knowledge; safe to link from MOCs |
 
-The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `idea`, and the PARA container files `charter`, `record`, `register` (`extraction.md`, *PARA containers*). `resource` is **live again as of extraction v6** — `project`/`area`/`resource` are all canonical (`extraction.md`). New artifact classes may introduce new `type:` values without a contract edit; this convention names new values as they appear.
+The `type:` list is **non-exhaustive.** Canonical values include `wiki`, `research`, `session`, `note`, `project`, `area`, `resource`, `moc`, `idea`, and the PARA container files `charter`, `record`, `register` (`extraction.md`, *PARA containers*). `resource` is **live again as of extraction v6** — `project`/`area`/`resource` are all canonical (`extraction.md`). New artifact classes may introduce new `type:` values without a contract edit, and this convention names new values as they appear — **but that openness is scoped to the base/agent lane.** For the **PARA population** (files under `{projects}`/`{areas}`/`{resources}`, the `{wiki}` subtree removed by name) the recognized `type:` set is **closed**, and its home is `extraction.md`, *`type:` mapping by target folder* — this list does not answer for that population and never widens it.
 
 ## Write attestation (agent-written artifacts)
 

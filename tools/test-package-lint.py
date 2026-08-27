@@ -226,7 +226,7 @@ COVERAGE = {}  # package-lint check name -> [case names]; E4's data source (R2)
 # R2 shrink net: a net that must carry a list carries a shrink check. Bump the
 # floor in the same edit that adds cases (ratchet); main() fails loudly when
 # the registered count drops below it. Per-check shrink is E4's jurisdiction.
-CASE_FLOOR = 23
+CASE_FLOOR = 24
 
 
 def case(name, *, covers):
@@ -555,6 +555,38 @@ def case_e6_schema_size(root):
     r = run_lint(root)
     assert r.returncode != 0 and "FAIL group E" in r.stdout, r.stdout
     assert "schema-size budget" in r.stdout and "BIG_SCAN" in r.stdout, r.stdout
+
+
+@case("24. workflow body recites a stale/undeclared pin -> E fails (asset prose pin currency)",
+      covers=("_e7_asset_prose_pin_currency",))
+def case_e7_asset_prose_pin(root):
+    # The seam E3 excludes (vlt-setup/assets/**) and E5 stops short of (it reads
+    # one header line): a body that recites a convention BY VERSION can go stale
+    # through a green handshake. Probe 1: the header acks testconv@1, the body
+    # recites testconv@2 -> stale. Probe 2: the body names a convention the
+    # header does not ack at all -> reverse drift.
+    wf = root / "skills/vlt-setup/assets/workflows/vlt-fixture.js"
+    base = wf.read_text(encoding="utf-8")
+    wf.write_text(base + "\n// judged per testconv@2, *Some section*.\n", encoding="utf-8")
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group E" in r.stdout, r.stdout
+    assert "asset prose pin" in r.stdout and "recites testconv@2" in r.stdout, r.stdout
+    assert "acks testconv@1" in r.stdout, r.stdout
+    # Restoring the token clears it — a check that cannot go green is not an
+    # instrument either.
+    wf.write_text(base + "\n// judged per testconv@1, *Some section*.\n", encoding="utf-8")
+    r = run_lint(root)
+    assert r.returncode == 0, r.stdout
+    # Probe 2: reverse drift — a body pin the header never acked.
+    wf.write_text(base + "\n// judged per otherconv@1, *Some section*.\n", encoding="utf-8")
+    (root / "skills/vlt-setup/assets/governance/_meta/conventions/otherconv.md").write_text(
+        "---\nversion: 1\nconsumers: [vlt-mint]\n---\n\n# otherconv\n", encoding="utf-8"
+    )
+    edit(root / "skills/vlt-mint/SKILL.md",
+         '["testconv@1"]', '["testconv@1", "otherconv@1"]')
+    r = run_lint(root)
+    assert r.returncode != 0 and "FAIL group E" in r.stdout, r.stdout
+    assert "does not ack otherconv at all" in r.stdout, r.stdout
 
 
 def main():
