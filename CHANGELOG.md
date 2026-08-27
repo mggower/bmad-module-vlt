@@ -5,6 +5,18 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.16.2 — 2026-08-27
+
+**Cycle 14** — no enforcement point. Release 1 of the cycle: build 1 alone, a repair patch.
+
+- **Build 1 — a structured frontmatter verdict and an entity-decoded category seam:** the reduce-side guard shipped in v0.16.1 was defeated by a scanner that cited the rule it was applying, so the guard is replaced rather than patched. The page scanner now returns a **structured `PAGE_SCAN` frontmatter verdict** — a `frontmatter_defect` enum plus `frontmatter_defect_fields` / `frontmatter_defect_detail` — in place of the free-text `frontmatter_valid` / `frontmatter_issue` claim the reduce had to parse. The **reduce-side residue rule and the free-text claim parser are both retired**: the reduce reads the enum, so there is nothing left to defeat by wording. The category comparison seam is **entity-decoded**, so an HTML-escaped scanner return no longer fails an exact comparison.
+
+**No governance rule changes cross v0.16.2** — no convention `version:` moves, no consumer re-acks owed.
+
+**The first full lint after this upgrade is COLD BY CONSTRUCTION.** Both halves of `canonicalScan` are rewritten, so every record in an existing `_agent/lint-cache.yaml` is unreusable and the run recomputes from scratch. This is expected and is **not** a cache regression — the `lint_cache:` line will honestly report `cached 0`. The following full run caches normally again.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-lint`, `skills/vlt-setup`
+
 ## v0.16.1 — 2026-08-26
 
 **Cycle 13** — trusted returns. A single-build patch.
