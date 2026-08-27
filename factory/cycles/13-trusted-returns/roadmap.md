@@ -1,6 +1,19 @@
 ---
 title: 'Cycle 13 — trusted returns'
-status: 'OPEN — **v0.16.1 SHIPPED 2026-08-26** (build 1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`, exit 0; handshake bipartite-clean (9 conventions, 39 pins); no convention `version:` moved and no consumer re-ack was owed. **Acceptance discharged 2026-08-26 and the cycle DID NOT PASS ITS GATE** — build-1''s ledger item is 2 of 4 discharged: **(1) and (3) DISCHARGED** (harness arrays; and the class-homing greps + `package-lint` re-run at rest by the discharge run), **(2) FAILED and it GATES**, **(4) FAILED** (field-contingent, does not gate). (2) was graded DISCHARGED earlier the same day under an owner-ruled subject substitution and **that discharge was REVERSED by owner ruling** hours later when the first live post-upgrade full sweep refuted the check on a named subject — `execution-to-judgment-shift` reached `malformed_frontmatter` anyway. **Root cause, reproduced at rest:** the reduce-side guard''s residue rule (`claim.residue === ''`) assumes the scanner states a bare claim; a scanner that **cites the rule it is applying** defeats the conjunction on two legs at once, because the citation leaves prose residue *and* names `type:`/`author:` inside the rule''s own text. Nothing about the pages changed — only the scanner''s phrasing did. **Cycle 13 CANNOT CLOSE**: closeout is gated on (2), and repairing it needs a build-2. ⚠ Standing correction unchanged (`ST-5`): this check''s instrument should be the recorded returns, not the pages — and the 2026-08-26 evidence sharpens it, because the *recorded* returns were themselves an unrepresentative subset (all bare-form). ⚠ **Cycle 13 is CLOSED TO CAPTURE** (ship day is the capture boundary), so the three §Carried forward items — Finding 4, the general reduce-side posture, and the deferred `malformed_frontmatter` retirement — plus the **three filings this discharge run filed** must open **Cycle 14**. Next: **`inbox-capture` to open Cycle 14**, which captures the guard defect and briefs the repair.'
+status: 'OPEN — **v0.16.1 SHIPPED 2026-08-26** (build 1 @ `5bc53f6`, release commit `c18c591`, annotated tag `v0.16.1` pushed to origin). Release gate: `package-lint: A/B/C/E PASS, D PASS — vlt 0.16.1`, exit 0; handshake bipartite-clean (9 conventions, 39 pins); no convention `version:` moved and no consumer re-ack was owed. **Acceptance discharged 2026-08-26 and the cycle DID NOT PASS ITS GATE** — build-1''s ledger item is 2 of 4 discharged: **(1) and (3) DISCHARGED** (harness arrays; and the class-homing greps + `package-lint` re-run at rest by the discharge run), **(2) FAILED and it GATES**, **(4) FAILED** (field-contingent, does not gate). (2) was graded DISCHARGED earlier the same day under an owner-ruled subject substitution and **that discharge was REVERSED by owner ruling** hours later when the first live post-upgrade full sweep refuted the check on a named subject — `execution-to-judgment-shift` reached `malformed_frontmatter` anyway. **Root cause, reproduced at rest:** the reduce-side guard''s residue rule (`claim.residue === ''`) assumes the scanner states a bare claim; a scanner that **cites the rule it is applying** defeats the conjunction on two legs at once, because the citation leaves prose residue *and* names `type:`/`author:` inside the rule''s own text. Nothing about the pages changed — only the scanner''s phrasing did. ~~**Cycle 13 CANNOT CLOSE**: closeout is gated on (2), and repairing it needs a build-2.~~
+**SUPERSEDED 2026-08-27 — ACCEPTANCE DISCHARGED, THE GATE IS CLEAR, THE CYCLE IS CLOSABLE.**
+The repair was not a build-2 but **Cycle 14 build-1**, shipped as **v0.16.2 @ `bd985a6`** and
+carrying a check authored (Cycle 14 roundtable A21) to re-grade this one. Discharge pass 2 on
+2026-08-27 graded **(2) DISCHARGED** on two independent instruments — the check''s own named
+reader probe over the six real subjects, and the first post-repair live 146-page sweep
+(`2026-08-27-1104-lint.yaml`, verified independently by the run) — and **(4) DISCHARGED** on an
+**owner-ruled, explicitly stated event substitution** (its named event fired under the defective
+v0.16.1 code and could never pass). **All four checks discharged; the ledger item is TICKED.**
+Two things `cycle-closeout` must still rule, neither of them a gate: **(4)''s bound was MISSED**
+(it read "no later than Cycle 13''s first FULL capture batch" — Cycle 14''s 2026-08-26 capture was
+that batch), and (4) **fired-and-failed while gating nothing**, a second real instance for
+[P-18] Tier C. Cycle 13 remains **closed to capture**; its three carried-forward items and three
+filings were consumed by Cycle 14''s capture as planned. ⚠ Standing correction unchanged (`ST-5`): this check''s instrument should be the recorded returns, not the pages — and the 2026-08-26 evidence sharpens it, because the *recorded* returns were themselves an unrepresentative subset (all bare-form). ⚠ **Cycle 13 is CLOSED TO CAPTURE** (ship day is the capture boundary), so the three §Carried forward items — Finding 4, the general reduce-side posture, and the deferred `malformed_frontmatter` retirement — plus the **three filings this discharge run filed** must open **Cycle 14**. Next: **`inbox-capture` to open Cycle 14**, which captures the guard defect and briefs the repair.'
 module_code: 'vlt'
 created: '2026-08-26'
 updated: '2026-08-26 (acceptance-discharge run — 2 discharged, 2 FAILED, (2) gate SHUT, 3 filings filed, cycle cannot close; earlier: opened; A13-1 captured and grounded; ideation filled — Q1..Q5 ruled, roundtable waived, spike none; build-1 briefed + ledger created; **build-1 BUILT** on branch `cycle13-v0.16.1`, disposition-6 retirement recorded as carry 3, release held for the owner)'
@@ -453,7 +466,7 @@ form per `factory/cycles/12-proxy-claims/roadmap.md` §Deferred acceptance ledge
 2026-08-26 with build-1's append — the section did not exist, and every brief in this cycle
 gates against it.*
 
-- [ ] **build-1 (reduce-side-guards, briefed 2026-08-26):** brief
+- [x] **build-1 (reduce-side-guards, briefed 2026-08-26):** brief
   `factory/cycles/13-trusted-returns/briefs/build-1-reduce-side-guards.md`. Four checks — three
   ship-verifiable (all gate), one field-contingent (does not gate). **Q4 governs check (2) and is
   binding: the instrument is the real corpus, never a purpose-built fixture.**
@@ -557,8 +570,80 @@ gates against it.*
   does not bind) recurs one level up: the enforcement point now *parses scanner-returned free
   text* in order to decide whether to trust a scanner-returned claim.
 
+  ---
 
-## Next lifecycle move
+  **Acceptance-discharge run 2026-08-27 (PASS 2) — ITEM DISCHARGED AND TICKED. All four checks
+  are now discharged; the gate that held this cycle shut since 2026-08-26 is CLEARED.**
+
+  Evidence base: `{field-vault}` upgrade-ledger entries `[2026-08-27 11:57] vlt 0.16.2 → 0.17.0
+  (own)` and `[2026-08-27 13:28] vlt 0.17.0 → 0.17.1 (own)`; the first full-mode post-repair
+  sweep `_agent/lint-reports/2026-08-27-1104-lint.yaml` (146/146 pages, 0 cached, run under
+  **v0.16.2**); and Cycle 14 build-1's at-rest probe recorded verbatim at
+  `factory/cycles/14-no-enforcement-point/briefs/build-1-structured-claim-return.md:122-146`.
+  Checks (1) and (3) were discharged on 2026-08-26 and are untouched by this run.
+
+  - **(2) DISCHARGED 2026-08-27 — this REVERSES the 2026-08-26 FAILED grade, and the reversal is
+    the honest direction: the check's subject was repaired, not its bar lowered.** The repair is
+    **Cycle 14 build-1**, shipped as **v0.16.2 @ `bd985a6`** — a build whose check (2) exists for
+    exactly this purpose (Cycle 14 roundtable **A21**: *"build-1 carries the check that re-grades
+    Cycle 13 (2) — release 1's whole purpose"*). Graded here on **two independent instruments,
+    both of which had to hold:**
+    - **The check's own named instrument** — a single-agent reader probe over read-only copies of
+      the six named pages plus the shipped reduce. Post-reduce arrays verbatim:
+      `malformed_frontmatter: []`, `unmarked_supersessions: []`, and `unattested_write` carrying
+      **all six** (`bistec-encebollado`, `k-curve-career-divergence`, `kettl`, `llm-wiki-pattern`,
+      `obsidian-bases`, `execution-to-judgment-shift`). Both legs of the check — the two classes
+      empty **and** the attestation surface still populated — hold.
+    - **The live 146-page sweep, verified independently by this run** (not banked from the build).
+      Each of the six slugs occurs **exactly once** in `2026-08-27-1104-lint.yaml`, and in every
+      case inside `unattested_write` (`:32`, `:40`, `:47`, `:50`, `:51`, `:55`).
+      `malformed_frontmatter` (`:205-208`) holds **8 genuine orphaned-frontmatter breaks**
+      (`ai-ghost-work`, `career-history-as-evidence`, `creatine-monohydrate`,
+      `fantasy-platform-read-access`, `nfl-2026-position-rankings`, `seattle-seahawks`,
+      `single-nutrient-claims`, `technical-hiring-pipeline`) plus **2 refuted** summary-length
+      instrument artefacts (`barbacoa`, `l-theanine`) — **none of the six, and no attestation
+      complaint**. `unmarked_supersessions` is empty (the only supersession text in the file sits
+      inside `contradictions:` at `:134-140`, a different class).
+    **Why the second instrument mattered.** Build-1's probe recorded its own limitation
+    (deviation 4): six single-agent reads rather than the 146-page fan-out, with five of six
+    scanners returning `defect:"none"`, so only `obsidian-bases` exercised a refusal path live.
+    The live sweep is precisely the instrument that limitation named as the gap-closer, and it
+    agrees. **This is the discharge the 2026-08-26 reversal demanded:** that grade was reversed
+    because a substituted, all-bare-form subject set could not observe the failure mode; this one
+    rests on the real corpus in anger, which is Cycle 13's own **Q4** ruling (*the instrument is
+    the real corpus and it gates*) satisfied rather than worked around.
+  - **(4) DISCHARGED 2026-08-27 — ⚠ ON A SUBSTITUTED EVENT, OWNER-RULED, AND THE SUBSTITUTION IS
+    STATED HERE RATHER THAN ABSORBED.** `[field-contingent]`, does not gate — this changes no
+    gate, only the record's honesty. All three clauses hold on the 2026-08-27 sweep: **clause 1**
+    — no entry in either class is an attestation complaint (8 genuine orphaned-frontmatter, 2
+    refuted length artefacts, `unmarked_supersessions` empty); **clause 2** — none is a
+    claimed-missing documented-optional field (the 2026-08-26 instance, `empyrean-series-overview`
+    / `review_after`, does not recur); **clause 3** — `fixes_applied` (`:227-230`) records three
+    entries, all of them orphan removal, prose-only source folds and one path repoint, and **no
+    hand-fold of misrouted attestation entries**, against the check's own named baseline of **20
+    folds (2026-08-24) and 6 (2026-08-25)** and the 5 hand-folds that failed it on 2026-08-26.
+    **The substitution:** (4) names its event as *"the first full-mode `vlt-lint` on
+    `{field-vault}` after the v0.16.1 upgrade."* That event was the **2026-08-26** sweep; it fired
+    and FAILED. The evidence graded here is a **later** sweep, under **v0.16.2** — the release
+    where the repair actually shipped. The named event therefore cannot ever pass, because the
+    code it measured was defective; **2026-08-27-1104 is the first in-anger measurement with the
+    repair present.** *(Owner-ruled 2026-08-27: discharge on the substituted event, substitution
+    stated. Recorded per the rubric's subject-match rule — a silently substituted discharge is
+    what produced the 2026-08-26 reversal on check (2), and this run does not repeat it.)*
+    ⚠ **(4)'s bound was MISSED and that is not cured by this discharge.** The bound reads *"no
+    later than Cycle 13's first FULL capture batch"* — Cycle 14's 8-filing capture (2026-08-26)
+    was that batch, and (4) was still failing then. `cycle-closeout` should rule the missed bound
+    explicitly rather than let a late green erase it.
+    ⚠ **A fired-and-failed field-contingent check passed through a non-gating clause on its way
+    here.** (4) fired on 2026-08-26, failed, and gated nothing — the exact gap **[P-18] Tier C**
+    names (*narrow closeout's non-gating clause to field-contingent **and not yet fired***). Tier
+    C is unbuilt and its precondition (Tier A) is unmet, so the loose rule is what ran. Recorded
+    as a second real instance for that tier's evidence, not as a defect of this run.
+
+
+## Next lifecycle move — historical record
+
+**Historical — the routing that stood from 2026-08-26 until the gate cleared.**
 
 *(Rewritten by the acceptance-discharge run 2026-08-26. The prior text — "owner-steered
 ideation, then brief build 1" — was discharged by build-1 shipping and is preserved in git.)*
@@ -599,3 +684,32 @@ public tracker yet. The two live `kind: parked-interim` entries (issues #15, #16
 exactly in the lint — 5 `type: research` briefs and 27 unattested PARA files, counts matching the
 parked entries to the file — and both remain valid on their own terms; v0.16.1 moved nothing
 they rest on.
+
+---
+
+## Next lifecycle move
+
+*(Restamped by the `acceptance-discharge` run 2026-08-27, pass 2. **This block is the foot and
+it is authoritative** — everything above it under "Next lifecycle move — historical record" is
+the routing that stood while the gate was shut, kept for the record and superseded here. The
+roadmap's foot is the obligation, the chat report a copy: the map's standing rule, restated as
+a per-skill clause by platform **P-13**.)*
+
+**`cycle-closeout` — "close the cycle".** Acceptance is fully discharged: all four of build-1's
+checks are graded, the ledger item is **ticked**, and the ship-verifiable gate that held this
+cycle shut since 2026-08-26 is **clear**. `v0.16.1` is tagged and pushed; the single filing this
+cycle derives from is archived to `filings/`.
+
+Two conditions on that run, neither of them a gate:
+
+1. **Hand-point `factory/CYCLE` at `13-trusted-returns` and restore it to the open cycle
+   immediately after.** Two cycles are open and the pointer holds one line. **Never headless
+   while that is true.**
+2. **Closeout must rule two recorded items:** **(4)'s MISSED bound** (*"no later than Cycle 13's
+   first FULL capture batch"* — Cycle 14's 2026-08-26 capture was that batch, and (4) was still
+   failing then), and (4) having **fired-and-failed while gating nothing** — the second real
+   instance of the gap [P-18] Tier C names, recorded as evidence for that tier rather than as a
+   defect of this cycle.
+
+Cycle 13 stays **closed to capture**; its three carried-forward items and three filings were
+consumed by Cycle 14's capture as planned, and nothing here reopens them.
