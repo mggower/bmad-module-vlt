@@ -52,7 +52,9 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-15, P-14, P-20 and P-13 are all BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-14, P-20 and P-13 are all BUILT-awaiting and consume no slot, per the contract header)
+
+*(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**. **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
 
@@ -100,107 +102,17 @@ owner-directed, seam-bound, flagged as before.
 build, so it cannot produce them until ideation has numbered the builds. The discharge path is:
 `inbox-capture` opens Cycle 12 → `ideation-scaffold` + owner rulings number the builds →
 `sync the tracker` (owner batch gate) → that run **is** the self-acceptance; record its date
+
+⚠ **Status 2026-09-01 — not met, checked directly rather than assumed.** `gh api
+repos/mggower/bmad-module-vlt/milestones` returns **zero milestones**, so the done-when (*"the open
+cycle's roadmap is readable as a milestone by someone who never opens a file"*) is unsatisfied and
+has been since the re-bind. **Nothing is blocked by it and nothing has drifted** — the item is
+waiting on one owner act, the `sync the tracker` run, which is owner-gated by design. ⚠ **But the
+re-bind subject is now stale in the same way the original was:** it names *"Cycle 12's milestone +
+build issues"*, and Cycle 12 closed 2026-08-26 — the identical unsatisfiable-sentence hazard that
+forced the 2026-08-25 amendment when Cycle 11 closed. **Re-point it at the next open cycle
+(Cycle 15) when that cycle opens**, rather than letting a second dead clause hold the entry.
 here. Only the third step is new work.
-
-### P-15 — the retirement rail: let the loop process obsolescence, not only defects — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's roundtable + its briefs)**
-
-*(Filed 2026-08-25 from the PARA problem-solving session, as its **Root Cause 2**. The
-evidence is Cycle 11's own build-6: it extended the `para_*` honesty nets across the whole
-PARA population — the exact moment the Layer 3 location prohibition became redundant — and
-the nets landed **beside** the prohibition rather than **in place of** it. Nothing in the
-loop could notice, because every input to the loop is a filing and a filing describes
-something that **broke**. Obsolescence produces no field pain, only friction that reads as
-normal governance. Eleven cycles have retired **zero** rules while adding many; the
-roundtable hunts "rules ahead of mechanisms" and has no beat for the reverse. The
-consequence, five times over: a root cause arrives as a symptom, a build repairs the
-clause the symptom named, and the superseded rule survives to be re-filed next cycle.)*
-
-**One item, not three.** The three sites below are one capability. A filing class with no
-beat to act on it is ceremony; a beat with no way to file what it finds has no input; a
-retirement question at brief time with neither is a box to tick. Splitting them would also
-spend three queue slots on one idea, in a rail whose contract says it is not a second
-roadmap.
-
-**Brief-lite:**
-- **Intent:** give obsolescence a channel. A protection superseded by a better mechanism
-  should be retirable **through the normal loop**, rather than requiring an owner-driven
-  structural ruling — which is the only route that exists today, and the reason this
-  session had to be convened at all.
-- **Sites:** (1) `roadmap-roundtable` — one beat, the reverse of the existing
-  rules-ahead-of-mechanisms hunt: **mechanisms that have obsoleted their rules**;
-  (2) `factory/inbox/README.md` — a **`supersession`** filing class ("this protection is
-  now redundant, because *X* now enforces what it was standing in for"), additive to the
-  existing defect/pattern/candidate shapes; (3) `build-brief` — a required clause: when a
-  build ships **enforcement**, name the prohibition that enforcement makes redundant, or
-  state that none exists. Every net becomes a retirement prompt at the moment it ships.
-- **Verification:** grep each of the three sites; a fixture `supersession` filing routes at
-  capture without being mistaken for a defect; Cycle 12's roundtable record shows the beat
-  exercised (a finding **or** an explicit nothing-found); a Cycle 12 brief that ships a
-  check carries the retirement clause answered rather than blank.
-- **Out of scope:** any **automated** redundancy detection — a rule cannot know it has been
-  superseded, and this is a prompt for the roster and the owner, not a checker (a
-  P-6-class deterministic check here would be the wrong instrument); retro-auditing the
-  shipped rule set for existing redundancy (that is a **study**, P-14's register, not this
-  rail); changing what a filing *is* for field vaults — the class is additive, and no
-  existing filing shape moves.
-- **Done-when:** Cycle 12's roundtable runs with the obsolescence beat exercised **and**
-  that cycle's briefs carry the retirement clause answered.
-
-**Discharging event + bound (per the contract header).** Event: **Cycle 12's
-`roadmap-roundtable` run**, with its briefs following. Bound: **Cycle 12's roundtable**. If
-Cycle 12 reaches its roundtable without the beat present, or closes with the clause never
-asked, this is not a waiting state but **BLOCKED (unreachable)** under
-`acceptance-discharge`'s rubric, and routes to an owner ruling rather than holding a slot.
-
-**Sequencing (load-bearing, not cosmetic).** This must land **before** Cycle 12's roundtable
-and briefs, because those are the beats that consume it — and because the PARA work it
-enables is *itself a retirement*. The cycle-side change removes a protection on the grounds
-that a better one superseded it; the loop needs the vocabulary to record what it is about
-to do **before** it does it. Shipping the rail afterwards would make this analysis a
-one-off owner ruling instead of a repeatable capability, which is precisely the failure
-being fixed.
-
-**Tripwire (recorded at filing, from the session's risk register).** The live risk is that
-the rail ships and never fires — added, then ignored, indistinguishable from working. **Two
-consecutive cycles with zero retirement questions asked means the beat is ceremony and needs
-redesign, not defence.** Measure: rules retired per cycle, baseline **zero across eleven
-cycles**; any non-zero is a change of kind.
-
-**Queue note.** Takes a free slot (WIP 0/2 → 1/2 under the 2026-08-25 ruling), ahead of
-P-3/P-5/P-6/P-11/P-12/P-13/P-14. Not an override — no cap is exceeded — but a **precedence
-call** on the stated dependency above, flagged here per house practice rather than left to
-be inferred from position.
-
-**Build record (2026-08-25).** All three sites landed, plus one flagged addition:
-
-1. `roadmap-roundtable` — the joints frame gained the reverse fault ("a mechanism that
-   quietly obsoletes the rule it was written to stand in for and leaves it standing"); Hunt
-   gained **§The obsolescence beat (required, every run)** with the mandatory-return clause;
-   Converge's record item (3) now carries the beat's outcome — each retirement finding, or an
-   explicit `Obsolescence: none found` line. Silence is no longer a legal record.
-2. `factory/inbox/README.md` — **§When the filing is not a defect — `supersession`**: the
-   class, its two required halves (the redundant rule with its site; the mechanism whose
-   population covers it), the retirement-not-carve-out bar, and an explicit disambiguation
-   from the `SUPERSEDED` **grounding grade**, which means the opposite (already fixed).
-   Additive; no existing filing shape moved.
-3. `build-brief` — `references/brief-anatomy.md` §3 gained the **Retirement clause** beside
-   R1 (it is R1 read backwards: R1 catches a rule ahead of its mechanism, this catches a
-   mechanism landing *beside* the rule it obsoletes); SKILL.md's Exit gate now fails a brief
-   that leaves it blank, alongside the R1/R4 line.
-
-**Deviation (1), flagged.** A fourth site was edited:
-`inbox-capture/references/grounding-methodology.md` gained **§Grounding a `supersession`
-filing**. The brief-lite's own verification requires that a fixture supersession filing
-"routes at capture without being mistaken for a defect", and capture's grade vocabulary
-already contained a `SUPERSEDED` outcome meaning *the module already fixed this* — a live
-retirement would have graded as stale news. Four lines of routing, no existing grade changed.
-
-**Verification (at rest).** Grep of all four sites confirms each clause present at the named
-home; `uv run tools/factory-paths-check.py` PASS (123 refs, 20 files). No personal or
-vault-local content added. The remaining verification clauses are field-side by
-construction — the fixture-filing route, the beat's exercise, and a brief carrying the clause
-answered all discharge on the Cycle 12 run named below.
-
 
 ### P-14 — the study register: give root-cause analyses a tracked home — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's `inbox-capture` folding a study-citing filing)**
 
@@ -319,6 +231,15 @@ ship out of the item just reviewed for that class of problem. Re-examined at thi
 self-acceptance (Cycle 12's `inbox-capture`), by which point a second instance may exist and
 would show whether the fix is scalar→list, a `supersedes:` field with per-cause granularity, or
 nothing. *(Owner-ruled 2026-08-25 off the tech-writer review.)*
+
+**Status 2026-09-01 — not met, and imminent. No ruling needed; the event is scheduled.** The
+done-when asks that an `inbox-capture` run fold a filing that **cites a study**. None of Cycle 14's
+eight captured filings does. **But Cycle 14 produced two that do:** the supersession filings
+`factory/inbox/2026-09-01-160000-…` and `…-170000-…` both rest on **`ST-2`**
+(*location as proxy for trust*) — and the first of them cites it as the reason **Cycle 14 build-6
+was withdrawn**, which is the register earning its keep exactly as the item intended: a study
+outliving one cycle and a filing resting on it rather than restating it. **Bound: Cycle 15's
+`inbox-capture`.** That capture discharges this item on arrival.
 
 ### P-20 — the check adversary: attack the checks, not the fix — **open: BUILT 2026-08-27, awaiting self-acceptance (the next cycle's briefing run)**
 
@@ -492,6 +413,29 @@ delivery boundary holds.
 ship-verifiable checks and **either** widens at least one check **or** records that each
 survived. The instrument beat self-accepts on the next `roadmap-roundtable` run.
 
+**⚠ STATUS 2026-09-01 — NEITHER HALF FIRED. P-20 stays open, re-bound to Cycle 15.**
+*(Grounded at Cycle 14's closeout; corrects a same-session first reading that called it met.)*
+
+- **The briefing half did NOT fire.** `grep -i adversary` over all six of Cycle 14's briefs returns
+  **zero**. `build-6-declared-typed-subtree.md:193` references this item once — a single check's
+  mandatory control described as *"[P-20]'s question asked at brief time rather than after"* — and
+  that is the **idea applied to one check**, not the done-when, which requires the question run
+  **per ship-verifiable check** with the explicit widen-or-*"no passing-violating state found"*
+  return that `brief-anatomy.md` §9 mandates. Build-6 was subsequently **withdrawn**, but the
+  shortfall is independent of that: no brief in the cycle ran the pass.
+- **The instrument-beat half did NOT fire** — no `roadmap-roundtable` has run since the build
+  (Cycle 14's roundtable was 2026-08-26, the day before).
+- ⚠ **The near-miss is the point, and it is this item's own failure mode.** The single control that
+  *was* written this way (build-6 check (4)) is a genuine instance of the question working — it
+  produced a mandatory control at brief time — and it was **read as satisfying the item** on a
+  first pass. A partial exercise that reads as a full one is exactly *"a silent pass is
+  indistinguishable from a skipped one"*, which is the sentence the done-when ends on. Recorded as
+  the item's **sixth** instance and its first against **itself**.
+
+**Re-bound:** Cycle 15's `roadmap-roundtable` (instrument beat) and Cycle 15's first `build-brief`
+run (the adversary pass, with the answer on record either way). Both are ordinary, scheduled,
+unavoidable beats of the next cycle — no staging required.
+
 ---
 
 ### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **open: BUILT 2026-08-27, awaiting self-acceptance (the next lifecycle run that moves the position)**
@@ -618,6 +562,42 @@ foot restamped without being prompted **in a session that did not author the cla
 exercise. Cycle 14's next `acceptance-discharge` is the first available one. Record that run's
 date here; the two 2026-08-27 runs stand as evidence the mechanism works, not as the close.
 
+**⚠ FIRST COLD EXERCISE RUN 2026-09-01 — AND IT FAILED, FOUR TIMES. P-13 STAYS OPEN on a
+NEGATIVE result.** *(Owner-ruled 2026-09-01.)*
+
+The widened done-when asked for a restamp *"in a session that did not author the clause."*
+**Cycle 14 supplied four such sessions and all four failed**: `acceptance-discharge` passes 3, 4
+and 5 (2026-08-31, 2026-09-01 ×2) and the `cycle-closeout` run of 2026-09-01 each placed its stamp
+**inside** the roadmap's existing `## Next lifecycle move` heading with ~140 lines of superseded
+routing still below it. The file's last block remained 2026-08-27 routing throughout. **That is
+this item's own defect, reproduced four times by cold readers, after the wording repair shipped.**
+
+**The cause is recorded because it is not the one the repair assumed.** The map's wording was not
+misread — it was **outranked**. Cycle 14's roadmap carries a strong local convention of
+newest-routing-at-the-top-of-the-section with historicals below, and each cold session followed the
+*file's* pattern in preference to the *map's* rule. The closeout session's reasoning is on record
+verbatim: it saw the convention, weighed it against the map, and chose the convention. **A cold
+reader takes the local pattern as evidence of the rule** — so a rule that lives only in the map
+loses to a file that demonstrates the opposite four times.
+
+**This is also a [P-20] instance** — *property:* a cold reader restamps the **last block in the
+file**; *passing-but-violated state:* a cold reader restamps **something**, under the right
+heading, with stale routing still below it. Reached four times running. The widened check itself
+performed correctly: it **detected** what the original check would have passed. The check works;
+the clause does not.
+
+**Corrected 2026-09-01** in `factory/cycles/14-no-enforcement-point/roadmap.md`: prior routing
+demoted under `## Next lifecycle move — historical record`, the authoritative stamp written last,
+nothing following it. The failure is recorded in that roadmap's foot **and** its frontmatter
+`status:`, so the closed archive carries its own negative result.
+
+**Re-bound: Cycle 15's first position-moving lifecycle run**, cold. ⚠ **Do not read the two
+2026-08-27 restamps as the close** — they were the authoring session, which is why the done-when
+was widened in the first place. **And a fifth failure should not produce a sixth re-bind:** if
+Cycle 15's cold run also fails, the honest reading is that the map-only home is insufficient and
+the fix is a mechanical check — routed to [P-6], as the out-of-scope note below already
+anticipates.
+
 **Out of scope, unchanged and now more clearly earned:** no mechanical lint for a missing or
 stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadmap's last
 `Next lifecycle move` agrees with its frontmatter `status:`"* is exactly the shape P-6's
@@ -649,9 +629,26 @@ note is preserved above in substance, not re-derived.)*
   `inbox-capture` routes marked filings to this ledger's Queued section instead of the
   cycle roadmap (one intake, two destinations); `cycle-closeout` gains the one-line
   "platform work landed during this cycle" step the contract already promises.
+  <br>**⚠ SCOPE ADDITION 2026-09-01, folded from [P-15]'s close — the SECOND missing closeout
+  step, same site, same cause.** `cycle-closeout` also gains the **retirement count**: Cycle 12's
+  roundtable amendment **A50** made it a standing closeout obligation (*"record the cycle's
+  retirement count at closeout, so P-15's tripwire has a readable series"*), and per **A48** the
+  count distinguishes **PRE-NAMED** from **BEAT-PRODUCED** retirements and records **reasoned
+  refusals** — a rail that fires and says no is not a rail that never fired. It lands **beside**
+  the visibility-floor line: one step, not two.
+  <br>*Why folded rather than opened as `P-21` (owner-ruled 2026-09-01):* P-3 already owns the
+  neighbouring step at the same site, and the channel's practiced posture is to widen rather than
+  multiply — [P-14] folded its re-derivation detector in before self-acceptance, and [P-20]'s cure
+  for [P-13] was to widen its done-when rather than open a neighbour. Splitting one
+  `cycle-closeout` mechanism across two numbers is the sprawl the WIP clause exists to prevent.
 - **Verification:** a `lifecycle-status` run reports the channel positions; a fixture
   filing with `channel: platform` routes to Queued, not the roadmap; grep cycle-closeout
-  for the visibility line.
+  for the visibility line **and for the retirement count**.
+  <br>*Standing evidence for the intent, gathered 2026-09-01:* a `grep` over
+  `.claude/skills/cycle-closeout/` returns **nothing** for either obligation, and Cycles 12, 13 and
+  14 all closed without them — Cycle 14's visibility line was written only because the owner sent
+  the session to read this ledger, and its **6 retirements** appear in no series. **A rule the loop
+  genuinely states, with the enforcement point missing** — which is Cycle 14's own title.
 - **Out of scope:** any automated candidate detection (agent-initiated platform
   filings stay a brainstorm future); spike rows (P-2's).
   *(Amended 2026-08-25: the platform observable rows should render **built-awaiting** as a
@@ -661,6 +658,18 @@ note is preserved above in substance, not re-derived.)*
   needs no build.)*
 - **Done-when:** one real lifecycle-status run shows the platform lane and one real
   capture run exercises the routing fork (or reports no marked filings).
+  <br>**Widened 2026-09-01 with the scope addition:** *and* one real `cycle-closeout` run emits
+  both the visibility-floor line and the retirement count **unprompted, in a session that did not
+  author the step**. ⚠ **That cold-reader wording is deliberate, and it is [P-13]'s lesson bought
+  at the price of four failed restamps** (see P-13's negative cold exercise): a step verified by
+  the author who just wrote it tests the author's memory, not the step.
+
+**Priority note (2026-09-01).** P-3 has sat queued since 2026-08-21 while three of its four
+diagnosed gaps kept producing instances — the blind instrument panel (flagged again by the
+2026-09-01 `lifecycle-status` run, which had to derive every platform position from this ledger's
+prose), the missing visibility line (three closeouts), and now the missing retirement count.
+Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
+slot.**
 
 ### P-5 — citation resolution: make grounding checkable — **queued**
 
@@ -1608,3 +1617,155 @@ a one-line pointer is a cheap future item.
 - **Out of scope:** migrating closed arcs' spike history beyond S1/spike2.
 - **Done-when:** Cycle 11's ideation runs with the Spikes section populated and
   build-brief's gate live.
+
+
+### P-15 — the retirement rail: let the loop process obsolescence, not only defects — **CLOSED 2026-09-01 (self-accepted on Cycle 12's roundtable + briefs, 2026-08-25; recorded 2026-09-01)**
+
+*(Filed 2026-08-25 from the PARA problem-solving session, as its **Root Cause 2**. The
+evidence is Cycle 11's own build-6: it extended the `para_*` honesty nets across the whole
+PARA population — the exact moment the Layer 3 location prohibition became redundant — and
+the nets landed **beside** the prohibition rather than **in place of** it. Nothing in the
+loop could notice, because every input to the loop is a filing and a filing describes
+something that **broke**. Obsolescence produces no field pain, only friction that reads as
+normal governance. Eleven cycles have retired **zero** rules while adding many; the
+roundtable hunts "rules ahead of mechanisms" and has no beat for the reverse. The
+consequence, five times over: a root cause arrives as a symptom, a build repairs the
+clause the symptom named, and the superseded rule survives to be re-filed next cycle.)*
+
+**One item, not three.** The three sites below are one capability. A filing class with no
+beat to act on it is ceremony; a beat with no way to file what it finds has no input; a
+retirement question at brief time with neither is a box to tick. Splitting them would also
+spend three queue slots on one idea, in a rail whose contract says it is not a second
+roadmap.
+
+**Brief-lite:**
+- **Intent:** give obsolescence a channel. A protection superseded by a better mechanism
+  should be retirable **through the normal loop**, rather than requiring an owner-driven
+  structural ruling — which is the only route that exists today, and the reason this
+  session had to be convened at all.
+- **Sites:** (1) `roadmap-roundtable` — one beat, the reverse of the existing
+  rules-ahead-of-mechanisms hunt: **mechanisms that have obsoleted their rules**;
+  (2) `factory/inbox/README.md` — a **`supersession`** filing class ("this protection is
+  now redundant, because *X* now enforces what it was standing in for"), additive to the
+  existing defect/pattern/candidate shapes; (3) `build-brief` — a required clause: when a
+  build ships **enforcement**, name the prohibition that enforcement makes redundant, or
+  state that none exists. Every net becomes a retirement prompt at the moment it ships.
+- **Verification:** grep each of the three sites; a fixture `supersession` filing routes at
+  capture without being mistaken for a defect; Cycle 12's roundtable record shows the beat
+  exercised (a finding **or** an explicit nothing-found); a Cycle 12 brief that ships a
+  check carries the retirement clause answered rather than blank.
+- **Out of scope:** any **automated** redundancy detection — a rule cannot know it has been
+  superseded, and this is a prompt for the roster and the owner, not a checker (a
+  P-6-class deterministic check here would be the wrong instrument); retro-auditing the
+  shipped rule set for existing redundancy (that is a **study**, P-14's register, not this
+  rail); changing what a filing *is* for field vaults — the class is additive, and no
+  existing filing shape moves.
+- **Done-when:** Cycle 12's roundtable runs with the obsolescence beat exercised **and**
+  that cycle's briefs carry the retirement clause answered.
+
+**Discharging event + bound (per the contract header).** Event: **Cycle 12's
+`roadmap-roundtable` run**, with its briefs following. Bound: **Cycle 12's roundtable**. If
+Cycle 12 reaches its roundtable without the beat present, or closes with the clause never
+asked, this is not a waiting state but **BLOCKED (unreachable)** under
+`acceptance-discharge`'s rubric, and routes to an owner ruling rather than holding a slot.
+
+**Sequencing (load-bearing, not cosmetic).** This must land **before** Cycle 12's roundtable
+and briefs, because those are the beats that consume it — and because the PARA work it
+enables is *itself a retirement*. The cycle-side change removes a protection on the grounds
+that a better one superseded it; the loop needs the vocabulary to record what it is about
+to do **before** it does it. Shipping the rail afterwards would make this analysis a
+one-off owner ruling instead of a repeatable capability, which is precisely the failure
+being fixed.
+
+**Tripwire (recorded at filing, from the session's risk register).** The live risk is that
+the rail ships and never fires — added, then ignored, indistinguishable from working. **Two
+consecutive cycles with zero retirement questions asked means the beat is ceremony and needs
+redesign, not defence.** Measure: rules retired per cycle, baseline **zero across eleven
+cycles**; any non-zero is a change of kind.
+
+**Queue note.** Takes a free slot (WIP 0/2 → 1/2 under the 2026-08-25 ruling), ahead of
+P-3/P-5/P-6/P-11/P-12/P-13/P-14. Not an override — no cap is exceeded — but a **precedence
+call** on the stated dependency above, flagged here per house practice rather than left to
+be inferred from position.
+
+**Build record (2026-08-25).** All three sites landed, plus one flagged addition:
+
+1. `roadmap-roundtable` — the joints frame gained the reverse fault ("a mechanism that
+   quietly obsoletes the rule it was written to stand in for and leaves it standing"); Hunt
+   gained **§The obsolescence beat (required, every run)** with the mandatory-return clause;
+   Converge's record item (3) now carries the beat's outcome — each retirement finding, or an
+   explicit `Obsolescence: none found` line. Silence is no longer a legal record.
+2. `factory/inbox/README.md` — **§When the filing is not a defect — `supersession`**: the
+   class, its two required halves (the redundant rule with its site; the mechanism whose
+   population covers it), the retirement-not-carve-out bar, and an explicit disambiguation
+   from the `SUPERSEDED` **grounding grade**, which means the opposite (already fixed).
+   Additive; no existing filing shape moved.
+3. `build-brief` — `references/brief-anatomy.md` §3 gained the **Retirement clause** beside
+   R1 (it is R1 read backwards: R1 catches a rule ahead of its mechanism, this catches a
+   mechanism landing *beside* the rule it obsoletes); SKILL.md's Exit gate now fails a brief
+   that leaves it blank, alongside the R1/R4 line.
+
+**Deviation (1), flagged.** A fourth site was edited:
+`inbox-capture/references/grounding-methodology.md` gained **§Grounding a `supersession`
+filing**. The brief-lite's own verification requires that a fixture supersession filing
+"routes at capture without being mistaken for a defect", and capture's grade vocabulary
+already contained a `SUPERSEDED` outcome meaning *the module already fixed this* — a live
+retirement would have graded as stale news. Four lines of routing, no existing grade changed.
+
+**Verification (at rest).** Grep of all four sites confirms each clause present at the named
+home; `uv run tools/factory-paths-check.py` PASS (123 refs, 20 files). No personal or
+vault-local content added. The remaining verification clauses are field-side by
+construction — the fixture-filing route, the beat's exercise, and a brief carrying the clause
+answered all discharge on the Cycle 12 run named below.
+
+
+
+---
+
+**CLOSED 2026-09-01 — self-accepted on Cycle 12's roundtable and its four briefs (evidence
+complete 2026-08-25; the recording is what was overdue, not the evidence).** Owner-ruled.
+
+**Both conjuncts of the done-when are met, and Cycle 12's own roadmap records both.**
+*Conjunct 1 — the roundtable ran the obsolescence beat:* its output is on that roadmap as
+amendments **A19, A25, A40 and A48**, not as a ceremony line. *Conjunct 2 — the briefs carry the
+retirement clause answered:* *"**all four** of this cycle's briefs carry the retirement clause
+answered"* (`12-proxy-claims/roadmap.md`). Cycle 12 deliberately withheld the close itself —
+*"P-15's self-acceptance remains the platform channel's act, not this file's"* — and that act is
+this entry.
+
+**What it got, named per A48** (which exists because *"a cycle whose only retirement is the one
+ideation pre-named satisfies the letter and misses the point"*):
+
+- **PRE-NAMED (1):** the **Layer-3 location prohibition** (`vault-operating-contract.md:68`,
+  restated `vault-rule-card.md:26`), made redundant by Cycle 11 build-6's `para_*` nets — the
+  marquee disposition D2 named at ideation and build-3 shipped.
+- **BEAT-PRODUCED (2 + a site correction):** two build-time additions from build-3, plus **A25**,
+  the beat's sharpest output — the prohibition was restated at **three further sites** no list in
+  the roadmap carried, including inside the very convention build-3 was bumping and inside the
+  rationale of the check that replaces it. *"All retire or narrow together, or the prohibition
+  survives in prose."*
+- **REASONED REFUSALS (3):** build-2 examined three beat-produced candidates and **refused all
+  three**, entering zero honestly. Recorded deliberately: *a rail that fires and says no is not
+  the same as a rail that never fired* — which is the discrimination P-15's own risk statement
+  (*"the rail ships and never fires — added, then ignored, indistinguishable from working"*)
+  demanded.
+- **EXPLICIT NON-RETIREMENT (1):** the **`{wiki}` carve-out**, ruled 4/4 not retirable (**A19**),
+  recorded so a later cycle would not re-file it as a missed retirement.
+
+**And Cycle 14 exercised the half Cycle 12 never reached — the `supersession` FILING class.**
+P-15 shipped three sites; Cycle 12 exercised the roundtable beat and the brief clause, but no
+filing ever used the class. Cycle 14 produced the **first two**:
+`factory/inbox/2026-09-01-160000-…` (the PARA `type:` carve-out as `ST-2`'s last proxy for trust)
+and `…-170000-…` (the `verified_by` roster superseded by the authorization net). Both carry the
+required two halves; both replaced a defect filing that had been diagnosing a symptom; the second
+retired a build (**Cycle 14 build-6**) that was already briefed. **This is the rail doing the one
+thing no other filing class could do**, and it is recorded here rather than treated as a second
+self-acceptance.
+
+⚠ **Carried out of this close, not resolved by it — A50's tripwire still has no home.** P-15's
+metric is *"rules retired per cycle, baseline zero"*, and A50 found it *"measurable nowhere"*:
+`cycle-closeout` records no retirement count, and a `grep` over `.claude/skills/cycle-closeout/`
+on 2026-09-01 still returns nothing for it. **Folded into [P-3]** (2026-09-01) rather than opened
+as its own item — P-3 already owns the neighbouring visibility-floor step. Cycles 12, 13 and 14
+all closed with no count recorded; Cycle 14's roundtable produced **6 retirements** and the number
+appears in no series.
