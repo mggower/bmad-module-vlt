@@ -141,6 +141,7 @@ earlier criterion also contradicted the `status:` rule above — a repaired caus
 | `ST-4` | provenance-staffed-cognition-unstaffed | standing | 2026-08-25 | Every lifecycle artifact is written to be re-read later and none to be read now; the vault-facing sentence is authored in the wrong chain by the wrong party; the loop has no measure of its own legibility, so a recommendation silently substitutes for one; the inbox uses location as a proxy for status |
 | `ST-5` | specimens-have-no-owner | standing | 2026-08-26 | Field specimens have no owner, so instruments are built at the point of least evidence — from the fix's shape, not the failure's; and one tag welds blocking power to grading modality |
 | `ST-6` | closed-rosters-meet-authorized-actors | standing | 2026-08-26 | Authorization and enumeration live in different conventions, so a closed roster excludes an actor the surrounding rules make legal — and single-home discipline is what hides it |
+| `ST-7` | prose-specified-derivations-have-no-read-back | standing | 2026-09-01 | A derivation stated in prose for an executor to render is never read back, so a wrong rendering is indistinguishable from a correct one — and a cache freezes it |
 
 *(This table is a convenience index over the files, which are authoritative. It lists every
 register file — a completeness claim it can keep only because the directory is its population;

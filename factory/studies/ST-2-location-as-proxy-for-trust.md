@@ -10,6 +10,9 @@ causes:
   - 'RC1 (structural): PARA membership is made to carry a trust claim that the trust: field already carries. Correct when written; redundant since Cycle 11 build-6 extended the para_* nets across the whole PARA population; and already broken in shipped code, since extraction.md:60 justifies the trust: reviewed entry level as a human-initiated curation step while vlt-track runs it on a cadence loop and vlt-query runs headless.'
   - 'RC2 (process): every input to the loop is a filing, and a filing describes something that broke. Nothing can express "this protection is now redundant." Eleven cycles retired zero rules while adding many. RC2 is why RC1 survived four corrections.'
 cited_by:
+  - 'factory/cycles/15-nothing-reads-it-back/roadmap.md §A15-12 (the PARA `type:` prohibition retirement — RC1 applied to the THIRD field of the quartet; `class: supersession`, tracker #17. Grounding confirmed both halves and verified that Cycle 14 build-3 RESTATED and STRENGTHENED the rule six days after this study opened.)'
+  - 'factory/cycles/15-nothing-reads-it-back/roadmap.md §A15-13 (the `verified_by` roster retirement — cited by the filing as ST-2; capture relocated the PRIMARY citation to ST-6, whose secondary cause quotes write-verification.md:47 almost verbatim. Both are cited; neither is removed.)'
+  - 'factory/cycles/15-nothing-reads-it-back/roadmap.md §A15-14 (the withdrawn predecessor filing 2026-08-31-152000 — a worked instance of RC2''s perimeter-patch reflex: three perimeter moves in three days off one friction, all withdrawn on the retirement.)'
   - 'factory/inbox/2026-08-25-111322-para-location-is-used-as-a-proxy-for-trust.md'
   - 'factory/platform/roadmap.md §P-15 (the retirement rail — the RC2 fix, built 2026-08-25)'
   - 'factory/platform/roadmap.md §P-14 (the study register — this register exists because of this study''s §Why this study is here)'
