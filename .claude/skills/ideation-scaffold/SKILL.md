@@ -77,11 +77,12 @@ questions from Discovery or left as an explicit `*(owner to fill)*` placeholder:
 
 - **Grouping & order** — which builds, numbered, and which filings each folds in. Build
   numbering is itself an owner call; placeholders, not proposed numbers. Lay each build
-  bullet with two one-line fields for the owner to fill: **`binds:`** (the ruling-id
-  roster — see the standing rule below) and **`spike:`** (`none`, or the `S-N` this
-  build's brief depends on). `spike:` is what `build-brief` gates on; an unfilled field
-  is not `none` and blocks, which is correct — the owner says whether a build waits on a
-  spike, never the briefer.
+  bullet with three one-line fields for the owner to fill: **`binds:`** (the ruling-id
+  roster — see the standing rule below), **`spike:`** (`none`, or the `S-N` this
+  build's brief depends on), and **`promise:`** (the one vault-facing sentence — see the
+  standing rule below). `spike:` and `promise:` are what `build-brief` gates on; an unfilled
+  field is not `none` and blocks, which is correct — the owner says whether a build waits on a
+  spike and what it promises a vault, never the briefer.
 - **Pre-ideation rulings the capture demanded** — seed each flagged ruling as a question.
 - **Cross-filing decide-once rulings** — decisions that resolve the same question across
   filings identically.
@@ -116,6 +117,35 @@ per the reason: nothing to ideate → `lifecycle-status` or the map's table for 
 loop actually stands; existing unfilled skeleton → fill that one.
 
 **Headless:** emit only the JSON contract above; the same move goes in `next`.
+
+## Standing rule: every build bullet carries a `promise:` line
+
+*(Platform P-16, 2026-09-01; cause `ST-4`, *provenance is staffed, cognition is not*.)* One
+sentence, vault-facing, written **here at ruling time by the owner** — not at brief time, and
+not by the briefer:
+
+> *after this ships, a vault owner running `vlt-<x>` sees Y instead of Z*
+
+**Why it sits at ruling time.** A per-build vault-facing sentence already exists: a brief's
+`title:` is public prose collected verbatim into the CHANGELOG. But it is authored at **brief
+time by the briefer**, *after* scope has been ruled — so scope gets ruled against filing ids and
+the first sentence describing the delivery is written by someone reporting a decision they did
+not make. `promise:` moves that sentence to the person and the moment that own the scope call.
+
+**What consumes it.** `build-brief` carries it into the brief's scope statement and into the
+brief's `title:`, **never re-authoring it** — the release path is unchanged, and the CHANGELOG
+still collects from `title:` (owner-ruled 2026-09-01: `promise:` *feeds* `title:` rather than
+replacing it as the CHANGELOG source, so a briefer may sharpen the sentence for what actually
+shipped without a second vault-facing sentence existing to drift).
+
+**Unfilled blocks**, the treatment `spike:` has — not the reconstruct-and-disclose treatment
+`binds:` has. The reason is structural: `binds:` is reconstructible (the ruling ids are in the
+roadmap and can be re-derived), and **a promise is not — it can only be re-invented**, by the
+wrong author at the wrong time, which is the exact failure the field exists to repair. Leave it
+`*(owner to fill)*` and the brief will not be written; that is the field working.
+
+**Scope is ruled against promises, not filing ids.** That is the point of the field, and it is
+why it is laid in the grouping bullet rather than anywhere later.
 
 ## Standing rule: every build bullet carries a `binds:` roster
 

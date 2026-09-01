@@ -59,8 +59,8 @@ only:
 
 `status` is `blocked` with a one-line `reason` when the Readiness gate fails (ideation rulings
 for this build are missing, the batch has no Roundtable review record nor owner waiver — or
-the record carries OPEN disputes, its `spike:` field is unfilled or names a spike that is not
-yet `harvested`/`consumed`, or a declared
+the record carries OPEN disputes, its `promise:` line is unfilled, its `spike:` field is
+unfilled or names a spike that is not yet `harvested`/`consumed`, or a declared
 evidence debt is neither attached nor ruled not-blocking) or when Re-ground turns up a
 roadmap-contradicting site the owner must rule on. **Blocked is the correct outcome in those
 cases** — do not author a brief to avoid it.
@@ -90,7 +90,12 @@ refs drift (the roadmap is append-only and edited across the cycle's life):
   metric home that did not exist. If the bullet carries no `binds:` line, reconstruct it before
   authoring and say so in the brief. **Read the bullet's `spike:` field too** — the
   Readiness gate turns on it, and where it names an `S-N` the register file's findings are
-  part of the brief's grounding, not just a gate token.
+  part of the brief's grounding, not just a gate token. **And read its `promise:` line**
+  *(platform P-16, 2026-09-01)* — the one vault-facing sentence the owner wrote at ruling time.
+  It is **carried, never re-authored**: it becomes the brief's scope statement and its `title:`,
+  which is what the CHANGELOG collects. You may sharpen it for what actually shipped; you may not
+  replace it with your own account of the build. A brief whose `title:` bears no relation to the
+  promise has quietly re-ruled the scope.
 - Any **Capture addendum** section naming build N — mid-cycle scope deltas owner-ruled after
   the roundtable stamped the batch (`inbox-capture` owns the posture). Its dated addendum
   rulings are part of build N's binding record: the brief folds the addendum filing's
@@ -128,6 +133,15 @@ emit `blocked` with a one-line `reason` (interactive: surface it and ask the own
   — *unless* an addendum ruling records a moved joint, in which case a
   `## Roundtable review — addendum` record must cover it (none → block; the route is the
   roundtable delta).
+- **The promise is written.** Read build N's **`promise:`** field in the Ideation rulings
+  grouping *(platform P-16, 2026-09-01)*. It must carry the owner's one vault-facing sentence.
+  An **unfilled** field — absent, empty, or still `*(owner to fill)*` — **blocks**; the route is
+  the owner writing it in the rulings, which takes one sentence. **Do not reconstruct it.** That
+  is the treatment `binds:` gets and it is deliberately not this field's: a `binds:` roster can be
+  re-derived from the roadmap's ruling ids, whereas a promise can only be re-invented, and a
+  briefer inventing the owner's promise is the precise failure (`ST-4`) this field repairs. A
+  promise that is present but describes the *mechanism* rather than what a vault owner will see
+  is a filled field — flag it in the report, do not block on it.
 - **Spike obligations are closed.** Read build N's **`spike:`** field in the Ideation rulings
   grouping (lifecycle step 3: external unknowns get spikes). It must read `none`, or name an
   `S-N` whose register file at `factory/platform/spikes/S-N-*.md` carries

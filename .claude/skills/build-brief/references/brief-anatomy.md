@@ -31,6 +31,13 @@ risk: '<low | low-moderate | moderate> — <one clause on why, and whether it bu
   entry for the release this build ships in, so it carries no personal names, no vault names,
   and no vault-local artifact paths (CLAUDE.md, "Git & publishing" — the same scrub every
   shipped surface passes).
+  <br>**It is carried from the build bullet's `promise:` line, not authored here**
+  *(platform P-16, 2026-09-01)*. The owner wrote that one vault-facing sentence at ruling time;
+  this field is where it reaches the CHANGELOG. Sharpen it for what actually shipped if the build
+  deviated — that reconciliation is this field's job — but do not replace it with your own account
+  of the build. `promise:` **feeds** `title:`; it does not become a second CHANGELOG source, so
+  there is never a second vault-facing sentence to drift. Mechanics of the field itself are
+  single-homed in `ideation-scaffold`'s standing rule.
 - **`status`** starts `BRIEFED <date>`. The builder later rewrites it to a **BUILT record**:
   `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) …` with
   **numbered deliberate deviations** from the brief. Describe this in the brief so the builder
