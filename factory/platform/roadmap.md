@@ -52,9 +52,9 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-14, P-20 and P-13 are all BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-14, P-20, P-13 and P-3 are all BUILT-awaiting and consume no slot, per the contract header)
 
-*(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**. **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
+*(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**, then **4 → 5** the same day when **[P-3] built**. *(The ruling below is unchanged by that: it was made on the ground that items with named discharging events and bounds are cheaper to read in place than to re-file, and P-3 arrives with three such events, each bound to a named Cycle 15 run. Revisit if the inventory grows without bounds, not merely if it grows.)* **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
 ### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (the OPEN cycle's milestone + build issues generated, not typed — subject made generic 2026-08-25; heading label corrected 2026-09-01)**
 
@@ -637,20 +637,74 @@ stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadm
 tranche takes, and it should be earned there on evidence rather than invented here.
 
 
----
+### P-3 — channel plumbing: platform lane, intake route, closeout hook — **open: BUILT 2026-09-01, awaiting self-acceptance (three discharging events, named below)**
 
-**Built-awaiting inventory is now FIVE (P-10, P-15, P-14, P-20, P-13) — well past the contract
-header's threshold.** The header defers a separate section or second cap "until built-awaiting
-inventory reaches three." It reached three on 2026-08-25 and **five on 2026-08-27**. Flagged as an
-**owner call**, not acted on: four items with named discharging events and bounds may still be
-cheaper to read in place than to re-file into a section. The ruling belongs on the ledger either
-way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
-itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
-note is preserved above in substance, not re-derived.)*
+**Build record (2026-09-01).** All four diagnosed gaps closed in one pass, built **before**
+Cycle 15's capture deliberately (owner-directed) so that every one of this item's discharging
+events is a *cold* run in a session that did not author the step — the done-when's own demand,
+and [P-13]'s lesson bought at the price of four failed restamps.
 
-## Queued
+- **The lane is on the instrument panel.** `.claude/skills/vlt-lifecycle.md` gains a
+  **"The platform lane (a third track, off the cadence)"** section: a four-row observable
+  table read from this ledger's `### P-N` headings under `## Active`/`## Queued` — heading
+  reads only, per `lifecycle-status`'s cheap-reads doctrine. Rows: **built-awaiting** (next
+  move = the discharging event the entry itself names), **in flight** (build it against its
+  brief-lite), **slot free** (owner picks from Queued), **lane idle**. The 2026-08-25
+  amendment is honoured — built-awaiting renders as a position in its own right, *"not a
+  synonym for done"*. A fifth route lands in Blocked outcomes: a built-awaiting item whose
+  discharging event **cannot occur** grades BLOCKED (unreachable) and routes to an owner
+  re-binding ruling, with P-10's 2026-08-25 re-bind as the worked example. The channel
+  contract is **pointed at, never restated** — the map says only how to read position off
+  disk.
+- **The intake fork exists.** `factory/inbox/README.md` documents the optional
+  `channel: platform` marker; `inbox-capture`'s Discovery partitions the un-captured set on
+  it and — the load-bearing half — **re-derives the boundary rather than trusting the
+  marker**, with four cases spelled out: marked-and-confirmed routes to Queued; marked but
+  fixed under the shipped surface routes to the cycle roadmap with the mis-mark reported;
+  unmarked-but-factory-side is surfaced to the owner, never silently re-routed; both-sides
+  captures to the cycle roadmap with the factory-side half named. `roadmap-synthesis.md`
+  gains the written form (append under `## Queued` never `## Active`; `N` one past the
+  highest `P-N` **anywhere**, since P-16's collision proves numbers are never reused; the
+  filing does **not** move, because no Stage-5 criterion would ever move it). The headless
+  JSON gains an always-present `platform_routed` key — *an empty list is the fork exercised
+  and finding nothing, which is a different fact from the fork not running.*
+- **Both closeout steps have an enforcement point.** `cycle-closeout` gains **Stage 2b — The
+  cycle's footprint**, holding the visibility-floor line *and* the retirement count side by
+  side (one step, not two, as the scope addition required). Sub-lettered **deliberately**:
+  Stages 1 and 5 are cited by name from CLAUDE.md and `inbox-capture`'s github-intake
+  reference, so renumbering would have broken live pointers. Both lines are recorded **even
+  when empty** — *"the floor is a line that always appears, or it is not a floor"*, and
+  recording the zero is the obligation. The count is categorized per **A48** against P-15's
+  own close as the worked form (PRE-NAMED / BEAT-PRODUCED / REASONED REFUSALS / EXPLICIT
+  NON-RETIREMENT), carrying A48's discrimination verbatim: *a rail that fires and says no is
+  not a rail that never fired.* Neither line gates the close. SKILL.md's overview, stage
+  table and headless JSON updated (six-part ritual → seven, `footprint` object added).
 
-### P-3 — channel plumbing: platform lane, intake route, closeout hook — **queued**
+**Verification at rest (2026-09-01).** The two greps the brief-lite named returned **nothing**
+before this build and now resolve at both sites. The lane's derivation was dry-run against
+this live ledger from headings alone: four Active entries all read BUILT-awaiting, zero in
+flight, Queued non-empty → the rows independently reproduce this section's hand-written
+**WIP 0/2**, which is the mechanism agreeing with the human record rather than being told the
+answer. The intake fork's own worked instance is this file: P-3 was diagnosed factory-side and
+reached this ledger by hand in 2026-08-21, which is the gap it closes.
+
+**Three discharging events, each bound.** The item self-accepts only when **all three** land,
+and none is manufacturable by the authoring session:
+
+1. **The lane** — one real `lifecycle-status` run reports the platform positions from the map
+   rather than deriving them from this ledger's prose. *Bound:* the next such run.
+2. **The fork** — one real `inbox-capture` run exercises the routing fork, **or reports no
+   marked filings** (the brief-lite admits both; an exercised fork that finds nothing is the
+   fork running). *Bound:* Cycle 15's capture.
+3. **The footprint** — one real `cycle-closeout` run emits both the visibility line and the
+   categorized retirement count **unprompted, in a session that did not author the step**.
+   *Bound:* Cycle 15's closeout. ⚠ This is the cold-reader clause and it is not negotiable
+   down to a warm one: *a step verified by the author who just wrote it tests the author's
+   memory, not the step.*
+
+*(The brief-lite below is preserved verbatim as built-from, including the 2026-09-01 scope
+addition and priority note that finally moved it. Its "queued since 2026-08-21" framing is
+now historical.)*
 
 **Brief-lite:**
 - **Intent:** close the three structural gaps the untracked-ideas sweep found
@@ -703,6 +757,21 @@ diagnosed gaps kept producing instances — the blind instrument panel (flagged 
 prose), the missing visibility line (three closeouts), and now the missing retirement count.
 Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
 slot.**
+
+---
+
+*(Superseded as a count — kept as the dated record of when the threshold was crossed and why the call was flagged. The **current** inventory and the ruling that settled it are in this section's header; today it is again five, P-15 having closed and **P-3** having built. Marked 2026-09-01 rather than rewritten: this ledger is append-only, and an uncorrected count sitting at the foot of a section is the [P-13] failure shape.)*
+
+**Built-awaiting inventory is now FIVE (P-10, P-15, P-14, P-20, P-13) — well past the contract
+header's threshold.** The header defers a separate section or second cap "until built-awaiting
+inventory reaches three." It reached three on 2026-08-25 and **five on 2026-08-27**. Flagged as an
+**owner call**, not acted on: four items with named discharging events and bounds may still be
+cheaper to read in place than to re-file into a section. The ruling belongs on the ledger either
+way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
+itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
+note is preserved above in substance, not re-derived.)*
+
+## Queued
 
 ### P-5 — citation resolution: make grounding checkable — **queued**
 

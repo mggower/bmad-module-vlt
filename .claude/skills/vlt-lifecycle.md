@@ -60,6 +60,34 @@ Positions can coexist (an open cycle routinely has BUILT briefs *and* new uncapt
 filings). When they do, acceptance/closeout of shipped work and capture of new signal are
 independent tracks — neither waits for the other.
 
+## The platform lane (a third track, off the cadence)
+
+*(Platform P-3, 2026-09-01.)* Off-cadence factory-side work — anything `vlt-upgrade` does
+not deliver to vaults — runs on the ledger at `factory/platform/roadmap.md`, which is
+cycle-less and never gates a release. It is a **track, not a step**: it has no row in the
+loop above and waits on nothing in it. The channel contract (boundary, WIP limit,
+numbering, self-acceptance) is single-homed in that ledger's header — this map never
+restates it; it only says how to *read the lane's position off disk*, which nothing did
+before P-3 and which is why every prior `lifecycle-status` run had to derive the whole lane
+from the ledger's prose.
+
+The observables are the ledger's own `### P-N — <title> — <state>` headings under its
+`## Active` and `## Queued` sections — **heading reads only**, per `lifecycle-status`'s
+cheap-reads doctrine. Report every row that matches; these coexist with each other and with
+both cycle-track positions:
+
+| Observable condition | Position | Next lifecycle move |
+|---|---|---|
+| An `## Active` heading reads `open: BUILT …, awaiting self-acceptance` | Platform item built-awaiting | the **discharging event the entry itself names** — read it off that entry and report it verbatim; it is exogenous, so there is nothing to do but let the naming run happen |
+| An `## Active` heading reads `open` **without** BUILT | Platform item in flight | build it against its inline brief-lite (no `build-N` brief file — the brief-lite is the spec) |
+| Fewer than 2 items are **in flight** (built-awaiting ones consume no slot, per the contract header's WIP clause) and `## Queued` is non-empty | Platform slot free | owner picks the next queued `P-N`; where an entry carries a dated priority note, name it |
+| `## Active` holds no `open` heading and `## Queued` is empty | Platform lane idle | nothing — the lane is genuinely empty, which is a state, not a gap |
+
+**Built-awaiting is a position in its own right, not a synonym for done** *(the mechanism
+half of the WIP clause, amended into P-3 2026-08-25)*: its evidence is the entry reading
+BUILT-awaiting and its next move is the named event. Rendering it as "closed" is the
+mis-read the WIP clause exists to prevent.
+
 ## Blocked outcomes (every block has a route out)
 
 A `blocked` verdict is a skill doing its job — but it must never be a dead end. Routes:
@@ -89,6 +117,13 @@ A `blocked` verdict is a skill doing its job — but it must never be a dead end
   whose discharging event *cannot occur* (no shipped surface can produce it) is not a
   waiting state — the rubric grades it **BLOCKED (unreachable)**: file it to
   `factory/inbox/` and let capture route it into a build.
+- **Platform built-awaiting whose discharging event cannot occur** → it is not a waiting
+  state: `acceptance-discharge`'s rubric grades it **BLOCKED (unreachable)** and it routes to
+  an **owner re-binding ruling** on the ledger entry — re-bind the done-when to a subject that
+  a future event can satisfy, or close it. (Worked example: P-10's 2026-08-25 re-bind, after
+  its done-when named a cycle that closed with the event never fired. The re-bind made the
+  subject *the open cycle* rather than a numbered one, so a missed window re-binds itself.)
+  Do not let a dead clause hold a slot — though note built-awaiting items hold no slot anyway.
 - **`cycle-closeout` blocked** → an undischarged ledger routes to `acceptance-discharge`;
   a discharged-but-uncarried tail routes to an owner carry-forward ruling; a missing tag
   routes to `vlt-release`; an **orphan spike** (opened by this cycle, still

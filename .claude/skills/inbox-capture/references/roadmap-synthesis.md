@@ -79,6 +79,40 @@ in-session:
 write each one so a later reader can verify build N's widened scope without this
 session's context.
 
+## Platform-routed filings — writing into the ledger's Queued section
+
+*(Platform P-3, 2026-09-01.)* SKILL.md's Discovery owns the **fork** (who routes where, and
+the re-derive-don't-trust rule). This section owns only the **written form** of a filing that
+routed to `factory/platform/roadmap.md`.
+
+Append one `### P-N — <title> — **queued**` entry under that ledger's `## Queued` heading —
+**not** the `## Active` section, whatever the item's urgency. Queuing costs no slot; opening
+one is the owner's act, and the WIP limit is theirs to spend.
+
+- **`N` is one past the highest existing `P-N`** anywhere in the ledger — Active, Queued and
+  Closed alike. Numbers are never reused (`P-16` was once taken and the next item became
+  `P-17`; that collision is why this sentence says *anywhere*).
+- The body is the ledger's **brief-lite**, whose five fields are single-homed in its channel
+  contract — intent / sites / verification / out-of-scope / done-when. Fill each from the
+  grounded finding, not from the filing's self-description, and cite `file:line` for every
+  site the way a cycle capture does.
+- Open with a dated provenance line naming the filing (`*(Queued <date> from
+  factory/inbox/<filing>.md.)*`) and say in one clause **why it routed here** — which fix
+  site `vlt-upgrade` does not deliver. A future reader must be able to re-check the boundary
+  call without this session.
+- **The filing does not move.** It stays in the active inbox: `cycle-closeout` Stage 5 retires
+  filings against *cycle* builds, and a platform item joins no acceptance ledger, so nothing
+  would ever move it. Note the routing in the filing's own entry instead, and leave the file
+  where it is.
+- The cycle roadmap's `derives_from` does **not** gain a platform-routed filing — it derives
+  the cycle from nothing here. Name it in the capture narrative as routed-away, so the run's
+  filing count still reconciles.
+
+Widening an existing queued entry is preferred to opening a neighbouring number when the
+finding lands at a site an entry already owns — the channel's practiced posture, and the
+sprawl its WIP clause exists to prevent. That is an owner call; surface it rather than
+deciding.
+
 ## Handoff
 
 This skill's job ends at a grounded, current roadmap doc. **Restamp that roadmap's foot** — its **last block**,

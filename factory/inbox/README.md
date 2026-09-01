@@ -42,6 +42,29 @@ roundtable's obsolescence beat is where a retirement found *inside* a plan lands
 **Not to be confused with the `SUPERSEDED` grounding grade**, which means the module already
 fixed what a filing reported. Here supersession is the filing's *claim*, not its verdict.
 
+## When the fix site is off-cadence — `channel: platform`
+
+*(Platform P-3, 2026-09-01.)* One intake, two destinations. Most filings describe shipped
+behavior and land in the open cycle's roadmap. A filing whose fix site is **factory-side** —
+a factory skill under `.claude/skills/`, `tools/`, `.github/`, a process doc, this README —
+belongs on the **platform ledger** (`factory/platform/roadmap.md`) instead, because
+`vlt-upgrade` never delivers it to a vault. Before P-3 such candidates reached that ledger
+only by hand, which meant they reached it only when someone happened to remember.
+
+Mark those filings `channel: platform` in the opening line (the same place `class:` goes) and
+`inbox-capture` routes them to the ledger's **Queued** section rather than the cycle roadmap.
+
+Two things the marker does **not** do. It is not self-service: capture grounds a marked
+filing like any other and **the boundary is re-derived, not trusted** — a filing that marks
+itself platform but names a fix under the shipped surface (`skills/vlt-*`,
+`.claude-plugin/`) is routed to the cycle roadmap with the mis-mark reported, and an unmarked
+filing whose only fix site is factory-side is surfaced to the owner rather than silently
+re-routed. And it is optional: the boundary rule is the ledger's, and an unmarked filing is
+routed the ordinary way, so nothing regresses if the marker is never used.
+
+The boundary itself — *"an item is platform iff `vlt-upgrade` does not deliver it to
+vaults"* — is single-homed in the platform ledger's channel contract. Read it there.
+
 ## Remote filings
 
 - Filings can also arrive as GitHub issues on the module's public tracker and are

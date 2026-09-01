@@ -42,11 +42,13 @@ roadmap doc's own capture narrative (there is no separate decision log for this 
 Synthesis). On completion, emit only:
 
 ```json
-{"status": "complete", "roadmap": "{path}", "filings_captured": ["{inbox paths}"], "issues_materialized": ["<repo>#<n>", "..."], "next": "{next lifecycle move}"}
+{"status": "complete", "roadmap": "{path}", "filings_captured": ["{inbox paths}"], "issues_materialized": ["<repo>#<n>", "..."], "platform_routed": ["{inbox path} -> P-N", "..."], "next": "{next lifecycle move}"}
 ```
 
 `issues_materialized` is the empty list when the run materialized nothing (including a
-skipped intake). `status` is `blocked` with a one-line `reason` if grounding turned up something the user must
+skipped intake). `platform_routed` is the empty list when no filing routed to the platform
+ledger — an empty list is the fork exercised and finding nothing, which is a different fact
+from the fork not running, so the key is always present. `status` is `blocked` with a one-line `reason` if grounding turned up something the user must
 rule on (e.g. a filing's core claim conflicts with a recent, unshipped module change).
 
 ## Discovery
@@ -95,6 +97,33 @@ scope-internal addition does not re-convene the room. A filing targeting an
 already-shipped build routes to the unbuilt build that owns the surface, or holds on an
 explicit owner ruling. The addendum's written form lives in
 `references/roadmap-synthesis.md`.
+
+**The routing fork — one intake, two destinations** *(platform P-3, 2026-09-01)*. Before
+grounding, partition the un-captured set. A filing whose fix site is factory-side belongs on
+the **platform ledger** (`factory/platform/roadmap.md`), not the cycle roadmap, because
+`vlt-upgrade` never delivers it to a vault — the boundary rule is single-homed in that
+ledger's channel contract; read it there, never restate it here. A filing opts in with
+`channel: platform` in its opening line (the marker is documented at
+`factory/inbox/README.md`).
+
+**Re-derive the boundary; never trust the marker.** The marker declares an intent, and
+grounding is this skill's whole reason to exist:
+
+- **Marked and confirmed** (the named fix site is factory-side) → route to the ledger's
+  Queued section, per `references/roadmap-synthesis.md`'s platform-routing section.
+- **Marked but the fix site is under the shipped surface** (`skills/vlt-*`,
+  `.claude-plugin/`) → route to the **cycle roadmap** anyway and report the mis-mark by
+  name. The boundary is delivery, not the filer's opinion of it.
+- **Unmarked but plainly factory-side** → do **not** silently re-route; surface it to the
+  owner as a routing question (headless: capture it to the cycle roadmap and name it in the
+  report). Routing a filing the owner never marked is the kind of quiet decision the marker
+  exists to make visible.
+- **A filing with fix sites on both sides** → it captures to the cycle roadmap, with the
+  factory-side half named there as a platform candidate. One filing does not become two
+  entries in two ledgers without an owner ruling.
+
+Report the fork's outcome even when it is empty — "no filings marked `channel: platform`"
+is the routing exercised, not the routing skipped.
 
 Skimming a prior cycle's closed roadmap or filings (`factory/cycles/NN-<slug>/roadmap.md`
 and `filings/`) for continuity is useful when a new filing clearly follows on from past

@@ -8,12 +8,14 @@ description: Closes a fully-accepted cycle: verifies discharge, stamps the roadm
 ## Overview
 
 This skill runs the final move of the module's evolution lifecycle: retiring a cycle whose
-builds have shipped and passed acceptance. Closing a cycle is a six-part ritual — verify the
-ledger is discharged, record carry-forwards, stamp the roadmap CLOSED in place, move the
-accepted filings into the cycle's `filings/`, reset `factory/CYCLE` to none, sync project
-memory — and the record shows every manual pass leaks a step (Arc 1's roadmap simply never
-recorded a shipped fix). Act as the cycle's closing registrar: this skill is the bell for
-that boundary.
+builds have shipped and passed acceptance. Closing a cycle is a seven-part ritual — verify the
+ledger is discharged, record carry-forwards, record the cycle's footprint (platform work +
+retirement count), stamp the roadmap CLOSED in place, move the accepted filings into the
+cycle's `filings/`, reset `factory/CYCLE` to none, sync project memory — and the record shows
+every manual pass leaks a step (Arc 1's roadmap simply never recorded a shipped fix; three
+consecutive cycles closed with no footprint recorded at all, until platform P-3 gave the two
+footprint obligations an enforcement point). Act as the cycle's closing registrar: this skill
+is the bell for that boundary.
 
 Two things it never does. It never **grades** acceptance — `acceptance-discharge` owns
 evidence verdicts and runs first; this skill only verifies they happened and refuses to
@@ -48,7 +50,7 @@ first-exercise tail whose disposition isn't already recorded) is left as-is and 
 the report rather than assumed. On completion, emit only:
 
 ```json
-{"status": "complete", "cycle": "NN-<slug>", "closed": {"roadmap": "...", "briefs": N, "filings": N}, "carried_forward": ["..."], "next": "{next lifecycle move}"}
+{"status": "complete", "cycle": "NN-<slug>", "closed": {"roadmap": "...", "briefs": N, "filings": N}, "carried_forward": ["..."], "footprint": {"platform": ["P-N", "..."], "retirements": {"pre_named": N, "beat_produced": N, "reasoned_refusals": N, "explicit_non_retirements": N}}, "next": "{next lifecycle move}"}
 ```
 
 `status` is `blocked` with a one-line `reason` when the precondition gate fails (an undischarged
@@ -80,7 +82,7 @@ Confirm with the owner (interactive) that this is the cycle to close and that
 | # | Stage | Purpose | Location |
 |---|-------|---------|----------|
 | 1 | Discovery | Find the open roadmap, its ledger, briefs, and filings | SKILL.md (above) |
-| 2 | Closeout | Gate on discharge, record carry-forwards, stamp CLOSED, move filings, reset CYCLE, sync memory | `references/closeout-checklist.md` |
+| 2 | Closeout | Gate on discharge, record carry-forwards, record the cycle's footprint, stamp CLOSED, move filings, reset CYCLE, sync memory | `references/closeout-checklist.md` |
 
 Route to `references/closeout-checklist.md` — it is self-contained (don't assume this SKILL.md
 is still in context by the time it runs).

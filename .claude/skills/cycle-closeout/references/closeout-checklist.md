@@ -74,6 +74,45 @@ travels: *"carried from <origin> — STILL OPEN at cycle close, carries forward 
 These are the authoritative hand-off point: the next cycle's `inbox-capture` re-lists them from
 the closed roadmap. Anything left off is silently dropped.
 
+## Stage 2b — The cycle's footprint: platform work + retirement count
+
+*(Platform P-3, 2026-09-01. Sub-lettered deliberately: Stages 1 and 5 are cited by name from
+CLAUDE.md and `inbox-capture`, so renumbering would break live pointers.)*
+
+Two obligations the loop already states and nothing enforced. Both are **one-line records in
+the closeout record**, written beside each other, and both were missing for three consecutive
+cycles — a `grep` of this skill returned nothing for either, and Cycle 14's visibility line
+was written only because the owner sent that session to read the platform ledger. This is the
+enforcement point.
+
+**a. The visibility floor.** The platform channel's contract promises: *each cycle-closeout
+notes "platform work landed during this cycle: P-…" in the closeout record — visibility
+without coupling.* Read `factory/platform/roadmap.md` for `P-N` entries whose build or close
+date falls inside this cycle's span, and write that one line. Name the items; do not
+summarize them. **"platform work landed during this cycle: none" is the line when nothing
+landed** — the floor is a line that always appears, or it is not a floor.
+
+**b. The retirement count.** Cycle 12's roundtable amendment **A50** made this a standing
+closeout obligation — *"the cycle records its retirement count at closeout beside the
+visibility-floor line"* — because P-15's tripwire (*rules retired per cycle, baseline zero*)
+was measurable nowhere: the roundtable records the obsolescence beat in its own section, and
+nothing else counts. A metric with no home is `ST-4` root cause (d)'s shape.
+
+Per **A48**, a bare count satisfies the letter and misses the point — *"a cycle whose only
+retirement is the one ideation pre-named satisfies the letter and misses the point"* — so the
+count is **categorized**, and a category with nothing in it is recorded as zero rather than
+omitted. The worked form is P-15's own close on the platform ledger (its PRE-NAMED /
+BEAT-PRODUCED / REASONED REFUSALS / EXPLICIT NON-RETIREMENT block) — follow it, don't restate
+it here. The discrimination that matters, in A48's words: **a rail that fires and says no is
+not a rail that never fired**, so reasoned refusals are recorded as exercise, not as absence.
+
+Sources for the count, in order: the cycle roadmap's roundtable review record (the
+obsolescence beat's output lands there as amendments, not as a ceremony line), each brief's
+answered retirement clause, and any `class: supersession` filing the cycle consumed.
+
+Neither line is a gate. A cycle does not fail to close because its platform footprint was
+empty or its retirement count was zero — recording the zero *is* the obligation.
+
 ## Stage 3 — Stamp CLOSED
 
 Rewrite the roadmap frontmatter `status` to the closed form, **in place** — the roadmap
@@ -184,6 +223,8 @@ Summarize the close:
 
 - **Gate:** passed (or `blocked` with the open items — in which case nothing below ran).
 - **Carry-forwards:** each item recorded, by name.
+- **Footprint (Stage 2b):** the platform-work line (`P-…`, or `none`) and the categorized
+  retirement count — both, always, even when both are empty.
 - **Closed:** the roadmap stamped in place, N briefs confirmed in the cycle's `briefs/`,
   N filings moved into the cycle's `filings/` — with the paths — and `factory/CYCLE` reset
   to none.
