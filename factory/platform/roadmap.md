@@ -56,7 +56,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 *(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**. **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
-### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (Cycle 12's milestone + build issues generated, not typed — re-bound 2026-08-25)**
+### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (the OPEN cycle's milestone + build issues generated, not typed — subject made generic 2026-08-25; heading label corrected 2026-09-01)**
 
 **Build record (2026-08-23):** `issue-triage` gained its second mode — **'sync the
 tracker'**, mechanics single-homed at the new
@@ -87,6 +87,10 @@ owner-directed, seam-bound, flagged as before.
 - **Out of scope:** flipping source-of-truth to issues (a later item, only if this proves out);
   **any change to the field contract or its labels** (shipped surface → arc roadmap, and a
   `rail_contract` bump).
+  <br>*(Precision 2026-09-01: the bump half over-states for one case. The contract's own evolution
+  rule is additive-only — **adding** a label or a payload field does **not** bump `rail_contract`;
+  renaming, removing, or changing a meaning does. The **routing** half is exact and is the load-bearing
+  one: a field-contract change is arc-roadmap work, not platform, whatever the bump.)*
 - **Done-when:** the open cycle's roadmap is readable as a milestone by someone who never
   opens a file. *(Amended 2026-08-25, owner-ruled: the clause read "Cycle 11's roadmap" and
   became **unsatisfiable** when Cycle 11 closed 2026-08-25 with zero milestones ever created —
@@ -107,11 +111,15 @@ build, so it cannot produce them until ideation has numbered the builds. The dis
 repos/mggower/bmad-module-vlt/milestones` returns **zero milestones**, so the done-when (*"the open
 cycle's roadmap is readable as a milestone by someone who never opens a file"*) is unsatisfied and
 has been since the re-bind. **Nothing is blocked by it and nothing has drifted** — the item is
-waiting on one owner act, the `sync the tracker` run, which is owner-gated by design. ⚠ **But the
-re-bind subject is now stale in the same way the original was:** it names *"Cycle 12's milestone +
-build issues"*, and Cycle 12 closed 2026-08-26 — the identical unsatisfiable-sentence hazard that
-forced the 2026-08-25 amendment when Cycle 11 closed. **Re-point it at the next open cycle
-(Cycle 15) when that cycle opens**, rather than letting a second dead clause hold the entry.
+waiting on one owner act, the `sync the tracker` run, which is owner-gated by design. ⚠ **A stale-subject
+flag raised earlier the same day is WITHDRAWN — it was wrong, and the correction matters because it
+would have re-ruled something already ruled.** The flag claimed the re-bind subject names Cycle 12
+and needed re-pointing at Cycle 15. **It does not.** The done-when above reads *"the **open** cycle's
+roadmap"* — generic — and the 2026-08-25 amendment made it so deliberately: *"The subject is now the
+open cycle, not a numbered one, so a missed window re-binds itself instead of needing this ruling
+again."* **The clause is self-re-binding and needs no owner act.** What named Cycle 12 was only this
+entry's **heading parenthetical** — a stale label, not a binding clause — corrected in the same
+edit.
 
 **⚠ SYNC ATTEMPTED AND DECLINED AS A NO-OP 2026-09-01 — the owner gave the go, the inputs did not
 support a run.** Checked rather than assumed: `factory/CYCLE` reads **none** (reset at Cycle 14's
