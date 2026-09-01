@@ -913,7 +913,7 @@ would brick the next release at its final stage.)*
 - **Done-when:** the next release reaches `main` through a PR without breaking the
   choreography's gate sequence, and direct pushes to `main` are refused server-side.
 
-### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **queued**
+### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **queued** *(UNPARKED 2026-09-01 — exit condition met 2026-08-26 and unnoticed for six days; done-when re-bound, see the amendment at the foot of this entry)*
 
 *(Filed 2026-08-25, from an owner brainstorming session on the loop's comprehension problem
 — memlog + keepsake at `_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/`,
@@ -974,11 +974,22 @@ the derivation and for the four other repairs it implies; this item is only the 
   honest, a guessed answer is a lifecycle violation" ruling, which belongs to the roundtable,
   not to this channel), the generated ideation view, and the `NEVER-VERIFIABLE` acceptance
   grade. Also out: retro-writing promises for shipped builds.
-- **Done-when:** the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
-  on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
+- **Done-when:** ~~the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
+  on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.~~
+  <br>**RE-BOUND 2026-09-01 (owner-ruled).** The struck clause became **unsatisfiable**: the first
+  cycle ideated after Cycle 12 shipped was **Cycle 13**, which carries zero `promise:` lines, as
+  does Cycle 14 — the named event came and went **twice** while the item sat parked. Under
+  `acceptance-discharge`'s rubric that is not a waiting state but **BLOCKED (unreachable)**, and
+  the route out is an owner re-binding ruling. The subject is now generic, per **P-10's 2026-08-25
+  precedent** (*"the subject is now the open cycle, not a numbered one, so a missed window
+  re-binds itself instead of needing this ruling again"*):
+  <br>**The next cycle ideated after this item builds** carries a filled `promise:` line on every
+  build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
 
-**PARKED 2026-08-25, and this block is the whole parked set** — owner ruling, taken while
-Cycle 12 was still open. Everything below reopens together.
+**~~PARKED 2026-08-25~~ — PARK DISCHARGED 2026-09-01, exit condition met.** *(Kept in full, not
+deleted: this ledger is append-only, and the park's reasoning is the record of why the item waited.
+Everything below reopened together, as it said it would — six days after it was entitled to.)* The
+original ruling, taken while Cycle 12 was still open:
 
 *Recorded per A12-5's shape (Cycle 12 build-5): an exit condition records the **blocker's
 shape** and the reference, never a pre-authorized sequence of moves. So no command list and no
@@ -1032,6 +1043,50 @@ Readiness-gate treatment A/B/C). They are not restated here.
    The study is the register's first factory-side entry; the descriptive-vs-causal cut it rests
    on was the clerk's call, stated at the head of the file for a later reader to overrule in
    place. No ruling is owed. Recorded so the reopening does not mistake silence for ratification.
+
+---
+
+#### Amendment, 2026-09-01 — the park expired unread, and the done-when had gone unsatisfiable
+
+*(Raised by a `lifecycle-status` run reading the queue for the next free slot, and owner-ruled the
+same session. No build; this is a ledger act.)*
+
+**1. The park's exit condition was met on 2026-08-26 and nothing noticed for six days.** The
+condition was *"Cycle 12 ships"* — v0.16.0 shipped 2026-08-25 @ `216bea2`, and Cycle 12 closed
+2026-08-26. The item stayed marked PARKED through Cycles 13 and 14 in their entirety.
+
+**2. The done-when had gone unsatisfiable in the meantime, which is the more serious half.** It
+named *"the first cycle ideated after Cycle 12 ships"* — that was **Cycle 13**. Verified rather
+than assumed: `grep -c "promise:"` returns **0** for both `13-trusted-returns/roadmap.md` and
+`14-no-enforcement-point/roadmap.md`, and `promise:` appears **nowhere** in `ideation-scaffold` or
+`build-brief`, so the field was never wired at all. Two cycles ideated past a clause that could
+only ever have been satisfied by the first of them. Re-bound above to a generic, self-re-binding
+subject on P-10's precedent — **the third time this channel has had to re-bind a done-when that
+named a specific cycle**, after P-10 (2026-08-25) and P-3's own cold-reader wording. The pattern is
+now strong enough to name: *a done-when that names a numbered cycle expires unnoticed; one that
+names a role ("the open cycle", "the next cycle ideated") re-binds itself.* Worth a queued item's
+attention if it recurs a fourth time — not opened as one here, per the widen-don't-multiply posture.
+
+**3. Why it went unread — the park named a surfacing mechanism that does not exist.** The block
+says *"`cycle-closeout`'s carry-forward record is where it should surface."* It cannot: Stage 2
+collects carry-forwards **from the closing cycle's roadmap**, and a parked *platform* item is not
+on any cycle roadmap. Checked directly — `P-16` appears in Cycle 12's roadmap only as **A47**, a
+numbering-collision note, and appears in Cycles 13 and 14 **zero times**. Three closeouts ran and
+none of them could have surfaced it.
+
+⚠ **[P-3]'s new Stage 2b narrows this gap but does not close it.** The footprint line records
+*platform work that landed* during a cycle; a platform item **parked and waiting** landed nothing,
+so it is invisible to that line by construction. The honest statement of the residue: **an expired
+park on the platform ledger still has no reader.** Recorded here rather than opened as an item —
+the lane rows P-3 just added to `vlt-lifecycle.md` mean a `lifecycle-status` run now reads this
+ledger every time it runs, which is how this park was in fact found today. Whether that is
+sufficient is a question for the second instance, not this one.
+
+**Unchanged by this amendment:** both open questions (the `promise:`/`title:` relation, then the
+Readiness-gate treatment A/B/C) remain **unsettled and owed at build time**, and the seven homeless
+items above remain homeless. Unparking grants no answers. The A12-5 clause still binds — re-read
+the two questions against what Cycle 12 **actually shipped** (four builds, `216bea2`) before
+briefing, not against what it was projected to ship when the park was written.
 
 **The dry-run packet itself is not tracked.** It lives only in the transcript of the session
 that assembled it (2026-08-25) and will not survive. Deliberate: it re-derives in ~15 minutes
