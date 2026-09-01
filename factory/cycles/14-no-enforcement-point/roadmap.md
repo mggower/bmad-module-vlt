@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 14 — no enforcement point'
-status: 'OPEN — captured 2026-08-26, **8 filings** grounded against module source at v0.16.1. **IDEATION COMPLETE** (four owner-steered rounds, every slot ruled): **4 builds, 2 releases** — b1 reduce-side (A14-1 + A14-3), b2 findings cache (A14-8), b3 governance (A14-6 + A14-7 — **SETTLED at build-3''s brief 2026-08-27: 3 conventions / 19 re-acks / 11 files** (`extraction.md` 7→8 joins, A13+A15), plus **8 in-prose pin tokens at 6 sites that the handshake gate cannot see — given an enforcement point, package-lint `E7`**; E6 price ZERO, `PAGE_SCAN` stays 3688), b4 lint references (A14-4 + A14-5 — **BRIEFED 2026-08-27; the release build for release 2**, routing single-homed at `checks.md:16`, `vlt-lint-full.js` a grounding addition, E6 price **−12** (`PAGE_SCAN` 3688 → 3676), no serializer, no `machine_tools` row); **build-1 is released alone** because it **gates Cycle 13''s closeout**. Cycle-wide ruling D3, **as amended at the roundtable**: a **bounded** check (at rest, at the release gate, or on the next ordinary upgrade) is ship-verifiable and it GATES — an at-rest instrument is one sufficient bound, not the criterion. `ST-6` opened at D4. Scope was owner-ruled at capture — defects and blockers from Cycles 12–13 only, net-new deferred (tracker #13). **ROUNDTABLE COMPLETE 2026-08-26** — 32 amendments applied, 2 rules, 4 owner-ruled disputes (2 dissents on record), 0 open, 6 retirements; `build-brief`''s gate is satisfied. **RELEASE 1 SHIPPED 2026-08-27 — v0.16.2 @ `bd985a6`, tag `v0.16.2` (`594b958`), build-1 built at `ceb5cb2`; package-lint A/B/C/E PASS, D PASS.** Build-1''s 8 acceptance checks are ALL ship-verifiable and ALL GATE (D3-as-amended); **6 of 8 graded at rest, 6/6 PASS** — including **check (2), which re-grades Cycle 13''s refuted acceptance check on six real vault subjects: PASS. Cycle 13''s closeout gate is REOPENED.** Checks (6) and (7) bound to the first live full sweep after upgrade. **RELEASE 2 SHIPPED 2026-08-27 — v0.17.0 @ `c02fe3d`, tag `v0.17.0` (`b3c8646`); builds 2/3/4 plus an ST-N scrub, a contract widening and two inbox filings. Lint gate `A/B/C/E PASS, D PASS — vlt 0.17.0`; handshake 9 conventions / 39 pins bipartite-consistent; **19 acks re-pinned across 3 moved conventions** (write-verification 3→4, frontmatter 13→14, extraction 7→8) and 8 in-prose recitations re-stated, now guarded by the new **E7** gate check — which passed on its first real release. **ALL FOUR BUILDS SHIPPED; the cycle is code-complete.** At-rest acceptance: build-2 7/7 PASS, build-3 5/5 PASS, build-4 **4 of 6 PASS with check (1) FAILED** (owner-ruled: keep the honest FAIL, do not re-scope; the unparseable archive report is filed). **Next: two independent tracks — owner runs `vlt-upgrade` on `{field-vault}` for release-2 acceptance, then `run acceptance discharge`; and Cycle 13''s acceptance re-run (hand-point `factory/CYCLE` at `13-trusted-returns` first, restore after, never headless).** **ACCEPTANCE DISCHARGE RUN 2026-08-27 — acceptance PARTIALLY discharged; the cycle CANNOT CLOSE.** Graded against release 1''s upgrade + the first full sweep after it, release 2''s upgrade post-flight, both release commits, and shipped source at `c02fe3d`. **30 checks: 23 DISCHARGED, 2 FAILED, 4 STILL-OPEN, 1 SPLIT, 0 BLOCKED**; all five ledger items stay UNCHECKED and no filing archived. **Discharged incl. build-1 (7) — `unmarked_supersessions` reached ZERO against a 3-all-false baseline, so the `:168` dissent does NOT become the ruling** — and build-3 (6)''s trigger half: `governance_rule_changes:` rendered non-empty with three rule-worded entries and BOTH parked interims were re-derived (the unpark trigger A14 demanded fired). **TWO STANDING FAILS, both gating:** build-4 (1) (1 of 6 archived reports unparseable — owner-ruled KEPT, filed `2026-08-27-153000`) and **build-1 (6)** (the `malformed_frontmatter` bound MET on both escape classes at zero but FAILING leg 3 — 10 flagged / 8 genuine / 2 refuted by a different, scanner-side mechanism, filed `2026-08-27-160000`; E4 transfers with that number, not zero). **Build-3''s check (4) DISCHARGED AS WRITTEN with a caveat on record: every clause holds and the property it protects is violated** — `extraction.md:84` vs `:190` give the operational-record class two memberships; the check tested single-home-ness, never membership (filed `2026-08-27-171000`, ship-verifiable at rest). **Build-3 (6) is a partial:** the `extraction.md` park''s blocker is RESOLVED (5 files, matching the 5 at park time) but the `write-verification.md` park resolves only partially — jurisdiction narrowed by artifact class ONLY, the partner-sitting reading explicitly refused, 29 unattested Layer-3 files outside `{wiki}` of which only 1 is exempted, so 28 remain in jurisdiction. **NO full sweep has run after release 2 (owner-deferred), so build-3 (7), build-4 (6) and build-2 (8) are STILL-OPEN awaiting their named event, not failed.** **Distance from closeout: two owner acts** — (i) one `vlt-lint --full` on `{field-vault}` under 0.17.0 (discharges build-3 (7) + build-4 (6)), then a SECOND with no ruleset change between (discharges build-2 (8)); (ii) the two parks'' unwind. Then `cycle-closeout` must rule the two standing FAILs. **HOT-FIX RELEASE 3 SHIPPED 2026-08-27 — v0.17.1 @ `56cde45`, tag `v0.17.1` (annotated), build-5 built at `3910974`; package-lint A/B/C/E PASS, D PASS; NOT YET PUSHED (owner-gated).** Build-5 repairs the contradiction build-3 shipped in v0.17.0 hours earlier (filing `2026-08-27-171000`): the Layer-3 operational-record class is `charter | record | register` at all ten enumerating sites, and a `charter` is exempt from attestation jurisdiction. Handshake: `write-verification` 4->5 (5 re-acks) and `extraction` 8->9 (4 re-acks) — the extraction bump ruled a RULE CHANGE (its `:190` is the appointed definition site and the edit moves a shipped check''s population); `frontmatter` held at 14. **The membership-agreement check this build introduces is the enforcement point build-3''s check (4) lacked** — (4) tested single-home-ness and never compared members — and it earned its keep on first run by finding a SIXTH defective site the filing had missed (`vault-operating-contract.md:66`, the Layer-3 entry condition). Build-5''s 4 ship-verifiable checks ALL GATE and ALL PASS at rest; its 2 field-contingent checks ride the 0.17.1 upgrade. Predecessor Cycle 12 CLOSED 2026-08-26; Cycle 13 remains OPEN, now gate-open, awaiting its acceptance re-run (a SEPARATE act — hand-point `factory/CYCLE` first, restore after, never headless). **ACCEPTANCE DISCHARGE PASS 2 — 2026-08-27, after `{field-vault}` took BOTH remaining upgrades (0.16.2 → 0.17.0, then the 0.17.0 → 0.17.1 hot-fix; the 0.17.1 run clean on every durability axis — 7 mints preserved, 2 overlays intact, no base/skill-asset/manifest/governance divergence, no collisions).** Six checks graded — **build-5''s whole ledger, which pass 1 predates**: **4 DISCHARGED and TICKED** ((1) membership 10/10 sites agree at rest, (2) E1/E5 clean with ZERO stray `@8`/`@4` pins, (3) C6 digest `8f8a7116…` matches byte-for-byte, (4) E7 clean with `:684` at `write-verification@5`) — **the first ticked boxes in the cycle**, each re-verified independently at rest by the run rather than accepted on the build''s say-so (`package-lint --expect-version 0.17.1` re-run: A/B/C/E PASS, D PASS). **build-5 (5) STILL-OPEN — the predicted 28 → 27 was measured EXACTLY (2 exempt, 27 in jurisdiction) but by the upgrade post-flight, NOT the `vlt-lint --full` sweep the check names**; graded honestly rather than discharged on an adjacent instrument, consistent with the identical call already made for build-3 (7). **build-5 (6) FAILED `[field-contingent, does NOT gate]` — the `write-verification.md` park was RE-SURFACED, not unparked** (*"STILL LIVE AND STILL UNRULED … the hot-fix moved exactly one file out of the population; it did not move the park"*), blocker intact for 27 files. ⚠ **PREMISE CORRECTION ON RECORD: the park''s blocker is the REFUSED PARTNER-SITTING READING and the unchanged `verified_by` roster (A14-7 / filing `2026-08-26-141418`), NEVER the charter-membership contradiction** — and the 0.17.0 post-flight said so hours BEFORE build-5 was briefed. **A live, real-time instance of [P-20] (the check adversary) — its FOURTH, and the first observed as it happened; added to P-20''s evidence table in the same commit.** No inbox filing drafted or owed: the signal is factory-side (a mis-written check, not a module defect) and routes to the platform ledger. Corroboration logged but grading nothing: the skill manifest moved **67 → 68** at 0.17.0 (`lint-cache.py`) and held **steady at 68** through the hot-fix — build-2''s verification step V6 confirmed in the field, but **no ledger item names the manifest**. **Cumulative: 36 checks in 6 items — 27 DISCHARGED · 3 FAILED · 5 STILL-OPEN · 1 SPLIT · 0 BLOCKED.** The two GATING FAILs are unchanged (build-1 (6), build-4 (1)); build-5 (6) does not gate. **Distance from closeout is unchanged in acts but ONE act now buys more: a single `vlt-lint --full` under 0.17.1 discharges THREE checks** (build-3 (7), build-4 (6), build-5 (5)), a second consecutive sweep discharges build-2 (8), the two parks'' unwind remains the human''s call, and then `cycle-closeout` must rule the two standing gating FAILs. **⚠ STILL NO FULL SWEEP SINCE ANY OF THE THREE RELEASES — three forced cold sweeps outstanding, owner-deferred; `{lint_reports}` ends at `2026-08-27-1104-lint.yaml` under 0.16.2. Cycle 14 CANNOT CLOSE.**'
+status: 'OPEN — captured 2026-08-26, **8 filings** grounded against module source at v0.16.1. **IDEATION COMPLETE** (four owner-steered rounds, every slot ruled): **4 builds, 2 releases** — b1 reduce-side (A14-1 + A14-3), b2 findings cache (A14-8), b3 governance (A14-6 + A14-7 — **SETTLED at build-3''s brief 2026-08-27: 3 conventions / 19 re-acks / 11 files** (`extraction.md` 7→8 joins, A13+A15), plus **8 in-prose pin tokens at 6 sites that the handshake gate cannot see — given an enforcement point, package-lint `E7`**; E6 price ZERO, `PAGE_SCAN` stays 3688), b4 lint references (A14-4 + A14-5 — **BRIEFED 2026-08-27; the release build for release 2**, routing single-homed at `checks.md:16`, `vlt-lint-full.js` a grounding addition, E6 price **−12** (`PAGE_SCAN` 3688 → 3676), no serializer, no `machine_tools` row); **build-1 is released alone** because it **gates Cycle 13''s closeout**. Cycle-wide ruling D3, **as amended at the roundtable**: a **bounded** check (at rest, at the release gate, or on the next ordinary upgrade) is ship-verifiable and it GATES — an at-rest instrument is one sufficient bound, not the criterion. `ST-6` opened at D4. Scope was owner-ruled at capture — defects and blockers from Cycles 12–13 only, net-new deferred (tracker #13). **ROUNDTABLE COMPLETE 2026-08-26** — 32 amendments applied, 2 rules, 4 owner-ruled disputes (2 dissents on record), 0 open, 6 retirements; `build-brief`''s gate is satisfied. **RELEASE 1 SHIPPED 2026-08-27 — v0.16.2 @ `bd985a6`, tag `v0.16.2` (`594b958`), build-1 built at `ceb5cb2`; package-lint A/B/C/E PASS, D PASS.** Build-1''s 8 acceptance checks are ALL ship-verifiable and ALL GATE (D3-as-amended); **6 of 8 graded at rest, 6/6 PASS** — including **check (2), which re-grades Cycle 13''s refuted acceptance check on six real vault subjects: PASS. Cycle 13''s closeout gate is REOPENED.** Checks (6) and (7) bound to the first live full sweep after upgrade. **RELEASE 2 SHIPPED 2026-08-27 — v0.17.0 @ `c02fe3d`, tag `v0.17.0` (`b3c8646`); builds 2/3/4 plus an ST-N scrub, a contract widening and two inbox filings. Lint gate `A/B/C/E PASS, D PASS — vlt 0.17.0`; handshake 9 conventions / 39 pins bipartite-consistent; **19 acks re-pinned across 3 moved conventions** (write-verification 3→4, frontmatter 13→14, extraction 7→8) and 8 in-prose recitations re-stated, now guarded by the new **E7** gate check — which passed on its first real release. **ALL FOUR BUILDS SHIPPED; the cycle is code-complete.** At-rest acceptance: build-2 7/7 PASS, build-3 5/5 PASS, build-4 **4 of 6 PASS with check (1) FAILED** (owner-ruled: keep the honest FAIL, do not re-scope; the unparseable archive report is filed). **Next: two independent tracks — owner runs `vlt-upgrade` on `{field-vault}` for release-2 acceptance, then `run acceptance discharge`; and Cycle 13''s acceptance re-run (hand-point `factory/CYCLE` at `13-trusted-returns` first, restore after, never headless).** **ACCEPTANCE DISCHARGE RUN 2026-08-27 — acceptance PARTIALLY discharged; the cycle CANNOT CLOSE.** Graded against release 1''s upgrade + the first full sweep after it, release 2''s upgrade post-flight, both release commits, and shipped source at `c02fe3d`. **30 checks: 23 DISCHARGED, 2 FAILED, 4 STILL-OPEN, 1 SPLIT, 0 BLOCKED**; all five ledger items stay UNCHECKED and no filing archived. **Discharged incl. build-1 (7) — `unmarked_supersessions` reached ZERO against a 3-all-false baseline, so the `:168` dissent does NOT become the ruling** — and build-3 (6)''s trigger half: `governance_rule_changes:` rendered non-empty with three rule-worded entries and BOTH parked interims were re-derived (the unpark trigger A14 demanded fired). **TWO STANDING FAILS, both gating:** build-4 (1) (1 of 6 archived reports unparseable — owner-ruled KEPT, filed `2026-08-27-153000`) and **build-1 (6)** (the `malformed_frontmatter` bound MET on both escape classes at zero but FAILING leg 3 — 10 flagged / 8 genuine / 2 refuted by a different, scanner-side mechanism, filed `2026-08-27-160000`; E4 transfers with that number, not zero). **Build-3''s check (4) DISCHARGED AS WRITTEN with a caveat on record: every clause holds and the property it protects is violated** — `extraction.md:84` vs `:190` give the operational-record class two memberships; the check tested single-home-ness, never membership (filed `2026-08-27-171000`, ship-verifiable at rest). **Build-3 (6) is a partial:** the `extraction.md` park''s blocker is RESOLVED (5 files, matching the 5 at park time) but the `write-verification.md` park resolves only partially — jurisdiction narrowed by artifact class ONLY, the partner-sitting reading explicitly refused, 29 unattested Layer-3 files outside `{wiki}` of which only 1 is exempted, so 28 remain in jurisdiction. **NO full sweep has run after release 2 (owner-deferred), so build-3 (7), build-4 (6) and build-2 (8) are STILL-OPEN awaiting their named event, not failed.** **Distance from closeout: two owner acts** — (i) one `vlt-lint --full` on `{field-vault}` under 0.17.0 (discharges build-3 (7) + build-4 (6)), then a SECOND with no ruleset change between (discharges build-2 (8)); (ii) the two parks'' unwind. Then `cycle-closeout` must rule the two standing FAILs. **HOT-FIX RELEASE 3 SHIPPED 2026-08-27 — v0.17.1 @ `56cde45`, tag `v0.17.1` (annotated), build-5 built at `3910974`; package-lint A/B/C/E PASS, D PASS; NOT YET PUSHED (owner-gated).** Build-5 repairs the contradiction build-3 shipped in v0.17.0 hours earlier (filing `2026-08-27-171000`): the Layer-3 operational-record class is `charter | record | register` at all ten enumerating sites, and a `charter` is exempt from attestation jurisdiction. Handshake: `write-verification` 4->5 (5 re-acks) and `extraction` 8->9 (4 re-acks) — the extraction bump ruled a RULE CHANGE (its `:190` is the appointed definition site and the edit moves a shipped check''s population); `frontmatter` held at 14. **The membership-agreement check this build introduces is the enforcement point build-3''s check (4) lacked** — (4) tested single-home-ness and never compared members — and it earned its keep on first run by finding a SIXTH defective site the filing had missed (`vault-operating-contract.md:66`, the Layer-3 entry condition). Build-5''s 4 ship-verifiable checks ALL GATE and ALL PASS at rest; its 2 field-contingent checks ride the 0.17.1 upgrade. Predecessor Cycle 12 CLOSED 2026-08-26; Cycle 13 remains OPEN, now gate-open, awaiting its acceptance re-run (a SEPARATE act — hand-point `factory/CYCLE` first, restore after, never headless). **ACCEPTANCE DISCHARGE PASS 2 — 2026-08-27, after `{field-vault}` took BOTH remaining upgrades (0.16.2 → 0.17.0, then the 0.17.0 → 0.17.1 hot-fix; the 0.17.1 run clean on every durability axis — 7 mints preserved, 2 overlays intact, no base/skill-asset/manifest/governance divergence, no collisions).** Six checks graded — **build-5''s whole ledger, which pass 1 predates**: **4 DISCHARGED and TICKED** ((1) membership 10/10 sites agree at rest, (2) E1/E5 clean with ZERO stray `@8`/`@4` pins, (3) C6 digest `8f8a7116…` matches byte-for-byte, (4) E7 clean with `:684` at `write-verification@5`) — **the first ticked boxes in the cycle**, each re-verified independently at rest by the run rather than accepted on the build''s say-so (`package-lint --expect-version 0.17.1` re-run: A/B/C/E PASS, D PASS). **build-5 (5) STILL-OPEN — the predicted 28 → 27 was measured EXACTLY (2 exempt, 27 in jurisdiction) but by the upgrade post-flight, NOT the `vlt-lint --full` sweep the check names**; graded honestly rather than discharged on an adjacent instrument, consistent with the identical call already made for build-3 (7). **build-5 (6) FAILED `[field-contingent, does NOT gate]` — the `write-verification.md` park was RE-SURFACED, not unparked** (*"STILL LIVE AND STILL UNRULED … the hot-fix moved exactly one file out of the population; it did not move the park"*), blocker intact for 27 files. ⚠ **PREMISE CORRECTION ON RECORD: the park''s blocker is the REFUSED PARTNER-SITTING READING and the unchanged `verified_by` roster (A14-7 / filing `2026-08-26-141418`), NEVER the charter-membership contradiction** — and the 0.17.0 post-flight said so hours BEFORE build-5 was briefed. **A live, real-time instance of [P-20] (the check adversary) — its FOURTH, and the first observed as it happened; added to P-20''s evidence table in the same commit.** No inbox filing drafted or owed: the signal is factory-side (a mis-written check, not a module defect) and routes to the platform ledger. Corroboration logged but grading nothing: the skill manifest moved **67 → 68** at 0.17.0 (`lint-cache.py`) and held **steady at 68** through the hot-fix — build-2''s verification step V6 confirmed in the field, but **no ledger item names the manifest**. **Cumulative: 36 checks in 6 items — 27 DISCHARGED · 3 FAILED · 5 STILL-OPEN · 1 SPLIT · 0 BLOCKED.** The two GATING FAILs are unchanged (build-1 (6), build-4 (1)); build-5 (6) does not gate. **Distance from closeout is unchanged in acts but ONE act now buys more: a single `vlt-lint --full` under 0.17.1 discharges THREE checks** (build-3 (7), build-4 (6), build-5 (5)), a second consecutive sweep discharges build-2 (8), the two parks'' unwind remains the human''s call, and then `cycle-closeout` must rule the two standing gating FAILs. **ACCEPTANCE DISCHARGE PASS 3 — 2026-08-31, over `{lint_reports}/2026-08-30-1123-lint.yaml`: the FIRST full `vlt-lint --full` sweep taken under 0.17.1, the sweep passes 1 and 2 both recorded as deferred.** 146 checked / 0 cached / 146 listed, cold by construction. **5 checks graded: 2 DISCHARGED · 2 BLOCKED · 1 STILL-OPEN**, plus one evidence refresh. **build-4 (6) DISCHARGED** — the 0% application rate is CURED on the named instrument: 10 `sources_vs_prose_mismatches`, **5 applied** and in the build''s own direction (frontmatter → prose, where the 08-27 baseline ran the reverse), 5 refused as over-reports with a per-page reason each, and the misrouted `unmarked_supersessions` entry **reclassified by the routing** to flag-only; ⚠ caveat filed — the report omits `fixes_applied:` entirely though `report.md:72` mandates it, so the check''s named location did not exist to look in. **build-5 (5) DISCHARGED and TICKED** — `para_missing_attestation` reads **27** on the sweep the check names, the two operational-record files (`projects/fantasy-2026/charter.md` + `record.md`) verified exempt at rest, and the two instruments now AGREE where at 0.17.0 they read 28 vs 27; ⚠ **but the check could not have failed** — the 08-27 sweep already read 27 under 0.16.2 before either carve-out shipped, so a failed repair would have read the same. **[P-20] instance #5, and the FIRST caught at grading time rather than after.** ⚠⚠ **build-3 (7) BLOCKED (unreachable), owner-ruled — `[ship-verifiable]`, so the cycle gains a THIRD GATING item.** Its bound event fired; the sweep rendered `para_missing_attestation` as a **27-file rollup string** where `report.md:32` mandates a per-file list, and **no shipped surface produces the `type:` distribution the check names** (`vlt-lint-full.js:812-814` returns the slot empty as *"a structural slot the SKILL fills"*). Its own fail conditions were UNTRIPPED — this is unreachability, not contradiction. **INHERITED Cycle 12 b3(7) BLOCKED, owner-ruled** — pass 1''s own third-run instruction came due; `[field-contingent]`, does NOT gate; **filed rather than carried a fourth time** (8 `{resources}` writes and four partner-session lanes since 0.17.1, and the legality question was never posed: the tail has a trigger but **no cause**). **build-2 (8) STILL-OPEN — sweep 1 of 2, and the WRITE LEG IS FIELD-CONFIRMED FOR THE FIRST TIME** since the cache shipped: `_agent/lint-cache.json` verified at rest, 156 KB, fingerprint `31f40c2cc90313a41dd3|bd6e1e211804a2011af`, 146 records — the half b2(5) never once achieved across Cycles 12 and 13. **build-1 (6) refreshed, grade UNCHANGED (FAILED, GATES)**: the sweep reads `malformed_frontmatter: []`, but the 8 genuine specimens were repaired inside the 08-27 sweep and ⚠ **the 2 REFUTED specimens vanished with no cause** on a corpus the report itself certifies unchanged (*"0 of 146 pages changed … scanner variance on an identical corpus"*) — **the specimen set is NOT REPRODUCIBLE**, E4 still transfers with `10 / 8 / 2`, and this is **[P-19]''s first field instance**. **THREE FILINGS FILED, all owner-confirmed:** `2026-08-31-104500` (the report shape is stated in `report.md` and enforced nowhere — three instances, one root cause; **the filing build-3 (7)''s BLOCKED rests on**, and Cycle 14''s own through-line arriving inside Cycle 14''s own instrument), `2026-08-31-104501` (the `stubSlugs` discovery regex requires a bare `## Stubs` heading, so an EMPTY stub list reached the workflow and manufactured 3 false `missing_targets` — ⚠ capture must ground the `file:line`), `2026-08-31-104502` (the no-cause check species; factory-side, cousin of [P-20]). **Cumulative: 36 checks in 6 items — 29 DISCHARGED · 3 FAILED · 1 STILL-OPEN · 1 SPLIT · 2 BLOCKED.** **The sweep bought two discharges and cost one blocker.** **THREE OWNER RULINGS RECORDED 2026-08-31, after the pass**, clearing the gate to a single item: **build-4 (1) RE-GRADED DISCHARGED** on its forward subject — v0.17.0 shipped 11:57 on 2026-08-27 and `2026-08-27-1104` was written at 11:04, so **`2026-08-30-1123` is the FIRST report ever written under the mandate and it PARSES** (all 7 archived reports re-parsed at rest; the lone failure `2026-08-24-1700` is pre-mandate and read-only by the check''s own terms); ⚠ **this ruling rests on a CONTESTED READING and is the one to reopen if closeout disagrees** — under the check''s literal population 1 of 7 still fails, and this ledger says two different things about who may narrow it (pass 1: *the successor build''s at brief time, not this run''s*; §Next lifecycle move: *the re-grade belongs to `acceptance-discharge`*), both quoted at the annotation. **build-3 (7) RE-GRADED DISCHARGED WITH CAVEAT** — the `type:` distribution was measured at rest this run (**29: `area` 22 · `project` 3 · `resource` 2 · `record` 1 · `charter` 1**, minus the 2 carved out = **27**, reproducing both the sweep''s 27 and the post-flight''s 29) and is derivable from the shape `report.md:32` ALREADY mandates; ⚠ an owner-ruled instrument substitution, **narrow precedent only** — it does not disturb the two substitution refusals this ledger already made. **build-1 (6) FAIL STANDS, carried as BOUND DEBT to Cycle 15, ship-verifiable so it GATES there** — not fixed in-cycle because the reproducibility problem is upstream of the counting problem; the bound is leg 3 alone on the first full sweep after the Cycle 15 release. **Tally after rulings: 36 checks — 31 DISCHARGED · 2 FAILED · 1 STILL-OPEN · 1 SPLIT · 1 BLOCKED.** ⚠⚠ **CYCLE 14 NOW HAS EXACTLY ONE GATING BLOCKER: build-3 (6), the two parks'' unwind** — (a) `extraction.md`, blocker resolved, needs a superseding decision-log entry + the legal response executed on ≥1 of 5 files, both owner acts available today; (b) `write-verification.md`, 27 files, blocker is the **refused partner-sitting reading and the unchanged `verified_by` roster** (NOT the charter contradiction v0.17.1 fixed), where **keep-the-hold with a stated exit condition is a legal disposition**. **NO filing was withdrawn and no defect ruled away** — the gate moved, the module did not; all four filings route to `inbox-capture` live. **⚠ PARK 1 RE-DERIVED 2026-08-31 — IT DOES NOT UNWIND, and a FIFTH FILING was written.** Re-derived against `extraction.md` v9 per the park''s own standing instruction: the ruling it waited on landed and **the re-derivation found the RULING defective.** `extraction.md:84` removes the `{wiki}` subtree from the PARA population **BY NAME**, so `resources/wiki/`''s **146 files carrying `type: wiki`** (module-canonical, non-PARA) are legal while `resources/briefs/`''s identically-shaped **8** are a finding forever — *"one carve-out by name"* (`contract:70`) is a **completeness-claiming list of ONE** that fell behind an addition, the module''s own lists-drift discipline failing inside its own convention. **And the rule INVERTS:** `:84` admits vault-declared overlay schema but forbids declaring **module** vocabulary, so a vault typing its briefs `dispatch-brief` is conformant today while `{field-vault}`, which used the module''s own accurate word `research`, is permanently not — **strictest against the vaults that use the vocabulary correctly.** Both stated legal responses require writing something false, and ⚠ **the vault already refused this exact move once in park 2 and `write-verification.md:55` v5 RATIFIED the refusal** (*"fusing permission to provenance is the write-path failure this exemption exists to prevent"*) — falsifying `type:` for `para_type_unknown` is the same act as falsifying `verified_by:` for `para_missing_attestation`. **Filed `2026-08-31-152000-para-type-carve-out-is-an-enumeration-of-one-and-penalizes-accurate-vocabulary.md`**; direction: **generalize the carve-out into a vault-declarable typed subtree** (both halves already ship — `module.yaml:45` declares `{wiki}` as a configurable path, and declare-at-birth declares types — the module has simply never let a vault say *this declared subtree carries this type*), which also makes the owner''s consistent-and-intentional position **enforceable**: the declaration is the intention, conformance to it the consistency, and it is a STRICTER check than today''s, not a looser one. Population refreshed **5 → 8** — the growth rate the park priced has fired once, on schedule. **Disposition: a superseding `parked-interim` against the NEW filing**, an owner act not yet written. ⚠⚠ **CONSEQUENCE: build-3 (6) is now expected to be graded FAILED and it GATES** — it requires both parks *re-derived AND unwound* plus the legal response executed, and park 1 is re-derived but deliberately not unwound. **Cycle 14 therefore closes on ONE honest gating FAIL rather than a clean gate** — the check fails because the module is wrong, which is what an acceptance check is for; retyping 8 files to a value the vault believes false to turn a gate green is the failure mode this cycle is named for. **⚠⚠ BUILD-6 WITHDRAWN 2026-09-01 — owner-ruled, before any code was written; all 6 checks STRUCK; nothing shipped and `extraction.md` stays at `version: 9`.** Superseded by `factory/inbox/2026-09-01-160000-supersession-…` — **the FIRST USE of P-15''s `supersession` class**, the retirement rail built 2026-08-25 and unused for a week while the thing it was built for happened again. **The friction behind park #15 is not a clause defect; it is `ST-2` (*location as proxy for trust*, `status: standing`)**: Cycle 12 retired that proxy for `author:` and `trust:` and left it standing for **`type:`**, and Cycle 14 **build-3 restated and strengthened it** six days after `ST-2` opened. Build-6 answered with a **new mechanism** plus a **minimal-scope ruling cutting out the `{wiki}` unification** — the half that makes it a category rather than an allowlist entry — which is `ST-2` RC2 exactly (*"the minimal patch [is] the rational move every time — which is exactly how a root cause survives four cycles"*). Filing `2026-08-31-152000` is **superseded too** and withdraws at capture. ⚠ **build-3 (6) reverts to an EXPECTED GATING FAIL** — park #15 cannot unwind under v9 without writing something false — so **Cycle 14 closes on ONE honest gating FAIL** and the retirement goes to **Cycle 15 ideation**, where P-15''s **obsolescence beat** is the beat built to receive it. Superseded ruling, retained: **BUILD-6, a hot-fix, NOT a carry to Cycle 15.** `git log -S` established the defect was shipped by **this cycle''s own build-3** (`e42429d`, v0.17.0) — **the second defect in the same `extraction.md:84` statement** after build-5 repaired the first — so build-5''s precedent governs and it is repaired in-cycle. **Scope owner-ruled MINIMAL** (the prohibition gains a **subtree qualifier**; unifying `{wiki}` is **OUT**, to Cycle 15). **BRIEFED** `briefs/build-6-declared-typed-subtree.md`, 6 checks appended (5 gating, 1 field-contingent), release **v0.17.2** cut alone, `extraction` **9→10** ruled a RULE CHANGE with 4 re-acks. ⚠ **build-3 (6) therefore becomes PASSABLE, not an expected FAIL** — under v10 park #15 can unwind by declaring the subtree, writing nothing false. ⚠ **build-6 check (4) carries a MANDATORY CONTROL** (a different non-PARA `type:` in the same subtree must still report) — **[P-20]''s question asked at brief time rather than discovered afterward, the first check in this cycle written that way.** ⚠ A correction is on record in the filing and memory: the direction is **LOOSER by one declared value per declared subtree**, not stricter — an earlier framing claimed a stray `type: wiki` under `{briefs}` is invisible today, and `checks.md:19` shows it is already flagged; what makes it safe is **scope**, not strictness. **⚠ PASS 4, 2026-09-01 — THE CACHE HIT. build-2 (8) DISCHARGED and its item TICKS at 8/8; NO STILL-OPEN CHECK REMAINS.** The second consecutive sweep (`{lint_reports}/2026-09-01-1406-lint.yaml`, run by a peer session and **re-verified here against the persisted report, not taken on relay**) read `files_cached: 141` / `files_checked: 5` / `cache_rejected: 0` under the **same fingerprint the 2026-08-30 sweep wrote** — *"WARM - the first warm run this vault has recorded"* — with the 5 rescans being exactly the 5 pages the prior sweep auto-fixed, as pass 3 predicted. **The findings cache shipped in Cycle 12, was refuted as b2(5) (*"has never once worked"*), was rebuilt as build-2, and is now observed working for the FIRST TIME IN THREE CYCLES.** Cost effect — the direct answer to the owner''s objection: scan-page agents **146 → 5**, prompt chars **591,152 → 20,294**, dispatches **172 → 31** (**96% off the scan phase**). ⚠⚠ **Large caveat, now its own filing: the run''s FIRST ATTEMPT WAS COLD AND WAS DISCARDED** — `full-scale.md` step 2 pins its two *digest* slots exactly and its two *component* slots not at all, `pin_vector` was read as a JSON array (workflow needs a string → slot missing → fingerprint composed EMPTY) and `convention_digests` as the 8 pinned conventions rather than all 9 in `{conventions}`. Only hand-debugging made it warm; **a vault following the shipped doc gets a permanently cold cache and a report that says nothing is wrong — which plausibly explains the three-cycle failure the check was written to end.** **Tally now 36 checks — 32 DISCHARGED · 2 FAILED · 0 STILL-OPEN · 1 SPLIT · 1 BLOCKED.** **FOUR FILINGS ADDED 2026-09-01:** `093000` (fingerprint **over-broad** — `module_version` forces a cold sweep every release), `140600` (fingerprint inputs **under-specified** — fails **silently**; different cause, different fix, may be briefed with `093000`), `140601` (same-page heading anchors reported as missing targets — 2nd consecutive sweep, cause diagnosed: `normalizeTarget` returns an empty string and reports it), `140602` (a scanner **substituted a proper noun** — `cornerboxes` for `cornerbacks` — and on its 2nd occurrence was **served from the CACHE**, so a scanner error is now permanent for the sidecar''s life and re-running cannot re-derive it). ⚠ Filing `104500` **corrected**: its instance (a) rollup recurred a 3rd time but (b)/(c) did NOT — the render is **intermittently** wrong, a stronger claim than consistently wrong. ⚠ **#15''s population moved 5 → 8 → 9 in three days** — the park''s scope is the `type:` not the count, so the ruling is unmoved, but the blast radius is compounding. **Next: park 2''s disposition (draft at `drafts/park-2-superseding-entry-DRAFT.md`), then build 6 → v0.17.2 → upgrade → park #15''s unwind → a SCOPED run for build-6 (4)/(5) → `acceptance-discharge` → `cycle-closeout`**; independently, a SECOND `vlt-lint --full` **taken BEFORE any release** discharges build-2 (8) (non-gating) and adds a second member to build-4 (1)''s thin post-mandate population.'
 module_code: 'vlt'
 created: '2026-08-26'
-updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 8 filings captured and graded; 1 deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound; **IDEATION COMPLETE — filled over four owner-steered rounds, every slot ruled: 4 builds, 2 releases, build-1 cut alone to reopen Cycle 13''s gate; ST-6 opened**; **ROUNDTABLE CONVENED + CONVERGED 2026-08-26 — full 13-voice roster, 32 amendments, 2 rules, 4 disputes ruled, 6 retirements, D5 confirmed**); **2026-08-27 — build-1 BRIEFED, BUILT @ `ceb5cb2` and RELEASED as v0.16.2 @ `bd985a6`, tag `v0.16.2` pushed to origin; 6/6 at-rest acceptance checks PASS incl. the Cycle 13 re-grade**; **2026-08-27 — build-2 BRIEFED + BUILT @ `d641050`; build-3 BRIEFED (`briefs/build-3-governance-handshake.md`) — re-ack figure SETTLED at 19, the in-prose pins given package-lint `E7`, `checks.md:17` ruled in scope, cite-not-restate ruled, E6 price measured at zero; 7 acceptance checks + Cycle 12''s inherited b3(7) appended to the ledger**; **2026-08-27 — build-4 BRIEFED (`briefs/build-4-lint-references.md`), the LAST build of the cycle: the `sources_vs_prose` direction routing single-homed at `checks.md:16`, `vlt-lint-full.js` added as a grounding addition (the scanner returns no direction) at an E6 price of MINUS 12 (`PAGE_SCAN` 3688 → 3676), no report serializer ruled and no `machine_tools` row owed, 6 acceptance checks appended; it is the RELEASE BUILD for release 2**; next: build 4, then `vlt-release`); **2026-08-27 — build 4 BUILT and RELEASE 2 SHIPPED as v0.17.0 @ `c02fe3d`, tag `b3c8646` pushed; all four builds shipped, cycle code-complete; next: `vlt-upgrade` for release-2 acceptance, then `acceptance-discharge`**; **2026-08-27 — ACCEPTANCE DISCHARGE RUN over both releases'' evidence: 30 checks graded 23 DISCHARGED / 2 FAILED / 4 STILL-OPEN / 1 SPLIT / 0 BLOCKED, all five ledger items still UNCHECKED, no filing archived, no new filing owed (the three from today already cover every contradiction); build-1''s specimen-set Half 2 FILLED at 146 pages; next: the owner''s post-0.17.0 `vlt-lint --full` sweeps + the two parks'' unwind, then `cycle-closeout` rules the two standing FAILs**); **2026-08-27 — ACCEPTANCE DISCHARGE PASS 2 over the 0.17.1 hot-fix upgrade: build-5''s six checks graded 4 DISCHARGED (ticked — the cycle''s first ticks) / 1 FAILED / 1 STILL-OPEN; build-3 (6) refreshed 28 → 27 with its grade unchanged; pass 1''s verdicts untouched; build-5 (6)''s FALSE PREMISE recorded and added to [P-20]''s evidence table as its fourth instance and first real-time one; no filing drafted; cumulative 27/3/5/1/0 across 36 checks; next: ONE `vlt-lint --full` on `{field-vault}` under 0.17.1 (discharges three checks at once), then a second consecutive sweep, the two parks'' unwind, then `cycle-closeout`**)'
+updated: '2026-08-26 (opened by inbox-capture; GitHub intake materialized 5 issues; 8 filings captured and graded; 1 deferred by owner ruling; Cycle 12''s six bounded tails ruled at the bound; **IDEATION COMPLETE — filled over four owner-steered rounds, every slot ruled: 4 builds, 2 releases, build-1 cut alone to reopen Cycle 13''s gate; ST-6 opened**; **ROUNDTABLE CONVENED + CONVERGED 2026-08-26 — full 13-voice roster, 32 amendments, 2 rules, 4 disputes ruled, 6 retirements, D5 confirmed**); **2026-08-27 — build-1 BRIEFED, BUILT @ `ceb5cb2` and RELEASED as v0.16.2 @ `bd985a6`, tag `v0.16.2` pushed to origin; 6/6 at-rest acceptance checks PASS incl. the Cycle 13 re-grade**; **2026-08-27 — build-2 BRIEFED + BUILT @ `d641050`; build-3 BRIEFED (`briefs/build-3-governance-handshake.md`) — re-ack figure SETTLED at 19, the in-prose pins given package-lint `E7`, `checks.md:17` ruled in scope, cite-not-restate ruled, E6 price measured at zero; 7 acceptance checks + Cycle 12''s inherited b3(7) appended to the ledger**; **2026-08-27 — build-4 BRIEFED (`briefs/build-4-lint-references.md`), the LAST build of the cycle: the `sources_vs_prose` direction routing single-homed at `checks.md:16`, `vlt-lint-full.js` added as a grounding addition (the scanner returns no direction) at an E6 price of MINUS 12 (`PAGE_SCAN` 3688 → 3676), no report serializer ruled and no `machine_tools` row owed, 6 acceptance checks appended; it is the RELEASE BUILD for release 2**; next: build 4, then `vlt-release`); **2026-08-27 — build 4 BUILT and RELEASE 2 SHIPPED as v0.17.0 @ `c02fe3d`, tag `b3c8646` pushed; all four builds shipped, cycle code-complete; next: `vlt-upgrade` for release-2 acceptance, then `acceptance-discharge`**; **2026-08-27 — ACCEPTANCE DISCHARGE RUN over both releases'' evidence: 30 checks graded 23 DISCHARGED / 2 FAILED / 4 STILL-OPEN / 1 SPLIT / 0 BLOCKED, all five ledger items still UNCHECKED, no filing archived, no new filing owed (the three from today already cover every contradiction); build-1''s specimen-set Half 2 FILLED at 146 pages; next: the owner''s post-0.17.0 `vlt-lint --full` sweeps + the two parks'' unwind, then `cycle-closeout` rules the two standing FAILs**); **2026-08-27 — ACCEPTANCE DISCHARGE PASS 2 over the 0.17.1 hot-fix upgrade: build-5''s six checks graded 4 DISCHARGED (ticked — the cycle''s first ticks) / 1 FAILED / 1 STILL-OPEN; build-3 (6) refreshed 28 → 27 with its grade unchanged; pass 1''s verdicts untouched; build-5 (6)''s FALSE PREMISE recorded and added to [P-20]''s evidence table as its fourth instance and first real-time one; no filing drafted; cumulative 27/3/5/1/0 across 36 checks; next: ONE `vlt-lint --full` on `{field-vault}` under 0.17.1 (discharges three checks at once), then a second consecutive sweep, the two parks'' unwind, then `cycle-closeout`**); **2026-08-31 — ACCEPTANCE DISCHARGE PASS 3 over the first full sweep under 0.17.1: 5 checks graded 2 DISCHARGED (build-4 (6); build-5 (5), ticked) / 2 BLOCKED (build-3 (7), **which GATES**, and the inherited Cycle 12 b3(7)) / 1 STILL-OPEN (build-2 (8), sweep 1 of 2, write leg field-confirmed); build-1 (6) refreshed with its grade unchanged and its specimen set shown NOT reproducible; 3 filings filed; cumulative 29/3/1/1/2 across 36 checks; **the gate grew from two gating items to three**; **then THREE OWNER RULINGS the same day cut it back to ONE** — build-4 (1) re-graded DISCHARGED on a contested reading, build-3 (7) re-graded DISCHARGED with a narrow substitution caveat, build-1 (6)''s FAIL carried as bound debt gating Cycle 15; tally 31/2/1/1/1; **the only gating blocker left is build-3 (6), the two parks**; next: the parks, then `cycle-closeout`, with a second sweep before any release**)'
 derives_from:
   - 'factory/inbox/2026-08-26-164500-reduce-guard-residue-rule-defeated-by-a-scanner-that-cites-its-rule.md'
   - 'factory/inbox/2026-08-26-164501-page-scanner-under-returns-outbound-links-and-manufactures-an-orphan.md'
@@ -2023,6 +2023,128 @@ ruleset change between still discharges build-2 (8). (ii) The two parks' unwind 
 unchanged and still the human's call. Then `cycle-closeout` must rule the **two standing gating
 FAILs**. **Cycle 14 still cannot close.**
 
+### Acceptance-discharge run — 2026-08-31, PASS 3 (the first full sweep under 0.17.1)
+
+*Third discharge pass, run after `{field-vault}` took its **first full `vlt-lint --full` sweep since
+any of the cycle's three releases** — the sweep passes 1 and 2 both recorded as deliberately deferred
+and priced as an outstanding cold run. Scope: the four checks bound to that sweep, plus the one
+inherited tail whose third-run tripwire came due. **Passes 1 and 2's verdicts are not re-graded**;
+where new evidence bears on a standing verdict it is recorded as an evidence refresh and the grade is
+stated unchanged.*
+
+**New evidence source** (read-only; `{field-vault}` was never written):
+`{lint_reports}/2026-08-30-1123-lint.yaml` — `mode: full`, `scope_since: full`, **146 checked / 0
+cached / 146 listed**, taken against `{field-vault}` at `module_version: 0.17.1`
+(`.claude/skills/vlt-setup/assets/module.yaml:4`). Cold by construction and correctly so: 0.17.1
+moved two convention digests. Corroborating vault reads at rest: `_agent/lint-cache.json`,
+`projects/fantasy-2026/{charter,record}.md`, `_agent/sessions/` 2026-08-28..2026-08-30,
+`resources/` mtimes since the upgrade. Baseline for every delta:
+`{lint_reports}/2026-08-27-1104-lint.yaml`, taken under **0.16.2**.
+
+⚠ **The corpus did not move between the two sweeps.** The report certifies it:
+`churn_since_last_full: '0 of 146 pages changed since 2026-08-27 … The wiki did not move between the
+two sweeps — every wiki-side delta below is scanner variance on an identical corpus, not vault
+change'`. That certification is load-bearing twice below.
+
+**Graded this pass: 5 checks. 2 DISCHARGED · 2 BLOCKED · 1 STILL-OPEN**, plus one evidence refresh
+that leaves its grade unchanged. **One box is ticked** (build-5 (5)); builds 1–4 and the inherited
+Cycle 12 b3(7) each remain one unchecked bundled item.
+
+| item | pass-3 action | outstanding |
+|---|---|---|
+| build-4 (6) | **DISCHARGED** — 0% application rate cured, 5 of 10 applied, in the routed direction | ⚠ caveat: the report omits `fixes_applied:` entirely (filed) |
+| build-5 (5) | **DISCHARGED + TICKED** — 27 measured on the named instrument, charter out | ⚠ caveat: the *transition* is unobservable on this instrument (P-20 #5) |
+| build-3 (7) | **BLOCKED (unreachable)** — owner-ruled; the named observable is produced by no shipped surface | routes to `inbox-capture`; **GATES** |
+| INHERITED Cycle 12 b3(7) | **BLOCKED (unreachable)** — owner-ruled; pass 1's own third-run instruction came due | routes to `inbox-capture`; does NOT gate |
+| build-2 (8) | **STILL-OPEN** — this is sweep **1 of 2**; the write leg is now field-confirmed | one second consecutive sweep, no release between |
+| build-1 (6) | evidence refresh, **grade unchanged (FAILED, GATES)** | the specimen set proved **not reproducible** — P-19 evidence |
+
+**Cumulative across three passes: 36 checks in 6 items — 29 DISCHARGED · 3 FAILED · 1 STILL-OPEN ·
+1 SPLIT · 2 BLOCKED.**
+
+**The gating picture changed, and not for the better.** Two gating FAILs stand unmoved (build-1 (6),
+build-4 (1)) and **build-3 (7) joins them as a gating BLOCKED** — so `cycle-closeout` must now rule
+**three** gating items, not two, plus build-3 (6)'s SPLIT (the two parks' unwind). The sweep bought
+two discharges and cost one blocker; that is the honest net.
+
+**Three filings drafted and filed this run**, all owner-confirmed:
+- `factory/inbox/2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`
+  — three instances, one root cause: `para_missing_attestation` rendered as a rollup where
+  `report.md:32` mandates a per-file list; `fixes_applied:` omitted though `:72` mandates it and five
+  fixes were applied; `backlog_filed:` omitted though a real instrument defect was found. **This is
+  the filing that build-3 (7)'s BLOCKED rests on**, and it is Cycle 14's own through-line arriving
+  inside Cycle 14's own instrument: a shape stated in one file and enforced in none.
+- `factory/inbox/2026-08-31-104501-stub-discovery-regex-drops-the-stub-list-and-manufactures-missing-targets.md`
+  — the SKILL builds `stubSlugs` with a regex requiring a bare `## Stubs` heading; `{field-vault}`'s
+  index reads `## Stubs (linked, not yet written)`, so an **empty** stub list reached the workflow and
+  three registered stubs were reported as missing targets. Caught and refused by the run, but only by
+  reading every entry against the index. ⚠ **Capture must ground the exact `file:line`** — this rests
+  on the sweep's own diagnosis plus the observable outcome, not on a located site.
+- `factory/inbox/2026-08-31-104502-resources-write-legality-check-has-no-cause-and-survived-three-runs.md`
+  — the inherited tail's BLOCKED, filed as **factory-side** signal about how acceptance checks are
+  written. A check dischargeable only by staging its own evidence has a trigger but **no cause**;
+  the brief vocabulary has no word for that species today. Cousin of platform **[P-20]**.
+
+**Two platform-side signals recorded, neither owed a module filing:**
+- **[P-20] instance #5** — build-5 (5) passed while structurally unable to fail. Detail at its
+  annotation.
+- **[P-19] (the acceptance corpus)** — build-1 (6)'s specimen set is **not reproducible**. Detail at
+  its refresh below.
+
+**Distance from closeout — one act shorter on the tails, one item longer on the gate.**
+(i) A **second** `vlt-lint --full` on `{field-vault}` with **no release, overlay edit or convention
+change between** discharges build-2 (8) `[non-gating]`. ⚠ Take it **before** any release: the
+stubSlugs repair the sweep asks for is factory-side and reaches the vault only through a release,
+and a release moves the ruleset fingerprint and forfeits the warm sweep. (ii) The two parks' unwind
+(build-3 (6)), unchanged and still the human's call. (iii) **New:** build-3 (7)'s BLOCKED needs
+either a module repair routed through `inbox-capture` (which would give the check a real trigger and
+let a future run grade it honestly) or an owner ruling at closeout. Then `cycle-closeout` rules the
+three gating items. **Cycle 14 still cannot close.**
+
+
+### Owner rulings — 2026-08-31, recorded after discharge pass 3
+
+*Three rulings taken on the pass-3 evidence, recorded here and annotated per item below. They clear
+the gate; they retire no filing. Every filing named in pass 3 routes to `inbox-capture` unchanged.*
+
+| item | was | now | rests on |
+|---|---|---|---|
+| **build-4 (1)** | FAILED, gates | **DISCHARGED** on the forward subject | new measurement **+ a contested reading** — see the ⚠ tension at its annotation |
+| **build-3 (7)** | BLOCKED, gates | **DISCHARGED with caveat** | an owner-ruled instrument substitution, narrow and reasoned |
+| **build-1 (6)** | FAILED, gates | **FAILED — carried as BOUND DEBT to Cycle 15, ship-verifiable so it GATES there** | the A4-4(5) / B8-2(4) / B10-2(5) mechanism |
+
+**Tally after the rulings: 36 checks in 6 items — 31 DISCHARGED · 2 FAILED · 1 STILL-OPEN · 1 SPLIT ·
+1 BLOCKED.**
+*(Pass 3 as first written mis-added its STILL-OPEN column as 2; it was 1 — build-2 (8) alone, pass 2's
+five tails minus the four pass 3 moved. Verdicts unaffected; corrected throughout.)*
+
+**build-4 is TICKED — 6/6, the first bundled item in this cycle to complete.** Its two filings
+(`2026-08-26-123144`, `2026-08-26-123153`) are archive-eligible and were **deliberately not moved**;
+see the note at the item. Builds 1, 2, 3 and the inherited Cycle 12 b3(7) stay unchecked.
+
+**⚠ Cycle 14 now has exactly ONE gating blocker: build-3 (6), the two parks' unwind.** Everything
+else that gated is ruled. The remaining FAIL (build-1 (6)) gates **Cycle 15**, not this one;
+build-5 (6) and the inherited Cycle 12 b3(7) are `[field-contingent]` and never gated; build-2 (8)
+is `[field-contingent]` and open on a live trigger.
+
+**The parks, restated once so closeout needs no re-derivation:**
+- **(a) `extraction.md`** — blocker RESOLVED; 5 files under `resources/briefs/**` across 3
+  subscriptions. Needs a superseding decision-log entry through the rostered write route **plus**
+  the vault executing `para_type_unknown`'s stated legal response (retype or relocate) on at least
+  one named file. Both are owner acts in `{field-vault}`, available today.
+- **(b) `write-verification.md`** — 27 files in jurisdiction. ⚠ The blocker is the **refused
+  partner-sitting reading and the unchanged `verified_by` roster**, **NOT** the charter-membership
+  contradiction, which v0.17.1 already fixed — a premise correction already on record at build-5 (6)
+  and [P-20]'s fourth instance. Widening the roster is a Cycle 15 build. **"Keep the hold, with a
+  stated exit condition" is a legal disposition**, not an evasion: the check asks for the park's
+  disposition, and a deliberate ruling to hold discharges it as honestly as an unwind.
+
+**What the rulings deliberately did NOT do.** No filing was withdrawn, no check was rewritten, and
+no defect was ruled away. Three of the four filings on the board
+(`2026-08-27-153000`, `2026-08-27-160000`, `2026-08-31-104500`) are the diagnoses *underneath* the
+items just discharged or carried, and all three go to capture live. **The gate moved; the module
+did not.**
+
 - [ ] **build-1 (structured-claim-return, briefed 2026-08-26):** brief
   `factory/cycles/14-no-enforcement-point/briefs/build-1-structured-claim-return.md`. **Eight checks
   — all `[ship-verifiable]`, all GATE; none field-contingent.** Release 1, cut alone; ⚠ **the first
@@ -2126,8 +2248,67 @@ FAILs**. **Cycle 14 still cannot close.**
   per-slug minimal fragments are not re-derivable — the same cap the 2026-08-24 baseline hit).
   ⚠ **E4 transfers to the retirement build with the number `10 / 8 genuine / 2 refuted at 146
   pages` — a 20% false-positive rate, NOT zero** (§Carried forward 5).
+  **⚠ EVIDENCE REFRESH 2026-08-31 (discharge pass 3) — the grade is UNCHANGED (still FAILED, still
+  GATES). The new sweep does not retire the FAIL, and what it does show is worse than the FAIL.**
+  `{lint_reports}/2026-08-30-1123-lint.yaml` reports **`malformed_frontmatter: []`** — an empty
+  population where the bound sweep three days earlier reported 10.
+  **Why zero does not discharge it.** The 8 genuine specimens were **repaired inside the 2026-08-27
+  sweep itself** (`fix_now.frontmatter_drift`: *"…the stray lines removed … all 146 pages parse
+  now"*). An empty list on a repaired corpus is the expected reading, not a re-run of the failed
+  check: the check's bound sweep has already happened and already failed, and a specimen-set check is
+  not retired by later finding no specimens.
+  ⚠ **What the sweep actually establishes: the specimen set is NOT REPRODUCIBLE.** The two **refuted**
+  specimens — `barbacoa` and `l-theanine`, the raw-YAML-line summary-length artefact that is the whole
+  of leg 3's failure — **did not reappear**. Nothing repaired them: filing `2026-08-27-160000` is
+  still un-captured, no build has touched the scanner, and the report certifies the corpus did not
+  move (`churn_since_last_full: '0 of 146 pages changed since 2026-08-27 … every wiki-side delta below
+  is scanner variance on an identical corpus, not vault change'`). **Identical corpus, identical
+  instrument, two specimens present and then absent.** The same run supplies a second instance in a
+  different slot: the scanner returned the slug `cornerboxes` for a link that reads
+  `…espn-top-10-cornerBACKS-2026`.
+  **Consequences, stated so neither is lost.** (i) The FAIL stands and still **GATES**; `cycle-closeout`
+  must rule it. (ii) **E4 still transfers with `10 / 8 genuine / 2 refuted at 146 pages`, not zero** —
+  and that number is now known to be a *sample*, not a measurement, which strengthens rather than
+  weakens the refusal to transfer zero. (iii) An owner **may** argue at closeout that the corpus is
+  now clean; this run does not make that argument, because a number that changes without a cause is
+  not evidence in either direction.
+  **Routed to platform [P-19] (the acceptance corpus)** as its first field instance: a check graded
+  against a live corpus produced two different answers on the same bytes three days apart, which is
+  exactly the reproducibility P-19 was opened for — and its cause is reproducibility, not cost, as
+  P-19's scope already insists. **No new inbox filing owed** — `2026-08-27-160000` covers the
+  measurement bug and the reproducibility signal is factory-side.
+  **⚠ RULED 2026-08-31 — the FAIL STANDS and is carried as BOUND DEBT to Cycle 15, ship-verifiable
+  so it GATES there. OWNER-RULED. It is no longer a Cycle 14 closeout blocker; it is Cycle 15's
+  gate.**
+  **The FAIL is not discharged, softened, or re-scoped.** Leg 3 failed on its bound sweep and stays
+  failed: 10 flagged / 8 genuine / **2 refuted**. **E4 transfers with `10 / 8 genuine / 2 refuted at
+  146 pages` — a 20% false-positive rate, NOT zero** (§Carried forward 5), and the pass-3 refresh
+  makes that refusal stronger rather than weaker: the specimen set is now known **not reproducible**,
+  so the number is a *sample*, not a measurement.
+  **Why it is not fixed inside Cycle 14.** The proximate cause is filed and small — the scanner
+  counts the raw YAML line instead of the parsed scalar
+  (`factory/inbox/2026-08-27-160000-summary-length-check-counts-the-raw-yaml-line.md`). Fixing the
+  counter would remove the two refutations **and still not yield a gradeable check**, because the
+  2026-08-30 sweep showed those same two specimens vanishing on a corpus the report itself certifies
+  unchanged, with no build having touched the scanner. A hot-fix here would buy a
+  differently-unreliable instrument, not a re-grade. **The reproducibility problem is upstream of the
+  counting problem**, and it is [P-19]'s, not a build's.
+  **The mechanism, chosen deliberately.** Bound debt tagged **ship-verifiable so it GATES** is the
+  only mechanism in this loop's history that has ever actually retired an inherited debt rather than
+  re-carrying it: **A4-4(5)** died after four arcs when B7-6 tagged it ship-verifiable (amendment A3
+  was the mechanism); **B8-2(4)** was tagged that way *preemptively* on the A4-4(5) lesson and went
+  GREEN on its bound at Cycle 9; **B10-2(5)/B10-12(6)** retired on its bound at Cycle 11 after three
+  cycles. Every debt this loop has killed died on a bound that gated. A released watch would put this
+  on the register with the tails that have sat for five cycles.
+  **The bound, stated so Cycle 15's closeout can grade it without re-deriving it:** the repair ships
+  in Cycle 15 and its re-check is graded on the **first full `vlt-lint --full` sweep after that
+  release**, against a corpus whose identity is recorded at grading time. Legs 1 and 2 are already
+  MET and emphatically so and are not re-litigated; **leg 3 alone is the bound** — every remaining
+  specimen adjudicated a genuine schema break, with the cardinality recorded and explicitly not the
+  check. ⚠ **If [P-19] (the acceptance corpus) has opened by then, this check is one of the first
+  that should declare which corpus it rests on** — it is the check that proved the need.
 
-- [ ] **build-2 (findings-cache, briefed 2026-08-27):** brief
+- [x] **build-2 (findings-cache, briefed 2026-08-27):** brief
   `factory/cycles/14-no-enforcement-point/briefs/build-2-findings-cache.md`. **Eight checks — seven
   `[ship-verifiable]`, all GATE; one `[field-contingent]`, which does NOT.** Release 2 (with builds
   3 and 4); ⚠ **the first full lint after release 2 is COLD by construction** (build-2 rewrites the
@@ -2222,6 +2403,77 @@ FAILs**. **Cycle 14 still cannot close.**
   `{field-vault}` — sweep 1 is cold by construction (A26) and sweep 2 is the slot A26 already
   schedules for `{field-vault}`'s owed COMPLETE sweep. **First-exercise, not pass-through:** no
   sweep of the discharging kind has run since release 2, so the tripwire does not fire.
+  **— ACCEPTANCE DISCHARGE 2026-08-31 (pass 3) — STILL-OPEN, and this is sweep 1 of the 2 it needs.
+  The write leg is field-confirmed for the FIRST TIME since the cache shipped.**
+  `{lint_reports}/2026-08-30-1123-lint.yaml` is the cold half of the pair, and it is cold for the
+  right reason and says so: `lint_cache: 'cold (no sidecar - lint-cache.py read returned
+  status: missing). scanned 146 / cached 0 of 146; this run''s fingerprint
+  31f40c2cc90313a41dd3|bd6e1e211804a2011af; cache_records_read 0, cache_rejected 0. Sidecar
+  rewritten from this run''s 146 cache_records'`. ⚠ **`cache_rejected: 0` on 0 records read is NOT
+  the check's `cache_rejected: 0`** — that clause is about a *reuse* attempt, and none was made.
+  **Verified at rest, not taken from the report:** `{field-vault}`'s `_agent/lint-cache.json` now
+  exists at 156 KB carrying `"fingerprint": "31f40c2cc90313a41dd3|bd6e1e211804a2011af"` and its
+  `records` array — the exact fingerprint the sweep names. The writer reached a live vault and left a
+  readable sidecar behind. That is the half **b2(5) never once achieved across Cycles 12 and 13**,
+  and it is now field-fact rather than at-rest fixture. **The reader has still never been exercised
+  in a vault**, which is the whole of what this check measures.
+  **Discharging event, unchanged:** a **second** `vlt-lint --full` on `{field-vault}` with no
+  release, overlay edit or convention change between it and the 2026-08-30 sweep, reporting
+  `files_cached > 0`, `cache_rejected: 0`, and the fingerprint it reused under. **Trigger:** the
+  owner, once more. **Two notes for whoever runs it, so the result is not misread:**
+  ⚠ (i) the 2026-08-30 sweep **wrote to five wiki pages** (prose `## Sources` sections — see
+  build-4 (6)), so their digests moved and they will re-scan: expect roughly `files_cached: 141` /
+  `files_checked: 5`, **not** 146. The check's bar is `> 0`, so partial reuse discharges it; a
+  reading of 146 would be the surprising one. ⚠ (ii) the sweep's own `false_positives_refused` asks
+  to *"fix the discovery regex before the next full sweep"* (filed `2026-08-31-104501`). **That
+  repair is factory-side and reaches `{field-vault}` only through a release, and a release moves the
+  ruleset fingerprint and forfeits the warm sweep.** Take sweep 2 first; the regex repair costs one
+  more cold run whenever it ships.
+  **First-exercise, not pass-through:** exactly one sweep of the discharging kind has run and it is
+  the pair's cold half by construction — the tripwire does not fire on a pair half-completed.
+  **— ACCEPTANCE DISCHARGE 2026-09-01 (pass 4) — DISCHARGED. The cache HIT in a vault. Every clause
+  met on the named instrument, and build-2's item TICKS at 8/8 — the second bundled item in this
+  cycle to complete.**
+  **Evidence:** `{lint_reports}/2026-09-01-1406-lint.yaml`, the **second** consecutive full sweep, run
+  by a peer session on the owner's behalf and **re-verified against the persisted report by this run
+  rather than taken on relay**. `files_checked: 5` · **`files_cached: 141`** · `files_listed: 146` ·
+  `coverage_caps: []`.
+  **The three clauses, each verified:** `files_cached > 0` — **141**. `cache_rejected: 0` — the
+  `lint_cache` line reads *"rejected 0 of 146 records read"*. **The fingerprint it reused under** —
+  `31f40c2cc90313a41dd3|bd6e1e211804a2011af`, **byte-identical to the one the 2026-08-30 sweep
+  recorded when it wrote the sidecar**. Ruleset unchanged between the two: both at 0.17.1, no release,
+  no overlay edit, no convention change. The line says it plainly: **"WARM - the first warm run this
+  vault has recorded."**
+  ⚠ **The pass-3 prediction was exact.** That annotation said *"expect roughly `files_cached: 141` /
+  `files_checked: 5`, not 146"*, because the 2026-08-30 sweep wrote five wiki pages after scanning
+  them. The five re-scans are precisely those five — `drake-maye`,
+  `fading-food-and-cue-reliability`, `nfl-2026-offense-rankings`, `shanahan-offensive-system`,
+  `throne-of-glass-series-overview`. **A partial reuse discharges the check; 146 would have been the
+  surprising reading.**
+  **This closes the longest-standing defect in the register.** The findings cache shipped in Cycle 12,
+  was refuted as **b2(5) FAILED — *"shipped and has never once worked"*** — and was rebuilt as Cycle 14
+  build-2 (A14-8). **This is the first time in three cycles the mechanism has been observed working on
+  a live vault.**
+  **Measured effect, from the two runs' own `cost_accounting` — the answer to the owner's cost
+  objection:** scan-page agents **146 → 5**, scan-page prompt chars **591,152 → 20,294**, total
+  dispatches **172 → 31**. A **96% reduction on the scan phase.**
+  ⚠⚠ **DISCHARGED WITH A CAVEAT THAT IS NOW ITS OWN FILING, AND THE CAVEAT IS LARGE.** The run's first
+  attempt **was COLD and was discarded.** `rulesetComponents` was built with `pin_vector` as a JSON
+  **array** (the workflow requires `typeof v === 'string'`, so the slot read as missing and the
+  fingerprint composed **empty**), and with only the **8** conventions named in the pin vector rather
+  than all **9** in `{conventions}` (`wiki-consolidation` is judged without being pinned). Both are
+  defensible readings of `full-scale.md` step 2, which specifies the two **digest** slots exactly
+  (instrument / merge order / encoding / truncation) and the two **component** slots not at all. Only
+  a hand-debugged re-render made the sweep warm.
+  **The check is discharged as written — it asks whether the cache hits in a vault, and it did, on the
+  named instrument, with every clause met.** But **the mechanism reached warm by operator debugging,
+  not by following the shipped documentation**, and a vault following that documentation gets a
+  permanently cold cache and a report that says nothing is wrong. ⚠ **This plausibly explains the
+  three-cycle failure the check was written to end** — it may never have been the writer that was
+  broken. **Filed
+  `factory/inbox/2026-09-01-140600-ruleset-fingerprint-inputs-are-under-specified-and-a-wrong-reading-is-silent.md`.**
+  The discharge stands; the filing goes to capture; **do not read the tick as evidence the cache works
+  for a vault that has not hand-debugged it.**
 
 - [ ] **build-3 (governance-handshake, briefed 2026-08-27):** brief
   `factory/cycles/14-no-enforcement-point/briefs/build-3-governance-handshake.md`. **Seven checks —
@@ -2371,6 +2623,50 @@ FAILs**. **Cycle 14 still cannot close.**
   ⚠ The blocker `2026-08-27-171000` named in tail (b) is now **fixed and shipped** (v0.17.1,
   build-5 (1) discharged) and is **no longer a blocker on resolving the park** — but resolving it was
   never gated on that filing alone, as build-5 (6)'s FAILED grade records at length.
+  **⚠ PARK 1 RE-DERIVED 2026-08-31 — IT DOES NOT UNWIND. The ruling it waited on landed and the
+  re-derivation surfaced a defect in the ruling. Filed
+  `factory/inbox/2026-08-31-152000-para-type-carve-out-is-an-enumeration-of-one-and-penalizes-accurate-vocabulary.md`.**
+  The re-derivation was performed against `extraction.md` **v9** as shipped in v0.17.1, per the park's
+  own standing instruction (*re-derive against the rules in force; do not execute the exit as
+  recorded*) — and the exit recorded at park time is **invalid**: it assumed the ruling would make
+  `type: research` legal at a `{resources}` address, and the ruling instead made it explicitly illegal
+  **while leaving an identically-shaped shelf legal by name**.
+  **The finding, in one line:** `extraction.md:84` removes the `{wiki}` subtree from the PARA
+  population **by name** — `{wiki}` resolves to `resources/wiki/`, holds **146 files carrying
+  `type: wiki`** (module-canonical, non-PARA), and is legal only because the rule contains its shelf's
+  name. `resources/briefs/` is the same shape and is a finding forever. **The carve-out is a
+  completeness-claiming list of one** — `vault-operating-contract.md:70` says *"one carve-out by
+  name"* — and it fell behind an addition, which is the exact failure the module's own
+  lists-that-claim-completeness-drift discipline names.
+  **And the rule inverts:** `:84` admits vault-declared overlay schema but forbids *"declaring module
+  vocabulary as vault-grown overlay schema"*, so a vault that types its briefs `dispatch-brief` is
+  conformant today and `{field-vault}`, which used the module's own accurate word `research`, is
+  permanently not. **The rule is strictest against vaults that use the vocabulary correctly.**
+  **Both stated legal responses require writing something false.** Retyping to `type: resource`
+  contradicts `extraction.md:28-30`'s own research-snapshot-vs-extracted-artifact distinction;
+  relocating to `{research}` reverses a logged `capability-change` and destroys per-subscription
+  containment. ⚠ **The vault already refused this exact move once and the module ratified the
+  refusal** — park 2 (#16) declined to stamp a rostered `verified_by` on a file that op did not write,
+  and `write-verification.md:55` v5 now reads *"fusing permission to provenance is the write-path
+  failure this exemption exists to prevent."* **Falsifying `type:` to satisfy `para_type_unknown` is
+  the same act as falsifying `verified_by:` to satisfy `para_missing_attestation`.**
+  **Disposition:** a **superseding `parked-interim` entry against the new filing**, replacing the hold
+  against #15 — a new park with a correct premise, not a continuation. ⚠ **That entry is an owner act
+  in `{field-vault}` and has NOT yet been written**; until it is, park 1 is live and unchanged in the
+  log, and the next `vlt-upgrade` will surface it again.
+  **Evidence refresh:** the population is **8 files across 3 subscriptions**, not 5 — the park
+  recorded 5 and the 2026-08-30 sweep re-measured 5; **three more were written 2026-08-31**. The
+  growth rate the park priced (*"one file per subscription per cadence"*) **has fired exactly once and
+  on schedule.** The producer is the vault-local `vlt-brief`, and under the filed direction its
+  current line becomes correct rather than something to change.
+  ⚠⚠ **CONSEQUENCE FOR THIS CHECK: (6) is now expected to FAIL, and it GATES.** The check requires
+  **both** parks *"re-derived against the rules in force **and unwound**"* plus `para_type_unknown`'s
+  legal response executed on at least one named file. Under this disposition the `extraction.md` half
+  is re-derived but **not** unwound and the response is **not** executed. **The honest outcome: the
+  check fails because the module is wrong, which is what an acceptance check is for.** The
+  alternative — retyping 8 files to a value the vault believes false in order to turn a gate green —
+  is the failure mode this cycle exists to name. **Not graded FAILED yet**: park 2's disposition and
+  the superseding entries are still outstanding, and (6) is graded once, whole, on the owner's acts.
   **(7) STILL-OPEN.** Its event has **not** occurred and is not a failure: the owner has
   deliberately deferred the first full sweep after release 2. **Discharging event:** the first
   `vlt-lint --full` sweep on `{field-vault}` after the 0.17.0 upgrade, reporting the `type:`
@@ -2381,8 +2677,96 @@ FAILs**. **Cycle 14 still cannot close.**
   ⚠ The 29-file `type:` distribution already measured at the post-flight is **not** this check — it
   is an upgrade-side count over a different population, not the sweep's `para_missing_attestation`
   entries with their responses adjudicated.
+  **— ACCEPTANCE DISCHARGE 2026-08-31 (pass 3) — ⚠ BLOCKED (unreachable). OWNER-RULED. The bound
+  event OCCURRED and the observable the check names is produced by NO SHIPPED SURFACE.**
+  `[ship-verifiable]`, so it **GATES** — this is the cycle's **third** gating blocker.
+  **The event fired.** `{lint_reports}/2026-08-30-1123-lint.yaml` is the first full `vlt-lint --full`
+  sweep on `{field-vault}` after release 2, taken at `module_version: 0.17.1`. There is no longer any
+  waiting to do.
+  **What the sweep rendered.** `flag_for_human.para_missing_attestation` carries **one string
+  standing in for 27 files**: *"27 PARA files carry a vault type: + author: agent|hybrid with no
+  attestation pair - ADJUDICATED [2026-08-26] parked-interim (ref: conventions/write-verification.md;
+  upstream filing #16, open). Count unchanged from the 2026-08-27 sweep. Disposed, not undisposed"*.
+  No `type:` distribution. No per-file entries. The 2026-08-27 sweep renders the identical rollup
+  form, so this is the standing behaviour and not a one-run slip.
+  **Why BLOCKED and not FAILED.** The check's own stated fail conditions are **untripped**: no entry
+  lacks a legal response (the whole population is disposed *adjudicated parked-interim*, which
+  `checks.md:17` allows), and no entry is rendered as a violation where the pre-adoption clause should
+  apply. Nothing here contradicts the check. What is absent is the **observable**: grounded against
+  shipped source at 0.17.1, `skills/vlt-lint/references/report.md:32` mandates
+  `para_missing_attestation: [<para-file: …>, ...]` — a per-file list — and **never a `type:`
+  distribution anywhere in `skills/`** (`grep -rn "distribution" skills/vlt-lint/` returns zero).
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js:812-814` returns the slot empty and comments
+  that it is *"a structural slot the SKILL fills"* — the workflow cannot produce it and the SKILL is
+  not asked to. **No amount of further sweeping produces this check's evidence**, which is the
+  rubric's definition of BLOCKED and the reason re-annotating STILL-OPEN is forbidden: waiting cannot
+  discharge it.
+  **The pass-through tripwire also fires**, independently and for the same conclusion: a sweep of the
+  discharging kind has now run and did not touch the surface under test.
+  **Filed** as
+  `factory/inbox/2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`
+  (instance (a) of three), ship-verifiable at rest — a repair is gradeable against a rendered report
+  with no field event. Once that repair ships, the check has a real trigger and a future discharge run
+  can grade it honestly, which is the whole point of routing an unreachable tail into capture rather
+  than carrying it.
+  ⚠ **This is Cycle 14's own through-line arriving inside Cycle 14's own instrument** — a rule stated
+  (`report.md`'s slot-by-slot shape), a place named responsible for it (the SKILL's Step 6 render),
+  and no enforcement point comparing the render to the rule. The cycle is titled for exactly this.
+  ⚠ **A second reading the owner may take at closeout, stated so it is not lost:** the check's
+  *substantive* question — does the amended jurisdiction rule reach the measured population with a
+  legal response available for every entry — is answered **yes** by this sweep, on the rollup's own
+  terms. What cannot be verified is the per-`type:` claim the check chose as its evidence. Closeout
+  may rule that sufficient. This run does not, because the check names its instrument and this is not
+  it — the identical call already made twice in this ledger (build-5 (5) pass 2, and the pass-1
+  refusal of the post-flight's 29-file count directly above).
+  **⚠ RE-GRADED 2026-08-31 — DISCHARGED WITH A CAVEAT ON RECORD. OWNER-RULED, on the second reading
+  this run's BLOCKED annotation set out immediately above. The gating blocker is cleared; the defect
+  is not.**
+  **What the ruling accepts.** The check's **substantive** question — *does the amended jurisdiction
+  rule reach the measured population, with a legal response available for every entry and
+  pre-adoption entries informational* — is answered **yes** by the 2026-08-30 sweep on the rollup's
+  own terms: all **27** entries are disposed *ADJUDICATED [2026-08-26] parked-interim*, which
+  `checks.md:17` permits, and no entry is rendered as a violation where the pre-adoption clause
+  should apply. Both of the check's stated fail conditions are untripped.
+  **And the `type:` distribution the check names is now measured — at rest, this run.** Computed
+  directly over `{field-vault}`'s PARA tree (files carrying a vault `type:` + `author: agent|hybrid`
+  with no `verified_by`/`verified_at` pair, outside `{wiki}`): **29 total —
+  `area` 22 · `project` 3 · `resource` 2 · `record` 1 · `charter` 1** — minus the two
+  operational-record files carved out (`projects/fantasy-2026/record.md`,
+  `projects/fantasy-2026/charter.md`) = **27 in jurisdiction.** This reproduces the 0.17.1
+  post-flight's distribution exactly, and it is the distribution A12 found unmeasured. **The number
+  the check was written to obtain now exists and is on the record.**
+  ⚠ **CAVEAT, and it is the whole reason this is not a clean discharge: the distribution was NOT
+  produced by the instrument the check names.** It was computed at rest by this discharge run, not
+  rendered by the sweep. That is the identical instrument substitution this ledger refused twice —
+  for build-5 (5) at pass 2, and in the pass-1 refusal of the post-flight's 29-file count. **The
+  refusals were right and are not disturbed.** This discharge rests on an explicit owner ruling that
+  the substitution is acceptable **here specifically**, for a reason the earlier two lacked: the
+  substituted computation is over **the same population the check names**, reproduces the sweep's own
+  27 and the post-flight's own 29, and is derivable from the shape `report.md:32` **already
+  mandates** — the per-file entry form is `<para-file: vault **type** + author agent|hybrid …>`, so a
+  correctly-rendered slot carries the type per entry and the distribution falls out of it. The
+  observable is not unobtainable; it is **unrendered**.
+  **The defect is NOT ruled away.** `factory/inbox/2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`
+  routes to `inbox-capture` unchanged, carrying all three instances. This ruling clears the gate; it
+  does not retire the filing, and a Cycle 15 repair that makes the slot render per `:32` is what
+  makes this check honestly gradeable next time. **A future ledger must not cite this ruling as
+  precedent for substituting instruments** — it is precedent only for the narrow case where the
+  substitute computes the check's own population and the shipped shape already mandates the missing
+  render.
 
-- [ ] **build-4 (lint-references, briefed 2026-08-27):** brief
+- [x] **build-4 (lint-references, briefed 2026-08-27):** brief
+  **— ITEM TICKED 2026-08-31.** With (1) re-graded and (6) discharged this run, **all 6 of build-4's
+  checks are DISCHARGED** — the first bundled item in this cycle to complete. ⚠ **It rests on the
+  contested build-4 (1) ruling**: reopening that un-ticks this item and restores one gating FAIL.
+  ⚠ **Its two filings are consequently archive-eligible and were deliberately NOT moved** —
+  `factory/inbox/2026-08-26-123144-reclassify-sources-vs-prose-mismatches-out-of-fix-now.md` (A14-4)
+  and `factory/inbox/2026-08-26-123153-lint-mandates-strict-yaml-persist-with-no-yaml-library.md`
+  (A14-5). The rubric archives a filing once all its ledger items are discharged, and both map to
+  build-4 alone. **Left in `factory/inbox/` as an owner call**, because archiving them now would have
+  to be reversed if closeout reopens (1), and because A14-5's filing is the parent of
+  `2026-08-27-153000`, which is **not** discharged and stays live regardless. `cycle-closeout`
+  Stage 5 is the natural place to take this.
   `factory/cycles/14-no-enforcement-point/briefs/build-4-lint-references.md`. **Six checks — all
   `[ship-verifiable]`, all GATE; none field-contingent.** ⚠ **THE RELEASE BUILD for release 2**
   (with builds 2 and 3) — it carries the dual version bump and the `--expect-version` gate that
@@ -2476,6 +2860,50 @@ FAILs**. **Cycle 14 still cannot close.**
   a successor check must measure reports emitted after v0.17.0, not retrofit a verdict onto ones
   emitted before it. That re-scoping is the successor build's to make at brief time, **not** this
   run's to apply retroactively.
+  **⚠ RE-GRADED 2026-08-31 — DISCHARGED on the check's forward subject. OWNER-RULED, over a recorded
+  tension in this ledger's own instructions. Read the tension before citing this discharge.**
+  **The new evidence, verified at rest this run.** `yaml.safe_load` over all **seven** archived
+  reports in read-only copies of `{field-vault}`'s `{lint_reports}`: `2026-08-23-1504` PASS ·
+  `2026-08-23-1739` PASS · **`2026-08-24-1700` FAIL** (*"mapping values are not allowed here"*, the
+  same bare unquoted scalar at `:102`) · `2026-08-25-1600` PASS · `2026-08-26-1046` PASS ·
+  `2026-08-27-1104` PASS · **`2026-08-30-1123` PASS**.
+  **The dating that matters.** v0.17.0 — the release carrying `report.md:3`'s restated persist
+  clause — shipped at **11:57 on 2026-08-27** (`{upgrade_reports}/2026-08-27-1157-upgrade.yaml`).
+  `2026-08-27-1104-lint.yaml` was written at **11:04, fifty-three minutes earlier**, so it is
+  pre-mandate like every report before it. **`2026-08-30-1123-lint.yaml` is the first report ever
+  written under the mandate, and it parses. Post-mandate population: 1 of 1.**
+  ⚠ **THE TENSION, STATED PLAINLY — under the check's LITERAL population this still reads FAIL.**
+  The check as written measures *"of the archived `.yaml` reports … 1 does not load"*. That archive
+  now holds **7** reports and **1 still does not load**. The discharge depends entirely on accepting
+  the forward-subject narrowing, and **this ledger has said two different things about who may make
+  it**: the pass-1 annotation immediately above reserves it — *"That re-scoping is the successor
+  build's to make at brief time, **not** this run's to apply retroactively"* — while §Next lifecycle
+  move routes it here — *"the re-grade belongs to `acceptance-discharge`."* **Both lines are in the
+  record and neither was written in ignorance of the other.**
+  **What the owner ruled, and the reasoning offered for it.** That grading a shipped emission
+  discipline against an artifact **rendered by the path the build replaced** measures history, not
+  the discipline; that `2026-08-24-1700-lint.yaml` is read-only by the check's own terms and can
+  never leave the archive, so under the literal population **this check can never pass at any point
+  in the future** — which is a check with no passing state, the exact species [P-20] exists to catch;
+  and that the narrowing is not invented here but was already written into the check's own
+  annotation on the day it failed.
+  ⚠ **What this discharge does NOT claim, and what a reader must not take from it.** **(i)** One
+  report is a population of one — the emission discipline is **not** proven at scale. The honest
+  reading is *"the first report written under the mandate parses"*. The second sweep (build-2 (8))
+  adds a second member and **should be read against this check too**. **(ii)** The 2026-08-27 ruling
+  *keep the honest FAIL, do not re-scope it to pass* is **not overturned** and still governs any
+  narrowing made to dodge a failure; this one is accepted because the check's forward subject went
+  from **empty** to non-empty, not because the bar moved. **(iii)** Filing
+  `factory/inbox/2026-08-27-153000-persisted-lint-report-is-not-machine-readable.md` is **NOT
+  withdrawn.** It diagnoses the **absence of an emission discipline**, which is still absent — the
+  render simply happened to be well-formed. It routes to `inbox-capture` unchanged, alongside its
+  cousin `2026-08-31-104500` (the shape is mandated at `report.md` and enforced nowhere), which is
+  the same gap seen from the other side. **The check is discharged; the defect it was written to
+  catch is open.**
+  ⚠ **If closeout disagrees, this is the item to reopen.** Of the three rulings recorded 2026-08-31,
+  this is the one resting on a contested reading rather than on new measurement alone — build-3 (7)'s
+  substitution and build-1 (6)'s bound debt do not depend on it. Reversing it restores one gating
+  FAIL and nothing else.
   **(6) STILL-OPEN.** Its event has **not** occurred and is not a failure: the owner has
   deliberately deferred the first full sweep after release 2. **Discharging event:** the first
   `vlt-lint --full` sweep on `{field-vault}` after the 0.17.0 upgrade, in which every
@@ -2488,6 +2916,60 @@ FAILs**. **Cycle 14 still cannot close.**
   release 2) already applied 6 of its `sources_vs_prose_mismatches` entries** — a 0-of-26 baseline
   moving off zero — but it ran under the **pre-build-4** routing and therefore cannot grade this
   check.
+  **— ACCEPTANCE DISCHARGE 2026-08-31 (pass 3) — DISCHARGED. The 0% application rate is CURED,
+  measured on the named instrument, and the routing cut the populations apart. ⚠ One caveat is on
+  record and is filed.**
+  **Bound event occurred:** `{lint_reports}/2026-08-30-1123-lint.yaml`, the first full sweep after
+  release 2, at `module_version: 0.17.1`, 146 pages, cold as expected.
+  **Leg 1 — every `fix_now` entry applied or its non-application recorded with its reason: MET.**
+  Ten `sources_vs_prose_mismatches` entries. **Five applied**, each naming the page and what was
+  written: `drake-maye` (the ESPN top-10-QB-2026 URL + a research-note wikilink),
+  `fading-food-and-cue-reliability` (the YouTube lure-fading demonstration),
+  `nfl-2026-offense-rankings` (the Schottenheimer research note), `shanahan-offensive-system` (a
+  `sources/articles/…` schematic-trend piece), `throne-of-glass-series-overview` (the
+  series-complete report). **Five refused, with a per-page reason for each** — `barbacoa` (the prose
+  delegates explicitly: *"see that note's Sources section for individual URLs"*),
+  `carbon-steel-seasoning` (all three Made In articles named descriptively, all three research notes
+  wikilinked), `obsidian-dataview` (`functions.md` cited as repo + path rather than URL),
+  `positionless-defense-nfl` (the War Room transcript IS in the prose section),
+  `nfl-2026-draft-first-round` (transcript present; the article cited indirectly via its research
+  note) — with the refusal restated in `false_positives_refused` as *"sources_vs_prose_mismatches:
+  5 of 10 refused"*.
+  ⚠ **The direction is the build's direction.** The 08-27 baseline moved entries **prose → frontmatter**
+  (*"6 pages: prose-only entries added to frontmatter sources:"*). This sweep moves them
+  **frontmatter → prose** (*"added … to the prose ## Sources section"*), which is the legal response
+  `checks.md:16` single-homes for this class. The routing build-4 shipped is doing the thing it was
+  built to do, on a live corpus, at 146-page scale.
+  **Leg 2 — no `sources_vs_prose_unresolved` entry auto-applied: MET.** Fourteen entries sit in
+  `flag_for_human.sources_vs_prose_unresolved`, none applied. The strongest evidence is the
+  fourteenth: the workflow returned `roast-chicken` under `unmarked_supersessions`, and the reduce
+  **reclassified it** — *"it is a prose-cites-what-frontmatter-lacks divergence
+  (diverge_frontmatter_gap), which is flag-only: deciding whether a prose mention is a contributing
+  source is a provenance judgment"* — and `false_positives_refused` records the reclassification
+  separately. A misrouted entry was caught **by the routing** and sent to the flag-only half. That is
+  the enforcement point A14-4 asked for, working on a real return.
+  **The stated fail condition is NOT tripped.** It reads: *a `fix_now` entry declined again for a
+  judgment reason means the routing did not cut the populations apart and the class belongs in
+  `flag_for_human` whole.* The five refusals are **refutations of over-reports**, not declines — each
+  was *"verified against each prose section before writing, not from the scanner's prose"*, and each
+  found the citation already traceable. The class was **not** declined whole for one recorded reason,
+  which is exactly what both baseline sweeps did. Five of ten applied is the cure; the remaining five
+  are a **scanner precision** problem (the scanner claims a divergence that is not one), not a
+  routing problem.
+  ⚠ **CAVEAT ON RECORD, AND FILED: the check's named location does not exist in this report.** The
+  check says *"is applied (**it appears in `fixes_applied:`**)"*. `{lint_reports}/2026-08-30-1123-lint.yaml`
+  has **no `fixes_applied:` key at all** — its top-level keys are `mode`, `scope_since`,
+  `files_checked`, `files_cached`, `files_listed`, `fix_now`, `flag_for_human`, `rulings_recorded`,
+  `coverage_caps`, `false_positives_refused`, `lint_cache`, `churn_since_last_full`,
+  `cost_accounting`. `report.md:72` mandates the key, and the **2026-08-27 report renders it
+  correctly**, so it was dropped between two renders of the same skill with no code change between.
+  The five applications are recorded inline in `fix_now.sources_vs_prose_mismatches` instead.
+  **Discharged on the substance, not the slot:** unlike build-5 (5) pass 2 and build-3 (7) — where the
+  evidence came from a *different instrument over a different population* — the fact here is **in the
+  named instrument**, in an adjacent slot of the same report. That distinction is why this discharges
+  and those do not; it is stated so the ledger's consistency is checkable rather than asserted.
+  **Filed** as instance (b) of
+  `factory/inbox/2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`.
 
 - [ ] **INHERITED — Cycle 12 b3(7) (re-read on release 2's acceptance run; recorded here by build-3's
   brief per roundtable A25):** `[field-contingent]` — **does NOT gate.** A partner resolving a
@@ -2521,6 +3003,42 @@ FAILs**. **Cycle 14 still cannot close.**
   which is exactly why it is tagged field-contingent and does not gate. **If it survives a THIRD
   discharge run unfired, that is no longer a waiting state and the honest reading is that nothing
   will ever cause it — re-grade it BLOCKED and file it then.**
+  **— ACCEPTANCE DISCHARGE 2026-08-31 (pass 3) — ⚠ BLOCKED (unreachable). OWNER-RULED. The third
+  discharge run has come due and the tail is unfired.** `[field-contingent]`, so it does **NOT**
+  gate — Cycle 14's closeout distance is unchanged by this grade.
+  **The condition the pass-1 annotation set, verbatim:** *"If it survives a THIRD discharge run
+  unfired, that is no longer a waiting state and the honest reading is that nothing will ever cause
+  it — re-grade it BLOCKED and file it then."* Pass 1 (2026-08-27) graded it STILL-OPEN; pass 2
+  (2026-08-27) left it untouched; this is the third run and it is still unfired. **The owner ruled
+  the instruction honored.**
+  **The event has still not occurred**, checked directly rather than assumed: no session record under
+  `{field-vault}`'s `_agent/sessions/` from 2026-08-28 through 2026-08-30 contains a `{resources}`-write
+  **legality question** (`grep -il "legality|write posture|escalat"` over that window returns
+  nothing).
+  **And ordinary activity of the surrounding kind HAS run, repeatedly, without reaching it.** Since
+  the 0.17.1 upgrade `{field-vault}` has taken at least **eight `{resources}` writes** — five wiki
+  pages rewritten by the 2026-08-30 sweep's own fixer, three brief issues written into
+  `resources/briefs/` on 2026-08-31 — across partner sessions spanning the misc, extract, lint and
+  groom lanes. The flow ran; the surface under test was never reached. That is the rubric's
+  pass-through proof, on the second axis.
+  **The finding, stated precisely.** Pass 1 was right that the event is *reachable*: the owner can
+  open a partner session and pose the question at any time. It needs no **trigger** — it needs a
+  **cause**, and nothing in a build, a release, an upgrade, or four days of ordinary vault use
+  supplies one. The item concedes this itself, tagging the unbounded species at
+  `brief-anatomy.md:203-210`. A check dischargeable only by staging its own evidence is not observing
+  the field; it is asking the field to pose for it. **Cycle 14's own ruling D3-as-amended turns on the
+  word *ordinary*** — a bound is *at rest, at the release gate, or on the next **ordinary** upgrade*.
+  This check has no bound of any of those kinds **and** no ordinary occasion, and the brief vocabulary
+  has no name for that species today.
+  **Filed** as
+  `factory/inbox/2026-08-31-104502-resources-write-legality-check-has-no-cause-and-survived-three-runs.md`
+  — **factory-side signal** about how acceptance checks are written, not a module defect, cousin of
+  platform **[P-20]**. Its candidate directions: name the third species in the brief vocabulary and
+  forbid it; re-express the underlying question **at rest** against the bundle (which is gradeable and
+  needs no partner to volunteer); or retire it, since its substantive premise — both blocking rulings
+  shipped, the bundle no longer waiting on itself — is satisfied.
+  **This ends the carry.** The tail does not go to `cycle-closeout` as a fifth carry-forward; it goes
+  to `inbox-capture` as material.
 
 ### Build-5 (charter-membership-repair, briefed + built 2026-08-27) — the hot-fix's ledger
 
@@ -2582,7 +3100,7 @@ build's own say-so — and each is annotated with the re-verification below.
   package-lint (exit 0), and a direct read confirms `vlt-lint-full.js:684` now recites
   **`write-verification@5`** while `:11`'s `// depends_on:` header pins the same version; `:682`
   recites `frontmatter@14`, which did not move. No `@4`/`@8` token survives anywhere in the body.
-- [ ] **build-5 (5):** `[field-contingent]` — **does NOT gate.** On `{field-vault}`, after the
+- [x] **build-5 (5):** `[field-contingent]` — **does NOT gate.** On `{field-vault}`, after the
   v0.17.1 upgrade, the next full `vlt-lint` sweep reports the `charter` file **out** of
   `para_missing_attestation` jurisdiction: the unattested Layer-3 count outside `{wiki}` in
   jurisdiction falls **28 → 27**, both the `record` and the `charter` file exempted. **Event:** the
@@ -2622,6 +3140,35 @@ build's own say-so — and each is annotated with the re-verification below.
   **First-exercise, not pass-through:** no sweep of the discharging kind has run since **any** of the
   three releases — `{lint_reports}` ends at `2026-08-27-1104-lint.yaml`, taken under 0.16.2 — so the
   tripwire does not fire.
+  **— ACCEPTANCE DISCHARGE 2026-08-31 (pass 3) — DISCHARGED and TICKED. The named instrument ran and
+  reads 27. ⚠ A caveat that must not be lost: this check could not have failed.**
+  **Bound event occurred:** `{lint_reports}/2026-08-30-1123-lint.yaml` — a full `vlt-lint` sweep on
+  `{field-vault}` under **0.17.1**, the exact instrument the check names and the one pass 2 refused to
+  substitute for.
+  **Both clauses hold on that instrument.** `flag_for_human.para_missing_attestation` reads **27** —
+  the check's target number. No `type: charter` file appears in the population. Verified at rest
+  rather than inferred: `{field-vault}` holds exactly **two** Layer-3 operational-record files,
+  `projects/fantasy-2026/charter.md` (`type: charter`, `author: hybrid`, `created: 2026-08-23`) and
+  `projects/fantasy-2026/record.md` (`type: record`, `author: hybrid`, same date), both unattested;
+  27 in jurisdiction + those 2 exempt = the **29** the 0.17.1 post-flight counted. The two instruments
+  now **agree**, where at 0.17.0 they disagreed (post-flight 28 vs sweep 27).
+  ⚠ **CAVEAT — the TRANSITION the check names is not observable on the instrument it names, and the
+  check would have read the same on a failed repair.** The check says the count *"falls **28 → 27**"*.
+  On this instrument it did not fall: **the 2026-08-27 sweep — taken under 0.16.2, before either
+  carve-out shipped — already read 27**, and says so itself (*"Count unchanged from the 2026-08-27
+  sweep"*). The sweep's container-sited carve-out had **always** excluded both
+  `projects/fantasy-2026/` files; the 28 was the post-flight's different population, computed a
+  different way. So the sweep would have reported 27 whether or not build-5's repair worked. The
+  endpoint is right, the two instruments now agree, and the property genuinely holds — but the check
+  had **no state in which it could have reported failure**.
+  **Recorded as [P-20] instance #5** — the check adversary: *name the property the check protects,
+  then construct a state where the check PASSES and the property is VIOLATED.* Here the construction
+  is trivial and real: the pre-repair vault. Added to P-20's evidence table. **No inbox filing is
+  owed** — the module behaved correctly and the repair worked; the defect is in the check's choice of
+  observable, which is factory-side and routes to the platform ledger.
+  **Ticked on the check as written**, per the rubric's grade-the-check-as-written rule and the
+  precedent build-3 (4) set in this same cycle — with the caveat above on record so a reader cannot
+  mistake this tick for proof the repair was measured working.
 - [ ] **build-5 (6):** `[field-contingent]` — **does NOT gate.** `{field-vault}`'s
   `write-verification.md` park resolves **fully** on the 0.17.1 upgrade — the *partial* resolution
   recorded on the 2026-08-27 discharge run (build-3 (6)) was blocked by exactly this contradiction.
@@ -2821,7 +3368,292 @@ above the guard built to supersede it.
 **OPEN DISPUTES: none.** All four were owner-ruled live; two dissents are on record and one is
 carried as a live item.
 
+
+### Build-6 (declared-typed-subtree, briefed 2026-09-01) — ⚠ WITHDRAWN 2026-09-01, ALL 6 CHECKS STRUCK
+
+⚠ **The build was withdrawn before any code was written, owner-ruled, and its six checks are STRUCK —
+they gate nothing and are not counted in any tally.** Superseded by
+`factory/inbox/2026-09-01-160000-supersession-the-para-type-enum-is-locations-last-proxy-for-trust.md`,
+the first use of P-15's `supersession` class.
+
+**Why, in one line:** the build asked for a **new mechanism** where the honest ask was a
+**retirement** — and its own minimal-scope ruling cut out the `{wiki}` unification, the half that
+would have made it a category rather than an allowlist entry. That is `ST-2`'s RC2 reproduced inside
+Cycle 14: *"the minimal patch [is] the rational move every time — which is exactly how a root cause
+survives four cycles."* `ST-2` is `status: standing`; Cycle 12 retired the location proxy for
+`author:` and `trust:` and left it standing for `type:`; **Cycle 14 build-3 (`e42429d`) then restated
+and strengthened it.**
+
+**Nothing shipped.** No commit, no version bump, no handshake — `extraction.md` stays at `version: 9`
+and `vault-operating-contract.md` is untouched. **The checks below are retained struck, not deleted**,
+so the record shows what was asked and withdrawn rather than showing nothing at all.
+
+⚠ **One check is worth carrying forward to whatever build the supersession produces:** the struck
+check (4) required a **mandatory control** — a different non-PARA `type:` in the same subtree must
+still report — because a check that only watches findings disappear cannot tell a working declaration
+from a disabled net. That is [P-20]'s question answered at brief time, and it survives the
+withdrawal as a design requirement even though the build does not.
+
+
+*Appended by build-6's brief (`briefs/build-6-declared-typed-subtree.md`). Owner-ruled hot-fix over
+`factory/inbox/2026-08-31-152000-…`, a defect shipped by this cycle's own **build-3** (`e42429d`,
+v0.17.0) — **the second defect in the same `extraction.md:84` statement**, after build-5 repaired the
+first. Checks (1)–(5) are `[ship-verifiable]` and **GATE** per D3-as-amended; (6) is
+`[field-contingent]` and does not. Scope owner-ruled **MINIMAL**: the module-vocabulary prohibition
+gains a subtree qualifier; unifying `{wiki}` into the mechanism is **OUT** and goes to Cycle 15.*
+
+- [~] ~~**build-6 (1):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[ship-verifiable — GATES]` Both prohibition sites carry the subtree qualifier
+  and state the scoping **in words** — `extraction.md:84` and `vlt-lint/references/checks.md:19`.
+  **Instrument:** `grep -rn "never to declare module vocabulary\|never overlay-declare module vocabulary" skills/`
+  returning both sites, plus a read of each. **It can fail:** one site qualified and the other not —
+  which would reproduce the two-memberships defect build-5 just fixed, in the same file. **Seam:**
+  module source agreement across two files.
+- [~] ~~**build-6 (2):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[ship-verifiable — GATES]` The declaration's mechanics are stated in
+  `extraction.md` and **nowhere else**; `checks.md:19` cites without restating (it already says the
+  set is *"defined in `extraction.md` … which is its single home; named here for the reader only"*).
+  **It can fail:** a second statement of the declaration's shape anywhere in `skills/`. **Seam:**
+  single-home discipline.
+- [~] ~~**build-6 (3):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[ship-verifiable — GATES]` `extraction@10` **bipartite-consistent both
+  directions** across exactly **4** consumers (`vlt-extract`, `vlt-lint`, `vlt-track`, `vlt-query`),
+  and `uv run tools/package-lint.py --expect-version 0.17.2` exits **0** with both version strings
+  bumped and **E7 clean**. **Seam:** convention → consumer ack. **Evidence:** the handshake count +
+  the PASS summary line in the release commit.
+- [~] ~~**build-6 (4):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[ship-verifiable — GATES]` **bounded to a SCOPED `vlt-lint` run over the
+  declared subtree — NO full sweep.** With `{briefs}` declared, the 8 brief issues **leave
+  `para_type_unknown`** — **and a control file carrying a different non-PARA `type:` in the same
+  subtree still reports.** ⚠ **The control is MANDATORY and the check fails without it:** a check
+  that only watches findings disappear cannot tell a working declaration from a disabled net.
+  **This is [P-20]'s question asked at brief time rather than discovered afterward — the first check
+  in this cycle written that way.** **Event:** the owner declares `{briefs}` in
+  `{overlays}/extraction.overlay.md`, then runs a **scoped** `vlt-lint` covering `resources/briefs/`.
+  **Performer:** the owner.
+  ⚠⚠ **CORRECTED 2026-09-01 — this check was first bound to a full sweep and that was a COST ERROR.**
+  `checks.md:19` puts the `para_*` closing nets in **both modes**, and `vlt-lint/SKILL.md:41` defines
+  *"every PARA file"* as *"the PARA members of the scoped set in scoped mode."* The 146-agent fan-out
+  scans **`{wiki}`**; `resources/briefs/` is PARA, **outside** `{wiki}`. A scoped run exercises this
+  check exactly. ⚠ **The same error is on record twice already this cycle** — build-3 (7) and
+  build-5 (5) are both `para_*` checks that were bound to full sweeps they never needed. **Three
+  forced full sweeps, none of which the population required.**
+- [~] ~~**build-6 (5):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[ship-verifiable — GATES]` **bounded to the same scoped run.** The loosening
+  is **scoped**: a file carrying `type: research` at a PARA address **outside** any declared subtree
+  still reports `para_type_unknown`. **It can fail:** the declaration leaked to the whole population.
+  **Seam:** declaration scope → check population. Extend the scoped set to that control's address;
+  still no full sweep.
+- [~] ~~**build-6 (6):**~~ ⚠ **STRUCK — build WITHDRAWN 2026-09-01.** Original text: `[field-contingent]` — **does NOT gate.** Park **#15** unwinds: re-derived
+  against **v10** and resolved by a superseding decision-log entry, the vault executing a legal
+  response (**declare the subtree**) **without writing anything false**. ⚠ **This is the clause
+  build-3's check (6) has been structurally unable to reach.** Tagged field-contingent because
+  nothing in the build, release or upgrade causes an owner to write a log entry. ⚠ **Do NOT
+  pre-draft the unwind** — the v4 parked-interim rule requires re-derivation against the rules in
+  force **at unwind time**; a pre-authorized sequence is the failure that broke park #11.
+
 ## Next lifecycle move
+
+*(Restamped 2026-09-01 — `acceptance-discharge` pass 3 and its three rulings (2026-08-31), then
+park 1's re-derivation and the build-6 ruling (2026-09-01). Prior routing preserved below.)*
+
+**Tally: 36 checks in 6 items — 32 DISCHARGED · 2 FAILED · 0 STILL-OPEN · 1 SPLIT · 1 BLOCKED.**
+*(Updated 2026-09-01 pass 4 — build-2 (8) DISCHARGED. **No STILL-OPEN check remains in the cycle.**)*
+
+**⚠ THE CACHE HIT — the longest-standing defect in the register is closed.** The second consecutive
+sweep (`{lint_reports}/2026-09-01-1406-lint.yaml`, run by a peer session, **re-verified here against
+the persisted report**) read `files_cached: 141` / `files_checked: 5` / `cache_rejected: 0` under the
+**same fingerprint the 2026-08-30 sweep wrote** — *"WARM - the first warm run this vault has
+recorded."* The findings cache shipped in Cycle 12, was refuted as **b2(5) — "has never once
+worked"** — and rebuilt as Cycle 14 build-2. **First observed working in three cycles.**
+**Build-2's item TICKS at 8/8.** Cost effect, the direct answer to the owner's objection: scan-page
+agents **146 → 5**, prompt chars **591,152 → 20,294**, dispatches **172 → 31** — **96% off the scan
+phase.**
+⚠ **And the caveat is large enough to be its own filing:** the run's **first attempt was cold and was
+discarded** — `full-scale.md` step 2 specifies its two *digest* slots exactly and its two *component*
+slots not at all, and both were read defensibly and wrongly. Only hand-debugging made it warm.
+**This plausibly explains the three-cycle failure the check was written to end.**
+
+**Four filings added 2026-09-01** (one written before the sweep, three from it):
+`2026-09-01-093000` (the fingerprint is **over-broad** — `module_version` forces a cold sweep every
+release), `2026-09-01-140600` (the fingerprint's inputs are **under-specified** — a defensible reading
+fails **silently**; a different cause and a different fix from `093000`, and capture may brief them
+together), `2026-09-01-140601` (same-page heading anchors reported as missing targets — second
+consecutive sweep, cause now diagnosed), `2026-09-01-140602` (a scanner **substituted a proper noun**
+and, on the second occurrence, **served it from the cache** — a scanner error is now permanent for the
+life of the sidecar). ⚠ Filing `2026-08-31-104500` was **corrected**: instance (a) recurred, (b) and
+(c) did not — the render is **intermittently** wrong, which is a stronger claim than consistently
+wrong, not a weaker one.
+
+**⚠⚠ BUILD-6 WITHDRAWN 2026-09-01 — owner-ruled, before any code was written. All 6 checks STRUCK.**
+Superseded by
+`factory/inbox/2026-09-01-160000-supersession-the-para-type-enum-is-locations-last-proxy-for-trust.md`
+— **the first use of P-15's `supersession` class**, a rail built 2026-08-25 for exactly this and
+unused for a week while the thing it was built for happened again.
+
+**What the withdrawal is about.** The friction behind park #15 is not a defect in a clause; it is
+`ST-2` (*location as proxy for trust*, `status: standing`). Cycle 12 retired that proxy for `author:`
+and `trust:` and left it standing for **`type:`** — and Cycle 14 **build-3 (`e472429d`… `e42429d`)
+restated and strengthened it**, six days after `ST-2` opened. Build-6 answered that with a **new
+mechanism** and an explicit **minimal-scope ruling that cut out the `{wiki}` unification** — the half
+that makes it a category rather than an allowlist entry. `ST-2` RC2 names the trap precisely: *"the
+repo's own governance quality biases toward perimeter patches … the minimal patch [is] the rational
+move every time — which is exactly how a root cause survives four cycles."*
+
+⚠ **Nothing shipped.** No commit, no version bump, no handshake; `extraction.md` stays at `version:
+9`. The brief is **retained unbuilt as a worked negative** at
+`briefs/build-6-declared-typed-subtree.md` — its grounding is sound and reproduced in the filing;
+what was wrong is the **shape of the ask**.
+
+⚠ **Filing `2026-08-31-152000` is superseded too** and should be withdrawn at capture — it reported
+the same friction as a defect and proposed a carve-out. *"A filing that ends in a new carve-out has
+diagnosed the symptom"* (`inbox/README.md`).
+
+**Consequence for the cycle, stated plainly:** build-3 (6) reverts to an **expected gating FAIL** —
+park #15 does not unwind, because under v9 both of its legal responses require writing something
+false. **Cycle 14 closes on one honest gating FAIL**, and the structural retirement goes to **Cycle 15
+ideation**, where the roundtable's **obsolescence beat** (P-15's other half) is the beat built to
+receive it. That is the trade `ST-2` already priced: *"B fixes today's problem; C fixes the class."*
+
+*(Superseded, retained for the record — the ruling this replaces:)*
+**OWNER-RULED 2026-09-01: BUILD-6, a hot-fix, rather than carrying the defect to Cycle 15.**
+Park 1's re-derivation found the ruling it waited on defective — and `git log -S` established that
+**this cycle's own build-3 shipped it** (`e42429d`, v0.17.0), making this the **second** defect in the
+same `extraction.md:84` statement after build-5 repaired the first. The build-5 precedent therefore
+governs: repair it in-cycle. **Scope owner-ruled MINIMAL** to stay inside the cycle's debt-clearing
+ruling — the module-vocabulary prohibition gains a **subtree qualifier**; unifying `{wiki}` into the
+mechanism is **OUT** and goes to Cycle 15 ideation on the filing (which stays live).
+
+**Briefed:** `briefs/build-6-declared-typed-subtree.md`; 6 acceptance checks appended to the ledger
+above (5 gating, 1 field-contingent). **Release v0.17.2, cut alone.**
+
+~~**This changes build-3 (6)'s expected outcome from FAILED to PASSABLE.**~~ ⚠ **REVERSED by the
+withdrawal — build-3 (6) is again an expected gating FAIL.** The superseded reasoning: Under v10 park #15 has a
+legal response that requires writing nothing false — declare the subtree — so it can genuinely unwind
+and the cycle can close on a discharge rather than a deliberate gating FAIL. ⚠ **Expected, not
+assured:** (6) is graded once, whole, on the owner's acts, and both parks' entries are still
+unwritten.
+
+**Next lifecycle move: park 2's disposition, then `cycle-closeout` — and it closes on one honest
+gating FAIL, deliberately.**
+
+⚠ **Park #15 is NOT worked in this cycle.** Its retirement is
+`factory/inbox/2026-09-01-160000-supersession-…` and it goes to **Cycle 15 ideation**, where the
+roundtable's **obsolescence beat** — the half of P-15 that has never been exercised — is the beat
+built to receive a retirement. Working it here would be a fifth perimeter pass.
+
+1. **The parks (the move — both are owner acts, no build and no release).**
+   - ⚠ **(a) `extraction.md` — RE-DERIVED 2026-08-31; it does not unwind under v9, and BUILD-6 is
+     the answer.** It unwinds **after v0.17.2 ships**, by declaring `{briefs}` as a typed subtree —
+     a legal response that writes nothing false. ⚠ **Do NOT pre-draft that entry**: the v4
+     parked-interim rule requires re-derivation against the rules in force **at unwind time**, and a
+     pre-authorized sequence is the failure that broke park #11. The re-derivation record: The ruling it waited
+     on landed and the re-derivation found the ruling defective: `extraction.md:84` removes the
+     `{wiki}` subtree from the PARA population **by name**, so `resources/wiki/`'s **146 files
+     carrying `type: wiki`** are legal while `resources/briefs/`'s identically-shaped 8 are a finding
+     forever — *"one carve-out by name"* (`contract:70`) is a completeness-claiming list of one, and
+     it fell behind an addition. Both stated legal responses require writing something false, and the
+     vault **already refused this exact move once** in park 2, a refusal `write-verification.md:55`
+     v5 then ratified. **Filed
+     `factory/inbox/2026-08-31-152000-para-type-carve-out-is-an-enumeration-of-one-and-penalizes-accurate-vocabulary.md`.**
+     **The owner act is now a superseding `parked-interim` entry against the NEW filing** — a park
+     with a correct premise, replacing the hold against #15. Population refreshed **5 → 8**; the
+     growth rate the park priced has fired once, on schedule.
+   - **(b) `write-verification.md`** — 27 files in jurisdiction. ⚠ The blocker is the **refused
+     partner-sitting reading and the unchanged `verified_by` roster** — **NOT** the charter-membership
+     contradiction, which v0.17.1 already fixed. Widening the roster is a Cycle 15 build, so the
+     realistic disposition is **keep the hold with a stated exit condition**, which the check accepts:
+     it asks for the park's disposition, and a deliberate hold discharges it as honestly as an unwind.
+2. **Then `cycle-closeout` — build-3 (6) is now PASSABLE, not an expected FAIL** (build-6 gives park
+   #15 a legal response). The earlier reading, superseded, was: The check
+   requires both parks *"re-derived … **and unwound**"* plus the legal response executed on a named
+   file; under (a)'s disposition it is re-derived but not unwound and the response is not executed.
+   **That is the honest outcome — the check fails because the module is wrong, which is what an
+   acceptance check is for.** The alternative is retyping 8 files to a value the vault believes false
+   in order to turn a gate green, which is the failure mode this cycle is named for. So Cycle 14
+   closes on **one gating FAIL, deliberately** — the same posture already taken for build-4 (1) and
+   build-1 (6). Its carry-forward list, already determined:
+   - **build-1 (6)** — FAILED, **bound debt to Cycle 15, ship-verifiable so it GATES there.** Bound is
+     leg 3 alone, graded on the first full sweep after the Cycle 15 release, corpus identity recorded.
+   - **build-2 (8)**, **build-5 (6)**, **Cycle 12 b3(7)** — `[field-contingent]`, never gated.
+   - **Four filings to `inbox-capture`**: `2026-08-27-153000`, `2026-08-27-160000`,
+     `2026-08-31-104500`, `2026-08-31-104501`. ⚠ **None was withdrawn by the rulings** — three of them
+     are the diagnoses *underneath* items just discharged or carried. **The gate moved; the module did
+     not.** (`2026-08-31-104502` is factory-side, routing to the brief vocabulary.)
+3. **Independently, and worth doing before anything ships: a SECOND `vlt-lint --full`.** It discharges
+   build-2 (8) (non-gating) — the first exercise the cache reader has ever had — **and** it adds a
+   second member to build-4 (1)'s post-mandate population, which is currently **one report**. ⚠ **Take
+   it BEFORE any release**: a release moves the ruleset fingerprint and forfeits the warm sweep, and
+   the `stubSlugs` repair the sweep itself asks for **is** a release. Expect `files_cached ≈ 141` /
+   `files_checked ≈ 5`; the bar is `> 0`, not 146.
+4. **Cycle 13's acceptance re-run,** then its closeout — independent of all of the above; its gate is
+   open on build-1 check (2).
+
+⚠ **The ruling most likely to be revisited: build-4 (1).** It is the only one of the three resting on
+a contested reading rather than on new measurement alone — under the check's literal population 1 of
+7 archived reports still fails, and this roadmap says two different things about who may narrow the
+subject (both quoted at the annotation). **If closeout disagrees, reopening it restores one gating
+FAIL and touches nothing else** — build-3 (7)'s substitution and build-1 (6)'s bound debt do not
+depend on it.
+
+⚠ **`factory/CYCLE` reads `14-no-enforcement-point` and TWO cycles are open.** Hand-point it at
+`13-trusted-returns` before running either cycle-scoped skill against Cycle 13 and restore it
+immediately after. **Never headless while that is true** (A24).
+
+**Two platform-side signals from pass 3, neither owed a module filing:** **[P-20]** gains instance
+**#5** (build-5 (5) discharged while structurally unable to fail), and **[P-19]** gains its **first
+field instance** (build-1 (6)'s specimen set returned two different answers on the same bytes three
+days apart — the reason that check is carried as debt rather than hot-fixed).
+
+---
+
+**Historical — the routing that stood between pass 3 and the rulings (2026-08-31).**
+
+**ACCEPTANCE PASS 3 COMPLETE — 2 DISCHARGED, 2 BLOCKED, 1 STILL-OPEN, 1 refresh. Cumulative across
+three passes: 36 checks — 29 DISCHARGED · 3 FAILED · 1 STILL-OPEN · 1 SPLIT · 2 BLOCKED. Cycle 14
+CANNOT CLOSE, and the gate got one item longer, not shorter.**
+
+**Next lifecycle move: run `inbox-capture`** — three filings were filed this run and two of them are
+the only route by which a gating item can clear.
+
+1. **`inbox-capture` (the move).** Three new filings await capture, all owner-confirmed:
+   - `2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`
+     — ⚠ **the one that gates.** Build-3 (7) is graded **BLOCKED (unreachable)** because the sweep
+     renders `para_missing_attestation` as a rollup where `report.md:32` mandates a per-file list,
+     and no shipped surface produces the `type:` distribution the check names. `[ship-verifiable]`,
+     so it **GATES**. Only a repair (or an owner ruling at closeout) clears it; waiting cannot.
+   - `2026-08-31-104501-stub-discovery-regex-drops-the-stub-list-and-manufactures-missing-targets.md`
+     — ⚠ **capture must ground the exact `file:line`**; this rests on the sweep's own diagnosis.
+   - `2026-08-31-104502-resources-write-legality-check-has-no-cause-and-survived-three-runs.md`
+     — factory-side; the inherited Cycle 12 b3(7) tail, **BLOCKED and filed rather than carried a
+     fourth time**. Non-gating.
+2. ~~**A second `vlt-lint --full` on `{field-vault}`**~~ — **DONE 2026-09-01, and it DISCHARGED
+   build-2 (8).** ⚠ Retained note for the next release: a release moves `module_version`, which is a
+   fingerprint slot, so **the next full sweep after v0.17.2 is cold by construction.** The 2026-08-30 sweep
+   wrote the sidecar for the first time (`_agent/lint-cache.json`, fingerprint
+   `31f40c2cc90313a41dd3|bd6e1e211804a2011af`, 146 records — the write leg is field-confirmed at
+   last), so the reader can finally be exercised; but a release moves the ruleset fingerprint and
+   forfeits the warm sweep, and the stubSlugs repair above is a release. Expect
+   `files_cached ≈ 141` / `files_checked ≈ 5` — the 2026-08-30 run wrote five wiki pages — and note
+   the bar is `> 0`, not 146.
+3. **The two parks' unwind** (build-3 (6) SPLIT) — unchanged and still the human's call:
+   (a) `extraction.md`'s park needs a superseding decision-log entry through the rostered write
+   route; (b) `write-verification.md`'s park is intact for 27 files, its blocker the **refused
+   partner-sitting reading and the unchanged `verified_by` roster** — *not* the charter-membership
+   contradiction, which v0.17.1 already fixed.
+4. **Then `cycle-closeout`, which must rule THREE gating items** (was two): **build-1 (6)** FAILED
+   — and note the refresh, the specimen set is now known **not reproducible** on an unchanged
+   corpus; **build-4 (1)** FAILED, owner-ruled kept; **build-3 (7)** BLOCKED, new this run.
+5. **Cycle 13's acceptance re-run,** then its closeout — independent of all of the above; its gate
+   is open on build-1 check (2).
+
+⚠ **`factory/CYCLE` reads `14-no-enforcement-point` and TWO cycles are open.** Hand-point it at
+`13-trusted-returns` before running either cycle-scoped skill against Cycle 13 and restore it
+immediately after. **Never headless while that is true** (A24).
+
+**Two platform-side signals recorded this run, neither owed a module filing:** **[P-20]** gains
+instance **#5** (build-5 (5) discharged while structurally unable to fail — the pre-repair vault
+reads the same 27), and **[P-19]** gains its **first field instance** (build-1 (6)'s specimen set
+returned two different answers on the same bytes three days apart).
+
+---
+
+**Historical — the routing that stood before pass 3 (2026-08-27).**
 
 **ALL FOUR BUILDS SHIPPED — the cycle is code-complete. Two independent tracks remain, neither
 waiting on the other.**
