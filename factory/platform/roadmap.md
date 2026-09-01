@@ -1445,6 +1445,100 @@ addition; every currency question stays live), and the one-brief-if-both-open no
 
 
 
+### P-21 — per-item homes for platform items — **queued (blocked on [P-5])**
+
+*(Queued 2026-09-01 from the ledger-restructure brainstorm
+(`_output/brainstorming/brainstorm-p21-platform-ledger-restructure-2026-09-01/` — **gitignored**,
+so the reasoning is carried here rather than cited: two adversarial rounds, the first design
+withdrawn under rebuttal. That is the ST-4 root-cause-(d) pattern this ledger already wears a
+scar for — the analysis that lived only in `_output/` and reached the record as a symptom.)
+Routed here, not inbox: the fix site is `factory/` and `.claude/skills/` — `vlt-upgrade`
+delivers none of it. **Not the `P-21` named at the [P-3] fold note**, where A50's retirement
+count was considered under this number and folded into [P-3] instead; that number was never
+claimed, and this item claims it.)*
+
+**Brief-lite:**
+- **Intent:** the ledger is 2,065 lines / 19 items in one append-only file and is no longer
+  parseable by eye — but readability is the symptom. The defect is **addressability**. Of the
+  9 tracked `file:line` citations into this ledger, **6 resolve to the wrong text**; they sit in
+  **closed** cycle roadmaps and are unrepairable by rule, and every append rots more. Worse,
+  position-based citation carries **no integrity signal in either direction**: an anchor that
+  still resolves may cite text since amended — `12fa21f` inserted 11 lines at `:24` and revised
+  the WIP clause that `:33-37` cites, and every citation into it kept resolving, silently, to
+  changed text. Give each item a stable file whose **name** is its address, so citation stops
+  depending on offsets.
+  <br>*Measured 2026-09-01 at `e8b896e`:* contract 1–53 (3%), `## Active` 55–1175 (**54%**,
+  seven items, **all built-awaiting**), `## Queued` 1176–1447 (13%), `## Closed` 1448–2065 (30%).
+  Closed sits at the bottom and obstructs nothing — the reader's problem is Active, which is
+  large because built items never shed their design prose.
+- **Sites:** `factory/platform/roadmap.md` — **keep**, holding the channel contract, which
+  **stays revisable in place**; freezing it was proposed and **rejected** (it has taken four
+  in-place edits in three days, two of them line-count-changing). Below it, a pointer to
+  `items/` and a static six-row forwarding table for the dead anchors. New flat
+  `factory/platform/items/P-NN-<slug>.md`, one per item, **files never move**, **slug immutable
+  once minted**; YAML frontmatter `id / slug / title / opened / in_flight / built /
+  discharging_event / bound / closed / cited_by`, and **no `status:` field** — state derives
+  from which dates are present, so there is nothing to go stale against. Amendments append as
+  numbered dated subsections `#### P-NN.M — <date> — <title>`. Retire the hand-typed
+  `## Active (WIP …)` header outright (three hand edits on 2026-09-01 alone). Re-point the three
+  [P-3] structural readers: `.claude/skills/vlt-lifecycle.md:75` (the lane table reads
+  frontmatter, not `### P-N` headings under `## Active`/`## Queued`),
+  `.claude/skills/inbox-capture/SKILL.md:103` + `references/roadmap-synthesis.md:86` (the
+  `channel: platform` fork **creates a file** rather than appending under `## Queued`), and
+  `.claude/skills/cycle-closeout/references/closeout-checklist.md:90` (Stage 2b reads
+  `built:`/`closed:` dates across `items/` — already date-based, so the smallest of the three).
+  `CLAUDE.md:55` and `factory/method/README.md:14` need no edit. **No `items/README.md`** — the
+  contract is single-homed in this file and relocating it would itself be a single-home event.
+  <br>*Obligation on [P-11], which is queued-unbuilt:* its declared SCAN_FILES cover **this
+  ledger section-aware** (Active + Queued entries + the contract header). This item moves those
+  entries to `items/`, so whichever of the two builds second must re-point the other. Named
+  here so P-11 is not built against a shape that has moved — the [P-3] trap, which this item
+  is otherwise waiting on Cycle 15 to avoid.
+- **Verification:** **[P-5] runs first and its output is the baseline** — this item's central
+  check is a P-5 run before and after the migration with the diff triaged: the known permanent
+  reds unchanged, **no new unresolvable or content-diverged citation introduced**. A hand pass
+  is explicitly *not* sufficient; the instrument-free check is the failure this factory keeps
+  repeating ([P-13]'s cold exercise failed 4×; `b2(5)` shipped and never once worked across
+  three cycles because its check did not gate). Then at rest: every in-file `[P-N]` cross-link
+  (**29** at `e8b896e`, re-derive at migration time — the count moved twice in one day) resolves
+  to an existing file; each item's derived state matches the state its prose asserts; a `grep`
+  across `.claude/skills/` returns nothing still reading `## Active`/`## Queued`; and the three
+  re-pointed readers are **exercised, not merely edited**.
+- **Out of scope:** the channel contract itself (boundary, WIP 2, numbering, self-acceptance,
+  skill budget) — this is a container change, not a policy change; **freezing or otherwise
+  constraining edits to the contract** (proposed, argued, rejected — do not resurrect);
+  deleting closed items; repairing the 6 dead citations in closed roadmaps (impossible by rule
+  — forwarding only); the 9 further anchors in `_output/party-mode/` (**gitignored**, disposable,
+  no action — tracked-vs-ignored is the repairability line); **widening [P-5] to scan
+  `factory/platform/` as a citer surface** — the in-file cross-links are path resolution, which
+  [P-11]'s entry already claims section-aware over this ledger and which P-5's own out-of-scope
+  cedes to it, so the only genuinely uncovered anchor is `review-going-public-2026-08-24.md:487`,
+  already rotted and already unrepairable, and widening buys this item nothing; any new skill or
+  tool; renaming `roadmap.md` (it would break both surviving anchors, all 9 section-anchors,
+  `CLAUDE.md:55` and `factory/method/README.md:14` for a cosmetic gain).
+- **Done-when:** **[P-5] is built and its baseline recorded**, and Cycle 15's runs have
+  discharged [P-3] and [P-18] Tier A — this item's own self-acceptance needs the same three
+  Cycle 15 runs those discharges are bound to, and splitting first would leave one run
+  discharging two items whose effects cannot be told apart. Then: one real `lifecycle-status`
+  run reports the platform lane read from `items/` frontmatter, **and** one real `inbox-capture`
+  run with a `channel: platform` filing mints an item file rather than appending a section —
+  **both by a session that did not author this item.**
+
+**Note:** the pre-requisite pain reliever, if the file becomes unreadable before this item can
+run, is **shedding, not splitting**: a built-awaiting item drops its design prose to state +
+discharging event + bound. It attacks the measured cause, changes no coupling, risks no
+citation, and is forward-compatible with this item. *(An earlier draft argued waiting would
+shrink the file on its own; `e8b896e` grew `## Active` 862 → 1,121 lines the same day, because
+items enter Active as they are **built** and leave only as they **discharge**. The claim is
+withdrawn — the file grows until Cycle 15, then drops sharply.)*
+
+**Evidence for [P-5], gathered here:** these citations were counted wrong **four times in one
+session** — 18 (uncorroborated `wc -l`), 9 (right number, wrong cause), 9-tracked-of-18-total
+(correct), and a scope claim that P-5 covered all six citers, asserted by one session and
+verified by neither before it reached the owner (it covers 5 of 6). A brief arguing for
+citation-checking could not count or scope its own citations. P-5's entry undersells itself;
+these are its first confirmed live instances.
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**
