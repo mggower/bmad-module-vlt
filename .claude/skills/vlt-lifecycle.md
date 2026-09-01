@@ -8,8 +8,17 @@ skill's mechanics (single-home discipline: mechanics live in exactly one place).
 
 **The open cycle** is named by `factory/CYCLE` (one line, `NN-<slug>`, "none" between
 cycles); its artifacts live under `factory/cycles/<that>/` — `roadmap.md`, `briefs/`,
-`filings/`. A closed cycle's directory simply stops changing (archival is location, not
-a move). *(Cycles 1–10 were called arcs — `factory/method/cycles-were-arcs.md`.)*
+`filings/`, and `fixtures/` where a build's instrument needs frozen evidence. A closed cycle's
+directory simply stops changing (archival is location, not a move). *(Cycles 1–10 were called
+arcs — `factory/method/cycles-were-arcs.md`.)*
+
+**`fixtures/`** *(platform P-18 Tier A, 2026-09-01)* holds a specimen manifest **materialized and
+frozen** — created only when a build actually needs one, never speculatively, so a cycle with no
+corpus-shaped instrument simply has no such directory. Frozen is the whole point: an instrument
+built from the *fix's* shape passes because it was built to, which is how Cycle 12's findings
+cache shipped broken. A fixture here is real observed evidence, dated, not authored for the test.
+The manifest's shape is single-homed at `factory/inbox/README.md`; naming follows the filing it
+came from, and the fixture cites that filing so a reader can reach the observation behind it.
 
 ## The loop, with owners
 

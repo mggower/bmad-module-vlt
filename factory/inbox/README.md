@@ -18,6 +18,48 @@ is one dated markdown note (`YYYY-MM-DD-HHmmss-slug.md`) written by a partner or
    filing moves to the consuming cycle's `filings/` directory. The active inbox holds only
    **un-captured** filings.
 
+## The specimen manifest — a filing carries its evidence, not a count of it
+
+*(Platform P-18 Tier A, 2026-09-01. The cause is `ST-5`, *specimens have no owner* — read
+`factory/studies/ST-5-specimens-have-no-owner.md` for the derivation. **This section is the
+single home for the manifest's shape**; `acceptance-discharge` and `inbox-capture` point here.)*
+
+A filing that observed a **set** must carry the set. Today one routinely reports *"18 entries"*
+where 18 slugs were on screen, and the slugs are gone by the time anyone builds the check that
+should catch them — the Cycle 12 build-1 trace is **20 specimens observed → 2 filed → 2 captured
+→ 0 reaching the brief**, after which the briefer built a fixture from the shape of the fix and it
+passed at rest while the field failed twice.
+
+A filing whose evidence is a set carries a **specimen manifest**, with both parts:
+
+1. **The complete set** — every member, named. Not a sample, not the interesting ones. Where the
+   set is genuinely large, give the full set in a fenced block and say how it was obtained
+   (the report path and key it was read from), so a later reader can re-derive it.
+2. **The minimal triggering fragment** — the smallest quoted evidence that shows the defect
+   happening: the report lines, the frontmatter block, the exact returned value. Enough that
+   someone who cannot re-run the observation can still build an instrument from it.
+
+**A bare count where a set was observable is a defect in the filing**, and capture will try to
+recover the set (`inbox-capture`'s second grounding axis). Say so plainly when a set genuinely
+cannot be recovered — *"count only; the report did not persist the slugs"* is honest and useful;
+a silent count is neither.
+
+**Worked pair, both real, both on disk:**
+
+- **Conforms** — `factory/cycles/13-trusted-returns/filings/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md`
+  names all **6 of 6** specimens (`execution-to-judgment-shift`, `bistec-encebollado`,
+  `k-curve-career-divergence`, `kettl`, `llm-wiki-pattern`, `obsidian-bases`) and quotes the
+  triggering fragment from the report it read. It did this **unprompted**, before the rule existed.
+- **Does not** — `factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md`
+  observed **20** and named **2** (`acotar-world-building`, `katsuo-dashi`); the other 18 survive
+  only as the number 18. It is the negative control, and it is not a bad filing — it is a good
+  filing written before anyone owned its specimens.
+
+**A manifest is not a fixture, but it becomes one.** When a build's instrument needs the set,
+the manifest materializes as a tracked, frozen file under that cycle's `fixtures/` — the cycle
+directory's shape is single-homed in `.claude/skills/vlt-lifecycle.md`. Freezing is the point:
+a fixture built from the fix's shape passes because it was built to.
+
 ## When the filing is not a defect — `supersession`
 
 *(Platform P-15, 2026-08-25.)* Almost every filing here describes something that **broke**:

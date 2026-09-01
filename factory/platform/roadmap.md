@@ -52,7 +52,7 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-14, P-20, P-13 and P-3 are all BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-14, P-20, P-13, P-3 and P-18 Tier A are all BUILT-awaiting and consume no slot, per the contract header)
 
 *(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**, then **4 → 5** the same day when **[P-3] built**. *(The ruling below is unchanged by that: it was made on the ground that items with named discharging events and bounds are cheaper to read in place than to re-file, and P-3 arrives with three such events, each bound to a named Cycle 15 run. Revisit if the inventory grows without bounds, not merely if it grows.)* **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
@@ -758,6 +758,149 @@ prose), the missing visibility line (three closeouts), and now the missing retir
 Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
 slot.**
 
+### P-18 — specimen custody: give field observations a carrier — **open: BUILT 2026-09-01 (Tier A), awaiting self-acceptance (Cycle 15's capture; Tiers B and C remain queued behind their preconditions)**
+
+**Build record (2026-09-01), Tier A only — Tiers B and C are untouched and their preconditions
+stand.** Built immediately before Cycle 15's capture, deliberately: the discharging event is an
+`inbox-capture` run, Cycle 15's is the next one, and it will run over the largest inbox the loop
+has ever held (72 filings, nearly all written under the old count-only shape). That venue exists
+once.
+
+- **The manifest has a home and a shape.** `factory/inbox/README.md` gains **"The specimen
+  manifest — a filing carries its evidence, not a count of it"**, the single home: the complete
+  set (every member named, never a sample) plus the minimal triggering fragment, with *a bare
+  count where a set was observable is a defect in the filing*, and an explicit honest escape —
+  *"count only; the report did not persist the slugs"* — so the rule cannot be satisfied by
+  silence. Both worked controls are named there and both are real files on disk.
+- **The discharge stage stops consuming its own evidence.** `evidence-rubric.md`'s FAILED and
+  BLOCKED grades now require the drafted filing to carry a complete manifest, under a section
+  that says why here specifically: *you are standing at the moment of maximum evidence, and it is
+  the last one.* Guarded against the obvious mis-read — the standing *"don't go spelunking"*
+  instruction is preserved verbatim in force: **the manifest comes from the evidence already
+  opened to grade the item**, not from a new hunt.
+- **Capture gains the second grounding axis.** `grounding-methodology.md` resolves the tension
+  that made this gap invisible: *source is what a **claim** is checked against; a filing also
+  carries **observations**, and those are checked against the artifact they were observed in.*
+  Where a filing reports a count, dereference the evidence **it names** and recover the members;
+  where recovery fails, that failure is itself a grounded finding; and attrition (observed vs.
+  preserved) gets a line, because a brief is entitled to know its evidence is partial.
+- **`fixtures/` is a real convention.** Defined once, in the cycle directory's single home
+  (`vlt-lifecycle.md`): materialized only when a build needs it, never speculatively, holding
+  **real observed evidence frozen** — never content authored for the test.
+- **The retention figure lands where both numbers are known.** `build-brief`'s Exit gate emits
+  `specimens: <preserved>/<observed>` (or `n/a`) on the ledger bullet, and `brief-anatomy` §9
+  gains *"Build the instrument from the failure's shape, not the fix's."* It **gates nothing** by
+  design — *a low ratio is not a defect to hide; it is the honest warning that this build's
+  instrument rests on evidence it does not have.*
+
+**Verification at rest (2026-09-01) — red-then-green on the two controls the brief-lite named,
+both real filings, neither authored for this test.** GREEN: the 2026-08-26 attestation-misroute
+filing names **6 of 6** specimens and quotes its triggering fragment at
+`2026-08-25-1600-lint.yaml:241` — it conforms, and it did so **unprompted, before the rule
+existed**, which is the evidence that the shape is discoverable rather than imposed. RED: the
+2026-08-24 page-scanner filing states *"18 entries"*, *"2 entries"*, *"all 20"* and names **2** —
+it fails part 1, exactly as required. Single-home checked: the manifest's definition resolves to
+**one** file and every other site points at it; `fixtures/` likewise. package-lint A/B/C/E PASS ·
+factory-paths-check PASS (136 refs). No shipped surface touched.
+
+**Discharging event, and it has a live subject already waiting.** Done-when: *the next
+`acceptance-discharge` run grading a FAILED or BLOCKED item emits a complete specimen manifest
+with its filing, **or** an `inbox-capture` run recovers a specimen set from a count-only filing.*
+The RED control is **still in the active inbox** and names the artifact to dereference
+(`{lint_reports}/2026-08-24-1700-lint.yaml`), so Cycle 15's capture has a count-only filing with a
+recoverable set sitting in front of it. *Bound:* Cycle 15's capture. If that run recovers the 18,
+the item self-accepts; if it recovers nothing and says why, that is also the axis working and the
+owner rules whether it counts.
+
+⚠ **Tier C's precondition is now armed but NOT met.** It requires *Tier A producing one cycle of
+real manifests* — Tier A has shipped, and zero cycles have run under it. Tier C has **two**
+recorded instances waiting (Cycle 13's check (4), which fired, FAILED and gated nothing). Landing
+C8 before the manifests exist is the strict-era mistake this item already refuses; the earliest
+honest opening is after Cycle 15 closes.
+
+*(The brief-lite below is preserved verbatim as built-from.)*
+
+
+*(Filed 2026-08-26, from an owner problem-solving session on the acceptance gate's oscillation
+— session artifact at `_output/problem-solution-2026-08-26.md`, gitignored, provenance only.
+Routed here, not inbox: every site is a factory skill, `factory/inbox/README.md`, or closeout
+mechanics — `vlt-upgrade` delivers none of them. **Scoped deliberately to Tier A of the study's
+nine components**; the other two tiers are named in Out of scope with their preconditions, per
+P-6's form.)*
+
+**The cause it repairs — `ST-5`** (*specimens have no owner*; primary cause: no lifecycle stage
+owns field-specimen preservation, so verification instruments are built at the point of least
+evidence — from the shape of the fix rather than the shape of the failure). The direct evidence
+is the Cycle 12 build-1 trace: **20 specimens observed, 2 filed, 2 captured, 0 reaching the
+brief**, after which the briefer synthesized a fixture that passed at rest while the field failed
+twice. Read the study for the derivation, the six causes, the rejected alternatives and the
+falsifier. `ST-5` gates nothing — the scope ruling below is this item's, not the study's.
+
+**Brief-lite:**
+- **Intent:** make a field observation survive to the instrument that grades it. Today a filing
+  may report *"18 entries"* where 18 slugs were observed, capture grounds only against module
+  source (*"ground every filing claim against current module source"* — code, never corpora), and
+  `acceptance-discharge` holds complete specimens at the moment of maximum evidence while being
+  told *"Read only what the item names. Don't go spelunking."* The stage with the specimens has
+  no authority to use them; the stage that must build the instrument has none left to build from.
+- **Sites:** `factory/inbox/README.md` (filing shape gains a **specimen manifest** section — full
+  slug set plus the minimal triggering fragment; a bare count where a set was observable is a
+  defect in the filing) · `.claude/skills/acceptance-discharge/references/evidence-rubric.md`
+  (the FAILED and BLOCKED grades must emit a complete manifest with the filing they already
+  mandate) · `.claude/skills/inbox-capture/` (second grounding axis: where a filing carries a
+  count, dereference the named report and recover the set) · `factory/cycles/NN-<slug>/fixtures/`
+  established by convention so the manifest materializes as a tracked, frozen fixture · the
+  ledger gains a per-build **specimen retention** number.
+- **Verification:** at rest — the 2026-08-26 filing
+  (`…-attestation-misroute-survives-the-jurisdiction-narrowing.md`) already carries a complete
+  6/6 manifest unprompted and is the conformance fixture for the new filing shape; the
+  2026-08-24 filing (2/20) is the negative control that must fail it.
+- **Out of scope, named not omitted:**
+  - **Tier B — instrument provenance (`ST-5` C6/C7):** every check declares
+    `population-shaped`/`specimen-derived`/`synthetic` with synthetic requiring justification,
+    and carries negative controls in both directions. **Deferred because its substance was
+    already obtained by owner ruling** — Cycle 13's ideation ruled Q4 *"THE INSTRUMENT IS THE
+    REAL CORPUS AND IT GATES."* That is the ninth hand-applied brake in the series `ST-5`
+    documents, not a mechanism; open Tier B when a build with **no prior failure behind it**
+    reaches brief-time and reaches for a synthetic fixture unchallenged.
+  - **Tier C — gating honesty (`ST-5` C8/C9):** narrow closeout's non-gating clause to
+    *field-contingent **and not yet fired***, routing a fired-and-failed check to an owner
+    ruling; decay unfired checks on a date or run-count bound. **Precondition: Tier A must
+    first produce one cycle of real manifests** — landing C8 first would tighten gating on
+    checks that still could not be made good, which is the strict era rediscovered.
+  - **The in-cycle repair lane:** a shipped cycle staying open to capture for repairs of its own
+    acceptance failures. Touches release policy and ruling D3; `ST-5` records it as a live option
+    it does not recommend either way. **Owner call, not queued here.**
+  - **A specimen register (`factory/specimens/`, `SP-N`):** generated and **rejected** on the
+    study register's own accretion warning. The manifest lives inside the filing and is cited by
+    path — the root is *no owner*, not *no register*.
+- **Done-when (self-acceptance):** the next `acceptance-discharge` run grading a FAILED or
+  BLOCKED item emits a complete specimen manifest with its filing, **or** an `inbox-capture` run
+  recovers a specimen set from a count-only filing. Either exercises the changed surface on a
+  real lifecycle run.
+
+**Tier C — second real instance, 2026-08-27.** Cycle 13's acceptance check (4) **fired on
+2026-08-26, FAILED, and gated nothing**, passing straight through closeout's non-gating clause;
+it was re-graded DISCHARGED a day later on a repair that shipped in a *different cycle*. That is
+exactly the state Tier C's narrowing (*field-contingent **and not yet fired***) exists to catch:
+a fired-and-failed check is not a waiting check, and today nothing distinguishes them. Recorded
+as evidence for the tier, not acted on — **Tier C's precondition (Tier A producing one cycle of
+real manifests) is still unmet**, and landing C8 ahead of it is the strict-era mistake this item
+already refuses. *(Same run also recorded a MISSED bound on (4) — owner-ruled recorded-only at
+closeout, since the bound governed when the check was graded, not what it asserts.)*
+
+**Trigger near-miss recorded 2026-08-27 (Tier B).** Tier B's opening condition is *"a build with
+no prior failure behind it reaches brief-time and reaches for a synthetic fixture unchallenged."*
+Cycle 14 **build-3's brief reached for a synthetic fixture at its check (3)** — unavoidably:
+nothing executable implements `para_missing_attestation` (`vlt-lint-full.js` carries a structural
+slot only; the PARA scan is SKILL-side prose, so the check is an agent reading prose). **Tier B is
+NOT opened on it** — the reach was *challenged and recorded in the brief*, which is the opposite of
+the unchallenged case Tier B waits for, and A14-7 is a prior failure behind it. Recorded because the
+near-miss is evidence about **where the trigger actually sits**: the condition as written turns on
+*unchallenged*, and a briefer who names the reach honestly will keep clearing the bar while the
+underlying gap — a rule with no executable enforcement point — stays open. If a second challenged
+reach lands before an unchallenged one, the trigger's wording is the thing to revisit, not the tier.
+
 ---
 
 *(Superseded as a count — kept as the dated record of when the threshold was crossed and why the call was flagged. The **current** inventory and the ruling that settled it are in this section's header; today it is again five, P-15 having closed and **P-3** having built. Marked 2026-09-01 rather than rewritten: this ledger is append-only, and an uncorrected count sitting at the foot of a section is the [P-13] failure shape.)*
@@ -1095,88 +1238,6 @@ and 9 reads from four files — `factory/platform/roadmap.md` (this entry),
 `.claude/skills/vlt-release/references/choreography.md` — plus two confirmatory reads
 (`build-brief/references/brief-anatomy.md`, `tools/package-lint.py`). Its durable findings are
 the corrections already applied above and in `ST-4`; nothing else in it is load-bearing.
-
-### P-18 — specimen custody: give field observations a carrier — **queued**
-
-*(Filed 2026-08-26, from an owner problem-solving session on the acceptance gate's oscillation
-— session artifact at `_output/problem-solution-2026-08-26.md`, gitignored, provenance only.
-Routed here, not inbox: every site is a factory skill, `factory/inbox/README.md`, or closeout
-mechanics — `vlt-upgrade` delivers none of them. **Scoped deliberately to Tier A of the study's
-nine components**; the other two tiers are named in Out of scope with their preconditions, per
-P-6's form.)*
-
-**The cause it repairs — `ST-5`** (*specimens have no owner*; primary cause: no lifecycle stage
-owns field-specimen preservation, so verification instruments are built at the point of least
-evidence — from the shape of the fix rather than the shape of the failure). The direct evidence
-is the Cycle 12 build-1 trace: **20 specimens observed, 2 filed, 2 captured, 0 reaching the
-brief**, after which the briefer synthesized a fixture that passed at rest while the field failed
-twice. Read the study for the derivation, the six causes, the rejected alternatives and the
-falsifier. `ST-5` gates nothing — the scope ruling below is this item's, not the study's.
-
-**Brief-lite:**
-- **Intent:** make a field observation survive to the instrument that grades it. Today a filing
-  may report *"18 entries"* where 18 slugs were observed, capture grounds only against module
-  source (*"ground every filing claim against current module source"* — code, never corpora), and
-  `acceptance-discharge` holds complete specimens at the moment of maximum evidence while being
-  told *"Read only what the item names. Don't go spelunking."* The stage with the specimens has
-  no authority to use them; the stage that must build the instrument has none left to build from.
-- **Sites:** `factory/inbox/README.md` (filing shape gains a **specimen manifest** section — full
-  slug set plus the minimal triggering fragment; a bare count where a set was observable is a
-  defect in the filing) · `.claude/skills/acceptance-discharge/references/evidence-rubric.md`
-  (the FAILED and BLOCKED grades must emit a complete manifest with the filing they already
-  mandate) · `.claude/skills/inbox-capture/` (second grounding axis: where a filing carries a
-  count, dereference the named report and recover the set) · `factory/cycles/NN-<slug>/fixtures/`
-  established by convention so the manifest materializes as a tracked, frozen fixture · the
-  ledger gains a per-build **specimen retention** number.
-- **Verification:** at rest — the 2026-08-26 filing
-  (`…-attestation-misroute-survives-the-jurisdiction-narrowing.md`) already carries a complete
-  6/6 manifest unprompted and is the conformance fixture for the new filing shape; the
-  2026-08-24 filing (2/20) is the negative control that must fail it.
-- **Out of scope, named not omitted:**
-  - **Tier B — instrument provenance (`ST-5` C6/C7):** every check declares
-    `population-shaped`/`specimen-derived`/`synthetic` with synthetic requiring justification,
-    and carries negative controls in both directions. **Deferred because its substance was
-    already obtained by owner ruling** — Cycle 13's ideation ruled Q4 *"THE INSTRUMENT IS THE
-    REAL CORPUS AND IT GATES."* That is the ninth hand-applied brake in the series `ST-5`
-    documents, not a mechanism; open Tier B when a build with **no prior failure behind it**
-    reaches brief-time and reaches for a synthetic fixture unchallenged.
-  - **Tier C — gating honesty (`ST-5` C8/C9):** narrow closeout's non-gating clause to
-    *field-contingent **and not yet fired***, routing a fired-and-failed check to an owner
-    ruling; decay unfired checks on a date or run-count bound. **Precondition: Tier A must
-    first produce one cycle of real manifests** — landing C8 first would tighten gating on
-    checks that still could not be made good, which is the strict era rediscovered.
-  - **The in-cycle repair lane:** a shipped cycle staying open to capture for repairs of its own
-    acceptance failures. Touches release policy and ruling D3; `ST-5` records it as a live option
-    it does not recommend either way. **Owner call, not queued here.**
-  - **A specimen register (`factory/specimens/`, `SP-N`):** generated and **rejected** on the
-    study register's own accretion warning. The manifest lives inside the filing and is cited by
-    path — the root is *no owner*, not *no register*.
-- **Done-when (self-acceptance):** the next `acceptance-discharge` run grading a FAILED or
-  BLOCKED item emits a complete specimen manifest with its filing, **or** an `inbox-capture` run
-  recovers a specimen set from a count-only filing. Either exercises the changed surface on a
-  real lifecycle run.
-
-**Tier C — second real instance, 2026-08-27.** Cycle 13's acceptance check (4) **fired on
-2026-08-26, FAILED, and gated nothing**, passing straight through closeout's non-gating clause;
-it was re-graded DISCHARGED a day later on a repair that shipped in a *different cycle*. That is
-exactly the state Tier C's narrowing (*field-contingent **and not yet fired***) exists to catch:
-a fired-and-failed check is not a waiting check, and today nothing distinguishes them. Recorded
-as evidence for the tier, not acted on — **Tier C's precondition (Tier A producing one cycle of
-real manifests) is still unmet**, and landing C8 ahead of it is the strict-era mistake this item
-already refuses. *(Same run also recorded a MISSED bound on (4) — owner-ruled recorded-only at
-closeout, since the bound governed when the check was graded, not what it asserts.)*
-
-**Trigger near-miss recorded 2026-08-27 (Tier B).** Tier B's opening condition is *"a build with
-no prior failure behind it reaches brief-time and reaches for a synthetic fixture unchallenged."*
-Cycle 14 **build-3's brief reached for a synthetic fixture at its check (3)** — unavoidably:
-nothing executable implements `para_missing_attestation` (`vlt-lint-full.js` carries a structural
-slot only; the PARA scan is SKILL-side prose, so the check is an agent reading prose). **Tier B is
-NOT opened on it** — the reach was *challenged and recorded in the brief*, which is the opposite of
-the unchallenged case Tier B waits for, and A14-7 is a prior failure behind it. Recorded because the
-near-miss is evidence about **where the trigger actually sits**: the condition as written turns on
-*unchallenged*, and a briefer who names the reach honestly will keep clearing the bar while the
-underlying gap — a rule with no executable enforcement point — stays open. If a second challenged
-reach lands before an unchallenged one, the trigger's wording is the thing to revisit, not the tier.
 
 ### P-19 — the acceptance corpus: freeze it, and say which checks bind to it — **queued** *(amended 2026-09-01: sampling policy added; the sweep-cost out-of-scope premise refuted)*
 

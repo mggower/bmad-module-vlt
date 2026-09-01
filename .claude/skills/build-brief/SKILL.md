@@ -163,6 +163,16 @@ on disk. This is the load-bearing step this skill exists to make unforgettable.
   — single source, two homes: the brief states them, the ledger tracks them.
 - **Verify the append landed** (re-read the ledger and confirm the build-N bullet is present)
   before reporting complete. `ledger_appended: true` is earned by that re-read, never assumed.
+- **The bullet carries a specimen-retention figure** *(platform P-18 Tier A, 2026-09-01; cause
+  `ST-5`)* — `specimens: <preserved>/<observed>` where this build's filings observed a set, or
+  `specimens: n/a` where none did. `<observed>` is what the filings and their capture entries
+  say was seen; `<preserved>` is how many reach **this brief** — the fixture, the check, the
+  quoted fragment. Brief time is the only point in the loop where both numbers are known, which
+  is why the figure is authored here. It gates nothing and is not an acceptance check; it is the
+  attrition `ST-5` measures (the Cycle 12 build-1 trace read 20 → 2 → 2 → **0**), made visible at
+  the stage that would otherwise consume it silently. **A low ratio is not a defect to hide** —
+  it is the honest warning that this build's instrument rests on evidence it does not have, and a
+  reviewer is entitled to see it before the fixture gets built.
 - **R1/R4 present** — the brief carries the Interim-posture (R1) disposition and the
   Enumeration-widening (R4) statement (`references/brief-anatomy.md` §3 and §7), each either
   substantive or an explicit one-line `not applicable`. Absent → the brief is not complete.

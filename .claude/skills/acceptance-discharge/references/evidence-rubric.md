@@ -60,7 +60,8 @@ tail is only discharged by the first exercise.
 Leave it unchecked. Annotate the item with what the evidence actually showed. Then **draft an
 inbox filing** capturing the defect (naming shape `YYYY-MM-DD-HHmmss-slug.md`, content shape
 per `{project-root}/factory/inbox/README.md`) — write the draft, show the owner, and file it on
-confirmation. This is how the loop closes on a bad acceptance: the contradiction becomes new
+confirmation. **The draft must carry a complete specimen manifest** — see the manifest rule
+below; this stage is the last one that still holds the specimens. This is how the loop closes on a bad acceptance: the contradiction becomes new
 field signal, not a silent gap. In headless mode, surface the drafted filing in the report and
 leave filing to the owner (`status: blocked`).
 
@@ -69,10 +70,35 @@ The item waits on an event that **no shipped surface can produce** — no owner 
 vault-side first use, or dated clock triggers it. This is not a waiting state, and it must
 not be re-annotated as STILL-OPEN: waiting cannot discharge it. Leave it unchecked, annotate
 it `BLOCKED (unreachable)` with *why* the event can't fire, and route it exactly like
-FAILED — draft an inbox filing capturing the gap (same naming and content shape, same
-owner-confirm step; headless: surface the draft, `status: blocked`). The unreachable tail is
+FAILED — draft an inbox filing capturing the gap (same naming and content shape, **same
+specimen-manifest obligation**, same owner-confirm step; headless: surface the draft,
+`status: blocked`). The unreachable tail is
 module signal — a design gap for `inbox-capture` to route into a build, after which the
 shipped fix gives the tail a real trigger and a future discharge run can grade it honestly.
+
+### The specimen manifest — FAILED and BLOCKED filings carry the set, never a count
+
+*(Platform P-18 Tier A, 2026-09-01; cause `ST-5`, *specimens have no owner*.)* **You are standing
+at the moment of maximum evidence, and it is the last one.** The report is open, the slugs are on
+screen, the returned values are in front of you. By the time a briefer builds the instrument that
+grades this defect, every one of those specimens is gone unless this filing carried it — the
+Cycle 12 build-1 trace is 20 observed → 2 filed → **0 reaching the brief**, and the fixture built
+in their absence passed at rest while the field failed twice.
+
+So a filing this stage drafts for a **FAILED** or **BLOCKED (unreachable)** item carries a
+complete specimen manifest: **the full set, every member named** (not a sample), plus the
+**minimal triggering fragment** quoted from the evidence you are reading. The shape is
+single-homed at `{project-root}/factory/inbox/README.md` — follow it there, don't restate it.
+
+Two rules that bite here specifically:
+
+- **A count is not a manifest.** If you write *"N entries"*, the set must appear too. Where the
+  evidence genuinely does not carry the members (the report persisted a total and nothing else),
+  say exactly that in the filing — an honest *"count only, members not recoverable from
+  `<report>`"* is a usable fact; a bare number is a dead end.
+- **This is not spelunking.** The standing instruction to read only what the item names still
+  holds. The manifest comes from **the evidence you already opened to grade the item** — you are
+  recording what is in front of you, not going to look for more.
 
 ### Split items — one checkbox, mixed sub-clauses
 A per-build ledger item routinely bundles upgrade-side sub-clauses (dischargeable the moment

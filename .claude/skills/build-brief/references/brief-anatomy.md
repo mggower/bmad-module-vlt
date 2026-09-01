@@ -195,6 +195,21 @@ same run** (the Exit gate in SKILL.md). Write them once here in prose; the ledge
 carries the same content. This is the section the Exit gate reads to build its ledger append —
 if it's empty or vague, the ledger append will be too.
 
+### Build the instrument from the failure's shape, not the fix's
+
+*(Platform P-18 Tier A, 2026-09-01; cause `ST-5`.)* Before writing a check that needs a corpus or
+a set, look at what the filings behind this build actually preserved: their **specimen manifests**
+(shape single-homed at `factory/inbox/README.md`) and any set the capture entry recovered. Build
+the check against those specimens. Where they must be frozen to be usable, materialize them into
+this cycle's `fixtures/` and cite the filing they came from.
+
+**A fixture authored from the fix's shape passes because it was built to.** That is not a
+hypothetical: Cycle 12's findings cache was proven on a two-run temp fixture that stubbed the one
+seam which breaks in the field, shipped green, and has never once worked. Where no specimens
+survived, say so in the check rather than quietly synthesizing a stand-in — the Exit gate's
+`specimens:` figure will show the shortfall anyway, and a named gap is reviewable where a
+confident fixture is not.
+
 ### Every check carries a tag: ship-verifiable or field-contingent
 
 **Required, at brief time, per check.** This is the single most load-bearing thing this section

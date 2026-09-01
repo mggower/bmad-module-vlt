@@ -25,6 +25,35 @@ does X" assertion):
   might turn out to already be half-shipped) — say what's left, not what the filing originally
   asked for.
 
+## The second grounding axis — recover the set behind a count
+
+*(Platform P-18 Tier A, 2026-09-01; cause `ST-5`, *specimens have no owner*.)* Everything above
+grounds a filing against **module source** — code, conventions, shipped prose. That axis cannot
+see a filing's *evidence*, and the standing rule that grounding reads current module source is
+sometimes read as forbidding anything else. It does not: source is what a **claim** is checked
+against; a filing also carries **observations**, and those are checked against the artifact they
+were observed in.
+
+So when a filing reports a **count where a set was observable** — *"18 entries"*, *"two of two
+miscounted"*, *"145 pages, 42 unattested"* — do not simply carry the number forward:
+
+- **Dereference the named evidence.** The filing cites where it looked (a persisted lint report,
+  a session report, a report key and line). Open it and recover the members.
+- **Record the recovered set in the capture entry**, as the manifest shape at
+  `factory/inbox/README.md` defines it — full set plus the minimal triggering fragment. The
+  capture entry is where it becomes durable; the filing stays as filed.
+- **When recovery fails, say which and why.** *"18 reported; report persisted the count only, no
+  slug list at `<path>` — set unrecoverable"* is a grounded finding and belongs in the entry. The
+  failure is itself signal about the instrument that produced the report.
+- **Attrition is worth a line.** If a filing observed N and preserved M < N, note it. That ratio
+  is the number `ST-5` is about, and a build's brief is entitled to know its evidence is partial
+  before it constructs a fixture to stand in for the missing part.
+
+**This does not license spelunking.** Dereference what the filing **names**; if it names no
+evidence artifact, there is nothing to recover and that absence is the finding. Nor does it
+change the grades above — a recovered set sharpens a CONFIRMED or GAP CONFIRMED, it does not
+become a fifth outcome.
+
 ## Grounding a `supersession` filing
 
 *(Platform P-15, 2026-08-25.)* A filing marked `class: supersession` claims a shipped
