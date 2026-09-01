@@ -112,6 +112,24 @@ re-bind subject is now stale in the same way the original was:** it names *"Cycl
 build issues"*, and Cycle 12 closed 2026-08-26 — the identical unsatisfiable-sentence hazard that
 forced the 2026-08-25 amendment when Cycle 11 closed. **Re-point it at the next open cycle
 (Cycle 15) when that cycle opens**, rather than letting a second dead clause hold the entry.
+
+**⚠ SYNC ATTEMPTED AND DECLINED AS A NO-OP 2026-09-01 — the owner gave the go, the inputs did not
+support a run.** Checked rather than assumed: `factory/CYCLE` reads **none** (reset at Cycle 14's
+closeout the same day), the tracker holds **zero** milestones, and **zero** `B<NN>-<i>` build
+issues. `tracker-sync.md:50-52` allows a `none` pointer to *"still close out the previous cycle's
+milestone/issues if the roadmap just closed"* — Cycle 14's roadmap **did** just close, but it never
+had a milestone, so **the diff is empty in both directions**. A run would have produced a clean
+report and discharged nothing.
+
+**Not run, deliberately.** A green report from an empty diff is *"a silent pass indistinguishable
+from a skipped one"* — [P-20]'s sentence — and recording it as the self-acceptance would have
+retired this item on a run that projected nothing. **The done-when is unchanged and its subject is
+the OPEN cycle; a closed cycle cannot satisfy it.**
+
+✅ **What was verified as unblocking, so Cycle 15's run needs no setup:** the `stage:`/`check:` label
+bootstrap is **already complete** — all seven labels (`stage:captured` … `stage:accepted`,
+`check:ship-verifiable`) exist on the tracker. **Discharging event: Cycle 15's `sync the tracker`
+run, after `inbox-capture` opens the cycle.** Owner-gated as always.
 here. Only the third step is new work.
 
 ### P-14 — the study register: give root-cause analyses a tracked home — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's `inbox-capture` folding a study-citing filing)**
@@ -231,6 +249,13 @@ ship out of the item just reviewed for that class of problem. Re-examined at thi
 self-acceptance (Cycle 12's `inbox-capture`), by which point a second instance may exist and
 would show whether the fix is scalar→list, a `supersedes:` field with per-cause granularity, or
 nothing. *(Owner-ruled 2026-08-25 off the tech-writer review.)*
+
+**⚠ Note added 2026-09-01 — the two study-citing filings are now ON THE RAIL as well as in the
+inbox.** Posted the same day as issues **#17** (the PARA `type:` enum) and **#18** (the `verified_by`
+roster), both `vault-filed` / `field:candidate` under `rail_contract: 1`. This makes P-14's
+discharging capture slightly richer than the done-when anticipated: the filings reach Cycle 15's
+`inbox-capture` **already materialized**, each citing `ST-2`, so the register is exercised through
+the rail rather than only factory-side. The done-when is otherwise unchanged.
 
 **Status 2026-09-01 — not met, and imminent. No ruling needed; the event is scheduled.** The
 done-when asks that an `inbox-capture` run fold a filing that **cites a study**. None of Cycle 14's

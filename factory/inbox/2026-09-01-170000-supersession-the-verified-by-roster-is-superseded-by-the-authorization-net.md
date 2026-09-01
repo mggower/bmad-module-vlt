@@ -1,5 +1,17 @@
 # `class: supersession` — the `verified_by` roster is superseded by the authorization net it was standing in for
 
+origin: mggower/bmad-module-vlt#18
+
+⚠ **This `origin:` header was HAND-WRITTEN, not intake-written (2026-09-01, owner-ruled).**
+`skills/vlt-feedback/references/field-contract.md` assigns the header to the factory intake — *"the
+intake writes it; nothing else does"* — because it is the **idempotency key**. This filing was
+written factory-side **first** and posted to the rail afterwards, a direction the contract has no
+route for: it assumes issue → filing, never filing → issue. Without the key, Cycle 15's
+`github-intake` would materialize issue #18 as a **second copy** of this file. The header is
+therefore written by hand to preserve exactly the property it exists for, and the deviation is
+recorded here rather than left to be inferred. **Do not re-materialize.**
+
+
 _Filed 2026-09-01 from **`{field-vault}`**, on the re-derivation of live parked interim **#16**
 (`ref: conventions/write-verification.md`). **Cites `ST-2`** — location as proxy for trust,
 `status: standing`. **Sibling of `2026-09-01-160000`** (the PARA `type:` enum), which names this

@@ -1,5 +1,17 @@
 # `class: supersession` — the PARA `type:` enum is location's last proxy for trust
 
+origin: mggower/bmad-module-vlt#17
+
+⚠ **This `origin:` header was HAND-WRITTEN, not intake-written (2026-09-01, owner-ruled).**
+`skills/vlt-feedback/references/field-contract.md` assigns the header to the factory intake — *"the
+intake writes it; nothing else does"* — because it is the **idempotency key**. This filing was
+written factory-side **first** and posted to the rail afterwards, a direction the contract has no
+route for: it assumes issue → filing, never filing → issue. Without the key, Cycle 15's
+`github-intake` would materialize issue #17 as a **second copy** of this file. The header is
+therefore written by hand to preserve exactly the property it exists for, and the deviation is
+recorded here rather than left to be inferred. **Do not re-materialize.**
+
+
 _Filed 2026-09-01 from **`{field-vault}`**, on the owner's re-reading of
 `_output/problem-solution-2026-08-25.md` (gitignored; provenance only) against three days of Cycle 14
 work. **Cites `ST-2` — location as proxy for trust — which is `status: standing`.** This filing is
