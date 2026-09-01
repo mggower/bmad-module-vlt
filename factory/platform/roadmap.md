@@ -1012,7 +1012,7 @@ near-miss is evidence about **where the trigger actually sits**: the condition a
 underlying gap — a rule with no executable enforcement point — stays open. If a second challenged
 reach lands before an unchallenged one, the trigger's wording is the thing to revisit, not the tier.
 
-### P-19 — the acceptance corpus: freeze it, and say which checks bind to it — **queued**
+### P-19 — the acceptance corpus: freeze it, and say which checks bind to it — **queued** *(amended 2026-09-01: sampling policy added; the sweep-cost out-of-scope premise refuted)*
 
 *(Filed 2026-08-27, from an owner observation during Cycle 14's release-2 run: the live field
 vault's wiki has grown to the point where a full lint per release is expensive — measured that day
@@ -1057,10 +1057,13 @@ mistake and is explicitly refused below.
     for the test.
   - **Retiring live-vault acceptance.** The snapshot is an addition. Upgrade-preservation,
     post-flight evidence, and every currency question stay live.
-  - **Sweep cost.** Cycle 14 build-2's cache repair is the answer to that, shipping in release 2;
-    146/146 cold is the broken cache, not the vault's size. **P-19 must not be justified on speed**
-    — that framing would make it the licence to dodge a live check the first time one is
-    inconvenient.
+  - ~~**Sweep cost.** Cycle 14 build-2's cache repair is the answer to that, shipping in release 2;
+    146/146 cold is the broken cache, not the vault's size.~~ ⚠ **PREMISE REFUTED 2026-09-01 — see
+    the amendment below. The cache repair is NOT the answer to sweep cost, and 146/146 cold after a
+    release is the design, not the breakage.** The surviving half of this bullet stands and is
+    load-bearing: **P-19 must not be justified on speed** — that framing would make it the licence to
+    dodge a live check the first time one is inconvenient. Cost may now *inform* the sampling policy
+    below; it still may not justify the item, and it may never justify skipping a live check.
   - **Shared brief with [P-18] Tier B.** The two are one declaration in halves — Tier B says *what
     kind* of evidence a check rests on (`population-shaped`/`specimen-derived`/`synthetic`), P-19
     says *which corpus* supplies it. **If both are open at brief time they get ONE brief.** They
@@ -1073,6 +1076,68 @@ mistake and is explicitly refused below.
   being broken, not interpreted.
 - **Done-when (self-acceptance):** the next release's acceptance runs at least one corpus-shaped
   check against the snapshot **and** the discharge record names which corpus graded each item.
+
+---
+
+#### Amendment, 2026-09-01 — the sampling policy, and a refuted premise
+
+*(Raised by the owner during Cycle 14's build-6 briefing: "I can't keep running full lints to verify
+these patches, it is way too expensive… I proposed a smaller test vault for verification but it was
+previously rejected." Both halves of that are addressed here. The module-side half is filed at
+`factory/inbox/2026-09-01-093000-the-findings-cache-cannot-survive-the-release-that-makes-it-needed.md`.)*
+
+**1. The refuted premise.** This item's Out of scope routed sweep cost to Cycle 14 build-2's cache
+repair. **That routing was wrong**, and the correction matters because it was this item's stated
+reason for not carrying cost at all. The findings cache's ruleset fingerprint carries `module_version`
+as one of four slots (`vlt-lint/references/full-scale.md`, step 2), and *"any of those moving
+invalidates every record"* — so **every release invalidates the whole cache**, which that file states
+outright: *"the first full run after any release is a COLD one."* The cache makes **routine**
+re-sweeps warm; it can never make **post-release verification** cheap, and post-release verification
+is the only sweep an acceptance check ever forces. **Nothing shipping or queued addresses that** until
+the filing above is captured.
+
+**2. What the owner's proposal actually was, and what was actually rejected.** The rejection on
+record is of a **synthetic or authored** test vault — *"a corpus built to exercise checks passes
+because it was built to."* That rejection stands, unamended. It does **not** reach a **frozen subset
+of real pages**, which is neither authored nor generated: it is this item's own *frozen real* corpus,
+smaller. **Sample ≠ synthesize.** The owner was half-rejected, and the surviving half is this item.
+
+**3. The sampling policy — the addition.** The snapshot may be a **sample** of the source vault rather
+than its whole page set, under three conditions, all of which exist to keep the sample on the *frozen
+real* side of Cycle 13's guardrail:
+
+- ⚠ **The derivation must be check-blind, and this is the load-bearing condition.** The sample is
+  derived by a rule stated **without reference to what any check looks for** — a deterministic
+  slug-ordered stride, or a stratification over a property fixed before the checks are written. **A
+  sample chosen because its pages exercise the checks is authored by selection**, and is the rejected
+  fixture wearing real content. This is the exact edge where *frozen real* drifts into *authored*, and
+  the manifest is where it is caught.
+- **The manifest records the derivation, not just the result** — the rule, the source vault's page
+  count at snapshot time, the sample's count, and the seed or stride. A reader must be able to
+  re-derive the same sample from the same source and get the same pages.
+- **Each check declares which it binds to** — full snapshot or sample — extending the corpus
+  declaration this item already adds to `build-brief`. ⚠ **A rare-population check may not bind to a
+  sample**: Cycle 14 build-1's specimen set found 10 findings in 146 pages, and a 30-page sample can
+  honestly return zero. **Zero-in-a-sample is not zero-in-the-corpus**, and a check that cannot tell
+  those apart binds to the full snapshot or to the live vault. Naming that limit is part of the
+  policy, not an exception to it.
+
+**Size target, from the module's own threshold.** `vlt-lint/SKILL.md:43`: full mode over *"more than
+~30 pages"* opens the fan-out protocol, while *"scoped runs and small full sweeps stay inline and never
+open it."* A sample at or below ~30 pages skips the fan-out machinery entirely — roughly **36 agent
+dispatches against the 172 the 2026-08-30 sweep recorded**. The threshold is the module's, not a number
+invented here.
+
+**4. The cheaper lever, named so this item is not mistaken for the whole answer.** Three of Cycle 14's
+checks were bound to a full sweep whose population they do not judge (`para_*` nets run in **both**
+modes; the fan-out scans `{wiki}` only). Binding a check to the population it judges is **free, needs
+no snapshot, and was available the whole time**. It reduces how *often* a cold sweep is forced; this
+item and the filing reduce what one *costs*. **Do the free one first** — and note it lands in
+`build-brief`'s check anatomy, the same site this item already touches, so the two are one edit if
+built together.
+
+**5. Unchanged.** Intent, the frozen-real guardrail, the live-vault posture (the snapshot is an
+addition; every currency question stays live), and the one-brief-if-both-open note with [P-18] Tier B.
 
 
 
