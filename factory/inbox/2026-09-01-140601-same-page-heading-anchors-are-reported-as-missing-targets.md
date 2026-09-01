@@ -43,3 +43,8 @@ this filing asks only that an empty target stop being reported as a missing page
   the two refusals.
 
 _Ship-verifiable at rest: gradeable against a fixture page carrying an anchor-only wikilink._
+
+⚠ **THIRD consecutive sweep, 2026-09-01 15:19** (`{lint_reports}/2026-09-01-1519-lint.yaml`) — re-fired
+unchanged, refused again. The page is conformant, so nothing in the vault can stop it; it is now
+established standing behaviour rather than a repeat observation, and every sweep pays the manual
+verification cost of refusing it.

@@ -64,3 +64,9 @@ for that page rather than take it from this filing.
 
 _Ship-verifiable at rest for direction 1: a returned slug absent from the page's bytes is checkable
 against a fixture. The substitution itself is not reproducible on demand — see `[P-19]`._
+
+⚠ **THIRD consecutive sweep, 2026-09-01 15:19** (`{lint_reports}/2026-09-01-1519-lint.yaml`) — the
+`cornerboxes` substitution re-fired unchanged. That sweep reused **145 of 146** records (one rescan:
+`fading-food-and-cue-reliability`), so `seattle-seahawks` was again served **from cache**. This is the
+second independent confirmation of the amplification claim above — the ⚠ confidence caveat on it can
+now be discharged by capture rather than re-derived.

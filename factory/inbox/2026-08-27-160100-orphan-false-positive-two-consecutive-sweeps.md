@@ -43,3 +43,9 @@ been wrong, so the slot currently carries no trustworthy signal at all.
 Grounded already in A14-2's filing — the page scanner under-returns outbound links, so the inbound
 set computed from them is short by whatever it missed. Build it, or state that the orphan slot is
 advisory until it is built.
+
+⚠ **THIRD consecutive sweep, 2026-09-01** — `fantasy-platform-read-access` refused again, same
+reason (a real inbound `[[fantasy-platform-read-access]]` from `fantasy-football-evaluation.md`, and it
+is listed in the index). The filing's title says *two*; the count is now **three**, across two module
+versions (0.16.2 and 0.17.1) and both a cold and two warm sweeps. Capture should read the title as
+stale rather than as the measurement.
