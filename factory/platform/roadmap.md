@@ -696,6 +696,23 @@ and none is manufacturable by the authoring session:
 2. **The fork** — one real `inbox-capture` run exercises the routing fork, **or reports no
    marked filings** (the brief-lite admits both; an exercised fork that finds nothing is the
    fork running). *Bound:* Cycle 15's capture.
+   <br>⚠ **Pre-recorded 2026-09-01, before that run: Cycle 15 will take the SECOND branch, and it
+   is a weak discharge.** All 72 inbox filings were checked three ways — marker present (**zero**;
+   the only `channel: platform` string in `factory/inbox/` is the README's own documentation),
+   filed-from-the-factory (**7**, every one of them a shipped-surface fix), and a named fix site
+   `vlt-upgrade` cannot deliver (`tools/`, `.github/`). **No filing in the inbox is platform-side.**
+   The closest candidate, `2026-07-25-193000-report-slot-with-no-check.md`, is filed *"from the
+   **factory**, not from a vault"* and cites `tools/package-lint.py`, but its fix lands at
+   `skills/vlt-lint/SKILL.md:137` — delivered, therefore cycle work. *Filed-from-the-factory is not
+   the test; delivery is* — the fork's own mis-mark case, arriving before the fork has run once.
+   <br>**So an empty run proves the code path executes and proves nothing about routing.** That is
+   the `b2(5)` shape in miniature — green without touching the seam that breaks — and this note
+   exists so a later reader cannot mistake the tick for evidence the fork works. **The clause is
+   NOT re-ruled**: it admits the empty branch deliberately, and re-ruling a clause to dodge an
+   inconvenient result is worse than recording the result honestly. When Cycle 15's capture reports
+   no marked filings, tick this leg and **carry this paragraph with the tick**; the fork's first
+   real exercise is whenever a genuinely platform-side filing arrives, which may be several cycles
+   out.
 3. **The footprint** — one real `cycle-closeout` run emits both the visibility line and the
    categorized retirement count **unprompted, in a session that did not author the step**.
    *Bound:* Cycle 15's closeout. ⚠ This is the cold-reader clause and it is not negotiable
