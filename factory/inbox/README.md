@@ -44,16 +44,24 @@ recover the set (`inbox-capture`'s second grounding axis). Say so plainly when a
 cannot be recovered — *"count only; the report did not persist the slugs"* is honest and useful;
 a silent count is neither.
 
-**Worked pair, both real, both on disk:**
+**Worked pair, both real, both on disk.** Cited by **filing id**, not by path, for the reason
+this directory's own lifecycle makes obvious: a filing lives here only until its build ships and
+its clauses pass, then it moves to its cycle's `filings/`. A worked example pinned to an inbox
+path documents itself into a dead link on the day the example is proven. (Precedent:
+`factory/studies/ST-5-specimens-have-no-owner.md` cites the same filing as `2026-08-24-173002`.)
 
-- **Conforms** — `factory/cycles/13-trusted-returns/filings/2026-08-26-075130-attestation-misroute-survives-the-jurisdiction-narrowing.md`
-  names all **6 of 6** specimens (`execution-to-judgment-shift`, `bistec-encebollado`,
+- **Conforms** — filing **`2026-08-26-075130`** (attestation misroute survives the jurisdiction
+  narrowing) names all **6 of 6** specimens (`execution-to-judgment-shift`, `bistec-encebollado`,
   `k-curve-career-divergence`, `kettl`, `llm-wiki-pattern`, `obsidian-bases`) and quotes the
   triggering fragment from the report it read. It did this **unprompted**, before the rule existed.
-- **Does not** — `factory/inbox/2026-08-24-173002-page-scanner-double-reports-missing-attestation.md`
+  It has already migrated, to `factory/cycles/13-trusted-returns/filings/` — a closed cycle's
+  directory stops changing, so *that* path is permanently addressable and safe to name in full.
+- **Does not** — filing **`2026-08-24-173002`** (page scanners double-report missing attestation)
   observed **20** and named **2** (`acotar-world-building`, `katsuo-dashi`); the other 18 survive
   only as the number 18. It is the negative control, and it is not a bad filing — it is a good
-  filing written before anyone owned its specimens.
+  filing written before anyone owned its specimens. It is still in the active inbox as of
+  2026-09-01, so it is named by id alone; find it here, or in the `filings/` of whichever cycle
+  ships its build.
 
 **A manifest is not a fixture, but it becomes one.** When a build's instrument needs the set,
 the manifest materializes as a tracked, frozen file under that cycle's `fixtures/` — the cycle
