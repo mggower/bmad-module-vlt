@@ -1211,6 +1211,31 @@ corpus's single worst instance.)*
 **Note:** `tools/` is tracked, so this lands as a `plat:` commit (unlike P-4, which
 touched only gitignored surface).
 
+**Evidence, added 2026-09-01 — six confirmed live instances, and four wrong claims made about
+them in a single session.** The instances: of the **9 tracked `file:line` citations into
+`factory/platform/roadmap.md`, 6 resolve to the wrong text** — `:105`, `:57`, `:525`, `:146-147`
+(all `factory/cycles/12-proxy-claims/roadmap.md`), `:697-701`
+(`factory/cycles/14-no-enforcement-point/roadmap.md`), and `:487`
+(`factory/platform/review-going-public-2026-08-24.md`). All six citers are **closed or archival
+records, unrepairable by rule**. This check's Sites cover **5 of the 6** — `:487`'s citer sits
+under `factory/platform/`, outside the declared `factory/cycles/*/…` citer surface. That is a
+scope fact for whoever briefs this, not a defect in the item; widening is a separate call.
+
+**The stronger evidence is what happened while the six were being counted.** Across one session
+on 2026-09-01, four claims about *these very citations* were asserted and later found false: the
+count given as **18** (uncorroborated — `grep -r` does not respect `.gitignore`, and 9 hits were
+in gitignored `_output/`); the corrected **9** attributed to the wrong cause; **9-tracked-of-18-total**
+reached only after a third pass; and a **scope claim** — *"P-5 would have caught every one"* —
+repeated as verified by two parties, neither of whom resolved it. None of the four was careless.
+Every one was **a claim about citations that nobody resolved**, made by readers arguing *for*
+citation-checking. That is this item's thesis reproducing inside the argument for this item, and
+it is the best motivation the entry has.
+
+*(Derivation and the full triage live in [P-21]'s entry, where they were discovered. Cited here
+because this is where a builder looks for this check's motivation — the same
+write-it-where-discovered-not-where-needed defect [P-21] exists to fix, third instance the same
+day. When these six run as known reds, they are the ones the Done-when anticipates.)*
+
 ### P-6 — the deterministic check tranche: four classes, eleven historical instances — **queued**
 
 *(Queued 2026-08-23 from the same ROI count. Scoped deliberately: the count found nine
@@ -1283,6 +1308,27 @@ and this ledger's closed records quote retired paths by design.)*
 - **Done-when:** the widened check is green on the live tree, the F3-class fixture is
   red-then-green, and one real run rides a lifecycle transition (capture or closeout)
   as its self-acceptance.
+
+⚠ **Site conflict with [P-21], recorded here 2026-09-01 because this entry is the one likelier
+to be built first.** The Sites bullet above targets *"this ledger **section-aware** (Active +
+Queued entries scanned…)"* — and **[P-21] moves exactly those entries out of this file** into
+`factory/platform/items/P-NN-<slug>.md`, leaving this ledger holding only the channel contract.
+A builder who implements `SCAN_FILES` against `## Active`/`## Queued` section membership will
+have written it against a structure P-21 replaces.
+
+**Whichever of the two builds second must re-point the other.** The asymmetry is what makes this
+worth a note rather than a footnote: **P-11 is unblocked and [P-21] is blocked on [P-5]**, so the
+item more likely to reach a builder first is this one — and until this note existed it was the
+one carrying no warning. If P-11 builds first, scan the item *files* rather than section
+membership, or accept the re-point as known work and say so in the build record.
+
+*(Recorded reciprocally: P-21's entry names this conflict in its Sites. This back-reference is
+**hand-typed and will drift**, which is P-21's own thesis — cross-item relationships here are
+expressible only as prose `[P-N]` mentions, structurally one-way, and the ledger carries **no**
+structured cross-reference field. P-21's `cited_by:` frontmatter, borrowed from
+`factory/studies/` where all 7 files already use it, is the structural fix; this paragraph is the
+interim. Same root cause as Arc 9's `binds:` rule — a mapping written in one direction only — and
+counted as a second surface of it, not a new finding.)*
 
 ### P-12 — require PRs into `main` (choreography-aware) — **queued**
 
@@ -1467,6 +1513,24 @@ claimed, and this item claims it.)*
   the WIP clause that `:33-37` cites, and every citation into it kept resolving, silently, to
   changed text. Give each item a stable file whose **name** is its address, so citation stops
   depending on offsets.
+  <br>**The same defect has a second surface, inward-facing** *(added 2026-09-01, from the live
+  instance below)*. Citations point **into** this ledger by position and rot. Cross-links point
+  **within** it and go **one-way**: a relationship between two items is expressible only as a
+  prose `[P-N]` mention, which lives in the citing item and leaves **no trace in the cited one** —
+  `grep -cE "^(cited_by|related|see_also):"` over this file returns **0**. Reciprocity must
+  therefore be typed twice, by hand, by someone who remembers, which is the same species as the
+  hand-typed `## Active (WIP …)` header that drifted **three times on 2026-09-01 alone**. Every
+  argument against a hand-maintained index applies verbatim to a hand-maintained back-reference.
+  <br>**Live instance, found the day this item was filed:** [P-11]'s Sites target this ledger's
+  `## Active`/`## Queued` entries — precisely what this item moves to `items/` — and [P-11]'s
+  entry referenced this one **zero times** while this one referenced it three. The item **more
+  likely to build first is the one that carried no warning**, since P-11 is unblocked and this is
+  blocked on [P-5]. A reciprocal note was hand-added to [P-11] as the interim; the permanent fix
+  is the `cited_by:` field already in this item's frontmatter spec, adopted from
+  `factory/studies/` where **all 7** files use it. **One fix, both surfaces** — which is why this
+  Intent names both. Root cause is **Arc 9's `binds:` rule** (*a mapping written in one direction
+  only, so a ruling can govern build N without ever naming it*) at the item level: counted as a
+  **second confirmed surface of that cause, not a new finding**.
   <br>*Measured 2026-09-01 at `e8b896e`:* contract 1–53 (3%), `## Active` 55–1175 (**54%**,
   seven items, **all built-awaiting**), `## Queued` 1176–1447 (13%), `## Closed` 1448–2065 (30%).
   Closed sits at the bottom and obstructs nothing — the reader's problem is Active, which is
