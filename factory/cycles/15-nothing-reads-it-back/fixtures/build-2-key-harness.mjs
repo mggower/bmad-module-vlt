@@ -168,7 +168,9 @@ const cases = [
   { id: 'd', name: 'wiki-supersession digest changed', args: withDigest('wiki-supersession', 'ffffffffffffffff'), warm: false, term: 'ruleset' },
   { id: 'e', name: "scanModel: 'sonnet'", args: withScanModel('sonnet'), warm: legacy, term: 'ruleset', flip: true },
   { id: 'f', name: 'one byte of PAGE_SCAN changed', args: base(), src: mutatedSchema(), warm: false, term: 'scan_surface' },
-  { id: 'g', name: 'convention_digests missing write-verification', args: withoutDigest('write-verification'), warm: false, capNames: 'convention_digests[write-verification]' },
+  // (g)'s cap literal was re-keyed by build-3 (its F7): the one-word `absent or empty slots [...]`
+  // cap became two caps, and an ABSENT name now renders under its own word.
+  { id: 'g', name: 'convention_digests missing write-verification', args: withoutDigest('write-verification'), warm: false, capNames: 'absent [convention_digests[write-verification]]' },
 ]
 
 console.log('\ncase  files_cached  agent_failed                          cache_miss_terms')

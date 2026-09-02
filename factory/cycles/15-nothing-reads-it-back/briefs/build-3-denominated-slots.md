@@ -1,6 +1,125 @@
 ---
 title: 'Build #3 — the denominated slots: after this ships, a vault owner reading a lint report sees each derived slot with the population it came from — "0 slugs found under `## Stubs…` across 1 index" — and a slot that arrived wrong is reported as wrong rather than as absent, before the scan phase dispatches'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session. The builder rewrites this line to a BUILT record: `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (the `build-2-cache-cost.md` precedent), deletes any `.decision-log.md`, one commit on `cycle15-v0.18.0`. Not the release build — no version bump.'
+status: >
+  BUILT 2026-09-02 — all eight F-sites landed; **checks (1), (2), (3) and (4) — the four at-rest
+  `[ship-verifiable]` checks — PASS at rest**, the type harness proven failable against the
+  pre-build workflow (`450c886`: 25 expectations FAIL there, 0 here); (5) sits on the v0.18.0
+  upgrade sweep. Version bump NOT taken — rides build-7 / v0.18.0. Branch `cycle15-v0.18.0`. No
+  handshake moved (`// depends_on:` header and `vlt-lint/SKILL.md:4` pins untouched; `wiki-index.md`
+  read, never edited; `PAGE_SCAN`/`pageScanPrompt` untouched — `scanFingerprint`
+  `dcce0c50239720081cb5` before and after, E6 PAGE_SCAN still 3676).
+
+  **Sites changed.**
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js` (F1): `:44-48` the `stubSlugs` contract row
+  (pointer to `wiki-index.md` / `checks.md` Missing targets + "a present non-array is refused
+  before dispatch"); `:67-76` the `rulesetComponents` contract's three-way sentence (absent /
+  empty → cold cap under its own word; wrong type → refused before dispatch); `:118-133` intake —
+  `typeName` / `isPlainObject` helpers, `wrongTypeSlots` recorded for a present-and-wrong
+  `stubSlugs` (`:128`) / `rulesetComponents` (`:129`), the four not-refused args named in the
+  comment (disposition 6), absent still coerces; `:251` comment names the three-way loop;
+  `:302-327` the slot loop — `rulesetSlotsAbsent` / `rulesetSlotsEmpty` / `rulesetSlotsWrongType`
+  over `RULESET_SLOTS`, slot-level test first (absent / `{}` / non-object → skip the name loop),
+  then `convention_digests[<name>]` absent / `''` / non-string; a mis-typed `rulesetComponents`
+  itself skips the loop (`:316-317` — nothing derived from its coerced `{}` is rendered as an
+  absence); `:333-334` `composeRulesetFingerprint` returns `''` when any of the three lists is
+  non-empty or the parent slot is mis-typed; `:406-419` two caps in place of one — `findings
+  cache cold: rulesetComponents — absent [...]` / `… — empty [...]`, each only when non-empty;
+  `:427-461` the pre-dispatch refusal, placed after the cache reader and the cap blocks and before
+  the fan-out loop — mirrors the shortfall return field-for-field (`status: 'failed'`, `reason`
+  one clause per offending slot joined `; `, `files_checked: 0`, `files_cached: 0`, empty
+  `agent_failed`/`page_unreadable`, `coverage_caps`, `cost_accounting` with all four phase rows
+  at 0 dispatched, `cache_miss_terms`, the reader's real `cache_records_read`/`cache_rejected`,
+  a directed `next:` naming the slot(s) + step 2 / Missing targets); `:609-610` the reducer
+  comment and `:666` `indexPrompt` → the pointer wording; `:224` `INDEX_SCAN.drift` description
+  (see deviation 1). `:11` `// depends_on:` unchanged.
+  `skills/vlt-lint/references/report.md` (F2): `:15` NEW `stub_discovery:` line after
+  `files_listed:` (both modes); `:45` `governance_memory:` → `E log entries (## headings,
+  instrument: <name>), S schema-keyed, X unclassifiable, N uncounted` with the N = E − S − X
+  comment; `:79` the cold placeholder widened (the fourth member + its home); `:90` the fourth
+  member appended to build-2's frame with its home named; `:92` the instrument sentence (E by an
+  unwrapped named instrument, `grep -c '^## '` expected; S keyed; X the two-tier tail qualified as
+  a **dated entry heading**; N rendered even when 0); `:94` NEW "Stub-discovery reporting"
+  paragraph (two facts, compose yourself both modes, `located: no` ⇒ cap in full mode).
+  `skills/vlt-lint/references/full-scale.md` (F3): step 1 (`:7`) the stub sentence → derive per
+  `checks.md` Missing targets, keep the located/count facts for Step 5, pass an array; step 2
+  (`:8`) the three-way sentence with the refusal pointer (digest steps, names, cold-when, D4
+  unchanged); step 4 (`:19`) the predicate names both causes, the failed-run field list gains
+  `lint_cache: cold (<reason>, rejected R of P records read, evicted E by request)` with the
+  fourth-member note, the directed refusal names both next moves.
+  `skills/vlt-lint/references/checks.md` (F4): `:13` the procedure homed in the Missing-targets
+  bullet (heading from the merged convention, the `## ` match quoted, backtick slugs to the next
+  `## `, `section located: yes|no` + count on `stub_discovery:`, the full-mode cap on `located:
+  no`); `:39` the long-form heading copy → pointer; `:43` unchanged.
+  `skills/vlt-lint/references/fix-and-file.md:9` (F5) and `skills/vlt-lint/SKILL.md:76` (F6):
+  the pointer edits as tabled. `skills/vlt-ingest/SKILL.md:168`: see deviation 2.
+  `factory/cycles/15-nothing-reads-it-back/fixtures/build-2-key-harness.mjs` (F7): case (g)'s
+  cap literal re-keyed to `absent [convention_digests[write-verification]]` (build-2's 15/15 +
+  the scanModel guard still hold; `--legacy` unaffected).
+  **NEW fixtures** (F8): `build-3-index-stubs.md` / `build-3-index-bare-stubs.md` (the
+  discriminator pair — long-form vs bare heading, the three specimen slugs), `build-3-decision-log-
+  tail.md` (the twelve unbracketed headings frozen verbatim from `{field-vault}`'s live log
+  2026-09-02 + 3 keyed + 1 `kind:`-no-`ref:`; E 16 · S 3 · X 13 · N 0; the twin is in-memory),
+  `build-3-type-harness.mjs` (build-2's shim duplicated; counting agent stub; modes: case table /
+  `--workflow <path>` / `--stubs` / `--tail`).
+
+  **Verification.** (1) type harness, post-build: (a) `failed`, reason `slot rendered with the
+  wrong type: convention_digests (got array, expected plain object)`, 0 agents, scan row 0,
+  `next:` names step 2 + Missing targets, `cache_records_read 2 / rejected 0` · (b) `failed`,
+  `convention_digests[frontmatter] (got number, expected string)`, 0 agents · (c) report,
+  `files_cached 0`, cap `empty [convention_digests]` · (d) report, cap `absent
+  [convention_digests[write-verification]]` · (e) report, cap `empty
+  [convention_digests[frontmatter]]` · (f) `failed`, `stubSlugs (got string, expected array)`, 0
+  agents · (g) `failed`, `rulesetComponents (got array, expected plain object)`, 0 agents, NO
+  absent/empty cap · (h) report, 2 cached, no cold cap — **all 25 expectations hold, exit 0**.
+  **Failability against `450c886`:** 25 FAIL — (a)/(b)/(g) there return a findings report with
+  `files_cached: 0`, 2 agents dispatched (scan row 2) and the one-word cap `rulesetComponents
+  incomplete — absent or empty slots [...]`; (f) returns a WARM findings report (2 cached — the
+  string silently coerced to `[]`); the four cases flip between the builds as the brief
+  predicted. (2) reader protocol (heading read from `wiki-index.md:83`, never from memory):
+  `build-3-index-stubs.md` → `section located: yes ("## Stubs (linked, not yet written)"); 3
+  slugs` (`birria`, `jesse-minter`, `nfl-draft-safety-archetypes`); `…-bare-stubs.md` → `located:
+  no; 0 slugs` (+ the cap); the same protocol over `{field-vault}`'s live index → `located: yes;
+  6 slugs` (the A15-11 manifest's 6 — check (5)'s expected value, pre-measured, not a discharge).
+  `--stubs`: three slugs → `missing_targets: []`; `[]` → `['a → birria']`; `'birria'` → refused,
+  0 agents — exit 0. (3) `grep -c '^## '` over the tail fixture → 16; `--tail` → `{E:16, S:3,
+  X:13, N:0}`, mutated twin `{E:17, S:3, X:13, N:1}`; a same-matcher total (S + X = 16) reads
+  back nothing on the twin — exit 0. (4) `grep -rn '## Stubs' skills/` → exactly 1 hit,
+  `wiki-index.md:83`; `grep -rn 'absent or empty' skills/` → 0; `slot rendered with the wrong
+  type` → report.md 2 / full-scale.md 2 / vlt-lint-full.js 1; `stub_discovery` → report.md 2 /
+  checks.md 1 / full-scale.md 1; `section located` in checks.md → 1; step 4 names `pre-dispatch
+  refusal` → 1. (5) `scanFingerprint` equal before/after; build-2 harness 15/15 + guard after F7.
+  (6) `pageHashes: []` → NOT refused: findings report, `files_cached 0` (the on-record gap for
+  the candidate filing). (7) `uv run tools/package-lint.py --expect-version 0.17.1` → A/B/C/E
+  PASS, D PASS; PAGE_SCAN 3676, INDEX_SCAN 838 (both under 3700). (8) R4 n/a — no shipped file
+  added. (9) R3 n/a — no finding class. (10) scrub: the twelve frozen headings name partners by
+  domain role only; no path or personal name. (11) no `.decision-log.md`; scratch removed.
+
+  **Deviations/notes:** (1) `INDEX_SCAN.drift`'s description (`:224`) carried the bare `## Stubs`
+  form; F1.6 said INDEX_SCAN is not edited while Verification 4 / check (4) require exactly one
+  hit — the gating check won: the description now reads "a malformed entry under the Stubs
+  section" (E6 measures every fan-out schema; INDEX_SCAN serializes to 838, PAGE_SCAN untouched,
+  the index pass is uncached so no key moves). (2) The retirement table missed
+  `skills/vlt-ingest/SKILL.md:168` ("out of `## Stubs`") — retired to "out of the Stubs section
+  (heading as that convention states it)", the same pointer class as `fix-and-file.md:9`; no pin
+  moves (the sentence already points at `wiki-index.md`). (3) Case (g) exposed a gap the brief's
+  table implied but did not spell out: a wrong-typed `rulesetComponents` coerces to `{}` at
+  intake, and the slot loop over that default would push `absent [convention_digests]` beside the
+  refusal — the loop is now skipped when the parent slot is mis-typed, so the failed record
+  carries the refusal only. (4) The refusal returns four `cost_accounting` phase rows at 0
+  dispatched (Scan pages / Index pass / Cluster pass / Seeded-pair pass) rather than an empty
+  `phases: []` — the brief asked that "every phase renders at 0", which an empty list does not.
+  (5) The refusal sits after the two cold-cap blocks and the overlay cap (the brief's permitted
+  placement) so a refused record still carries any absent/empty/overlay facts that are
+  independently true. (6) `X`'s definition in `report.md:92` and the harness qualifies the
+  two-tier tail as a **dated entry heading** — without it a `## Notes` section heading would be
+  absorbed as pre-schema and `N` could never be non-zero, defeating check (3)'s twin. (7) The
+  type harness's case table uses a scan-returning stub (build-2's gen-pass stub) rather than a
+  null stub, so cold cases reach a findings report instead of the shortfall guard — the null
+  stub would have graded (c)/(d)/(e) against the wrong predicate. Build-5's briefer: `report.md`'s
+  mandated-key fence at this commit carries `stub_discovery:` (`:15`, scalar) and the widened
+  `governance_memory:` (`:45`, scalar); `lint_cache:`'s grammar is unchanged in shape (`:79`);
+  `false_positives_refused:` is not present. Handoff owed: a `candidate` filing for the four
+  not-refused args (disposition 6 / §Out of scope).
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:

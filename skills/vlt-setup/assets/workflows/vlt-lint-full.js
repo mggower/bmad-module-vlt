@@ -41,9 +41,11 @@ export const meta = {
 //     crossLayerSlugs: [string] (optional)// normalized basenames of valid NON-wiki link targets (research /
 //                                          //   agent-zone notes the SKILL globbed) — a [[link]] to one of these
 //                                          //   is NOT a missing target. default []. (filing #3 §4)
-//     stubSlugs:       [string] (optional)// slugs cataloged under {index}'s "## Stubs" section (the SKILL parses
-//                                          //   them) — a [[link]] to a registered stub is a RECORDED gap, not a
-//                                          //   missing target. default []. (B5-3)
+//     stubSlugs:       [string] (optional)// slugs cataloged under {index}'s Stubs section as `wiki-index.md`
+//                                          //   states it (the SKILL locates and parses it — `checks.md` Missing
+//                                          //   targets) — a [[link]] to a registered stub is a RECORDED gap, not a
+//                                          //   missing target. default []. A present non-array is refused before
+//                                          //   dispatch (A15-2 / A15-10, D2). (B5-3)
 //     pageHashes:      {slug: sha256} (optional) // content digest per page, computed by the SKILL with an
 //                                          //   unwrapped instrument it names in the record. Absent → no page
 //                                          //   is cacheable this run (a cold sweep, stated, never silent).
@@ -64,11 +66,16 @@ export const meta = {
 //                                          //                                  sorts by name
 //                                          //   The SKILL computes the digests (it has filesystem access, this
 //                                          //   script has none — see the no-filesystem note above); this script
-//                                          //   COMPOSES them into `rulesetFingerprint`. Any slot missing or empty
-//                                          //   → the fingerprint is '' → a cold sweep, with a coverage_caps entry
-//                                          //   naming each absent required name. `rulesetFingerprint` is NOT an
-//                                          //   accepted arg: it is composed here, never passed. (A14-8, Q6.2;
-//                                          //   A15-9 D-B — facts-not-verdicts: no version, pin or checks digest)
+//                                          //   COMPOSES them into `rulesetFingerprint`. A slot or required name
+//                                          //   ABSENT or EMPTY → the fingerprint is '' → a cold sweep, each named
+//                                          //   in `coverage_caps` under its own word (`absent […]` / `empty […]`);
+//                                          //   a slot or name PRESENT BUT OF THE WRONG TYPE → the run is REFUSED
+//                                          //   before any agent dispatches (`status: 'failed'`, the reason names
+//                                          //   the slot and the type received) — a wrong type is the SKILL's own
+//                                          //   rendering error, detectable before the first dispatch (A15-10, D2).
+//                                          //   `rulesetFingerprint` is NOT an accepted arg: it is composed here,
+//                                          //   never passed. (A14-8, Q6.2; A15-9 D-B — facts-not-verdicts: no
+//                                          //   version, pin or checks digest)
 //     today:           string  (optional) // 'YYYY-MM-DD' — the SKILL passes it (scripts have no Date.now());
 //                                          //   needed to compute review_due; absent → review_due not computed
 //                                          //   (reported as a coverage cap).
@@ -108,13 +115,25 @@ const conventionsPath = a.conventionsPath
 const overlaysPath = typeof a.overlaysPath === 'string' ? a.overlaysPath : ''
 const overlayNames = (Array.isArray(a.overlayNames) ? a.overlayNames : []).map((n) => String(n).replace(/\.overlay\.md$/i, '')).filter(Boolean)
 const crossLayerSlugs = (Array.isArray(a.crossLayerSlugs) ? a.crossLayerSlugs : []).map(normalizeTarget).filter(Boolean)
+// Wrong-type intake (A15-10, D2 — build-3): for the two D2 slots that cross the fan-out boundary,
+// ABSENT (key not in args) keeps its empty default, but PRESENT-AND-WRONG-TYPE is recorded here and
+// REFUSED before any agent dispatches (the pre-dispatch refusal below the cache reader) — never
+// coerced to the empty value, which rendered a rendering error as an honest absence. The other
+// four optional args (overlayNames, crossLayerSlugs, pageHashes, cachedScans) are NOT refused:
+// D2's population is the three denominated slots and no further — a wrong type there still
+// coerces to its empty value (a stated cold / base-only sweep), on record as a candidate filing.
+const typeName = (v) => (Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v)
+const isPlainObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
+const wrongTypeSlots = []
+if (a.stubSlugs !== undefined && !Array.isArray(a.stubSlugs)) wrongTypeSlots.push({ slot: 'stubSlugs', got: typeName(a.stubSlugs), expected: 'array' })
+if (a.rulesetComponents !== undefined && !isPlainObject(a.rulesetComponents)) wrongTypeSlots.push({ slot: 'rulesetComponents', got: typeName(a.rulesetComponents), expected: 'plain object' })
 const stubSlugs = (Array.isArray(a.stubSlugs) ? a.stubSlugs : []).map(normalizeTarget).filter(Boolean)
 const today = typeof a.today === 'string' ? a.today : ''
 // Findings-cache args (A11-11 direction 2). All three optional; any one absent → a cold sweep.
 // Read from the PARSED `a` above, never from the raw `args` string.
-const pageHashes = (a.pageHashes && typeof a.pageHashes === 'object' && !Array.isArray(a.pageHashes)) ? a.pageHashes : {}
+const pageHashes = isPlainObject(a.pageHashes) ? a.pageHashes : {}
 const cachedScans = Array.isArray(a.cachedScans) ? a.cachedScans : []
-const rulesetComponents = (a.rulesetComponents && typeof a.rulesetComponents === 'object' && !Array.isArray(a.rulesetComponents)) ? a.rulesetComponents : {}
+const rulesetComponents = isPlainObject(a.rulesetComponents) ? a.rulesetComponents : {}
 const budgetFloor = a.budgetFloor || 40_000
 // Cluster cap scales with the wiki size — a fixed 12 sat one below the 13 natural clusters on the
 // live wiki and falsely tripped the coverage cap every run. Floor of 12 holds for small wikis. (#3 §6)
@@ -202,7 +221,7 @@ const INDEX_SCAN = {
   required: ['drift', 'malformed', 'h2_headings'],
   properties: {
     malformed: { type: 'boolean', description: "true if the index's own structure is broken per wiki-index.md" },
-    drift: { type: 'array', items: { type: 'string' }, description: 'index problems: a page missing from the index, a listed page that does not exist, a miscategorized row, or a malformed ## Stubs entry. The index is a structural map — it carries NO descriptions, source counts, or dates, so do not check those.' },
+    drift: { type: 'array', items: { type: 'string' }, description: 'index problems: a page missing from the index, a listed page that does not exist, a miscategorized row, or a malformed entry under the Stubs section. The index is a structural map — it carries NO descriptions, source counts, or dates, so do not check those.' },
     h2_headings: { type: 'array', items: { type: 'string' }, description: "every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge categories against it; the category↔H2 comparison is computed downstream." },
   },
 }
@@ -229,7 +248,7 @@ phase('Scan pages')
 // inline reads ("read each together with its {overlays}/{name}.overlay.md if present,
 // honoring the overlay's appended rules").
 // The conventions the page scanner reads — SINGLE-HOMED here (A15-9 d1, roundtable A4). Two
-// consumers, no third statement: pageScanPrompt's read clause below, and rulesetSlotsMissing /
+// consumers, no third statement: pageScanPrompt's read clause below, and the three-way slot loop /
 // composeRulesetFingerprint (the cache key's ruleset half requires exactly these names, by name).
 // Adding an ask that reads a fourth convention adds it HERE and to the pins in the header (R4).
 const SCANNER_CONVENTIONS = ['frontmatter', 'wiki-supersession', 'write-verification']
@@ -281,22 +300,38 @@ const scanFingerprint = fnv1a(canonicalScan) + fnv1a(canonicalScan.split('').rev
 // half only has to change whenever its inputs change, and the strong digest is the SKILL's
 // (full-scale.md step 2 names the instrument).
 const RULESET_SLOTS = ['convention_digests']
-// Missing is reported BY NAME (`convention_digests[write-verification]`), never as the bare slot,
-// except when the map itself is absent. The test per required name is the string-slot test the
-// slots always carried — absent, or not a non-empty string.
-const rulesetSlotsMissing = RULESET_SLOTS.flatMap((k) => {
+// Three-way, at two levels (A15-10, D2 — build-3): each slot, and each required name inside it,
+// is ABSENT (key not present), EMPTY (`{}` / `''`) or PRESENT BUT OF THE WRONG TYPE — three lists,
+// never one word. Absent and empty are cold caps named under their own word; wrong type is a
+// pre-dispatch REFUSAL (below the cache reader), because a value the SKILL rendered in a form
+// this script cannot use is a rendering error, not an absence, and rendering it as an absence is
+// exactly what sent 146 pages cold under an honest-looking reason. Reported BY NAME
+// (`convention_digests[write-verification]`), never as the bare slot, except when the map itself
+// is absent, empty or mis-typed (then the name loop is skipped — there is no map to walk).
+const rulesetSlotsAbsent = []
+const rulesetSlotsEmpty = []
+const rulesetSlotsWrongType = [] // {slot, got, expected}
+// A mis-typed `rulesetComponents` itself (recorded at intake) is refused as such — the loop is
+// skipped, so nothing derived from its coerced `{}` default is ever rendered as an absence.
+const rulesetComponentsWrongTyped = wrongTypeSlots.some((w) => w.slot === 'rulesetComponents')
+for (const k of rulesetComponentsWrongTyped ? [] : RULESET_SLOTS) {
   const v = rulesetComponents[k]
-  if (k === 'convention_digests') {
-    if (!v || typeof v !== 'object' || Array.isArray(v)) return [k]
-    return SCANNER_CONVENTIONS.filter((n) => typeof v[n] !== 'string' || v[n].length === 0).map((n) => `${k}[${n}]`)
+  if (v === undefined) { rulesetSlotsAbsent.push(k); continue }
+  if (!isPlainObject(v)) { rulesetSlotsWrongType.push({ slot: k, got: typeName(v), expected: 'plain object' }); continue }
+  if (Object.keys(v).length === 0) { rulesetSlotsEmpty.push(k); continue }
+  for (const n of SCANNER_CONVENTIONS) {
+    const d = v[n]
+    if (d === undefined) rulesetSlotsAbsent.push(`${k}[${n}]`)
+    else if (typeof d !== 'string') rulesetSlotsWrongType.push({ slot: `${k}[${n}]`, got: typeName(d), expected: 'string' })
+    else if (d.length === 0) rulesetSlotsEmpty.push(`${k}[${n}]`)
   }
-  return typeof v !== 'string' || v.length === 0 ? [k] : []
-})
-// Completeness is enforced, not assumed: any required name missing or empty ⇒ '' ⇒ reusable() is
-// false for every page ⇒ a cold sweep, with a named cap (the same loud-degrade posture the
+}
+// Completeness is enforced, not assumed: any required name absent, empty or mis-typed ⇒ '' ⇒
+// reusable() is false for every page ⇒ nothing is reused (D4 holds on a refused run too — moot,
+// since it never dispatches). Absent/empty carry a named cap (the same loud-degrade posture the
 // overlay args carry below).
 const composeRulesetFingerprint = () => {
-  if (rulesetSlotsMissing.length) return ''
+  if (rulesetComponentsWrongTyped || rulesetSlotsAbsent.length || rulesetSlotsEmpty.length || rulesetSlotsWrongType.length) return ''
   const cd = rulesetComponents.convention_digests
   const extras = Object.keys(cd).filter((n) => !SCANNER_CONVENTIONS.includes(n))
   if (extras.length) log(`rulesetComponents.convention_digests names conventions the page scanner never reads — ignored for the cache key: [${extras.join(', ')}] (the key carries exactly ${SCANNER_CONVENTIONS.join(', ')})`)
@@ -368,10 +403,17 @@ const scans = []
 const freshScans = []
 const freshBySlug = new Map()
 const coverageCaps = []
-// Loud degrade (A14-8): an incomplete rulesetComponents object is a cold sweep with the absent
-// slots NAMED — never a silent cold run whose cause has to be guessed from a miss count.
-if (rulesetSlotsMissing.length) {
-  const m = `findings cache cold: rulesetComponents incomplete — absent or empty slots [${rulesetSlotsMissing.join(', ')}]; no page was reusable this run`
+// Loud degrade (A14-8; three-way since build-3): an incomplete rulesetComponents object is a cold
+// sweep with the absent and the empty names each NAMED under their own word — never a silent cold
+// run whose cause has to be guessed from a miss count, and never one word for two cases. Wrong
+// type is NOT a cap: it is the refusal below.
+if (rulesetSlotsAbsent.length) {
+  const m = `findings cache cold: rulesetComponents — absent [${rulesetSlotsAbsent.join(', ')}]; no page was reusable this run`
+  coverageCaps.push(m)
+  log(m)
+}
+if (rulesetSlotsEmpty.length) {
+  const m = `findings cache cold: rulesetComponents — empty [${rulesetSlotsEmpty.join(', ')}]; no page was reusable this run`
   coverageCaps.push(m)
   log(m)
 }
@@ -381,6 +423,42 @@ if (!overlaysPath) {
   const m = 'no overlay args passed — pages were judged against base conventions only; overlay-compliant content may be falsely flagged'
   coverageCaps.push(m)
   log(m)
+}
+// The pre-dispatch refusal (A15-10, D2 ii/iii — build-3). A D2 slot (`rulesetComponents`, a
+// `convention_digests` entry, `stubSlugs`) that arrived PRESENT BUT OF THE WRONG TYPE is the
+// SKILL's own rendering error, and it is detectable here — after the cache reader (so the record
+// counts are real) and before the fan-out loop (so no agent has been dispatched and
+// cost_accounting says so). It rides the failed-run shape the near-total-shortfall guard returns
+// below, field-for-field, so full-scale.md step 4's reader sees one shape: the SKILL persists a
+// `…-lint-failed` record, applies nothing, resets no counter, and surfaces the directed `next:`.
+// Never a coverage cap — the owner would otherwise still pay every agent to read it afterwards.
+const wrongTyped = [...wrongTypeSlots, ...rulesetSlotsWrongType]
+if (wrongTyped.length) {
+  const reason = wrongTyped.map((w) => `slot rendered with the wrong type: ${w.slot} (got ${w.got}, expected ${w.expected})`).join('; ')
+  const msg = `pre-dispatch refusal — ${reason}; no agent was dispatched, nothing was spent`
+  log(msg)
+  // Every phase renders at 0 dispatched — a refused run's cost row is a fact, not an absence.
+  const at = budgetSample()
+  costRow('Scan pages', 0, scanModel, 0, at)
+  costRow('Index pass', 0, indexModel, 0, at)
+  costRow('Cluster pass', 0, clusterModel, 0, at)
+  costRow('Seeded-pair pass', 0, clusterModel, 0, at)
+  return {
+    status: 'failed',
+    mode: 'full',
+    reason,
+    files_listed: pages.length,
+    files_checked: 0,
+    files_cached: 0,
+    agent_failed: [],
+    page_unreadable: [],
+    coverage_caps: coverageCaps,
+    cost_accounting: costAccounting(),
+    cache_miss_terms: cacheMissTerms,
+    cache_records_read: cacheRecordsRead,
+    cache_rejected: cacheRejected,
+    next: `re-render ${[...new Set(wrongTyped.map((w) => (w.slot.startsWith('stubSlugs') ? 'stubSlugs' : 'rulesetComponents')))].join(' / ')} per references/full-scale.md step 2 / references/checks.md Missing targets and re-run — no agent was dispatched, nothing was spent`,
+  }
 }
 // Reason-partitioned shortfall accounting (A10-16 Defect 2): a fan-out agent the harness
 // rejected pre-read resolves to null (no catchable error — the v0.13.0 classifier-ceiling
@@ -528,7 +606,8 @@ const orphans = partialShortfall ? [] : scans.filter((s) => !(inbound.get(nslug(
 // A [[link]] target that resolves to a wiki slug OR a known cross-layer note (research / agent-zone,
 // supplied by the SKILL which has filesystem access) is valid; only a target resolving to NOTHING
 // anywhere is a missing target. Without crossLayer, valid cross-layer links false-positive en masse. (#3 §4)
-// A target registered under the index's ## Stubs section is a RECORDED gap, not a missing target (B5-3).
+// A target registered under the index's Stubs section as `wiki-index.md` states it (the SKILL locates and
+// parses it — `checks.md` Missing targets) is a RECORDED gap, not a missing target (B5-3).
 const crossLayer = new Set(crossLayerSlugs)
 const stubs = new Set(stubSlugs)
 const missing_targets = []
@@ -584,7 +663,7 @@ if (nearCapped) { const m = `near-duplicate comparison capped — not all page p
 // ── Index pass (one agent, reads the live index + the computed page set) ─────
 const indexPrompt =
   `You are a wiki-index linter. Read the live index at ${indexPath} and judge it against ${convRead('wiki-index')}. The wiki currently contains exactly these page slugs: ${[...pageSlugSet].join(', ')}. ` +
-  `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed ## Stubs entries; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`
+  `The index is a STRUCTURAL MAP — it carries no descriptions, source counts, or dates; do not check those. Report (1) index drift: pages missing from the index, listed pages that don't exist, miscategorized rows, malformed entries under the Stubs section as the convention states it; and (2) h2_headings: every H2 heading in the index, verbatim and in order — the heading text exactly as written, with only the leading '## ' marker removed. Do not judge page categories against the headings; that comparison is computed downstream.`
 const indexBudgetAt = budgetSample()
 const indexScan = await agent(indexPrompt, { label: 'index-drift', phase: 'Reduce + cross-page', schema: INDEX_SCAN, model: indexModel })
 costRow('Index pass', 1, indexModel, indexPrompt.length, indexBudgetAt)
