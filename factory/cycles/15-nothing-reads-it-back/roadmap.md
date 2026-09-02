@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Next: a fresh builder session implements the build-1 brief.'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Next: a fresh builder session implements the build-2 brief (build-1''s builder is concurrent; file-edit order 2 → 3 → 4 → 6 → 7).'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -1351,6 +1351,54 @@ is also stated at its own entry.
   `field:supersession`, both halves non-empty, no classification note, and the next `inbox-capture`
   materializes it with the `class: supersession` opening line. Unbounded; watch register if unfired.
 
+- [ ] **build-2 (cache-cost, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-2-cache-cost.md`. **Six checks — five
+  `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 2/3` (observed: the 2026-08-30
+  cost row, the ~84KB args manifest, the `seattle-seahawks`/`cornerboxes` cached record; preserved: the
+  manifest into the `scriptPath` recipe, the poisoned record into the eviction fixture; the cost row
+  reaches no instrument). R1 n/a (every response ships with its mechanism; `false_positives_refused:`
+  is build-5's, same release); **Retirement SUBSTANTIVE (A20)** — `full-scale.md` step 2's *"first full
+  run after any release is a COLD one"* + worked instance, `report.md:89`'s echo, the
+  `module_version`/`pin_vector`/`checks_digest` arg rows and `RULESET_SLOTS` members all retired; step
+  5's hand-delete survives as the second remedy; D4's bound and the stated-cold-run mandate are the
+  population statements that do not move. R4 n/a (no shipped file added; the runtime wrapper lives
+  outside the vault; fixtures un-enumerated — declared exclusion). **(1) `[ship-verifiable]` — at rest
+  — GATES:** the per-page key is facts-not-verdicts — instrument: `fixtures/build-2-key-harness.mjs`
+  (node over the workflow with the runtime globals stubbed, never on the observed path) over a
+  two-page fixture, cases (a) identical → 2 cached, (b) `module_version` extra/moved → 2, (c) a fourth
+  convention added → 2 + one log line, (d) `wiki-supersession` digest moved → 0 with
+  `cache_miss_terms.ruleset`, (e) `scanModel` changed → 0, (f) `PAGE_SCAN` byte moved → 0 with
+  `scan_surface`, (g) `write-verification` name missing → cold, cap names it; adversary: the fixture's
+  keys come from the code under test — widened: the harness is run against the pre-build workflow
+  (`0e01381`) with the legacy slots and cases (b)/(e) must FLIP between builds. **(2)
+  `[ship-verifiable]` — at rest — GATES:** one page's record is removed and the next sweep re-derives
+  exactly it — instrument: `evict --slug seattle-seahawks` over `fixtures/build-2-sidecar.json` (3
+  records) → `evicted 1 of 3`, `read` → 2, the identical-input harness dispatches exactly that slug;
+  unknown slug → `0 of 3` exit 1; no sidecar → `0 of 0` exit 1; adversary: the refusal route sequenced
+  before step 5's whole-file write is written straight back — widened: a reader check asserts
+  `full-scale.md` step 5 places the refusal evict AFTER the `write` and `report.md:78` renders
+  `evicted E by request` on both branches. **(3) `[ship-verifiable]` — at rest — GATES:** the
+  scanner-read set has one home and the retired statements are gone — instrument: grep manifests
+  (`convRead('` literal calls 0; `SCANNER_CONVENTIONS` ≥ 3; `module_version|checks_digest|pin_vector`
+  0 under `skills/vlt-lint` + the workflow; the retired phrases 0 under `skills/`) + `scanFingerprint`
+  equal before/after; adversary: `full-scale.md` still says *"per convention this run judges against"*
+  while the workflow keys on three — widened: the slot sentence must carry the three names verbatim.
+  **(4) `[ship-verifiable]` — on the v0.18.0 upgrade sweep (bounded) — GATES:** the cold run is
+  attributed by name — the first post-upgrade full report's `lint_cache:` reads `cold (…)` naming
+  `write-verification` and the scan surface (build-7's movers) with `evicted 0 by request`, and the
+  v0.18.0 CHANGELOG states the cold run and its cause; adversary: `cold (fingerprint changed)` (the
+  retired idiom) — caught, the named term is required; no further passing-violating state found.
+  **(5) `[ship-verifiable]` — on the v0.18.0 upgrade sweep — GATES:** no payload in the caller's
+  context — the sweep is invoked with `scriptPath`, the wrapper produced by a script run (tool-call
+  record = instrument), resume carries `resumeFromRunId` + the same `scriptPath`; adversary: the SKILL
+  composes the 1,849-slug array in-context and then writes it — widened: the wrapper must be
+  script-written, not agent-authored from held values. **(6) `[field-contingent]`:** the cache stays
+  warm across a release — event: the first release after v0.18.0 whose diff touches none of
+  `frontmatter`/`wiki-supersession`/`write-verification` (base or overlay), `pageScanPrompt`/`PAGE_SCAN`,
+  or the scan-model default; performer: the owner on `{field-vault}` (readable), the ordinary
+  post-upgrade full sweep; grades: `files_cached > 0`, `cached M ≥ files_listed − churn`, scan-phase
+  agents = churned pages only. Unbounded; watch register if unfired.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1409,7 +1457,9 @@ regardless:** build-2 precedes build-4.
 builds 2/3 share `vlt-lint-full.js:55-66`, `:262-271` and one `full-scale.md` step 2 paragraph; 3/5 share
 `report.md`; 4/7 share `vlt-lint-full.js`; 6/7 share `vlt-lint/SKILL.md:4`. And ⚠ **v0.18.0's first
 full sweep is COLD BY CONSTRUCTION** — build-7 moves a scanner-read convention and the prompt literal at
-`vlt-lint-full.js:229`; build-6 moves `pin_vector` as shipped; builds 6/7 move `checks.md`. Build-2's
+`vlt-lint-full.js:229`; ~~build-6 moves `pin_vector` as shipped; builds 6/7 move `checks.md`~~ *(struck
+2026-09-02 at build-2's brief: `pin_vector` is dropped and `checks_digest` leaves the key, so neither is
+a mover after build-2 — build-7 alone keeps the sweep cold)*. Build-2's
 cache clauses are therefore graded **at rest** (see its entry) and the CHANGELOG states the cold run.
 
 ⚠ **`promise:` authorship — a deliberate, recorded deviation from P-16's letter (2026-09-02).** The
@@ -1545,6 +1595,26 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
       the **second** remedy behind eviction. The `cold (<reason>)` rendering names the moved slot(s).
   - `binds:` **+= Q3 (as amended), D2 (the `RULESET_SLOTS`-loop property — build-2's new slot inherits
     it)**. *(roundtable A3, A14)*
+  - **Grounding corrections at brief time (2026-09-02, `build-brief` — brief
+    `briefs/build-2-cache-cost.md`):** scope unchanged; five records. (i) ~~`vlt-lint-full.js:55-66`~~ →
+    the `rulesetComponents` arg contract is **`:56-69`** (`module_version` row `:58` HOLDS). (ii)
+    ~~`:262-271`~~ → **`:262-282`** — the compose function `:275-281` joins the deleted slots at `:279`
+    and is in scope. (iii) **`pin_vector` is DROPPED** (D-B's "or drops as redundant" branch, ruled at
+    brief: a pin cannot move for a scanner-relevant reason without the digested bytes moving; a
+    re-ack alone moves nothing a scanner reads) — so ~~"build-6 moves `pin_vector` as shipped"~~ (A2,
+    Ordering note) is no longer a v0.18.0 cold mover, and ~~"builds 6/7 move `checks.md`"~~ neither
+    (`checks_digest` out); **v0.18.0 stays COLD BY CONSTRUCTION on build-7 alone** (write-verification
+    bytes + the `:229` `@5` literal). A15-10's `pin_vector`-rendering half **dissolves** for build-3.
+    (iv) D2 (ii) ~~"build-2's new slot (`scanModel`) inherits it"~~ → `scanModel` enters the key as
+    the **workflow-resolved** value (`:122`, default included), not as a `RULESET_SLOTS` member —
+    keying on a SKILL-supplied slot would restate the workflow's default in a second home or leave the
+    default case permanently cold; the loop has one slot after build-2 (`convention_digests`), and
+    build-2 adds only a non-empty-string guard on `scanModel` at the existing args guard. (v) A13's
+    evict step is **two routes with different sequencing**: on request → before the sidecar read (as
+    A13 says); a refused finding → **after** step 5's whole-file `write` and before Step 6 persists
+    (A13's own write-back observation makes a pre-write evict a no-op for that route). Grounding
+    addition: `fix-and-file.md` step 3 has no home for a refused finding today — one pointer sentence.
+    BRIEFED 2026-09-02, 6 checks in the ledger (`specimens: 2/3`).
 
 - **build-3 — A15-2 + A15-6 + A15-10, the denominated slots.** D2's **whole population** in one
   build, so the cycle's only read-back posture lands coherently rather than split across three
@@ -2582,7 +2652,8 @@ the block below.
 
 **Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-1
 brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-1-supersession-kind.md`, via
-`bmad-workflow-builder`.**
+`bmad-workflow-builder`.** *(— historical record; superseded by the block at the foot, 2026-09-02
+`build-brief` for build 2.)*
 
 **Build-1 is BRIEFED** (headless run; readiness gate passed on Q6 / E3-as-amended / `spike: none` /
 roundtable 0 OPEN / owner-ratified promise). Eight F-sites (the contract, the composer, the help row,
@@ -2600,6 +2671,42 @@ commit for the build on `cycle15-v0.18.0`. Not the release build — no version 
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag, at the same sitting as `config.yml`'s label bootstrap —
 check (3) grades it.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 2); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-2
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-2-cache-cost.md`, via
+`bmad-workflow-builder`.**
+
+**Build-2 is BRIEFED** (headless run; readiness gate passed on Q3-as-amended / Q2 / Q2b / D3 / D4 / D2 /
+`spike: none` / roundtable 0 OPEN / owner-ratified four-outcome promise). Eight F-sites (the workflow's
+key + required-name set + miss attribution; `lint-cache.py evict` + `components`; `full-scale.md` steps
+2/3/5; `report.md:78`/`:89`; a `fix-and-file.md` pointer; the SKILL intent; the help row; two fixtures +
+a harness under `fixtures/`); nine brief-time dispositions recorded inline, none owner-ruled — the
+load-bearing ones: **`pin_vector` DROPPED** (D-B's redundant branch), **`scanModel` a workflow-resolved
+key term, not a slot**, the refusal evict sequenced **after** step 5's write, the `scriptPath` wrapper
+**script-written outside the vault**; five grounding corrections written at the build-2 bullet. Six
+acceptance checks are in the ledger (`specimens: 2/3`). **Retirement is substantive (A20)** — the
+"first full run after any release is COLD" statements retire with this build. **The build-2 / build-3
+boundary is stated in the brief** (§Boundary with build-3): build-2 owns slot population, build-3
+rendering/type language; merge order on `report.md` is 2 → 3 → 5.
+
+**The builder's exit obligations:** implement F1–F8 (F1 first — the constant and the key; F2 before F3
+— the doc names the subcommand), run Verification 1–11 (the harness must be proven failable against
+`0e01381` — check (1)'s widening), rewrite the brief's `status:` to a **BUILT record with numbered
+deviations**, delete any `.decision-log.md`, one commit for the build on `cycle15-v0.18.0`. Not the
+release build — no version bump. Build-1's builder is concurrent on disjoint files. Then the move is
+**`brief build 3`** (its briefer reads the boundary section and disposition 1's `pin_vector` row first).
+
+**Owed at release (build-7 / `vlt-release`), recorded in the brief §Release:** the v0.18.0 CHANGELOG
+states the cold first sweep and its cause (build-7's movers) and that it is the last by-construction
+cold run — `acceptance-discharge` must never read that cold run as a build-2 FAIL (A2).
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
