@@ -1634,6 +1634,63 @@ these are its first confirmed live instances.
 ⚠ **The filing offers three directions and the third is a live option ideation should not lose:** *(1)* give the vocabulary a third grade **and prohibit the shape at brief time**; *(2)* **re-express the underlying question at rest** — what Cycle 12 wanted to know was whether the rewritten bundle *answers* the `{resources}`-write legality question without sending the reader elsewhere, which is gradeable by reading the bundle as a partner would; *(3)* **retire it** — its substantive premise is satisfied (both blocking rulings shipped in v0.17.0; the bundle is no longer waiting on itself), so ruling the watch discharged on the precondition is more honest than a fourth carry. (2) and (3) dispose of the instance; only (1) addresses the species. They are not exclusive.
 
 
+### P-23 — a check names the population it judges, not the run that will produce it — **queued**
+
+*(Queued 2026-09-02 from **Cycle 15 ideation, Round 4 ruling Q4** — the companion finding carried
+inside `factory/cycles/15-nothing-reads-it-back/roadmap.md` §A15-9, filing
+`factory/inbox/2026-09-01-093000-the-findings-cache-cannot-survive-the-release-that-makes-it-needed.md`.
+Routed here, **not** to the cycle roadmap: every fix site is a factory skill reference `vlt-upgrade`
+never copies into a vault. ⚠ **The capture deliberately did NOT route it** — the filing kept both
+halves of the cost problem in one place on purpose (*how often* a cold sweep is forced, factory-side
+and free; *what one costs*, module-side) and splitting it loses that. The owner overruled at
+ideation and **the mitigation is the pointer pair**: A15-9's entry points here, this entry points
+back, so the two halves stay findable together. The filing itself calls this *"a brief-time
+discipline gap, not a module defect."*)*
+
+**Brief-lite:**
+- **Intent:** an acceptance check names a **discharging event** — `brief-anatomy.md:288-292` already
+  requires the event be calendar-shaped rather than "discharges in the field" — but **nothing
+  requires it to name the population the check actually judges**, and the two come apart. Cycle 14
+  bound **three** checks to a full `vlt-lint --full` sweep whose population does not contain what
+  they judge: `skills/vlt-lint/references/checks.md:19` places the `para_*` nets in **both** modes,
+  while the fan-out sweeps `{wiki}` only and `para_missing_attestation` is a **structural slot the
+  SKILL fills** — `skills/vlt-setup/assets/workflows/vlt-lint-full.js:811-814`, verbatim: *"PARA
+  files are outside this workflow's page set (it sweeps `{wiki}`) — `para_missing_attestation` is a
+  structural slot the SKILL fills from its own PARA jurisdiction scan"*, with the slot emitted `[]`.
+  **A scoped run was what each of those checks needed.** The failure is quiet in the worst way: the
+  named event *occurs*, the check looks dischargeable, and the evidence it reads was never derived
+  from the population under test. Build-6's two instances were corrected at brief time 2026-09-01;
+  the other two are historical, annotated, and not re-graded. **Cousin of [P-20]** (the check
+  adversary — attacks a check's *claim*) and **[P-22]** (a check with a trigger but no *cause*);
+  this one names a check whose event fires over the *wrong population*. ⚠ **Three adjacent items now
+  describe defects in check construction — they may want to merge rather than sit in a row**, and
+  P-22's entry already flags the same question about itself and P-20.
+- **Sites:** `.claude/skills/build-brief/references/brief-anatomy.md:288-292` — the discharging-event
+  rule, whose natural sibling this is (*name the event* → *and the population it judges*).
+  `.claude/skills/build-brief/SKILL.md` §9 (Acceptance) — where a check is written and where a
+  brief-time obligation would bind. `factory/cycles/14-no-enforcement-point/roadmap.md` — the three
+  bound checks, for the worked example. Evidence sites, read-only: `skills/vlt-lint/references/checks.md:19`,
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js:811-814`.
+- **Verification:** at rest. Re-read Cycle 14's ledger and grade each check against the new
+  obligation — the rule is real only if it **partitions non-trivially** (some checks name a
+  population that contains what they judge, some do not). Cycle 15's own seven builds are the second
+  corpus and are **not** a fair test of the rule's authorship, since this session wrote them; a cold
+  reader applying it to a brief written after the change is the honest exercise.
+- **Out of scope:** any change to `[ship-verifiable]` / `[field-contingent]` meanings, to D3-as-amended,
+  or to the gating question; re-grading the two historical Cycle 14 instances (annotated, not
+  re-graded — that disposition stands); and the **module-side** half of A15-9, which is **Cycle 15
+  build-2** and is not this item's business.
+- **Done-when:** `brief-anatomy.md` states that a check names the population it judges alongside its
+  discharging event, `build-brief` §9 binds it at brief time, and **a cold reader — not this item's
+  author — applies it to the first brief written after the change and to Cycle 14's ledger without
+  re-deriving it.** ⚠ *The done-when names no numbered cycle deliberately: [P-16]'s park expired
+  unread because its done-when named one, and that is now a three-instance pattern on this ledger.*
+
+⚠ **Boundary re-derived, not inherited.** The filing pre-classified itself factory-side; this entry
+re-derives it from the sites (all under `.claude/skills/`, none under `skills/vlt-*` or
+`.claude-plugin/`), per the contract header's *delivery, not topic* rule.
+
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**
