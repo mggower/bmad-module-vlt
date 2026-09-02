@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Next: a fresh builder session implements the build-2 brief (build-1''s builder is concurrent; file-edit order 2 → 3 → 4 → 6 → 7).'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Next: a fresh builder session implements the build-3 brief (file-edit order 2 → 3 → 4 → 6 → 7).'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -1399,6 +1399,58 @@ is also stated at its own entry.
   post-upgrade full sweep; grades: `files_cached > 0`, `cached M ≥ files_listed − churn`, scan-phase
   agents = churned pages only. Unbounded; watch register if unfired.
 
+- [ ] **build-3 (denominated-slots, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-3-denominated-slots.md`. **Five checks — all
+  `[ship-verifiable]` (GATE); no field-contingent check** (a "refusal fires in the field" check was
+  considered and not written — its event is a rendering error nothing schedules). `specimens: 16/17`
+  (observed: A15-2's three stub slugs + the long-form heading, A15-6's twelve unbracketed entries
+  (re-measured live: 66/54/12), A15-10's array-typed `pin_vector` + 8-name map; preserved: the three
+  slugs into the index fixture pair, the twelve heading lines frozen from the live log into the
+  decision-log fixture, the wrong-type shape as harness case (a); not preserved: the 8-name map —
+  build-2's case (c) carries it). R1 n/a (every rule ships with its mechanism); **Retirement
+  SUBSTANTIVE (A20, Q8/A17)** — the bare `## Stubs` form leaves seven module sites (`full-scale.md:7`,
+  `checks.md:13`/`:39`, `fix-and-file.md:9`, `vlt-lint-full.js:44`/`:531`/`:587`) for the single home
+  `wiki-index.md:83`; the two-way cap at `:374`, the header's `:68-69` sentence and step 2's
+  absent-or-empty sentence become three-way; `report.md:89`'s closed list gains its fourth member with
+  its home (the failed-run record); population statements that do not move: the stub-registered
+  exclusion, `checks.md:43`'s counted-never-swept mandate, D4 and the stated-cold-run mandate,
+  missing-by-name. R4 n/a (no shipped file added; fixtures un-enumerated — declared exclusion).
+  **Cross-build:** F7 re-keys build-2's harness case (g) cap literal; build-2 (1) must stay 15/15.
+  **(1) `[ship-verifiable]` — at rest — GATES:** a wrong-typed input slot is refused before any agent
+  dispatches, absent/empty named as such — instrument: `fixtures/build-3-type-harness.mjs` with a
+  **counting** agent stub; cases (a) `convention_digests: []` → `status: 'failed'`, reason names slot +
+  `array`, `next:` names step 2, 0 invocations, scan row 0; (b) `convention_digests.frontmatter: 42` →
+  refused naming `convention_digests[frontmatter]`; (c) `{}` → cap `empty [convention_digests]`; (d)
+  `write-verification` absent → cap `absent [convention_digests[write-verification]]`; (e) `''` → cap
+  `empty [convention_digests[frontmatter]]`; (f) `stubSlugs: 'birria'` → refused; (g) `rulesetComponents:
+  []` → refused; (h) baseline → 2 cached; adversary: the refusal sits after the fan-out, or step 4 reads
+  only the shortfall predicate — widened: 0 invocations asserted on every refusal case, step 4's text
+  must name the refusal predicate, and the harness is proven failable against `450c886` ((a)/(b)/(f)/(g)
+  flip from cold-cap to refusal). **(2) `[ship-verifiable]` — at rest — GATES:** a failed stub discovery
+  is distinguishable from an empty registry — instrument: the `checks.md:13` procedure as a reader
+  protocol over `fixtures/build-3-index-stubs.md` (→ `located: yes; 3 slugs`) and
+  `…-bare-stubs.md` (→ `located: no; 0 slugs` + the cap), then `--stubs` mode: three slugs passed →
+  `missing_targets: []`, `[]` → one missing target (A15-2 reproduced), a string → refused; adversary: a
+  reader who knows the long form writes `yes` on both — widened: the fixture pair is the instrument and
+  the line must quote the matched heading. **(3) `[ship-verifiable]` — at rest — GATES:** the
+  `governance_memory` total comes from an instrument independent of the matcher — instrument:
+  `fixtures/build-3-decision-log-tail.md` (12 live-frozen + 3 keyed + 1 kind-no-ref): `grep -c '^## '`
+  → 16, S 3, X 13, N 0; the mutated twin (`## Notes` appended) → E 17, N 1; adversary: E computed as
+  S + X renders N 0 and passes — widened: the mutated twin (a same-matcher E reads 16 where the
+  instrument says 17) and the instrument must be named on the line. **(4) `[ship-verifiable]` — at rest
+  — GATES:** one heading home, retired wordings gone, the fourth reason homed — instrument: the grep
+  manifest (`## Stubs` under `skills/` → exactly `wiki-index.md:83`; `absent or empty` → 0; the fourth
+  reason present in `report.md`, `full-scale.md`, the workflow; `stub_discovery` in `report.md`,
+  `checks.md`, `full-scale.md`) + `scanFingerprint` equal before/after + build-2's 15/15 after F7;
+  adversary: every site points at the convention but the procedure lives only in `full-scale.md`, which
+  inline runs never load — widened: `section located` must appear in `checks.md`. **(5)
+  `[ship-verifiable]` — on the v0.18.0 upgrade sweep (bounded) — GATES:** the live report's population
+  lines are instrument-derived — the first post-upgrade full report carries `stub_discovery: section
+  located: yes …; 6 slugs across 1 index` with none of the six in `missing_targets`, and
+  `governance_memory:`'s `E` equals `grep -c '^## '` over the live log **re-run by the discharger**,
+  `N uncounted` rendered, instrument named; adversary: a plausible `E` rendered from memory — widened:
+  the discharger re-runs both instruments and compares; no further passing-violating state found.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1659,6 +1711,34 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     - *(A20, obsolescence)* the cap wording at `vlt-lint-full.js:322` (*"absent or empty slots"*) and
       `full-scale.md` step 2's *"absent slots named in `coverage_caps`"* → three-way absent / empty /
       wrong-type, in the same act.
+  - **Grounding corrections at brief time (2026-09-02, `build-brief` — brief
+    `briefs/build-3-denominated-slots.md`):** scope unchanged; eight records, every cite re-derived
+    against `450c886` (build-2 BUILT). (i) ~~`vlt-lint-full.js:322`~~ → the cap is **`:374`**;
+    ~~`:263`~~ (the `typeof v !== 'string'` test) → **`:287-294`** (`:291` per required name, `:293` the
+    generic branch); ~~`:476`~~ (the B5-3 stub comment) → **`:531`**, and the `indexPrompt` at **`:587`**
+    (*"malformed ## Stubs entries"*) is a grounding addition — its edit moves no key (the index pass is
+    not cached). (ii) A20's quoted step-2 wording ~~"absent slots named in `coverage_caps`"~~ was
+    **already re-worded by build-2** to *"each absent required name named in `coverage_caps`"* — the
+    retirement applies to the sentence as it now stands. (iii) A14's ~~"`SKILL.md` §Step 6"~~ as the
+    failed-run posture's home → the **predicate** lives at `full-scale.md` step 4 (`:19`); `SKILL.md:76`
+    is its pointer — the refusal joins step 4's predicate. (iv) **The fourth cold reason's home is
+    reconciled** (A14 iii vs A14 v): a refused run produces no findings report, so `slot rendered with
+    the wrong type: <slot>` renders on the **failed-run record's** `lint_cache:` line (step 4's field
+    list gains it) and `report.md:78`/`:89` list it as the fourth vocabulary member with that home named.
+    (v) **Grounding additions — the same conflation one level up:** `vlt-lint-full.js:111` (`stubSlugs`
+    non-array → `[]`) and `:116` (`rulesetComponents` non-object → `{}`) join the pre-dispatch refusal;
+    the four other optional args (`overlayNames`/`crossLayerSlugs`/`pageHashes`/`cachedScans`) are
+    **not** refused — D2 reaches three slots and no further — and route to a `candidate` filing at
+    handoff. Two more bare-`## Stubs` sites A17 did not list: `checks.md:13` (the Missing-targets
+    parenthetical — becomes the discovery **procedure's** home, both modes, since scoped runs never load
+    `full-scale.md`) and `fix-and-file.md:9` (a pointer). (vi) `wiki-index.md:83`, `full-scale.md:7`/`:8`,
+    `checks.md:39`/`:43`, `report.md:44`/`:78`/`:89`/`:91`, `decision-log.md:38`/`:78` all **HOLD**.
+    (vii) The live tail re-measured 2026-09-02 on `{field-vault}`: **66** `## ` headings, 54 bracketed,
+    **12** unbracketed — the population grew 59 → 66 since the filing while the tail stayed 12; the brief
+    freezes the twelve heading lines into a fixture (12/12 preserved). (viii) **Cross-build obligation:**
+    build-2's harness case (g) asserts the `absent or empty slots […]` literal this build retires — the
+    brief's F7 updates it in the same build (build-2 check (1) stays 15/15). BRIEFED 2026-09-02, 5 checks
+    in the ledger (`specimens: 16/17`).
 
 - **build-4 — A15-1 + A15-3 + A15-4 (fidelity half) + A15-5, the scanner's returns.** One unaudited
   return, four mutations. A15-3 **folds in and carries no build of its own** (Q7).
@@ -2679,7 +2759,8 @@ record is the block below.
 
 **Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-2
 brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-2-cache-cost.md`, via
-`bmad-workflow-builder`.**
+`bmad-workflow-builder`.** *(— historical record; superseded by the block at the foot, 2026-09-02
+`build-brief` for build 3. Build-2 was BUILT at `450c886`.)*
 
 **Build-2 is BRIEFED** (headless run; readiness gate passed on Q3-as-amended / Q2 / Q2b / D3 / D4 / D2 /
 `spike: none` / roundtable 0 OPEN / owner-ratified four-outcome promise). Eight F-sites (the workflow's
@@ -2707,6 +2788,49 @@ cold run — `acceptance-discharge` must never read that cold run as a build-2 F
 
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 3); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-3
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-3-denominated-slots.md`, via
+`bmad-workflow-builder`.**
+
+**Build-3 is BRIEFED** (headless run; readiness gate passed on D2-as-amended / Q8-as-amended / Q3 /
+`spike: none` / roundtable 0 OPEN / owner-ratified two-clause promise; builds 1 and 2 are BUILT at
+`61ec6c0` / `450c886`). Eight F-sites (the workflow's three-way split + pre-dispatch refusal + stub
+pointers; `report.md`'s `stub_discovery:` line, widened `governance_memory:`, fourth cold reason;
+`full-scale.md` steps 1/2/4; `checks.md:13`/`:39`; `fix-and-file.md:9`; `SKILL.md:76`; build-2's
+harness case (g); three fixtures + a counting harness under `fixtures/`); eight brief-time dispositions
+recorded inline, none owner-ruled — the load-bearing ones: **wrong type rides the failed-run shape,
+placed after the cache read and before the fan-out** (never a cap, never the `{error}` guard); **the
+fourth cold reason renders on the failed-run record** (A14 iii and v reconciled); **the stub procedure
+homes at `checks.md:13`** (both modes) with the heading's single home `wiki-index.md:83`; **`E` from a
+named form-agnostic instrument, `N = E − S − X` rendered even at 0**; the refusal reaches `stubSlugs`
+and `rulesetComponents` intake and **not** the four other optional args (D2's bound — a `candidate`
+filing at handoff). Eight grounding corrections written at the build-3 bullet. Five acceptance checks
+are in the ledger, all `[ship-verifiable]` (`specimens: 16/17`). **Retirement is substantive** — the
+bare `## Stubs` form leaves seven sites; the two-way cap and the closed reason list go with it. **The
+build-3 / build-5 boundary is stated in the brief** (§Boundary with build-5): build-5's validator reads
+`report.md`'s key set at build-3's commit — `stub_discovery:` new, `governance_memory:` widened,
+`lint_cache:` vocabulary +1, step 4's failed-run field list gains `lint_cache:`.
+
+**The builder's exit obligations:** implement F1–F8 (F1 first — the refusal and the split; F2/F3/F4 next
+— the report and both procedure homes; F7 before running build-2's harness), run Verification 1–11
+(the type harness must be proven failable against `450c886` — check (1)'s widening; the twelve heading
+lines are frozen from `{field-vault}`'s live log with the F8 scrub rule), rewrite the brief's
+`status:` to a **BUILT record with numbered deviations**, delete any `.decision-log.md`, one commit for
+the build on `cycle15-v0.18.0`. Not the release build — no version bump. Then the move is **`brief
+build 4`** (file-edit order 2 → 3 → 4 → 6 → 7).
+
+**Owed at handoff (`factory/inbox/`):** one `candidate` — the fan-out's intake coerces a wrong-typed
+optional arg to its empty value for the four args build-3 did not cover (brief §Out of scope).
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
+statement (build-2 §Release).
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
