@@ -89,7 +89,9 @@ non-verbatim returns are on record in the field, each landing in `fix_now`:
 - **under-returned links**, which shorten the derived inbound map and manufacture orphans.
 
 Nothing compares a returned slug against the bytes of the page it was read from — a comparison
-that is mechanically available, since the page is on disk and the reduce already has its path.
+~~that is mechanically available, since the page is on disk and the reduce already has its path~~
+**that requires crossing the SKILL/script boundary** *(corrected 2026-09-01, Cycle 15 ideation
+Round 1 — see* §Corrections *below)*.
 
 **(e) The summary-length verdict.** `frontmatter.md:125` states the measure precisely —
 *"counting characters, not bytes"*, on the summary, and separately mandates double-quoting. The
@@ -199,10 +201,37 @@ failing — which is `ST-5`'s failure mode reached by this study's road.
 
 Not stated as a fix — this is a diagnosis, and ideation rules. But the shape the evidence points
 at is narrow enough to name: **every value crossing an executor boundary needs a read-back at the
-consumer, and the consumer is the only place that can perform one.** The four consumers here are
+consumer, and the consumer is the only place that can perform one.** ~~The four consumers here are
 all in a position to do it — the reduce holds the page paths, the workflow holds the fingerprint
 inputs' types, the persist step holds the report and its shape spec, the SKILL holds the decision
-log. None of them looks.
+log. None of them looks.~~ **Three of the four consumers are in a position to do it** — the workflow
+holds the fingerprint inputs' types, the persist step holds the report and its shape spec, the SKILL
+holds the decision log. **The fourth is not**, and the sentence above got it wrong: see
+§Corrections. None of the four looks.
+
+## Corrections
+
+**2026-09-01 (Cycle 15 ideation, Round 1) — the reduce cannot perform its own read-back.** This
+study asserted twice, in §Surface 2 (d) and in §What would close it, that comparing a scanner's
+returned links against the page's bytes is *mechanically available* because *the reduce already has
+its path*. **It holds the path and cannot open it.**
+`skills/vlt-setup/assets/workflows/vlt-lint-full.js` has **no filesystem access**, stated three
+times in its own arg contract — `:37` (*"the SKILL has filesystem access, this script has none — the
+`crossLayerSlugs`/`stubSlugs` division"*), `:64` (*"The SKILL computes the digests (it has
+filesystem access, this script has none)"*), `:476` (`crossLayer` targets *"supplied by the SKILL
+which has filesystem access"*) — and `grep` over all 882 lines finds no `require`, no `import` and
+no `fs.`.
+
+The read-back for surface 2 therefore either **moves SKILL-side** or requires the SKILL to **pass
+new inputs** across that boundary, as it already does for `crossLayerSlugs`, `stubSlugs` and
+`pageHashes`. It is the most expensive of the four consumers' read-backs, not the cheapest.
+
+⚠ **This is a second instance of the study's own cause, inside the study itself** — a value
+(*"available"*) derived from prose (*the reduce has the path*) and consumed without being read back
+against the source. §What this session got wrong records the first, in the capture that opened it.
+Both were caught the same way: by dereferencing the cited artifact instead of the sentence about it.
+The correction did not come from a mechanism; it came from a reader who happened to look, which is
+the study's claim restated.
 
 The cheapest general move the evidence supports is **denominate every derived slot**: a value
 arriving with the population it was derived from (*"stub discovery: 0 slugs found under
