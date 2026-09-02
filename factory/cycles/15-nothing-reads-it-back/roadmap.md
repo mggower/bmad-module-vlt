@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Next: brief build 1.'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Next: a fresh builder session implements the build-1 brief.'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -1319,6 +1319,38 @@ is also stated at its own entry.
 
 *(Empty — populated by `build-brief` as each build is briefed.)* **Cycle 14's two bound debts are appended HERE by the briefs of the builds that carry them** *(roundtable A18, 2026-09-02 — the earlier sentence "not entries here; graded against Cycle 14's ledger text" pointed every parser at a CLOSED roadmap)*: build-4 appends Cycle 14 build-1 (6) leg 3; build-6 appends Cycle 14 build-3 (6) clauses (a)+(c) — each as a `[ship-verifiable]` sub-clause quoting Cycle 14's bound text verbatim (the b3(7) precedent), the vault-act half of the parks debt tagged `[field-contingent]` per D-D.
 
+- [ ] **build-1 (supersession-kind, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-1-supersession-kind.md`. **Five checks — four
+  `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 2/2` (observed: #17, #18;
+  preserved: both are check (3)'s subjects, #17's body seeds check (4)'s fixture). R1 n/a (nothing
+  ships ahead of its mechanism); Retirement n/a (obsolescence beat: none found, re-checked at brief);
+  R4 n/a (the new form is `.github/`, never copied; fixtures un-enumerated — declared exclusion).
+  **(1) `[ship-verifiable]` — at rest — GATES:** every surface that names the rail's kind set names
+  `supersession` — instrument: a per-old-value grep manifest (each `defect`/`pattern`/`candidate`
+  kind-naming hit must co-occur with `supersession` in the same file; the four single-kind forms the
+  enumerated exception); adversary: a `|`- or `/`-separated list a grep for the new value misses —
+  widened to grep the old values. **(2) `[ship-verifiable]` — at the v0.18.0 release sitting — GATES:**
+  after the owner runs `config.yml`'s label bootstrap, `gh label list` carries `field:supersession` and
+  the issue chooser lists four field-contract forms; adversary: label exists but the form's `labels:`
+  still says `field:candidate` — widened by the form-parse assertion on `labels:` byte-for-byte.
+  **(3) `[ship-verifiable]` — after the owner act, before the v0.18.0 tag — GATES** *(A9)*: #17 and #18
+  re-kinded (body `### kind` → `supersession` AND label → `field:supersession`) and the
+  `issue-triage/SKILL.md:70-72` comparison, applied directly via `gh issue view <n> --json labels,body`
+  (both are `captured`, outside triage's queue), reports no mismatch on either; adversary: label-only
+  relabel (caught — both sides read), or the apologetic classification note still in the body —
+  widened: the note's absence is asserted, a stale note FAILS. **(4) `[ship-verifiable]` — at rest —
+  GATES:** the fixture pair `fixtures/build-1-supersession-payload-17.md` (#17's real body re-shaped
+  with `kind: supersession` + both halves) and `…-missing-half.md` run through `github-intake.md` §4 as
+  a reader protocol (no `gh`, scratch output): the first yields a filing whose line 1 opens
+  `# \`class: supersession\`` byte-equal to the two on-disk specimens' opening shape, the second is
+  HELD with a named reason and writes nothing; adversary: marker present but in a spelling/position
+  `grounding-methodology.md:57-59` does not key on — widened: the two hand-written specimens are the
+  oracle. **(5) `[field-contingent]`:** a vault files a real retirement through `vlt-feedback` —
+  event: the next `supersession` filing from a live vault (named candidate: Cycle 14 carry 6,
+  `para_author_unknown`); performer: the owner from `{field-vault}` (readable); grades: issue labelled
+  `field:supersession`, both halves non-empty, no classification note, and the next `inbox-capture`
+  materializes it with the `class: supersession` opening line. Unbounded; watch register if unfired.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1437,6 +1469,16 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
       `field-candidate.yml:16`'s `@mention` line with a pointer to `S-3` (met, not consumed).
   - `binds:` **corrected → Q6, E3, S-3 *(named, not consumed)***. D5 removed — nothing in build-1 invokes
     it; `build-brief` resolves rosters by id. *(roundtable A10, G-F4)*
+  - **Grounding corrections at brief time (2026-09-02, `build-brief` — brief
+    `briefs/build-1-supersession-kind.md`):** three of A10's cites are superseded; scope unchanged.
+    (i) ~~`vlt-feedback/SKILL.md:56`~~ is the duplicate-guard `gh issue list` line and names no kind —
+    the compose site is **`:61-62`**. (ii) ~~`field-candidate.yml:16`~~ → the `@mention` line is
+    **`:17`**. (iii) the drifting line-range cites are not at ~~`issue-triage/SKILL.md:52, :78`~~ /
+    ~~`github-intake.md:57, :61`~~ but at **`issue-triage/SKILL.md:61, :81`** and
+    **`github-intake.md:30, :38, :41, :57, :62, :67, :91, :144`** — and **eight of those ten are already
+    stale today** (the contract's tables moved before this cycle); the brief re-points all ten (F6/F7).
+    Grounding addition: `github-intake.md:61`'s hard count *"the eight `### <field_id>` sections"* is a
+    restatement and goes with the same edit. BRIEFED 2026-09-02.
 
 - **build-2 — A15-9 + A15-11 + A15-4's eviction half: what the instrument costs to run.**
   A15-9 both directions **ordered d2 → d1** (Q3); A15-11 **direction 1 only** (Q2 — document the
@@ -2512,7 +2554,7 @@ report is a copy; this line is the obligation.
 
 ---
 
-**Next lifecycle move (2026-09-02, `roadmap-roundtable`): brief build 1 — `build-brief`.**
+**Next lifecycle move (2026-09-02, `roadmap-roundtable`): brief build 1 — `build-brief`.** *(— historical record; superseded by the block at the foot, 2026-09-02 `build-brief`.)*
 
 **The roundtable is CONVENED and its record is in place** (*§Roundtable review — A15-1..A15-15, the
 seven-build batch (2026-09-02)* above): full 13-voice roster, **21 amendments applied** into the sections
@@ -2532,6 +2574,32 @@ sweep is **cold by construction** and build-2 is graded at rest; the two Cycle 1
 
 **Owed outside any build:** (i) re-kind #17/#18 (body `kind:` + label) after build-1 lands — owner act,
 checked by build-1's acceptance; (ii) two inbox candidates named in the record's *Out of scope*.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`); the routing of record is
+the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-1
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-1-supersession-kind.md`, via
+`bmad-workflow-builder`.**
+
+**Build-1 is BRIEFED** (headless run; readiness gate passed on Q6 / E3-as-amended / `spike: none` /
+roundtable 0 OPEN / owner-ratified promise). Eight F-sites (the contract, the composer, the help row,
+the fourth form, the label bootstrap, the intake materializer, triage's classification clause, one
+README pointer); nine brief-time dispositions recorded inline, none owner-ruled; three grounding
+corrections written at the build-1 bullet above. Five acceptance checks are in the ledger
+(`specimens: 2/2`). `S-3` is met, not consumed — its register file is untouched.
+
+**The builder's exit obligations:** implement F1–F8 in that order (F1 first — every other site derives
+from it), run Verification 1–10 (the fixture pair in `fixtures/` is part of the build), rewrite the
+brief's `status:` to a **BUILT record with numbered deviations**, delete any `.decision-log.md`, one
+commit for the build on `cycle15-v0.18.0`. Not the release build — no version bump. Then the move is
+**`brief build 2`** (file-edit order 2 → 3 → 4 → 6 → 7 governs the rest of the cycle).
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag, at the same sitting as `config.yml`'s label bootstrap —
+check (3) grades it.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
