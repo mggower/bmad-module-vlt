@@ -1,6 +1,6 @@
 ---
 name: vlt-lint
-description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions (the `lint-debt` tripwire — `{tripwires}` — is the counter behind this phrase). Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything.
+description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions (the `lint-debt` tripwire — `{tripwires}` — is the counter behind this phrase). Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything; 'full lint, re-scan <slug>' first evicts that page's cached facts so the sweep re-derives it.
 depends_on: ["frontmatter@14", "wiki-index@2", "wiki-supersession@2", "extraction@9", "write-verification@5", "spec@2", "consult@1", "decision-log@4"]
 ---
 
@@ -36,7 +36,7 @@ find {wiki} {research} {sessions} {projects} {areas} {resources} -type f -name "
 
 Two "since last lint" definitions exist **by design**: this step scopes by **file mtime** (which files to read); the `lint-debt` wire counts **ingest ops** from `{log}` headers (how much work has piled up). They can legitimately disagree; neither redefines the other.
 
-**Full** — only when the user says "full lint" / "lint everything" / `--full`. Read every page in `{wiki}` (and `{research}` for deeper checks), **and every file under `{projects}`/`{areas}`/`{resources}` outside the `{wiki}` subtree** — the PARA file population. At scale that PARA set is derived by the **same predicate already single-homed at `references/full-scale.md` step 1** (the `crossLayerSlugs` derivation, which globs the PARA keys with the nested `{wiki}` subtree carved out) — read it there; it is not restated here.
+**Full** — only when the user says "full lint" / "lint everything" / `--full`. `full lint, re-scan <slug>` (one or more slugs) is full mode with those pages evicted from the findings cache before the sidecar read — the mechanic is `references/full-scale.md` step 2. Read every page in `{wiki}` (and `{research}` for deeper checks), **and every file under `{projects}`/`{areas}`/`{resources}` outside the `{wiki}` subtree** — the PARA file population. At scale that PARA set is derived by the **same predicate already single-homed at `references/full-scale.md` step 1** (the `crossLayerSlugs` derivation, which globs the PARA keys with the nested `{wiki}` subtree carved out) — read it there; it is not restated here.
 
 Below, "every wiki page" means the scoped set in scoped mode, or the whole wiki in full mode. Likewise **"every PARA file"** means the PARA members of the scoped set in scoped mode, or the whole PARA population above in full mode — this is the population every `para_*` finding judges (`references/checks.md`).
 

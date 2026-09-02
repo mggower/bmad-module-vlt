@@ -14,8 +14,8 @@ export const meta = {
 //   above are its handshake acks, bumped on reconciliation like a skill's
 //   depends_on:. The release gate (package-lint E5) parses this line.
 //   R4 (the fan-out currency rule): any ask in this file that enforces a
-//   convention's rule adds that convention to convRead AND to the pins above
-//   in the same edit; any edit to an ask or to the read list re-runs the
+//   convention's rule adds that convention to `SCANNER_CONVENTIONS` (which
+//   feeds convRead AND the cache key) AND to the pins above in the same edit; any edit to an ask or to the read list re-runs the
 //   fan-out audit (every ask checked against the convention set its scanner
 //   receives); restated convention instructions in prompts carry inline
 //   `per <convention>@N` source markers, which consumer walks re-derive.
@@ -55,18 +55,20 @@ export const meta = {
 //                                          //   THIS run's inputs. default []. (A11-11 direction 2; A14-8)
 //     rulesetComponents: {…}   (optional) // the SKILL-side INPUTS to the ruleset half of the fingerprint —
 //                                          //   named slots, never a list and never a pre-joined string:
-//                                          //     module_version:     string  — the installed module_version
-//                                          //     pin_vector:         string  — vlt-lint's own depends_on: pins, verbatim
-//                                          //     convention_digests: {name: digest} — merged (base + overlay) per
-//                                          //                                  convention judged; ORDER DOES NOT
-//                                          //                                  MATTER, this script sorts by name
-//                                          //     checks_digest:      string  — references/checks.md merged digest
+//                                          //     convention_digests: {name: digest} — merged (base + overlay) digest
+//                                          //                                  for EACH name in SCANNER_CONVENTIONS
+//                                          //                                  (the three conventions the page
+//                                          //                                  scanner reads); names outside the set
+//                                          //                                  are ignored for the key and logged;
+//                                          //                                  ORDER DOES NOT MATTER, this script
+//                                          //                                  sorts by name
 //                                          //   The SKILL computes the digests (it has filesystem access, this
 //                                          //   script has none — see the no-filesystem note above); this script
 //                                          //   COMPOSES them into `rulesetFingerprint`. Any slot missing or empty
 //                                          //   → the fingerprint is '' → a cold sweep, with a coverage_caps entry
-//                                          //   naming the absent slots. `rulesetFingerprint` is NOT an accepted
-//                                          //   arg: it is composed here, never passed. (A14-8, Q6.2)
+//                                          //   naming each absent required name. `rulesetFingerprint` is NOT an
+//                                          //   accepted arg: it is composed here, never passed. (A14-8, Q6.2;
+//                                          //   A15-9 D-B — facts-not-verdicts: no version, pin or checks digest)
 //     today:           string  (optional) // 'YYYY-MM-DD' — the SKILL passes it (scripts have no Date.now());
 //                                          //   needed to compute review_due; absent → review_due not computed
 //                                          //   (reported as a coverage cap).
@@ -75,6 +77,7 @@ export const meta = {
 //     pairCap:         number  (optional) // max callout-seeded entity pairs to compare in the second pass (default 24);
 //                                          //   excess seeded pairs are reported in coverage_caps, never silently dropped
 //     scanModel:       string  (optional) // model for the per-page scanners (pure extraction). default 'haiku' — the ~10x cost win.
+//                                          //   — enters the per-page cache key as the extractor identity; must be a non-empty string.
 //     indexModel:      string  (optional) // model for the index-drift pass (light reasoning). default 'sonnet'.
 //     clusterModel:    string  (optional) // model for the cross-page contradiction pass (light judgement). default 'sonnet'.
 //   }
@@ -119,12 +122,17 @@ const clusterCap = a.clusterCap || Math.max(12, Math.ceil(pages.length / 4))
 // Model tiering — the page scanners are pure structured extraction (the bulk of the spend); a cheap
 // model is sufficient and is where the ~10x cost win lives. Index + cluster passes do light reasoning. (#3 §2)
 const pairCap = Number.isInteger(a.pairCap) ? a.pairCap : 24 // 0 is a valid (test) value — no || fallback
-const scanModel = a.scanModel || 'haiku'
+// The extractor identity enters the cache key (A15-9 D-B), so a present override must be a
+// non-empty string — String([...]) would otherwise compose a junk key term and dispatch anyway.
+const scanModel = a.scanModel === undefined ? 'haiku' : a.scanModel
 const indexModel = a.indexModel || 'sonnet'
 const clusterModel = a.clusterModel || 'sonnet'
 
 if (!pages.length || !indexPath || !conventionsPath) {
   return { error: 'vlt-lint-full requires { pages:[{slug,path}], indexPath, conventionsPath }. The vlt-lint SKILL discovers pages and passes live paths.' }
+}
+if (typeof scanModel !== 'string' || scanModel.length === 0) {
+  return { error: `vlt-lint-full requires scanModel to be a non-empty string when passed (got ${Array.isArray(a.scanModel) ? 'array' : typeof a.scanModel}) — it is the extractor identity in every per-page cache key; omit it for the default 'haiku'.` }
 }
 
 // ── Cost accounting (A11-11 direction 0) ─────────────────────────────────────
@@ -220,13 +228,18 @@ phase('Scan pages')
 // exists, the scanner reads base + overlay together — mirroring the vlt-lint SKILL's own
 // inline reads ("read each together with its {overlays}/{name}.overlay.md if present,
 // honoring the overlay's appended rules").
+// The conventions the page scanner reads — SINGLE-HOMED here (A15-9 d1, roundtable A4). Two
+// consumers, no third statement: pageScanPrompt's read clause below, and rulesetSlotsMissing /
+// composeRulesetFingerprint (the cache key's ruleset half requires exactly these names, by name).
+// Adding an ask that reads a fourth convention adds it HERE and to the pins in the header (R4).
+const SCANNER_CONVENTIONS = ['frontmatter', 'wiki-supersession', 'write-verification']
 const convRead = (name) =>
   overlaysPath && overlayNames.includes(name)
     ? `${conventionsPath}/${name}.md together with its overlay ${overlaysPath}/${name}.overlay.md, honoring the overlay's appended rules (the convention is the base file plus its overlay, merged on read)`
     : `${conventionsPath}/${name}.md`
 
 const pageScanPrompt = (p) =>
-  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${convRead('frontmatter')}; ${convRead('wiki-supersession')}; ${convRead('write-verification')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@14 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@14 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@5, the wiki-page tier-1 item: frontmatter is the source of truth); where both exist and an entry in one is not traceable in the other, report the DIRECTION: 'diverge_prose_gap' when every divergent entry is one frontmatter carries and the prose section lacks; 'diverge_frontmatter_gap' when every divergent entry is one the prose section cites and frontmatter lacks; 'diverge_unclassified' when both kinds are present OR you cannot tell which side is missing the entry — that is the safe answer and it is flagged for a human, never auto-fixed, so never guess a direction; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
+  `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${SCANNER_CONVENTIONS.map((n) => convRead(n)).join('; ')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@14 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@14 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@5, the wiki-page tier-1 item: frontmatter is the source of truth); where both exist and an entry in one is not traceable in the other, report the DIRECTION: 'diverge_prose_gap' when every divergent entry is one frontmatter carries and the prose section lacks; 'diverge_frontmatter_gap' when every divergent entry is one the prose section cites and frontmatter lacks; 'diverge_unclassified' when both kinds are present OR you cannot tell which side is missing the entry — that is the safe answer and it is flagged for a human, never auto-fixed, so never guess a direction; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
   `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later. ` +
   `The frontmatter verdict is STRUCTURED, and it is three fields, not prose. frontmatter_defect is exactly one of: 'none' — the frontmatter block is present, parses, and satisfies the wiki-page schema; 'missing_required' — the block parses but one or more schema keys are absent, and you list EXACTLY those keys in frontmatter_defect_fields; 'malformed_block' — the frontmatter block is absent entirely, or its delimiters/YAML cannot be parsed at all; 'unclassified' — a genuine break that fits none of the above, with the words in frontmatter_defect_detail. Never force a break into a member that fits badly — 'unclassified' exists precisely so an unforeseen break is reported honestly rather than mis-filed, and it is never discarded downstream. frontmatter_defect_fields carries BARE frontmatter key names only, one per entry — \`summary\`, not "missing summary field", never a sentence, never a phrase, never a rule citation. A rule citation, a justification, or any explanatory wording belongs in frontmatter_defect_detail and NEVER in frontmatter_defect_fields. When frontmatter_defect is 'none', frontmatter_defect_fields is empty and frontmatter_defect_detail is empty.`
 
@@ -252,34 +265,56 @@ const scanFingerprint = fnv1a(canonicalScan) + fnv1a(canonicalScan.split('').rev
 // filesystem access (see the header), so the SKILL must compute the digests; but a
 // composition stated in prose for the SKILL to execute is exactly the defect A14-8 names —
 // one contract, two implementations, no enforcement point where they meet. So the SKILL
-// supplies INPUTS and this file supplies the ALGORITHM, once. The canonical order is code,
-// never prose: module_version, pin_vector, every convention digest as `name=digest` with
-// names sorted lexicographically, then checks_digest — joined with '|'. A caller passing the
-// same components in a different key order composes the identical value. The digest itself is
-// the same fnv1a-pair-plus-length construction scanFingerprint uses: no crypto import exists
-// here and none is needed — this half only has to change whenever its inputs change, and the
-// strong digest is the SKILL's (full-scale.md step 2 names the instrument).
-const RULESET_SLOTS = ['module_version', 'pin_vector', 'convention_digests', 'checks_digest']
-const rulesetSlotsMissing = RULESET_SLOTS.filter((k) => {
+// supplies INPUTS and this file supplies the ALGORITHM, once. The inputs are FACTS, NOT
+// VERDICTS (A15-9, D-B): a cached record is what ONE scanner returned from ONE page under ONE
+// prompt + schema (scanFingerprint) reading EXACTLY the SCANNER_CONVENTIONS — so the ruleset
+// half is the resolved scanModel (the extractor identity) plus those three conventions' merged
+// digests, and nothing else. The version string, the pin vector and checks.md left the key: none is
+// an input to any scanner, and the reduce re-runs over cached facts every sweep, so a release
+// that moves none of the three inputs leaves every record reusable (a record reused under a
+// moved SCANNER-READ rule would be a false clean — D4 — and still cannot happen). The canonical
+// order is code, never prose: scanModel, then every required convention digest as `name=digest`
+// with names sorted lexicographically — joined with '|'. A caller passing the same components
+// in a different key order composes the identical value; names outside SCANNER_CONVENTIONS
+// never enter it (they are logged, once). The digest itself is the same fnv1a-pair-plus-length
+// construction scanFingerprint uses: no crypto import exists here and none is needed — this
+// half only has to change whenever its inputs change, and the strong digest is the SKILL's
+// (full-scale.md step 2 names the instrument).
+const RULESET_SLOTS = ['convention_digests']
+// Missing is reported BY NAME (`convention_digests[write-verification]`), never as the bare slot,
+// except when the map itself is absent. The test per required name is the string-slot test the
+// slots always carried — absent, or not a non-empty string.
+const rulesetSlotsMissing = RULESET_SLOTS.flatMap((k) => {
   const v = rulesetComponents[k]
   if (k === 'convention_digests') {
-    if (!v || typeof v !== 'object' || Array.isArray(v)) return true
-    const names = Object.keys(v).filter((n) => String(v[n] || '').length > 0)
-    return names.length === 0
+    if (!v || typeof v !== 'object' || Array.isArray(v)) return [k]
+    return SCANNER_CONVENTIONS.filter((n) => typeof v[n] !== 'string' || v[n].length === 0).map((n) => `${k}[${n}]`)
   }
-  return typeof v !== 'string' || v.length === 0
+  return typeof v !== 'string' || v.length === 0 ? [k] : []
 })
-// Completeness is enforced, not assumed: any slot missing or empty ⇒ '' ⇒ reusable() is false
-// for every page ⇒ a cold sweep, with a named cap (the same loud-degrade posture the overlay
-// args carry below).
+// Completeness is enforced, not assumed: any required name missing or empty ⇒ '' ⇒ reusable() is
+// false for every page ⇒ a cold sweep, with a named cap (the same loud-degrade posture the
+// overlay args carry below).
 const composeRulesetFingerprint = () => {
   if (rulesetSlotsMissing.length) return ''
   const cd = rulesetComponents.convention_digests
-  const pairs = Object.keys(cd).sort().map((n) => `${n}=${String(cd[n])}`)
-  const canonical = [String(rulesetComponents.module_version), String(rulesetComponents.pin_vector), ...pairs, String(rulesetComponents.checks_digest)].join('|')
+  const extras = Object.keys(cd).filter((n) => !SCANNER_CONVENTIONS.includes(n))
+  if (extras.length) log(`rulesetComponents.convention_digests names conventions the page scanner never reads — ignored for the cache key: [${extras.join(', ')}] (the key carries exactly ${SCANNER_CONVENTIONS.join(', ')})`)
+  const pairs = [...SCANNER_CONVENTIONS].sort().map((n) => `${n}=${cd[n]}`)
+  const canonical = [scanModel, ...pairs].join('|')
   return fnv1a(canonical) + fnv1a(canonical.split('').reverse().join('')) + canonical.length.toString(16)
 }
 const rulesetFingerprint = composeRulesetFingerprint()
+// The ruleset half's inputs as composed THIS run — a fact returned as `cache_components` and
+// stored beside the sidecar's informational `fingerprint` so the SKILL can name which convention
+// moved on a cold run. Never a source of any reuse decision (lint-cache.py's docstring rule).
+const cacheComponents = {
+  scan_model: scanModel,
+  convention_digests: Object.fromEntries(SCANNER_CONVENTIONS.map((n) => {
+    const cd = rulesetComponents.convention_digests
+    return [n, cd && typeof cd === 'object' && typeof cd[n] === 'string' ? cd[n] : '']
+  })),
+}
 
 // The composite per-page key, and the split of the page list (A11-11 direction 2).
 // A record is reusable iff its recorded key equals the key recomputed from THIS run's
@@ -289,12 +324,29 @@ const rulesetFingerprint = composeRulesetFingerprint()
 // — this is the recorded-state branch of the contract's derive-first rule, not the
 // inferred-from-residue branch.)
 // The key's three terms are unchanged in shape (A4); only the THIRD term's provenance moved —
-// it is now COMPOSED here from the SKILL-supplied components above, so two conformant executors
-// cannot disagree about it. scanFingerprint stays a term: it is workflow-internal by
-// construction (the SKILL cannot compute it), and dropping it would make a sidecar written
-// under one PAGE_SCAN reusable under another.
+// it is COMPOSED here from the SKILL-supplied components above, so two conformant executors
+// cannot disagree about it — and, since A15-9, its INPUTS are facts-not-verdicts (see above).
+// scanFingerprint stays a term: it is workflow-internal by construction (the SKILL cannot
+// compute it), and dropping it would make a sidecar written under one PAGE_SCAN reusable under
+// another.
 const runKey = (slug) => `${pageHashes[slug] || ''}|${scanFingerprint}|${rulesetFingerprint}`
 const cacheBySlug = new Map(cachedScans.filter((c) => c && c.slug && c.key && c.scan).map((c) => [c.slug, c]))
+// Miss attribution (A15-9 / A20): for every sidecar record that will NOT be reused, the FIRST of
+// the three '|'-separated key terms that differs from this run's — page_bytes / scan_surface /
+// ruleset — counted, so a cold run can say WHICH term moved rather than merely that one did.
+// Page-bytes misses are churn, not cold; the SKILL renders the cold reason from the other two
+// (plus the by-name diff of the sidecar's stored `components` against `cache_components`).
+const KEY_TERMS = ['page_bytes', 'scan_surface', 'ruleset']
+const cacheMissTerms = { page_bytes: 0, scan_surface: 0, ruleset: 0 }
+for (const [slug, c] of cacheBySlug) {
+  const now = runKey(slug)
+  if (c.key === now) continue
+  const had = String(c.key).split('|'), cur = now.split('|')
+  const i = KEY_TERMS.findIndex((_, k) => had[k] !== cur[k])
+  // A key of foreign arity whose first three terms all match is a ruleset-shaped miss (the
+  // ruleset term is the one whose composition a release can reshape).
+  cacheMissTerms[KEY_TERMS[i === -1 ? 2 : i]]++
+}
 // The enforcement point for full-scale.md step 2's standing mandate — "a missing, unparseable
 // or schema-mismatched sidecar is a cold run, STATED IN THE REPORT, never a silent full sweep
 // presented as a cached one" (A39). The mandate has existed since the cache shipped with
@@ -401,6 +453,9 @@ if (toScan.length > 0 && (freshScans.length === 0 || freshScans.length < Math.ce
     page_unreadable: pageUnreadableSlugs,
     coverage_caps: coverageCaps,
     cost_accounting: costAccounting(), // A11-11 direction 0 — a failed sweep's numbers are still measurement evidence
+    cache_miss_terms: cacheMissTerms, // A15-9 — likewise: why the cache missed is evidence even when the sweep failed
+    cache_records_read: cacheRecordsRead,
+    cache_rejected: cacheRejected,
     next: 're-run after confirming the vault-local workflow copy is current (vlt-upgrade); if the shortfall persists at full coverage, file it',
   }
 }
@@ -879,4 +934,9 @@ return {
   // that the cache is healthy.
   cache_records_read: cacheRecordsRead,
   cache_rejected: cacheRejected,
+  // A15-9 / A20: WHY records missed, by first differing key term, and the ruleset half's inputs
+  // as composed this run — both facts, never a reuse source. The SKILL stores cache_components
+  // in the sidecar (`write --components`) and names the moved term(s) on a cold run.
+  cache_miss_terms: cacheMissTerms,
+  cache_components: cacheComponents,
 }

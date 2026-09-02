@@ -1,0 +1,106 @@
+{
+  "fingerprint": "informational-only-never-a-reuse-source",
+  "components": {
+    "scan_model": "haiku",
+    "convention_digests": {
+      "frontmatter": "1111111111111111",
+      "wiki-supersession": "2222222222222222",
+      "write-verification": "3333333333333333"
+    }
+  },
+  "written": "2026-09-02",
+  "records": [
+    {
+      "slug": "wiki-page-alpha",
+      "key": "sha256-wiki-page-alpha-baseline-bytes000000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "scan": {
+        "slug": "wiki-page-alpha",
+        "available": true,
+        "title": "Wiki page alpha",
+        "created": "2026-07-01",
+        "last_updated": "2026-07-10",
+        "verified_by": "vlt-lint",
+        "verified_at": "2026-07-10",
+        "review_after": "",
+        "outbound_links": [
+          "wiki-page-beta",
+          "seattle-seahawks"
+        ],
+        "frontmatter_defect": "none",
+        "category": "Sports",
+        "topic_is_list": true,
+        "summary": "A fixture page that links to beta and to the seahawks page.",
+        "frontmatter_defect_fields": [],
+        "frontmatter_defect_detail": "",
+        "sources_vs_prose": "match",
+        "sources_vs_prose_detail": "",
+        "stale_unmarked": [],
+        "within_page_contradictions": [],
+        "unmarked_supersession": [],
+        "thin": false,
+        "name_callout_targets": []
+      }
+    },
+    {
+      "slug": "wiki-page-beta",
+      "key": "sha256-wiki-page-beta-baseline-bytes0000000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "scan": {
+        "slug": "wiki-page-beta",
+        "available": true,
+        "title": "Wiki page beta",
+        "created": "2026-07-02",
+        "last_updated": "2026-07-12",
+        "verified_by": "vlt-lint",
+        "verified_at": "2026-07-12",
+        "review_after": "",
+        "outbound_links": [
+          "wiki-page-alpha"
+        ],
+        "frontmatter_defect": "none",
+        "category": "Sports",
+        "topic_is_list": true,
+        "summary": "A fixture page that links back to alpha.",
+        "frontmatter_defect_fields": [],
+        "frontmatter_defect_detail": "",
+        "sources_vs_prose": "no_prose_section",
+        "sources_vs_prose_detail": "",
+        "stale_unmarked": [],
+        "within_page_contradictions": [],
+        "unmarked_supersession": [],
+        "thin": false,
+        "name_callout_targets": []
+      }
+    },
+    {
+      "slug": "seattle-seahawks",
+      "key": "sha256-seattle-seahawks-baseline-bytes00000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "scan": {
+        "slug": "seattle-seahawks",
+        "available": true,
+        "title": "Seattle Seahawks",
+        "created": "2026-07-20",
+        "last_updated": "2026-08-28",
+        "verified_by": "vlt-lint",
+        "verified_at": "2026-08-28",
+        "review_after": "",
+        "outbound_links": [
+          "wiki-page-alpha",
+          "_agent/research/2026-07-26-112444-espn-top-10-cornerboxes-2026"
+        ],
+        "frontmatter_defect": "none",
+        "category": "Sports",
+        "topic_is_list": true,
+        "summary": "The A15-4 specimen: a scanner substituted cornerboxes for cornerbacks in this link and the cache preserved it.",
+        "frontmatter_defect_fields": [],
+        "frontmatter_defect_detail": "",
+        "sources_vs_prose": "match",
+        "sources_vs_prose_detail": "",
+        "stale_unmarked": [],
+        "within_page_contradictions": [],
+        "unmarked_supersession": [],
+        "thin": false,
+        "name_callout_targets": []
+      }
+    }
+  ]
+}

@@ -1,6 +1,120 @@
 ---
 title: 'Build #2 — what the instrument costs to run: after this ships, a vault owner who re-runs `vlt-lint --full` — after an upgrade, or because a finding looks wrong — pays for what actually changed instead of for everything, and can force a re-derivation instead of being served the same suspect answer'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session. The builder rewrites this line to a BUILT record: `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (precedent: Cycle 14 build-5), deletes any `.decision-log.md`, one commit for the build. Not the release build — no version bump here (rides build-7 / v0.18.0). File-edit order across the cycle is 2 → 3 → 4 → 6 → 7: this build lands BEFORE build-3 on the three shared sites named in §Boundary with build-3.'
+status: >
+  BUILT 2026-09-02 — all eight F-sites landed; **checks (1), (2) and (3) — the three at-rest
+  `[ship-verifiable]` checks — PASS at rest**, the harness proven failable against the pre-build
+  workflow (`0e01381`); (4) and (5) sit on the v0.18.0 upgrade sweep; (6) is field-contingent.
+  Version bump NOT taken — rides build-7 / v0.18.0. Branch `cycle15-v0.18.0`. No handshake moved
+  (`// depends_on:` header and `vlt-lint/SKILL.md:4` pins untouched; `PAGE_SCAN` untouched — E6
+  still reads 3676).
+
+  **Sites changed.**
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js` (F1): `:16-18` the R4 header names
+  `SCANNER_CONVENTIONS` as the read list's home; `:56-71` the `rulesetComponents` contract lists one
+  slot (`convention_digests`, one digest per required name, extras ignored + logged, *naming each
+  absent required name*); `:80` the `scanModel` row's key-role clause; `:125-127` `scanModel`
+  resolves with `undefined` → `'haiku'` and `:134-136` refuses a present non-string / empty value in
+  the args-guard error shape; `:231-235` `SCANNER_CONVENTIONS` declared once above `convRead` and
+  `:242` the prompt's read clause is `SCANNER_CONVENTIONS.map((n) => convRead(n)).join('; ')`
+  (byte-identical text); `:263-282` the composition comment rewritten (facts-not-verdicts, the new
+  canonical order); `:283` `RULESET_SLOTS = ['convention_digests']`; `:287-294` `rulesetSlotsMissing`
+  reports missing required names as `convention_digests[<name>]` (the bare slot only when the map is
+  absent); `:298-307` `composeRulesetFingerprint` builds pairs from `SCANNER_CONVENTIONS` only, logs
+  extras once, joins `[scanModel, ...pairs]`; `:308-317` `cacheComponents`; `:333-347` the
+  `KEY_TERMS` / `cacheMissTerms` first-differing-term attribution beside `runKey`; `:456-458` and
+  `:937-941` `cache_miss_terms` + `cache_components` returned. `:374` cap text untouched (its
+  interpolation is by-name by construction); `:433-441`-class comment untouched.
+  `skills/vlt-lint/scripts/lint-cache.py` (F2): `:5`, `:15-21` three callers, `:31-45` the
+  `components`-extended informational rule + the `evict` exit-code sentence; `:93` `read` returns
+  `components`; `:107-114` `_load_components`; `:117-133` `_atomic_write` — the one writer, factored out
+  of `cmd_write`; `:136-158` `write --components <path|->`; `:175-214` `cmd_evict` (exact slug match,
+  `{"evicted", "of", "missing", "path"|"reason"}` + stderr `evicted K of N`, exit 1 when K is 0 —
+  missing and unparseable sidecars are `0 of 0` exit 1); `:229-234` registration + dispatch table.
+  `skills/vlt-lint/references/full-scale.md` (F3): step 2 (`:8`) opens with the Route A `evict`
+  step, `read`'s returned-fields list gains `fingerprint`/`components`/`written`, the slot sentence is
+  disposition 2's text verbatim (the three names, `SCANNER_CONVENTIONS`), the composing sentence
+  names `scanModel` as the workflow-resolved extractor identity and missing-by-name, and the closing
+  "worked instance"/"COLD one" sentences are replaced by disposition 8's cold-when text + the
+  `cache_miss_terms` / `components`-diff pointer; step 3 (`:9-17`) is the `scriptPath` route as the
+  invocation at scale (the filing's wrapper verbatim, the 146/146/1,849/6 ~84KB sizes, `mktemp -d`
+  outside the vault, resume with the same `scriptPath`, the inline form scoped to small sweeps with
+  the re-pass sentence, the build-4 sibling-executable follow-on); step 5's cache paragraph (`:21`)
+  — `write` gains `--components`, Route B's refusal text sits AFTER the `write` sentence and before
+  Step 6, hand-deleting is the second remedy after `evict --slug`, the `lint_cache:` composition
+  gains `evicted E by request` + the cold-reason diff.
+  `skills/vlt-lint/references/report.md` (F4): `:78` both branches carry `evicted E by request`,
+  the cold placeholder is `<reason — names the moved term(s)>`; `:89` the echo sentence replaced by
+  the named-term frame (build-3 appends its fourth reason), plus the never-omitted sentence.
+  `skills/vlt-lint/references/fix-and-file.md:16` (F5): the refused-finding pointer after the
+  auto-fix list. `skills/vlt-lint/SKILL.md` (F6): `:3` description + `:39` the re-scan sentence;
+  `:16` ("deleting it costs only a cold run") untouched. `skills/vlt-setup/assets/module-help.csv:10`
+  (F7): the `re-scan <slug>` args clause, every free-text field quoted.
+  **NEW fixtures** (F8, `factory/cycles/15-nothing-reads-it-back/fixtures/`): `build-2-sidecar.json`
+  (three records; `seattle-seahawks` carries the `…-espn-top-10-cornerboxes-2026` link — specimen
+  (iii); keys composed by the code under test via `--regen`), `build-2-key-harness.mjs` (the E6-style
+  node-over-the-file loader; modes: case table / `--legacy` / `--sidecar` / `--regen` /
+  `--fingerprint`; `args` delivered as a JSON string), `build-2-wrapper-example.js` (the step-3
+  recipe with a two-page payload; `node --check` exit 0).
+
+  **Verification.** (1) key fixture, post-build: (a) 2 cached · (b) 2 cached · (c) 2 cached + ONE
+  log line `… ignored for the cache key: [extraction] …` · (d) 0 cached, `agent_failed` both,
+  `cache_miss_terms {ruleset: 2}` · (e) 0 cached, `{ruleset: 2}` · (f) 0 cached, `{scan_surface: 2}` ·
+  (g) 0 cached, cap `absent or empty slots [convention_digests[write-verification]]`; the
+  `scanModel: [array]` guard refused with the error shape — 15/15 expectations. **Red/green
+  against `0e01381`** (legacy slots supplied): (b) COLD, (e) WARM — the two predicted flips — and
+  (c) COLD too (a third flip the brief did not predict: the pre-build key composed every name
+  passed, so a fourth convention went cold — the same over-breadth); post-build (b)/(c) warm,
+  (e) cold. (2) prompt-text invariance: `scanFingerprint` `dcce0c50239720081cb5` before and after
+  — equal. (3) single-home greps: `module_version|checks_digest|pin_vector` over `skills/vlt-lint` +
+  the workflow → 0; `SCANNER_CONVENTIONS` → 11 hits (declaration, prompt, slot loop, compose,
+  components, comments); `grep "convRead('"` → 1 hit, `:586` `convRead('wiki-index')` (deviation
+  2). (4) eviction fixture in a temp vault: `evict --slug seattle-seahawks` → `evicted 1 of 3`
+  exit 0; `read` → `count: 2`, `components` present; `evict --slug not-a-page` → `evicted 0 of 2`
+  exit 1; no sidecar → `0 of 0` exit 1; unparseable sidecar → `0 of 0` exit 1; two slugs one
+  missing → `evicted 1 of 3`, `missing: ["ghost"]`; the harness "unchanged inputs" case over the
+  evicted sidecar → `agent_failed: ["seattle-seahawks"]` exactly, `files_cached: 2`; `write
+  --components` round-trips through `read`, `write` without it leaves `components: null`; no
+  `.tmp` left behind. (5) retirement grep `first full run after any release|COLD one|worked
+  instance three times|first full run after an upgrade` over `skills/` → 0; `evicted E by
+  request` at `report.md:78` (×2) and `:89`; the step-2 slot sentence carries the three names
+  verbatim and no longer says "judges against". (6) wrapper: `node --check` exit 0; recipe and
+  fixture agree on `export const meta` / `const LINT_ARGS` / `workflow('vlt-lint-full',
+  LINT_ARGS)` / `scriptPath` / `resumeFromRunId`. (7) `uv run tools/package-lint.py
+  --expect-version 0.17.1` → A/B/C/E PASS, D PASS; E6 sizes PAGE_SCAN 3676 / INDEX_SCAN 823 /
+  CLUSTER_FINDINGS 1630 / PAIR_FINDINGS 376. (8) R4: not applicable — declared exclusion (no
+  shipped file added; wrapper lives outside the vault by recipe; fixtures un-enumerated).
+  (9) R3: not applicable (no finding class); the response is single-homed at step 5 with the
+  `fix-and-file.md:16` pointer. (10) scrub: no machine path / username in the diff or fixtures.
+  (11) no `.decision-log.md` in tree; temp vaults removed; `__pycache__` removed.
+
+  **Deviations/notes.** (1) `cache_miss_terms` (with `cache_records_read`/`cache_rejected`) is ALSO
+  attached to the `status: 'failed'` return (`:456-458`), not only the findings return the brief
+  named — a sweep whose every dispatched agent died (the harness's cold cases, and the field's
+  stale-copy shape) can only produce that return, and why the cache missed is measurement
+  evidence there exactly as `cost_accounting` already is. (2) Verification 3's `convRead('` → 0
+  hits reads 1: `:586` `convRead('wiki-index')` is the INDEX pass's read, not a page-scanner read —
+  `wiki-index` is outside `SCANNER_CONVENTIONS` by design (its digest must NOT enter the page key),
+  so the call stays literal; the required-name set is still single-homed for the page scanner.
+  (3) `:374` (brief `:322`) cap wording NOT edited — the by-name interpolation follows from
+  `rulesetSlotsMissing` by construction; the "absent or empty slots" frame is build-3's. (4) step
+  2's digest-steps sentence lost its parenthetical *"(`references/checks.md` merges with its own
+  overlay the same way …)"* — `checks.md` is no longer digested; the four steps (instrument,
+  merge order, encoding, truncation) are unchanged. (5) three cases flip between the builds, not
+  two — (c) recorded above. (6) `full-scale.md` step 3 is now a multi-line list item (the fenced
+  recipe), so step 4 sits at `:17` and step 5's cache paragraph at `:21` (was `:12`); no shipped or
+  factory file cites `full-scale.md` by line number (grep-verified). (7) the `scanModel` guard
+  treats `null` as a present non-string (refused) and only `undefined`/absent as the default —
+  the brief's "present non-string or empty", read literally. (8) the sidecar fixture's keys are
+  re-composed in memory by the code under test on every harness run (a `gen` pass with a
+  returning stub, never on the path the checks observe), so build-7's scan-surface move will
+  not strand the fixture; `--regen` rewrites the committed keys and the run reports whether they
+  are current. (9) the harness's `--legacy` mode encodes the pre-build expectations, so the
+  red/green is re-runnable: `git show 0e01381:skills/vlt-setup/assets/workflows/vlt-lint-full.js
+  > <scratch>/legacy.js && node build-2-key-harness.mjs --workflow <scratch>/legacy.js --legacy`.
+  (10) disposition 3's D2 (ii) dated note already sits in the roadmap (`roadmap.md:1608`) —
+  nothing owed. **Release-time obligations stand as §Release states** (the v0.18.0 CHANGELOG cold-run
+  statement naming `write-verification` + the scan surface, and why it is the last such
+  statement) — not written here.
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:
