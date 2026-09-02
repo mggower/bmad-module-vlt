@@ -1,6 +1,75 @@
 ---
 title: 'Build #1 — a `supersession` kind on the feedback rail: after this ships, a vault owner filing a retirement gets an issue that says it is one — findable by label, routed by its own form, and checked by triage against the body — instead of a candidate whose real class survives only in a note nothing machine-readable can read'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session. The builder rewrites this line to a BUILT record: `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (precedent: Cycle 14 build-5), deletes any `.decision-log.md`, one commit for the build. Not the release build — no version bump here (rides build-7 / v0.18.0).'
+status: >
+  BUILT 2026-09-02 — all eight F-sites landed; **checks (1) and (4) — the two at-rest
+  `[ship-verifiable]` checks — PASS at rest**; (2) and (3) are release-sitting checks that wait on
+  the owner's label bootstrap and the #17/#18 re-kind (both owed, see below); (5) is
+  field-contingent. Version bump NOT taken — rides build-7 / v0.18.0. Branch `cycle15-v0.18.0`.
+
+  **Sites changed.**
+  `skills/vlt-feedback/references/field-contract.md` (F1): `:18-19` the E3 sentence appended to the
+  evolution rule (*widening a closed value set … is additive when no existing value's meaning
+  changes*); `:43` the `kind` row's fourth value in the same sentence shape; `:44-45` the
+  `superseded_rule` / `superseding_mechanism` rows directly after `kind`, `Required` = *when `kind` is
+  `supersession`; otherwise absent* (disposition 1); `:76` the `field:supersession` label row after
+  `field:candidate`; `rail_contract: 1` at `:12` untouched.
+  `skills/vlt-feedback/SKILL.md` (F2): `:4` description `(defect / pattern / candidate / supersession)`;
+  `:51-54` judgment-core step 2 names the fourth kind in the list's idiom, *Don't inflate…* kept;
+  `:64-66` compose gains the conditional clause (*a filing missing either is not composed*).
+  `skills/vlt-setup/assets/module-help.csv:18` (F3): description and args both widened, every
+  free-text field still quoted.
+  **NEW** `.github/ISSUE_TEMPLATE/field-supersession.yml` (F4, 92 lines): `diff` against
+  `field-candidate.yml` shows exactly the header comment, `name`/`description`/`labels`, the S-3
+  comment, the `kind` dropdown text + `[supersession]`, and the two `required: true` textareas after
+  `kind` — nothing else. The three existing forms untouched.
+  `.github/ISSUE_TEMPLATE/config.yml:16` (F5): the `field:supersession` bootstrap line, `BFD4F2`.
+  `.claude/skills/inbox-capture/references/github-intake.md` (F6): `:61-63` the parse sentence
+  (*eight for every kind, ten for `supersession`*); `:70-76` the written-header bullet writing
+  `# \`class: supersession\` — <title>` and the two `##` half sections; `:78-81` the either-half-missing
+  hold beside step 2's idiom; eight cites re-pointed — `:30` → `:85-90`, `:41` → `:15-22`, `:57`/`:68`
+  → `:56-60`, `:63` → `:38-49`, `:103`/`:156` → `:65-83` (`:38` → `:12` holds).
+  `.claude/skills/issue-triage/SKILL.md` (F7): `:72-74` the both-halves sentence (*a missing half is a
+  drafted `needs-info`, never a drafted re-kind to `candidate`*); `:61` → `:15-22`, `:83` → `:65-83`.
+  `factory/inbox/README.md:81-83` (F8): the rail-route pointer inside the `class: supersession`
+  sentence; the marker line itself stays `:80`, so the intake's `README.md:80` cite holds.
+  **NEW fixtures** `factory/cycles/15-nothing-reads-it-back/fixtures/build-1-supersession-payload-17.md`
+  (#17's real body via `gh issue view 17 --json body`, `kind` → `supersession`, the two halves lifted
+  verbatim from the on-disk specimen's Half 1 / Half 2) and `…-missing-half.md` (same, with
+  `### superseding_mechanism` deleted).
+
+  **Verification.** (1) per-value greps: every file naming `defect`/`pattern`/`candidate` as a kind
+  also names `supersession` — `field-contract.md` (`:43`), `vlt-feedback/SKILL.md` (`:4`, `:51`),
+  `module-help.csv:18`, plus `config.yml`, `issue-triage/SKILL.md`, `github-intake.md`; the only
+  files without it are `field-defect.yml` / `field-pattern.yml` / `field-candidate.yml` — the
+  enumerated single-kind exception. (2) all six distinct `field-contract.md:` cite ranges across the
+  two files read back against the post-edit file, each endpoint opening/closing on its section.
+  (3) `yaml.safe_load` (via `uv run --with pyyaml`) exits 0 on the new form and the four existing
+  files; `labels == ["vault-filed","field:supersession"]` byte-equal; `kind` options
+  `["supersession"]`; both halves `textarea` + `required: true`; ten ids match the contract's field
+  ids byte-for-byte. (4) reader protocol over the fixture pair (a scratch script executing §4 as
+  written, output to the scratchpad only, nothing in `factory/inbox/`): fixture 1 → MATERIALIZED, line
+  1 = `# \`class: supersession\` — Retire the PARA type: prohibition — …`, sections `## superseded_rule`
+  and `## superseding_mechanism` present; the line-1 prefix is **byte-equal to both hand-written
+  specimens'** (`2026-09-01-160000-…`, `…-170000-…`). Fixture 2 → **HELD for hand-handling — kind:
+  supersession missing `### superseding_mechanism` (no label change, nothing written)**. (5)/(6)
+  `uv run tools/package-lint.py --expect-version 0.17.1` → `A/B/C/E PASS, D PASS — vlt 0.17.1`
+  (Group B green on the csv row; Group E green as the handshake check of record). (7) R3 satisfied
+  at the hold's single home. (8) R4 not applicable, declared exclusion. (9) scrub grep for machine
+  paths / username over every touched file: none. (10) no `.decision-log.md` in the tree.
+
+  **Deviations/notes.** (1) The S-3 YAML comment sits above the markdown block's `value: |` line, not
+  immediately above the `@mention` line inside it — a `#` line inside a literal block scalar is
+  content, not a comment, and would have rendered in the form; the `@mention` line itself is
+  verbatim. (2) The brief's projected post-edit cite ranges were re-derived as instructed; F1 shifts
+  the file by +1 (evolution), +2 (rows), +1 (label row), giving `:15-22`, `:38-49`, `:56-60`,
+  `:65-83`, `:85-90`. (3) In the re-shaped fixture the `### kind` classification-note paragraph is
+  dropped — under `kind: supersession` it is false, and check (3)'s widened assertion says a stale
+  note is a FAIL. (4) The `fixtures/` directory did not exist for this or any cycle; this build creates
+  it (P-18's first materialized fixture). (5) The reader protocol was executed as a recorded scratch
+  script rather than a hand read, so the two outcomes above are reproducible; the script is not
+  shipped (the intake stays a prose procedure, per §Out of scope). Owed to the owner, unchanged from
+  disposition 6: run the `config.yml` bootstrap line, then re-kind #17/#18 (body `### kind` **and**
+  label, note paragraph removed) before the v0.18.0 tag — check (3) grades it.
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:

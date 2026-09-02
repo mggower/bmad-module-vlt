@@ -15,7 +15,8 @@ rail_contract: 1
 **Evolution rule — additive-only.** Adding a payload field does **not** bump
 `rail_contract`. Renaming a field, removing a field, or changing a field's meaning **does**
 bump it. The same rule covers labels: **adding a label is additive** (no bump); renaming a
-label, removing one, or changing a label's meaning bumps.
+label, removing one, or changing a label's meaning bumps. Widening a closed value set (a
+`kind` value, a label family) is additive when no existing value's meaning changes.
 Every filed issue carries the `rail_contract` value it was composed under; the
 factory intake compares the stamp against the current contract and flags a stale-shape
 filing for hand-handling instead of parsing it hopefully.
@@ -39,7 +40,9 @@ Field ids are **normative**: the issue forms use them as each form field's `id:`
 | `what_happened` | yes | What happened / the observation, concretely, as hit in real use. |
 | `evidence` | yes | Generalized evidence: placeholder paths (`_agent/{zone}/{file}.md` style), quoted behavior, exact error text. **No vault-local literals, no personal-domain content.** |
 | `provenance_guess` | no | Where in the module source this probably lives — **explicitly marked as a guess**; include `path:line` references where you have them (grounding wants them). The factory grounds every claim before capture. |
-| `kind` | yes | Honest classification: `defect` (shipped behavior is wrong), `pattern` (a recurring shape worth naming), or `candidate` (a "this should ship upstream" proposal). |
+| `kind` | yes | Honest classification: `defect` (shipped behavior is wrong), `pattern` (a recurring shape worth naming), `candidate` (a "this should ship upstream" proposal), or `supersession` (a shipped protection is now redundant because a named mechanism enforces what it stood in for — carries both halves below, or it is not one; the class is defined in the factory's `factory/inbox/README.md`). |
+| `superseded_rule` | when `kind` is `supersession`; otherwise absent | The rule now redundant — its exact site (`path:line`) and what it was standing in for. |
+| `superseding_mechanism` | when `kind` is `supersession`; otherwise absent | The mechanism that supersedes it — what shipped, where, and why its population covers the rule's. |
 | `origin_vault` | yes | The vault the signal originated in (a short vault name, not a path) — attribution is by vault, not by GitHub account. |
 | `acceptance_vault` | no | Where acceptance should run — the vault (or kind of vault) that can actually reproduce/verify the fix. |
 | `module_version` | yes | The filing vault's installed module version (from config's `vlt` section, `version` metadata). |
@@ -70,6 +73,7 @@ rail read this one table.
 | `field:defect` | template (defect form) or filer/triage | Classification: shipped behavior is wrong. |
 | `field:pattern` | template (pattern form) or filer/triage | Classification: recurring shape worth naming. |
 | `field:candidate` | template (candidate form) or filer/triage | Classification: upstream-this proposal. |
+| `field:supersession` | template (supersession form) or filer/triage | Classification: retirement ask — a shipped protection is now redundant; the body carries both halves (`superseded_rule`, `superseding_mechanism`). |
 | `vault-filed` | issue form frontmatter, automatic | **Candidacy, not admission** — this issue claims to follow the field contract. |
 | `vault-accepted` | owner, at triage | The owner admits the filing; this is the factory intake's materialization trigger. |
 | `captured` | factory intake, at materialization | The issue now exists as an inbox filing (with an `origin:` header) and rides the normal capture lifecycle. |

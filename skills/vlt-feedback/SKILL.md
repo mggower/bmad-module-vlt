@@ -1,7 +1,7 @@
 ---
 name: vlt-feedback
 depends_on: ["decision-log@4"]
-description: "File a field note upstream to the Vault module's public tracker as a labelled GitHub issue — classify honestly (defect / pattern / candidate), scrub it of vault paths and personal-domain content, render the exact public payload and halt for the user's approval, then post via gh with origin-vault and contract-version stamps. Use when the user says 'file this upstream', 'send feedback to the module', 'report this to the module', or when a partner has proposed a filing and the user says go. Invoked-only — a partner may propose a filing; only the user's explicit go executes. Degrades loudly: missing or unauthenticated gh yields a named error plus a paste-ready local filing, never a silent drop."
+description: "File a field note upstream to the Vault module's public tracker as a labelled GitHub issue — classify honestly (defect / pattern / candidate / supersession), scrub it of vault paths and personal-domain content, render the exact public payload and halt for the user's approval, then post via gh with origin-vault and contract-version stamps. Use when the user says 'file this upstream', 'send feedback to the module', 'report this to the module', or when a partner has proposed a filing and the user says go. Invoked-only — a partner may propose a filing; only the user's explicit go executes. Degrades loudly: missing or unauthenticated gh yields a named error plus a paste-ready local filing, never a silent drop."
 ---
 
 # vlt-feedback
@@ -50,7 +50,9 @@ other work.
    the user with your reasoning — never guess the route silently.**
 2. **Classify honestly** per the contract's `kind` field: `defect` (shipped behavior is
    wrong), `pattern` (a recurring shape worth naming), `candidate` (an upstream-this
-   proposal). Don't inflate a preference into a defect.
+   proposal), `supersession` (a shipped protection is now redundant — name the rule and
+   the mechanism; the contract's two conditional fields carry them). Don't inflate a
+   preference into a defect.
 3. **Duplicate guard.** Before composing, search the tracker:
    `gh issue list --repo <feedback_repo> --label vault-filed --search "<key terms>"`. If a
    plausible duplicate exists, show it to the user and ask whether to file anyway, comment
@@ -59,7 +61,9 @@ other work.
 ## Compose, scrub, and the approval gate
 
 Compose the full payload per the contract: one `### <field_id>` section per field, in the
-contract's order, plus the issue title (imperative, one line, no vault-local terms).
+contract's order, plus the issue title (imperative, one line, no vault-local terms) — for
+`kind: supersession` the two conditional sections are mandatory, and a filing missing
+either is not composed.
 
 **The scrub checklist** (every item, every time):
 

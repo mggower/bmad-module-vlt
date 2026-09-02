@@ -58,7 +58,7 @@ the table as JSON with `status: "awaiting-owner-batch-ruling"`.
 
 Before grounding an issue, compare its body's `rail_contract` stamp to the current
 contract version. Mismatch or missing stamp → **held for hand-handling** per the
-contract's evolution rule (`field-contract.md:15-21`): no verdict drafted, no label
+contract's evolution rule (`field-contract.md:15-22`): no verdict drafted, no label
 change. Report it in its own table section.
 
 ## Grounding — before any verdict
@@ -69,7 +69,9 @@ Per issue, against module source as it sits on disk:
   `provenance_guess` as exactly that — a guess to check, not a finding.
 - Check classification: the body's `kind` field against the `field:*` label. The contract
   makes triage an authorized applier of classification labels — a mismatch gets a drafted
-  label fix, with the body's `kind` authoritative.
+  label fix, with the body's `kind` authoritative. For `kind: supersession`, also confirm
+  both halves are present (`superseded_rule`, `superseding_mechanism`) — a missing half is
+  a drafted `needs-info`, never a drafted re-kind to `candidate`.
 - Check for duplicates: prior issues (open and closed) and existing `factory/inbox/`
   filings covering the same ground.
 
@@ -78,7 +80,7 @@ go into the draft verdict comment, so the issue thread carries the corrected rea
 
 ## Verdicts — the contract's verbs, nothing wider
 
-Only the contract's label set exists (`field-contract.md:56-78`); this skill widens
+Only the contract's label set exists (`field-contract.md:65-83`); this skill widens
 nothing. Three draftable verdicts:
 
 - **accept** → add `vault-accepted` (+ any ruled classification-label fix). The next

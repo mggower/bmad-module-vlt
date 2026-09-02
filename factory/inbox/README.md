@@ -78,7 +78,9 @@ net enforces them, and nothing else in the loop can say so: obsolescence produce
 pain, only friction that reads as normal governance.
 
 A supersession filing is an ordinary dated note in this directory, marked `class: supersession`
-in its opening line, and it carries **both halves** or it is not one:
+in its opening line (a retirement filed through the remote rail arrives as `kind: supersession`
+and the factory intake writes this marker — `.claude/skills/inbox-capture/references/github-intake.md`
+§4), and it carries **both halves** or it is not one:
 
 1. **The rule now redundant** — its exact site (`file:line`), and what it was standing in for.
 2. **The mechanism that supersedes it** — what shipped, where, and why its population covers

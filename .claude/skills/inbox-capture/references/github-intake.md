@@ -27,7 +27,7 @@ Admitted, open, not yet captured — this query is the trigger because:
   it.
 - **Declined issues are closed** (A15(b)) — `--state open` makes them structurally
   invisible; no decline logic is needed here.
-- **The contract's state flow** (`field-contract.md:73-78`): an issue without
+- **The contract's state flow** (`field-contract.md:85-90`): an issue without
   `vault-filed` is off the rail entirely; one already labeled `captured` that still
   appears in the results is **reported, not re-materialized** (step 3's exclusion is the
   authority on whether it exists on disk).
@@ -38,7 +38,7 @@ Read the issue body's `rail_contract` stamp and compare it to the current contra
 (`field-contract.md:12`). On **mismatch or a missing stamp on a rail-labeled issue**:
 report the issue as **stale-shape, held for hand-handling** and stop for that issue — no
 materialization, no label change, no hopeful parse. The evolution rule and its legal
-response (the owner hand-handles) are homed at `field-contract.md:15-21`; cite it, don't
+response (the owner hand-handles) are homed at `field-contract.md:15-22`; cite it, don't
 re-decide it.
 
 ## 3. Idempotence exclusion
@@ -54,19 +54,31 @@ pre-rail hand-materialized filing on disk carries exactly that decorated form).
 A hit → the issue is already materialized: **skip it**. If the hit issue lacks the
 `captured` label, report the label drift and offer the one-line fix
 (`gh issue edit <n> --repo <repo> --add-label captured`) rather than re-materializing.
-(A15(d): the `origin:` header is the idempotency key — `field-contract.md:49-52`.)
+(A15(d): the `origin:` header is the idempotency key — `field-contract.md:56-60`.)
 
 ## 4. Materialize
 
-Parse the eight `### <field_id>` sections per the contract's field table
-(`field-contract.md:29-38` — the table lives there; read it, never copy it here). Write
+Parse the `### <field_id>` sections (the contract's field table is the list — eight for
+every kind, ten for `supersession`) per the contract's field table
+(`field-contract.md:38-49` — the table lives there; read it, never copy it here). Write
 `factory/inbox/YYYY-MM-DD-HHmmss-<slug>.md` — timestamp from the issue's `createdAt`, slug
 from the title, matching `factory/inbox/README.md`'s filename convention — carrying:
 
 - the machine-written header line `origin: <repo>#<n>` — the **bare contract shape**; the
-  intake is the sole writer of this header (`field-contract.md:49-52`), so it never writes
+  intake is the sole writer of this header (`field-contract.md:56-60`), so it never writes
   a decorated variant;
-- the origin vault and kind (from the payload's fields), and the body content.
+- the origin vault and kind (from the payload's fields), and the body content;
+- **when the payload's `kind` is `supersession`, the filing's opening line is
+  `# \`class: supersession\` — <title>`** — the marker `factory/inbox/README.md:80` defines
+  and `inbox-capture/references/grounding-methodology.md:57-59` keys on; without it a
+  rail-filed retirement is graded as a candidate. The two halves are carried as their own
+  sections (`## superseded_rule`, `## superseding_mechanism`) so the grounding's
+  *verify-both-halves-separately* step (`grounding-methodology.md:64-67`) has them by name.
+
+A `kind: supersession` payload missing either half — no `### superseded_rule` or
+`### superseding_mechanism` section, or an empty one — is **held for hand-handling**
+exactly as a stale-shape issue is (step 2): reported by name, no label change, never
+materialized under another class.
 
 The filing is **raw field signal**: materialization does not ground it. Grounding is
 Capture's next stage, unchanged — the filing joins this same run's un-captured set.
@@ -88,7 +100,7 @@ the `issues_materialized` list.
 
 Consume owner-admitted post-capture comments. The `amended` label's meaning — owner-applied
 admission of comment(s) on a `captured` open issue — is the contract's (its label table,
-`field-contract.md:56-78`); this leg only consumes it. Query:
+`field-contract.md:65-83`); this leg only consumes it. Query:
 
 ```
 gh issue list --repo <repo> --label captured --label amended --state open \
@@ -141,7 +153,7 @@ run's output.
   post-capture comment(s) by applying the label; the intake only consumes it (the
   amendment leg above). An unadmitted comment reaches nothing.
 - **The label vocabulary and state flow** live in the contract's label table
-  (`field-contract.md:56-78`).
+  (`field-contract.md:65-83`).
 - **Community/noise traffic** on the public tracker is a released standing watch (E4, Arc
   9) — the admission trigger above *is* the mitigation; nothing more is built until real
   traffic teaches otherwise.

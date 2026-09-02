@@ -1,0 +1,93 @@
+# Field-contract issue form (supersession). ADDITIVE-ONLY: fields may be added, never renamed
+# or removed and never change meaning, without bumping rail_contract. The shape's single
+# source of truth is skills/vlt-feedback/references/field-contract.md — this form derives
+# from it and never restates it.
+name: Field supersession
+description: A live vault says a shipped protection is now redundant because a named mechanism enforces it. Follows the field contract.
+labels: ["vault-filed", "field:supersession"]
+body:
+  - type: markdown
+    attributes:
+      # The @mention in the last line of the block below is S-3's open question
+      # (factory/platform/spikes/S-3-*.md) — inherited unchanged from the other three forms;
+      # replacing it is A11-2's build, not this one.
+      value: |
+        This form is one surface of the module's **field contract** — the payload shape,
+        label semantics, and evolution rule are single-homed at
+        [`skills/vlt-feedback/references/field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md).
+        Filing from an installed vault? Prefer the `vlt-feedback` skill — it scrubs,
+        previews, and stamps the payload for you.
+        To amend after an issue is labeled `captured`: add a comment with the new evidence **and @mention @mggower** — the notification is the trigger for a look; the owner applying the `amended` label is what admits the comment into the factory. An unadmitted comment is not read.
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: what_happened
+      description: What happened / the observation, concretely, as hit in real use.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: evidence
+      description: "Generalized evidence: placeholder paths (`_agent/{zone}/{file}.md` style), quoted behavior, exact text. No vault-local literals, no personal-domain content."
+    validations:
+      required: true
+  - type: textarea
+    id: provenance_guess
+    attributes:
+      label: provenance_guess
+      description: "Where in the module source this probably lives — explicitly a guess; include `path:line` references where you have them. The factory grounds it before capture."
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: kind
+      description: This form files supersessions (a retirement ask); the classification is fixed.
+      options:
+        - supersession
+    validations:
+      required: true
+  - type: textarea
+    id: superseded_rule
+    attributes:
+      label: superseded_rule
+      description: "The rule now redundant — its exact site (path:line) and what it was standing in for."
+    validations:
+      required: true
+  - type: textarea
+    id: superseding_mechanism
+    attributes:
+      label: superseding_mechanism
+      description: "The mechanism that supersedes it — what shipped, where, and why its population covers the rule's."
+    validations:
+      required: true
+  - type: input
+    id: origin_vault
+    attributes:
+      label: origin_vault
+      description: The vault the signal originated in (a short vault name, not a path).
+    validations:
+      required: true
+  - type: input
+    id: acceptance_vault
+    attributes:
+      label: acceptance_vault
+      description: Where acceptance should run — the vault (or kind of vault) that can verify the change.
+    validations:
+      required: false
+  - type: input
+    id: module_version
+    attributes:
+      label: module_version
+      description: The filing vault's installed module version.
+    validations:
+      required: true
+  - type: input
+    id: rail_contract
+    attributes:
+      label: rail_contract
+      description: The field-contract version this payload follows.
+      value: "1"
+    validations:
+      required: true
