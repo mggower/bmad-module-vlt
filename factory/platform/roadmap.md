@@ -1691,6 +1691,52 @@ re-derives it from the sites (all under `.claude/skills/`, none under `skills/vl
 `.claude-plugin/`), per the contract header's *delivery, not topic* rule.
 
 
+### P-24 — the ideation skeleton asks for the handshake, and the brief anatomy knows what a retirement is — **queued**
+
+*(Queued 2026-09-02 from **Cycle 15's roadmap roundtable**, rules R1 and R2 —
+`factory/cycles/15-nothing-reads-it-back/roadmap.md` §*Standing rules declared at the roundtable* and
+§*Roundtable review — A15-1..A15-15*. Routed here, not to the cycle roadmap: every site is a factory
+skill `vlt-upgrade` never copies into a vault. The rules are **declared** in the cycle roadmap today with
+their interim posture; this item is their **mechanism**.)*
+
+**Brief-lite:**
+- **Intent:** two joints the Cycle 15 roundtable found that seven owner-steered ideation rounds had
+  not, both because nothing in the factory's forms asked. **R1:** both of Cycle 15's retirements change
+  a **rule** in a handshaked convention (`extraction.md` v9 → 10, four consumers;
+  `write-verification.md` v5 → 6, five consumers including the workflow's header **and** four body pins
+  the release gate's E7 checks), and neither build's ideation bullet named a bump or a re-ack —
+  **twelve of thirteen roundtable lanes found it independently**. `CLAUDE.md`'s handshake rule is a
+  standing rule with no enforcement point before `package-lint` fails the tag. **R2:** P-15 shipped the
+  `supersession` *filing* class; nothing defines the *brief* shape for a retirement, and the same
+  roundtable found each retired closure restated or pointed at from four to seven sites (the operating
+  contract, `frontmatter.md` ×4, `checks.md` ×2, a prompt literal) that the builds' bullets did not
+  name — the "dependent left standing" failure the obsolescence beat exists to catch, one stage later.
+- **Sites:** `.claude/skills/ideation-scaffold/` — the build-bullet skeleton gains a `handshake:` slot
+  beside `binds:` / `spike:` / `promise:` (`none`, or `<convention> N→N+1; re-ack <consumers>` read from
+  the convention's `consumers:`). `.claude/skills/build-brief/SKILL.md` — the ideation gate refuses a
+  brief whose scope changes a convention rule and whose bullet's `handshake:` is empty or `none`.
+  `.claude/skills/build-brief/references/brief-anatomy.md` — a **retirement section**: grep-derived list
+  of every restatement/pointer of the retired rule across `skills/vlt-setup/assets/governance/_meta/`,
+  `skills/vlt-*/references/`, workflow assets and the CHANGELOG, a disposition per site, and the
+  population statement that must **not** move (Cycle 15's D5.2 is the worked example — "the `{wiki}`
+  carve-out" named two rules, only one of which retires).
+- **Verification:** at rest. Re-scaffold Cycle 15's seven bullets with the new skeleton: exactly builds
+  6 and 7 receive a non-`none` `handshake:` and the roster it renders matches the conventions'
+  `consumers:` lines bipartite; `build-brief` refuses a build-6 brief with the line blanked and admits it
+  with the line filled. For R2: brief build-6 under the new anatomy and the site list it produces
+  contains every site the roundtable enumerated by hand (A5, A7) — the section is real only if it
+  **finds** them, not if it is handed them.
+- **Out of scope:** the handshake rule itself (`CLAUDE.md` §Standing rules, unchanged); any change to
+  `package-lint` Group E; the `supersession` filing class (P-15) and the rail's fourth `kind` (Cycle 15
+  build-1).
+- **Done-when:** both skill edits landed and self-accepted at rest as above — the discharging event is
+  **the next `ideation-scaffold` run on a cycle with a convention rule change**, whichever cycle that
+  is (no numbered cycle — the P-16 lesson).
+
+**Queue note.** Takes no slot (WIP 0/2 on work in flight; queued below the line). Cousin of **[P-20]**
+and **[P-23]** — a third item about what a brief must state before its check is written; the merge
+question P-22/P-23 already raise applies here too.
+
 ## Closed
 
 ### P-1 — `issue-triage`: the factory-side triage skill — **CLOSED 2026-08-21 (self-accepted on first run)**

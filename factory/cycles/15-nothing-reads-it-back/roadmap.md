@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Next: roadmap-roundtable.'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Next: brief build 1.'
 module_code: 'vlt'
 created: '2026-09-01'
-updated: '2026-09-01'
+updated: '2026-09-02'
 derives_from:
   - 'factory/inbox/2026-08-26-123151-lint-full-inline-args-payload-costs-the-caller-84kb.md'
   - 'factory/inbox/2026-08-27-153000-persisted-lint-report-is-not-machine-readable.md'
@@ -343,7 +343,7 @@ and no longer re-derived.
 **CONFIRMED, both halves — and the filing's own ⚠ confidence caveat is discharged by this
 grounding, as it asked.**
 
-**Half 1 — the substitution.** `skills/vlt-setup/assets/workflows/vlt-lint-full.js:228` carries the
+**Half 1 — the substitution.** `skills/vlt-setup/assets/workflows/vlt-lint-full.js:229-230` carries the
 verbatim-extraction instruction the filing quotes. Verified this run against the live reports: the
 page `seattle-seahawks` links
 `[[_agent/research/2026-07-26-112444-espn-top-10-cornerbacks-2026]]`, which resolves; the scanner
@@ -420,9 +420,7 @@ disagree, and the rule is unambiguous.
 
 **Where the check lives — and it is `ST-7` surface 2, not a code bug.**
 `skills/vlt-lint/references/checks.md:15` defines `malformed_frontmatter` as *"the fan-out's
-per-page validity verdict"*, returned by the **scanner** as a structured verdict. There is no
-length arithmetic in `vlt-lint-full.js`; the number `171` was produced by an agent measuring a
-string. So this is the same shape as A15-3 and A15-4 — an executor's rendering of a prose
+per-page validity verdict"*, returned by the **scanner** as a structured verdict. ~~There is no length arithmetic in `vlt-lint-full.js`; the number `171` was produced by an agent measuring a string.~~ **STRICKEN at the roundtable (A11, six lanes): `vlt-lint-full.js:640` `summaryIssue` measures `s.summary.length` from the scanner's verbatim return into `frontmatter_drift` — and got both specimens right (the 2026-08-27 report carries 0 `over-length` entries). The `171`/`161` arrived through the scanner's separate `malformed_frontmatter` verdict. Two measurers, one wrong, no comparison — the cycle's thesis inside one report. Mechanism ruled at build-4 (D-A).** So this is the same shape as A15-3 and A15-4 — an executor's rendering of a prose
 specification, consumed unchecked — with the twist that here the executor was measuring rather
 than extracting.
 
@@ -689,7 +687,7 @@ answerable by digesting those files, which is what every other slot already does
 `convention_digests` — *"one entry per convention **this run** judges against"* — so a change to a
 convention the page scanner never reads invalidates every page-scan record. The filing's worked
 instance is exact and verified: `pageScanPrompt` reads exactly `frontmatter`,
-`wiki-supersession`, and `write-verification` (`vlt-lint-full.js:228`); a build bumping only
+`wiki-supersession`, and `write-verification` (`vlt-lint-full.js:229-230`); a build bumping only
 `extraction` cannot change a cached page-scan record, yet would invalidate all 146 — twice over.
 
 **⚠ Status correction — the platform half is done.** The filing opens by refuting a premise on
@@ -810,8 +808,7 @@ be needed even if A15-9 shipped whole.
 **Residual scope — the field already identified the fix and grounding adds nothing to it.** State
 the two component slots' exact rendering the way the digest steps already are: `pin_vector` — name
 the rendering (the JSON-array serialization, or whatever the workflow in fact requires) rather than
-*"verbatim"*; `convention_digests` — *"one entry per file in `{conventions}`"*, not *"per convention
-this run judges against."*
+*"verbatim"*; ~~`convention_digests` — *"one entry per file in `{conventions}`"*, not *"per convention this run judges against."*~~ **SUPERSEDED at the roundtable (A4): the population is Q3 d1's three scanner-read conventions, landed by build-2 as a workflow-side required-name set; build-3 owns only the rendering/type language. A build-3 brief scoped from this sentence would have re-widened what build-2 narrowed.**
 
 **⚠ Second-order direction, carried forward and worth ideation's attention** — because it is the
 only one in this cluster that generalizes past these two slots:
@@ -870,7 +867,7 @@ total            ~84KB serialized JSON
 **⚠ Correction to the filing's second observation.** The filing reports that invoking the workflow
 by name with no args fails with a *"correct and well-worded refusal"* that *"reads as a broken
 asset"*, and asks for *"a pointer to the SKILL route in that message."* Grounded at
-`vlt-lint-full.js:130` — the message already **is** that pointer:
+`vlt-lint-full.js:127` — the message already **is** that pointer:
 
 > `'vlt-lint-full requires { pages:[{slug,path}], indexPath, conventionsPath }. The vlt-lint SKILL discovers pages and passes live paths.'`
 
@@ -1320,8 +1317,7 @@ is also stated at its own entry.
 
 ## Deferred acceptance ledger
 
-*(Empty — populated by `build-brief` as each build is briefed. Cycle 14's two bound debts above are
-inherited obligations, not entries here; they are graded against Cycle 14's ledger text.)*
+*(Empty — populated by `build-brief` as each build is briefed.)* **Cycle 14's two bound debts are appended HERE by the briefs of the builds that carry them** *(roundtable A18, 2026-09-02 — the earlier sentence "not entries here; graded against Cycle 14's ledger text" pointed every parser at a CLOSED roadmap)*: build-4 appends Cycle 14 build-1 (6) leg 3; build-6 appends Cycle 14 build-3 (6) clauses (a)+(c) — each as a `[ship-verifiable]` sub-clause quoting Cycle 14's bound text verbatim (the b3(7) precedent), the vault-act half of the parks debt tagged `[field-contingent]` per D-D.
 
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
@@ -1334,8 +1330,7 @@ section being filled — it is.
 
 - **Round 1 — the cause.** `ST-7` **does not bind** (D1(a)); the mechanism question folds into
   Grouping (D1(b)). ⚠ And the round's grounding found that **the reduce cannot perform its own
-  read-back** — a premise `ST-7` and two captured entries all asserted. Corrected in all four
-  places.
+  read-back** — a premise `ST-7` and two captured entries all asserted. Corrected in three places at Round 1, the fourth (A15-4) at Round 5 *(roundtable A19 — the line said "all four")*.
 - **Round 2 — scope.** **All fifteen.** A15-11 re-admitted (Q1); **direction 1 only**, `argsPath`
   declined as a **Claude Code harness** parameter with no rail to request it (Q2); and A15-11 is
   **upstream** of the read-back, a **hard ordering constraint** (Q2b).
@@ -1378,6 +1373,13 @@ change shipped rule semantics.
 and review sequence, not field exposure. **The one exception is Q2b, which is a hard rule
 regardless:** build-2 precedes build-4.
 
+**Ordering, extended at the roundtable (2026-09-02, A2/A4):** file-edit order is **2 → 3 → 4 → 6 → 7** —
+builds 2/3 share `vlt-lint-full.js:55-66`, `:262-271` and one `full-scale.md` step 2 paragraph; 3/5 share
+`report.md`; 4/7 share `vlt-lint-full.js`; 6/7 share `vlt-lint/SKILL.md:4`. And ⚠ **v0.18.0's first
+full sweep is COLD BY CONSTRUCTION** — build-7 moves a scanner-read convention and the prompt literal at
+`vlt-lint-full.js:229`; build-6 moves `pin_vector` as shipped; builds 6/7 move `checks.md`. Build-2's
+cache clauses are therefore graded **at rest** (see its entry) and the CHANGELOG states the cold run.
+
 ⚠ **`promise:` authorship — a deliberate, recorded deviation from P-16's letter (2026-09-02).** The
 standing rule says the promise is *written here at ruling time by the owner*. In this session the
 promises are **clerk-drafted and owner-ratified**: the clerk offers candidates that promise
@@ -1411,6 +1413,31 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     and #18 were filed as `candidate` and reached this roadmap anyway — they are A15-12 and A15-13.
     An acceptance check written against the rejected clause would have failed honestly.
 
+  - **Roundtable amendments (2026-09-02):**
+    - *(A9, 13 lanes)* **The ordering sentence "first because the class must exist before the beat" is
+      STRUCK** — the beat is the roundtable that ruled this, which precedes every build; under one release
+      build order constrains no field exposure. What is real is the tracker: **#17 and #18 are re-kinded
+      by an owner act after build-1 lands — body `kind:` → `supersession` AND label →
+      `field:supersession`** (the body's `kind` is authoritative to `issue-triage`,
+      `.claude/skills/issue-triage/SKILL.md:70-72`, so a label-only relabel manufactures the mismatch
+      triage flags); no re-materialization, the `origin:` header is the key. `[ship-verifiable]`: triage
+      reports no mismatch on either.
+    - *(A10)* **Sites corrected and completed.** Site 5 as named was a phantom — `issue-triage` has **no**
+      classification value set; what drifts there are line-range cites (`issue-triage/SKILL.md:52, :78`;
+      `inbox-capture/references/github-intake.md:57, :61`), re-pointed. **Site 6 = the intake
+      materializer**: `github-intake.md` §4 maps `kind: supersession` → `class: supersession` **in the
+      opening line** (the marker `factory/inbox/README.md:80` and `grounding-methodology.md:59` key on —
+      without it a rail-filed retirement is graded as a candidate) and **holds** materialization when both
+      halves are unidentifiable. **Site 7** = `.github/ISSUE_TEMPLATE/config.yml:13-15`'s `gh label create`
+      block. Composer restatements enumerated: `vlt-feedback/SKILL.md:4`, `:51-53`, `:56`, `:87`, `:101`,
+      `module-help.csv:18`. The `kind` row's `supersession` value states the class's **two mandatory
+      halves** in one clause; the halves ship as two **optional, additive** payload fields
+      (`superseded_rule`, `superseding_mechanism` — required when `kind: supersession`), so triage and the
+      intake have something structured to read. **E3 amended** (see E3). The fourth form carries
+      `field-candidate.yml:16`'s `@mention` line with a pointer to `S-3` (met, not consumed).
+  - `binds:` **corrected → Q6, E3, S-3 *(named, not consumed)***. D5 removed — nothing in build-1 invokes
+    it; `build-brief` resolves rosters by id. *(roundtable A10, G-F4)*
+
 - **build-2 — A15-9 + A15-11 + A15-4's eviction half: what the instrument costs to run.**
   A15-9 both directions **ordered d2 → d1** (Q3); A15-11 **direction 1 only** (Q2 — document the
   `scriptPath` route in `full-scale.md` step 3; direction 2 declined); A15-4's **direction 2
@@ -1432,6 +1459,51 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     satisfied the first clause and not the promise** — the cache work is much the largest part, which
     is exactly why the split option was offered and declined.
 
+  - **Roundtable amendments (2026-09-02):**
+    - *(A2, 11 lanes)* ⚠ **v0.18.0's own first full sweep is COLD BY CONSTRUCTION**, correctly under D4:
+      build-7 edits `write-verification.md` (a scanner-read convention) and its `@5` literal inside
+      `pageScanPrompt` (`vlt-lint-full.js:229` — moves `scanFingerprint`); build-6 bumps `extraction`
+      (moves `pin_vector` as shipped); builds 6/7 edit `checks.md:19-20`. So **"pays for what actually
+      changed" has no live observable on the only release the cycle schedules** — the `b2(5)` shape one
+      cycle after Cycle 14 named it. Both cache clauses are graded **`[ship-verifiable]` at rest**: a
+      fixture of two `rulesetComponents` sets — only `module_version` moved ⇒ equal per-page key; only a
+      non-scanner convention moved ⇒ equal; a scanner-read convention, the extractor, or the scan surface
+      moved ⇒ unequal. The warm-after-upgrade observation is `[field-contingent]`, bound to *the first
+      release after v0.18.0 that moves none of the scanner-read set*. The v0.18.0 CHANGELOG states the
+      cold run so `acceptance-discharge` never reads it as a build-2 FAIL.
+    - *(A3, owner ruling D-B)* **The key is re-ruled whole — see Q3's amendment.** `module_version` is
+      **deleted, not replaced by prose-file digests**; **`scanModel`** enters the key; `checks_digest`
+      leaves it; `pin_vector` narrows to the three scanner-read pins or drops as redundant with their
+      digests. **The brief-time question "whole file or only the reduce" DISSOLVES** — neither.
+    - *(A4)* **build-2 precedes build-3** on three shared sites (`vlt-lint-full.js:55-66` arg contract,
+      `:262-271` `RULESET_SLOTS`/`rulesetSlotsMissing`, the `full-scale.md` step 2 paragraph); build-2
+      owns the slot **population**, build-3 only the rendering/type language. d1 lands as a
+      **workflow-side required-name set** — one constant shared by `convRead` and `rulesetSlotsMissing`,
+      a missing name reported **by name** (today `:265-268` accepts any non-empty object, so a map missing
+      `wiki-supersession` would compose a key that never invalidates when it moves — D4 breached
+      silently).
+    - *(A13)* **The eviction route, end to end** — D3's subcommand had no caller and step 5 rewrites the
+      sidecar whole, so a hand-removed record is written straight back: an operator-facing evict step in
+      `full-scale.md` step 2 run **before** the sidecar read, keyed by slug (`lint-cache.py`'s
+      `{slug, key, scan}`), exposed as a `vlt-lint` intent (*"full lint, re-scan <slug>"*); `evict` emits
+      `evicted K of N`, K=0 a loud non-zero; `report.md:78`'s `lint_cache:` line renders
+      `evicted E by request`; the **legal response** written into `full-scale.md`/`fix-and-file.md`: *a
+      finding the operator refuses as false evicts its page's record before the report persists* (the
+      field's `false_positives_refused` ships nowhere — without this the loop is refuse → re-serve →
+      refuse). At-rest acceptance: fixture of N records; evict one; `read` returns N-1; the next
+      identical-input run puts exactly that slug in `toScan` (`:306-308`). The live `cornerboxes` specimen
+      **cannot** grade it — the cold sweep re-derives it first. D3's *"only remedies"* sentence is
+      corrected: `runKey` leads with `pageHashes[slug]`, so a byte change already evicts; eviction's value
+      is that it is **designed and reported**.
+    - *(A20, obsolescence)* **Retire in the same act:** `full-scale.md` step 2's *"State it plainly: the
+      first full run after any release is a COLD one"* + its `0.15.0 → 0.16.0` worked instance,
+      `report.md:89`'s echo, and the `module_version: string` arg-contract row (`:58`) → *"cold when the
+      scan surface, the extractor, or a scanner-read convention moved — and the cold reason names
+      which."* Step 5's *"deleting it is always safe and costs only a cold run"* stays true and becomes
+      the **second** remedy behind eviction. The `cold (<reason>)` rendering names the moved slot(s).
+  - `binds:` **+= Q3 (as amended), D2 (the `RULESET_SLOTS`-loop property — build-2's new slot inherits
+    it)**. *(roundtable A3, A14)*
+
 - **build-3 — A15-2 + A15-6 + A15-10, the denominated slots.** D2's **whole population** in one
   build, so the cycle's only read-back posture lands coherently rather than split across three
   briefs. A15-2's two halves ship together (Q8).
@@ -1449,6 +1521,32 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     denominate the two list-shaped slots, satisfy the promise, and leave the conflation intact —
     `binds: D2` would still oblige it, but **scope is ruled against the promise**, which is the
     field's purpose.
+
+  - **Roundtable amendments (2026-09-02):**
+    - *(A4)* **Lands AFTER build-2** and rebases `rulesetSlotsMissing` on build-2's final slot set;
+      A15-10's residual *"one entry per file in `{conventions}`"* is **superseded** — the population is
+      Q3 d1's three. `binds:` **+= Q3**.
+    - *(A14)* **D2 as amended binds here:** a present-but-wrong-type ruleset slot is a **pre-dispatch
+      refusal** with a directed `next:` (the failed-run posture, `SKILL.md` §Step 6), never a cold-branch
+      cap — the promise's second clause gains *"before the scan phase dispatches"*; **the denominator is
+      produced by an instrument independent of the one that produced the value** — `governance_memory`:
+      a form-agnostic `## ` heading count against schema-matched entries (a 47-of-47 rendered by the same
+      matcher reads back nothing); `stubSlugs`: `section located: yes|no` beside the count (D2's exemplar
+      *"0 slugs across 1 index"* cannot distinguish *not located* from *empty* — the observable A15-2
+      reports).
+    - *(A14 v)* **The report has no home for "wrong" today** — `report.md:89` closes cold reasons to
+      three; `stubSlugs` has no report key; `governance_memory:` at `:44` carries no total (the field's
+      *"13 of 54"* was the operator's invention). **build-3's scope includes the `report.md` edits**: a
+      fourth `lint_cache:` cold reason `slot rendered with the wrong type: <slot>` at `:78`/`:89` (retiring
+      the closed three-reason list), a `stub_discovery:` line, a population term in `governance_memory:`.
+      **Merge order on `report.md`: build-3 → build-5** (build-5's validator is authored against
+      `report.md` at build-3's commit).
+    - *(A17)* **Q8 as amended:** stub discovery matches the heading **as `{conventions}/wiki-index.md:83`
+      states it** (overlay-merged); `full-scale.md:7`, `checks.md:39`, `vlt-lint-full.js:44`/`:476` become
+      pointers — reconciling two copies would have made a third. The bare `## Stubs` form retires.
+    - *(A20, obsolescence)* the cap wording at `vlt-lint-full.js:322` (*"absent or empty slots"*) and
+      `full-scale.md` step 2's *"absent slots named in `coverage_caps`"* → three-way absent / empty /
+      wrong-type, in the same act.
 
 - **build-4 — A15-1 + A15-3 + A15-4 (fidelity half) + A15-5, the scanner's returns.** One unaudited
   return, four mutations. A15-3 **folds in and carries no build of its own** (Q7).
@@ -1472,6 +1570,51 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     leaves the specimens still firing has not met it. Chosen over a mechanism-facing draft for that
     reason.
 
+  - **Roundtable amendments (2026-09-02):**
+    - *(A11, owner ruling D-A)* **A15-5 re-grounded and re-mechanised.** The capture's *"no length
+      arithmetic in `vlt-lint-full.js`"* was **false**: `:640` `summaryIssue` measures `s.summary.length`
+      from the scanner's verbatim return into `frontmatter_drift`; the refuted `171`/`161` arrived through
+      the scanner's **`malformed_frontmatter` verdict** — two measurers, one wrong, no comparison.
+      **Ruled:** the SKILL reads each page from disk and passes `{slug: summary_len}` on the `pageHashes`
+      precedent (Cycle 14's own named route, carry item 2 — **consumed here**); the reduce measures from
+      that, never from the returned `summary` (Cycle 13 CF1: `l-theanine` 162 vs 159 — the return is
+      itself paraphrased); the scanner is told length is **not its verdict** (`checks.md:15`'s own
+      exclusion — an Arc 9 D5 elimination, prompt string only). The Cycle 14 build-1 (6) re-check names
+      `frontmatter_drift` as its instrument and gains an **at-rest leg** (fixture: a quoted 158-char
+      summary whose raw line is 161) with the post-release sweep as corroboration — leg 3 rests on bytes,
+      not on one haiku measurement per page. *Dissent on record (Builder, Victor, Amelia): elimination
+      alone sufficed for the two specimens; conceded that only the disk read closes the paraphrase case.*
+    - *(A12, owner ruling D-C)* **The read-back branch is RULED, not left to brief time: REPLACE.** The
+      SKILL derives each page's `[[…]]` set by an **executable** script (a sibling of `lint-cache.py` —
+      never a prose recipe, or A15-2's regex-nobody-ships returns) and passes `pageLinks` (the
+      `crossLayerSlugs` pattern); the reduce builds the inbound map (`:457`) and `missing_targets` (`:480`)
+      from it; **`outbound_links` leaves `PAGE_SCAN.required`**; the DA7 `partialShortfall` orphan
+      suppression (`:460-472`) retires with its cause. Not D3's refused direction 3 — no model changes; an
+      executor is removed from a slot that never needed one. The audit alternative is recorded as
+      **refused**: comparing a return against a value the consumer already holds is ceremony. *Dissent on
+      record (Quinn, Carson): audit preserved the literal read-back and a rejected-return cap; conceded.*
+      Any scanner-returned value the reduce still consumes after this build is subject to `full-scale.md`
+      step 5's single-writer clause: **a return that fails a read-back is never persisted to the cache** —
+      rejection is reduce-side, named in a denominated `scanner_return_rejected` cap (N of T).
+    - *(A11)* ⚠ **Hard constraint: `PAGE_SCAN` serializes to 3676 of the 3700-char E6 budget**
+      (`tools/package-lint.py:966`, measured with E6's own extractor) — no build-4 change may land in a
+      schema description; prompt string or new args only. Removing `outbound_links` from `required` is
+      the only edit that *frees* budget.
+    - *(A12)* **The instrument is the fixture, not the specimens.** Under one release the v0.18.0 cold
+      sweep re-rolls every named specimen before any check runs; the promise's acceptance could pass with
+      no mechanism in the tree. The `[ship-verifiable]` check is a fixture whose SKILL-passed link set and
+      page bytes are deliberately at odds with a planted scanner return (a substituted slug, a stripped
+      `#`, one dropped link) and the report must follow the bytes; specimens clearing in the field is
+      `[field-contingent]`.
+    - *(A12)* **Discharges `factory/inbox/2026-08-26-164501` (A14-2)** — Cycle 14 pinned it in the inbox
+      because Stage 5 passed it vacuously; build-4's ledger clause names the filing so Stage 5 can move
+      it.
+    - *(A21)* **Consumes Cycle 14 carries 2 and 3**; carry 5 (the `malformed_frontmatter` retirement) is
+      ruled at this build's leg-3 grading event — see *Cycle 14 carries — dispositions*.
+  - `binds:` **+= D3** (halves A15-4; *direction 3 stays refused*; *direction 1 does not cure records
+    already poisoned*); **D4 kept with its reason** — new SKILL-passed inputs (`pageLinks`, `summary_len`)
+    may not enter the cache key by judgment. *(roundtable A12, G-F4)*
+
 - **build-5 — A15-7 + A15-8, the persisted report.** A15-7's parse requirement plus E1's ruling:
   validate the mandated keys **and** the **cardinality** check that un-collapses a per-file slot.
   The `type:` distribution is **out** (E1).
@@ -1491,6 +1634,32 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     draft was rejected at ruling time: the rollup **has** the key, so *"find every slot `report.md`
     promises"* passes it — the exact trap E1's correction (ii) identified. **The promise reaches
     cardinality or it reaches nothing.**
+
+  - **Roundtable amendments (2026-09-02):**
+    - *(A16)* **E1 made buildable — see E1's amendment.** In brief: one artifact is the
+      key/type/cardinality source (parsed from `report.md`'s fence, or a schema file `report.md` points
+      at) — never a second hand-typed list; presence + type + cardinality, **never closure** (extra keys
+      pass; `false_positives_refused:` — which carried every specimen this cycle and ships nowhere — is
+      promoted into `report.md` as a mandated per-slot list); each per-file slot's population is derived
+      **mechanically** from the `para_*` file walk, never `len()` of the rendered list (the renderer's own
+      count reads back nothing); the gate runs via a `uv run` script with inline deps (the `lint-cache.py`
+      precedent) or `json.loads` over the JSON render, `report.md:3`'s no-dependency clause pointing at
+      that route.
+    - *(A16)* **"Fails loudly" names what the owner is left holding — never no file.** A failed gate
+      re-renders **once** from the same Step-5 facts; a second failure persists the existing
+      `…-lint-failed.yaml` shape with `status: failed`, `reason: shape — <slot / cardinality>`, the full
+      unvalidated block embedded, and `next: re-render from the returned workflow object, not re-sweep`;
+      the Step-6 `{log}` line does **not** write (lint-debt is not reset — the B10-12 mirror); the
+      in-session YAML remains the owner's copy. (`vault-operating-contract.md:330` mandates persistence;
+      fixes were already applied at Step 3 — an unrecorded run is *"silently rests on 5 of 6"* produced by
+      the fix.)
+    - *(A14 v)* **Ordering: build-3 → build-5 on `report.md`**; the validator's key set is read from
+      `report.md` at build-3's commit.
+    - *(A20, obsolescence)* `report.md:3`'s *"the module's release gate parses real persisted reports
+      before the tag"* — `package-lint.py` has no such group — is re-pointed at the persist gate; A15-7
+      direction 3 (declare the archive best-effort) dies as an option.
+    - Brief-time question **reworded**: not *what is the population* but *which independent instrument
+      produces each per-file population*.
 
 - **build-6 — A15-12, retire the PARA `type:` prohibition.** `extraction.md:84` and `checks.md:19`
   case (b), **with the `{wiki}` carve-out retired in the same act** — not optional (D5).
@@ -1521,6 +1690,47 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     it is honest" implies a dishonest value still lands, and D5.1 binds through `binds:` — naming it
     would pad the promise without adding an obligation. Owner-ruled 2026-09-02.)*
 
+  - **Roundtable amendments (2026-09-02):**
+    - *(A1 — R1's first instance, 12 of 13 lanes)* **`handshake:` `extraction` 9 → 10; re-ack
+      `vlt-extract`, `vlt-lint`, `vlt-track`, `vlt-query` in the same commit** (`extraction.md:11-12`;
+      acks at each `SKILL.md:4`). Instrument: `package-lint` Group E, bipartite. The pin move is what
+      invalidates the cache — correctly under D4 (see build-2 A2). Authors the v0.18.0
+      `governance_rule_changes` CHANGELOG block (`vlt-upgrade/SKILL.md:122` renders from the CHANGELOG,
+      never a diff; it is the line beside `parked_interims_review`). **Seven ideation rounds did not
+      find this; twelve roundtable lanes did in an hour — R1 exists because nothing in the skeleton
+      asked.**
+    - *(A5)* **D5.2 names its object — see D5's amendment.** The **type-legality** carve-out retires:
+      `extraction.md:84`'s closure, `checks.md:19` case (b), and `:84`'s *"`frontmatter.md`'s list does
+      not answer here"* sentence. The Layer-2 **population / container** exclusion
+      (`vault-operating-contract.md:64/:68/:70`, `checks.md:19`'s population clause, `:20`,
+      `full-scale.md` step 1, `vlt-lint/SKILL.md` Step 0) is **NOT touched** — wiki pages remain outside
+      every `para_*` net; build-6 records **why** it is a zone rule and not a type exception.
+      `vault-operating-contract.md:66`: *closed* → *recognized* (a contract edit ⇒ rule-card
+      re-derivation, `package-lint` C6). The filing's *"a subtree carries a `type:`"* mechanism is **not
+      shipped and not in scope** — recorded so the filing's four-site count reads as three sites over.
+    - *(A6)* **The recognized set after retirement is STATED:** PARA `project | area | resource | moc` ∪
+      operational-record `charter | record | register` ∪ overlay-declared ∪ **the values named at
+      `frontmatter.md:71`** (closed by enumeration at that line, open by edit); `para_type_unknown` (D5.1)
+      fires only on a value in none; `frontmatter.md:71`'s PARA clause amended in the same act.
+      **Consequence stated so the owner's experience is ruled, not discovered:** the 9 `type: research`
+      files **stop firing on upgrade with no vault act**; park #15's unwind is a superseding decision-log
+      entry citing v0.18.0. Without this, "retire the prohibition" leaves the legal response *declare
+      `research` in the overlay* — the route park #15 refused on principle (`decision-log.md:1204`).
+    - *(A6)* **Promise re-ratified** — nothing in the module judges *honesty*; after retirement the only
+      judge is vocabulary membership: *"After this ships, a vault owner who types a file accurately is no
+      longer told to retype or move it — the declared `type:` is judged on whether it is **recognized
+      vocabulary, the module's or the vault's declared,** rather than on which folder the file sits in,
+      and `{wiki}` stops being a named exception to that."*
+    - *(A18, owner ruling D-D)* **Cycle 14 build-3 (6) is SPLIT IN PLACE.** The at-rest half — each
+      park's recorded blocker claim is demonstrably **false** against shipped
+      `extraction.md`/`write-verification.md` — is the `[ship-verifiable]` clause that **GATES**,
+      appended to this roadmap's ledger by build-6's brief quoting Cycle 14's bound text verbatim (the
+      b3(7) precedent — prose GATES markers sit on a wall no parser faces). The vault-act half (the
+      superseding decision-log entries; the 9 files' response, now a no-op under A6) is
+      `[field-contingent]`, triggered by the post-upgrade `parked_interims_review:` line. Clauses (a)+(c)
+      ride here; **build-7 carries no gating clause** (Q9 resolved).
+  - `binds:` **+= handshake (R1)**; Cycle 14 carry 6 released here by reason (see dispositions).
+
 - **build-7 — A15-13, retire the `verified_by` roster closure.** `write-verification.md:47`'s
   closure only. **Separate from build-6 on the filing's own argument** — *"folding two retirements
   into one build is how a structural change becomes unreviewable"* — ratified by the owner
@@ -1549,15 +1759,68 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     *(Not in the sentence, and binding anyway through `binds: D5`: D5.3, the attestation pair is not
     retired — "whether an attester may attest" presupposes attestation continues.)*
 
+  - **Roundtable amendments (2026-09-02):**
+    - *(A1 — R1's second instance)* **`handshake:` `write-verification` 5 → 6; re-ack `vlt-ingest`,
+      `vlt-extract`, `vlt-research`, `vlt-lint`, and `vlt-lint-full.js` — the header `:11` AND the body
+      pins `:178`, `:182`, `:229`, `:684`** (`package-lint` E7 fails the tag on a stale body pin). ⚠ **A
+      workflow-asset edit in a build that otherwise never touches the workflow**, and the `:229` edit
+      moves `scanFingerprint` — correct, the scanner reads that convention (build-2 A2). File-edit order
+      across the cycle: **2 → 3 → 4 → 6 → 7**. **Field notice (CHANGELOG):** vaults with
+      `local_consumers:` registrants on write-verification (the field vault's `vlt-brief` acks `@5`) see
+      one expected `convention_drift` finding until the registrant is reconciled by ceremony — the module
+      cannot re-ack a vault-minted op.
+    - *(A7)* **`:47`'s value set is RESTATED, never deleted** — `frontmatter.md:78`/`:82` point at it
+      (*"not restated here"*) and would dangle: *"whatever the nearest declaring container's `writers:`
+      join admits; unconstrained where none declares."* The two `:47` clauses that **survive verbatim**:
+      *lint attests narrowly*; *a skill added to `consumers:` for handshake reasons alone acquires no
+      attestation authority*. Prose re-nouns, **no `frontmatter` bump** (stated so a briefer does not
+      pick `frontmatter@15` + ten re-acks): `frontmatter.md:78` (*the attesting **op***), `:82` (*the
+      operation that ran tier-1* → *the attester — an op, or a partner*), `:296(c)` (restates the
+      write-op ceiling — becomes a version-free pointer; `local_consumers:` keeps its handshake role,
+      `checks.md:40`, and loses its attestation-widening one — said so). One sentence at
+      `write-verification.md` §Attestation for the **non-op attester**: a partner attesting a knowledge
+      artifact it wrote runs the tier-1 checklist and writes its own slug — today every attestation
+      instruction is addressed to an op (`grep` over `vlt-dispatch`, `vlt-mint`, `vlt-agent-*` for
+      tier-1/attest: nothing).
+    - *(A7)* **Promise subject corrected:** the 27 files are partner-written and only the partner can
+      re-attest them — *"After this ships, a **partner's** attestation is authorized once — by the
+      container's `writers:` list where one is declared — instead of twice, by a roster that cannot admit
+      a partner."*
+    - *(owner ruling D-E)* **Scope += the one-line `checks.md:20` change: the `verified_by:` identity must
+      itself be admitted by the nearest declaring `writers:` list — never carried by the `author:` leg.**
+      As shipped the join admits on **any** match (`hybrid → human`), so `verified_by: banana` would pass
+      wherever `writers:` names `human`; the roster was that value's ceiling and Q5 removed it accepting
+      only the *undeclared* population knowingly. This is D5.4 (*answered once, by the net*) made true.
+      Undeclared containers still pass `open`.
+    - *(A8)* **D2 extends here with one denominated line:** `para_writer_unauthorized: N judged; D under a
+      declaring ancestor; O passed on open posture` — the value stays legal, the population Q5 accepted
+      becomes visible (`report.md:39` renders violations only; the `open` PASS population is counted
+      nowhere today).
+    - *(A20, obsolescence — reverse)* `checks.md:20`'s `verified_by:` → partner-slug leg becomes
+      exercisable for the first time — the contradiction is **eliminated**, no precedence statement
+      needed (Arc 9 D5). `write-verification.md:55`'s *"fusing permission to provenance"* sentence
+      survives and now reads true. Contract `:68` already reads a partner slug — nothing to do.
+  - `binds:` **Q9 → `Q9 (no gating clause — see build-6)`; += handshake (R1)**.
+
 ⚠ **A15-4 spans build-2 and build-4** (eviction half / fidelity half — D3 half-took the filing).
 **Both `binds:` rosters name it deliberately**: a brief scoping one half from the filing alone would
 cover half the ask and still read as compliant. This is the `CLAUDE.md` *lists that claim
 completeness drift* hazard in its per-filing form.
 
+*(roundtable A12, G-F4 — the note above is corrected: rosters carry ruling **ids**, and no id in
+build-4's roster resolved to A15-4; **both builds now bind D3**, the ruling that halves the filing.
+And under D-C the "fidelity half" is no longer an audit of the scanner's return but its replacement —
+the split survives, the mechanism changed.)*
+
 ⚠ **Roundtable material, carried from the capture and not resolved here:** A15-15's timing argument —
 the two filings that exercise the never-exercised obsolescence beat are **mis-classified on the
 tracker right now**. Capture endorsed it as *a real ordering constraint rather than advocacy*, which
 makes it a joint under `roadmap-roundtable`'s frame.
+
+**→ RESOLVED at the roundtable (2026-09-02, A9):** the timing argument does **not** hold as a build-order
+constraint — the beat is the roundtable itself, which precedes every build, and one release erases
+order. It holds as an **owner act**: re-kind #17/#18 (body `kind:` + label) after build-1 lands;
+build-1's acceptance checks it.
 
 ### Pre-ideation rulings the capture demanded
 
@@ -1599,7 +1862,7 @@ Seeded unanswered. Each is a question the capture flagged and declined.
 
   **Also settled here (capture's ⚠, so it is not re-briefed as a gap):** A15-11's second observation
   — that the no-args refusal *"reads as a broken asset"* and needs a pointer to the SKILL route — is
-  **already satisfied** at `vlt-lint-full.js:130`, whose second sentence names the SKILL and what it
+  **already satisfied** at `vlt-lint-full.js:127`, whose second sentence names the SKILL and what it
   does. Residual scope there is **at most a wording nudge**, and briefs must say so rather than
   scope a missing pointer.
 
@@ -1626,7 +1889,7 @@ Seeded unanswered. Each is a question the capture flagged and declined.
     is **replaced by a precise instrument, never deleted**.
   - **Direction 1 (after) — survive a convention change the page scanner never reads.** Narrow
     `convention_digests` from *"one entry per convention this run judges against"* to the three
-    `pageScanPrompt` actually reads (`vlt-lint-full.js:228`): `frontmatter`, `wiki-supersession`,
+    `pageScanPrompt` actually reads (`vlt-lint-full.js:229-230`): `frontmatter`, `wiki-supersession`,
     `write-verification`.
 
   **The precondition, answered — this is the ruling, and briefs cite it rather than re-deriving
@@ -1643,6 +1906,26 @@ Seeded unanswered. Each is a question the capture flagged and declined.
 
   **Direction 3** (bind checks to the population they judge) is free and already being applied —
   it is Q4's subject and routes to the platform ledger.
+
+  **→ EXTENDED at the roundtable (2026-09-02, A3; owner ruling D-B over a three-way split).** Six lanes
+  found the ruling repaired two of the key's four terms and left `pin_vector` and `checks_digest` in
+  place though its own dependency sentence says neither is a dependency — so *"a build bumping only
+  `extraction` would invalidate all 146"* stayed **true** via the pin slot, and build-6 is exactly such a
+  bump. **Ruled: the per-page key is facts-not-verdicts** — page bytes | scan prompt + `PAGE_SCAN`
+  (`scanFingerprint`, already shipped) | **`scanModel`** (the extractor identity — `vlt-lint-full.js:122`,
+  today in **no** key term, so a model change or caller override would reuse haiku facts under a
+  different extractor forever; the exact "future model change" D3 direction 1 was chosen to survive) |
+  the three scanner-read convention digests (base+overlay). **`module_version` is deleted, not replaced
+  by digests of `SKILL.md`/`full-scale.md`/the reduce** — the cache stores *extracted facts, never
+  verdicts* (`full-scale.md` step 5) and the reduce re-runs over cached facts every sweep, so a reduce or
+  prose change is fully exercised without a cold sweep; digesting `full-scale.md` would make every
+  operator-prose clarification a 146-agent sweep, the over-breadth A15-9 filed. Q3's *"replaced by a
+  precise instrument, never deleted"* is honoured: the precise instrument for the scan surface is
+  `scanFingerprint`. **`checks_digest` leaves the page-scan key; `pin_vector` narrows to the three
+  scanner-read pins or drops as redundant with their digests** (a version bump changes the bytes the
+  digest already covers) — the brief shows D4 per slot. *Dissent on record: Amelia/Quinn held the
+  whole-file digest as the conservative D4 reading; conceded on facts-not-verdicts.* The brief-time
+  question "whole file or only the reduce" **dissolves**.
 
 - **Q4 — A15-9's companion finding. RULED, Round 4 (2026-09-01): ROUTED TO THE PLATFORM LEDGER.**
   It is brief-time check anatomy — factory-side by the channel boundary — and the filing itself
@@ -1703,7 +1986,7 @@ Seeded unanswered. Each is a question the capture flagged and declined.
   now**. This remains **roundtable material** as a joint bearing on build order.
 - **Q7 — A15-3's remaining half (ODQ 1). RULED, Round 5 (2026-09-01): DECLINED. No anchor-existence
   check this cycle, and A15-3 carries no build of its own — it FOLDS into the scanner-return
-  build** with A15-1 and A15-4 (the verbatim-extraction instruction at `vlt-lint-full.js:228`).
+  build** with A15-1 and A15-4 (the verbatim-extraction instruction at `vlt-lint-full.js:229-230`).
 
   ⚠ **Recorded so no later cycle re-files a shipped fix:** A15-3's own proposed direction (*drop an
   empty normalization result*) **is already in the tree** — `vlt-lint-full.js:420-423`, shipped as
@@ -1717,6 +2000,11 @@ Seeded unanswered. Each is a question the capture flagged and declined.
   `skills/`**, only a sentence and a reader) ships **with** the denominated-empty half (*"0 slugs
   found under `## Stubs…` across 1 index"*). Shipping the prose alone would leave a failed parse
   indistinguishable from a vault with no stubs — the exact observable the filing reports.
+  **→ AMENDED at the roundtable (2026-09-02, A17):** *"reconcile against `checks.md:39`"* would have
+  produced a **third** copy of a heading that has one home. Discovery matches the heading **as
+  `{conventions}/wiki-index.md:83` states it** (overlay-merged); `full-scale.md:7`, `checks.md:39`,
+  `vlt-lint-full.js:44`/`:476` become pointers. The bare `## Stubs` form retires (obsolescence, build-3).
+
 - **Q9 — the two bound Cycle 14 debts. RULED, Round 3 (2026-09-01): each debt rides its
   subject-matter build.** Both are `[ship-verifiable]` and both **GATE closeout**.
   - **Cycle 14 build-3 (6)** — the two parks' unwind — **rides the A15-12 / A15-13 build(s)**. The
@@ -1728,6 +2016,17 @@ Seeded unanswered. Each is a question the capture flagged and declined.
   ⚠ **Consequence for Grouping:** whichever builds carry A15-12/A15-13 and A15-5 inherit a
   closeout-gating obligation, and their `binds:` rosters must name it. A cycle cannot close on these
   being re-carried — that is the point of the bound.
+
+  **→ RESOLVED and SPLIT at the roundtable (2026-09-02, A18; owner ruling D-D):** build-6 carries Cycle
+  14 build-3 (6) clauses (a)+(c); **build-7 carries no gating clause** (clause (b) was ruled satisfied in
+  substance by Cycle 14). The debt is **split in place**: the at-rest half — each park's recorded blocker
+  claim is false against shipped rules — is the `[ship-verifiable]` clause that GATES; the vault-act
+  half (the superseding decision-log entries) is `[field-contingent]`, triggered by the post-upgrade
+  `parked_interims_review:` line. Cycle 14 build-1 (6) leg 3 rides build-4 with an **at-rest leg** (D-A).
+  ⚠ **Both debts are appended to THIS roadmap's ledger by the carrying briefs** as `[ship-verifiable]`
+  sub-clauses quoting Cycle 14's bound text verbatim — `acceptance-discharge` and `cycle-closeout` read
+  only this roadmap's `- [ ]` items, and Cycle 14's is CLOSED; "GATES" in prose is a wall no parser
+  faces. Every bare `E4` in this section reads *Cycle 14's E4* — this roadmap's E-namespace ends at E3.
 
 ### Cross-filing decide-once rulings
 
@@ -1752,6 +2051,12 @@ through-line; **the capture proposes none of these as answered.**
   scope authority left for D1(b) to carry, so **no shared read-back instrument and no per-consumer
   grouping is imposed**. How the nine instances group is settled at *Grouping & order* on the
   ordinary grounds of order, size, and the boundary cost recorded immediately below.
+  **→ AMENDED at the roundtable (2026-09-02, A15):** the A15-6 illustration above is **struck** — it
+  contradicts D2, ruled four rounds later for the same slot, and `build-brief` reads rulings by id.
+  D1(a)'s illustration is now **A15-7** (parseability), whose ask has no D2 overlap: *a brief is done
+  when the persisted report loads; it is not obliged by `ST-7` to do more.* D1(a)'s principle is
+  unchanged.
+
 - **D2 — the denominated-slot posture. RULED, Round 5 (2026-09-01): ADOPTED for A15-2, A15-6 and
   A15-10. All three derived slots arrive denominated.**
   - **`stubSlugs`** — report the population, not just the list: *"N slugs found under `## Stubs…`
@@ -1771,6 +2076,25 @@ through-line; **the capture proposes none of these as answered.**
   *(The capture noted the posture also applies to A15-11 direction 1 — a wrapper-script recipe
   stated in prose is one more derivation nobody reads back. **Not extended there**: Q2 ruled
   direction 1 as a documentation edit, and D1(a) imposes no obligation on it.)*
+  **→ REWRITTEN at the roundtable in five moves (2026-09-02, A14).** (i) The ⚠ above is **false as
+  worded** — three lanes counted: builds 4 and 5 carry read-backs through their own filings' asks, E1
+  reaches an output-side site, and counted against `ST-7` §What would close it **the cycle reaches all
+  four consumers**. It reads: *"D2 is the only read-back imposed by **cross-filing ruling**; builds 4 and
+  5 carry read-backs through their own filings' asks; extended once by E1 to an output-side site."*
+  Round 5's summary line reads *"the only input-side read-back by cross-filing ruling."* (ii) The
+  `pin_vector`/`convention_digests` bullet is a property of the **`RULESET_SLOTS` loop** — *a slot
+  present but of the wrong type or shape is reported as wrong, never as missing, for every slot the loop
+  iterates* — so build-2's new slot (`scanModel`) inherits it. (iii) A present-but-wrong-type ruleset
+  slot is a **pre-dispatch refusal** with a directed `next:` (the failed-run posture), **never a
+  cold-branch cap** — a wrong type is the SKILL's own rendering error, detectable before the first agent
+  dispatches; as ruled the owner would still have paid 146 agents and read "wrong type" afterwards.
+  (iv) **The denominator is produced by an instrument independent of the one that produced the value**
+  — `governance_memory`: form-agnostic `## ` heading count vs schema-matched entries (a 47-of-47 from
+  the same matcher reads back nothing — A15-6 reproduced inside its fix); `stubSlugs`: `section located:
+  yes|no` beside the count. (v) The homes: `report.md` gains a fourth `lint_cache:` cold reason, a
+  `stub_discovery:` line, and a `governance_memory:` population term (build-3's scope; merge order
+  3 → 5). Extends to build-7 with one line (A8).
+
 - **D3 — the cache-freezes-errors consequence. RULED, Round 5 (2026-09-01): A15-4 direction 2 is
   HALF-TAKEN — the invalidation path is IN, record provenance is DEFERRED.**
 
@@ -1801,8 +2125,7 @@ through-line; **the capture proposes none of these as answered.**
   question, an inherited bound the owner may only widen deliberately):** *"**Not a direction:
   weakening invalidation on judgment.** A record reused under a moved rule is a false clean, which
   is worse than an expensive sweep. Any repair must show the reused facts are **independent** of
-  what moved, not merely unlikely to be affected."* *(owner to confirm it stands, or rule
-  otherwise)*
+  what moved, not merely unlikely to be affected."* **RULED, Round 4 (2026-09-01): STANDS — inherited bound, unchanged.** *(Stamped at the roundtable, A19 — the scaffold's placeholder had survived under the "every slot is ruled" header.)*
 - **D5 — the two retirements' non-negotiable halves. RULED, Round 3 (2026-09-01): ALL FIVE ADOPTED,
   binding on both briefs. No brief may narrow any of them.**
   1. **`para_type_unknown` is NOT retired** (A15-12) — a genuinely undeclared value at a PARA
@@ -1816,6 +2139,20 @@ through-line; **the capture proposes none of these as answered.**
      answer it, instead of twice."*
   5. **The no-ancestor `open` + PASS default is NOT disturbed** (A15-13) — verified verbatim at
      `checks.md:20` this session. *(This is also the premise Q5's ruling rests on.)*
+
+  **→ D5.2 NAMES ITS OBJECT (roundtable 2026-09-02, A5 — eight lanes found "the `{wiki}` carve-out"
+  names two or three different rules).** The **type-legality** carve-out retires (`extraction.md:84`,
+  `checks.md:19` case (b), `:84`'s *"does not answer here"* sentence). The Layer-2 **population /
+  container** exclusion — `vault-operating-contract.md:64` (*"this is the sentence other sites point
+  at"*), `:68`, `:70`, `checks.md:19`'s population clause, `:20`, `full-scale.md` step 1,
+  `vlt-lint/SKILL.md` Step 0 — is **not touched**: wiki pages stay outside every `para_*` net (the
+  Librarian-only zone is a write-boundary fact, not a vocabulary fact; retiring it drops 146 pages into
+  four nets and double-covers `unattested_write`, the duplicate `checks.md:15(a)` was written to remove).
+  D5.2's *"four exceptions, zero categories"* is satisfied by reading (a): the exception retires **from
+  the type judgment**; the population statement is a category (Layer 2 zone), not a name. Reading (b) —
+  a shipped subtree-`type:` declaration — exists in no artifact and is a mechanism-first item for a later
+  filing. Contract `:66` *closed* → *recognized*. D5.1's kept net needs a set to judge against — **A6
+  states it** (build-6).
 
 ### Round 1 grounding correction — the reduce cannot perform its own read-back
 
@@ -1923,6 +2260,24 @@ Per build: attached, or ruled not-blocking.
   This is the one place the cycle's read-back reaches beyond D2's list, and it arrives through
   A15-8's own filing rather than through `ST-7`, which D1(a) ruled non-binding.
 
+  **→ MADE BUILDABLE at the roundtable (2026-09-02, A16 — six lanes).** As ruled the validator had **no
+  machine-readable slot list** (`report.md:9-79` is a template with placeholders — a hand-typed key list
+  in the validator is a second statement of the shape, the A14-8 defect) and **no denominator**
+  (`report.md` carries no `para_*` population count; `attestation_census.pages_total` is the *wiki*
+  population). Ruled: (1) one artifact is the key/type/cardinality source — parsed from `report.md`'s
+  fence, or a schema file `report.md` points at; (2) presence + type + cardinality, **never closure** —
+  extra keys pass through; `false_positives_refused:` (vault-invented, ships nowhere, carried **every**
+  specimen this cycle) is promoted into `report.md` as a mandated per-slot list; (3) each per-file slot
+  gets a report-internal population line derived **mechanically** from the `para_*` file walk — never
+  `len()` of the rendered list, or the check compares the renderer against itself; (4) the gate runs via
+  a `uv run` script with inline deps (the `lint-cache.py` precedent) or `json.loads` over the JSON
+  render — `report.md:3`'s *"no library the vault does not already have"* clause points at that route;
+  (5) **the failure artifact**: re-render once from the same Step-5 facts; a second failure persists the
+  `…-lint-failed.yaml` shape (`status: failed`, `reason: shape — <slot>`, the full unvalidated block,
+  `next: re-render from the returned workflow object, not re-sweep`); the Step-6 log line does **not**
+  write; never no file. **Merge order on `report.md`: build-3 → build-5.** The brief-time question is
+  reworded: *which independent instrument produces each per-file population*.
+
 - **E2 — the `_output/` provenance read. RULED, Round 6 (2026-09-01): ATTACHED to A15-12's build —
   read BEFORE the brief is written.** ⚠ *"Read `_output/problem-solution-2026-08-25.md` before
   touching PARA zoning again"* (carried from Cycle 14's closeout). It is **gitignored and provenance
@@ -1935,6 +2290,13 @@ Per build: attached, or ruled not-blocking.
   additive"*) — **not** on the platform ledger's P-10 prose, which the capture declined to
   re-verify. **Briefs cite the convention, never the platform entry**, so the two records cannot
   silently disagree.
+  **→ AMENDED at the roundtable (2026-09-02, A10, W-F6):** the Evolution rule E3 rests on is **silent**
+  on build-1's actual change — `field-contract.md:15-17` covers *adding a field* and *adding a label* (no
+  bump) and *changing a field's meaning* (bump); build-1 **widens an existing field's closed value set**,
+  and the nearest clause cuts the other way for a strict reader. E3 stands, and build-1 writes the ruling
+  into the rule itself: *widening a closed value set is additive when no existing value's meaning
+  changes.*
+
 - **No further debts. RULED 2026-09-02:** E1, E2 and E3 are the whole of this cycle's evidence-debt
   register. Every other build's evidence is grounded in tracked source and was read in session.
 
@@ -1954,14 +2316,151 @@ by ruling rather than by oversight.**
 - **build-5** — what does *"the population it reports on"* resolve to, per slot, for E1's cardinality
   check? `report.md` mandates several per-file slots and their denominators are not uniform.
 
-## Roundtable review record
+**→ Status after the roundtable (2026-09-02):** build-2's question **DISSOLVED** (D-B — neither whole
+file nor the reduce; `module_version` is deleted, `scanModel` enters). build-4's question **RULED** (D-C —
+replace, not audit; the SKILL passes `pageLinks` and `summary_len`; the extraction ships as an
+executable). build-5's question **REWORDED** (A16 — *which independent instrument produces each per-file
+population*), and its precondition is now a `report.md` shape change build-5 owns.
 
-*(Not yet convened. `build-brief` gates on this record; skipping is an explicit owner waiver written
-here, never a silence.)*
+### Cycle 14 carries — dispositions *(roundtable A21, owner ruling D-F, 2026-09-02)*
 
-⚠ **The obsolescence beat has never been exercised**, and A15-12 + A15-13 are the material it was
-built to receive. A15-12 explicitly asks that both retirements be routed to **the same ideation and
-separate builds**.
+Ideation consumed items 1, 4, 11–15 and 17 of `factory/cycles/14-no-enforcement-point/roadmap.md`
+§Carried forward past Cycle 14 and left six undispositioned; three of them carried the bound *"Cycle
+15's `inbox-capture`"*, which had already passed — the numbered-cycle done-when expiring unread, the
+pattern P-16 named. Every re-bind below names an **event**.
+
+| Item | Disposition |
+|---|---|
+| **2** — the `summary` paraphrase (Cycle 13 CF1; Carson's route) | **CONSUMED by build-4** (D-A: the SKILL passes `{slug: summary_len}` from disk) |
+| **3** — the general reduce-side posture, deferred half | **CONSUMED by build-4's boundary ruling** (D-C) + D1(b) |
+| **5** — the `malformed_frontmatter` RETIREMENT (third deferral) | **RE-BOUND to an event:** ruled at build-4's Cycle 14 build-1 (6) leg-3 grading — if the specimen set is 0 refuted there, the retirement question is answered there; Cycle 14's E4 transfers BOUND with it |
+| **6** — `para_author_unknown` closed to `human\|agent\|hybrid` | **RELEASED with reason:** no filing asks it; it is the sibling closed enumeration to build-6's and the next `supersession` candidate — the owner may file it through the rail build-1 completes |
+| **8** — Cycle 12's hand-off (b3(7), A12-4, A12-5, A11-11 d4 + A12-1) | **CARRIED unchanged** to this cycle's closeout collector — not this cycle's scope |
+| **9** — the `:168` dissent (Victor, Amelia) | **CARRIED unchanged** — becomes the ruling when `unmarked_supersession` is structured |
+
+### Standing rules declared at the roundtable *(2026-09-02 — R1, R2; homes named; mechanisms queued as [P-24])*
+
+- **R1 — a rule change to a handshaked convention carries its `handshake:` line at ideation.** The
+  Grouping bullet of any build that changes a convention **rule** names the bump and the re-ack roster
+  (read from the convention's `consumers:`, bipartite), and `build-brief` refuses a brief whose
+  convention rule change has none. *Home:* `ideation-scaffold` (the build-bullet skeleton gains a
+  `handshake:` slot beside `binds:` / `spike:` / `promise:`) + `build-brief`'s gate. *Mechanism:* a
+  factory-skill edit, off-cadence → **[P-24]** on the platform ledger. *Interim posture:* this
+  declaration; builds 6 and 7 carry the line by A1. *Why a rule and not an amendment:* twelve of thirteen
+  lanes found the gap in an hour; seven owner-steered ideation rounds did not, because nothing in the
+  skeleton asks.
+- **R2 — a retirement's brief enumerates every restatement and pointer of the retired rule across the
+  bundle, each with a disposition.** P-15 defined the *filing* class; nothing defines the *brief* shape
+  for one, and this session found each retired closure restated at four to seven sites (the operating
+  contract `:66`, `frontmatter.md:71/:78/:82/:296`, `checks.md:19/:20`, the prompt literal at
+  `vlt-lint-full.js:229`). *Home:* `build-brief/references/brief-anatomy.md` — a retirement section:
+  grep-derived site list, a disposition per site, and the population statement that must **not** move.
+  *Mechanism:* factory-skill edit → **[P-24]**. *Interim posture:* A5 and A7 carry the enumerations for
+  builds 6 and 7.
+
+## Roundtable review — A15-1..A15-15, the seven-build batch (2026-09-02)
+
+**Convened** over the filled Ideation rulings, before any brief, per `.claude/skills/vlt-lifecycle.md`
+step 4. **`build-brief` gates on this section.** Session file:
+`_output/party-mode/2026-09-02-cycle15-roadmap-roundtable-session.md`. Keepsake:
+`_output/party-mode/2026-09-02-cycle15-roadmap-roundtable.html`. *(The placeholder heading
+`## Roundtable review record` was renamed to this canonical form at Converge — a prefix reader would
+otherwise have passed an empty section, G-F2.)*
+
+**Roster — all 13 installed voices convened, none excused (owner call).** Discovered fresh by glob,
+never recalled: Mary (analyst), Winston (architect), Builder, Amelia (dev), John (PM), Paige (tech
+writer), Sally (UX), Carson (brainstorming), Dr. Quinn (problem-solving), Maya (design thinking),
+Victor (innovation/disruption), Caravaggio (presentation), Sophia (storytelling). The owner named no
+prior worries (*"nothing in particular"*), so the roadmap foot's four joints (J1–J4) were carried
+verbatim into every persona prompt and are answered inline below.
+
+**Convergence.** The version-handshake gap (both retirements are convention **rule** changes; neither
+build named a bump or a re-ack) landed in **12 of 13 lanes** independently — seven owner-steered
+ideation rounds had not found it, which is why it became a rule (R1) and not only an amendment. The
+v0.18.0-cold-by-construction joint landed in 11; the two-carve-outs ambiguity in 8; `pin_vector` left
+in the key in 6; A15-5's false grounding sentence in 6; the J1 relabel owner-act in 13. The moderator
+re-verified the six load-bearing sites in session (`summaryIssue` at `vlt-lint-full.js:640`;
+`scanModel` in no key term; `SCHEMA_SIZE_BUDGET = 3700`; `checks.md:20`'s any-match join;
+`lint-cache.py`'s `read`/`write` only; the five `write-verification@5` pins).
+
+### Amendments applied (21)
+
+| # | What it cures | Where it landed |
+|---|---|---|
+| **A1** | both retirements are **rule changes** and no build named the handshake — `extraction` 9→10 (4 re-acks), `write-verification` 5→6 (4 SKILLs + workflow header + 4 body pins); prose re-nouns in `frontmatter.md` with **no bump**; the v0.18.0 `governance_rule_changes` block; the `local_consumers:` field notice | §Grouping → build-6, build-7 |
+| **A2** | **v0.18.0's first sweep is COLD BY CONSTRUCTION** — build-2's headline clause has no live observable on its own release; graded `[ship-verifiable]` at rest, the warm-after-upgrade half `[field-contingent]` to the next clean release; CHANGELOG states the cold run | §Grouping → Ordering note, build-2 |
+| **A3** | Q3 repaired two of four key terms — **the key is re-ruled whole** (owner ruling D-B): facts-not-verdicts + `scanModel`; `module_version` deleted, `checks_digest` out, `pin_vector` narrowed | Q3; build-2 |
+| **A4** | builds 2 and 3 rewrite the same `full-scale.md` paragraph and the same `RULESET_SLOTS` region with **contradictory** populations — order 2→3, build-3 `binds:` += Q3, A15-10's residual struck, d1 as a workflow-side required-name set; file-edit order 2→3→4→6→7 | §Grouping → Ordering note, build-2, build-3; §A15-10 |
+| **A5** | **"the `{wiki}` carve-out" named two rules** — the type-legality one retires, the Layer-2 population/container exclusion is not touched (146 pages would otherwise enter four nets); contract `:66` *closed* → *recognized* | D5.2; build-6 |
+| **A6** | nothing ruled the **recognized set** after retirement — stated (PARA ∪ operational-record ∪ overlay ∪ `frontmatter.md:71`); the 9 `type: research` files clear on upgrade with no vault act; promise re-ratified on *recognized vocabulary*, not *honesty* | build-6 |
+| **A7** | build-7's retirement strands `frontmatter.md:78/:82/:296(c)` and no artifact tells a **partner** how to attest — `:47` restated never deleted, surviving clauses named, the non-op attester sentence, promise subject → *a partner's* | build-7 |
+| **A8** | after build-7 the `open`-posture PASS population is counted nowhere — one denominated line | build-7; D2 |
+| **A9** | J1 does **not** hold as build order (the beat is this session) — #17/#18 re-kinded by an owner act (body `kind:` + label), build-1's `[ship-verifiable]` check | build-1; §Grouping J1 note |
+| **A10** | build-1's site 5 was a **phantom** (`issue-triage` has no enum); site 6 = the intake materializer (`kind` → `class:` opening line), site 7 = `config.yml`; the two mandatory halves as optional additive payload fields; `binds:` → Q6, E3, S-3 | build-1; Q6 by reference |
+| **A11** | A15-5's *"no length arithmetic"* was **false** (`:640`); two measurers, one wrong — SKILL passes parsed length from disk, scanner's length verdict retired (owner ruling D-A); **`PAGE_SCAN` at 3676/3700** hard constraint; Cycle 14 build-1 (6) gains an at-rest leg | §A15-5; build-4 |
+| **A12** | build-4's branch **ruled: replace, not audit** (owner ruling D-C) — `pageLinks` from an executable, `outbound_links` leaves `required`, DA7 suppression retires; a failing return is never cached; the instrument is a mutated fixture, not the live specimens; `binds:` += D3; discharges `164501` | build-4; the spanning note |
+| **A13** | D3's eviction subcommand had **no caller** and step 5 writes a hand-removed record straight back — the route end to end, the legal response (a refused finding evicts), `evicted E by request` in the report, at-rest acceptance | build-2; D3 by reference |
+| **A14** | D2's *"ONLY read-back"* was false as worded; the wrong-type case was still a cold cap; the denominator came from the same reader; the report had **no home for "wrong"** — rewritten in five moves | D2; build-3 |
+| **A15** | D1(a)'s worked example contradicted D2 for the same slot — illustration moved to A15-7 | D1 |
+| **A16** | E1's validator had no machine-readable slot list and **no denominator**; "fails loudly" left the owner nothing — one schema artifact, never closure, mechanical populations, `uv run` gate, the `…-lint-failed.yaml` failure artifact, never no file | E1; build-5 |
+| **A17** | Q8's "reconcile" would have made a **third** copy of the stub heading — single home `wiki-index.md:83`, the rest pointers | Q8; build-3 |
+| **A18** | the two Cycle 14 GATES markers sat in prose on a CLOSED roadmap's ledger — appended to **this** ledger by the carrying briefs; Q9 resolved (build-7 carries none); the parks debt **split in place** (owner ruling D-D) | §Deferred acceptance ledger; Q9; build-6 |
+| **A19** | D4 still wore the scaffold's placeholder under an "every slot ruled" header; `updated:` stale; Round 1's "all four" wrong; cite drift `:130`→`:127`, `:228`→`:229-230` | frontmatter; D4; §What each round settled; four cites |
+| **A20** | the obsolescence beat's retirements, each written into the build that ships the superseding mechanism (see below) | builds 2–7 |
+| **A21** | six Cycle 14 carries ideation never dispositioned, three on an expired numbered-cycle bound — a dispositions block (owner ruling D-F) | §Cycle 14 carries — dispositions |
+
+### Rules (2) — declared here, mechanisms queued as [P-24]
+
+- **R1 — a rule change to a handshaked convention carries its `handshake:` line at ideation** (bump +
+  re-ack roster, bipartite), and `build-brief` refuses a brief without it. *Home:* `ideation-scaffold`
+  + `build-brief`. *Interim:* A1.
+- **R2 — a retirement's brief enumerates every restatement and pointer of the retired rule, each with
+  a disposition, and names the population statement that must not move.** *Home:*
+  `build-brief/references/brief-anatomy.md`. *Interim:* A5, A7.
+
+### Disputes — six, all owner-ruled live; no OPEN disputes
+
+| | The split | Ruling | Dissent on record |
+|---|---|---|---|
+| **D-A** | A15-5: elimination only (reduce's `:640` is the single measurer) vs the SKILL passes parsed length from disk | **SKILL passes `{slug: summary_len}` + scanner verdict retired** — only this rests the gating leg 3 on bytes and consumes Cycle 14 carry 2 | Builder, Victor, Amelia — elimination sufficed for the two specimens; conceded on the paraphrase case |
+| **D-B** | d2 as ruled (prose-file digests) vs delete (facts-not-verdicts) vs `scanModel` | **facts-not-verdicts + `scanModel`**; `module_version` and `checks_digest` out; `pin_vector` narrowed | Amelia, Quinn — whole-file digest was the conservative D4 reading; conceded that the reduce re-runs over cached facts every sweep |
+| **D-C** | audit the scanner's `outbound_links` vs replace it with the SKILL's set | **replace** | Quinn, Carson — audit preserved the literal read-back; conceded that comparing against a value already held is ceremony |
+| **D-D** | Cycle 14 build-3 (6) whole and ship-verifiable vs split at-rest / vault-act | **split in place**; the at-rest half gates | none |
+| **D-E** | `verified_by:` unbounded in declared containers: change `checks.md:20` vs widen Q5's caveat | **the one-line `checks.md:20` change is in build-7** | none (Carson's alternative withdrawn) |
+| **D-F** | six Cycle 14 carries | **block ratified as proposed** | none |
+
+### Obsolescence beat — exercised for the first time, and it found retirements in five of seven builds
+
+- **build-1:** `Obsolescence: none found` (additive vocabulary). The seam `class:` (filing) vs `kind:` (rail) is named so the brief does not invent a third word.
+- **build-2:** **RETIRES** `full-scale.md` step 2's *"the first full run after any release is a COLD one"* + its worked instance, `report.md:89`'s echo, the `module_version: string` arg row — superseded by the facts-not-verdicts key; step 5's hand-delete demoted to the second remedy. → build-2 (A20).
+- **build-3:** **RETIRES** the bare `## Stubs` form (single home `wiki-index.md:83`), the two-way cap wording at `:322` and step 2's *"absent slots named"*, and `report.md:89`'s closed three-reason list — superseded by the three-way absent/empty/wrong-type rendering. → build-3, Q8.
+- **build-4:** **RETIRES** the scanner's summary-length verdict (superseded by the reduce's `summaryIssue` — `checks.md:15`'s own exclusion, finally enforced), `outbound_links` from `PAGE_SCAN.required` with the `:230` verbatim-links instruction, and the DA7 `partialShortfall` orphan suppression (superseded by SKILL-derived link sets). → build-4 (D-A, D-C).
+- **build-5:** **RETIRES** `report.md:3`'s *"the module's release gate parses real persisted reports"* claim (no such group exists; superseded by the persist gate) and A15-7 direction 3 as an option. Cycle 14 build-4's *"the enforcement point is a reader"* ruling is honoured, not superseded. → build-5.
+- **build-6:** **RETIRES** `extraction.md:84`'s closure, `checks.md:19` case (b), the `{wiki}` type-legality exception, `:84`'s *"does not answer here"* sentence, and the word *closed* at contract `:66`. **Deliberately NOT retired:** the Layer-2 population/container exclusion (A5) and `para_type_unknown` (D5.1). Reverse dependents left standing were enumerated and dispositioned (A5, A6). → D5, build-6.
+- **build-7:** **RETIRES** `write-verification.md:47`'s closure (restated, not deleted) and `frontmatter.md:296(c)`'s write-op ceiling; `checks.md:20`'s partner-slug leg becomes exercisable — the two-clause contradiction is **eliminated by narrowing**, no precedence statement (Arc 9 D5). Reverse dependents enumerated (A7). → build-7.
+
+### Instrument beat — the property each build's acceptance must protect, stated without the fix
+
+- **build-1:** *A filing whose body says `kind: supersession` reaches the tracker under a label, a form route, and a materialized `class:` opening line that a filter, a router, triage, and capture each read as a retirement without opening prose — and a body/label disagreement is flagged, never defended.*
+- **build-2:** *(a) A cached page-scan record is reused iff the page's bytes, the extractor, the scan prompt + schema, and the three scanner-read conventions are byte-identical since it was written — whatever else in the module moved; (b) one named page's record can be removed and the next sweep re-derives exactly that page and says so; (c) invoking the sweep at scale places no page/hash/slug payload in the caller's context on first run or resume.* ⚠ The antecedent of (a) is false at v0.18.0 — the instrument is the at-rest fixture, never the upgrade sweep.
+- **build-3:** *For every SKILL-rendered input slot, a reader can tell from the report alone whether the value came from a non-empty population, was legitimately empty, or arrived in a form the workflow could not use — three distinct renderings — and the population line comes from an instrument other than the one that produced the value, before any agent dispatches.*
+- **build-4:** *No orphan, missing-target, or over-length-summary finding names a page whose own bytes on disk contradict it — under either key that reports it — and no scanner-returned value the reduce still consumes is persisted to the cache after failing that test.* Bound: Cycle 14 build-1 (6) leg 3, now with an at-rest leg.
+- **build-5:** *Every file written under `{lint_reports}` loads under a strict parser and carries every mandated key in its mandated type, and every per-file slot's entry count equals an independently derived population — or no report is written and a failed-run record says why.*
+- **build-6:** *A PARA-addressed file carrying any module-canonical or vault-declared `type:` raises no `para_type_unknown` whatever folder it sits in; a value declared nowhere still does; the `para_*` population count is unchanged before and after; no rule text names `{wiki}` as an exception to the type judgment.* Bound: each park's blocker claim is false at rest.
+- **build-7:** *A Layer-3 file whose `verified_by:` names an identity the nearest declaring `writers:` admits raises no authorization finding whatever kind of actor it is; one naming an identity that list refuses fails regardless of what `author:` resolves to; with no declaring ancestor it passes and is counted; the pair remains required; the handshake is bipartite-consistent.*
+
+### Joints inherited from the foot — answered
+
+- **J1** (A15-15's timing) — does **not** hold as build order; holds as an owner act (A9).
+- **J2** (A15-4 spans builds 2/4) — holds; the rosters did not carry it (no id in build-4's resolved to A15-4) — both now bind D3 (A12); under D-C the fidelity half is a replacement, not an audit.
+- **J3** (build-2's four outcomes) — the whole-build ruling stands; two of the four had no observable at this release and one had no caller — graded at rest per outcome (A2, A13).
+- **J4** (`S-3` unconsumed a third cycle) — holds and is deliberate; named in build-1's roster as met-not-consumed; the fourth form inherits the `@mention` line that is S-3's exact question.
+
+### Out of scope — for `factory/inbox/` at handoff
+
+- **`para_author_unknown`'s closed `human|agent|hybrid`** (Cycle 14 carry 6) — released; the next `supersession` candidate, filed through the rail build-1 completes.
+- **A subtree-carries-a-`type:` declaration** (A15-12's stated mechanism, reading (b) of D5.2) — exists in no shipped artifact; a mechanism-first `candidate` filing if the owner wants it.
+- **[P-24]** opened on the platform ledger — R1 and R2's skill edits (`ideation-scaffold`, `build-brief`), one item.
 
 ---
 
@@ -2010,3 +2509,30 @@ platform ledger from this cycle's ideation.**
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below
 every earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat
 report is a copy; this line is the obligation.
+
+---
+
+**Next lifecycle move (2026-09-02, `roadmap-roundtable`): brief build 1 — `build-brief`.**
+
+**The roundtable is CONVENED and its record is in place** (*§Roundtable review — A15-1..A15-15, the
+seven-build batch (2026-09-02)* above): full 13-voice roster, **21 amendments applied** into the sections
+they amend, **2 standing rules** declared with named homes (R1 the `handshake:` line at ideation, R2 the
+retirement brief's site enumeration — mechanisms queued as **[P-24]**), **6 disputes owner-ruled live,
+0 OPEN**. `build-brief`'s roundtable gate is **satisfied**. The obsolescence beat ran for the first time
+and found retirements in five of seven builds; the instrument beat recorded a fix-blind property for all
+seven.
+
+**What the review changed that a briefer must not miss:** the cache key is **facts-not-verdicts +
+`scanModel`** (Q3 as extended — `module_version` deleted, `checks_digest` out, `pin_vector` narrowed);
+build-4 **replaces** the scanner's link return and passes `summary_len` from disk; both retirements carry
+**handshake lines** (`extraction@10`, `write-verification@6`) and their site enumerations; D5.2 retires
+the **type-legality** `{wiki}` carve-out only; the recognized `type:` set is **stated**; v0.18.0's first
+sweep is **cold by construction** and build-2 is graded at rest; the two Cycle 14 debts are appended to
+**this** ledger by builds 4 and 6; file-edit order is **2 → 3 → 4 → 6 → 7**.
+
+**Owed outside any build:** (i) re-kind #17/#18 (body `kind:` + label) after build-1 lands — owner act,
+checked by build-1's acceptance; (ii) two inbox candidates named in the record's *Out of scope*.
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
+a copy; this line is the obligation.
