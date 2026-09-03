@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: '**CLOSED 2026-09-03** — the nothing-reads-it-back cycle. **v0.18.0 SHIPPED 2026-09-03** (builds 1–7, one release; commit `ad071b9`, tag `v0.18.0` @ `f9bfa49`, pushed; `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`). **Acceptance discharged 2026-09-03 over three passes** — the vlt-core 0.17.1 → 0.18.0 upgrade `[2026-09-03 08:47]`, the first full sweep `2026-09-03-1206` (cold by construction), the second `2026-09-03-1255` (warm, 135/146 cached): 33/39 clauses DISCHARGED, builds 4 + 5 ticked whole, **both Cycle 14 bound debts GREEN on their bounds** (build-4 (5) = Cycle 14 build-1 (6) leg 3 at 1 flagged / 1 genuine / 0 refuted / 146 pages, carry 5 answered; build-6 (4) = Cycle 14 build-3 (6) (a)+(c), both parks superseded citing v0.18.0), 0 FAILED / 0 BLOCKED. 13 filings archived to `filings/`; issue #13 closed. **Still open elsewhere:** four released standing watches (build-1 (5), build-2 (6), build-6 (5) control leg, build-7 (5) partner leg) with four filings held on them (`093000`, `183000`, `160000`/#17, `170000`/#18); an owner ruling owed on Cycle 14 park filings `125529`/#15 and `141418`/#16; Cycle 14 carries 6, 8, 9, 10; five owed candidate filings; two filings drafted 2026-09-03 uncaptured; seven operator findings uncaptured; `S-3` unconsumed (4th cycle); [P-23]/[P-24] queued. Footprint: 10 platform items touched in span, retirements PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4. **This cycle is closed — do not append.**'
+status: '**CLOSED 2026-09-03** — the nothing-reads-it-back cycle. **v0.18.0 SHIPPED 2026-09-03** (builds 1–7, one release; commit `ad071b9`, tag `v0.18.0` @ `f9bfa49`, pushed; `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`). **Acceptance discharged 2026-09-03 over three passes** — the vlt-core 0.17.1 → 0.18.0 upgrade `[2026-09-03 08:47]`, the first full sweep `2026-09-03-1206` (cold by construction), the second `2026-09-03-1255` (warm, 135/146 cached): 33/39 clauses DISCHARGED, builds 4 + 5 ticked whole, **both Cycle 14 bound debts GREEN on their bounds** (build-4 (5) = Cycle 14 build-1 (6) leg 3 at 1 flagged / 1 genuine / 0 refuted / 146 pages, carry 5 answered; build-6 (4) = Cycle 14 build-3 (6) (a)+(c), both parks superseded citing v0.18.0), 0 FAILED / 0 BLOCKED. 14 filings archived to `filings/`; issues #13, #15, #16 closed. **Still open elsewhere:** four released standing watches (build-1 (5), build-2 (6), build-6 (5) control leg, build-7 (5) partner leg) with four filings held on them (`093000`, `183000`, `160000`/#17, `170000`/#18); Cycle 14 park filings `125529`/#15 and `141418`/#16 owner-ruled into this cycle's `filings/` and closed; Cycle 14 carries 6, 8, 9, 10; five owed candidate filings; two filings drafted 2026-09-03 uncaptured; seven operator findings uncaptured; `S-3` unconsumed (4th cycle); [P-23]/[P-24] queued. Footprint: 10 platform items touched in span, retirements PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4. **This cycle is closed — do not append.**'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-03'
@@ -3966,14 +3966,12 @@ clauses discharged is.**
 2. **Filings HELD in the active inbox on their own clauses:** `2026-09-01-093000` (A15-9 → build-2 (6)),
    `2026-09-01-183000` (A15-15 → build-1 (5)), `2026-09-01-160000` (A15-12, #17 → build-6 (5)),
    `2026-09-01-170000` (A15-13, #18 → build-7 (5)). Their issues stay open — the tracker mirrors the inbox.
-3. ⚠ **Owner ruling owed — Cycle 14's two park filings:** `2026-08-26-125529` (A14-6, #15, park #15's
-   clause) and `2026-08-26-141418` (A14-7, #16, park #16's clause). Their own clauses — the parks' unwind
-   — are discharged (both superseded through the rostered route citing v0.18.0; build-6 (4) at rest); the
-   residue (control lint, partner attestation) belongs to A15-12/A15-13. By the per-filing criterion they
-   **move**, but their shipping build is Cycle 14's and the criterion names *the cycle that shipped it*
-   — a closed, do-not-append directory. Held in the inbox, issues #15/#16 left open, **ruling owed:** move
-   into Cycle 15's `filings/` (the cycle whose ledger discharged them — the clerk's recommendation) or
-   Cycle 14's, then close #15/#16 on the rail sync.
+3. **RULED 2026-09-03 (owner, same day):** Cycle 14's two park filings `2026-08-26-125529` (A14-6, #15) and
+   `2026-08-26-141418` (A14-7, #16) **moved into Cycle 15's `filings/`** — the cycle whose ledger discharged
+   their clauses (both parks superseded through the rostered route citing v0.18.0; build-6 (4) at rest) —
+   and **#15 and #16 CLOSED** on the rail with shipped-version comments. Precedent recorded: a filing whose
+   clause is discharged by a later cycle's ledger archives with that cycle, not with the closed cycle that
+   shipped its build. Nothing left of this item.
 4. **`para_author_unknown`'s closed `human|agent|hybrid` enum** (Cycle 14 carry 6, released D-F) — the
    next `supersession` candidate; filed through the rail build-1 completed, by the owner.
 5. **Cycle 12's never-delivered hand-off** (Cycle 14 carry 8: b3(7), A12-4, A12-5, A11-11 d4 + A12-1) —
@@ -4011,7 +4009,7 @@ clauses discharged is.**
 #13 closed**), `2026-09-01-140602` (A15-4), `2026-08-31-104501` (A15-2), `2026-08-27-160200` (A15-6),
 `2026-09-01-140600` (A15-10), `2026-08-27-160100` (A15-1), `2026-09-01-140601` (A15-3), `2026-08-27-160000`
 (A15-5), and `2026-08-31-152000` (A15-14 — WITHDRAWN at capture, no clause of its own, retired on capture's
-own instruction). **12 moved, 4 held on their clauses (item 2), 2 held on a ruling (item 3).**
+own instruction). **14 moved (12 at close + the two park filings on the owner's same-day ruling, item 3), 4 held on their clauses (item 2).**
 
 **Front door:** `factory/inbox/README.md` already carries the non-enumerating pointer — unchanged.
 **Briefs:** 7 confirmed in `briefs/`, all build-1..7 of this cycle, none stray. **`factory/CYCLE` reset to
@@ -4050,8 +4048,8 @@ is the block below, and it is the last one this file will carry.
 signal. Run `inbox-capture`: it finds a clean open-cycle slate (`factory/CYCLE` = none), re-lists the eleven
 carry-forwards from this roadmap's Closeout record, and grounds the un-captured inbox — which already holds
 two filings drafted today (`2026-09-03-124500`, `2026-09-03-124600`) plus the pre-Cycle-15 backlog. Before
-that: the owner rules item 3 (the two Cycle 14 park filings) and runs the rail sync (`issue-triage`) so #13's
-close and #17/#18's held state reach the tracker. This cycle is closed — do not append.**
+that: the rail sync (`issue-triage`) so the tracker's labels mirror the inbox (#13/#15/#16 closed by closeout on
+the owner's ruling; #17/#18 held open). This cycle is closed — do not append.**
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
