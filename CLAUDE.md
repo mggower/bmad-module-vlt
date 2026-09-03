@@ -61,6 +61,13 @@ A filing cites `ST-N` rather than restating a study or losing it to gitignored `
 
 ## Standing rules (violations here have bitten before)
 
+- **Commit at every lifecycle milestone.** A capture, ideation round, roundtable, brief, build,
+  release stamp, discharge pass, or closeout that leaves the roadmap, ledger, inbox, or filings
+  changed is committed in the same session that made the change (a plain `git commit`, one per
+  milestone, on the working branch). The factory skills write to disk and do **not** commit —
+  so the session running them must, before it ends or hands off. An uncommitted milestone is
+  invisible to the next cold session, to `lifecycle-status`, and to the public record.
+
 - **Governance SSoT:** the governance bundle lives ONLY at
   `skills/vlt-setup/assets/governance/_meta/`. Never create or edit a second copy — a
   top-level staging tree once diverged silently and was retired.

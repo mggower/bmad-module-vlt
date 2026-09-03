@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: '**v0.18.0 SHIPPED 2026-09-03 (builds 1–7, one release), release commit `ad071b9`, tagged `v0.18.0` @ `f9bfa49`, pushed to origin (main + tag)** — `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`; handshake 9 conventions / 39 pins bipartite-consistent. Brief → build loop ran 2026-09-02 on `cycle15-v0.18.0`, one briefer + one builder session per build, every at-rest instrument red/green-proved against its pre-build tree. Captured 2026-09-01 (16 filings graded: 15 captured, 1 routed as P-22); ideation COMPLETE 2026-09-02; roundtable CONVENED 2026-09-02 (13 voices, 21 amendments, R1/R2 → [P-24]). Acceptance: NOT YET — the ledger awaits the first `vlt-upgrade` to 0.18.0 on a live vault (owner act); Cycle 14 build-1 (6) leg 3 stays OPEN until that sweep and GATES. Next: owner runs `vlt-upgrade` on {field-vault}, then `acceptance-discharge`.'
+status: '**ACCEPTANCE DISCHARGED on every ship-verifiable clause, 2026-09-03** (`acceptance-discharge`, three passes: the vlt-core 0.17.1 → 0.18.0 upgrade `[2026-09-03 08:47]`, the first full sweep `2026-09-03-1206` (cold), the second `2026-09-03-1255` (warm)): 33/39 clauses DISCHARGED, **build-4 and build-5 ticked whole**; **both Cycle 14 bound debts GREEN** (build-4 (5) = Cycle 14 build-1 (6) leg 3 at 1 flagged / 1 genuine / 0 refuted / 146 pages, carry 5 answered; build-6 (4) = Cycle 14 build-3 (6) (a)+(c)); 6 `[field-contingent]` tails STILL-OPEN with named triggers (b1(5), b2(6), b6(5) control leg, b7(5) partner leg); 0 FAILED / 0 BLOCKED; 3 filings archived, 2 held, 2 new filings drafted from the evidence, 7 operator findings routed to the owner. **v0.18.0 SHIPPED 2026-09-03** (builds 1–7, one release; `ad071b9`, tag `v0.18.0` @ `f9bfa49`; `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`; handshake 9 conventions / 39 pins). **Next: `cycle-closeout`.**'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-03'
@@ -1384,6 +1384,20 @@ is also stated at its own entry.
   instrument read back via `gh issue view <n> --json labels,body`: **#17** `kind: supersession`, labels
   `vault-filed, vault-accepted, captured, field:supersession`, halves `[true, true]`, note gone;
   **#18** identical. No mismatch on either. The `vault-filed`/`vault-accepted`/`captured` labels stay.
+  **Discharge pass 1, 2026-09-03 (`acceptance-discharge`; evidence source: vlt-core 0.17.1 →
+  0.18.0, `_agent/upgrade-ledger.md` entry `[2026-09-03 08:47]` +
+  `_agent/upgrade-reports/2026-09-03-0849-upgrade.yaml`):** (1) DISCHARGED at rest (brief
+  `status:` PASS; release gate `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0` in `ad071b9`).
+  (2) DISCHARGED — `gh label list --search supersession` → `field:supersession  Field contract:
+  retirement ask — … #BFD4F2`; `.github/ISSUE_TEMPLATE/` carries four `field-*.yml` forms. (3)
+  DISCHARGED — re-read by the discharger via `gh issue view <n> --json labels,body`: #17 and #18
+  both `### kind` → `supersession`, labels `vault-filed, vault-accepted, captured,
+  field:supersession`, `### superseded_rule` + `### superseding_mechanism` present on both,
+  classification note absent on both (regex `classif` → false); **the *before the tag* bound was
+  MISSED** by ~1h (recorded above, not hidden). (4) DISCHARGED at rest (brief `status:` PASS).
+  **STILL-OPEN: (5)** — event: the next `supersession` filing from a live vault through
+  `vlt-feedback` (named candidate: Cycle 14 carry 6, `para_author_unknown`); trigger: the owner
+  files it from `{field-vault}`. Unbounded — watch register if unfired at closeout.
 
 - [ ] **build-2 (cache-cost, briefed 2026-09-02):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-2-cache-cost.md`. **Six checks — five
@@ -1432,6 +1446,64 @@ is also stated at its own entry.
   or the scan-model default; performer: the owner on `{field-vault}` (readable), the ordinary
   post-upgrade full sweep; grades: `files_cached > 0`, `cached M ≥ files_listed − churn`, scan-phase
   agents = churned pages only. Unbounded; watch register if unfired.
+  **Discharge pass 1, 2026-09-03:** (1)(2)(3) DISCHARGED at rest (brief `status:` PASS, harness
+  failable against `0e01381`; release gate PASS line in `ad071b9`). **PENDING the in-flight
+  v0.18.0 full sweep** (session `core-lint`; at 2026-09-03 no 0.18.0 `-lint.yaml` exists under
+  `_agent/lint-reports/` — newest is `2026-09-01-1519-lint.yaml`): **(4)** — the CHANGELOG half is
+  met (`CHANGELOG.md:32` *"COLD BY CONSTRUCTION — three movers"* naming builds 4, 6 and 7; the
+  upgrade report's `governance_rule_changes` sixth bullet restates it); the `lint_cache: cold (…)`
+  line naming `write-verification` + the scan surface with `evicted 0 by request` waits on the
+  report. **(5)** waits on the `core-lint` tool-call record (`scriptPath`, script-written wrapper,
+  `resumeFromRunId` + same `scriptPath` on resume) — requested from that session. **STILL-OPEN:
+  (6)** — event: the first release after v0.18.0 whose diff touches none of the scanner-read set /
+  `PAGE_SCAN` / scan-model default; trigger: the owner's ordinary post-upgrade full sweep on
+  `{field-vault}` after that release. Unbounded.
+  **Discharge pass 2, 2026-09-03 (the first full sweep landed —
+  `{field-vault}/_agent/lint-reports/2026-09-03-1206-lint.yaml`, vault commit `710ca76`, session
+  `core-lint`):** **(4) DISCHARGED with one stated deviation** — `lint_cache:` reads *"cold (scan
+  surface moved — the workflow's cache_miss_terms attributes all 146 stale records to scan_surface
+  as the first differing key term; the ruleset half moved too, frontmatter and write-verification,
+  both scanner-read, verified byte-different across 37b5bc3 by shasum -a 256 …), rejected 0 of 146
+  records read, evicted 7 by request)"* — the cold run is attributed by name (scan surface +
+  `write-verification` + `frontmatter`; not the retired `fingerprint changed` idiom); the
+  CHANGELOG half was met at pass 1. **Deviation:** the line renders `evicted 7 by request`, not
+  the check's `evicted 0` — the seven are the `false_positives_refused` entries (all
+  `sources_vs_prose_mismatches`: `barbacoa`, `carbon-steel-seasoning`, `body-recomposition`,
+  `fading-food-and-cue-reliability`, `nfl-2026-draft-first-round`, `positionless-defense-nfl`,
+  `protein-intake`) evicted through check (2)'s refusal route in two `evict` calls **after** the
+  `write` (sidecar 145 → 138 records), confirmed by the operator session; the `0` was the check's
+  premise (no refusals on a cold run), not its property. ⚠ Recorded for the owner: on a cold run E
+  cannot distinguish *records the cache served and lost* (0) from *prophylactic evictions of
+  records this run wrote* (7) — the operator asks which semantics `report.md:78`'s `evicted E by
+  request` carries. **(5) DISCHARGED** — tool-call record quoted by the operator:
+  `Workflow({scriptPath: "<scratch>/lintfull.JgOsJT/vlt-lint-full-run.js"})`, no inline `script`,
+  no `args` key, run `wf_0ee27f44-316`; the 277.2 KB `LINT_ARGS` wrapper was written by a script
+  run (`python3 <scratch>/discover.py`, stdout a ~940-byte discovery report naming the wrapper
+  path — the 146-slug / 851-slug arrays and 146 cached records never entered the caller's
+  context); **the resume clause is NOT EXERCISED** (one dispatch to completion — 171 agents, 170
+  done, 1 errored, 50m21s, 11.06M sub-agent tokens; `resumeFromRunId` never passed) — recorded as
+  unfired, not passed. (6) unchanged, STILL-OPEN (this run was cold by construction:
+  `files_cached: 0`, `churn_since_last_full: 1 of 146` — expected, not a FAIL). ⚠ Operator
+  frictions surfaced on this sweep, routed to the owner in the report: the cold-reason instrument
+  (`components` diff) had no producer on its first exercise — the 2026-09-01 sidecar carries no
+  `components` key, so the operator substituted `shasum -a 256` across `37b5bc3` and said so on
+  the line (self-healing from this write); the `pageHashes` digest **form** (sha256 truncated to
+  16 hex) had to be matched by inspecting a stored key — the owed build-4 candidate, now
+  field-confirmed at 11M tokens / 50 min.
+  **Pass 3 corroboration, 2026-09-03 (the SECOND full sweep, `2026-09-03-1255-lint.yaml`, vault
+  `3264c6b`, owner-requested via `core-lint`):** the cache is warm within the release —
+  `lint_cache: "scanned 11 / cached 135 of 146 pages (fingerprint
+  5e24495f339c96ff1dfd|72a78bcb85f08e7b69, written 2026-09-03, rejected 0 of 138 records read,
+  evicted 2 by request)"`, `cache_miss_terms {page_bytes: 3, scan_surface: 0, ruleset: 0}` — the
+  three misses are the three pages the 12:06 sweep edited, the other 8 scans are the 7 evicted +
+  `machine-unlearning`; cost 2.67M sub-agent tokens / 36 agents / 11m52s against 11.06M / 171 /
+  50m21s cold. The sidecar now carries `components:` (the by-name cold-reason instrument has its
+  producer — friction C self-healed in one run). **(6) stays STILL-OPEN by its own wording** — its
+  event is the first *release* after v0.18.0 that moves none of the scanner-read set; this is a
+  same-release warm run and is recorded as corroboration, not discharge. ⚠ Operator finding H, for
+  the owner: eviction is cache hygiene, not remediation — two of the seven evicted pages re-fired
+  the same refused finding from fresh facts seven hours later; `evicted E by request` reads as a
+  remedy and is not one for anything a scanner keeps re-deriving.
 
 - [ ] **build-3 (denominated-slots, briefed 2026-09-02):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-3-denominated-slots.md`. **Five checks — all
@@ -1484,8 +1556,31 @@ is also stated at its own entry.
   `governance_memory:`'s `E` equals `grep -c '^## '` over the live log **re-run by the discharger**,
   `N uncounted` rendered, instrument named; adversary: a plausible `E` rendered from memory — widened:
   the discharger re-runs both instruments and compares; no further passing-violating state found.
+  **Discharge pass 1, 2026-09-03:** (1)–(4) DISCHARGED at rest (brief `status:` PASS, type harness
+  failable against `450c886`: 25 FAIL there / 0 here; release gate PASS line in `ad071b9`).
+  **PENDING the in-flight sweep: (5)** — the discharger's instrument already run on the live
+  vault: `grep -c '^## '` over `{field-vault}/_agent/mint/decision-log.md` → **E = 69**
+  (2026-09-03, after the three post-close entries; the brief's live specimen read 66); the
+  report's `governance_memory:` E must equal 69 with `N uncounted` rendered and the instrument
+  named, and `stub_discovery:` must read `section located: yes …; 6 slugs across 1 index` with
+  none of the six in `missing_targets`.
+  **Discharge pass 2, 2026-09-03 (the first full sweep, `2026-09-03-1206-lint.yaml`):** **(5)
+  DISCHARGED** — `stub_discovery: "section located: yes (heading matched: \"Stubs (linked, not yet
+  written)\", per {conventions}/wiki-index.md The Stubs section, no overlay present); 6 slugs
+  across 1 index"` with `missing_targets: []` (none of the six flagged); `governance_memory: "… 69
+  log entries (## headings, instrument: grep -c '^## ' over _agent/mint/decision-log.md), 44
+  schema-keyed, 25 unclassifiable, 0 uncounted"` — **E = 69 equals the discharger's independent
+  re-run (69, pass 1)**, `0 uncounted` rendered, instrument named. ⚠ **Near-miss on this clause's
+  own instrument, filed:** the operator's first discovery run rendered `section located: false, 0
+  slugs` — `wiki-index.md:83` states the Stubs heading **inside a ```markdown fence** (`:82-86`),
+  so a faithful section-scan of *§The Stubs section* terminates on that very line; under
+  `checks.md:13` that is a loud `located: no` + a coverage cap + all six registered stubs reported
+  missing, an honest-shaped false negative. Caught only by implausibility (0 stubs on a populated
+  section). Filed
+  `factory/inbox/2026-09-03-124500-stub-heading-is-stated-inside-a-fence-so-a-faithful-section-scan-reads-located-no.md`
+  → next `inbox-capture`.
 
-- [ ] **build-4 (scanner-returns, briefed 2026-09-02):** brief
+- [x] **build-4 (scanner-returns, briefed 2026-09-02) — DISCHARGED WHOLE 2026-09-03 (pass 3):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-4-scanner-returns.md`. **Six checks — five
   `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 6/15` (observed: A15-1's three
   false orphans, A15-3's anchor, A15-4's substitution, A15-5's ten — all ten named in Cycle 14's
@@ -1569,8 +1664,66 @@ is also stated at its own entry.
   the four specimen pages carry no such finding, and `scanner_return_rejected:` renders `N of 146` on
   both, N recorded as the callout return's measured fabrication rate. Unbounded; watch register if
   unfired.
+  **Discharge pass 1, 2026-09-03:** (1)–(4) DISCHARGED at rest (brief `status:` PASS, 17/17 on the
+  shipped workflow, return harness failable against `7222cd2`: 12 FAIL there; E6 `PAGE_SCAN` 3265;
+  release gate PASS line in `ad071b9`). **PENDING the in-flight sweep — GATES CLOSEOUT: (5)**
+  Cycle 14 build-1 (6) leg 3 — corpus identity to be recorded from the report; every
+  `malformed_frontmatter` entry adjudicated against its page by the discharger, every
+  `frontmatter_drift` over-length entry re-measured in characters on the parsed scalar; Cycle 14
+  carry 5 ruled at that read (D-F); a vacuous class recorded, never silent. **STILL-OPEN: (6)** —
+  event: the **second** full sweep after the v0.18.0 upgrade; trigger: the owner re-runs `vlt-lint
+  --full` on `{field-vault}` after the in-flight one lands. Unbounded.
+  **Discharge pass 2, 2026-09-03 (the first full `vlt-lint --full` sweep after v0.18.0 on
+  `{field-vault}` — `2026-09-03-1206-lint.yaml`, log line `[2026-09-03 12:07] lint (librarian) |
+  full — checked 145 files`):** **(5) DISCHARGED — Cycle 14 build-1 (6) leg 3 met on its bound;
+  GATE GREEN.** **Corpus identity:** `{field-vault}` wiki at vault commit `710ca76` (the sweep's
+  own commit; `710ca76~1` the pre-fix bytes), `files_listed: 146`, `files_checked: 145`,
+  `files_cached: 0`, **1 page not scanned** (`machine-unlearning` — agent errored `400 Output
+  blocked by content filtering policy`, named in `coverage_caps`), `churn_since_last_full: 1 of
+  146`. **Population:** `malformed_frontmatter` carries **1 entry**; `frontmatter_drift: []`.
+  **Adjudication, one by one against the page:** `dutch-oven-braising` — complaint *"YAML rule 1 &
+  rule 4 violation: sources entry
+  `_agent/research/2026-05-11-193624-dutch-oven-barbacoa-chuck-roast.md` must be double-quoted
+  wikilink without .md"*; the page's frontmatter line 22 reads exactly `-
+  _agent/research/2026-05-11-193624-dutch-oven-barbacoa-chuck-roast.md` (bare path, `.md` suffix)
+  inside `sources:`; `frontmatter.md` rule 4 (v14) requires a wiki page's vault-note `sources:`
+  entry as a double-quoted wikilink, full path, no `.md`, and its coexistence posture keeps only
+  **pre-existing** bare-path entries legal — this entry entered the page on **2026-08-26** (vault
+  `dbd5292`, written by that day's lint sweep's own sources reconciliation), eleven days **after**
+  the form shipped (module `525f077`, 2026-08-15, v0.10.0 B7-6) → **GENUINE schema break**, not a
+  length complaint, not refuted. **E4 at this sweep: 1 flagged / 1 genuine / 0 refuted at 146
+  pages** (transferred in at 10 / 8 / 2; the two prior full sweeps did not flag this page).
+  **Over-length half vacuous, recorded, never silent:** `frontmatter_drift` is empty, so no
+  over-length entry exists to re-measure; the half is graded on the at-rest leg (check (2):
+  `summaryLengths` byte-derived, 159/160/162/0, the em-dash pair pinned) — green. **Cycle 14 carry
+  5 RULED (D-F): 0 refuted ⇒ answered — the check measures correctly; no retirement owed.** Also
+  observed on the same sweep: `orphans: []`, `missing_targets: []`, `scanner_return_rejected: "0
+  of 145 records"` — the byte-derived slots' first live run. ⚠ **Module signal from the
+  adjudication, filed:** the genuine break was **written by the module's own lint** — the
+  2026-08-26 sweep's sources reconciliation appended the research note in the bare-`.md` form the
+  convention had retired on 08-15
+  (`factory/inbox/2026-09-03-124600-lint-sources-reconciliation-writes-the-retired-bare-path-form.md`
+  → next `inbox-capture`). (6) unchanged, STILL-OPEN — the second full sweep; on this first one
+  `false_positives_refused` carries no `orphans` / `missing_targets` / summary-length refusal (all
+  seven are `sources_vs_prose_mismatches`) and `scanner_return_rejected` reads `0 of 145` — N = 0
+  recorded as the callout return's measured fabrication rate on the cold sweep. **Filing
+  `2026-08-26-164501` (A14-2) ARCHIVED** — (1) and (5) green.
+  **Discharge pass 3, 2026-09-03 (the SECOND full sweep after the v0.18.0 upgrade —
+  `2026-09-03-1255-lint.yaml`, vault `3264c6b`, session `core-lint`, owner-requested for
+  acceptance):** **(6) DISCHARGED.** Across both sweeps (12:06 cold, 12:55 warm)
+  `false_positives_refused` carries no `orphans` / `missing_targets` / summary-length refusal —
+  every refused entry on both is `fix_now.sources_vs_prose_mismatches` (7 on the first, 2 on the
+  second: `carbon-steel-seasoning`, `nfl-2026-draft-first-round`); the four specimen pages carry
+  no such finding — on the second sweep `orphans: []`, `missing_targets: []`, `frontmatter_drift:
+  []`, and `malformed_frontmatter` holds only `dutch-oven-braising` (the discharger grep'd
+  `fantasy-football-evaluation|chicken-soup|calf-strain|seattle-seahawks|l-theanine|barbacoa` over
+  those four slots: the single hit is the `…-dutch-oven-barbacoa-chuck-roast` research path inside
+  that entry, not a specimen); `scanner_return_rejected:` renders on both — `"0 of 145 records"`
+  (cold) and `"0 of 146 records"` (warm) — **N = 0 recorded as the callout return's measured
+  fabrication rate**, and this time every listed page was scanned or cached (146 = 11 + 135,
+  workflow coverage cap empty). **Build-4 fully DISCHARGED — every clause.**
 
-- [ ] **build-5 (persisted-report, briefed 2026-09-02):** brief
+- [x] **build-5 (persisted-report, briefed 2026-09-02) — DISCHARGED WHOLE 2026-09-03 (pass 3):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-5-persisted-report.md`. **Seven checks — six
   `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 4/9` (observed: A15-7's
   six-report manifest with its line-102 fragment, A15-8's three instances (a)/(b)/(c); preserved as
@@ -1648,6 +1801,45 @@ is also stated at its own entry.
   `para_scan:`. **(7) `[field-contingent]`:** the intermittence is gone — event: the **second** full
   sweep after the v0.18.0 upgrade; performer the owner on `{field-vault}`; grade: `check` returns `ok`
   on both and the two reports' top-level key sets are equal. Unbounded; watch register if unfired.
+  **Discharge pass 1, 2026-09-03:** (1)–(5) DISCHARGED at rest (brief `status:` PASS, 33/33
+  harness rows, the walk deep-equals its oracle under `uv run` and bare `python3`; release gate
+  PASS line in `ad071b9`). **PENDING the in-flight sweep: (6)** — the discharger's re-walk already
+  run on the live vault (`lint-para-facts.py --dir projects --dir areas --dir resources --exclude
+  resources/wiki --root {field-vault}`, 2026-09-03): **P = 42, M = 27, D = 0**; `--line` → *"42
+  files walked under {projects}/{areas}/{resources}, {wiki} subtree carved out (instrument:
+  scripts/lint-para-facts.py); 27 carry author agent|hybrid with no attestation outside the
+  operational-record class"*; `--writer-line` → *"42 judged; 0 under a declaring ancestor; 42
+  passed on open posture (instrument: scripts/lint-para-facts.py)"*. The persisted file must pass
+  `lint-report-check.py check --mode full` with `para_scan:` equal to that string, or a
+  `-lint-failed.yaml` with `reason: shape — …` must stand alone with no `-lint.yaml` and no
+  `{log}` lint line for the stamp. **STILL-OPEN: (7)** — event: the second full sweep after the
+  upgrade; trigger: the owner. Unbounded. Filings `2026-08-27-153000` + `2026-08-31-104500` HELD
+  pending (6).
+  **Discharge pass 2, 2026-09-03 (the first full sweep, `2026-09-03-1206-lint.yaml`):** **(6)
+  DISCHARGED** — the discharger ran the shipped gate over the persisted file: `uv run
+  skills/vlt-lint/scripts/lint-report-check.py check --report … --mode full --dir {projects} --dir
+  {areas} --dir {resources} --exclude {wiki} --root {field-vault}` → `{"status": "ok", "kind":
+  "report", "mode": "full", "schema_keys": 74, "extra_keys": [], "walk": {"P": 42, "M": 27, "D":
+  0}}`, exit 0; every mandated key present incl. `para_scan:` and `false_positives_refused:` (7
+  entries); `para_missing_attestation` is **per-file, 27 entries = the walk's M** (27 paths, one
+  per line); the report's `para_scan:` string equals the discharger's pass-1 walker output
+  byte-for-byte; no `-lint-failed.yaml` exists for the stamp and the operator reports the gate
+  passed on the **first render** (A15-7's own bound met: a report written under the mandate,
+  re-graded). **Filings `2026-08-27-153000` (A15-7) and `2026-08-31-104500` (A15-8) ARCHIVED** —
+  (1)–(6) green. (7) unchanged, STILL-OPEN — the second full sweep (this report's top-level key
+  set is the baseline: 18 keys).
+  **Discharge pass 3, 2026-09-03 (the SECOND full sweep, `2026-09-03-1255-lint.yaml`):** **(7)
+  DISCHARGED.** The discharger re-ran the shipped gate over the second persisted file →
+  `{"status": "ok", "kind": "report", "mode": "full", "schema_keys": 74, "extra_keys": [], "walk":
+  {"P": 42, "M": 27, "D": 0}}`, exit 0 — `ok` on both sweeps; the two reports' top-level key sets
+  compared by `diff` over `^[a-z_]*:` → **IDENTICAL** (18 keys, same order). The intermittence is
+  gone. **Build-5 fully DISCHARGED — every clause.** ⚠ Operator disclosure G, recorded for the
+  owner and for `cycle-closeout`: a first render of this report carried two slots forward from the
+  morning's run unchanged (`unmarked_supersessions_fixed`, the sources-mismatch rollup) after a
+  patch script failed silently, and **the shape gate returned `ok` on that stale render** — it
+  validates presence, type and the `para_*` walk, never whether a scalar is true of *this* run.
+  Caught by eye before the `mv`; the persisted bytes are right. Correct scope for a shape gate; a
+  carried-forward value is outside its net — candidate signal, not a FAIL of (1)–(7).
 
 - [ ] **build-6 (type-prohibition-retired, briefed 2026-09-02):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-6-type-prohibition-retired.md`. **Five checks —
@@ -1738,6 +1930,43 @@ is also stated at its own entry.
   slot is `[]` with the control's finding present. **Discharges `2026-09-01-160000` (A15-12)** — Stage 5
   may move it once (1)–(5) are green; tracker **#17** closes on the rail sync. Unbounded; watch register
   if unfired — *"a re-park is not an unwind"* transfers: a third park does not discharge it.
+  **Discharge pass 1, 2026-09-03:** (1)–(3) DISCHARGED at rest (brief `status:` PASS; handshake 9
+  conventions / 39 pins bipartite; release gate PASS line in `ad071b9`). **(4) DISCHARGED — Cycle
+  14 build-3 (6) clauses (a)+(c), the at-rest half, re-read by the discharger on the live vault
+  against `ad071b9`:** (a) the park read from the log itself — heading `## [2026-08-26]
+  parked-interim — agent-lane \`type:\` in the PARA population, held pending the recognized-set
+  ruling` (`{field-vault}/_agent/mint/decision-log.md:1197`); its blocker paragraph
+  (*"`extraction.md` v7 and `vlt-lint`'s `para_type_unknown` define a closed recognized set … and
+  the bundle does not pick a winner"*) is false against the vault's installed
+  `_meta/conventions/extraction.md` (`version: 10`; `:84` *"The recognized `type:` set for the
+  PARA population — this file is its home"*, with `frontmatter.md`'s canonical list as a leg) and
+  `frontmatter.md:71` (`research` canonical, list non-exhaustive). (c) the walker over the live
+  vault counts **9 `type: research` members inside P = 42** (types present: area, charter,
+  project, record, research, resource, plus files with none); under the shipped rule each is
+  recognized vocabulary → **0 `para_type_unknown`**, the empty response; P compared with the
+  vault's latest `para_scan:` — **none exists** (no persisted report to date carries the line —
+  build-5's live-archive finding; the in-flight sweep's is the first and (5)'s pending read
+  carries the comparison). **Cycle 14 build-3 (6) GATE CLEARED on the at-rest half.** **(5) split
+  — upgrade-side DISCHARGED:** `governance_rule_changes:` renders the v0.18.0 block (report
+  `:16-22`, first bullet *`extraction.md v9 → v10 — the PARA `type:` prohibition is RETIRED`*),
+  `parked_interims_review:` renders park #15 (report `:25`, *STILL LIVE, and THIS RELEASE MAKES
+  ITS BLOCKER FALSE AT REST*, 9 re-measured); the superseding entry exists through the rostered
+  route — `## [2026-09-03] upgrade-ruling — the extraction park closes: \`type: research\` at a
+  PARA address is recognized vocabulary under extraction@10; nothing moves` (`kind:
+  upgrade-ruling`, `supersedes:` the park; written per `vlt-upgrade` Step 3.7
+  `decision-log-write`), cites v0.18.0, and is not a third park / retype / overlay declaration
+  (*"Nothing moves … the overlay route … stays declined"*); the park carries `superseded_by:` +
+  `superseded_date: 2026-09-03` → no longer live. **STILL-OPEN: (5)'s scoped-lint leg** — event: a
+  **scoped** `vlt-lint` over `resources/briefs/` reporting `para_type_unknown: []` with the nine
+  untouched **and** one planted undeclared-`type:` control still reporting (planted and removed,
+  recorded); trigger: the owner runs it on `{field-vault}` (the in-flight full sweep can evidence
+  the zero half but carries no control). Filing `2026-09-01-160000` HELD; #17 stays open until the
+  rail sync.
+  **Pass 2 corroboration, 2026-09-03 (the first full sweep):** the nine `type: research` files are
+  absent from `para_type_unknown` (its 4 entries are all *no frontmatter block at all* files under
+  `areas/career/` and `projects/fantasy-2026/`, none under `resources/briefs/`) — the zero half of
+  (5)'s scoped-lint leg is evidenced by the full sweep; **the planted-control half remains
+  STILL-OPEN** (unchanged trigger: the owner's scoped run).
 
 - [ ] **build-7 (roster-closure-retired, briefed 2026-09-02):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-7-roster-closure-retired.md`. **Five checks —
@@ -1843,6 +2072,37 @@ is also stated at its own entry.
   (1)–(5) are green; tracker **#18** closes on the rail sync. Unbounded; watch register if unfired —
   *a re-park is not an unwind* transfers. **Not graded:** the 27 dropping to zero (the promise is
   capability, never a cleared backlog).
+  **Discharge pass 1, 2026-09-03:** (1)–(4) DISCHARGED at rest (brief `status:` PASS on `5eb90b5`;
+  `write-verification@6` × 5 + header `:11` + four body pins; E6 3265; schema fixture 18 / 74;
+  release gate PASS line in `ad071b9`). **(5) split — upgrade-side DISCHARGED:** the v0.18.0
+  `governance_rule_changes` block rendered (report `:16-22`, second bullet *`write-verification.md
+  v5 → v6 — the `verified_by` roster closure is RETIRED`*), the field notice rendered as its fifth
+  bullet naming `vlt-brief` @5; `parked_interims_review:` renders park #16's 09-01 re-park (report
+  `:26`, *THIS RELEASE SHIPS THE RETIREMENT IT WAS HELD FOR*, 29 re-measured / 27 in
+  jurisdiction); the superseding entry exists through the rostered route — `## [2026-09-03]
+  upgrade-ruling — the \`verified_by\` park closes: partners attest their own sitting writes from
+  now; the 27 legacy files carry a dated amnesty` (`kind: upgrade-ruling`, `supersedes:` the 09-01
+  park), cites v0.18.0, a forward rule + dated amnesty, not a third park; the re-park carries
+  `superseded_by:` + `superseded_date: 2026-09-03` → no longer live. **Registrant reconciliation
+  landed before the sweep:** `## [2026-09-03] capability-change — \`vlt-brief\` re-pinned to
+  \`write-verification@6\`` (`decision-log.md:1502`),
+  `{field-vault}/.claude/skills/vlt-brief/SKILL.md:3` now `write-verification@6` → the sweep's
+  `convention_drift` count is expected **0 = 0 stale registrants** (the notice's *one expected*
+  was true only for the window between upgrade and re-pin; recorded, not a contradiction).
+  **STILL-OPEN: (5)'s partner-sitting leg** — no partner slug appears in any `verified_by:` under
+  `{projects}`/`{areas}`/`{resources}` outside `{wiki}` (values present: `vlt-brief` ×4,
+  `vlt-sweep` ×5) and no PARA file has been modified since the upgrade report; event: an owner-run
+  partner sitting re-attests one of the 27 with the partner's own slug, then a scoped `vlt-lint`
+  over that file reports it in neither `para_missing_attestation` nor `para_writer_unauthorized`,
+  `para_writer_scan:` present and equal to the walker's (today: `42 judged; 0 under a declaring
+  ancestor; 42 passed on open posture`); trigger: the owner + the partner in session on
+  `{field-vault}`. Filing `2026-09-01-170000` HELD; #18 stays open until the rail sync.
+  **Pass 2 corroboration, 2026-09-03 (the first full sweep):** `convention_drift: []` — **0 = 0
+  stale registrants** after the pre-sweep re-pin, as pass 1 predicted; `para_writer_scan: "42
+  judged; 0 under a declaring ancestor; 42 passed on open posture (instrument:
+  scripts/lint-para-facts.py)"` present and equal to the discharger's walker line;
+  `para_writer_unauthorized: []`. **The partner-sitting leg remains STILL-OPEN** (no partner slug
+  in any `verified_by:`; unchanged trigger).
 
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
@@ -3602,6 +3862,83 @@ is owed before the next `issue-triage` run, which grades it.
 **Owed at handoff (`factory/inbox/`), unchanged:** build-3's four-arg candidate; build-4's two
 (`pageHashes` digest form; frontmatter facts from disk); build-5's `para_type_unknown` count leg;
 build-7's two (`write-verification.md:55`'s five-value enum; a partner-side attestation beat).
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`acceptance-discharge`, pass 1); the routing
+of record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-03, `acceptance-discharge` pass 1 — interim, restamped when the sweep lands):
+the v0.18.0 full `vlt-lint --full` sweep on `{field-vault}` is in flight (session `core-lint`); once its
+report persists, this same run (or a re-run of `acceptance-discharge`) grades the five sweep-bound clauses —
+build-2 (4)/(5), build-3 (5), build-4 (5) [GATES closeout], build-5 (6) — and moves the three filings they
+discharge. Everything at rest is already graded (below).**
+
+**Discharge pass 1 (2026-09-03) — the at-rest and upgrade-side halves.** Evidence: vlt-core 0.17.1 → 0.18.0
+(`_agent/upgrade-reports/2026-09-03-0849-upgrade.yaml`, ledger entry `[2026-09-03 08:47]`). **26 of 39
+clauses DISCHARGED** — every at-rest `[ship-verifiable]` check across the seven builds (23), build-1 (2)+(3)
+(the owner acts, bound MISSED by ~1h, recorded), and **build-6 (4) — Cycle 14 build-3 (6) clauses (a)+(c),
+re-read by the discharger on the live vault: GATE CLEARED**. The two parks are superseded through the
+rostered route citing v0.18.0 (decision-log `upgrade-ruling` entries, 2026-09-03), so build-6 (5) and
+build-7 (5) are DISCHARGED on their upgrade-side halves. **5 clauses PENDING the in-flight sweep** (above).
+**8 clauses STILL-OPEN, each with a named trigger:** build-1 (5) next live supersession filing (owner);
+build-2 (6) first warm-cache release (owner's sweep after it); build-4 (6) + build-5 (7) the second full
+sweep (owner); build-6 (5) scoped lint over `resources/briefs/` with a planted control (owner); build-7 (5)
+partner-sitting self-attestation + scoped lint (owner + partner). **0 FAILED, 0 BLOCKED. 0 filings
+archived; 5 HELD** (`2026-08-26-164501`, `2026-08-27-153000`, `2026-08-31-104500` on the sweep;
+`2026-09-01-160000`, `2026-09-01-170000` on their field legs). Cycle 14 build-1 (6) leg 3 remains the one
+closeout gate not yet graded — it is build-4 (5), sweep-bound.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`acceptance-discharge`, pass 2); the routing
+of record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-03, `acceptance-discharge` pass 2): run `cycle-closeout` ("close the cycle").
+Every `[ship-verifiable]` clause on this ledger is DISCHARGED, including both Cycle 14 bound debts — build-4 (5)
+(Cycle 14 build-1 (6) leg 3: 1 flagged / 1 genuine / 0 refuted at 146 pages, carry 5 answered) and build-6 (4)
+(Cycle 14 build-3 (6) clauses (a)+(c)). The 8 open tails are all `[field-contingent]` with named triggers and
+do not gate; closeout disposes them (release as standing watches or carry). The two filings drafted this run
+(`2026-09-03-124500`, `2026-09-03-124600`) route into the next `inbox-capture`.**
+
+**Discharge pass 2 (2026-09-03) — the sweep-bound clauses.** Evidence: the first full `vlt-lint --full` after
+v0.18.0 on `{field-vault}` (`_agent/lint-reports/2026-09-03-1206-lint.yaml`, vault commit `710ca76`; session
+`core-lint`; 146 listed / 145 scanned / 0 cached — cold by construction, as the CHANGELOG stated; 1 page
+agent-rejected by a content filter, capped). **All 5 pending clauses DISCHARGED:** build-2 (4) (cold attributed by
+name; `evicted 7 by request` is the refusal route firing, deviation from the check's `0` premise stated),
+build-2 (5) (`scriptPath`, script-written wrapper; resume clause NOT EXERCISED), build-3 (5) (`stub_discovery`
+6/1, `governance_memory` E = 69 = the discharger's), **build-4 (5) — GATE GREEN**, build-5 (6) (persist gate `ok`,
+74 keys, P/M/D = 42/27/0). **Running total: 31 of 39 clauses DISCHARGED, 8 STILL-OPEN (all field-contingent),
+0 FAILED, 0 BLOCKED. 3 filings ARCHIVED** to `filings/` (`2026-08-26-164501`, `2026-08-27-153000`,
+`2026-08-31-104500`); **2 HELD** on their field legs (`2026-09-01-160000`, `2026-09-01-170000`). **2 filings
+DRAFTED and FILED from this run's evidence** (the stub heading inside a fence — a near-miss on build-3's own
+instrument; the lint's sources reconciliation writing the retired bare-path form — the one genuine
+`malformed_frontmatter` this sweep found was the module's own). Operator frictions handed to the owner in the
+report: the `evicted E` semantics on a cold run, the `components`-diff instrument with no producer on first
+exercise, the `pageHashes` digest form (owed candidate, now field-confirmed), `sources_vs_prose_mismatches`
+refused wholesale on three consecutive sweeps (a tier question), and a stale `vlt-lint-full.js` in the
+installer plugin cache at 0.3.1.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`acceptance-discharge`, pass 3); the routing
+of record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-03, `acceptance-discharge` pass 3): run `cycle-closeout` ("close the cycle").
+Two items now DISCHARGED WHOLE and ticked (build-4, build-5); 33 of 39 clauses green; 6 tails STILL-OPEN, all
+`[field-contingent]`, none gating — build-1 (5) next live supersession filing, build-2 (6) first warm *release*
+(same-release warm run corroborated today), build-6 (5) scoped lint with a planted control, build-7 (5) partner
+self-attestation, plus the two field legs' filings held (`2026-09-01-160000`, `2026-09-01-170000`). Closeout
+disposes them.**
+
+**Discharge pass 3 (2026-09-03) — the second full sweep**, owner-requested through `core-lint` for acceptance:
+`2026-09-03-1255-lint.yaml`, vault `3264c6b`, **warm** (11 scanned / 135 cached / 146 listed; 2.67M tokens vs
+11.06M cold). build-4 (6) DISCHARGED (no structural refusal on either sweep, specimen pages clean, N = 0 fabrication
+rate on both); build-5 (7) DISCHARGED (gate `ok` on both, key sets IDENTICAL). Two operator findings for the owner
+beside the earlier five: **G** — the shape gate passed a stale render that carried two slots forward from the
+previous run (presence/type/walk is its whole net; a carried-forward value is not); **H** — eviction is cache
+hygiene, not remediation: two evicted pages re-derived the same refused finding from fresh facts. The
+`sources_vs_prose_mismatches` refusal is now at four consecutive sweeps.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
