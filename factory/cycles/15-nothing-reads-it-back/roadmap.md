@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Next: a fresh builder session implements the build-4 brief (file-edit order 2 → 3 → 4 → 6 → 7).'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Build-4 BUILT 2026-09-02 (`171feb8`). Build-5 BRIEFED 2026-09-02 (`briefs/build-5-persisted-report.md`, 7 checks in the ledger, 5 line-drift corrections + 5 grounding additions; the gate is a reader that walks the `para_*` population itself, the shape source is `report.md`\'s own fence under a line grammar, `false_positives_refused:` + `para_scan:` enter the shape, the failure artifact is the existing failed-run record with the block embedded; `report.md` merge order now 3 → 4 → 5 → 7). Next: a fresh builder session implements the build-5 brief (file-edit order 2 → 3 → 4 → 6 → 7; build-5 independent of the workflow, may land before or after 6).'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -585,6 +585,13 @@ the author, not an enforcement point. Direction 3 (*declare the archive best-eff
 claiming it is machine-read*) is the honest fallback and should stay on the table; the filing lists
 it and grounding does not eliminate it.
 
+
+**→ Re-grounded at brief time (2026-09-02, `build-brief`, build 5).** The manifest re-run strict
+(`yaml.safe_load`) on the live archive: **9 reports now, 1 fails — the same `2026-08-24-1700`, line 102
+column 59**; the three post-filing reports parse. ~~1 of 6 (16.7%)~~ → **1 of 9 (11.1%)** as the
+archive stands; the filing's six remain the manifest. Direction 3 **dies** (A20, build-5 §9); direction
+1 ships as `scripts/lint-report-check.py` at Step 6 — a reader that writes nothing (Cycle 14 build-4 §3
+honoured). Bound unchanged: build-5 check (6) is the re-grade against a report written under the mandate.
 ---
 
 ### A15-8. The report's shape is stated in one file and enforced in none (2026-08-31) — `factory/inbox/2026-08-31-104500-rendered-lint-report-is-never-checked-against-its-own-mandated-shape.md`
@@ -652,6 +659,14 @@ slots off the hand-render*) is real and narrower. Direction 3 (*rule the rollup 
 checks instead*) now **demonstrably cannot explain (b) and (c)** — they were not a policy, they
 were a miss — and the filing says so; grounding confirms it with the non-recurrence evidence.
 
+
+**→ Re-grounded at brief time (2026-09-02, `build-brief`, build 5).** Line drift only:
+~~`report.md:32`~~ → **`:34`**, ~~`:72`~~/~~`:73`~~ → **`:74`/`:75`**, ~~`vlt-lint-full.js:812-814`~~ →
+**`:1039-1041`** (not edited by build-5). Two additions: the 2026-08-30 render also lacked
+**`opportunities:`** (a fourth dropped key), and the newest sweep carries **four further rollup-form
+entries** beyond instance (a) — two in `para_type_unknown`, one in `para_author_unknown`, and a prose
+sentence in `para_writer_unauthorized` where `[]` belongs. Every one fails build-5's membership check;
+the population it checks against is walked by `scripts/lint-para-facts.py`, never rendered.
 ---
 
 ### A15-9. The findings cache cannot survive the release that makes it needed (2026-09-01) — `factory/inbox/2026-09-01-093000-the-findings-cache-cannot-survive-the-release-that-makes-it-needed.md`
@@ -1544,6 +1559,85 @@ is also stated at its own entry.
   both, N recorded as the callout return's measured fabrication rate. Unbounded; watch register if
   unfired.
 
+- [ ] **build-5 (persisted-report, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-5-persisted-report.md`. **Seven checks — six
+  `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 4/9` (observed: A15-7's
+  six-report manifest with its line-102 fragment, A15-8's three instances (a)/(b)/(c); preserved as
+  fixture mutations: the fragment verbatim, the 27-file rollup string verbatim, the absent
+  `fixes_applied:`, the absent `backlog_filed:`; not preserved: the five parsing reports and the
+  failing report beyond its fragment — vault content, read for counts only; observed at brief time
+  outside the figure: the *"same N no-frontmatter files as … above"* rollup form and a prose sentence
+  where `[]` belongs, both preserved as cases). R1 n/a (every rule ships with its mechanism);
+  **Retirement SUBSTANTIVE (A20)** — `report.md:3`'s *"the module's release gate parses real persisted
+  reports"* claim retired and re-pointed at the persist gate (`scripts/lint-report-check.py`, Step 6),
+  A15-7 direction 3 dies, `report.md:66`'s *"no line when it is empty"* retired (always rendered,
+  denominated zero), `report.md:78`'s scoped scalar literal for `cost_accounting` retired (typed empty
+  form); honoured not superseded: Cycle 14 build-4 §3 (no serializer — the gate writes nothing),
+  `full-scale.md:19`'s refused-sweep rule, `report.md:91`; population statements that do not move:
+  `checks.md:19` (now the walker's spec), `checks.md:17`'s carve-out (the walker's predicate),
+  `full-scale.md:7`'s `{wiki}` carve-out. R4 n/a for the two new scripts (inside a tree the manifest
+  walks whole); `module.yaml:88`'s `needed_by` widened (an enumeration by role that had already
+  drifted past build-4); fixtures un-enumerated — declared exclusion. **Cross-build:** `report.md`
+  merge order is now **3 → 4 → 5 → 7** (build-7's A8 line obeys the fence grammar and re-derives
+  `fixtures/build-5-expected-schema.json`); build-6's recognized-set move is invisible to build-5
+  (membership is semantics-free); `checks.md:20` untouched (build-7's). **Which independent
+  instrument produces each per-file population:** `scripts/lint-para-facts.py` walks
+  `{projects}`/`{areas}`/`{resources}` with `{wiki}` carved out (`checks.md:19`) and the validator
+  imports the walker and walks **itself** — membership for all five `para_*` slots in both modes;
+  count-equals for `para_missing_attestation` only (full mode; the mechanical predicate of
+  `checks.md:17` incl. the operational-record carve-out), the other four declared with the single
+  home that blocks each (`extraction.md`'s enums, build-6's set move, carry 6's enum, build-7's
+  `checks.md:20`). **(1) `[ship-verifiable]` — at rest — GATES:** every persisted `-lint.yaml`/`.json`
+  loads under a strict parser — instrument `fixtures/build-5-shape-harness.py` over
+  `build-5-report-ok.yaml`: the A15-7 fragment unquoted → `parse:` exit 1; quoted → passes; a
+  two-document stream → `parse:`; the `.json` render → `ok` under bare `python3` with no `yaml`
+  import; adversary: the SKILL validates one file and persists another — widened: (6) grades the
+  archived file with the same script, and Step 6 mandates `mv` of the validated path. **(2)
+  `[ship-verifiable]` — at rest — GATES:** the enforced key/type/per-file set is `report.md`'s fence
+  and nothing else — instrument: the shipped fence's parse deep-equals the hand-written
+  `build-5-expected-schema.json`; a fence with `fixes_applied:` removed (via `--schema`) makes the
+  (b)-mutation pass; a fence with `owner_notes:` added makes the ok report fail `key missing`; an
+  ungrammatical line → exit 2; a truncation below the floor → exit 2; adversary: a hidden hard-coded
+  list — widened: the verdict must move with the fence in both directions. **(3) `[ship-verifiable]` —
+  at rest — GATES:** presence + type, never closure — instrument: `fixes_applied:` deleted (A15-8 (b))
+  / `backlog_filed:` deleted ((c)) / `opportunities:` deleted (brief-time addition) → `key missing`;
+  `fixes_applied: "5 fixes applied"` → wrong type; `cost_accounting: not instrumented (inline run)`
+  under scoped → wrong type; `spec_candidate_standing` absent → key missing; `attestation_census`
+  absent → passes scoped, fails full; a null value → key missing; three extra keys at two depths →
+  `ok` with `extra_keys`; adversary: a one-entry prose list in a non-per-file slot passes — by design;
+  property presence + type: no passing-violating state found. **(4) `[ship-verifiable]` — at rest —
+  GATES:** every per-file slot's entries each name one member of an independently walked population,
+  no file twice, and (full mode, `para_missing_attestation`) exactly as many as the walk finds —
+  instrument: the harness over `fixtures/build-5-para/` (the hand-written
+  `build-5-expected-para-facts.json` first, diff EMPTY): the 27-file rollup verbatim → `not a member`
+  + `count: rendered 1, walk finds 3`; the *"same N files as … above"* form → `not a member`; prose
+  where `[]` belongs → `not a member`; 2 of 3 → `count`; a carved-out wiki path → `not a member`; a
+  file twice → `duplicate`; the exact three → `ok`; scoped with one entry → `ok` (membership only);
+  `para_scan:` off by one character → mismatch; the walk excludes `record.md`, the out-of-container
+  `type: charter`, the attested and the human file from M; adversary: the population handed over by
+  the renderer — widened by construction: `check` takes directories and walks itself, no facts file
+  accepted; second adversary: `--dir` pointed at a curated subset — `para_scan:` (pasted from the real
+  walk) then mismatches; recorded. **(5) `[ship-verifiable]` — at rest — GATES:** a failed gate leaves
+  a readable failed-run record and never a `-lint.yaml` that is not one — instrument: the harness
+  drives the ritual over a scratch dir: attempt 1 → `failed` and **no file**; the attempt-2 record
+  (`status: failed`, `reason: shape — …`, `next: re-render from the returned workflow object, not
+  re-sweep`, `unvalidated_report: |` embedding the failing block with the A15-7 fragment inside it) →
+  `check --kind failed` → `ok`, parses whole, the embedded scalar round-trips byte-identical; no
+  `-lint.yaml` for that stamp; adversary: the SKILL persists the failed block as `-lint.yaml` "to be
+  safe" — widened by (6). **(6) `[ship-verifiable]` — bounded to the first full `vlt-lint --full`
+  sweep on `{field-vault}` after the v0.18.0 upgrade — GATES:** the discharger runs the shipped
+  `check --mode full` over that sweep's persisted file — `ok` (every mandated key incl. `para_scan:`
+  and `false_positives_refused:`, `para_missing_attestation` per-file with its count equal to the
+  walk's M, recorded) **or** a `-lint-failed.yaml` with `reason: shape — …` and no `-lint.yaml` for
+  that stamp and no `{log}` lint line; **A15-7's own bound** (the 2026-08-27 owner ruling: re-grade
+  against reports written under the mandate); performer the owner, vault readable; **discharges
+  `2026-08-27-153000` (A15-7) and `2026-08-31-104500` (A15-8)** — Stage 5 may move both once (1)–(6)
+  are green; adversary: the population trimmed to make the count fit — widened: the discharger
+  re-walks the vault's three dirs with `lint-para-facts.py` and compares P/M with the report's
+  `para_scan:`. **(7) `[field-contingent]`:** the intermittence is gone — event: the **second** full
+  sweep after the v0.18.0 upgrade; performer the owner on `{field-vault}`; grade: `check` returns `ok`
+  on both and the two reports' top-level key sets are equal. Unbounded; watch register if unfired.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1985,6 +2079,33 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
       direction 3 (declare the archive best-effort) dies as an option.
     - Brief-time question **reworded**: not *what is the population* but *which independent instrument
       produces each per-file population*.
+  - **Grounding corrections at brief time (2026-09-02, `build-brief` — brief
+    `briefs/build-5-persisted-report.md`):** scope unchanged; every cite re-derived against `171feb8`
+    (build-4 BUILT). (i) `report.md` moved **+2** below the fence's first fourteen lines (build-3's
+    `stub_discovery:` at `:15`, build-4's `scanner_return_rejected:` at `:16`): A15-8's ~~`:32`~~ →
+    **`:34`**, ~~`:72`~~/~~`:73`~~ → **`:74`/`:75`**; A16's ~~`:9-79`~~ → **`:9-81`**; A14's
+    ~~`:78`/`:89`~~ → **`:80`/`:91`**; ~~`:44`~~ → **`:46`**. (ii) A15-8's ~~`vlt-lint-full.js:812-814`~~ →
+    **`:1039-1041`** — unchanged in substance and **not edited** (build-5 is independent of the
+    workflow). HOLD: contract `:330`, `SKILL.md:74`, `report.md:3` (both clauses present verbatim),
+    `checks.md:17`/`:19`/`:20`, `full-scale.md:7`/`:19`/`:20`/`:21`, `write-verification.md:44`.
+    **Grounding additions:** (iii) the A15-7 manifest re-verified strict on the live archive — **9
+    reports, 1 fails** (the same file, line 102 col 59); the three post-filing reports parse. (iv) the
+    2026-08-30 render also lacked **`opportunities:`** — a fourth dropped key. (v) the newest field
+    report carries **four further rollup-form entries** (`para_type_unknown` ×2, `para_author_unknown`
+    *"same 4 … above"*, a prose sentence in `para_writer_unauthorized` where `[]` belongs) — the
+    membership check fails all four. (vi) `module.yaml:88`'s `uv` row names only the findings-cache
+    script — build-4 added `lint-page-facts.py` without widening it. (vii) `lint-cache.py` (A16's
+    `uv run` precedent) declares **no** inline dependency — this build's gate is the module's first
+    script with one (`pyyaml`), so the `uv`-absent posture is stated (the `.json` home under bare
+    `python3`). **Brief-time judgment calls (headless, none owner-ruled):** the shape source is the
+    fence under a five-rule line grammar stated once in `report.md` (a schema file beside a fence is
+    two statements); `attestation_census` is the one `# full mode only` key — `cost_accounting`'s
+    scoped literal becomes the typed empty form and `spec_candidate_standing` always renders (two
+    passing-violating states otherwise); the gate **writes nothing** (Cycle 14 build-4 §3 honoured) —
+    scratch → `check` → `mv`; the validator **walks the population itself** (imports
+    `lint-para-facts.py`) — membership for all five slots, count-equals for `para_missing_attestation`
+    only, the other four declared with their blocking single homes; the failed record embeds the block
+    as a literal scalar and is itself checked (`--kind failed`).
 
 - **build-6 — A15-12, retire the PARA `type:` prohibition.** `extraction.md:84` and `checks.md:19`
   case (b), **with the `{wiki}` carve-out retired in the same act** — not optional (D5).
@@ -2804,8 +2925,9 @@ unregistered external unknown that demands a spike **before** its brief if Q2 ta
 rulings are filled, the move is **convene the roundtable** (`roadmap-roundtable`) — briefs follow
 the review, and `build-brief` gates on both records.
 
-⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below
-every earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 5: found still
+claiming the foot four routings later — a P-13 instance, recorded not hidden); the routing of record is the
+file's last block. *(historical text follows)* The
 chat report is a copy; this line is the obligation.
 
 ---
@@ -2831,8 +2953,9 @@ on `factory/platform/roadmap.md` (queued), and the pointer pair is written in bo
 A15-9's entry forward to P-23, P-23's provenance note back to A15-9. **Nothing is owed at the
 platform ledger from this cycle's ideation.**
 
-⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below
-every earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 5: found still
+claiming the foot four routings later — a P-13 instance, recorded not hidden); the routing of record is the
+file's last block. *(historical text follows)* The chat
 report is a copy; this line is the obligation.
 
 ---
@@ -3017,6 +3140,60 @@ returns* (brief §Out of scope); plus build-3's four-arg candidate, unchanged.
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
 statement (build-2 §Release) now also names build-4's scan-surface move (brief §Release).
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 5); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-5
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-5-persisted-report.md`, via
+`bmad-workflow-builder`.**
+
+**Build-5 is BRIEFED** (headless run; readiness gate passed on E1 as ruled + A16 / D2 (A14) / A14 (v) /
+A20 / `spike: none` / roundtable 0 OPEN / the owner-ratified three-clause promise; builds 1–4 BUILT at
+`61ec6c0` / `450c886` / `7222cd2` / `171feb8`). Eight F-sites (`report.md`'s grammar paragraph +
+`para_scan:` + `false_positives_refused:` + two always-render forms + the `# full mode only` marker +
+the re-pointed `:3`; the NEW `scripts/lint-para-facts.py` walker; `SKILL.md` Step 6 as the
+scratch → `check` → `mv` ritual with the shape-failure record router-visible; `full-scale.md` steps
+1/4/5 pointers; `checks.md:17`/`:19` pointers; `module.yaml`'s `uv` row; the NEW
+`scripts/lint-report-check.py` gate; the harness + PARA tree + two hand-written oracles + one
+conforming report under `fixtures/`); nine brief-time dispositions recorded inline, none owner-ruled —
+the load-bearing ones: **the shape source is the fence under a line grammar** (never a second list;
+a schema floor, not a key list); **presence + type, never closure**; **the validator walks the `para_*`
+population itself** — membership for all five slots in both modes, count-equals for
+`para_missing_attestation` only in full mode, the other four declared with the single home that
+blocks each; **the gate writes nothing** (Cycle 14 build-4 §3 honoured); **the failure artifact is the
+existing failed-run record** with `reason: shape — …`, the block embedded as a literal scalar, itself
+checked — never no file, never a `-lint.yaml` that failed; the `.json` home validates under bare
+`python3` when `uv` is absent. Five line-drift corrections + five grounding additions written at the
+build-5 bullet (the +2 `report.md` shift; the manifest re-verified at 1 of 9; `opportunities:` also
+dropped on 2026-08-30; four further rollup forms on the newest sweep; `module.yaml:88`'s row;
+`lint-cache.py` has no inline dep). Seven acceptance checks are in the ledger (`specimens: 4/9`);
+**check (6) is A15-7's own bound** — the first full sweep after v0.18.0, graded by the shipped
+script — and **discharges `153000` (A15-7) and `104500` (A15-8)**. **Retirement is substantive**
+(`report.md:3`'s release-gate claim, direction 3, the no-line rule at `:66`, the scoped literal at
+`:78`). **`report.md` merge order is now 3 → 4 → 5 → 7** — build-7's A8 line obeys the grammar and
+re-derives `fixtures/build-5-expected-schema.json` (brief §Boundary).
+
+**The builder's exit obligations:** implement F2 first (the walker — F8's para-facts oracle is
+hand-written before the script runs against it), then F7 (the gate — F8's schema oracle likewise),
+then F1 (the shape; item 2's grammar paragraph before anything that depends on it), F3, F4, F5, F6,
+F8 (the harness proven failable by mutation — every planted defect flips exactly its own row); run
+Verification 1–10 (item 4 over the live archive: **counts and reason classes only, no path or entry
+text in the record**; item 6 is Group E, not a grep), rewrite the brief's `status:` to a **BUILT
+record with numbered deviations**, delete any `.decision-log.md`, one commit for the build on
+`cycle15-v0.18.0`. Not the release build — no version bump. Then the move is **`brief build 6`**
+(file-edit order 2 → 3 → 4 → 6 → 7; build-5 is independent of the workflow and lands before or after
+6 in either order).
+
+**Owed at handoff (`factory/inbox/`):** one `candidate` — *the `para_type_unknown` count leg becomes a
+one-table extension of `lint-para-facts.py` once build-6's recognized set has a machine-readable home*
+(brief §Out of scope); plus build-4's two candidates and build-3's four-arg candidate, unchanged.
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
+statement (build-2 §Release) also names build-4's scan-surface move; build-5 moves no scan surface.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
