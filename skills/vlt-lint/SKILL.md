@@ -44,7 +44,7 @@ Below, "every wiki page" means the scoped set in scoped mode, or the whole wiki 
 
 ## Step 1: Read the selected files
 
-Read `{index}` first for the overview, then each selected page in full, noting topics, claims (and sources), outbound links, source count, and `last_updated`. Then read each selected **PARA file** — its frontmatter (`type:`, `author:`, `trust:`, `status:`, the attestation pair) and, at or above it, any container `charter.md` and its `writers:` — the inputs the `para_*` checks judge.
+Read `{index}` first for the overview, then each selected page in full, noting topics, claims (and sources), outbound links, source count, and `last_updated`. Then read each selected **PARA file** — its frontmatter (`type:`, `author:`, `trust:`, `status:`, the attestation pair) and, at or above it, any container `charter.md` and its `writers:` — the inputs the `para_*` checks judge; the population itself is walked by `scripts/lint-para-facts.py` — run it here in both modes (`uv run --quiet "$SKILL/scripts/lint-para-facts.py" --line` with Step 6's `--dir`/`--exclude`/`--root` arguments; bare `python3` also works) and keep its `--line` output for Step 5's `para_scan:`.
 
 ## The step sequence (read each reference at the step that uses it)
 
@@ -53,7 +53,7 @@ Read `{index}` first for the overview, then each selected page in full, noting t
 - **Step 2 — checks**: the two-tier catalog (structural, judgment/corpus, governance, research candidacy) — read `references/checks.md` (both modes).
 - **Steps 3+4 — fix and file**: auto-fix safe issues, attest, file backlog items — read `references/fix-and-file.md`.
 - **Step 5 — report**: the structured fence + reporting rules + Tips — read `references/report.md`.
-- **Step 6 — log** (below, router-only): append the `{log}` line.
+- **Step 6 — persist, then log** (below, router-only): the persist gate over the report, then the `{log}` line.
 
 ## Standing rules (act-blocking; mechanics live in the references)
 
@@ -63,14 +63,24 @@ Read `{index}` first for the overview, then each selected page in full, noting t
 - **Lint never stamps `adoption_first_instance:`** — the stamp is the authorized ceremonies' (`vlt-mint`, Step 4).
 - **Write-through records a human's ruling only** — lint never decides (`references/fix-and-file.md`).
 
-## Step 6: Append to the log
+## Step 6: Persist the report, then append to the log
 
-Append a partner-tagged entry to `{log}`:
+**Persist first (both modes) — three moves, in order.** (1) Write the Step-5 block — fence stripped, **content-verbatim** — to a scratch path **outside the vault** (`mktemp`). (2) Run the persist gate over it:
+
+```bash
+uv run --quiet "$SKILL/scripts/lint-report-check.py" check --report <scratch> --mode <full|scoped> --dir {projects} --dir {areas} --dir {resources} --exclude {wiki} --root {project-root}
+```
+
+It parses the block back strictly, validates it against `references/report.md`'s fence (presence, type, per-file entries against its own `scripts/lint-para-facts.py` walk), prints one JSON verdict and **writes nothing**. (3) On `status: ok`, `mv` the scratch file to `{lint_reports}/YYYY-MM-DD-HHMM-lint.yaml` (plain YAML, the default) **or** `…-lint.json` (the JSON-subset rendering, `references/report.md` — **not a second authoring act**). **The validated bytes are the bytes that land** — `mv`, never a second write. With `uv` absent, render the `.json` home and run the gate under bare `python3` (the `.yaml` home needs `uv` for the script's inline `pyyaml`); the gate is never skipped. Either home is append-only — never edit, prune, or re-read-to-rewrite past reports; retention is the human's — lint reports are never wake-read (the operating contract's *Decay contracts* table). Pre-existing reports in `{lint_reports}` — either format, `.md` included — stay as they are: legal, never converted, swept or validated. Write **no** session note — the summoning partner owns the session log (operating contract § session-ownership). A full-mode sweep also rewrites the findings cache `_agent/lint-cache.json` via `scripts/lint-cache.py` (`references/full-scale.md`) — **not** a report: never under `{lint_reports}`, never wake-read; deleting it costs only a cold run.
+
+**Then append the log line — only after `status: ok`** — a partner-tagged entry to `{log}`:
 
 ```
 ## [YYYY-MM-DD HH:MM] lint (<partner>) | <mode> — checked N files — orphans: X, contradictions: Y, gaps: Z, fixes: <summary>, backlog: M filed
 ```
 
-`<mode>` is `scoped since <timestamp>` or `full`. This entry is, **by derivation, the `lint-debt` counter reset** — no bookkeeping step exists anywhere. Also **persist the report** (both modes): write the Step-5 report block to `{lint_reports}/YYYY-MM-DD-HHMM-lint.yaml` — plain YAML, the default — **or** to `{lint_reports}/YYYY-MM-DD-HHMM-lint.json`, the same content rendered per the JSON-subset emission strategy at `references/report.md` (its single home; not restated here), which is a rendering and **not a second authoring act**. Either home is **content-verbatim**: the block's content without the fence, unabridged, unreordered and unreworded (append-only — never edit, prune, or re-read-to-rewrite past reports; retention is the human's — lint reports are never wake-read; the operating contract's *Decay contracts* table records the exemption). Pre-existing reports in `{lint_reports}` — in **either** format, `.md` included — stay as they are: legal, never converted or swept. Write **no** session note — the summoning partner owns the session log (operating contract § session-ownership). A full-mode sweep also rewrites the findings cache at `_agent/lint-cache.json`, written by `scripts/lint-cache.py` — mechanics at `references/full-scale.md` (the fan-out protocol's single home). It is **not** a report: it is never persisted to `{lint_reports}`, never wake-read, and deleting it costs only a cold run.
+`<mode>` is `scoped since <timestamp>` or `full`. This entry is, **by derivation, the `lint-debt` counter reset** — no bookkeeping step exists anywhere.
 
 **Failed full-mode run (B10-12):** a full-mode sweep refused upstream at `references/full-scale.md` step 4 (the version-skew defence, or the pre-dispatch slot-type refusal — both predicates live there, never restated here) — it persists a `…-lint-failed.yaml` (or `…-lint-failed.json`) failed-run record and writes **no** log line here, so `lint-debt` is **not** reset. The mechanics live in `full-scale.md`; this step just does not run for a refused sweep.
+
+**Failed persist gate (build-5):** on `status: failed` at move (2), re-render **once** from the same Step-5 facts against the check's `reason` and re-run the check — **never a re-sweep**. A second failure persists `{lint_reports}/YYYY-MM-DD-HHMM-lint-failed.yaml` (or `.json`) — the failed-run record with `reason: shape — …` and the block under `unvalidated_report: |`, itself checked (`--kind failed`) through the same ritual; field list and legal response at `references/report.md`, *Persist-gate reporting*. **No log line writes** and `lint-debt` does not reset (the B10-12 rule). Surface the `reason` and the record's path; the in-session block is the owner's copy. **Never a `-lint.yaml` that failed the gate.**

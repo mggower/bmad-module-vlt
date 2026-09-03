@@ -1,0 +1,370 @@
+{
+ "top_level": 18,
+ "keys": {
+  "mode": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "scope_since": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "files_checked": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "files_cached": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "files_listed": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "stub_discovery": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "scanner_return_rejected": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now": {
+   "type": "map",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.orphans": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.missing_targets": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.index_drift": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.frontmatter_drift": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.unmarked_supersessions_fixed": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fix_now.sources_vs_prose_mismatches": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human": {
+   "type": "map",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.category_no_match": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.convention_drift": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.enforcement_missing": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.deferral_invalid": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.deferral_expired": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.declared_untripwired": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.counter_unknown_metric": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.overlay_rule_undeclared": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.convention_meta_missing": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.para_missing_attestation": {
+   "type": "list",
+   "per_file": true,
+   "full_mode_only": false
+  },
+  "flag_for_human.unattested_write": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.attestation_stale": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.attestation_census": {
+   "type": "map",
+   "per_file": false,
+   "full_mode_only": true
+  },
+  "flag_for_human.para_scan": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.para_status_unknown": {
+   "type": "list",
+   "per_file": true,
+   "full_mode_only": false
+  },
+  "flag_for_human.para_type_unknown": {
+   "type": "list",
+   "per_file": true,
+   "full_mode_only": false
+  },
+  "flag_for_human.para_author_unknown": {
+   "type": "list",
+   "per_file": true,
+   "full_mode_only": false
+  },
+  "flag_for_human.para_writer_unauthorized": {
+   "type": "list",
+   "per_file": true,
+   "full_mode_only": false
+  },
+  "flag_for_human.review_due": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.research_zone": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.linkage_ripe": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.revisit_due": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.governance_memory": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.convention_base_divergence": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.local_conventions": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.overlay_issues": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.capability_issues": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.family_issues": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.dispatch_profile_invalid": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.personalized_extraction_issues": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.stale": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.contradiction_scan": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.contradictions": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.contradictions_open": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.contradictions_deferred": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.contradictions_undispositioned": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.entity_scan": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.entity_collisions": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.authority_scan": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.consult_missing": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.consult_retroactive": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.spec_candidate": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.spec_candidate_standing": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.thin_pages": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.malformed_frontmatter": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.sources_vs_prose_unresolved": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "opportunities": {
+   "type": "map",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "opportunities.high_value_gaps": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "opportunities.near_duplicates": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "opportunities.source_gaps": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "fixes_applied": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "backlog_filed": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "rulings_recorded": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "false_positives_refused": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "coverage_caps": {
+   "type": "list",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "cost_accounting": {
+   "type": "map",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "churn_since_last_full": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "lint_cache": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  }
+ }
+}

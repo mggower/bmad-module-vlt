@@ -1,0 +1,83 @@
+# AUTHORED fixture (Cycle 15 build-5): a full-mode report over fixtures/build-5-para/ that passes
+# every persist-gate check. Its key order and forms follow the archive's real reports (read at brief
+# time, counts only); its paths are the fixture's. It is the shape of the fix's success — the harness
+# never grades on it alone; every specimen it runs is a MUTATION of this file. JSON subset of YAML.
+mode: "full"
+scope_since: "full"
+files_checked: 1
+files_cached: 0
+files_listed: 1
+stub_discovery: "section located: yes (## Stubs); 0 slugs across 1 index"
+scanner_return_rejected: "0 of 1 records"
+fix_now:
+  orphans: []
+  missing_targets: []
+  index_drift: []
+  frontmatter_drift: []
+  unmarked_supersessions_fixed: []
+  sources_vs_prose_mismatches: []
+flag_for_human:
+  category_no_match: []
+  convention_drift: []
+  enforcement_missing: []
+  deferral_invalid: []
+  deferral_expired: []
+  declared_untripwired: []
+  counter_unknown_metric: []
+  overlay_rule_undeclared: []
+  convention_meta_missing: []
+  para_missing_attestation:
+    - "projects/c1/notes-unattested-a.md: vault type project + author agent, no attestation"
+    - "projects/c1/notes-unattested-b.md: vault type project + author agent, verified_by without verified_at — not attested"
+    - "resources/r1/hybrid-draft.md: vault type resource + author hybrid, no attestation"
+  unattested_write: []
+  attestation_stale: []
+  attestation_census: {pages_total: 1, fresh: 0, stale: 0, unattested_pre_adoption: 1}
+  para_scan: "9 files walked under {projects}/{areas}/{resources}, {wiki} subtree carved out (instrument: scripts/lint-para-facts.py); 3 carry author agent|hybrid with no attestation outside the operational-record class"
+  para_status_unknown: []
+  para_type_unknown:
+    - "resources/r1/no-frontmatter.md: no frontmatter block — no type: to judge"
+  para_author_unknown: []
+  para_writer_unauthorized: []
+  review_due: []
+  research_zone: "145 notes scanned; 24 carry revisit_after:"
+  linkage_ripe: []
+  revisit_due: []
+  governance_memory: "0 governance findings checked against the log; 0 adjudicated, 0 undisposed; 0 log entries (## headings, instrument: grep -c '^## '), 0 schema-keyed, 0 unclassifiable, 0 uncounted"
+  convention_base_divergence: []
+  local_conventions: "0 local convention(s)"
+  overlay_issues: []
+  capability_issues: []
+  family_issues: []
+  dispatch_profile_invalid: []
+  personalized_extraction_issues: []
+  stale: []
+  contradiction_scan: "1 pages compared; 0 documented, 0 carrying no disposition; 0 surfaced-but-declined this run"
+  contradictions: []
+  contradictions_open: []
+  contradictions_deferred: []
+  contradictions_undispositioned: []
+  entity_scan: "1 pages compared in 0 clusters + 0 callout-seeded pairs; single-mention substitutions are invisible by construction; unmarked split pairs are not compared"
+  entity_collisions: []
+  authority_scan: "0 specs compared; 0 binding a partner other than their owner"
+  consult_missing: []
+  consult_retroactive: []
+  spec_candidate: []
+  spec_candidate_standing: "0 standing candidate(s) — _agent/handoffs/ empty"
+  thin_pages: []
+  malformed_frontmatter: []
+  sources_vs_prose_unresolved: []
+opportunities:
+  high_value_gaps: "unmeasured"
+  near_duplicates: []
+  source_gaps: []
+fixes_applied:
+  - "NONE — no auto-fixable finding this run"
+backlog_filed:
+  - "NONE — nothing filed this run"
+rulings_recorded: []
+false_positives_refused: []
+coverage_caps: []
+cost_accounting: {phases: [], not_instrumented: "fixture"}
+churn_since_last_full: "unmeasured (no prior full report)"
+lint_cache: "scanned 1 / cached 0 of 1 pages (fingerprint fixture, written 2026-09-02, rejected 0 of 0 records read, evicted 0 by request)"

@@ -1,6 +1,46 @@
 ---
 title: 'Build #5 — the persisted report: after this ships, a vault owner can read every persisted lint report, and each slot `report.md` mandates per-file carries one entry per file — or the run fails loudly instead of writing a report that quietly isn''t one'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session (headless brief; nine dispositions recorded inline, none owner-ruled). The builder rewrites this line to a BUILT record — `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (the `build-15-spec-convention.md` precedent) — deletes any `.decision-log.md`, and makes ONE commit for the build on `cycle15-v0.18.0`. Not the release build — no version bump.'
+status: >
+  BUILT 2026-09-02 — all eight F-sites landed; **checks (1)–(5) — the five at-rest
+  `[ship-verifiable]` checks — PASS at rest** (33/33 harness rows, `fixtures/build-5-shape-harness.py`);
+  the walk deep-equals its hand-written oracle under `uv run` AND bare `python3` (byte-identical);
+  the shipped fence's parse deep- and byte-equals `build-5-expected-schema.json` (**18 top-level
+  keys, 73 key paths, 5 per-file, 1 full-mode-only — the schema floor is set at 18**). **Red/green:**
+  `171feb8`'s `report.md` fed through `--schema` → `schema_unreadable` (17 keys, below the floor;
+  no marker, no `para_scan:`); the real archived specimen → `parse: mapping values are not
+  allowed here … line 102, column 59`, exit 1 — the A15-7 fragment named by the shipped
+  instrument. **Live archive, counts only (Verification 4):** 9 `-lint.yaml`, **1 parse FAIL**
+  (the same report), **8 shape FAILs** — all 8 missing `para_scan:`, 5 missing
+  `false_positives_refused:`, every one of the 8 carrying 1–5 `not a member` entries (the rollup
+  forms) and a `count:` mismatch; the walk over the field vault finds P=42, M=27 — A15-8 (a)'s
+  "27" reproduced by the instrument. package-lint A/B/C/E + D PASS at 0.17.1 (no bump); Group E
+  green, 0 pin lines in `git diff 171feb8 -- skills/`; build-2/3/4 harnesses green; no
+  `.decision-log.md`, no `__pycache__`, no personal content. Deviations/notes: (1) **check (2)(b)
+  as briefed conflicts with disposition 1's floor** — removing the top-level `fixes_applied:`
+  leaves 17 keys and the floor (18 = this commit's count) refuses the fence by design; harness row
+  (2b) records that refusal and row (2b′) proves the removal direction on a nested key
+  (`flag_for_human.thin_pages`: fails under the shipped fence, passes under the mutated one).
+  (2) **The shape-failure record's field list is single-homed at `report.md` §Persist-gate
+  reporting, not `SKILL.md`** (F3 item 2 as briefed): the full paragraph put `SKILL.md` at
+  13,872 bytes, over package-lint C's 12,000-byte router budget; `report.md` is read by both
+  modes at Step 5, so the brief's rationale (scoped runs never read `full-scale.md`) still holds.
+  `SKILL.md` keeps the three-move ritual plus a short failed-gate paragraph pointing there;
+  `full-scale.md` step 4's pointer targets `report.md`; `unvalidated_report` therefore greps to
+  3 files (SKILL pointer, report.md home, the script). (3) The gate gained a `schema` subcommand
+  (prints the parsed fence — the instrument for Verification 2 / check (2a)) and a `--format
+  yaml|json` override (default derived from the extension). (4) `scalar` also admits a YAML
+  date/datetime (an unquoted `scope_since: 2026-04-19` parses to one) — a clarification of the
+  brief's str/int/float/bool, not a widening. (5) An entry head has surrounding backticks
+  stripped before membership. (6) Both scripts set `sys.dont_write_bytecode` — the sibling
+  imports otherwise left a `__pycache__` in the shipped tree (observed once, deleted).
+  (7) `module.yaml`'s `absent:` names both scripts so the F6 row satisfies Verification 5's
+  five-file grep. (8) The walker refuses a missing `--dir` (exit 2) rather than reading an empty
+  population. (9) Grammar rule (5) also ignores blank / comment-only lines. (10) `--root`
+  defaults to cwd; the SKILL's command passes `--root {project-root}`. (11) The walker imports
+  `lint-page-facts.py`'s frontmatter reader by sibling path (F2 said "read the way it reads it";
+  an import is the no-copy form). Owed at handoff, unchanged: the `para_type_unknown` count-leg
+  `candidate` filing bound to build-6's ship (§Out of scope).
+
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:
