@@ -12,20 +12,20 @@
   "resources/r1/no-frontmatter.md"
  ],
  "files": {
-  "areas/a1/human-note.md": {"has_frontmatter": true, "type": "area", "author": "human", "status": "active", "created": "2026-08-07", "attested": false, "basename": "human-note.md"},
-  "areas/a1/standing-charter.md": {"has_frontmatter": true, "type": "charter", "author": "agent", "status": "active", "created": "2026-08-06", "attested": false, "basename": "standing-charter.md"},
-  "projects/c1/charter.md": {"has_frontmatter": true, "type": "charter", "author": "human", "status": "active", "created": "2026-08-01", "attested": false, "basename": "charter.md"},
-  "projects/c1/notes-attested.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-03", "attested": true, "basename": "notes-attested.md"},
-  "projects/c1/notes-unattested-a.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-04", "attested": false, "basename": "notes-unattested-a.md"},
-  "projects/c1/notes-unattested-b.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-05", "attested": false, "basename": "notes-unattested-b.md"},
-  "projects/c1/record.md": {"has_frontmatter": true, "type": "record", "author": "agent", "status": "open", "created": "2026-08-02", "attested": false, "basename": "record.md"},
-  "resources/r1/hybrid-draft.md": {"has_frontmatter": true, "type": "resource", "author": "hybrid", "status": "draft", "created": "2026-08-08", "attested": false, "basename": "hybrid-draft.md"},
-  "resources/r1/no-frontmatter.md": {"has_frontmatter": false, "type": null, "author": null, "status": null, "created": null, "attested": false, "basename": "no-frontmatter.md"}
+  "areas/a1/human-note.md": {"has_frontmatter": true, "type": "area", "author": "human", "status": "active", "created": "2026-08-07", "attested": false, "basename": "human-note.md", "writers": null, "declaring_ancestor": null},
+  "areas/a1/standing-charter.md": {"has_frontmatter": true, "type": "charter", "author": "agent", "status": "active", "created": "2026-08-06", "attested": false, "basename": "standing-charter.md", "writers": null, "declaring_ancestor": null},
+  "projects/c1/charter.md": {"has_frontmatter": true, "type": "charter", "author": "human", "status": "active", "created": "2026-08-01", "attested": false, "basename": "charter.md", "writers": ["human", "agent"], "declaring_ancestor": "projects/c1/charter.md"},
+  "projects/c1/notes-attested.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-03", "attested": true, "basename": "notes-attested.md", "writers": null, "declaring_ancestor": "projects/c1/charter.md"},
+  "projects/c1/notes-unattested-a.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-04", "attested": false, "basename": "notes-unattested-a.md", "writers": null, "declaring_ancestor": "projects/c1/charter.md"},
+  "projects/c1/notes-unattested-b.md": {"has_frontmatter": true, "type": "project", "author": "agent", "status": "draft", "created": "2026-08-05", "attested": false, "basename": "notes-unattested-b.md", "writers": null, "declaring_ancestor": "projects/c1/charter.md"},
+  "projects/c1/record.md": {"has_frontmatter": true, "type": "record", "author": "agent", "status": "open", "created": "2026-08-02", "attested": false, "basename": "record.md", "writers": null, "declaring_ancestor": "projects/c1/charter.md"},
+  "resources/r1/hybrid-draft.md": {"has_frontmatter": true, "type": "resource", "author": "hybrid", "status": "draft", "created": "2026-08-08", "attested": false, "basename": "hybrid-draft.md", "writers": null, "declaring_ancestor": null},
+  "resources/r1/no-frontmatter.md": {"has_frontmatter": false, "type": null, "author": null, "status": null, "created": null, "attested": false, "basename": "no-frontmatter.md", "writers": null, "declaring_ancestor": null}
  },
  "missing_attestation": [
   "projects/c1/notes-unattested-a.md",
   "projects/c1/notes-unattested-b.md",
   "resources/r1/hybrid-draft.md"
  ],
- "counts": {"P": 9, "M": 3}
+ "counts": {"P": 9, "M": 3, "D": 5}
 }

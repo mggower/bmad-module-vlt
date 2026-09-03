@@ -38,6 +38,7 @@ flag_for_human:
   para_type_unknown:
     - "resources/r1/no-frontmatter.md: no frontmatter block — no type: to judge"
   para_author_unknown: []
+  para_writer_scan: "9 judged; 5 under a declaring ancestor; 4 passed on open posture (instrument: scripts/lint-para-facts.py)"
   para_writer_unauthorized: []
   review_due: []
   research_zone: "145 notes scanned; 24 carry revisit_after:"

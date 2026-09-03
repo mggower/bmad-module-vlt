@@ -48,11 +48,15 @@ WHAT `check` VERIFIES (A16 (2), (3)) — presence + type, NEVER closure:
                  the brief (each rule's single home is prose or moves this release).
   - para_scan:   the report's `para_scan:` scalar equals, by string equality, the line the
                  walker prints for the same directories — a read-back with no regex over prose.
+  - para_writer_scan: the same compare against the walker's `--writer-line` (build-7) — N, D
+                 and O on a persisted report come from the walk, never from the agent that
+                 judged `para_writer_unauthorized`; a hand-composed line cannot land.
 
 REASON VOCABULARY (fixed; one clause per defect, joined `; `):
   `parse: <parser message>` | `key missing: <path>` | `wrong type: <path> (got X, expected Y)`
   | `not a member: <slot> <- <entry head>` | `duplicate: <slot> <- <path>`
   | `count: <slot> rendered N, walk finds M` | `para_scan: rendered line does not match the walk`
+  | `para_writer_scan: rendered line does not match the walk`
 
 `--kind failed` checks a `...-lint-failed.yaml` record instead: parse, plus presence of
 `status`, `reason`, `next` and `unvalidated_report` — so the failure artifact can never be a
@@ -87,6 +91,7 @@ PER_FILE_OPENER = "[<para-file:"
 FULL_MODE_MARKER = "full mode only"
 COUNT_SLOTS = {"para_missing_attestation": "missing_attestation"}  # slot -> walker list (disposition 3)
 SCAN_KEY = "para_scan"
+WRITER_SCAN_KEY = "para_writer_scan"
 SCALAR_TYPES = (str, int, float, bool, datetime.date, datetime.datetime)
 
 
@@ -283,12 +288,12 @@ def check_report(data, schema, mode, walk_result):
             if len(entries) != expected:
                 reasons.append("count: %s rendered %d, walk finds %d" % (slot, len(entries), expected))
 
-    # the population line, by string equality
-    scan_paths = [p for p in keys if p.rsplit(".", 1)[-1] == SCAN_KEY]
-    for path in scan_paths:
-        present, value = lookup(data, path)
-        if present and isinstance(value, str) and value != walk_result["line"]:
-            reasons.append("para_scan: rendered line does not match the walk")
+    # the population line and the write-posture line, by string equality
+    for key, walk_key in ((SCAN_KEY, "line"), (WRITER_SCAN_KEY, "writer_line")):
+        for path in [p for p in keys if p.rsplit(".", 1)[-1] == key]:
+            present, value = lookup(data, path)
+            if present and isinstance(value, str) and value != walk_result[walk_key]:
+                reasons.append("%s: rendered line does not match the walk" % key)
 
     return reasons, extra
 
@@ -359,6 +364,7 @@ def cmd_check(args):
         sys.stderr.write("lint-report-check: --dir is not a directory: %s\n" % exc)
         return 2
     walk["line"] = walker.scan_line(walk)
+    walk["writer_line"] = walker.writer_line(walk)
 
     reasons, extra = check_report(data, schema, args.mode, walk)
     verdict = {

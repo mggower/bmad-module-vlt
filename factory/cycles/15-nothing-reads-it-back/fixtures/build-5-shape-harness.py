@@ -4,7 +4,7 @@
 # dependencies = ["pyyaml"]
 # ///
 """Cycle 15 build-5 at-rest harness — acceptance checks (1)-(5) of
-`briefs/build-5-persisted-report.md`, run against the shipped persist gate
+`briefs/build-5-persisted-report.md` (+ rows (7a)–(7e), build-7's `para_writer_scan:` line — `briefs/build-7-roster-closure-retired.md` F6), run against the shipped persist gate
 (`skills/vlt-lint/scripts/lint-report-check.py`) and walker (`lint-para-facts.py`).
 
 Every specimen is a MUTATION of `build-5-report-ok.yaml` (or of the shipped `report.md` fence,
@@ -218,7 +218,7 @@ def check_4():
     code, out = gate(write("4f.yaml", mutate(OK, ENTRY_B, ENTRY_A)))
     expect("4", "f: the same file twice → duplicate", code == 1 and reason_has(out, "duplicate: para_missing_attestation ← projects/c1/notes-unattested-a.md"), out.get("reason", ""))
     code, out = gate(OK_REPORT)
-    expect("4", "g: the exact three, each <relpath>: <text> → ok", code == 0 and out.get("walk") == {"P": 9, "M": 3}, json.dumps(out))
+    expect("4", "g: the exact three, each <relpath>: <text> → ok", code == 0 and out.get("walk") == {"P": 9, "M": 3, "D": 5}, json.dumps(out))  # D added by build-7
     scoped_one = mutate(mutate(OK, 'mode: "full"', 'mode: "scoped"'), THREE, ENTRY_A)
     code, out = gate(write("4h.yaml", scoped_one), mode="scoped")
     expect("4", "h: mode scoped with one well-formed entry → ok (membership only, no count)", code == 0, json.dumps(out)[:80])
@@ -278,9 +278,39 @@ def check_5():
     row("5", "d: the log-line rule is prose — the field leg of check (6)", True, "recorded, not graded here")
 
 
+# ---------------------------------------------------------------- (7) build-7: the write-posture line (para_writer_scan:)
+WRITER_LINE = '  para_writer_scan: "9 judged; 5 under a declaring ancestor; 4 passed on open posture (instrument: scripts/lint-para-facts.py)"\n'
+
+
+def check_7():
+    p = subprocess.run([sys.executable, GATE, "schema"], capture_output=True, text=True)
+    schema = json.loads(p.stdout)
+    expect("7", "a: the shipped fence (para_writer_scan: nested under flag_for_human) deep-equals the re-derived oracle — 18 top-level, 74 key paths",
+           p.returncode == 0 and schema == json.loads(read(SCHEMA_ORACLE)) and schema["top_level"] == 18 and len(schema["keys"]) == 74
+           and schema["keys"]["flag_for_human.para_writer_scan"] == {"type": "scalar", "per_file": False, "full_mode_only": False},
+           "top_level=%s keys=%s" % (schema.get("top_level"), len(schema.get("keys", {}))))
+    code, out = gate(write("7b.yaml", mutate(OK, WRITER_LINE, "")))
+    expect("7", "b: para_writer_scan: absent → key missing: flag_for_human.para_writer_scan (both modes; scoped too)",
+           code == 1 and reason_has(out, "key missing: flag_for_human.para_writer_scan"), out.get("reason", ""))
+    code_s, out_s = gate(write("7b-scoped.yaml", mutate(mutate(OK, WRITER_LINE, ""), 'mode: "full"', 'mode: "scoped"')), mode="scoped")
+    expect("7", "b': the same in scoped mode → key missing (never omitted)", code_s == 1 and reason_has(out_s, "key missing: flag_for_human.para_writer_scan"), out_s.get("reason", ""))
+    code, out = gate(write("7c.yaml", mutate(OK, "4 passed on open posture", "5 passed on open posture")))
+    expect("7", "c: O off by one (D untouched) → para_writer_scan: rendered line does not match the walk, and nothing else",
+           code == 1 and out.get("reason") == "para_writer_scan: rendered line does not match the walk", out.get("reason", ""))
+    code, out = gate(OK_REPORT)
+    p = subprocess.run([sys.executable, WALKER] + DIRS + ["--writer-line"], capture_output=True, text=True)
+    expect("7", "d: equal to the walker's --writer-line → ok (walk P 9 / M 3 / D 5)",
+           code == 0 and out.get("walk") == {"P": 9, "M": 3, "D": 5} and p.stdout.strip() == "9 judged; 5 under a declaring ancestor; 4 passed on open posture (instrument: scripts/lint-para-facts.py)",
+           "%s | %s" % (json.dumps(out.get("walk")), p.stdout.strip()))
+    old_fence = subprocess.run(["git", "-C", REPO, "show", "fc44027:skills/vlt-lint/references/report.md"], capture_output=True, text=True).stdout
+    code_old, out_old = gate(OK_REPORT, schema=write("7e-report.md", old_fence))
+    expect("7", "e: the red leg — the ok report under fc44027's fence → ok with para_writer_scan reported EXTRA (the pre-build fence never mandated it)",
+           code_old == 0 and "flag_for_human.para_writer_scan" in out_old.get("extra_keys", []), json.dumps(out_old.get("extra_keys")))
+
+
 def main():
     try:
-        for fn in (check_1, check_2, check_3, check_4, check_5):
+        for fn in (check_1, check_2, check_3, check_4, check_5, check_7):
             fn()
     finally:
         shutil.rmtree(TMP, ignore_errors=True)

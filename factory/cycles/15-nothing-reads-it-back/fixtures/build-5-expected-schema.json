@@ -161,6 +161,11 @@
    "per_file": true,
    "full_mode_only": false
   },
+  "flag_for_human.para_writer_scan": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
   "flag_for_human.para_writer_unauthorized": {
    "type": "list",
    "per_file": true,

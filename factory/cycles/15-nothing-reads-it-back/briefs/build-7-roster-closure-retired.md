@@ -1,6 +1,93 @@
 ---
 title: 'Build #7 — retire the `verified_by` roster closure: after this ships, a partner''s attestation is authorized once — by the container''s `writers:` list where one is declared — instead of twice, by a roster that cannot admit a partner'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session (headless brief; every judgment call recorded inline in §Brief-time dispositions). The builder rewrites this line to a BUILT record — `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (precedent: build-6''s status). The release build of v0.18.0: this brief carries §Release. Not a re-brief; the ledger bullet is authored once.'
+status: >
+  BUILT 2026-09-02 — F1 → F4 → F2 → F3 → F5 → F6 → F7 → F8 → F9 landed in the brief's order on
+  `5eb90b5`; **F10 (the 0.18.0 version bump) deliberately NOT applied — it is `vlt-release`'s
+  step, per the build's instructions (deviation 1)**; checks (1)–(4), the four at-rest
+  `[ship-verifiable]` checks, PASS at rest (below); (5) field-contingent, unfired. **Handshake as
+  shipped (R1, A1):** `write-verification.md` `version: 5 → 6` (`:11`), `last_updated` `:4`
+  2026-09-02, `consumers:` `:12` unchanged; re-acked `write-verification@6` at
+  `vlt-ingest/SKILL.md:4`, `vlt-extract/SKILL.md:4`, `vlt-research/SKILL.md:3`, `vlt-lint/SKILL.md:4`
+  (no other pin on those lines moved), and `vlt-lint-full.js` header `:11` (E5) + body pins `:241`,
+  `:245`, `:297`, `:911` (E7) — grep `write-verification@5` / `v5` over `skills/`, `tools/`,
+  `.claude-plugin/` → 0 outside CHANGELOG history. `frontmatter.md` stays `version: 14` (prose
+  re-nouns at `:78`/`:82`/`:296(c)` only, A7; `:71`/`:294` intact); `extraction.md` no hunk.
+  `handshake-check.py` → `9 conventions, 39 consumer pins — bipartite-consistent`;
+  `package-lint --expect-version 0.17.1` → `A/B/C/E PASS, D PASS — vlt 0.17.1` (E1/E3/E5/E7 clean;
+  E6 by the extractor: `PAGE_SCAN` **3265** (≤ 3700), `INDEX_SCAN` 838, `CLUSTER_FINDINGS` 1630,
+  `PAIR_FINDINGS` 376 — unchanged; `node --check` ok). **C6 (F4):** contract `:68` edited (the
+  identities/admission clause only — the `open` default, inheritance, `{wiki}` removal and the
+  human-gate byte-identical; `:70` intact); rule card `:26` wording unchanged, `derived_from:`
+  re-stamped `sha256:470aaf2816f7a60e572af3a44ff7ae47d1bec641145830eda7678433ae253b9d (derived
+  2026-09-02)` = `shasum -a 256` of the edited contract; card 7,295 bytes (< 8,000).
+  **Cache-mover record (disposition 5):** `scanFingerprint` `c44d8912ed750afe1cdf` →
+  `fe29c6f398d02c6b1cdf` (the `:297` prompt literal); `convention_digests[write-verification]`
+  `2590f56e44a765ca3be31bd4985e9b06d24fdae139b825ea91df994a18c73d95` →
+  `5e101c13c6cf04faee28a9f89d5b92df60c0010d9bde4d3616a522c99a3373ed`;
+  `convention_digests[frontmatter]` moves again from build-6's `fca83321…` →
+  `1255c3add9bf5e4df6d2e84df46c0fb3c48c7583e85fb12f7ff5eafd5d4b7f43`; `wiki-supersession`
+  `6f52b678…` unchanged — v0.18.0's first sweep is cold on three movers (§Release item 3).
+  **Check (1):** PASS at rest — Group E + handshake-check above. **Check (2) — grep manifest:**
+  0 hits across `skills/` (rule card included) for `that are write ops`, `write-op
+  `local_consumers:``, `write-op registrants`, `membership and ceiling`, `write-op qualifier`,
+  `the attesting op`, `must be a **write op**`, `any of its identities`, `any match`, `admitting on
+  **any**`, the semantic variants `an op listed in `consumers:``, `rostered attester`, `write ops
+  only`, and the wider `write ops` / `write-op`; presence: `lint attests **narrowly**` → 1
+  (`write-verification.md`), `handshake reasons alone acquires no attestation authority` → 1,
+  `writer of record` → 2 (`checks.md:20`, contract `:68`), `para_writer_scan` → 4 files (`report.md`,
+  `checks.md`, `lint-para-facts.py`, `lint-report-check.py`; the SKILL names the flag, not the key —
+  deviation 4). Reader pass over each edited paragraph for surviving nouns of *roster* / *op-only*:
+  `write-verification.md:47` carries *roster* twice — *"the roster of operation skills that answered
+  it a second time"* (the retired thing, named as retired) and *"a handshake roster, not a grant"*
+  (`consumers:` as what it is); `frontmatter.md:296(c)` *"never this roster's"* (the registration
+  roster, denied attestation authority); `checks.md:20`, contract `:68`, card `:26` carry none.
+  Byte-identity (`git diff -U0 5eb90b5`): `checks.md` hunk `:20` only, word-diff from *"and resolve
+  the file's writer identities"* to just before *"A file resolving no identity"* (`:19` intact);
+  `write-verification.md` `:4`/`:11`/`:46`–`:47` only (`:55` intact); `frontmatter.md`
+  `:78`/`:82`/`:296` only; contract `:68` only; `extraction.md` no hunk; `report.md` the inserted
+  fence line + the persist-gate clause + the write-posture paragraph. The walker's `M` predicate is
+  untouched: `P`/`M` over `fixtures/build-5-para/` are `9`/`3` before and after (the `--line` string
+  byte-identical), over `fixtures/build-7-para/` `15`/`1`. **Check (3) — the reader protocol
+  (`fixtures/build-7-reader-protocol.md`) over `fixtures/build-7-para/` against the hand-written
+  oracle `build-7-expected-findings.json` (oracle first):** shipped table — `draft.md`,
+  `agent-note.md`, `human.md`, the three charters, `any.md` (the residual), `hybrid-op.md`,
+  `plain.md`, both `delta/` files → no finding; `note.md`, `sub/deep.md` (inherited), `ratified.md`
+  (D-E) → fire; `unattested.md` → fires on the author leg AND is in M (deviation 2); the `{wiki}` page
+  in no list; the `fc44027` any-match run yields the `pre_build` table, differing on exactly
+  `ratified.md` (failability). **Check (4):** the walker's `writers`/`declaring_ancestor`/`counts.D`
+  and `--writer-line` deep-equal the oracle under `uv run` and bare `python3` (byte-identical output);
+  edge runs in scratch — flow and block `writers:`, a quoted entry, `writers: []` (not declaring), a
+  charter without `writers:` beneath a declaring parent (inherits the parent), a file at the `--dir`
+  root and one with no charter anywhere (`null`) — all as specified; `lint-report-check.py schema`
+  deep-equals the re-derived `build-5-expected-schema.json` at **18 / 74 / 5 / 1**, `SCHEMA_FLOOR` 18
+  unchanged; the build-5 shape harness green at **39 rows, 0 failed** with rows (7a)–(7e) added
+  (absent → `key missing: flag_for_human.para_writer_scan` in both modes; `O` off by one →
+  `para_writer_scan: rendered line does not match the walk` and nothing else; equal → ok; the red leg
+  — the ok report under `fc44027`'s fence reports the key EXTRA, never mandated). Prior harnesses:
+  build-2 key, build-3 type, build-4 return → *all expectations hold*; build-6's walker step → `P: 9`.
+  Scrub: 0 hits for machine paths / the owner's username / the field vault's name across `skills/`
+  and the build-5/-7 fixtures; no `.decision-log.md`, no `__pycache__`. Field count 27 consumed as a
+  count; specimens `0/27` stated in `build-7-para/README.md`. **Deviations/notes:** (1) **F10 not
+  applied** — both version strings stay `0.17.1`; the bump, the `--expect-version 0.18.0` lint and
+  the CHANGELOG text (§Release, items 1–4) are `vlt-release`'s, per the build instructions. (2)
+  **`unattested.md` fires `para_writer_unauthorized`** (oracle + protocol), not *"not this net"* as F9
+  and check (3) expected: the file resolves `agent` on the author leg and `[human, librarian]` does not
+  admit it — the shipped text (and the pre-build text) both fire; only a file resolving *no* identity
+  is left to the honesty nets. The fixture is kept where the brief put it and the oracle records the
+  honest verdict — two nets, one file. (3) **F1's replacement text carried *"the roster of write
+  ops"***, which verification 2's own manifest forbids (`write ops` → 0); shipped as *"the roster of
+  operation skills"*. (4) **`vlt-lint/SKILL.md:47`** — the brief's wording put the router 76 bytes
+  over its 12,000-byte budget (C, 11,982 at `5eb90b5`); shipped as a +2-byte edit naming
+  `--writer-line` beside `--line` (*"keep its `--line`/`--writer-line` outputs for Step 5"*) — the
+  key names live in `report.md`, so `para_writer_scan` is present in 4 files, not 5 as verification
+  2 predicted. (5) The F2 pointer clause (*"the denominated line `para_writer_scan:` (`report.md`)
+  carries N / D / O from the walker"*) sits inside the join hunk, before *"A file resolving no
+  identity"*, so verification 3's word-diff bound holds. (6) The build-5 facts oracle
+  (`build-5-expected-para-facts.json`) re-derived (two facts per file + `counts.D` = 5) and
+  re-compacted to its one-line-per-file form; `build-5-report-ok.yaml` gained the
+  `para_writer_scan:` line (`9 judged; 5 under a declaring ancestor; 4 passed on open posture …`).
+  (7) `git status` at the start showed the roadmap/platform files modified — those were the parent
+  session's, already committed; this build touches neither.
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:
@@ -572,9 +659,9 @@ scripts rows unchanged (both scripts already listed by build-5). `frontmatter@14
    pins at `@6`), E6 unchanged. Then `tools/handshake-check.py` (if present) → *9 conventions, 39 consumer
    pins — bipartite-consistent*. A grep is an editing aid only.
 2. **Grep manifest (check (2)'s instrument), 0 hits across `skills/` incl. the rule card:** `that are write
-   ops`, `write-op \`local_consumers:\``, `write-op registrants`, `membership and ceiling`, `write-op
+   ops`, `write-op `local_consumers:``, `write-op registrants`, `membership and ceiling`, `write-op
    qualifier`, `the attesting op`, `must be a \*\*write op\*\*`, `any of its identities`, `any match`,
-   `admitting on \*\*any\*\*` — plus the semantic variants `an op listed in \`consumers:\``, `rostered
+   `admitting on \*\*any\*\*` — plus the semantic variants `an op listed in `consumers:``, `rostered
    attester`, `write ops only`. And **presence** greps: `lint attests \*\*narrowly\*\*` → 1
    (`write-verification.md`); `handshake reasons alone acquires no attestation authority` → 1;
    `writer of record` → 2 (`checks.md:20`, contract `:68`); `para_writer_scan` → 4 files (`report.md`,

@@ -1,7 +1,7 @@
 ---
 name: vlt-lint
 description: Health-check the vault wiki and fix safe structural problems. Use when the user says 'lint the vault', 'health check the wiki', 'find orphan pages', 'check for contradictions', or 'audit the notes', and proactively after several ingestions (the `lint-debt` tripwire — `{tripwires}` — is the counter behind this phrase). Defaults to scoped mode (files changed since the last lint); 'full lint' / '--full' sweeps everything; 'full lint, re-scan <slug>' first evicts that page's cached facts so the sweep re-derives it.
-depends_on: ["frontmatter@14", "wiki-index@2", "wiki-supersession@2", "extraction@10", "write-verification@5", "spec@2", "consult@1", "decision-log@4"]
+depends_on: ["frontmatter@14", "wiki-index@2", "wiki-supersession@2", "extraction@10", "write-verification@6", "spec@2", "consult@1", "decision-log@4"]
 ---
 
 # vlt-lint
@@ -44,7 +44,7 @@ Below, "every wiki page" means the scoped set in scoped mode, or the whole wiki 
 
 ## Step 1: Read the selected files
 
-Read `{index}` first for the overview, then each selected page in full, noting topics, claims (and sources), outbound links, source count, and `last_updated`. Then read each selected **PARA file** — its frontmatter (`type:`, `author:`, `trust:`, `status:`, the attestation pair) and, at or above it, any container `charter.md` and its `writers:` — the inputs the `para_*` checks judge; the population itself is walked by `scripts/lint-para-facts.py` — run it here in both modes (`uv run --quiet "$SKILL/scripts/lint-para-facts.py" --line` with Step 6's `--dir`/`--exclude`/`--root` arguments; bare `python3` also works) and keep its `--line` output for Step 5's `para_scan:`.
+Read `{index}` first for the overview, then each selected page in full, noting topics, claims (and sources), outbound links, source count, and `last_updated`. Then read each selected **PARA file** — its frontmatter (`type:`, `author:`, `trust:`, `status:`, the attestation pair) and, at or above it, any container `charter.md` and its `writers:` — the inputs the `para_*` checks judge; the population itself is walked by `scripts/lint-para-facts.py` — run it here in both modes (`uv run --quiet "$SKILL/scripts/lint-para-facts.py" --line` with Step 6's `--dir`/`--exclude`/`--root` arguments; bare `python3` also works) and keep its `--line`/`--writer-line` outputs for Step 5.
 
 ## The step sequence (read each reference at the step that uses it)
 
