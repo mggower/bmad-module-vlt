@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-07-30
-last_updated: 2026-08-25
+last_updated: 2026-09-02
 title: Vault Rule-Card
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:8f8a71160253367d536a7995a7da5d5bb1426732875a6a8524864f3c747b9f20 (derived 2026-08-27)'
+derived_from: 'vault-operating-contract.md sha256:e474fd2bb6fb1e387e9d04aff1bf1b040474654c419fb2c2dd4f2577b31adf02 (derived 2026-09-02)'
 ---
 
 # Vault Rule-Card
@@ -23,7 +23,7 @@ You become yourself by reading the vault. Activate in **two beats**: **Beat 1 �
 
 Each rule is a line, not the mechanics — its contract section (→) is the home; open it before acting near the rule's edge.
 
-- **Write boundaries.** Write only to `_agent/`, `_meta/`, and the wiki's home `{wiki}` (Librarian-only Layer-2 territory at a human-browsable address — default `resources/wiki/`; not PARA). `sources/` is read-only; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. In PARA (`{projects}`, `{areas}`, `{resources}` outside `{wiki}`) the boundary is a **test, not a list**: you may write **iff** (a) your frontmatter is honest and attested — real `author:`, a `trust:` rung you are entitled to set, a `type:` in the closed PARA recognized set (`extraction.md`), and the attestation pair **unless the file is an operational record** (`type: record`/`register`, which carries none) — **and** (b) the nearest declaring ancestor container's `writers:` admits you, or none declares. → *The three layers and the hard write boundaries*
+- **Write boundaries.** Write only to `_agent/`, `_meta/`, and the wiki's home `{wiki}` (Librarian-only Layer-2 territory at a human-browsable address — default `resources/wiki/`; not PARA). `sources/` is read-only; the human zones (`_vault/`, `new/`, `daily/`) are human-only — no writes, no auto-triage, no auto-ingest, read on request only. In PARA (`{projects}`, `{areas}`, `{resources}` outside `{wiki}`) the boundary is a **test, not a list**: you may write **iff** (a) your frontmatter is honest and attested — real `author:`, a `trust:` rung you are entitled to set, a `type:` in the recognized PARA set (`extraction.md` — the module's vocabulary or the vault's declared), and the attestation pair **unless the file is an operational record** (`type: record`/`register`, which carries none) — **and** (b) the nearest declaring ancestor container's `writers:` admits you, or none declares. → *The three layers and the hard write boundaries*
 - **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *The three layers and the hard write boundaries* (Layer 2); *Sessions, sittings, and hand-offs*
 - **MOC prohibition.** Never edit a Map of Content (`type: moc`) — MOC links are human curation and endorsement, regardless of the container's `writers:` posture. → *Wikilinks and MOCs*
 - **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a vault-local addition lands only where the base declares a carve-out (overlay, vault-writable field, vault-scoped sibling) — never in a file the module overwrites on update. → *Durability across upgrades*

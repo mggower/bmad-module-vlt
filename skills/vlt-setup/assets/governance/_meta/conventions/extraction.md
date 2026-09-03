@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-08-27
+last_updated: 2026-09-02
 title: Extraction Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 9
+version: 10
 consumers: [vlt-extract, vlt-lint, vlt-track, vlt-query]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -81,7 +81,7 @@ Pick slugs that will still make sense in a year. Avoid datestamps, version suffi
 
 A fourth artifact type is **readable but not target-derived**: **`moc`** — a Map of Content, a curated index of links living in a PARA folder. It is named here so it is recognizable schema (`vlt-lint`'s `para_type_unknown` set) and so the MOC rule can key on content type; MOCs are **human-curated and human-edited only** (the operating contract, *Wikilinks and MOCs*).
 
-**The recognized `type:` set for the PARA population — this file is its home.** A file in the `para_*` population (under `{projects}`, `{areas}`, `{resources}`, the `{wiki}` subtree removed by name at selection time — the operating contract, Layer 2) carries a `type:` from the **closed** set: the artifact types `project | area | resource | moc` above, the **operational-record class** `charter | record | register` (*PARA containers* below), and any vault-declared schema in `{overlays}/extraction.overlay.md` (the declare-at-birth rule). **Closed for this population, and this statement is what the operating contract's Layer-3 entry condition points at** for its *recognized `type:`* leg. `frontmatter.md`'s non-exhaustive canonical `type:` list governs the base/agent lane — wiki pages, research notes, sessions, notes, ideas — and **does not answer here**. A module-canonical but **non-PARA** `type:` (`wiki`, `research`, `session`, `note`, `idea`) sitting in a PARA folder is therefore a **mis-typed or mis-placed artifact**, never unrecognized vocabulary: the response is to retype it to the target folder's `type:` per the mapping above, or to relocate it to that type's home zone — never to declare module vocabulary as vault-grown overlay schema.
+**The recognized `type:` set for the PARA population — this file is its home.** A file in the `para_*` population (under `{projects}`, `{areas}`, `{resources}`, the `{wiki}` subtree removed by name at selection time — the operating contract, Layer 2) carries a `type:` from the **recognized** set, which is the union of four: the artifact types `project | area | resource | moc` above; the **operational-record class** `charter | record | register` (*PARA containers* below); any vault-declared schema in `{overlays}/extraction.overlay.md` (the declare-at-birth rule); and **every value `frontmatter.md`'s canonical `type:` list names** (*Base frontmatter* — that list is the fourth leg's home and is not restated here; it is closed by enumeration at that line and open by edit). **This statement is what the operating contract's Layer-3 entry condition points at** for its *recognized `type:`* leg. Recognition is a judgment about the **value**, never about the folder: a file's `type:` is recognized or it is not, at any PARA address, and a value in none of the four legs is `vlt-lint`'s `para_type_unknown` (the net keeps its job — a genuinely undeclared value lands loud). What a recognized value says about the file's provenance and trust is answered by its own `author:`/`trust:` and its attestation, judged by the honesty nets — a `type:` that is accurate for what the file is (`research` for a dated, single-pass, `trust: raw` snapshot filed at a PARA address; `wiki` for a wiki page) is the right value wherever the file sits, and is never a reason to retype or relocate it. The `{wiki}` subtree's removal from this population (above) is a **zone** fact — Layer 2 is Librarian-only territory — not a statement about the legality of any `type:` value.
 
 `resources/` is a **live extraction target again as of this version** — a Layer 3 PARA zone with the same posture as `{projects}`/`{areas}` (the write-surface grant lives in the operating contract's Layer 3 and hard rule — mechanics there, never restated here); its `{wiki}` subtree is excluded (the operating contract, Layer 2 — the canonical statement of the qualifier; not restated here). `type: resource` returns as live vocabulary. **Legacy posture preserved:** artifacts predating version 6 keep their standing legality — no backfill sweep, no re-type, and `status: complete` on a legacy `resource` file stays legal (the enum row below). Where general reference material *also* legitimately lives: **the wiki itself** — the human-browsable `{wiki}` — for knowledge that should compound, or `areas/` when it serves an ongoing commitment; routing guidance, not a closure.
 

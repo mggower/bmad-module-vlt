@@ -1,7 +1,7 @@
 ---
 name: vlt-extract
 description: Shape wiki knowledge into a human-facing PARA artifact. Use when the user wants a curated deliverable from what the vault already knows — 'extract from wiki', 'pull a project brief on Y', 'turn the wiki into a deliverable', filed into projects/ or areas/. Reaches the wiki only — for new knowledge use vlt-research; to file a source use vlt-ingest.
-depends_on: ["extraction@9", "wiki-supersession@2", "frontmatter@14", "write-verification@5"]
+depends_on: ["extraction@10", "wiki-supersession@2", "frontmatter@14", "write-verification@5"]
 ---
 
 # vlt-extract

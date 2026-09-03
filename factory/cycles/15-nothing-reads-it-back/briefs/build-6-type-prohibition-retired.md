@@ -1,6 +1,82 @@
 ---
 title: 'Build #6 — retire the PARA `type:` prohibition: after this ships, a vault owner who types a file accurately is no longer told to retype or move it — the declared `type:` is judged on whether it is recognized vocabulary, the module''s or the vault''s declared, rather than on which folder the file sits in, and `{wiki}` stops being a named exception to that'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session (headless brief; eleven dispositions recorded inline, none owner-ruled; the cycle''s FIRST retirement brief, authored under the roundtable''s R2 interim posture). The builder rewrites this line to a BUILT record — `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` with numbered deliberate deviations (the `build-15-spec-convention.md` precedent) — deletes any `.decision-log.md`, and makes ONE commit for the build on `cycle15-v0.18.0`. Not the release build — no version bump; the `extraction` 9 → 10 handshake bump and its four re-acks land in this commit.'
+status: >
+  BUILT 2026-09-02 — all six F-sites landed in the brief's order (F1 → F3 → F4 → F2 → F5 → F6);
+  **checks (1)–(4) — the four at-rest `[ship-verifiable]` checks — PASS at rest; check (4), the Cycle
+  14 build-3 (6) at-rest half that GATES closeout, PASS at rest** (below). **Handshake as shipped
+  (R1):** `extraction.md` `version: 9 → 10` (`:11`), `consumers:` at `:12` unchanged; re-acked
+  `extraction@10` at `vlt-extract/SKILL.md:4`, `vlt-lint/SKILL.md:4`, `vlt-track/SKILL.md:4`,
+  `vlt-query/SKILL.md:4` (no other pin on those lines moved; `frontmatter@14` NOT bumped — A1);
+  `handshake-check.py` → `9 conventions, 39 consumer pins — bipartite-consistent`; `package-lint
+  --expect-version 0.17.1` → `A/B/C/E PASS, D PASS — vlt 0.17.1` (Group E bipartite clean, no
+  `extraction@9`/`v9` survivor anywhere under `skills/`, `.claude-plugin/`, `tools/` outside CHANGELOG
+  history; C6 clean on the re-derived card). **C6 (F4):** contract `:66` edited (one phrase), rule card
+  `:26` re-nouned and `derived_from:` re-stamped `sha256:e474fd2bb6fb1e387e9d04aff1bf1b040474654c419fb2c2dd4f2577b31adf02
+  (derived 2026-09-02)` — equal to `shasum -a 256` of the edited contract; card 7,295 bytes (< 8,000).
+  **Cache-mover record (disposition 4 / grounding correction 1):** `convention_digests[frontmatter]`
+  `b5203b6ed252d200d18051e7940d2d2b4a783291bb3606442ad3127fc8aafb79` →
+  `fca833215663fc2b3823f35f7e900fa67c43fceefe526cc32ad118d071375359`; `wiki-supersession`
+  (`6f52b678…`) and `write-verification` (`2590f56e…`) unchanged by this build — build-6 is a v0.18.0
+  cold mover in its own right. **Check (2) — grep manifest:** 0 hits for every retired phrase across
+  `skills/` incl. `vault-rule-card.md` (`Closed for this population`, `closed PARA`, `closed
+  recognized`, `does not answer here`, `does not answer for that population`, `mis-typed or
+  mis-placed`, `never to declare module vocabulary`, `never overlay-declare`, `module-canonical but
+  non-PARA`, `never widens it`, plus the semantic variants `must not overlay-declare`, `retype it to
+  the target folder`, `relocate it to that type`); *recognized* present at `extraction.md:84`,
+  `checks.md:19`, `frontmatter.md:71`, contract `:66`, card `:26`. Reader pass over each edited
+  paragraph for surviving verbs of relocation: `extraction.md:84` carries *retype or relocate* only
+  negated (*"never a reason to retype or relocate it"*); `checks.md:19` carries *relocate it out of
+  PARA* only as case (c) (a value in no leg — the finding's own legal exit, not the retired case) and
+  *retyped or relocated* only negated; `frontmatter.md:71`, contract `:66`, card `:26` carry none.
+  Byte-identity (`git diff -U0 ed0d96b`): contract hunk `:66` only (`:41`/`:64`/`:68`/`:70` intact);
+  `extraction.md` hunks `:4`/`:11`/`:84` only (`:80`/`:82`/`:86`/`:153`/`:190`/`:192` intact);
+  `frontmatter.md` `:4`/`:71` only (`:175` intact); `checks.md` `:17`/`:19` only — `:17` and `:19`'s
+  population clause are build-5's landed hunks (`72ca969`), the word-diff against `72ca969` begins
+  inside the `para_type_unknown` span; `:20` intact; `full-scale.md`/`vlt-lint/SKILL.md` body hunks
+  are build-5's; `vlt-query/SKILL.md` `:4` only (`:48` intact). **Check (3) — the reader protocol
+  (`fixtures/build-6-reader-protocol.md`) over `fixtures/build-6-para/` against the hand-written oracle
+  `build-6-expected-findings.json` (oracle written first):** walker `P: 9`, the `{wiki}` page in no
+  list; produced tables deep-equal the oracle under BOTH overlay states (`research`, `wiki`-in-
+  `projects/`, `note`, `charter`, `area`, declared `dispatch-brief` → no finding; undeclared
+  `dispatch-note` (a), `banana` (c), `resourse` (b) fire; overlay absent adds `dispatch-brief` (a));
+  **red/green:** the same protocol over `ed0d96b`'s text deep-equals the oracle's `pre_build` block and
+  differs from the shipped table on exactly `research`/`wiki`-in-`projects/`/`note` (all fire under the
+  retired case (b)) + `resourse`'s case letter — the instrument reads the rule. **Check (4) — at rest,
+  from the factory machine, read-only, counts only:** (a) the field vault's decision-log entry headed
+  `[2026-08-26] parked-interim — agent-lane `type:` in the PARA population, held pending the
+  recognized-set ruling` states its blocker as *the module ships two conventions answering differently
+  (`frontmatter.md` non-exhaustive naming `research`; `extraction.md` closed, excluding it) and the
+  bundle does not pick a winner* — read against shipped v10 `extraction.md:84` (fourth leg: every value
+  `frontmatter.md`'s list names) and `frontmatter.md:71` (*every value named here is recognized there, at
+  any PARA address*), both conventions now give ONE answer, `research` recognized → the claim is
+  **demonstrably false at rest**; (c) the walker over the field vault reports **P = 42** (`{wiki}`
+  carved out: 146 `type: wiki` pages counted nowhere); the **9** `type: research` files across **4**
+  briefs-shelf directories are **present in P** (typed histogram 22 area + 3 project + 2 resource + 1
+  charter + 1 record + 9 research = 38, + 4 files with no frontmatter = 42); the shipped rule applied to
+  the nine → **0 `para_type_unknown`**, so the legal response owed is the **empty one** — no vault act;
+  the latest persisted report's `para_type_unknown:` slot lists those nine as ADJUDICATED against park
+  #15 plus 4 no-frontmatter files (a different fact — absent `type:` — unaffected by this build).
+  **Check (4) PASS at rest; the unwind (check (5), the superseding log entry citing v0.18.0) is the
+  owner's act and is untouched.** All prior harnesses stay green (build-2 key, build-3 type/stubs/tail,
+  build-4 return, build-5 shape 33/33). No `.decision-log.md`, no personal content in any changed file.
+  Deviations/notes: (1) **`checks.md:19` re-grounded at `72ca969`** — build-5 landed first and its
+  hunks (`:17`'s predicate mention, `:19`'s walker pointer *"— the walk `scripts/lint-para-facts.py`
+  performs; every `para_*` entry names one member of it (Step 6)"*) sit in the population clause; this
+  build's span (`para_type_unknown` through its legal response) matched the brief's quoted text
+  byte-for-byte and was edited alone — no conflict, the brief's §Boundaries held. (2) **The leg-3
+  control file carries `type: dispatch-note`, not `dispatch-brief`** — the brief's `undeclared.md` with
+  the same value as `declared.md` could not fire while `declared.md` passes in one tree under one
+  overlay state; a value the overlay does NOT declare gives a control that fires under both states and
+  keeps the two-state run the brief asks for (`population: 9` both). (3) **Manifest phrase `closed
+  set` has one hit at `vlt-upgrade/SKILL.md:124`** — the v0.16.0 write-surface sentence (*"rather than a
+  closed set of named write surfaces"*), not the type rule; excluded by reading, untouched. (4)
+  **Verification 6's widened clause *"P equals the vault's `para_scan:` on its latest persisted report
+  where one exists"* — none exists**: every persisted report predates build-5's fence (`para_scan`
+  absent from all), so P is the walker's 42 alone; the next persisted v0.18.0 report will carry the
+  line for check (5)'s discharger. (5) No CHANGELOG edit — the v0.18.0 `governance_rule_changes` text
+  is in §Release-time obligation for the release step to copy. (6) The wording at `extraction.md:84`,
+  `checks.md:19`, `frontmatter.md:71`, contract `:66` and card `:26` is the brief's proposed text
+  verbatim (no tightening exercised).
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:

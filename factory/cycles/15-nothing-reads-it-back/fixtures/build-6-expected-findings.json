@@ -1,0 +1,42 @@
+{
+  "_about": "Build-6 check (3) oracle — HAND-WRITTEN BEFORE the reader protocol ran (briefs/build-6-type-prohibition-retired.md F6). One row per fixture file under build-6-para/; `finding` is whether vlt-lint's para_type_unknown fires under the SHIPPED text (extraction.md:84 v10 + checks.md:19 + frontmatter.md:71), `case` the legal-response case at checks.md:19 where it fires, `leg` the recognized-set leg that admits the value where it does not. `population` is the para_* population count the walker (skills/vlt-lint/scripts/lint-para-facts.py) must report — the {wiki} page is carved out by name and counted nowhere. Two overlay states: `overlay_present` reads _agent/conventions/extraction.overlay.md (declares `dispatch-brief` only); `overlay_absent` reads the tree as if that file did not exist. The `pre_build` block is the failability leg — what the same protocol must produce from ed0d96b's text (the closed set + case (b)); it MUST differ from the shipped tables or the instrument has not been shown to read the rule.",
+  "population": 9,
+  "overlay_present": {
+    "resources/briefs/sub-a/2026-09-01-090000-issue.md": {"type": "research", "in_population": true, "finding": false, "leg": 4},
+    "resources/wiki/a-page.md": {"type": "wiki", "in_population": false, "finding": null, "leg": null},
+    "projects/a-note.md": {"type": "wiki", "in_population": true, "finding": false, "leg": 4},
+    "areas/session-log.md": {"type": "note", "in_population": true, "finding": false, "leg": 4},
+    "projects/p/charter.md": {"type": "charter", "in_population": true, "finding": false, "leg": 2},
+    "areas/plan.md": {"type": "area", "in_population": true, "finding": false, "leg": 1},
+    "areas/declared.md": {"type": "dispatch-brief", "in_population": true, "finding": false, "leg": 3},
+    "resources/undeclared.md": {"type": "dispatch-note", "in_population": true, "finding": true, "case": "a"},
+    "resources/banana.md": {"type": "banana", "in_population": true, "finding": true, "case": "c"},
+    "resources/resourse.md": {"type": "resourse", "in_population": true, "finding": true, "case": "b"}
+  },
+  "overlay_absent": {
+    "resources/briefs/sub-a/2026-09-01-090000-issue.md": {"type": "research", "in_population": true, "finding": false, "leg": 4},
+    "resources/wiki/a-page.md": {"type": "wiki", "in_population": false, "finding": null, "leg": null},
+    "projects/a-note.md": {"type": "wiki", "in_population": true, "finding": false, "leg": 4},
+    "areas/session-log.md": {"type": "note", "in_population": true, "finding": false, "leg": 4},
+    "projects/p/charter.md": {"type": "charter", "in_population": true, "finding": false, "leg": 2},
+    "areas/plan.md": {"type": "area", "in_population": true, "finding": false, "leg": 1},
+    "areas/declared.md": {"type": "dispatch-brief", "in_population": true, "finding": true, "case": "a"},
+    "resources/undeclared.md": {"type": "dispatch-note", "in_population": true, "finding": true, "case": "a"},
+    "resources/banana.md": {"type": "banana", "in_population": true, "finding": true, "case": "c"},
+    "resources/resourse.md": {"type": "resourse", "in_population": true, "finding": true, "case": "b"}
+  },
+  "pre_build": {
+    "_text": "ed0d96b — extraction.md:84 v9 (closed set: project|area|resource|moc, charter|record|register, overlay-declared) + checks.md:19 case (b) (module-canonical non-PARA wiki|research|session|note|idea → retype or relocate); overlay_present state",
+    "population": 9,
+    "resources/briefs/sub-a/2026-09-01-090000-issue.md": {"type": "research", "in_population": true, "finding": true, "case": "b-retired"},
+    "resources/wiki/a-page.md": {"type": "wiki", "in_population": false, "finding": null},
+    "projects/a-note.md": {"type": "wiki", "in_population": true, "finding": true, "case": "b-retired"},
+    "areas/session-log.md": {"type": "note", "in_population": true, "finding": true, "case": "b-retired"},
+    "projects/p/charter.md": {"type": "charter", "in_population": true, "finding": false, "leg": 2},
+    "areas/plan.md": {"type": "area", "in_population": true, "finding": false, "leg": 1},
+    "areas/declared.md": {"type": "dispatch-brief", "in_population": true, "finding": false, "leg": 3},
+    "resources/undeclared.md": {"type": "dispatch-note", "in_population": true, "finding": true, "case": "a"},
+    "resources/banana.md": {"type": "banana", "in_population": true, "finding": true, "case": "c"},
+    "resources/resourse.md": {"type": "resourse", "in_population": true, "finding": true, "case": "c"}
+  }
+}
