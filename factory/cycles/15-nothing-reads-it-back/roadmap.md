@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: '**ACCEPTANCE DISCHARGED on every ship-verifiable clause, 2026-09-03** (`acceptance-discharge`, three passes: the vlt-core 0.17.1 → 0.18.0 upgrade `[2026-09-03 08:47]`, the first full sweep `2026-09-03-1206` (cold), the second `2026-09-03-1255` (warm)): 33/39 clauses DISCHARGED, **build-4 and build-5 ticked whole**; **both Cycle 14 bound debts GREEN** (build-4 (5) = Cycle 14 build-1 (6) leg 3 at 1 flagged / 1 genuine / 0 refuted / 146 pages, carry 5 answered; build-6 (4) = Cycle 14 build-3 (6) (a)+(c)); 6 `[field-contingent]` tails STILL-OPEN with named triggers (b1(5), b2(6), b6(5) control leg, b7(5) partner leg); 0 FAILED / 0 BLOCKED; 3 filings archived, 2 held, 2 new filings drafted from the evidence, 7 operator findings routed to the owner. **v0.18.0 SHIPPED 2026-09-03** (builds 1–7, one release; `ad071b9`, tag `v0.18.0` @ `f9bfa49`; `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`; handshake 9 conventions / 39 pins). **Next: `cycle-closeout`.**'
+status: '**CLOSED 2026-09-03** — the nothing-reads-it-back cycle. **v0.18.0 SHIPPED 2026-09-03** (builds 1–7, one release; commit `ad071b9`, tag `v0.18.0` @ `f9bfa49`, pushed; `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`). **Acceptance discharged 2026-09-03 over three passes** — the vlt-core 0.17.1 → 0.18.0 upgrade `[2026-09-03 08:47]`, the first full sweep `2026-09-03-1206` (cold by construction), the second `2026-09-03-1255` (warm, 135/146 cached): 33/39 clauses DISCHARGED, builds 4 + 5 ticked whole, **both Cycle 14 bound debts GREEN on their bounds** (build-4 (5) = Cycle 14 build-1 (6) leg 3 at 1 flagged / 1 genuine / 0 refuted / 146 pages, carry 5 answered; build-6 (4) = Cycle 14 build-3 (6) (a)+(c), both parks superseded citing v0.18.0), 0 FAILED / 0 BLOCKED. 13 filings archived to `filings/`; issue #13 closed. **Still open elsewhere:** four released standing watches (build-1 (5), build-2 (6), build-6 (5) control leg, build-7 (5) partner leg) with four filings held on them (`093000`, `183000`, `160000`/#17, `170000`/#18); an owner ruling owed on Cycle 14 park filings `125529`/#15 and `141418`/#16; Cycle 14 carries 6, 8, 9, 10; five owed candidate filings; two filings drafted 2026-09-03 uncaptured; seven operator findings uncaptured; `S-3` unconsumed (4th cycle); [P-23]/[P-24] queued. Footprint: 10 platform items touched in span, retirements PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4. **This cycle is closed — do not append.**'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-03'
@@ -3919,6 +3919,107 @@ exercise, the `pageHashes` digest form (owed candidate, now field-confirmed), `s
 refused wholesale on three consecutive sweeps (a tier question), and a stale `vlt-lint-full.js` in the
 installer plugin cache at 0.3.1.
 
+## Closeout record (2026-09-03, `cycle-closeout`)
+
+**Gate — PASSED.** (1) Ledger: builds 4 and 5 ticked whole; builds 1, 2, 3, 6, 7 unticked with **every
+`[ship-verifiable]` clause DISCHARGED** and only `[field-contingent]` tails open — by the Stage 1 rule those
+do not gate and move to the watch register below. Both Cycle 14 bound debts GREEN on their bounds (build-4 (5),
+build-6 (4)). (2) Release: `v0.18.0` → `f9bfa49` on `origin` (`git ls-remote --tags`). (3) Spikes: none
+opened by Cycle 15; `S-1`/`S-2` consumed, `S-3` harvested (opened Cycle 11) — no orphan. **Nothing was ticked
+that was not exercised; the `[x]` count (2 of 7) is not a measure of what the cycle proved — 33 of 39
+clauses discharged is.**
+
+**Footprint (Stage 2b).**
+- **platform work landed during this cycle (2026-09-01 → 2026-09-03): [P-15] CLOSED 09-01; [P-3] BUILT
+  09-01 (this closeout is its Stage-2b cold-reader discharge event — the footprint lines exist because it
+  shipped); [P-18] Tier A BUILT 09-01 (the two filings drafted by `acceptance-discharge` today carry
+  manifests under it); [P-16] unparked + BUILT 09-01; [P-22] queued 09-01; [P-23] + [P-24] queued 09-02;
+  [P-10] sync declined as a no-op 09-01 (discharges on this cycle's rail sync); [P-20] not fired 09-01;
+  [P-13] — negative cold exercise recorded 09-01, **and a positive one today**: every `acceptance-discharge`
+  pass (×3) and this closeout restamped the foot from a session that did not author the roadmap — for the
+  owner to grade on the platform ledger, not graded here.**
+- **retirement count (A48/A50 form):** **PRE-NAMED (2):** the PARA `type:` prohibition with its `{wiki}`
+  type-legality carve-out in the same act (A15-12, build-6) and the `verified_by` roster closure (A15-13,
+  build-7) — the first two `class: supersession` filings the loop ever consumed. **BEAT-PRODUCED (5 builds,
+  ~16 statements):** build-2 (the *"first full run after any release is COLD"* sentence + worked instance,
+  `report.md:89`'s echo, the `module_version` arg row); build-3 (the bare `## Stubs` form, the two-way cap
+  wording, the closed three-reason list); build-4 (the scanner's summary-length verdict, `outbound_links` from
+  `PAGE_SCAN`, the `partialShortfall` suppression); build-5 (`report.md:3`'s release-gate claim, A15-7
+  direction 3); build-6's beat additions beyond the pre-named rule (`checks.md:19` case (b), the *"does not
+  answer here"* sentence, contract `:66` *closed*, the rule card — R2's grep table found 6 sites against the
+  roundtable's 4); build-7 (`frontmatter.md:296(c)`'s write-op ceiling, contract `:68`'s any-match clause — 6
+  against 4 again). **REASONED REFUSALS (1):** build-1, *Obsolescence: none found* — the beat fired on
+  additive vocabulary and said no. **EXPLICIT NON-RETIREMENTS (4):** the Layer-2 population exclusion (A5),
+  `para_type_unknown` (D5.1), the attestation pair (D5.3), Cycle 14 build-4 §3's *"the enforcement point
+  is a reader"* (honoured by build-5, not superseded).
+
+**Carried forward past Cycle 15** *(the authoritative hand-off — the next `inbox-capture` re-lists from here)*:
+
+1. **Four released standing watches** — the field-contingent tails, each with its trigger on the ledger:
+   **build-1 (5)** the next live `supersession` filing through `vlt-feedback` (owner; candidate: item 4);
+   **build-2 (6)** the cache stays warm across the first *release* after v0.18.0 that moves none of the
+   scanner-read set — same-release warm run corroborated 2026-09-03 (135/146 cached); **build-6 (5)** the
+   scoped `vlt-lint` over `resources/briefs/` with a planted undeclared-`type:` control (owner; the zero
+   half is evidenced by both full sweeps); **build-7 (5)** a partner re-attesting one of the 27 amnesty files
+   with its own slug + a scoped lint (owner + partner; no partner slug in any `verified_by:` yet). Released,
+   not ticked — *"recorded here rather than ticked — the check was never exercised, it was released."*
+2. **Filings HELD in the active inbox on their own clauses:** `2026-09-01-093000` (A15-9 → build-2 (6)),
+   `2026-09-01-183000` (A15-15 → build-1 (5)), `2026-09-01-160000` (A15-12, #17 → build-6 (5)),
+   `2026-09-01-170000` (A15-13, #18 → build-7 (5)). Their issues stay open — the tracker mirrors the inbox.
+3. ⚠ **Owner ruling owed — Cycle 14's two park filings:** `2026-08-26-125529` (A14-6, #15, park #15's
+   clause) and `2026-08-26-141418` (A14-7, #16, park #16's clause). Their own clauses — the parks' unwind
+   — are discharged (both superseded through the rostered route citing v0.18.0; build-6 (4) at rest); the
+   residue (control lint, partner attestation) belongs to A15-12/A15-13. By the per-filing criterion they
+   **move**, but their shipping build is Cycle 14's and the criterion names *the cycle that shipped it*
+   — a closed, do-not-append directory. Held in the inbox, issues #15/#16 left open, **ruling owed:** move
+   into Cycle 15's `filings/` (the cycle whose ledger discharged them — the clerk's recommendation) or
+   Cycle 14's, then close #15/#16 on the rail sync.
+4. **`para_author_unknown`'s closed `human|agent|hybrid` enum** (Cycle 14 carry 6, released D-F) — the
+   next `supersession` candidate; filed through the rail build-1 completed, by the owner.
+5. **Cycle 12's never-delivered hand-off** (Cycle 14 carry 8: b3(7), A12-4, A12-5, A11-11 d4 + A12-1) —
+   **carried unchanged, third cycle**; and **the `:168` dissent** (Cycle 14 carry 9, Victor/Amelia) —
+   carried unchanged, becomes the ruling when `unmarked_supersession` is structured.
+6. **`{field-vault}` overlay staleness** (Cycle 14 carry 10) — vault-side owner action, unchanged; the
+   0.18.0 upgrade's subsumption pass found nothing to retire (§A/§D overlays still uncovered).
+7. **Candidate filings owed at handoff, not yet written:** build-3's four not-refused optional args;
+   build-4's `pageHashes` digest form (**now field-confirmed** — the operator had to match a 16-hex form by
+   inspecting a stored key, at 11M tokens / 50 min) and frontmatter facts from disk; build-5's
+   `para_type_unknown` count leg; build-7's `write-verification.md:55` five-value enum and the partner-side
+   attestation beat; A15-12's subtree-carries-a-`type:` declaration mechanism.
+8. **Two filings drafted by `acceptance-discharge` 2026-09-03, uncaptured, filed without owner
+   confirmation:** `2026-09-03-124500` (the Stubs heading stated inside a fence — a near-miss on build-3's
+   own instrument) and `2026-09-03-124600` (the lint's sources reconciliation writes the retired bare-path
+   form — the one genuine `malformed_frontmatter` this cycle's gate found was the module's own).
+9. **Operator findings from the two acceptance sweeps, uncaptured** (session `core-lint`, on the ledger at
+   build-2/3/4/5): the `components`-diff cold-reason instrument had no producer on its first exercise
+   (self-healed in one run — record only); `crossLayerSlugs` hand-derived at 851 vs the worked example's
+   1,849 with no way to tell a smaller vault from a missed zone; `sources_vs_prose_mismatches` refused
+   wholesale on **four** consecutive full sweeps against a standing `{backlog}` ruling — a tier question
+   (`fix_now` → `flag_for_human`); the installer plugin cache holds a 261-line `vlt-lint-full.js` at 0.3.1;
+   **the shape gate returned `ok` on a stale render** that carried two slots forward from the prior run
+   (presence/type/walk is its whole net); **eviction is cache hygiene, not remediation** (two evicted pages
+   re-derived the same refused finding from fresh facts); and `evicted E by request`'s semantics on a
+   cold run (served-and-lost vs prophylactic) are ambiguous in `report.md:78`.
+10. **Un-captured inbox backlog** — everything in `factory/inbox/` not in this cycle's `derives_from:`
+    (the pre-Cycle-15 holds, `104502` = [P-22]'s filing), unchanged.
+11. **`S-3`** harvested and unconsumed into a **fourth** cycle (ruled deliberate at ideation; recorded so
+    it is not drift). **[P-23]** and **[P-24]** queued on the platform ledger from this cycle.
+
+**Filings moved into `filings/` (Stage 5, per-filing criterion):** by `acceptance-discharge` 2026-09-03 —
+`2026-08-26-164501` (A14-2), `2026-08-27-153000` (A15-7), `2026-08-31-104500` (A15-8); by this closeout —
+`2026-08-26-123151` (A15-11 — its clause build-2 (5) discharged; the build's residue (6) is A15-9's; **issue
+#13 closed**), `2026-09-01-140602` (A15-4), `2026-08-31-104501` (A15-2), `2026-08-27-160200` (A15-6),
+`2026-09-01-140600` (A15-10), `2026-08-27-160100` (A15-1), `2026-09-01-140601` (A15-3), `2026-08-27-160000`
+(A15-5), and `2026-08-31-152000` (A15-14 — WITHDRAWN at capture, no clause of its own, retired on capture's
+own instruction). **12 moved, 4 held on their clauses (item 2), 2 held on a ruling (item 3).**
+
+**Front door:** `factory/inbox/README.md` already carries the non-enumerating pointer — unchanged.
+**Briefs:** 7 confirmed in `briefs/`, all build-1..7 of this cycle, none stray. **`factory/CYCLE` reset to
+none.** Memory synced (`vlt-cycle-15-roadmap`). Not committed by this skill — the owner commits (and the new
+CLAUDE.md standing rule says: in this session).
+
+**This cycle is closed — do not append.**
+
 ⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`acceptance-discharge`, pass 3); the routing
 of record is the block below.
 
@@ -3939,6 +4040,18 @@ beside the earlier five: **G** — the shape gate passed a stale render that car
 previous run (presence/type/walk is its whole net; a carried-forward value is not); **H** — eviction is cache
 hygiene, not remediation: two evicted pages re-derived the same refused finding from fresh facts. The
 `sources_vs_prose_mismatches` refusal is now at four consecutive sweeps.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`cycle-closeout`); the routing of record
+is the block below, and it is the last one this file will carry.
+
+---
+
+**Next lifecycle move (2026-09-03, `cycle-closeout`): the cycle is CLOSED — the loop restarts at field
+signal. Run `inbox-capture`: it finds a clean open-cycle slate (`factory/CYCLE` = none), re-lists the eleven
+carry-forwards from this roadmap's Closeout record, and grounds the un-captured inbox — which already holds
+two filings drafted today (`2026-09-03-124500`, `2026-09-03-124600`) plus the pre-Cycle-15 backlog. Before
+that: the owner rules item 3 (the two Cycle 14 park filings) and runs the rail sync (`issue-triage`) so #13's
+close and #17/#18's held state reach the tracker. This cycle is closed — do not append.**
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
