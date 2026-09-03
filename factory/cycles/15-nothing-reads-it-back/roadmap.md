@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Next: a fresh builder session implements the build-3 brief (file-edit order 2 → 3 → 4 → 6 → 7).'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Next: a fresh builder session implements the build-4 brief (file-edit order 2 → 3 → 4 → 6 → 7).'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -349,6 +349,14 @@ page `seattle-seahawks` links
 `[[_agent/research/2026-07-26-112444-espn-top-10-cornerbacks-2026]]`, which resolves; the scanner
 returned `…-espn-top-10-cornerboxes-2026`. **`cornerboxes` for `cornerbacks`.** The instruction is
 explicit and was not followed.
+
+*(Superseded in part at brief time, 2026-09-02, `build-brief` build-4: on disk the page carries that
+research note as a **bare-path `sources:` entry** — `_agent/research/…-cornerbacks-2026.md`, rule 4's
+legacy form — and no `[[ ]]` form of it anywhere; the `[[…]]` wording above describes the return, not
+the bytes. The specimen is therefore two mutations at once: a path that is not a link was returned as
+one, and its noun substituted. Under build-4's SKILL-derived link set the entry is not a link at all;
+the fixture plants both forms so each mutation is exercised. The substitution itself, and the cache
+amplification, stand as grounded.)*
 
 The filing's own framing deserves to survive into the brief: **this is the failure class the
 entity-collision check exists to catch in sources, occurring in the instrument that feeds it.** A
@@ -1451,6 +1459,91 @@ is also stated at its own entry.
   `N uncounted` rendered, instrument named; adversary: a plausible `E` rendered from memory — widened:
   the discharger re-runs both instruments and compares; no further passing-violating state found.
 
+- [ ] **build-4 (scanner-returns, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-4-scanner-returns.md`. **Six checks — five
+  `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 6/15` (observed: A15-1's three
+  false orphans, A15-3's anchor, A15-4's substitution, A15-5's ten — all ten named in Cycle 14's
+  `malformed-frontmatter-specimens.md`; preserved: two orphan pairs (`fantasy-football-evaluation` →
+  `fantasy-platform-read-access`, `chicken-soup` → `katsuo-dashi`), the `calf-strain` anchor, the
+  `cornerbacks` link in both its forms, the two refuted summaries frozen at their real lengths
+  (159/161, 160/162/171); not preserved: the 2026-08-26 orphan and the eight genuine
+  `malformed_frontmatter` specimens, repaired in the sweep that found them). R1 n/a (every mechanism
+  ships with its rule); **Retirement SUBSTANTIVE (A20, D-A, D-C)** — `outbound_links` leaves
+  `PAGE_SCAN` whole (`required` + `properties`, E6 **3676 → 3265**), the `:262` link clause re-nouned
+  to the callout target, the DA7 `partialShortfall` suppression (`:593-605`, `:647`, `:588`) retires,
+  the scanner's summary-length verdict is eliminated by the prompt (`checks.md:15`'s own exclusion),
+  the `:575-576` cache comment, `full-scale.md:18`'s follow-on sentence and link-graph description,
+  and the refusal example at `full-scale.md:21`/`fix-and-file.md:16` all go; population statements
+  that do not move: `checks.md:13`'s link population (now the script's spec), `:25`'s orphan
+  definition, `frontmatter.md:125`, `normalizeTarget`'s normal form, the scanner's validity verdict
+  (no parser replaces it), Cycle 14 carry 5 (ruled at (5)). R4 n/a (`scripts/lint-page-facts.py` is
+  inside a tree the manifest walks whole; fixtures un-enumerated — declared exclusion). **Cross-build:**
+  both prior harnesses gain the two required args and the shared shim (F7); build-2 (1) stays 15/15,
+  build-3 (1)–(3) green; `report.md` merge order becomes **3 → 4 → 5** (one new scalar,
+  `scanner_return_rejected:`); build-4 → build-7 boundary stated in the brief (both move
+  `scanFingerprint`; build-7 re-grounds after this commit). **(1) `[ship-verifiable]` — at rest —
+  GATES:** no orphan or missing-target finding names a page whose bytes contradict it — instrument:
+  `fixtures/build-4-return-harness.mjs` over `fixtures/build-4-wiki/` (eleven pages), the script run
+  for real and deep-equal to the hand-written oracle `build-4-expected-facts.json`, then planted returns
+  at odds with the bytes: (a) the `fantasy-platform-read-access` / `katsuo-dashi` links omitted → `orphans
+  === ['lonely-page']`; (b) `cornerboxes` returned → no such missing target (bare-path twin not a link;
+  `[[ ]]` twin resolves cross-layer); (c) the `#` stripped → no `calf-strain` target; (d) control:
+  `code-fence-page → missing-target-page` reported, fence/span links not; (e) `katsuo-dashi#Simmer` →
+  `katsuo-dashi`; (f) a return with no `outbound_links` → identical report; (g) D4: the same cached
+  record with `pageLinks` edited → the orphan verdict follows `pageLinks`; adversary: a shared
+  extraction bug makes script and reduce agree — widened: the oracle is hand-written from the bytes
+  and must match byte-for-byte first, and the table is proven failable against `7222cd2` ((a)/(b)/(c)/(g)
+  flip). **(2) `[ship-verifiable]` — at rest — GATES** *(the at-rest leg of Cycle 14 build-1 (6), D-A)*:
+  an over-length or missing-summary finding is true of the parsed `summary:` in characters —
+  instrument: the same harness, `summaryLengths` from the script (159 / 160 / 162 / 0), a `summary`
+  paraphrased to 162 for `l-theanine` → `frontmatter_drift` carries `parallel-walk-introduction:
+  over-length (162 chars)` and `lonely-page: summary missing` and nothing for `l-theanine`/`barbacoa`;
+  the prompt carries the length-exclusion sentence; recorded not asserted: a planted `unclassified`
+  length verdict still reaches `malformed_frontmatter` (the reduce cannot refuse prose — leg 3 in (5)
+  grades that key live); adversary: a byte- or quote-inclusive counter on ASCII fixtures — widened:
+  both frozen summaries carry em-dashes (159 chars / 161 bytes; 160 / 163), `barbacoa` sits exactly at
+  the cap, the oracle pins the character counts. **(3) `[ship-verifiable]` — at rest — GATES:** a
+  consumed return failing its read-back is never persisted — instrument: a valid callout target
+  (`chicken-soup` → `katsuo-dashi`) seeds one `entity-pair:` dispatch, a fabricated one
+  (`seattle-seahawks` → `new-england-patriots`, not among its links) yields `scanner_return_rejected
+  {count: 1, of: 11}`, the cap naming slug + target, and `cache_records` at 10 with that slug absent;
+  adversary: the cap renders but the separate `cacheRecords` loop still writes the record — widened:
+  `cache_records.length === scans − count` and the slug's absence are both asserted. **(4)
+  `[ship-verifiable]` — at rest — GATES:** the scanner is no longer asked for links, nothing reads a
+  returned link list, the retirements landed whole, the budget fell — instrument: the E6 extractor
+  (`PAGE_SCAN` 3265 ≤ 3700; the other three schemas byte-identical at 838 / 1630 / 376), the grep
+  manifest (`outbound_links` / `partialShortfall` / the retired phrases → 0 across `skills/`; `linksOf`
+  ≥ 6 consumers), build-2 15/15 + build-3 green after F7, package-lint A/B/C/E PASS; adversary:
+  `outbound_links` out of `required` but still in `properties` with one reduce site still reading it —
+  widened: the grep covers the whole workflow and the consumer count is asserted. **(5)
+  `[ship-verifiable]` — bounded to the first full `vlt-lint --full` sweep on `{field-vault}` after the
+  v0.18.0 upgrade — GATES CLOSEOUT (Q9, A18):** **Cycle 14 build-1 (6), leg 3, quoting Cycle 14's
+  bound verbatim** — *"**Bound:** the repair ships in Cycle 15 and is graded on the **first full
+  `vlt-lint --full` sweep after that release**, against a corpus whose identity is recorded at grading
+  time; **leg 3 alone is the bound**, legs 1 and 2 are already met and are not re-litigated."* — leg 3
+  being *"**every** remaining specimen is adjudicated one by one against its page as a genuine schema
+  break (the cardinality is recorded, and is **not** the check)"*, E4 transferring at **10 flagged / 8
+  genuine / 2 refuted at 146 pages**; instruments, two: the at-rest leg is check (2)
+  (`frontmatter_drift` from bytes — the instrument D-A named), the live leg is that sweep's report —
+  every `malformed_frontmatter` entry adjudicated against its page as genuine, zero refuted and zero
+  whose complaint is the summary's length, **and** every `frontmatter_drift` over-length entry
+  re-measured by the discharger on the parsed scalar in characters; corpus identity recorded;
+  performer the owner, vault `{field-vault}` (readable). **Discharges
+  `factory/inbox/2026-08-26-164501` (A14-2)** — Stage 5 may move it once (1) and (5) are green.
+  **Cycle 14 carry 5** (the `malformed_frontmatter` retirement) is **ruled at this event** (D-F): 0
+  refuted ⇒ answered — the check measures correctly, no retirement owed; any refuted entry ⇒ a filing
+  and the debt re-binds with its number. Adversary: a vacuous class (zero entries flagged) reads as
+  met — widened: the population is recorded; on an empty class the live leg is graded on the
+  `frontmatter_drift` half (each `summary missing` / over-length entry checked against bytes) plus the
+  at-rest leg, and the vacuity is recorded, never silent. **(6) `[field-contingent]`:** the specimens
+  clear and stay clear, and the read-back rate is a number — event: the **second** full sweep after the
+  v0.18.0 upgrade (the first is cold by construction and re-rolls every scanner — a specimen clearing
+  there proves nothing, A12); performer: the owner on `{field-vault}` (readable); grades: across both
+  sweeps `false_positives_refused` carries no `orphans` / `missing_targets` / summary-length refusal,
+  the four specimen pages carry no such finding, and `scanner_return_rejected:` renders `N of 146` on
+  both, N recorded as the callout return's measured fabrication rate. Unbounded; watch register if
+  unfired.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1772,8 +1865,9 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
       that, never from the returned `summary` (Cycle 13 CF1: `l-theanine` 162 vs 159 — the return is
       itself paraphrased); the scanner is told length is **not its verdict** (`checks.md:15`'s own
       exclusion — an Arc 9 D5 elimination, prompt string only). The Cycle 14 build-1 (6) re-check names
-      `frontmatter_drift` as its instrument and gains an **at-rest leg** (fixture: a quoted 158-char
-      summary whose raw line is 161) with the post-release sweep as corroboration — leg 3 rests on bytes,
+      `frontmatter_drift` as its instrument and gains an **at-rest leg** (fixture: ~~a quoted 158-char
+      summary whose raw line is 161~~ *— corrected at brief time 2026-09-02: the specimens measure
+      159 parsed / 161 quoted and 160 parsed / 162 quoted / 171 raw; the fixture freezes those*) with the post-release sweep as corroboration — leg 3 rests on bytes,
       not on one haiku measurement per page. *Dissent on record (Builder, Victor, Amelia): elimination
       alone sufficed for the two specimens; conceded that only the disk read closes the paraphrase case.*
     - *(A12, owner ruling D-C)* **The read-back branch is RULED, not left to brief time: REPLACE.** The
@@ -1806,6 +1900,45 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
   - `binds:` **+= D3** (halves A15-4; *direction 3 stays refused*; *direction 1 does not cure records
     already poisoned*); **D4 kept with its reason** — new SKILL-passed inputs (`pageLinks`, `summary_len`)
     may not enter the cache key by judgment. *(roundtable A12, G-F4)*
+  - **Grounding corrections at brief time (2026-09-02, `build-brief` — brief
+    `briefs/build-4-scanner-returns.md`):** scope unchanged; seven records, every cite re-derived
+    against `7222cd2` (build-3 BUILT). (i) The workflow sites all moved with builds 2/3:
+    ~~`:457`~~ → **`:590-591`** (inbound), ~~`:472`~~ → **`:605`** (orphans), ~~`:480`~~ →
+    **`:613-614`** (missing targets), ~~`:460-464`/`:460-472`~~ (DA7) → **`:593-605` + `:647` + the
+    `:588` clause**, ~~`:420-423`~~ (B5-3) → **`:553-556`**, ~~`:229-230`~~ (the verbatim instruction)
+    → **`:260-263`** (the `@5` literal at `:261` is build-7's), ~~`:640`~~ (`summaryIssue`) →
+    **`:774`**, the no-filesystem statements ~~`:37`/`:64`/`:476`~~ → **`:26`, `:37-38`, `:67-68`,
+    `:606-608`**. **Grounding addition:** the returned links have **three more consumers** than A12
+    named — `:626` (near-duplicate link sets), `:681-684` (cluster adjacency) and the `:556`
+    normalize-in-place — all four sites switch source; the callout seed loop `:734-742` gains the
+    read-back. (ii) `PAGE_SCAN` re-measured with `package-lint`'s own extractor at brief time:
+    **3676** (A11 HOLDS); removing `outbound_links` from `required` **and** `properties` → **3265**;
+    from `required` alone → 3659 — the brief takes the whole removal (a retired ask left in
+    `properties` is a half-retirement). (iii) ~~A11's fixture "a quoted 158-char summary whose raw
+    line is 161"~~ → measured on disk: **`l-theanine` parsed 159 chars / quoted 161 / raw line 170;
+    `barbacoa` parsed 160 (at the cap) / quoted 162 / raw line 171** — the reported `161` and `171`
+    are two *different* wrong measures (the quoted value; the raw line); the fixture freezes both
+    specimen shapes at their real lengths. The live sidecar holds both returned `summary` strings
+    **verbatim** (159/160, `frontmatter_defect: none`) — the verdicts arrived through the verdict
+    slot, as A11 said. (iv) ~~A15-4's "the page `seattle-seahawks` links `[[_agent/research/…
+    cornerbacks-2026]]`"~~ → on disk the note is a **bare-path `sources:` entry** (rule 4's legacy
+    form), not a `[[ ]]` link — the specimen was two mutations at once (a bare path treated as a
+    link **and** substituted); the finding vanishes by population under the executable, and the
+    fixture plants both forms (note also written at A15-4). (v) The `summary_len` input is named
+    **`summaryLengths`** in the arg contract (the `pageHashes` camel-case precedent) — the same
+    `{slug: summary_len}` map D-A ruled; `pageLinks` keeps its name. (vi) Both new args are
+    **REQUIRED** (the args guard, not a cap — an empty link graph rendering as health is A15-1's own
+    observable), wrong type is the pre-dispatch refusal, a slug with no entry is a **denominated** cap
+    — D2's population is untouched; build-3's four-arg `candidate` is unchanged. (vii) The
+    single-writer clause reaches **one** consumed value with a read-back source — the callout target
+    (`:737-741`) against `pageLinks`; the returned `summary` is consumed by **nothing** after the
+    build and is deliberately **not** read back (ceremony); the other returned values have no
+    byte-fact to read against (a `candidate` at handoff). The build-2/build-3 "shipped discovery
+    executable" follow-on is **taken narrowly** — `scripts/lint-page-facts.py` ships the two
+    byte-facts only; the whole-args fold stays the follow-on, now gated on a `candidate`: the live
+    sidecar's page-digest term is **16 hex** while `full-scale.md` step 1 names no truncation.
+    BRIEFED 2026-09-02, 6 checks in the ledger (`specimens: 6/15`); Cycle 14 build-1 (6) leg 3
+    appended as check (5) quoting the bound verbatim; `164501` named for Stage 5.
 
 - **build-5 — A15-7 + A15-8, the persisted report.** A15-7's parse requirement plus E1's ruling:
   validate the mandated keys **and** the **cardinality** check that un-collapses a per-file slot.
@@ -2796,7 +2929,8 @@ record is the block below.
 
 **Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-3
 brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-3-denominated-slots.md`, via
-`bmad-workflow-builder`.**
+`bmad-workflow-builder`.** *(— historical record; superseded by the block at the foot, 2026-09-02
+`build-brief` for build 4. Build-3 was BUILT at `7222cd2`.)*
 
 **Build-3 is BRIEFED** (headless run; readiness gate passed on D2-as-amended / Q8-as-amended / Q3 /
 `spike: none` / roundtable 0 OPEN / owner-ratified two-clause promise; builds 1 and 2 are BUILT at
@@ -2831,6 +2965,58 @@ optional arg to its empty value for the four args build-3 did not cover (brief �
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
 statement (build-2 §Release).
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 4); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-4
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-4-scanner-returns.md`, via
+`bmad-workflow-builder`.**
+
+**Build-4 is BRIEFED** (headless run; readiness gate passed on Q7 / Q9 / Q2b (build-2 BUILT) / D3 / D4
+/ the Round 1 correction / D-C / D-A / `spike: none` / roundtable 0 OPEN / owner-ratified three-clause
+promise; builds 1–3 BUILT at `61ec6c0` / `450c886` / `7222cd2`). Eight F-sites (the workflow's link
+source + length source + retirements + the callout read-back; `report.md`'s `scanner_return_rejected:`
+scalar; `full-scale.md` steps 1/3/5; `checks.md:13`/`:14`/`:25` pointers; `fix-and-file.md:16`; the
+NEW `scripts/lint-page-facts.py`; the two prior harnesses + a shared shim; a fixture wiki + a
+hand-written oracle + a return harness under `fixtures/`); nine brief-time dispositions recorded
+inline, none owner-ruled — the load-bearing ones: **one executable emits both byte-facts, facts never
+verdicts** (normalization and the 160 limit stay in the workflow); **`pageLinks` / `summaryLengths` are
+REQUIRED**, wrong type refuses pre-dispatch, a slug with no entry is a denominated cap; **the returned
+`summary` is consumed by nothing and is not read back** (ceremony), **the callout target is** — a
+failing return is never persisted; **the whole-args discovery fold stays the follow-on** (a
+`pageHashes` digest-form `candidate` gates it); `outbound_links` leaves `PAGE_SCAN` **whole** (E6
+3676 → 3265). Seven grounding corrections written at the build-4 bullet (the four link consumers, the
+A15-5 fixture arithmetic, the A15-4 bare-path form). Six acceptance checks are in the ledger
+(`specimens: 6/15`); **check (5) is Cycle 14 build-1 (6) leg 3, appended quoting the bound verbatim —
+it GATES closeout**, discharges `164501` (A14-2) and rules Cycle 14 carry 5 at its grading event.
+**Retirement is substantive** (the beat's three plus five more sites). **The build-4 / build-7 boundary
+is stated in the brief** (§Boundary with build-7): both edit `vlt-lint-full.js` and both move
+`scanFingerprint`; build-4 owns `PAGE_SCAN:188/:198`, the prompt's `:262-263` sentences and the reduce;
+build-7 owns the `:11` header pin, the `:205`/`:209` description literals, the `:261` `@5` literal and
+`:818`; merge order 4 → 7, build-7 re-grounds after this commit. `report.md` merge order is now
+**3 → 4 → 5** — build-5's briefer reads both boundary tables.
+
+**The builder's exit obligations:** implement F6 first (the script — F8's oracle is hand-written
+before the script is run against it), then F1 (edits 1–5 before 6–13), F2–F5, F7 (the shared shim,
+then both prior harnesses green), F8 (the harness proven failable against `7222cd2` — check (1)'s
+widening); run Verification 1–13 (E6 re-measured with `package-lint`'s own extractor and the number
+recorded; the two `scanFingerprint` values recorded), rewrite the brief's `status:` to a **BUILT record
+with numbered deviations**, delete any `.decision-log.md`, one commit for the build on
+`cycle15-v0.18.0`. Not the release build — no version bump. Then the move is **`brief build 6`**
+(file-edit order 2 → 3 → 4 → 6 → 7; build-5 is independent of the workflow and may be briefed in
+either order with 6, reading `report.md` at this build's commit).
+
+**Owed at handoff (`factory/inbox/`):** two `candidate`s — *the `pageHashes` digest form is
+under-specified (the live sidecar's page term is 16 hex; `full-scale.md` step 1 names no truncation)*
+and *frontmatter facts from disk would let the reduce read back the category / attestation / date
+returns* (brief §Out of scope); plus build-3's four-arg candidate, unchanged.
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
+statement (build-2 §Release) now also names build-4's scan-surface move (brief §Release).
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
