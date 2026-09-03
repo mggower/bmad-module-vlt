@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Build-4 BUILT 2026-09-02 (`171feb8`). Build-5 BRIEFED 2026-09-02 (`briefs/build-5-persisted-report.md`, 7 checks in the ledger, 5 line-drift corrections + 5 grounding additions; the gate is a reader that walks the `para_*` population itself, the shape source is `report.md`\'s own fence under a line grammar, `false_positives_refused:` + `para_scan:` enter the shape, the failure artifact is the existing failed-run record with the block embedded; `report.md` merge order now 3 → 4 → 5 → 7). Next: a fresh builder session implements the build-5 brief (file-edit order 2 → 3 → 4 → 6 → 7; build-5 independent of the workflow, may land before or after 6).'
+status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner\'s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Build-4 BUILT 2026-09-02 (`171feb8`). Build-5 BRIEFED 2026-09-02 (`briefs/build-5-persisted-report.md`, 7 checks in the ledger, 5 line-drift corrections + 5 grounding additions; the gate is a reader that walks the `para_*` population itself, the shape source is `report.md`\'s own fence under a line grammar, `false_positives_refused:` + `para_scan:` enter the shape, the failure artifact is the existing failed-run record with the block embedded; `report.md` merge order now 3 → 4 → 5 → 7). Build-6 BRIEFED 2026-09-02 (`briefs/build-6-type-prohibition-retired.md`, 5 checks in the ledger incl. Cycle 14 build-3 (6) clauses (a)+(c) as check (4) quoting the bound verbatim, `specimens: 2/155`; the FIRST retirement brief under R2 — 6 restatement sites found vs the roundtable 4 (the derived rule card added), 17 population sites that do not move; `extraction` 9 → 10 with four re-acks; the recognized set stated once at `extraction.md:84` with `frontmatter.md:71` as its fourth leg by pointer; grounding correction: build-6 is a v0.18.0 cold mover via `frontmatter.md` bytes, not via the `extraction` bump; E2 read, nothing quoted). Next: a fresh builder session implements the build-6 brief (file-edit order 2 → 3 → 4 → 6 → 7; build-5 is being built concurrently and is independent — `checks.md:19` co-edit is disjoint by span, the second to land re-grounds).'
 module_code: 'vlt'
 created: '2026-09-01'
 updated: '2026-09-02'
@@ -1638,6 +1638,96 @@ is also stated at its own entry.
   sweep after the v0.18.0 upgrade; performer the owner on `{field-vault}`; grade: `check` returns `ok`
   on both and the two reports' top-level key sets are equal. Unbounded; watch register if unfired.
 
+- [ ] **build-6 (type-prohibition-retired, briefed 2026-09-02):** brief
+  `factory/cycles/15-nothing-reads-it-back/briefs/build-6-type-prohibition-retired.md`. **Five checks —
+  four `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 2/155` (observed: the filing's
+  two homogeneous sets — 146 `type: wiki` pages under the wiki, 9 `type: research` files on the briefs
+  shelf (5 → 8 → 9), both re-verified at brief time at 146 / 9; preserved: one representative of each
+  shape frozen in `fixtures/build-6-para/`, the nine consumed live at rest by check (4) as counts on the
+  readable vault; the low ratio is homogeneity, not attrition). R1 n/a (every rule ships with its
+  mechanism; the set's missing machine-readable home predates this build and is build-5's owed
+  candidate); **Retirement SUBSTANTIVE (A20, D5, A5, A6; the cycle's FIRST retirement brief, under R2's
+  interim posture — a grep-derived site table, 6 restatement sites found against the roundtable's 4:
+  `extraction.md:84` (closure + *"does not answer here"* + *"mis-typed or mis-placed"* + *"never to declare
+  module vocabulary"*), `checks.md:19` case (b) + its reader-only enumeration → pointer, `frontmatter.md:71`
+  *closed* → the list is the fourth leg (no bump), contract `:66` *closed* → *recognized*, **the derived
+  `vault-rule-card.md:26` (not on the roundtable's list — C6 checks the hash, not the word)**, and the
+  v0.17.0 CHANGELOG item as history not edited; **17 population/zone sites that do NOT move** — contract
+  `:41`/`:64`/`:68`/`:70`, `extraction.md:80`/`:86`/`:153`/`:190`/`:192`, `checks.md:17`/`:19`-population/`:20`,
+  `full-scale.md:7`, `vlt-lint/SKILL.md:35`/`:51`, `frontmatter.md:175`, `vlt-query/SKILL.md:48`,
+  `write-verification.md:55` (build-7's convention, noted); the recognized set stated ONCE at
+  `extraction.md:84` with the fourth leg by pointer, never a copy of `frontmatter.md:71`; why the Layer-2
+  exclusion is a ZONE rule not a type exception recorded (brief §2). R4 n/a (fixtures un-enumerated —
+  declared exclusion). **Handshake:** `extraction` **9 → 10**, re-acks `vlt-extract` / `vlt-lint` /
+  `vlt-track` / `vlt-query` at each `SKILL.md:4`, same commit; no asset node acks `extraction` (E5/E7
+  unengaged); `frontmatter@14` unmoved. **Cross-build:** `checks.md:19` co-edited with build-5 (disjoint
+  spans — build-5 the population clause, build-6 the `para_type_unknown` clause; the second to land
+  re-grounds); build-7 later edits `checks.md:20` and adds `write-verification@6` on the same
+  `vlt-lint/SKILL.md:4` / `vlt-extract/SKILL.md:4` lines; **grounding correction: this build is a v0.18.0
+  cold mover in its own right** (`frontmatter.md:71`'s bytes move `convention_digests[frontmatter]` —
+  `frontmatter` is a `SCANNER_CONVENTIONS` member; the `extraction` bump moves nothing, `pin_vector` is
+  gone); the v0.18.0 `governance_rule_changes` block text is a **release-time obligation** recorded in the
+  brief (§Release-time obligation), nothing written to the CHANGELOG now; E2 READ before authoring
+  (contents never quoted; what it grounded recorded in brief §10). **(1) `[ship-verifiable]` — at the
+  release gate and at rest — GATES:** the handshake is bipartite-consistent — instrument: `package-lint`
+  Group E (E1 over `extraction@10` × 4, E3 no stray pin, E5/E7 unengaged), C6 with the rule card
+  re-stamped and under budget, A/B/C/E PASS mid-cycle and the `--expect-version 0.18.0` PASS line at
+  release; adversary: an in-prose `extraction v9`/`@9` citation in a skill body (E7 covers workflow
+  assets only) — widened: a grep over `skills/` for the three forms → 0 outside `CHANGELOG.md` history.
+  **(2) `[ship-verifiable]` — at rest — GATES:** the retirement landed whole and touched nothing it must
+  not — instrument: the eleven-phrase grep manifest → 0 across `skills/` (**the rule card included**) and
+  a byte-identity diff over the fifteen population sites against `ed0d96b` (build-5's pointer edit to
+  `:19`'s population clause the one permitted diff); property: no shipped text names `{wiki}` as an
+  exception to the type judgment, none tells a vault to retype or relocate an accurately typed file,
+  the population definition is unchanged everywhere; adversary: the prohibition survives paraphrased, or
+  the card is restamped with *closed* still in it (C6 passes on the hash) — widened: semantic variants in
+  the manifest, the card covered, a recorded reader pass over each edited paragraph. **(3)
+  `[ship-verifiable]` — at rest — GATES:** the type judgment is vocabulary membership, not folder, and the
+  population count does not move — instrument: the agent-run reader protocol
+  (`fixtures/build-6-reader-protocol.md`, named as the instrument) over `fixtures/build-6-para/` against
+  the hand-written oracle `build-6-expected-findings.json`: `research`, `wiki`-in-`projects/`, `note`,
+  `charter`, `area` and the overlay-declared `dispatch-brief` raise no `para_type_unknown`; `banana`,
+  `resourse` and the undeclared `dispatch-brief` fire with responses (c)/(b)/(a); `population: 9` under
+  both overlay states (the `{wiki}` page excluded by name); the protocol against `ed0d96b`'s text yields
+  a different table (failability); property (the instrument beat's, reconciled — same): *a PARA-addressed
+  file carrying any module-canonical or vault-declared `type:` raises no `para_type_unknown` whatever
+  folder it sits in; a value declared nowhere still does; the `para_*` population count is unchanged
+  before and after*; adversary: a reader applying the rule from memory passes the oracle by coincidence
+  — widened: the failability leg requires the pre-build table from the pre-build text, and the oracle
+  carries a fourth-leg value (`note`) no pre-build reading admits. **(4) `[ship-verifiable]` — at rest —
+  GATES CLOSEOUT (Q9, A18, owner ruling D-D): Cycle 14 build-3 (6), clauses (a) and (c), the at-rest
+  half, quoting Cycle 14's bound verbatim** — *"**The bound, stated so Cycle 15's closeout can grade it
+  without re-deriving it:** Cycle 15 rules the two retirements at ideation (see item 13), and the
+  re-check is graded on the **first `parked_interims_review` of the first `vlt-upgrade` after that
+  release**, against `{field-vault}`'s `_agent/mint/decision-log.md` read at rest. **Clause (b) is already
+  satisfied in substance and is not re-litigated** — park #16 was re-derived and superseded in the log;
+  what it lacks is a *legal* exit, which is the retirement's to supply. **Clauses (a) and (c) are the
+  bound.** ⚠ **A re-park is not an unwind, and a re-park at Cycle 15's bound does not discharge this** —
+  that distinction is what produced this FAIL and it transfers with the debt."* — the at-rest half
+  being: (a) park #15's recorded blocker claim (*two conventions answer differently and the bundle picks
+  no winner; `type: research` is outside `extraction.md`'s closed set*), read from the field vault's
+  decision log at rest, is **demonstrably false against shipped v10 `extraction.md` + `frontmatter.md:71`**
+  (both name `research` recognized for the PARA population); (c) the legal response owed on the nine
+  `type: research` files is the **empty one** — read at rest against the shipped rule they raise **0**
+  `para_type_unknown`, their count and the population P recorded (counts only, never paths); instrument:
+  the discharger's read of the log entry and the nine files on the readable `{field-vault}` from the
+  factory machine against the build's commit; property: the parks' blocker no longer exists in shipped
+  text and its unwind requires writing nothing false; adversary: 0 because the population was
+  mis-derived — widened: the nine are counted present in P before the judgment and P is compared with
+  the vault's latest `para_scan:` where one exists; second adversary: (a) graded on the roadmap's
+  paraphrase of the park — widened: the entry is read from the log itself, heading recorded. **(5)
+  `[field-contingent]` — the vault-act half (D-D) and the filing's own field half:** event: the **first
+  `vlt-upgrade` to v0.18.0 on `{field-vault}`** — `governance_rule_changes:` renders the v0.18.0 block and
+  `parked_interims_review:` renders park #15; then the owner writes the **superseding decision-log entry
+  citing v0.18.0** through the rostered route (not a third park, not a retype, not an overlay
+  declaration); then a **scoped** `vlt-lint` over the briefs shelf (the filing's named instrument)
+  reports **zero** `para_type_unknown` with the nine untouched **and a control still reporting** (one
+  scratch undeclared-value file planted for the run and removed, recorded); performer the owner; vault
+  `{field-vault}` (readable); grades: the entry exists and cites v0.18.0, the park is no longer live, the
+  slot is `[]` with the control's finding present. **Discharges `2026-09-01-160000` (A15-12)** — Stage 5
+  may move it once (1)–(5) are green; tracker **#17** closes on the rail sync. Unbounded; watch register
+  if unfired — *"a re-park is not an unwind"* transfers: a third park does not discharge it.
+
 ## Ideation rulings — A15-1..A15-15 (owner-steered, 2026-09-01)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
@@ -1843,7 +1933,8 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
     re-ack alone moves nothing a scanner reads) — so ~~"build-6 moves `pin_vector` as shipped"~~ (A2,
     Ordering note) is no longer a v0.18.0 cold mover, and ~~"builds 6/7 move `checks.md`"~~ neither
     (`checks_digest` out); **v0.18.0 stays COLD BY CONSTRUCTION on build-7 alone** (write-verification
-    bytes + the `:229` `@5` literal). A15-10's `pin_vector`-rendering half **dissolves** for build-3.
+    bytes + the `:229` `@5` literal) *(build-6 brief 2026-09-02: ~~alone~~ — build-6's `frontmatter.md:71`
+    re-noun (A6) moves `convention_digests[frontmatter]` too; two movers, same outcome)*. A15-10's `pin_vector`-rendering half **dissolves** for build-3.
     (iv) D2 (ii) ~~"build-2's new slot (`scanModel`) inherits it"~~ → `scanModel` enters the key as
     the **workflow-resolved** value (`:122`, default included), not as a `RULESET_SLOTS` member —
     keying on a SKILL-supplied slot would restate the workflow's default in a second home or leave the
@@ -2139,8 +2230,10 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
   - **Roundtable amendments (2026-09-02):**
     - *(A1 — R1's first instance, 12 of 13 lanes)* **`handshake:` `extraction` 9 → 10; re-ack
       `vlt-extract`, `vlt-lint`, `vlt-track`, `vlt-query` in the same commit** (`extraction.md:11-12`;
-      acks at each `SKILL.md:4`). Instrument: `package-lint` Group E, bipartite. The pin move is what
-      invalidates the cache — correctly under D4 (see build-2 A2). Authors the v0.18.0
+      acks at each `SKILL.md:4`). Instrument: `package-lint` Group E, bipartite. ~~The pin move is what
+      invalidates the cache — correctly under D4 (see build-2 A2).~~ *(struck 2026-09-02, build-6 brief:
+      `pin_vector` left the key at build-2; the cache mover in this build is `frontmatter.md:71`'s byte
+      edit — see the grounding note below.)* Authors the v0.18.0
       `governance_rule_changes` CHANGELOG block (`vlt-upgrade/SKILL.md:122` renders from the CHANGELOG,
       never a diff; it is the line beside `parked_interims_review`). **Seven ideation rounds did not
       find this; twelve roundtable lanes did in an hour — R1 exists because nothing in the skeleton
@@ -2176,6 +2269,26 @@ build-1's first pick and build-7's draft were both caught over-claiming (see the
       `[field-contingent]`, triggered by the post-upgrade `parked_interims_review:` line. Clauses (a)+(c)
       ride here; **build-7 carries no gating clause** (Q9 resolved).
   - `binds:` **+= handshake (R1)**; Cycle 14 carry 6 released here by reason (see dispositions).
+  - **Grounding at brief time (2026-09-02, `build-brief`, headless) — BRIEFED as
+    `briefs/build-6-type-prohibition-retired.md`, 5 checks in the ledger (`specimens: 2/155`).** Every
+    cite above re-derived against `ed0d96b`: `extraction.md:84` (`version: 9`, `:11`; `consumers:` the
+    four at `:12`), `checks.md:19` case (b), `frontmatter.md:71`, contract `:66`, the four `SKILL.md:4`
+    acks — all HOLD. Corrections: (i) ~~"The pin move is what invalidates the cache — correctly under D4"~~
+    (A1 above) — `pin_vector` was dropped at build-2 (its correction (iii)); the `extraction` bump moves
+    **nothing** in the key. **But this build is a v0.18.0 cold mover anyway:** A6's `frontmatter.md:71`
+    re-noun changes that file's bytes and `frontmatter` is a `SCANNER_CONVENTIONS` member
+    (`vlt-lint-full.js:290`), so `convention_digests[frontmatter]` moves — two cold movers (builds 6 and
+    7), one release, A2's outcome unchanged; the build-2 note *"on build-7 alone"* is corrected in place.
+    (ii) **A5's site list is a floor, not the ceiling:** the derived `vault-rule-card.md:26` also says
+    *closed* — a sixth restatement; C6 re-derives the card on the contract edit but checks its hash,
+    not its words, so the brief's grep manifest covers the card. (iii) A6's `decision-log.md:1204` cite
+    drifted (the park entry heads at `:1197` today) — immaterial, cited by heading. (iv) Field evidence
+    holds at 146 / 9 (the nine now across 4 subscription directories, was 3 — same count; counts only).
+    (v) No workflow asset pins or cites `extraction` — E5/E7 do not engage. (vi) `checks.md:19` is
+    co-edited by build-5's F5 (population clause) — disjoint spans, stated in the brief §Boundaries.
+    The recognized set has **no machine-readable home** in this build (build-5's owed candidate stands);
+    the at-rest type instrument is a named agent-run reader protocol over a fixture, proven failable
+    against the pre-build text. E2 READ in full before authoring; nothing quoted.
 
 - **build-7 — A15-13, retire the `verified_by` roster closure.** `write-verification.md:47`'s
   closure only. **Separate from build-6 on the filing's own argument** — *"folding two retirements
@@ -3194,6 +3307,70 @@ one-table extension of `lint-para-facts.py` once build-6's recognized set has a 
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
 statement (build-2 §Release) also names build-4's scan-surface move; build-5 moves no scan surface.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-02 (`build-brief`, build 6); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-02, `build-brief`): a fresh builder session implements the build-6
+brief — `factory/cycles/15-nothing-reads-it-back/briefs/build-6-type-prohibition-retired.md`, via
+`bmad-workflow-builder`.**
+
+**Build-6 is BRIEFED** (headless run; readiness gate passed on D5 as amended (A5/A6) / Q9 as resolved
+(A18, D-D) / E2 attached and READ before authoring / the A1/R1 `handshake:` line / `spike: none` /
+roundtable 0 OPEN / the owner-ratified, A6-re-ratified promise; builds 1–4 BUILT at `61ec6c0` /
+`450c886` / `7222cd2` / `171feb8`, build-5 BRIEFED at `ed0d96b` and being built concurrently). **The
+cycle's first retirement brief**, authored under the roundtable's R2 interim posture: a grep-derived
+site table — **6 restatement sites** (`extraction.md:84`'s closure + two sentences + one clause;
+`checks.md:19` case (b) + its enumeration → pointer; `frontmatter.md:71` re-nouned with no bump; contract
+`:66` one word; **the derived rule card `:26`, which the roundtable's A5 did not name**; the v0.17.0
+CHANGELOG item as history), **17 population/zone sites that do NOT move**, 2 that survive unchanged;
+why the Layer-2 exclusion is a zone rule and not a type exception recorded (brief §2). Six F-sites
+(`extraction.md` `version: 10` + the rewritten `:84` with the fourth leg by pointer; `checks.md:19`'s
+`para_type_unknown` clause with the R3 legal response — (a) declare / (b) correct / (c) relocate, the
+retired case (b) gone; `frontmatter.md:71`; contract `:66` + the re-derived rule card (C6); the four
+`SKILL.md:4` re-acks; the `fixtures/build-6-para/` tree + hand-written oracle + named reader protocol).
+Eleven brief-time dispositions, none owner-ruled — the load-bearing ones: **the set is stated ONCE with
+`frontmatter.md:71` as a pointer leg, never copied**; **no machine-readable home ships** (build-5's owed
+candidate stands; the at-rest instrument is an agent-run reader protocol proven failable against
+`ed0d96b`); **the v0.18.0 `governance_rule_changes` block is a release-time obligation** whose text the
+brief records (§Release-time obligation) — nothing written to the CHANGELOG now. **Grounding correction
+of note:** the `extraction` bump moves nothing in the cache key (`pin_vector` is gone) — but
+`frontmatter.md:71`'s byte edit moves `convention_digests[frontmatter]`, so **build-6 is a v0.18.0 cold
+mover in its own right**; the build-2 *"on build-7 alone"* note is corrected in place. Five acceptance
+checks are in the ledger (`specimens: 2/155`); **check (4) is Cycle 14 build-3 (6) clauses (a)+(c), the
+at-rest half, quoting the bound verbatim — it GATES closeout**; check (5) is the vault-act half on the
+first v0.18.0 upgrade's `parked_interims_review:` line and **discharges `160000` (A15-12)**, closing
+**#17** on the rail sync. **The build-6 / build-7 boundary is stated in the brief** (§Boundaries):
+build-6 owns `checks.md:19`'s `para_type_unknown` clause and rewrites `vlt-lint/SKILL.md:4` to
+`extraction@10`; build-7 owns `checks.md:20` and later adds `write-verification@6` on the same
+`vlt-lint/SKILL.md:4` and `vlt-extract/SKILL.md:4` lines, re-grounding after this commit. **The build-5 /
+build-6 boundary on `checks.md:19`**: disjoint spans (build-5 the population clause, build-6 the
+`para_type_unknown` clause) — whichever lands second re-grounds the line at the other's commit.
+
+**The builder's exit obligations:** implement F1 first (`extraction.md` — the home; `version: 10`), then
+F3, F4 (contract, then re-derive and re-stamp the card), F2 (re-ground `checks.md:19` against whatever
+build-5 has landed), F5 (the four acks), F6 (the oracle hand-written **before** the reader protocol runs;
+the failability leg against `ed0d96b` recorded); run Verification 1–10 (item 3 is Group E, never a grep;
+item 6 over the field vault at rest: **counts only, no paths**; item 7 records both
+`convention_digests[frontmatter]` values), rewrite the brief's `status:` to a **BUILT record with
+numbered deviations**, delete any `.decision-log.md`, one commit for the build on `cycle15-v0.18.0`. Not
+the release build — no version bump. Then the move is **`brief build 7`** (file-edit order
+2 → 3 → 4 → 6 → 7; build-7 re-grounds `checks.md`, `vlt-lint/SKILL.md:4`, `vlt-extract/SKILL.md:4` and
+`report.md` after builds 5 and 6 have both landed).
+
+**Owed at handoff (`factory/inbox/`):** unchanged from build-5's block — build-5's `para_type_unknown`
+count-leg candidate (now explicitly *not* shipped by build-6, brief §6), build-4's two candidates,
+build-3's four-arg candidate. Noted for build-7's briefer, not a filing: `write-verification.md:55`'s
+five-value type enumeration is the sibling completeness-claiming list (brief §9, P16).
+
+**Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
+build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it; the v0.18.0 CHANGELOG cold-run
+statement (build-2 §Release) now names **three** movers — build-4's scan surface, build-6's
+`frontmatter.md` bytes, build-7's `write-verification` bytes; **and the v0.18.0
+`governance_rule_changes` block must carry build-6's text** (brief §Release-time obligation) beside
+build-7's.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
