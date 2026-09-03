@@ -3,8 +3,8 @@ export const meta = {
   description: 'Fan-out health-check of the whole wiki — one agent per page, findings reduced into the structured lint report',
   whenToUse: 'Invoked by vlt-lint for a --full sweep once the wiki is large enough that single-context linting is expensive. Read-only: it FINDS and returns structured findings; the vlt-lint SKILL applies the safe fixes serially (single-writer).',
   phases: [
-    { title: 'Scan pages', detail: 'one agent per wiki page returns its self-contained findings + graph data', model: 'haiku' },
-    { title: 'Reduce + cross-page', detail: 'JS reduces the graph (orphans/missing/near-dup); index + contradiction-cluster passes', model: 'sonnet' },
+    { title: 'Scan pages', detail: 'one agent per wiki page returns its self-contained findings', model: 'haiku' },
+    { title: 'Reduce + cross-page', detail: 'JS reduces the graph (orphans/missing/near-dup) from the SKILL-derived link sets; index + contradiction-cluster passes', model: 'sonnet' },
   ],
 }
 
@@ -25,11 +25,16 @@ export const meta = {
 //
 // The script has NO filesystem access, so the vlt-lint SKILL discovers the page
 // list (cheap: a glob over {wiki}) and passes it in, with LIVE absolute paths
-// (the cache fix — agents read the live project tree, never a plugin copy).
+// (the cache fix — agents read the live project tree, never a plugin copy) —
+// and, since Cycle 15 build-4, each page's raw [[ ]] set and parsed summary
+// length (pageLinks / summaryLengths, derived by vlt-lint/scripts/lint-page-facts.py),
+// so the link graph and the length verdicts run on bytes this script cannot read
+// and never on a scanner's return.
 //
 // args:
 //   {
-//     pages:           [{ slug, path }]   // every wiki page to scan (LIVE abs paths). required.
+//     pages:           [{ slug, path }]   // every wiki page to scan (LIVE abs paths). required — together
+//                                          //   with pageLinks + summaryLengths below (the args guard names all five).
 //     indexPath:       string             // LIVE abs path to {index}. required.
 //     conventionsPath: string             // LIVE abs path to {conventions} dir. required.
 //     overlaysPath:    string  (optional) // LIVE abs path to {overlays} (vault-local convention overlays).
@@ -49,6 +54,19 @@ export const meta = {
 //     pageHashes:      {slug: sha256} (optional) // content digest per page, computed by the SKILL with an
 //                                          //   unwrapped instrument it names in the record. Absent → no page
 //                                          //   is cacheable this run (a cold sweep, stated, never silent).
+//     pageLinks:       {slug: [string]}   // every [[…]] inner text on the page, RAW, derived from the page's
+//                                          //   bytes by vlt-lint/scripts/lint-page-facts.py (the SKILL has
+//                                          //   filesystem access, this script has none — the crossLayerSlugs
+//                                          //   division); the reduce normalizes (normalizeTarget) and builds the
+//                                          //   link graph from THIS, never from a scanner return (A15-1 / A15-3 /
+//                                          //   A15-4, D-C). REQUIRED. A present non-object, or a non-array entry
+//                                          //   for a listed page, is refused before dispatch; a page with no entry
+//                                          //   is a denominated cap. NOT a cache-key term — recomputed from bytes
+//                                          //   every run; no cached fact depends on it (D4).
+//     summaryLengths:  {slug: int}        // the parsed summary: scalar's length in characters, from the same
+//                                          //   script (A15-5, D-A); the reduce measures from THIS, never from the
+//                                          //   returned summary. REQUIRED; same refusal/cap posture. NOT a
+//                                          //   cache-key term — recomputed from bytes every run (D4).
 //     cachedScans:     [{slug, key, scan}] (optional) // prior PAGE_SCAN records the SKILL read from the
 //                                          //   sidecar (_agent/lint-cache.json, read through
 //                                          //   vlt-lint/scripts/lint-cache.py) — they are the PREVIOUS run's
@@ -122,6 +140,9 @@ const crossLayerSlugs = (Array.isArray(a.crossLayerSlugs) ? a.crossLayerSlugs : 
 // four optional args (overlayNames, crossLayerSlugs, pageHashes, cachedScans) are NOT refused:
 // D2's population is the three denominated slots and no further — a wrong type there still
 // coerces to its empty value (a stated cold / base-only sweep), on record as a candidate filing.
+// The two byte-fact slots (pageLinks, summaryLengths — Cycle 15 build-4) take the same refusal on
+// that build's own ruling, not D2's: a slot introduced after the cycle established the posture
+// takes it rather than adding a fifth to the candidate above.
 const typeName = (v) => (Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v)
 const isPlainObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
 const wrongTypeSlots = []
@@ -132,6 +153,22 @@ const today = typeof a.today === 'string' ? a.today : ''
 // Findings-cache args (A11-11 direction 2). All three optional; any one absent → a cold sweep.
 // Read from the PARSED `a` above, never from the raw `args` string.
 const pageHashes = isPlainObject(a.pageHashes) ? a.pageHashes : {}
+// Byte-fact args (Cycle 15 build-4, D-C / D-A): REQUIRED — absent is the args-guard error below;
+// present-and-wrong-type (the map itself, or an entry for a listed page) is refused pre-dispatch,
+// BY NAME (`pageLinks[<slug>]`, the convention_digests[<name>] grammar). Absent entries are not
+// refused: a page with no entry is computed anyway and named on a denominated cap in the reduce.
+if (a.pageLinks !== undefined && !isPlainObject(a.pageLinks)) wrongTypeSlots.push({ slot: 'pageLinks', got: typeName(a.pageLinks), expected: 'plain object' })
+if (a.summaryLengths !== undefined && !isPlainObject(a.summaryLengths)) wrongTypeSlots.push({ slot: 'summaryLengths', got: typeName(a.summaryLengths), expected: 'plain object' })
+const pageLinks = isPlainObject(a.pageLinks) ? a.pageLinks : {}
+const summaryLengths = isPlainObject(a.summaryLengths) ? a.summaryLengths : {}
+for (const p of pages) {
+  const slug = p && p.slug
+  if (slug === undefined) continue
+  const l = pageLinks[slug]
+  if (l !== undefined && !Array.isArray(l)) wrongTypeSlots.push({ slot: `pageLinks[${slug}]`, got: typeName(l), expected: 'array' })
+  const n = summaryLengths[slug]
+  if (n !== undefined && !(Number.isInteger(n) && n >= 0)) wrongTypeSlots.push({ slot: `summaryLengths[${slug}]`, got: typeName(n), expected: 'integer' })
+}
 const cachedScans = Array.isArray(a.cachedScans) ? a.cachedScans : []
 const rulesetComponents = isPlainObject(a.rulesetComponents) ? a.rulesetComponents : {}
 const budgetFloor = a.budgetFloor || 40_000
@@ -147,8 +184,8 @@ const scanModel = a.scanModel === undefined ? 'haiku' : a.scanModel
 const indexModel = a.indexModel || 'sonnet'
 const clusterModel = a.clusterModel || 'sonnet'
 
-if (!pages.length || !indexPath || !conventionsPath) {
-  return { error: 'vlt-lint-full requires { pages:[{slug,path}], indexPath, conventionsPath }. The vlt-lint SKILL discovers pages and passes live paths.' }
+if (!pages.length || !indexPath || !conventionsPath || a.pageLinks === undefined || a.summaryLengths === undefined) {
+  return { error: 'vlt-lint-full requires { pages:[{slug,path}], indexPath, conventionsPath, pageLinks:{slug:[string]}, summaryLengths:{slug:int} }. The vlt-lint SKILL discovers pages and passes live paths, and derives pageLinks/summaryLengths by scripts/lint-page-facts.py (references/full-scale.md step 1) — without them a fan-out cannot compute orphans, missing_targets, near_duplicates or the summary clauses of frontmatter_drift, and an empty slot would read as health.' }
 }
 if (typeof scanModel !== 'string' || scanModel.length === 0) {
   return { error: `vlt-lint-full requires scanModel to be a non-empty string when passed (got ${Array.isArray(a.scanModel) ? 'array' : typeof a.scanModel}) — it is the extractor identity in every per-page cache key; omit it for the default 'haiku'.` }
@@ -185,7 +222,7 @@ const costAccounting = () => ({
 const PAGE_SCAN = {
   type: 'object',
   additionalProperties: false,
-  required: ['slug', 'available', 'title', 'outbound_links', 'frontmatter_defect', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
+  required: ['slug', 'available', 'title', 'frontmatter_defect', 'category', 'topic_is_list', 'summary', 'last_updated', 'verified_by', 'verified_at', 'review_after', 'name_callout_targets', 'sources_vs_prose'],
   properties: {
     slug: { type: 'string' },
     available: { type: 'boolean', description: 'false if the page file could not be read' },
@@ -195,7 +232,6 @@ const PAGE_SCAN = {
     verified_by: { type: 'string', description: "the frontmatter verified_by value verbatim (empty if absent)" },
     verified_at: { type: 'string', description: "the frontmatter verified_at value verbatim (empty if absent)" },
     review_after: { type: 'string', description: "the frontmatter review_after date verbatim (empty if absent)" },
-    outbound_links: { type: 'array', items: { type: 'string' }, description: 'raw [[wikilink]] inner text of every outbound link, verbatim; do not normalize. A link is [[ ]]-delimited text and nothing else — bare text, a filename or a path outside [[ ]] is not a link, and a [[wikilink]] in an inline backtick span or fenced code block is documentation, never a link (per frontmatter@14 rule 5).' },
     frontmatter_defect: { type: 'string', enum: ['none', 'missing_required', 'malformed_block', 'unclassified'], description: 'none | missing_required (keys in _fields) | malformed_block (absent/unparseable) | unclassified (_detail)' },
     category: { type: 'string', description: "the frontmatter category: value verbatim (empty if missing)" },
     topic_is_list: { type: 'boolean', description: 'true if topic: is a YAML list; false if a delimited string or missing' },
@@ -259,8 +295,8 @@ const convRead = (name) =>
 
 const pageScanPrompt = (p) =>
   `You are a wiki-lint page scanner. Read the wiki page at the LIVE path ${p.path} (slug "${p.slug}"). Read the conventions you judge against: ${SCANNER_CONVENTIONS.map((n) => convRead(n)).join('; ')} (read once, apply per page; judge the frontmatter defect verdict and the sources-vs-prose comparison against the MERGED rules wherever an overlay is named). When comparing frontmatter sources: entries against the prose Sources section (Gap B), normalize both sides first per frontmatter@14 rule 4 — strip surrounding quotes and [[ ]], strip a trailing .md, compare on the vault-relative path — so a wikilink-form entry and its bare-path twin compare equal. A mixed state — wikilink-form and legacy bare-path sources: entries on one page or across pages — is conformant and never a finding: existing bare-path entries stay legal and there is no backfill sweep (per frontmatter@14 rule 4, coexistence posture). For the sources-vs-prose comparison (Gap B), report sources_vs_prose: 'no_prose_section' when the page carries no prose ## Sources section — such a page is conformant (per write-verification@5, the wiki-page tier-1 item: frontmatter is the source of truth); where both exist and an entry in one is not traceable in the other, report the DIRECTION: 'diverge_prose_gap' when every divergent entry is one frontmatter carries and the prose section lacks; 'diverge_frontmatter_gap' when every divergent entry is one the prose section cites and frontmatter lacks; 'diverge_unclassified' when both kinds are present OR you cannot tell which side is missing the entry — that is the safe answer and it is flagged for a human, never auto-fixed, so never guess a direction; otherwise 'match'. A callout is only the Obsidian > [!type] blockquote form (per wiki-supersession@2): a supersession/staleness note written as a bullet, heading, or plain prose is NOT a marker — the claim it covers is still an unmarked supersession — and a bullet or heading questioning a name is NOT a name-verification callout (it yields no name_callout_targets entry). ` +
-  `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize, and keep any |alias, #anchor, or path prefix intact. Do not assess other pages — cross-page checks happen later. ` +
-  `The frontmatter verdict is STRUCTURED, and it is three fields, not prose. frontmatter_defect is exactly one of: 'none' — the frontmatter block is present, parses, and satisfies the wiki-page schema; 'missing_required' — the block parses but one or more schema keys are absent, and you list EXACTLY those keys in frontmatter_defect_fields; 'malformed_block' — the frontmatter block is absent entirely, or its delimiters/YAML cannot be parsed at all; 'unclassified' — a genuine break that fits none of the above, with the words in frontmatter_defect_detail. Never force a break into a member that fits badly — 'unclassified' exists precisely so an unforeseen break is reported honestly rather than mis-filed, and it is never discarded downstream. frontmatter_defect_fields carries BARE frontmatter key names only, one per entry — \`summary\`, not "missing summary field", never a sentence, never a phrase, never a rule citation. A rule citation, a justification, or any explanatory wording belongs in frontmatter_defect_detail and NEVER in frontmatter_defect_fields. When frontmatter_defect is 'none', frontmatter_defect_fields is empty and frontmatter_defect_detail is empty.`
+  `Return ONLY findings about THIS page, and return EVERY field the schema requires — populated, or an empty string / empty array where the page genuinely carries nothing. The schema's field descriptions are the field contract; follow them exactly. Extract verbatim: do not normalize — a name-verification callout's [[wikilink]] target keeps any |alias, #anchor, or path prefix intact. Do NOT report the page's outbound links: the link set is derived from the page's own bytes downstream and is never asked of you. Do not assess other pages — cross-page checks happen later. ` +
+  `The frontmatter verdict is STRUCTURED, and it is three fields, not prose. frontmatter_defect is exactly one of: 'none' — the frontmatter block is present, parses, and satisfies the wiki-page schema; 'missing_required' — the block parses but one or more schema keys are absent, and you list EXACTLY those keys in frontmatter_defect_fields; 'malformed_block' — the frontmatter block is absent entirely, or its delimiters/YAML cannot be parsed at all; 'unclassified' — a genuine break that fits none of the above, with the words in frontmatter_defect_detail. Never force a break into a member that fits badly — 'unclassified' exists precisely so an unforeseen break is reported honestly rather than mis-filed, and it is never discarded downstream. frontmatter_defect_fields carries BARE frontmatter key names only, one per entry — \`summary\`, not "missing summary field", never a sentence, never a phrase, never a rule citation. A rule citation, a justification, or any explanatory wording belongs in frontmatter_defect_detail and NEVER in frontmatter_defect_fields. When frontmatter_defect is 'none', frontmatter_defect_fields is empty and frontmatter_defect_detail is empty. The summary's LENGTH is never a frontmatter defect of any kind — it is measured downstream from the page's own bytes (per frontmatter@14, the 160-character limit); never report a length complaint in frontmatter_defect, frontmatter_defect_fields, or frontmatter_defect_detail.`
 
 // The scan-surface fingerprint (A10). Any edit to the prompt's invariant half or to
 // PAGE_SCAN changes it, so a sidecar written under the old surface cannot be reused —
@@ -457,7 +493,7 @@ if (wrongTyped.length) {
     cache_miss_terms: cacheMissTerms,
     cache_records_read: cacheRecordsRead,
     cache_rejected: cacheRejected,
-    next: `re-render ${[...new Set(wrongTyped.map((w) => (w.slot.startsWith('stubSlugs') ? 'stubSlugs' : 'rulesetComponents')))].join(' / ')} per references/full-scale.md step 2 / references/checks.md Missing targets and re-run — no agent was dispatched, nothing was spent`,
+    next: `re-render ${[...new Set(wrongTyped.map((w) => (w.slot.startsWith('stubSlugs') ? 'stubSlugs' : w.slot.startsWith('pageLinks') ? 'pageLinks' : w.slot.startsWith('summaryLengths') ? 'summaryLengths' : 'rulesetComponents')))].join(' / ')} per references/full-scale.md step 2 / references/checks.md Missing targets / pageLinks and summaryLengths per references/full-scale.md step 1 (re-run scripts/lint-page-facts.py) and re-run — no agent was dispatched, nothing was spent`,
   }
 }
 // Reason-partitioned shortfall accounting (A10-16 Defect 2): a fan-out agent the harness
@@ -542,19 +578,68 @@ if (toScan.length > 0 && (freshScans.length === 0 || freshScans.length < Math.ce
 // together, assembled in page order so a run's findings never depend on which pages
 // happened to be cached. The reduce, the index pass and the cluster/pair passes all still
 // run over the WHOLE corpus every run — the cache buys recomputation, never coverage.
+const recordOf = (p) => freshBySlug.get(p.slug) || (reusable(p) ? cacheBySlug.get(p.slug).scan : null)
 for (const p of pages) {
-  const rec = freshBySlug.get(p.slug) || (reusable(p) ? cacheBySlug.get(p.slug).scan : null)
+  const rec = recordOf(p)
   if (rec) scans.push(rec)
 }
 
 // ── JS reduce: the link graph (free — no agents) ─────────────────────────────
 phase('Reduce + cross-page')
 
-// Normalize once at intake (B5-3): scanners returned raw wikilink text; every graph
-// comparison below runs on the normal form. Empty-after-normalization targets (e.g. a
-// bare [[#anchor]]) are dropped, not compared.
-for (const s of scans) s.outbound_links = (s.outbound_links || []).map(normalizeTarget).filter(Boolean)
+// The link sets, from BYTES (Cycle 15 build-4, D-C): the SKILL's script
+// (vlt-lint/scripts/lint-page-facts.py) extracts every [[ ]] inner text RAW; every comparison
+// below runs on the normal form computed HERE (B5-3's seam, re-nouned) — never on a scanner's
+// link return, which this workflow no longer asks for. Empty-after-normalization targets (a bare
+// [[#anchor]]) are dropped, not compared; duplicates are set here. Computed once, over `pages`
+// (filesystem truth, the A10-17 posture), never over `scans`.
+const linksOf = new Map(pages.map((p) => [p.slug, [...new Set((Array.isArray(pageLinks[p.slug]) ? pageLinks[p.slug] : []).map(normalizeTarget).filter(Boolean))]]))
+const links = (slug) => linksOf.get(slug) || []
 const nslug = (s) => normalizeTarget(s.slug)
+// A page with no entry (the script's `unreadable` list, or a hand-composed map) is computed
+// anyway and NAMED — a denominated cap, never a suppressed slot (build-3's split applied to this
+// build's own slots; suppressing the slots was DA7's shape, retired with its cause).
+const noLinkSet = pages.filter((p) => !Array.isArray(pageLinks[p.slug])).map((p) => p.slug)
+if (noLinkSet.length) {
+  const m = `pageLinks: ${noLinkSet.length} of ${pages.length} pages carry no link set — [${noLinkSet.join(', ')}]; an orphan whose only inbound link would sit on one of these is not visible, and their own missing targets were not computed`
+  coverageCaps.push(m)
+  log(m)
+}
+const noSummaryLength = pages.filter((p) => !Number.isInteger(summaryLengths[p.slug])).map((p) => p.slug)
+if (noSummaryLength.length) {
+  const m = `summaryLengths: ${noSummaryLength.length} of ${pages.length} pages carry no summary length — [${noSummaryLength.join(', ')}]; the summary clauses of frontmatter_drift were rendered for ${pages.length - noSummaryLength.length} pages`
+  coverageCaps.push(m)
+  log(m)
+}
+
+// The single-writer clause's read-back (Cycle 15 build-4, disposition 5 / A12): the ONE
+// scanner-returned value the reduce still consumes that has a byte-fact to read against is a
+// name-verification callout's target — the seed of the entity-pair pass. A callout's target must
+// be among the page's own links; a returned target that is not is a fabricated seed. The seed is
+// dropped, and the page's record is EXCLUDED from cacheRecords below — a record whose returned
+// target is invented is one the same scanner can be served from the cache next sweep,
+// permanently (A15-4's amplification), so it is re-derived instead (build-2's eviction posture,
+// applied at derivation time). Keyed by the record's slug, which every path below (the pair
+// prompt's path lookup, the cluster labels) already reads as the page's slug. Denominated on
+// every completing run as the top-level fact `scanner_return_rejected` (T = scans.length); the
+// cap renders only when N > 0 — a `0 of T` line in the caps list would read as a health claim.
+const scannerRejected = new Map() // slug -> reason
+const calloutsOf = new Map() // slug -> the callouts that passed the read-back
+for (const s of scans) {
+  const kept = []
+  for (const t of s.name_callout_targets || []) {
+    const target = t && normalizeTarget(t.target) // raw wikilink text in, normal form compared (B5-3)
+    if (!target) continue
+    if (!links(s.slug).includes(target)) { scannerRejected.set(s.slug, `callout target '${t.target}' is not among the page's links`); continue }
+    kept.push({ target, name: t.name })
+  }
+  calloutsOf.set(s.slug, kept)
+}
+if (scannerRejected.size) {
+  const m = `scanner_return_rejected: ${scannerRejected.size} of ${scans.length} records — ${[...scannerRejected].map(([slug, why]) => `${slug}: ${why}`).join('; ')}; each record was not cached and is re-derived next sweep`
+  coverageCaps.push(m)
+  log(m)
+}
 
 // The WRITE-READY records the SKILL persists (A14-8, A6). Built here, after the corpus is
 // assembled and normalized, so the stored payload is exactly the payload the reduce
@@ -572,46 +657,46 @@ const nslug = (s) => normalizeTarget(s.slug)
 //   - a record is emitted only when pageHashes[p.slug] and rulesetFingerprint are BOTH
 //     non-empty; otherwise the key is degenerate (`|scanFp|`) and storing it is storing junk
 //     that can never hit. A cold run with no components rewrites the sidecar with records: [].
-//   - the payload carries outbound_links in the NORMAL FORM (normalized in place just above).
-//     normalizeTarget is idempotent, so a stored record adjudicates identically next run.
+//   - the record carries no link list (Cycle 15 build-4): links come from bytes every run, so
+//     no cached fact depends on pageLinks / summaryLengths and neither enters the key (D4).
+//   - a record whose returned callout target failed the read-back above (scannerRejected) is
+//     SKIPPED: a fabricated return must not be served from the cache next sweep.
 const cacheRecords = []
 if (rulesetFingerprint) {
   for (const p of pages) {
-    const rec = freshBySlug.get(p.slug) || (reusable(p) ? cacheBySlug.get(p.slug).scan : null)
-    if (rec && pageHashes[p.slug]) cacheRecords.push({ slug: p.slug, key: runKey(p.slug), scan: rec })
+    const rec = recordOf(p)
+    if (rec && pageHashes[p.slug] && !scannerRejected.has(p.slug)) cacheRecords.push({ slug: p.slug, key: runKey(p.slug), scan: rec })
   }
 }
 
 // Filesystem-truth page set (A10-17 root fix): valid-target space is every page that
 // EXISTS on disk (the input page list the SKILL globbed), not only pages whose agent scan
 // survived. A wikilink to a real page that merely failed to scan is no longer a fabricated
-// missing-target. Inbound-derived slots (orphans/near-dup) stay scans-denominated (DA7).
+// missing-target. Inbound-derived slots are computed from the SKILL-derived link sets and are
+// complete regardless of scan coverage (Cycle 15 build-4, D-C).
 const pageSlugSet = new Set(pages.map((p) => normalizeTarget(p.slug)))
+// Inbound over every page on disk, self-links excluded: a page's link to itself is not an
+// inbound link (checks.md, Orphan pages: "no inbound links from OTHER wiki pages").
 const inbound = new Map()
-for (const s of scans) for (const l of s.outbound_links) inbound.set(l, (inbound.get(l) || 0) + 1)
-
-// Inbound-derived slots under shortfall (leg 3, DA7): orphans and near_duplicates are computed
-// from the inbound link map, which is only as complete as what scanned — under any shortfall a
-// page whose only inbound link came from an unscanned page falsely reads as an orphan (the A10-17
-// class in another slot). Under partial shortfall both slots are emitted EMPTY with a cap naming
-// the suppression; missing_targets / index drift / the callout gate switched to filesystem truth
-// (F5) and stay valid.
-const partialShortfall = scans.length < pages.length
-if (partialShortfall) {
-  const m = 'orphans / near-duplicates not computed — inbound-derived and coverage was incomplete'
-  coverageCaps.push(m)
-  log(m)
+for (const p of pages) {
+  const self = normalizeTarget(p.slug)
+  for (const l of links(p.slug)) if (l !== self) inbound.set(l, (inbound.get(l) || 0) + 1)
 }
-const orphans = partialShortfall ? [] : scans.filter((s) => !(inbound.get(nslug(s)) > 0)).map((s) => s.slug)
+// The population is every page on disk, not every page that scanned. (The DA7 suppression —
+// orphans / near-duplicates emitted empty under partial shortfall — retired with its cause: the
+// inbound map no longer depends on what scanned.)
+const orphans = pages.filter((p) => !(inbound.get(normalizeTarget(p.slug)) > 0)).map((p) => p.slug)
 // A [[link]] target that resolves to a wiki slug OR a known cross-layer note (research / agent-zone,
 // supplied by the SKILL which has filesystem access) is valid; only a target resolving to NOTHING
 // anywhere is a missing target. Without crossLayer, valid cross-layer links false-positive en masse. (#3 §4)
 // A target registered under the index's Stubs section as `wiki-index.md` states it (the SKILL locates and
 // parses it — `checks.md` Missing targets) is a RECORDED gap, not a missing target (B5-3).
+// The value compared is the page's own bytes — a same-page anchor (A15-3) or a substituted noun
+// (A15-4) cannot reach this slot through a scanner.
 const crossLayer = new Set(crossLayerSlugs)
 const stubs = new Set(stubSlugs)
 const missing_targets = []
-for (const s of scans) for (const l of s.outbound_links) if (!pageSlugSet.has(l) && !crossLayer.has(l) && !stubs.has(l)) missing_targets.push(`${s.slug} → ${l}`)
+for (const p of pages) for (const l of links(p.slug)) if (!pageSlugSet.has(l) && !crossLayer.has(l) && !stubs.has(l)) missing_targets.push(`${p.slug} → ${l}`)
 
 // near-duplicates (#3 §5): a pair is a near-duplicate ONLY when a shared-link signal COINCIDES with a
 // secondary signal (shared slug stem OR title similarity) — never shared links alone. Shared links
@@ -623,7 +708,7 @@ const near_duplicates = []
 const NEAR_SHARED_MIN = 3
 const hubThreshold = Math.max(5, Math.ceil(scans.length * 0.25))
 const hubs = new Set([...inbound.entries()].filter(([, n]) => n > hubThreshold).map(([l]) => l))
-const linkSets = scans.map((s) => new Set(s.outbound_links.filter((l) => !hubs.has(l))))
+const linkSets = scans.map((s) => new Set(links(s.slug).filter((l) => !hubs.has(l))))
 const stem = (slug) => slug.split('-').slice(0, 2).join('-')
 // A stem shared by 4+ pages is a topical family (nfl-2026-*), not a duplicate signal — within a
 // family the stem always matches and the two-signal design would degenerate to shared-links-only.
@@ -643,8 +728,7 @@ if (!today) { const m = `no 'today' arg provided — review_due was NOT computed
 
 let pairBudget = 2_000_000
 let nearCapped = false
-// Suppressed under partial shortfall (F6/DA7): the cap is already on the record above.
-outer: for (let i = 0; !partialShortfall && i < scans.length; i++) {
+outer: for (let i = 0; i < scans.length; i++) {
   for (let j = i + 1; j < scans.length; j++) {
     if (pairBudget-- <= 0) { nearCapped = true; break outer }
     let shared = 0
@@ -678,10 +762,10 @@ for (const s of scans) {
   clustered.add(s.slug)
   for (const t of scans) {
     if (clustered.has(t.slug)) continue
-    const sLinks = new Set(s.outbound_links)
+    const sLinks = new Set(links(s.slug))
     let shared = 0
-    for (const l of t.outbound_links) if (sLinks.has(l) || l === nslug(s)) shared++
-    if (shared >= 2 || t.outbound_links.includes(nslug(s))) { group.push(t); clustered.add(t.slug) }
+    for (const l of links(t.slug)) if (sLinks.has(l) || l === nslug(s)) shared++
+    if (shared >= 2 || links(t.slug).includes(nslug(s))) { group.push(t); clustered.add(t.slug) }
   }
   if (group.length >= 2) clusters.push(group)
 }
@@ -732,10 +816,12 @@ for (const group of clustersToCheck)
     for (let j = i + 1; j < group.length; j++) comparedPairs.add(pairKey(group[i].slug, group[j].slug))
 
 const seedMap = new Map() // pairKey -> { a, b, name }
+// Seeds are the callouts that PASSED the read-back above (calloutsOf — targets already in the
+// normal form); a fabricated target never seeds a pair.
 for (const s of scans)
-  for (const t of s.name_callout_targets || []) {
-    const target = t && normalizeTarget(t.target) // raw wikilink text in, normal form compared (B5-3)
-    if (!target || !pageSlugSet.has(target) || target === nslug(s)) continue
+  for (const t of calloutsOf.get(s.slug) || []) {
+    const target = t.target
+    if (!pageSlugSet.has(target) || target === nslug(s)) continue
     const k = pairKey(s.slug, target)
     if (comparedPairs.has(k) || seedMap.has(k)) continue
     seedMap.set(k, { a: s.slug, b: target, name: t.name })
@@ -770,8 +856,15 @@ const seededCollisions = seededResults.flatMap((r) => (r.entity_collisions || []
 const flat = (key) => clusterResults.flatMap((c) => c[key] || [])
 const collect = (key) => scans.flatMap((s) => (s[key] || []).map((v) => `${s.slug}: ${v}`))
 
-// Verdicts computed from verbatim extractions (B5-3) — the scanner reads, JS does the arithmetic.
-const summaryIssue = (s) => !(s.summary || '').trim() ? 'summary missing' : s.summary.length > 160 ? `over-length (${s.summary.length} chars)` : ''
+// Verdicts computed from facts (B5-3, re-nouned by Cycle 15 build-4): the SKILL's script measures
+// the parsed summary: scalar in characters from the page's bytes, JS does the verdict. The
+// returned `summary` string is read by NO verdict (D-A) — the 160 here is the reduce's single
+// home for the limit (checks.md / frontmatter.md are the rule's).
+const summaryIssue = (slug) => {
+  const n = summaryLengths[slug]
+  if (!Number.isInteger(n)) return ''
+  return n === 0 ? 'summary missing' : n > 160 ? `over-length (${n} chars)` : ''
+}
 const attested = (s) => !!(s.verified_by && s.verified_at) // present = both non-empty
 const isStale = (s) => attested(s) && !!s.last_updated && s.last_updated > s.verified_at
 
@@ -904,8 +997,8 @@ return {
     missing_targets,
     index_drift: indexScan ? indexScan.drift : [],
     frontmatter_drift: scans
-      .filter((s) => s.topic_is_list === false || summaryIssue(s))
-      .map((s) => `${s.slug}: ${[s.topic_is_list === false ? 'topic not a list' : '', summaryIssue(s)].filter(Boolean).join('; ')}`),
+      .filter((s) => s.topic_is_list === false || summaryIssue(s.slug))
+      .map((s) => `${s.slug}: ${[s.topic_is_list === false ? 'topic not a list' : '', summaryIssue(s.slug)].filter(Boolean).join('; ')}`),
     // UNGUARDED since Cycle 14 build-1, deliberately and on the record (owner ruling A-R1).
     // This site used to filter attestation-only complaints out of the class, because A13-1
     // Finding 1's sixth entry arrived here after the same prompt-side prohibition was ignored.
@@ -995,6 +1088,10 @@ return {
     seeded_pairs_checked: seededPairs.length,
     seeded_pairs_total: seededPairsTotal,
   },
+  // Cycle 15 build-4 (A12): the read-back's denominated count, returned on every completing run
+  // — the SKILL renders it as the report's own `scanner_return_rejected:` line (report.md), so
+  // `0 of T` is a measured zero on the report, never a cap that reads as health.
+  scanner_return_rejected: { count: scannerRejected.size, of: scans.length, slugs: [...scannerRejected.keys()] },
   coverage_caps: coverageCaps,
   // A11-11 direction 0: the per-phase cost line, emitted on every completing run.
   cost_accounting: costAccounting(),

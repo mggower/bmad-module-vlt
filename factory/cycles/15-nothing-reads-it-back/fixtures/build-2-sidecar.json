@@ -12,7 +12,7 @@
   "records": [
     {
       "slug": "wiki-page-alpha",
-      "key": "sha256-wiki-page-alpha-baseline-bytes000000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "key": "sha256-wiki-page-alpha-baseline-bytes000000000000000000000000000|c44d8912ed750afe1cdf|4bc476d7366ae65f69",
       "scan": {
         "slug": "wiki-page-alpha",
         "available": true,
@@ -43,7 +43,7 @@
     },
     {
       "slug": "wiki-page-beta",
-      "key": "sha256-wiki-page-beta-baseline-bytes0000000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "key": "sha256-wiki-page-beta-baseline-bytes0000000000000000000000000000|c44d8912ed750afe1cdf|4bc476d7366ae65f69",
       "scan": {
         "slug": "wiki-page-beta",
         "available": true,
@@ -73,7 +73,7 @@
     },
     {
       "slug": "seattle-seahawks",
-      "key": "sha256-seattle-seahawks-baseline-bytes00000000000000000000000000|dcce0c50239720081cb5|4bc476d7366ae65f69",
+      "key": "sha256-seattle-seahawks-baseline-bytes00000000000000000000000000|c44d8912ed750afe1cdf|4bc476d7366ae65f69",
       "scan": {
         "slug": "seattle-seahawks",
         "available": true,

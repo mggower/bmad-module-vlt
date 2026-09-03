@@ -1,6 +1,146 @@
 ---
 title: 'Build #4 — the scanner''s returns: after this ships, a vault owner stops being sent to fix pages that are not broken — no orphan that has an inbound link, no missing target that exists, no over-length summary that is inside the limit'
-status: 'BRIEFED 2026-09-02 — build via bmad-workflow-builder in a fresh session (headless brief; builds 1–3 BUILT at `61ec6c0` / `450c886` / `7222cd2`). The builder rewrites this line to a BUILT record: `BUILT <date> — <what landed>; <verification result>. Deviations/notes: (1) … (2) …` — numbered deliberate deviations from this brief, the `build-15-spec-convention.md` precedent. Not the release build — no version bump (v0.18.0 rides build-7).'
+status: >
+  BUILT 2026-09-02 — all eight F-sites landed; **checks (1), (2), (3) and (4) — the four at-rest
+  `[ship-verifiable]` checks — PASS at rest** (17/17 expectations on the shipped workflow), the
+  return harness proven failable against the pre-build workflow (`7222cd2`: **12 expectations
+  FAIL there**, with exactly the controls passing — (d), (e), the single entity-pair dispatch and
+  the cache-reuse half of (g) — 0 fail here). **Check (5), Cycle 14 build-1 (6) leg 3 — the
+  at-rest leg (check (2)) is GREEN:** `frontmatter_drift` is computed from `summaryLengths` alone
+  (159 / 160 / 162 / 0 from the script), the planted 162-char paraphrase for `l-theanine` and
+  the at-the-cap `barbacoa` produce NOTHING, and the prompt carries the length-exclusion sentence
+  once, outside every schema literal. **Recorded, not asserted (the instrument's stated bound):
+  the planted `frontmatter_defect: 'unclassified'` length complaint for `l-theanine` STILL
+  REACHES `malformed_frontmatter` at rest** — the reduce cannot refuse prose (D1) and the prompt
+  sentence is the only elimination for that key; **leg 3 itself stays OPEN for the first
+  `vlt-lint --full` sweep after v0.18.0 (GATES closeout)**, where 0 refuted ⇒ Cycle 14 carry 5
+  is answered (D-F). Version bump NOT taken — rides build-7 / v0.18.0. Branch `cycle15-v0.18.0`.
+  No handshake moved (`// depends_on:` header `:11`, every `write-verification@5` literal and
+  the `vlt-lint/SKILL.md` pins untouched — `git diff 7222cd2` shows 0 changed lines carrying
+  `write-verification@`; the new `per frontmatter@14` marker is the current pin, package-lint
+  E7 passes). **Verification 1:** `lint-page-facts.py` over `fixtures/build-4-wiki/` deep-equals
+  the hand-written oracle — diff EMPTY (via `uv run`; the harness falls back to `python3`).
+  **Verification 2 — `scanFingerprint` MOVED, by design:** `dcce0c50239720081cb5` (at
+  `7222cd2`) → **`c44d8912ed750afe1cdf`** (the `outbound_links` removal + the two prompt
+  sentences; the one build besides build-7 that moves the scan surface). **Verification 3 — E6
+  by package-lint's own extractor: `PAGE_SCAN` 3676 → 3265** (≤ 3700; required-only would have
+  read 3659), `INDEX_SCAN` 838 / `CLUSTER_FINDINGS` 1630 / `PAIR_FINDINGS` 376 byte-identical;
+  `uv run tools/package-lint.py --expect-version 0.17.1` → A/B/C/E PASS, D PASS. **Verification
+  4–5 (greps):** `outbound_links|partialShortfall|not computed — inbound-derived` in the workflow
+  → 0; `outbound_links` anywhere under `skills/` → 0; `the page's own bytes do not carry` under
+  `skills/` → 0; `links(` consumers in the workflow → 7 (inbound, orphans is over `pages`,
+  missing targets, linkSets, clusters ×3 incl. the adjacency test, the seed read-back — ≥ 6);
+  `LENGTH is never a frontmatter defect` → 1, inside `pageScanPrompt`. **Verification 7:**
+  `build-2-key-harness.mjs` all expectations hold (incl. the scanModel guard), `build-3-type-harness.mjs`
+  31 PASS across default / `--stubs` / `--tail`; `grep -l vlt-lint-full-shim fixtures/*.mjs` → 3.
+  **Verification 8:** `full-scale.md` step 1 names the script and both maps, step 3's args
+  list carries both, `checks.md:13` carries the pointer, `report.md` carries
+  `scanner_return_rejected:` at `:16` (key) and `:91` (§Findings-cache reporting), the workflow's
+  arg contract / guard / refusal `next:` all name both slots. R3 satisfied at the single homes; R4
+  not applicable (declared exclusion — `scripts/` is walked whole by `verify-skill-manifest.py:14`).
+  Scrub: no machine paths or personal content in any new file (grep over the fixture wiki,
+  harness, shim, script, references → 0). No `.decision-log.md` in the tree; scratch removed.
+  The script's edge cases were exercised in scratch beyond the fixture: BOM, a `>` block scalar
+  (31), `\"`/`\\` escapes (18), a plain scalar with a trailing `# comment` (11), `~~~` and
+  nested four-backtick fences, a double-backtick span enclosing a single-backtick one, a lone
+  unclosed backtick (literal — its link kept), the embed `!` outside the brackets, an undecodable
+  file and a missing file both listed `unreadable`, exit 2 on a bad `--pages` (missing file / a
+  non-object entry), exit 3 on an unwritable `--out`.
+
+  **Sites changed.**
+  `skills/vlt-lint/scripts/lint-page-facts.py` (F6, NEW — 220 lines, `# /// script` with
+  `requires-python` only): the disposition-1 contract verbatim in its docstring; `--pages
+  <path|->`, `--out <path>`; `strip_code` (fences + spans), `page_links` (the raw `[[…]]`
+  regex over frontmatter and body alike), `frontmatter_lines` / `summary_value` (double- /
+  single-quoted / plain / block-scalar forms) / `summary_length` (Python `len()`); `unreadable`.
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js` (F1): `:6-7` the phase details (see
+  deviation 1); `:26-32` the header's no-filesystem paragraph gains the byte-fact sentence and the
+  `pages` row names the guard's five; `:57-69` the `pageLinks` / `summaryLengths` contract rows
+  (REQUIRED, refusal/cap posture, NOT a cache-key term — D4); `:148-150` the intake comment names
+  the two slots as refused on this build's own ruling, the four legacy args' sentence intact;
+  `:156-171` intake — map-level and per-slug wrong-type facts into `wrongTypeSlots` by name
+  (`pageLinks[<slug>]` / `summaryLengths[<slug>]`); `:187-188` the args guard names all five and
+  the script; `:225` `PAGE_SCAN.required` loses `outbound_links` and the property is gone —
+  **no other character of the schema changed** (E6 per-schema lengths prove it); `:298` the
+  verbatim clause re-nouned to the callout target + "Do NOT report the page's outbound links";
+  `:299` the length-exclusion sentence appended to the frontmatter-verdict sentence (`per
+  frontmatter@14`); `:496` the refusal's `next:` maps the two new slot roots and points at step 1
+  / the script (build-3's `step 2` / `Missing targets` text kept — its harness asserts it);
+  `:581` `recordOf(p)` factored from the two identical corpus/cache lookups; `:590-612`
+  `linksOf` (over `pages`, normalized + set here) + `links(slug)` + the two denominated K-of-T
+  caps (`pageLinks:` / `summaryLengths:`); `:614-641` the callout read-back — `scannerRejected`
+  (slug → reason), `calloutsOf` (the seeds that passed), one cap only when N > 0; `:646-670`
+  `cacheRecords` skips a rejected slug, the `:575-576` NORMAL FORM comment retired; `:672-699`
+  the link graph — inbound over `pages` × `links` with self-links excluded, `orphans` over
+  `pages`, `missing_targets` over `pages` × `links`, `partialShortfall` + its cap + the DA7
+  comment block DELETED, the `:588` "stay scans-denominated (DA7)" clause replaced; `:711`
+  `linkSets` from `links(s.slug)`; `:731` the near-dup loop guard loses `!partialShortfall`
+  and its comment; `:765-768` cluster adjacency from `links(...)`; `:818-827` the seed loop
+  iterates `calloutsOf`; `:863-871` `summaryIssue(slug)` from `summaryLengths` (0 → `summary
+  missing`, > 160 → `over-length (N chars)`), called with `s.slug` at `:999-1000`; `:1091-1094`
+  the return gains `scanner_return_rejected: {count, of, slugs}` beside `entity_scan_facts`.
+  File grew 1021 → 1118 lines — **build-7 re-grounds every line number after this commit.**
+  `skills/vlt-lint/references/report.md` (F2): `:16` the new `scanner_return_rejected:` scalar
+  after `stub_discovery:` (full via the workflow; scoped/inline `not instrumented (inline run)`);
+  `:91` §Findings-cache reporting's one sentence (never folded into `rejected R of P`). `:76`
+  cap examples deliberately NOT widened. **Merge order on `report.md` is now 3 → 4 → 5.**
+  `skills/vlt-lint/references/full-scale.md` (F3): step 1 (`:7`) the script sentence, instrument
+  named by path; step 3 (`:9`) the args object gains both, "~84KB plus the two page-facts maps",
+  the executable sentence points at step 1's script for the two facts and keeps the recipe for
+  the rest, the resume list gains both, "over the SKILL-derived link sets", the follow-on
+  sentence re-pointed per disposition 9 (`:18`); step 4 (`:10`, deviation 2); step 5 (`:21`) the
+  refused-finding example re-worded + the `scanner_return_rejected` nothing-to-evict sentence.
+  `skills/vlt-lint/references/checks.md` (F4): `:13` the executable-form pointer after the
+  population statement (population untouched); `:14` the `summary:` clause's parenthetical;
+  `:25` the orphan parenthetical (rule untouched). `:15` untouched.
+  `skills/vlt-lint/references/fix-and-file.md:16` (F5): the second example re-worded.
+  `factory/cycles/15-nothing-reads-it-back/fixtures/vlt-lint-full-shim.mjs` (F7, NEW): the
+  shared runtime shim (compile / counting `run` returning `{result, logs, invocations, labels}`,
+  `scanStubFrom`, `readSrc`); `build-2-key-harness.mjs` + `build-3-type-harness.mjs` import it
+  and compose `pageLinks` / `summaryLengths` from the sidecar records (equal to what the scanner
+  returned — every prior expectation unchanged); build-3's `--stubs` passes links as `pageLinks`
+  and its planted scans carry no `outbound_links`. `build-2-sidecar.json`: keys re-generated by
+  the harness's own `--regen` (3 key lines only — see note 3).
+  `fixtures/build-4-wiki/` (F8, NEW — 11 pages, every page but `lonely-page` with an inbound
+  `[[ ]]` from another fixture page; `lonely-page` also carries a SELF-link, so the
+  self-link exclusion is exercised), `fixtures/build-4-expected-facts.json` (hand-written from the
+  bytes — four of the by-eye short-summary counts were corrected against `len()` of the authored
+  strings BEFORE the script ran; the script then matched it), `fixtures/build-4-return-harness.mjs`
+  (phase 1 the script for real via `uv run`/`python3` over stdin, phase 2 the seven check-(1)
+  cases + four check-(2) + four check-(3) assertions; `--workflow`, `--fingerprint`).
+
+  **Registration:** none — no skill, intent or `module-help.csv` row; the manifest walks
+  `scripts/` structurally. **Acceptance:** (1)–(4) PASS at rest (this record); (5) OPEN, bound to
+  the first full sweep after v0.18.0 on `{field-vault}` — leg 3 grades live, the at-rest leg is
+  green above; (6) field-contingent, second sweep. **Two `candidate` filings owed at handoff**
+  (§Out of scope): the `pageHashes` digest-form under-specification (16-hex sidecar term vs
+  `shasum -a 256` untruncated), and frontmatter facts from disk for the remaining consumed
+  returns. **Not done here, by instruction:** the roadmap's A15-4 sentence ("the page
+  `seattle-seahawks` links `[[_agent/research/…cornerbacks-2026]]`") is superseded by disposition
+  7's dated note in THIS brief; the roadmap itself was not edited (the builder was told not to)
+  — the briefer/owner applies the dated note there.
+
+  **Deviations/notes:** (1) `meta.phases[0].detail` (`:6`) said the scanner returns "findings +
+  graph data" and `phases[1]` described a scanner-fed graph — both false after this build and
+  neither in the brief's site list; re-worded (nothing parses `meta`, E6 reads schemas only).
+  (2) `full-scale.md` step 4's parenthetical enumerated the refusable slots (`rulesetComponents`,
+  a `convention_digests` entry, `stubSlugs`) and its re-render clause the same three — a list
+  that claims completeness and would have drifted; both gained the two new slots (F3 named
+  steps 1/3/5 only). (3) `build-2-sidecar.json`'s committed keys went stale the moment
+  `scanFingerprint` moved (its harness reported `committed fixture keys current: NO`); the
+  harness's own `--regen` rewrote exactly the 3 key lines, scan payloads untouched — fixture
+  upkeep the build-2 harness header provides for, recorded so the diff is attributable. (4) The
+  read-back keys `scannerRejected` by the RECORD's slug (`s.slug`), which every existing consumer
+  (the pair prompt's path lookup, the cluster labels, `cacheRecords`' `p.slug` skip) already
+  reads as the page's slug — the brief's "declared beside `coverageCaps`" became "declared in the
+  reduce, before `cacheRecords`", because the exclusion from the cache must precede the record
+  loop and the seed loop runs after it; one predicate, evaluated once, its accepted seeds carried
+  forward in `calloutsOf`. (5) The fixture's `l-theanine` summary measures 159 chars / 163 bytes
+  (two em-dashes), `barbacoa` 160 / 162 (one) — the brief's parenthetical byte figures
+  (161 / 163) were its own arithmetic, not a fixture requirement; the character counts, the
+  quoted-value counts (161 / 162) and the raw-line counts (170 / 171) match the brief exactly.
+  (6) `linksOf` SETS each page's links (duplicates dropped at derivation — the brief's "the reduce
+  sets them"), so a duplicated `[[x]]` yields one `missing_targets` line, not two.
 module_code: 'vlt'
 created: '2026-09-02'
 derives_from:

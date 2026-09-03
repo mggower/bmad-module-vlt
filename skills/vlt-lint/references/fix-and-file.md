@@ -13,7 +13,7 @@ Fix directly (bump `last_updated` on any page you substantively edit — e.g. ad
 - **Formatting** — standardize frontmatter and required sections.
 - **Unmarked supersession/stale callouts** — add them per the convention.
 
-**A finding you refuse as false** (a `fix_now` entry whose target exists, a `missing_targets` slug the page's own bytes do not carry) is not applied and is **evicted from the findings cache** so the next sweep re-derives it — the mechanic and its sequencing live at `references/full-scale.md` step 5.
+**A finding you refuse as false** (a `fix_now` entry whose target exists, a `missing_targets` target that does exist on disk — a cross-layer file the derivation missed) is not applied and is **evicted from the findings cache** so the next sweep re-derives it — the mechanic and its sequencing live at `references/full-scale.md` step 5.
 
 **Attest what you touched (lint-as-attester, narrowly):** on every file this step's auto-fix substantively edited, re-run tier-1 and write `verified_by: vlt-lint` + `verified_at: <today>` — the auto-fix bumped `last_updated` and would otherwise re-stale the attestation just validated. Never attest a file you merely read (contract: `{conventions}/write-verification.md`).
 

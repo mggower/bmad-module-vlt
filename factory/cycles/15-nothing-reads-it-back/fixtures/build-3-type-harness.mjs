@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 // Cycle 15 build-3 — the at-rest instrument for acceptance checks (1), (2) and (3).
 //
-// Loads `vlt-lint-full.js` the way `build-2-key-harness.mjs` does (the ~30-line runtime shim
-// below is DUPLICATED from it, by that brief's ruling — a shared shim is a refactor for
-// whichever build adds a third harness). `args` is delivered as a JSON STRING, exactly as the
-// runtime does. The agent stub COUNTS invocations: a refusal case must show 0, not merely
-// `files_checked: 0` — the property under test is "a wrong type never reaches dispatch and is
-// never rendered as an absence".
+// Loads `vlt-lint-full.js` through the shared shim (`vlt-lint-full-shim.mjs` — factored out by
+// build-4, the third harness, per this header's original ruling). `args` is delivered as a JSON
+// STRING, exactly as the runtime does. The agent stub COUNTS invocations: a refusal case must
+// show 0, not merely `files_checked: 0` — the property under test is "a wrong type never
+// reaches dispatch and is never rendered as an absence".
 //
 // Usage:
 //   node build-3-type-harness.mjs                      # check (1): the eight-case type table + the not-refused four
@@ -17,11 +16,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { HERE, REPO, SHIPPED, run } from './vlt-lint-full-shim.mjs'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url))
-const REPO = path.resolve(HERE, '..', '..', '..', '..')
-const SHIPPED = path.join(REPO, 'skills', 'vlt-setup', 'assets', 'workflows', 'vlt-lint-full.js')
 const SIDECAR_FIXTURE = path.join(HERE, 'build-2-sidecar.json')
 const TAIL_FIXTURE = path.join(HERE, 'build-3-decision-log-tail.md')
 
@@ -33,27 +29,7 @@ const workflowPath = opt('--workflow') || SHIPPED
 let failures = 0
 const check = (label, ok, detail) => { if (!ok) failures++; console.log(`${ok ? 'PASS' : 'FAIL'}  ${label}${detail ? ` — ${detail}` : ''}`) }
 
-// ── runtime shim (duplicated from build-2-key-harness.mjs) ───────────────────
-const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
-const compile = (src) => new AsyncFunction('args', 'agent', 'parallel', 'phase', 'log', 'budget', 'workflow',
-  src.replace(/^export const meta =/m, 'const meta ='))
-
-async function run(src, args, agentStub = async () => null) {
-  const logs = []
-  let invocations = 0
-  const counting = async (prompt, o) => { invocations++; return agentStub(prompt, o) }
-  const fn = compile(src)
-  const result = await fn(
-    JSON.stringify(args),                       // the runtime delivers args as a JSON string
-    counting,
-    (thunks) => Promise.all(thunks.map((t) => t())),
-    () => {},
-    (m) => logs.push(String(m)),
-    { total: 0, remaining: () => 0 },
-    async () => null,
-  )
-  return { result, logs, invocations }
-}
+// The runtime shim (compile / counting run) lives in vlt-lint-full-shim.mjs since build-4.
 
 // ── check (3): the two decision-log instruments (--tail) ─────────────────────
 // Instrument 1 — the form-agnostic heading count (`grep -c '^## '`, re-implemented).
@@ -109,6 +85,11 @@ const baselineArgs = (records, cachedScans) => ({
   overlayNames: [],
   today: '2026-09-02',
   pageHashes: Object.fromEntries(records.map((r) => [r.slug, hashOf(r.slug)])),
+  // Build-4's two REQUIRED byte-fact args, composed from the fixture records (a record's
+  // `links` where the case supplies one — the --stubs mode — else the sidecar's pre-build-4
+  // `scan.outbound_links`, equal to what the scanner returned, so prior expectations hold).
+  pageLinks: Object.fromEntries(records.map((r) => [r.slug, r.links || r.scan.outbound_links || []])),
+  summaryLengths: Object.fromEntries(records.map((r) => [r.slug, (r.scan.summary || '').length])),
   cachedScans,
   rulesetComponents: { convention_digests: { ...DIGEST } },
 })
@@ -130,8 +111,10 @@ async function rekey(records) {
 // ── check (2): the link-target cases (--stubs) ───────────────────────────────
 if (flag('--stubs')) {
   const template = allRecords[0].scan
-  const scanFor = (slug, links) => ({ ...structuredClone(template), slug, title: slug, outbound_links: links, name_callout_targets: [] })
-  const pages = [{ slug: 'a', scan: scanFor('a', ['birria']) }, { slug: 'b', scan: scanFor('b', []) }]
+  // Since build-4 the link set is passed as `pageLinks` (the SKILL's byte-fact), not returned by
+  // the scanner — the planted scans carry no outbound_links at all.
+  const scanFor = (slug) => { const s = { ...structuredClone(template), slug, title: slug, name_callout_targets: [] }; delete s.outbound_links; return s }
+  const pages = [{ slug: 'a', links: ['birria'], scan: scanFor('a') }, { slug: 'b', links: [], scan: scanFor('b') }]
   const bySlug = new Map(pages.map((p) => [p.slug, p.scan]))
   const stub = async (_prompt, o) => (o && typeof o.label === 'string' && o.label.startsWith('scan:')) ? structuredClone(bySlug.get(o.label.slice(5))) : null
   const withStubs = (stubSlugs) => ({ ...baselineArgs(pages, []), stubSlugs })

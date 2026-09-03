@@ -24,11 +24,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { HERE, REPO, SHIPPED, run } from './vlt-lint-full-shim.mjs'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url))
-const REPO = path.resolve(HERE, '..', '..', '..', '..')
-const SHIPPED = path.join(REPO, 'skills', 'vlt-setup', 'assets', 'workflows', 'vlt-lint-full.js')
 const SIDECAR_FIXTURE = path.join(HERE, 'build-2-sidecar.json')
 
 const argv = process.argv.slice(2)
@@ -37,25 +34,7 @@ const opt = (name) => { const i = argv.indexOf(name); return i >= 0 ? argv[i + 1
 const workflowPath = opt('--workflow') || SHIPPED
 const legacy = flag('--legacy')
 
-// ── runtime shim ─────────────────────────────────────────────────────────────
-const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
-const compile = (src) => new AsyncFunction('args', 'agent', 'parallel', 'phase', 'log', 'budget', 'workflow',
-  src.replace(/^export const meta =/m, 'const meta ='))
-
-async function run(src, args, agentStub = async () => null) {
-  const logs = []
-  const fn = compile(src)
-  const result = await fn(
-    JSON.stringify(args),                       // the runtime delivers args as a JSON string
-    agentStub,
-    (thunks) => Promise.all(thunks.map((t) => t())),
-    () => {},
-    (m) => logs.push(String(m)),
-    { total: 0, remaining: () => 0 },
-    async () => null,
-  )
-  return { result, logs }
-}
+// The runtime shim lives in vlt-lint-full-shim.mjs since build-4 (the third harness).
 
 // ── fixture + baseline inputs ────────────────────────────────────────────────
 const fixture = JSON.parse(fs.readFileSync(SIDECAR_FIXTURE, 'utf8'))
@@ -72,6 +51,12 @@ const baselineArgs = (records, cachedScans) => ({
   conventionsPath: '/vault/_agent/conventions',
   today: '2026-09-02',
   pageHashes: Object.fromEntries(records.map((r) => [r.slug, hashOf(r.slug)])),
+  // Build-4 made these two REQUIRED (the SKILL derives them by lint-page-facts.py). Here they
+  // are composed from the sidecar fixture's own records — equal to what the scanner returned,
+  // so every prior expectation is unchanged. (The fixture's scans still carry outbound_links —
+  // a pre-build-4 record; the workflow ignores the field, it does not reject it.)
+  pageLinks: Object.fromEntries(records.map((r) => [r.slug, r.scan.outbound_links || []])),
+  summaryLengths: Object.fromEntries(records.map((r) => [r.slug, (r.scan.summary || '').length])),
   cachedScans,
   rulesetComponents: {
     convention_digests: { ...DIGEST },
