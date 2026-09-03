@@ -1373,6 +1373,17 @@ is also stated at its own entry.
   `para_author_unknown`); performer: the owner from `{field-vault}` (readable); grades: issue labelled
   `field:supersession`, both halves non-empty, no classification note, and the next `inbox-capture`
   materializes it with the `class: supersession` opening line. Unbounded; watch register if unfired.
+  **Owner-act evidence, 2026-09-03 (recorded by the release session; formal discharge is `acceptance-discharge`'s):**
+  the two owner acts landed **after** the v0.18.0 tag (the briefs' *before the tag* bound was MISSED
+  by ~1 hour — the tag was cut 2026-09-02, the acts ran 2026-09-03; recorded, not hidden). **(2):**
+  `gh label create field:supersession` run from `config.yml:16` verbatim; `gh label list --search
+  supersession` → `field:supersession  Field contract: retirement ask — … #BFD4F2`. **(3):** both bodies
+  edited (`### kind` → `supersession`, classification-note paragraph deleted, `### superseded_rule` +
+  `### superseding_mechanism` sections added in the filings' own words so `issue-triage`'s both-halves
+  check (`SKILL.md:70-74`) has structured text to read), label `field:candidate` → `field:supersession`;
+  instrument read back via `gh issue view <n> --json labels,body`: **#17** `kind: supersession`, labels
+  `vault-filed, vault-accepted, captured, field:supersession`, halves `[true, true]`, note gone;
+  **#18** identical. No mismatch on either. The `vault-filed`/`vault-accepted`/`captured` labels stay.
 
 - [ ] **build-2 (cache-cost, briefed 2026-09-02):** brief
   `factory/cycles/15-nothing-reads-it-back/briefs/build-2-cache-cost.md`. **Six checks — five
