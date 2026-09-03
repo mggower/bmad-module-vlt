@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 15 — nothing reads it back'
-status: 'open — captured 2026-09-01 (16 filings graded: 15 captured here, 1 routed to the platform ledger as P-22). Ideation COMPLETE 2026-09-02 — seven owner-steered rounds, every slot ruled; 7 builds, 1 release (v0.18.0), all promises ratified. Roundtable review CONVENED 2026-09-02 — full 13-voice roster, 21 amendments applied, 2 standing rules declared (R1, R2 → [P-24]), 6 owner rulings live, 0 open disputes; the key was re-ruled (facts-not-verdicts + scanModel), build-4 replaces the scanner''s link return, both retirements gained their handshake lines. Build-1 BRIEFED 2026-09-02 (`briefs/build-1-supersession-kind.md`, 5 checks in the ledger, 3 grounding corrections). Build-2 BRIEFED 2026-09-02 (`briefs/build-2-cache-cost.md`, 6 checks in the ledger, 5 grounding corrections; `pin_vector` dropped, `scanModel` a workflow-resolved key term). Builds 1 and 2 BUILT 2026-09-02 (`61ec6c0`, `450c886`). Build-3 BRIEFED 2026-09-02 (`briefs/build-3-denominated-slots.md`, 5 checks in the ledger, 8 grounding corrections; wrong type = pre-dispatch refusal in the failed-run shape, the fourth cold reason homed on the failed-run record, the stub procedure homed at `checks.md:13`). Build-3 BUILT 2026-09-02 (`7222cd2`). Build-4 BRIEFED 2026-09-02 (`briefs/build-4-scanner-returns.md`, 6 checks in the ledger incl. Cycle 14 build-1 (6) leg 3 as check (5), 7 grounding corrections; the SKILL derives `pageLinks`/`summaryLengths` by a shipped executable, `outbound_links` leaves `PAGE_SCAN` whole (E6 3676 → 3265), DA7 retires, the callout return is read back). Build-4 BUILT 2026-09-02 (`171feb8`). Build-5 BRIEFED 2026-09-02 (`briefs/build-5-persisted-report.md`, 7 checks in the ledger, 5 line-drift corrections + 5 grounding additions; the gate is a reader that walks the `para_*` population itself, the shape source is `report.md`''s own fence under a line grammar, `false_positives_refused:` + `para_scan:` enter the shape, the failure artifact is the existing failed-run record with the block embedded; `report.md` merge order now 3 → 4 → 5 → 7). Build-6 BRIEFED 2026-09-02 (`briefs/build-6-type-prohibition-retired.md`, 5 checks in the ledger incl. Cycle 14 build-3 (6) clauses (a)+(c) as check (4) quoting the bound verbatim, `specimens: 2/155`; the FIRST retirement brief under R2 — 6 restatement sites found vs the roundtable 4 (the derived rule card added), 17 population sites that do not move; `extraction` 9 → 10 with four re-acks; the recognized set stated once at `extraction.md:84` with `frontmatter.md:71` as its fourth leg by pointer; grounding correction: build-6 is a v0.18.0 cold mover via `frontmatter.md` bytes, not via the `extraction` bump; E2 read, nothing quoted). Builds 3–6 BUILT 2026-09-02 (`7222cd2`, `171feb8`, `72ca969`, `fc44027`). Build-7 BRIEFED 2026-09-02 (`briefs/build-7-roster-closure-retired.md`, 5 checks in the ledger, `specimens: 0/27`, 5 grounding corrections; the cycle''s SECOND retirement brief under R2 — 6 restatement/pointer sites found vs the roundtable''s 4 (contract `:68`''s any-match join and the CHANGELOG history added), 14 sites that do not move; `write-verification` 5 → 6 with five re-acks incl. the workflow header `:11` and four body pins `:241`/`:245`/`:297`/`:911`; the A8 line is `para_writer_scan:` (the A8 key literal collides with the `:50` list); the join stated roster-free — attester judged by name, `agent` admits any attester, `author:` leg never carries it; C6 engaged; E6 3265 → 3265; the release build). Next: a fresh builder session implements the build-7 brief, then `release vlt 0.18.0`.'
+status: '**v0.18.0 SHIPPED 2026-09-03 (builds 1–7, one release), release commit `ad071b9`, tagged `v0.18.0` @ `f9bfa49`, pushed to origin (main + tag)** — `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`; handshake 9 conventions / 39 pins bipartite-consistent. Brief → build loop ran 2026-09-02 on `cycle15-v0.18.0`, one briefer + one builder session per build, every at-rest instrument red/green-proved against its pre-build tree. Captured 2026-09-01 (16 filings graded: 15 captured, 1 routed as P-22); ideation COMPLETE 2026-09-02; roundtable CONVENED 2026-09-02 (13 voices, 21 amendments, R1/R2 → [P-24]). Acceptance: NOT YET — the ledger awaits the first `vlt-upgrade` to 0.18.0 on a live vault (owner act); Cycle 14 build-1 (6) leg 3 stays OPEN until that sweep and GATES. Next: owner runs `vlt-upgrade` on {field-vault}, then `acceptance-discharge`.'
 module_code: 'vlt'
 created: '2026-09-01'
-updated: '2026-09-02'
+updated: '2026-09-03'
 derives_from:
   - 'factory/inbox/2026-08-26-123151-lint-full-inline-args-payload-costs-the-caller-84kb.md'
   - 'factory/inbox/2026-08-27-153000-persisted-lint-report-is-not-machine-readable.md'
@@ -3557,6 +3557,40 @@ build-4's two candidates, build-3's four-arg candidate.
 
 **Owed outside any build, unchanged:** the owner re-kinds #17/#18 (body `### kind` + label) after
 build-1 lands and before the v0.18.0 tag — build-1 check (3) grades it.
+
+⚠ ~~This block is the routing of record~~ — demoted 2026-09-03 (`vlt-release`, stage 8); the routing of
+record is the block below.
+
+---
+
+**Next lifecycle move (2026-09-03, `vlt-release`): the owner runs `vlt-upgrade` to 0.18.0 on a live vault
+(`{field-vault}`); once that upgrade evidence exists, `run acceptance discharge` (`acceptance-discharge`)
+discharges this ledger.**
+
+**v0.18.0 is SHIPPED** — release commit `ad071b9` (`vlt 0.18.0 — Cycle 15: nothing reads it back (builds
+1–7)`), annotated tag `v0.18.0` (object `f9bfa49`), `main` fast-forwarded and pushed with the tag to
+origin 2026-09-03. Every gate clean: pre-flight (seven briefs BUILT, build commits 1:1), handshake
+(9 conventions, 39 pins, bipartite), `package-lint: A/B/C/E PASS, D PASS — vlt 0.18.0`. The CHANGELOG
+entry carries the seven build bullets, the `governance_rule_changes` block (`extraction` 9 → 10,
+`write-verification` 5 → 6, `frontmatter` stays v14), the `local_consumers:` field notice, the
+parked-interims paragraph and the **cold-by-construction** statement naming builds 4, 6 and 7 as movers.
+
+**What the upgrade sweep grades (read before discharging):** the first full lint after 0.18.0 is COLD by
+construction — `acceptance-discharge` must not read `cached 0` as a build-2 FAIL (build-2's cache clauses
+were graded at rest; the field-contingent warm observation binds to the first release after 0.18.0 that
+moves none of the scanner-read set). Cycle 14 build-1 (6) leg 3 (`malformed_frontmatter` at 10/8/2) is
+build-4's check (5) and GATES closeout. Cycle 14 build-3 (6) clauses (a)+(c) are build-6's check (4),
+already PASS at rest; its vault-act half fires on the `parked_interims_review:` line (parks #15/#16 —
+a re-park is not an unwind).
+
+**Owed by the owner, now overdue against build-1 check (3):** bootstrap the `field:supersession` label
+(`.github/ISSUE_TEMPLATE/config.yml:16`) and re-kind #17/#18 (body `### kind` → `supersession` AND label;
+drop the classification-note paragraph). The briefs bound this to *before the tag*; the tag is cut, so it
+is owed before the next `issue-triage` run, which grades it.
+
+**Owed at handoff (`factory/inbox/`), unchanged:** build-3's four-arg candidate; build-4's two
+(`pageHashes` digest form; frontmatter facts from disk); build-5's `para_type_unknown` count leg;
+build-7's two (`write-verification.md:55`'s five-value enum; a partner-side attestation beat).
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report is
