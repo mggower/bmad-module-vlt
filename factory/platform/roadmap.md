@@ -52,7 +52,10 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-13, P-3 and P-18 Tiers B/C are open and consume no slot; P-14, P-20 and P-16 CLOSED 2026-09-09; P-18 Tier A self-accepted 2026-09-09)
+## Active (WIP 0/2 — P-10 and P-18 Tiers B/C are open and consume no slot; P-3 and P-13 CLOSED 2026-09-09 on the `lifecycle-status` run and the owner's grade; P-14, P-20 and P-16 CLOSED 2026-09-09; P-18 Tier A self-accepted 2026-09-09)
+
+*(Updated 2026-09-09, later the same day: the `lifecycle-status` run that [P-3] leg 1 waited on happened — it read the lane off the map from cold and named the leg as discharging on itself. **[P-3] CLOSED** (all three legs). **[P-13] owner-graded PASS and CLOSED** — four cold restamps on the bound, confound recorded and inherited by [P-6]. Built-awaiting inventory **3 → 1** (P-10, re-bound to Cycle 16's tracker sync). Both moved to Closed.)*
+
 
 *(Updated 2026-09-09: the ledger had not been stamped since 2026-09-02, and every built-awaiting item's bound event had run in the meantime. Discharge pass: **[P-14], [P-20], [P-16] CLOSED** (moved to Closed); **[P-18] Tier A self-accepted** (item stays open for Tiers B/C; Tier C's precondition met); **[P-13]** second cold exercise POSITIVE ×4, owner's grade owed; **[P-3]** legs 2 + 3 ticked, leg 1 waits on a `lifecycle-status` run; **[P-10] BOUND MISSED** — Cycle 15 closed with no tracker sync — re-bound to Cycle 16's. Built-awaiting inventory **7 → 3** (P-10, P-13, P-3). The six-day stamping gap is itself a P-3 leg-1 datum: nothing read the map from cold in the span.)*
 
@@ -156,339 +159,6 @@ bootstrap is **already complete** — all seven labels (`stage:captured` … `st
 `check:ship-verifiable`) exist on the tracker. **Discharging event: Cycle 15's `sync the tracker`
 run, after `inbox-capture` opens the cycle.** Owner-gated as always.
 here. Only the third step is new work.
-
-### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **open: BUILT 2026-08-27; FIRST COLD EXERCISE FAILED ×4 (2026-09-01); SECOND COLD EXERCISE POSITIVE ×4 (2026-09-03) — awaiting the owner's grade**
-
-**Second cold exercise — POSITIVE, recorded 2026-09-09 (owner to grade).** The re-bound event was *Cycle
-15's first position-moving lifecycle run, cold*. Cycle 15 supplied **four**: `acceptance-discharge` passes 1,
-2 and 3 (2026-09-03) and `cycle-closeout` (2026-09-03), none of which authored the Cycle 15 roadmap's
-routing clause. **All four restamped the foot correctly** — each demoted the prior block with the ⚠
-strikethrough marker, wrote its stamp as the file's last block, and left nothing below it
-(`factory/cycles/15-nothing-reads-it-back/roadmap.md`, foot). Cycle 15's closeout record names it
-explicitly as *"a positive one today … for the owner to grade on the platform ledger, not graded here."*
-Cycle 16's capture (2026-09-09) also stamped its foot in the P-13 form, but as the authoring session it is
-evidence the mechanism works, not a cold exercise. **The [P-6] route (a fifth failure) did not fire.**
-**Grade owed:** 4 failures then 4 passes on the corrected file — whether the corrected roadmap form
-(prior routing demoted, stamp last) is the fix, or the readers simply had a conforming file to copy, is
-the owner's call; the honest reading is the second, which is the same *local pattern outranks the map*
-cause working in the item's favour. A mechanical check stays out of scope here per the note below.
-
-*(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
-Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
-`Next lifecycle move` stamps across its whole lifecycle, where Cycles 9/10 carry 2–3.
-Mechanical cause: `vlt-release` choreography Stage 8 says "End the **report** with the
-Next lifecycle move", and "report" resolved to the chat report only. The instance was
-repaired by hand the same day; this item closes the recurrence path.)*
-
-- **Intent:** every lifecycle skill's text says explicitly that the terminal routing
-  restamp is written **into the open cycle roadmap's foot** (the map's Arc 9 standing
-  rule), not only emitted in the chat report — one clause each, pointing at the map,
-  never restating its mechanics (single-home).
-- **Sites:** `.claude/skills/vlt-release/references/choreography.md:178` (Stage 8 — the
-  site that bit); the sibling "report ends with a Next lifecycle move line" sentences in
-  `inbox-capture` (SKILL.md:22, references/roadmap-synthesis.md:85), `build-brief`
-  (SKILL.md:32/:177), `acceptance-discharge` (SKILL.md:29,
-  references/evidence-rubric.md:123), `cycle-closeout` (SKILL.md:28,
-  references/closeout-checklist.md:194), `roadmap-roundtable` (SKILL.md:28/:132),
-  `ideation-scaffold` (SKILL.md:28/:106); optionally one clarifying clause in
-  `vlt-lifecycle.md`'s standing-rule paragraph ("the foot of the roadmap" said plainly).
-- **Verification:** grep — every lifecycle skill that moves the position carries a
-  roadmap-foot restamp clause; none restates the map's rule body; `lifecycle-status`
-  (read-only, restamps nothing) correctly excluded.
-- **Out of scope:** any mechanical lint for a missing/stale foot stamp (a later item or
-  a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
-- **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
-  `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
-
----
-
-**BUILT 2026-08-27** (`plat:` commit — all sites are tracked factory skills). **Eleven clauses
-across nine files, plus the root fix in the map.**
-
-**⚠ The brief-lite's "optional" was wrong, and the optional edit turned out to be the root.**
-The Sites line called the `vlt-lifecycle.md` clause *"optionally one clarifying clause"*. It is
-not optional: **the map's own standing-rule paragraph said "One line, at the foot of the
-report"** — the map, which is the single home of the rule, was itself the source of the
-ambiguity every consumer skill inherited. Repairing the eleven consumer clauses while leaving
-that sentence standing would have left every reader one hop from the wrong reading. The map is
-therefore the **first** edit, not an afterthought:
-
-- `.claude/skills/vlt-lifecycle.md` — *"One line, written **into the foot of the open cycle
-  roadmap** — the file the next reader opens"*, plus a short dated paragraph recording that the
-  wording said "report" until today and what that cost (Cycle 11's roadmap: **zero** stamps
-  across its whole lifecycle, against 2–3 in Cycles 9/10).
-
-**The eleven consumer clauses**, one pair per position-moving skill — the overview sentence that
-states the obligation, and the operative site where the line is actually written:
-
-| Skill | Overview clause | Operative clause |
-|---|---|---|
-| `inbox-capture` | `SKILL.md` | `references/roadmap-synthesis.md` Handoff |
-| `ideation-scaffold` | `SKILL.md` | `SKILL.md` Handoff |
-| `roadmap-roundtable` | `SKILL.md` | `SKILL.md` Handoff |
-| `build-brief` | `SKILL.md` | `SKILL.md` Handoff |
-| `vlt-release` | `SKILL.md` | `references/choreography.md` **Stage 8 — the site that bit** |
-| `acceptance-discharge` | `SKILL.md` | `references/evidence-rubric.md` |
-| `cycle-closeout` | `SKILL.md` | `references/closeout-checklist.md` |
-
-Every clause is a **pointer**: it names the roadmap's foot as the obligation and the chat report
-as a copy, then defers to the map. **None restates the map's rule body** (the frontmatter-agreement
-clause and the append-only rationale appear nowhere outside `vlt-lifecycle.md`) — single-home
-discipline held. Two sites per skill matches the doubling these skills already had for the
-"report ends with a Next lifecycle move" sentence; it is the same sentence, corrected in both
-its existing homes, not a new home.
-
-**Two skill-specific wordings, deliberately not uniform:**
-- `cycle-closeout` says *"the foot of the roadmap **it is closing**"* — it resets `factory/CYCLE`
-  to `none`, so "the open cycle roadmap" would name nothing by the time the stamp lands. This is
-  also where the clause matters most: that roadmap becomes a permanent archive nobody restamps later.
-- `vlt-release`'s Stage 8 carries the dated instance record, because that is the exact line whose
-  "report" resolved to the chat report in the v0.15.0 run.
-
-**Verification — the brief-lite's grep test, all four legs green:**
-
-| Leg | Expected | Result |
-|---|---|---|
-| Coverage | all 7 position-moving skills carry the clause | **7/7**, two sites each |
-| Exclusion | `lifecycle-status` (read-only, restamps nothing) not touched | **0 hits** — and `issue-triage` also **0**, excluded on the same ground: it moves *rail* state, never the cycle's lifecycle position *(named here rather than silently omitted; the brief-lite's site list did not mention it)* |
-| Single-home | no consumer restates the map's rule body | **0 hits** outside `vlt-lifecycle.md` |
-| Gates | tree still clean | `factory-paths-check` **PASS** (128 refs, 20 files); `package-lint` **A/B/C/E PASS, D SKIPPED** |
-
-**No shipped surface touched** — every edit is under `.claude/skills/`, so the channel's
-delivery boundary holds.
-
-**Done-when — WIDENED 2026-08-27, by [P-20]'s question run against this item's own check.**
-
-Original: *"the next lifecycle run that moves the position leaves the roadmap's foot restamped
-without being prompted."* **That check was incomplete, and the adversary question found it the
-day both items shipped:**
-
-> **Property it protects:** a lifecycle skill's text reliably causes the roadmap's foot to be
-> restamped — *by a reader who did not write the clause*.
-> **Passing-but-violated state:** the check passes when the agent that **authored** the clause
-> runs the skill **in the same session**, with the change still in working memory, while the
-> property — a cold reader restamps — goes untested.
-
-That state is not hypothetical. It is what happened: the 2026-08-27 Cycle 13
-`acceptance-discharge` and `cycle-closeout` runs both restamped unprompted, and both were the
-authoring session. **The evidence is real but contaminated**, and P-13 is therefore **NOT closed
-on it**. This is the item's own instance of the failure P-20 exists for — a check written beside
-its fix, in one sitting, by one author, inheriting that fix's framing.
-
-**Corroborating: the clause was demonstrably not self-sufficient.** The first restamp landed
-inside the roadmap's existing `## Next lifecycle move` heading with superseded routing still
-below it — the exact defect this item exists to prevent, committed while obeying it. It was
-self-caught from the **map's** rule (*"the reader trusts the END"*), not from the clause's own
-wording, which said only *"the roadmap's foot."* A cold reader has the wording and not the
-author's working memory.
-
-**Wording repair shipped the same day.** The precise definition landed in `vlt-lifecycle.md`,
-where the mechanics are single-homed — *"**Foot** means the **last block in the file**, not the
-last `## Next lifecycle move` heading"*, plus the demote-prior-stamp-under-a-`— historical
-record`-heading procedure and the closing test (*if anything at all follows the stamp, it is not
-the foot*). The seven **operative** clauses gained a six-word pointer-grade precision (*"its
-**last block**, below any earlier routing"*); the seven overview clauses are unchanged, and no
-consumer restates the map's rule body.
-
-**Done-when (widened):** the next lifecycle run that moves the position leaves the roadmap's
-foot restamped without being prompted **in a session that did not author the clause** — a cold
-exercise. Cycle 14's next `acceptance-discharge` is the first available one. Record that run's
-date here; the two 2026-08-27 runs stand as evidence the mechanism works, not as the close.
-
-**⚠ FIRST COLD EXERCISE RUN 2026-09-01 — AND IT FAILED, FOUR TIMES. P-13 STAYS OPEN on a
-NEGATIVE result.** *(Owner-ruled 2026-09-01.)*
-
-The widened done-when asked for a restamp *"in a session that did not author the clause."*
-**Cycle 14 supplied four such sessions and all four failed**: `acceptance-discharge` passes 3, 4
-and 5 (2026-08-31, 2026-09-01 ×2) and the `cycle-closeout` run of 2026-09-01 each placed its stamp
-**inside** the roadmap's existing `## Next lifecycle move` heading with ~140 lines of superseded
-routing still below it. The file's last block remained 2026-08-27 routing throughout. **That is
-this item's own defect, reproduced four times by cold readers, after the wording repair shipped.**
-
-**The cause is recorded because it is not the one the repair assumed.** The map's wording was not
-misread — it was **outranked**. Cycle 14's roadmap carries a strong local convention of
-newest-routing-at-the-top-of-the-section with historicals below, and each cold session followed the
-*file's* pattern in preference to the *map's* rule. The closeout session's reasoning is on record
-verbatim: it saw the convention, weighed it against the map, and chose the convention. **A cold
-reader takes the local pattern as evidence of the rule** — so a rule that lives only in the map
-loses to a file that demonstrates the opposite four times.
-
-**This is also a [P-20] instance** — *property:* a cold reader restamps the **last block in the
-file**; *passing-but-violated state:* a cold reader restamps **something**, under the right
-heading, with stale routing still below it. Reached four times running. The widened check itself
-performed correctly: it **detected** what the original check would have passed. The check works;
-the clause does not.
-
-**Corrected 2026-09-01** in `factory/cycles/14-no-enforcement-point/roadmap.md`: prior routing
-demoted under `## Next lifecycle move — historical record`, the authoritative stamp written last,
-nothing following it. The failure is recorded in that roadmap's foot **and** its frontmatter
-`status:`, so the closed archive carries its own negative result.
-
-**Re-bound: Cycle 15's first position-moving lifecycle run**, cold. ⚠ **Do not read the two
-2026-08-27 restamps as the close** — they were the authoring session, which is why the done-when
-was widened in the first place. **And a fifth failure should not produce a sixth re-bind:** if
-Cycle 15's cold run also fails, the honest reading is that the map-only home is insufficient and
-the fix is a mechanical check — routed to [P-6], as the out-of-scope note below already
-anticipates.
-
-**Out of scope, unchanged and now more clearly earned:** no mechanical lint for a missing or
-stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadmap's last
-`Next lifecycle move` agrees with its frontmatter `status:`"* is exactly the shape P-6's
-tranche takes, and it should be earned there on evidence rather than invented here.
-
-
-### P-3 — channel plumbing: platform lane, intake route, closeout hook — **open: BUILT 2026-09-01; legs 2 and 3 DISCHARGED (Cycle 15's capture 2026-09-01 + closeout 2026-09-03; the fork again on Cycle 16's capture 2026-09-09); leg 1 OPEN — no `lifecycle-status` run since the build**
-
-**Discharge record (stamped 2026-09-09).** Of the three bound events: **(2) the fork — ticked, weakly,
-twice.** Cycle 15's capture reported no marked filings (`roadmap.md` §Routed away from this cycle — the
-platform fork) and Cycle 16's capture did the same (`factory/cycles/16-closed-loops/roadmap.md`, same
-section); both took the *empty* branch the clause admits. **The 2026-09-01 paragraph below travels with
-this tick**: the code path executed twice and the seam that breaks has still never been touched — the
-fork's first real exercise is whenever a genuinely platform-side filing arrives. **(3) the footprint —
-ticked, cold.** Cycle 15's `cycle-closeout` (2026-09-03, a session that did not author the step) emitted
-both the visibility line (*platform work landed during this cycle: [P-15] … [P-24]*) and the categorized
-retirement count (PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4)
-unprompted — `roadmap.md` §Closeout record, *Footprint (Stage 2b)*. **(1) the lane — NOT ticked.** No
-`lifecycle-status` run has occurred since the build: none is recorded in Cycle 15's or Cycle 16's roadmap
-and none in the commit record 2026-09-01 → 2026-09-09. *Bound: the next such run* — unchanged, and now
-overdue in the ordinary sense that a fresh cycle is open and the map has not been read from cold. One
-run closes the item.
-
-**Build record (2026-09-01).** All four diagnosed gaps closed in one pass, built **before**
-Cycle 15's capture deliberately (owner-directed) so that every one of this item's discharging
-events is a *cold* run in a session that did not author the step — the done-when's own demand,
-and [P-13]'s lesson bought at the price of four failed restamps.
-
-- **The lane is on the instrument panel.** `.claude/skills/vlt-lifecycle.md` gains a
-  **"The platform lane (a third track, off the cadence)"** section: a four-row observable
-  table read from this ledger's `### P-N` headings under `## Active`/`## Queued` — heading
-  reads only, per `lifecycle-status`'s cheap-reads doctrine. Rows: **built-awaiting** (next
-  move = the discharging event the entry itself names), **in flight** (build it against its
-  brief-lite), **slot free** (owner picks from Queued), **lane idle**. The 2026-08-25
-  amendment is honoured — built-awaiting renders as a position in its own right, *"not a
-  synonym for done"*. A fifth route lands in Blocked outcomes: a built-awaiting item whose
-  discharging event **cannot occur** grades BLOCKED (unreachable) and routes to an owner
-  re-binding ruling, with P-10's 2026-08-25 re-bind as the worked example. The channel
-  contract is **pointed at, never restated** — the map says only how to read position off
-  disk.
-- **The intake fork exists.** `factory/inbox/README.md` documents the optional
-  `channel: platform` marker; `inbox-capture`'s Discovery partitions the un-captured set on
-  it and — the load-bearing half — **re-derives the boundary rather than trusting the
-  marker**, with four cases spelled out: marked-and-confirmed routes to Queued; marked but
-  fixed under the shipped surface routes to the cycle roadmap with the mis-mark reported;
-  unmarked-but-factory-side is surfaced to the owner, never silently re-routed; both-sides
-  captures to the cycle roadmap with the factory-side half named. `roadmap-synthesis.md`
-  gains the written form (append under `## Queued` never `## Active`; `N` one past the
-  highest `P-N` **anywhere**, since P-16's collision proves numbers are never reused; the
-  filing does **not** move, because no Stage-5 criterion would ever move it). The headless
-  JSON gains an always-present `platform_routed` key — *an empty list is the fork exercised
-  and finding nothing, which is a different fact from the fork not running.*
-- **Both closeout steps have an enforcement point.** `cycle-closeout` gains **Stage 2b — The
-  cycle's footprint**, holding the visibility-floor line *and* the retirement count side by
-  side (one step, not two, as the scope addition required). Sub-lettered **deliberately**:
-  Stages 1 and 5 are cited by name from CLAUDE.md and `inbox-capture`'s github-intake
-  reference, so renumbering would have broken live pointers. Both lines are recorded **even
-  when empty** — *"the floor is a line that always appears, or it is not a floor"*, and
-  recording the zero is the obligation. The count is categorized per **A48** against P-15's
-  own close as the worked form (PRE-NAMED / BEAT-PRODUCED / REASONED REFUSALS / EXPLICIT
-  NON-RETIREMENT), carrying A48's discrimination verbatim: *a rail that fires and says no is
-  not a rail that never fired.* Neither line gates the close. SKILL.md's overview, stage
-  table and headless JSON updated (six-part ritual → seven, `footprint` object added).
-
-**Verification at rest (2026-09-01).** The two greps the brief-lite named returned **nothing**
-before this build and now resolve at both sites. The lane's derivation was dry-run against
-this live ledger from headings alone: four Active entries all read BUILT-awaiting, zero in
-flight, Queued non-empty → the rows independently reproduce this section's hand-written
-**WIP 0/2**, which is the mechanism agreeing with the human record rather than being told the
-answer. The intake fork's own worked instance is this file: P-3 was diagnosed factory-side and
-reached this ledger by hand in 2026-08-21, which is the gap it closes.
-
-**Three discharging events, each bound.** The item self-accepts only when **all three** land,
-and none is manufacturable by the authoring session:
-
-1. **The lane** — one real `lifecycle-status` run reports the platform positions from the map
-   rather than deriving them from this ledger's prose. *Bound:* the next such run.
-2. **The fork** — one real `inbox-capture` run exercises the routing fork, **or reports no
-   marked filings** (the brief-lite admits both; an exercised fork that finds nothing is the
-   fork running). *Bound:* Cycle 15's capture.
-   <br>⚠ **Pre-recorded 2026-09-01, before that run: Cycle 15 will take the SECOND branch, and it
-   is a weak discharge.** All 72 inbox filings were checked three ways — marker present (**zero**;
-   the only `channel: platform` string in `factory/inbox/` is the README's own documentation),
-   filed-from-the-factory (**7**, every one of them a shipped-surface fix), and a named fix site
-   `vlt-upgrade` cannot deliver (`tools/`, `.github/`). **No filing in the inbox is platform-side.**
-   The closest candidate, `2026-07-25-193000-report-slot-with-no-check.md`, is filed *"from the
-   **factory**, not from a vault"* and cites `tools/package-lint.py`, but its fix lands at
-   `skills/vlt-lint/SKILL.md:137` — delivered, therefore cycle work. *Filed-from-the-factory is not
-   the test; delivery is* — the fork's own mis-mark case, arriving before the fork has run once.
-   <br>**So an empty run proves the code path executes and proves nothing about routing.** That is
-   the `b2(5)` shape in miniature — green without touching the seam that breaks — and this note
-   exists so a later reader cannot mistake the tick for evidence the fork works. **The clause is
-   NOT re-ruled**: it admits the empty branch deliberately, and re-ruling a clause to dodge an
-   inconvenient result is worse than recording the result honestly. When Cycle 15's capture reports
-   no marked filings, tick this leg and **carry this paragraph with the tick**; the fork's first
-   real exercise is whenever a genuinely platform-side filing arrives, which may be several cycles
-   out.
-3. **The footprint** — one real `cycle-closeout` run emits both the visibility line and the
-   categorized retirement count **unprompted, in a session that did not author the step**.
-   *Bound:* Cycle 15's closeout. ⚠ This is the cold-reader clause and it is not negotiable
-   down to a warm one: *a step verified by the author who just wrote it tests the author's
-   memory, not the step.*
-
-*(The brief-lite below is preserved verbatim as built-from, including the 2026-09-01 scope
-addition and priority note that finally moved it. Its "queued since 2026-08-21" framing is
-now historical.)*
-
-**Brief-lite:**
-- **Intent:** close the three structural gaps the untracked-ideas sweep found
-  (2026-08-21): the instrument panel is blind to the channel, candidates reach the
-  queue only by hand, and the visibility-floor contract line has no mechanism.
-- **Sites:** `vlt-lifecycle.md` gains platform observable rows (open/queued P-items
-  from this ledger's headings — cheap heading reads, per lifecycle-status's doctrine);
-  `factory/inbox/` filings gain an optional `channel: platform` marker and
-  `inbox-capture` routes marked filings to this ledger's Queued section instead of the
-  cycle roadmap (one intake, two destinations); `cycle-closeout` gains the one-line
-  "platform work landed during this cycle" step the contract already promises.
-  <br>**⚠ SCOPE ADDITION 2026-09-01, folded from [P-15]'s close — the SECOND missing closeout
-  step, same site, same cause.** `cycle-closeout` also gains the **retirement count**: Cycle 12's
-  roundtable amendment **A50** made it a standing closeout obligation (*"record the cycle's
-  retirement count at closeout, so P-15's tripwire has a readable series"*), and per **A48** the
-  count distinguishes **PRE-NAMED** from **BEAT-PRODUCED** retirements and records **reasoned
-  refusals** — a rail that fires and says no is not a rail that never fired. It lands **beside**
-  the visibility-floor line: one step, not two.
-  <br>*Why folded rather than opened as `P-21` (owner-ruled 2026-09-01):* P-3 already owns the
-  neighbouring step at the same site, and the channel's practiced posture is to widen rather than
-  multiply — [P-14] folded its re-derivation detector in before self-acceptance, and [P-20]'s cure
-  for [P-13] was to widen its done-when rather than open a neighbour. Splitting one
-  `cycle-closeout` mechanism across two numbers is the sprawl the WIP clause exists to prevent.
-- **Verification:** a `lifecycle-status` run reports the channel positions; a fixture
-  filing with `channel: platform` routes to Queued, not the roadmap; grep cycle-closeout
-  for the visibility line **and for the retirement count**.
-  <br>*Standing evidence for the intent, gathered 2026-09-01:* a `grep` over
-  `.claude/skills/cycle-closeout/` returns **nothing** for either obligation, and Cycles 12, 13 and
-  14 all closed without them — Cycle 14's visibility line was written only because the owner sent
-  the session to read this ledger, and its **6 retirements** appear in no series. **A rule the loop
-  genuinely states, with the enforcement point missing** — which is Cycle 14's own title.
-- **Out of scope:** any automated candidate detection (agent-initiated platform
-  filings stay a brainstorm future); spike rows (P-2's).
-  *(Amended 2026-08-25: the platform observable rows should render **built-awaiting** as a
-  position in its own right — evidence "entry reads BUILT, awaiting self-acceptance", next move
-  = the discharging event the entry names, per the contract header's WIP clause. It is the
-  mechanism half of that clause; the contract half shipped as a ledger edit the same day and
-  needs no build.)*
-- **Done-when:** one real lifecycle-status run shows the platform lane and one real
-  capture run exercises the routing fork (or reports no marked filings).
-  <br>**Widened 2026-09-01 with the scope addition:** *and* one real `cycle-closeout` run emits
-  both the visibility-floor line and the retirement count **unprompted, in a session that did not
-  author the step**. ⚠ **That cold-reader wording is deliberate, and it is [P-13]'s lesson bought
-  at the price of four failed restamps** (see P-13's negative cold exercise): a step verified by
-  the author who just wrote it tests the author's memory, not the step.
-
-**Priority note (2026-09-01).** P-3 has sat queued since 2026-08-21 while three of its four
-diagnosed gaps kept producing instances — the blind instrument panel (flagged again by the
-2026-09-01 `lifecycle-status` run, which had to derive every platform position from this ledger's
-prose), the missing visibility line (three closeouts), and now the missing retirement count.
-Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
-slot.**
 
 ### P-18 — specimen custody: give field observations a carrier — **open: Tier A SELF-ACCEPTED 2026-09-09 (discharged on Cycle 15's capture 2026-09-01 and again on Cycle 16's 2026-09-09); Tiers B and C remain queued — Tier C's precondition is now MET, not merely armed**
 
@@ -714,6 +384,13 @@ day. When these six run as known reds, they are the ones the Done-when anticipat
 *(Queued 2026-08-23 from the same ROI count. Scoped deliberately: the count found nine
 recurring deterministic classes, and this item takes only the four that need no design
 argument. See Out of scope for the three deferred and why.)*
+
+*(Inherited 2026-09-09 from [P-13]'s close: the **foot check** — *the open roadmap's last block is a
+`Next lifecycle move` stamp agreeing with frontmatter `status:`* — arrives with an eight-run series as
+standing evidence (Cycle 14: 4 cold failures on a non-conforming file; Cycle 15: 4 cold passes on a
+conforming one). The series cannot tell the wording fix from readers copying the file's pattern, which is
+the argument for a deterministic check rather than more prose. First discriminating datum: Cycle 16's
+`ideation-scaffold`, a cold run on a roadmap that starts with one stamp to demote.)*
 
 **Brief-lite:**
 - **Intent:** the ROI count classified all 98 filings and found **35 deterministically
@@ -2445,3 +2122,371 @@ cheaper to read in place than to re-file into a section. The ruling belongs on t
 way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
 itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
 note is preserved above in substance, not re-derived.)*
+
+### P-3 — channel plumbing: platform lane, intake route, closeout hook — **CLOSED 2026-09-09 (self-accepted: leg 1 on the 2026-09-09 `lifecycle-status` run, legs 2 and 3 on Cycle 15's capture + closeout; recorded 2026-09-09)**
+
+**Close record (stamped 2026-09-09).** **(1) The lane — ticked.** The 2026-09-09 `lifecycle-status` run
+derived every platform position from the map's four-row lane table over this ledger's `### P-N` headings
+alone (heading reads, no prose derivation): four built-awaiting items each with its named event, zero in
+flight, Queued non-empty → *slot free*. The run reproduced the header's hand-written WIP 0/2 without being
+told it and named this very leg as discharging on itself. The run was cold — a session that did not author
+the lane rows — though leg 1 never demanded that. With legs 2 and 3 already ticked (record below), **all
+three bound events have landed and the item self-accepts.** The leg-2 caveat travels with the close
+unchanged: the intake fork has executed twice on the empty branch and its seam is still untouched until a
+genuinely platform-side filing arrives.
+
+**Observed on the closing run, for the map not this item:** the cycle-track row *"`factory/inbox/*.md`
+exist that no open roadmap's `derives_from` lists"* fires on the held backlog (56 of 61 filings) with no
+observable distinguishing held from fresh, and by top-to-bottom order it outranks *awaiting ideation*. A
+map gap, reported by the run as such; the fix is a map edit.
+
+
+**Discharge record (stamped 2026-09-09).** Of the three bound events: **(2) the fork — ticked, weakly,
+twice.** Cycle 15's capture reported no marked filings (`roadmap.md` §Routed away from this cycle — the
+platform fork) and Cycle 16's capture did the same (`factory/cycles/16-closed-loops/roadmap.md`, same
+section); both took the *empty* branch the clause admits. **The 2026-09-01 paragraph below travels with
+this tick**: the code path executed twice and the seam that breaks has still never been touched — the
+fork's first real exercise is whenever a genuinely platform-side filing arrives. **(3) the footprint —
+ticked, cold.** Cycle 15's `cycle-closeout` (2026-09-03, a session that did not author the step) emitted
+both the visibility line (*platform work landed during this cycle: [P-15] … [P-24]*) and the categorized
+retirement count (PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4)
+unprompted — `roadmap.md` §Closeout record, *Footprint (Stage 2b)*. **(1) the lane — NOT ticked.** No
+`lifecycle-status` run has occurred since the build: none is recorded in Cycle 15's or Cycle 16's roadmap
+and none in the commit record 2026-09-01 → 2026-09-09. *Bound: the next such run* — unchanged, and now
+overdue in the ordinary sense that a fresh cycle is open and the map has not been read from cold. One
+run closes the item.
+
+**Build record (2026-09-01).** All four diagnosed gaps closed in one pass, built **before**
+Cycle 15's capture deliberately (owner-directed) so that every one of this item's discharging
+events is a *cold* run in a session that did not author the step — the done-when's own demand,
+and [P-13]'s lesson bought at the price of four failed restamps.
+
+- **The lane is on the instrument panel.** `.claude/skills/vlt-lifecycle.md` gains a
+  **"The platform lane (a third track, off the cadence)"** section: a four-row observable
+  table read from this ledger's `### P-N` headings under `## Active`/`## Queued` — heading
+  reads only, per `lifecycle-status`'s cheap-reads doctrine. Rows: **built-awaiting** (next
+  move = the discharging event the entry itself names), **in flight** (build it against its
+  brief-lite), **slot free** (owner picks from Queued), **lane idle**. The 2026-08-25
+  amendment is honoured — built-awaiting renders as a position in its own right, *"not a
+  synonym for done"*. A fifth route lands in Blocked outcomes: a built-awaiting item whose
+  discharging event **cannot occur** grades BLOCKED (unreachable) and routes to an owner
+  re-binding ruling, with P-10's 2026-08-25 re-bind as the worked example. The channel
+  contract is **pointed at, never restated** — the map says only how to read position off
+  disk.
+- **The intake fork exists.** `factory/inbox/README.md` documents the optional
+  `channel: platform` marker; `inbox-capture`'s Discovery partitions the un-captured set on
+  it and — the load-bearing half — **re-derives the boundary rather than trusting the
+  marker**, with four cases spelled out: marked-and-confirmed routes to Queued; marked but
+  fixed under the shipped surface routes to the cycle roadmap with the mis-mark reported;
+  unmarked-but-factory-side is surfaced to the owner, never silently re-routed; both-sides
+  captures to the cycle roadmap with the factory-side half named. `roadmap-synthesis.md`
+  gains the written form (append under `## Queued` never `## Active`; `N` one past the
+  highest `P-N` **anywhere**, since P-16's collision proves numbers are never reused; the
+  filing does **not** move, because no Stage-5 criterion would ever move it). The headless
+  JSON gains an always-present `platform_routed` key — *an empty list is the fork exercised
+  and finding nothing, which is a different fact from the fork not running.*
+- **Both closeout steps have an enforcement point.** `cycle-closeout` gains **Stage 2b — The
+  cycle's footprint**, holding the visibility-floor line *and* the retirement count side by
+  side (one step, not two, as the scope addition required). Sub-lettered **deliberately**:
+  Stages 1 and 5 are cited by name from CLAUDE.md and `inbox-capture`'s github-intake
+  reference, so renumbering would have broken live pointers. Both lines are recorded **even
+  when empty** — *"the floor is a line that always appears, or it is not a floor"*, and
+  recording the zero is the obligation. The count is categorized per **A48** against P-15's
+  own close as the worked form (PRE-NAMED / BEAT-PRODUCED / REASONED REFUSALS / EXPLICIT
+  NON-RETIREMENT), carrying A48's discrimination verbatim: *a rail that fires and says no is
+  not a rail that never fired.* Neither line gates the close. SKILL.md's overview, stage
+  table and headless JSON updated (six-part ritual → seven, `footprint` object added).
+
+**Verification at rest (2026-09-01).** The two greps the brief-lite named returned **nothing**
+before this build and now resolve at both sites. The lane's derivation was dry-run against
+this live ledger from headings alone: four Active entries all read BUILT-awaiting, zero in
+flight, Queued non-empty → the rows independently reproduce this section's hand-written
+**WIP 0/2**, which is the mechanism agreeing with the human record rather than being told the
+answer. The intake fork's own worked instance is this file: P-3 was diagnosed factory-side and
+reached this ledger by hand in 2026-08-21, which is the gap it closes.
+
+**Three discharging events, each bound.** The item self-accepts only when **all three** land,
+and none is manufacturable by the authoring session:
+
+1. **The lane** — one real `lifecycle-status` run reports the platform positions from the map
+   rather than deriving them from this ledger's prose. *Bound:* the next such run.
+2. **The fork** — one real `inbox-capture` run exercises the routing fork, **or reports no
+   marked filings** (the brief-lite admits both; an exercised fork that finds nothing is the
+   fork running). *Bound:* Cycle 15's capture.
+   <br>⚠ **Pre-recorded 2026-09-01, before that run: Cycle 15 will take the SECOND branch, and it
+   is a weak discharge.** All 72 inbox filings were checked three ways — marker present (**zero**;
+   the only `channel: platform` string in `factory/inbox/` is the README's own documentation),
+   filed-from-the-factory (**7**, every one of them a shipped-surface fix), and a named fix site
+   `vlt-upgrade` cannot deliver (`tools/`, `.github/`). **No filing in the inbox is platform-side.**
+   The closest candidate, `2026-07-25-193000-report-slot-with-no-check.md`, is filed *"from the
+   **factory**, not from a vault"* and cites `tools/package-lint.py`, but its fix lands at
+   `skills/vlt-lint/SKILL.md:137` — delivered, therefore cycle work. *Filed-from-the-factory is not
+   the test; delivery is* — the fork's own mis-mark case, arriving before the fork has run once.
+   <br>**So an empty run proves the code path executes and proves nothing about routing.** That is
+   the `b2(5)` shape in miniature — green without touching the seam that breaks — and this note
+   exists so a later reader cannot mistake the tick for evidence the fork works. **The clause is
+   NOT re-ruled**: it admits the empty branch deliberately, and re-ruling a clause to dodge an
+   inconvenient result is worse than recording the result honestly. When Cycle 15's capture reports
+   no marked filings, tick this leg and **carry this paragraph with the tick**; the fork's first
+   real exercise is whenever a genuinely platform-side filing arrives, which may be several cycles
+   out.
+3. **The footprint** — one real `cycle-closeout` run emits both the visibility line and the
+   categorized retirement count **unprompted, in a session that did not author the step**.
+   *Bound:* Cycle 15's closeout. ⚠ This is the cold-reader clause and it is not negotiable
+   down to a warm one: *a step verified by the author who just wrote it tests the author's
+   memory, not the step.*
+
+*(The brief-lite below is preserved verbatim as built-from, including the 2026-09-01 scope
+addition and priority note that finally moved it. Its "queued since 2026-08-21" framing is
+now historical.)*
+
+**Brief-lite:**
+- **Intent:** close the three structural gaps the untracked-ideas sweep found
+  (2026-08-21): the instrument panel is blind to the channel, candidates reach the
+  queue only by hand, and the visibility-floor contract line has no mechanism.
+- **Sites:** `vlt-lifecycle.md` gains platform observable rows (open/queued P-items
+  from this ledger's headings — cheap heading reads, per lifecycle-status's doctrine);
+  `factory/inbox/` filings gain an optional `channel: platform` marker and
+  `inbox-capture` routes marked filings to this ledger's Queued section instead of the
+  cycle roadmap (one intake, two destinations); `cycle-closeout` gains the one-line
+  "platform work landed during this cycle" step the contract already promises.
+  <br>**⚠ SCOPE ADDITION 2026-09-01, folded from [P-15]'s close — the SECOND missing closeout
+  step, same site, same cause.** `cycle-closeout` also gains the **retirement count**: Cycle 12's
+  roundtable amendment **A50** made it a standing closeout obligation (*"record the cycle's
+  retirement count at closeout, so P-15's tripwire has a readable series"*), and per **A48** the
+  count distinguishes **PRE-NAMED** from **BEAT-PRODUCED** retirements and records **reasoned
+  refusals** — a rail that fires and says no is not a rail that never fired. It lands **beside**
+  the visibility-floor line: one step, not two.
+  <br>*Why folded rather than opened as `P-21` (owner-ruled 2026-09-01):* P-3 already owns the
+  neighbouring step at the same site, and the channel's practiced posture is to widen rather than
+  multiply — [P-14] folded its re-derivation detector in before self-acceptance, and [P-20]'s cure
+  for [P-13] was to widen its done-when rather than open a neighbour. Splitting one
+  `cycle-closeout` mechanism across two numbers is the sprawl the WIP clause exists to prevent.
+- **Verification:** a `lifecycle-status` run reports the channel positions; a fixture
+  filing with `channel: platform` routes to Queued, not the roadmap; grep cycle-closeout
+  for the visibility line **and for the retirement count**.
+  <br>*Standing evidence for the intent, gathered 2026-09-01:* a `grep` over
+  `.claude/skills/cycle-closeout/` returns **nothing** for either obligation, and Cycles 12, 13 and
+  14 all closed without them — Cycle 14's visibility line was written only because the owner sent
+  the session to read this ledger, and its **6 retirements** appear in no series. **A rule the loop
+  genuinely states, with the enforcement point missing** — which is Cycle 14's own title.
+- **Out of scope:** any automated candidate detection (agent-initiated platform
+  filings stay a brainstorm future); spike rows (P-2's).
+  *(Amended 2026-08-25: the platform observable rows should render **built-awaiting** as a
+  position in its own right — evidence "entry reads BUILT, awaiting self-acceptance", next move
+  = the discharging event the entry names, per the contract header's WIP clause. It is the
+  mechanism half of that clause; the contract half shipped as a ledger edit the same day and
+  needs no build.)*
+- **Done-when:** one real lifecycle-status run shows the platform lane and one real
+  capture run exercises the routing fork (or reports no marked filings).
+  <br>**Widened 2026-09-01 with the scope addition:** *and* one real `cycle-closeout` run emits
+  both the visibility-floor line and the retirement count **unprompted, in a session that did not
+  author the step**. ⚠ **That cold-reader wording is deliberate, and it is [P-13]'s lesson bought
+  at the price of four failed restamps** (see P-13's negative cold exercise): a step verified by
+  the author who just wrote it tests the author's memory, not the step.
+
+**Priority note (2026-09-01).** P-3 has sat queued since 2026-08-21 while three of its four
+diagnosed gaps kept producing instances — the blind instrument panel (flagged again by the
+2026-09-01 `lifecycle-status` run, which had to derive every platform position from this ledger's
+prose), the missing visibility line (three closeouts), and now the missing retirement count.
+Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
+slot.**
+
+### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **CLOSED 2026-09-09 (owner-graded PASS on the second cold exercise — Cycle 15's four cold restamps, 2026-09-03; recorded 2026-09-09)**
+
+**Close record (owner-graded 2026-09-09).** The widened done-when — *a cold session restamps the roadmap's
+foot unprompted* — was met on its re-bound event, Cycle 15's first position-moving run, and then three more
+times in the same cycle (`acceptance-discharge` ×3 + `cycle-closeout`, 2026-09-03; foot of
+`factory/cycles/15-nothing-reads-it-back/roadmap.md`). Zero failures on the bound; the [P-6] route for a
+fifth failure never fired. **Graded PASS.**
+
+**The confound is recorded with the grade, not against it.** Cycle 14's four failures ran on a roadmap
+whose local newest-at-top pattern contradicted the map; Cycle 15's four passes ran on a roadmap already in
+the corrected form. The evidence therefore cannot separate *the wording fix works* from *cold readers copy
+whatever pattern the file shows* — the same *local pattern outranks the map* cause, working in the item's
+favour. The owner's ruling: that is a reason to build the mechanical check, not a reason to hold this item
+open on a bound it has met. **Inherited by [P-6]:** the foot check (*the open roadmap's last block is a
+`Next lifecycle move` stamp agreeing with frontmatter `status:`*) carries this eight-run series as its
+standing evidence — four negatives on a non-conforming file, four positives on a conforming one. A cold
+run on a roadmap that starts with a stamp to demote (Cycle 16's `ideation-scaffold` is the next such) is
+the first evidence that would discriminate; it is a P-6 datum now, not a P-13 bound.
+
+
+**Second cold exercise — POSITIVE, recorded 2026-09-09 (owner to grade).** The re-bound event was *Cycle
+15's first position-moving lifecycle run, cold*. Cycle 15 supplied **four**: `acceptance-discharge` passes 1,
+2 and 3 (2026-09-03) and `cycle-closeout` (2026-09-03), none of which authored the Cycle 15 roadmap's
+routing clause. **All four restamped the foot correctly** — each demoted the prior block with the ⚠
+strikethrough marker, wrote its stamp as the file's last block, and left nothing below it
+(`factory/cycles/15-nothing-reads-it-back/roadmap.md`, foot). Cycle 15's closeout record names it
+explicitly as *"a positive one today … for the owner to grade on the platform ledger, not graded here."*
+Cycle 16's capture (2026-09-09) also stamped its foot in the P-13 form, but as the authoring session it is
+evidence the mechanism works, not a cold exercise. **The [P-6] route (a fifth failure) did not fire.**
+**Grade owed:** 4 failures then 4 passes on the corrected file — whether the corrected roadmap form
+(prior routing demoted, stamp last) is the fix, or the readers simply had a conforming file to copy, is
+the owner's call; the honest reading is the second, which is the same *local pattern outranks the map*
+cause working in the item's favour. A mechanical check stays out of scope here per the note below.
+
+*(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
+Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
+`Next lifecycle move` stamps across its whole lifecycle, where Cycles 9/10 carry 2–3.
+Mechanical cause: `vlt-release` choreography Stage 8 says "End the **report** with the
+Next lifecycle move", and "report" resolved to the chat report only. The instance was
+repaired by hand the same day; this item closes the recurrence path.)*
+
+- **Intent:** every lifecycle skill's text says explicitly that the terminal routing
+  restamp is written **into the open cycle roadmap's foot** (the map's Arc 9 standing
+  rule), not only emitted in the chat report — one clause each, pointing at the map,
+  never restating its mechanics (single-home).
+- **Sites:** `.claude/skills/vlt-release/references/choreography.md:178` (Stage 8 — the
+  site that bit); the sibling "report ends with a Next lifecycle move line" sentences in
+  `inbox-capture` (SKILL.md:22, references/roadmap-synthesis.md:85), `build-brief`
+  (SKILL.md:32/:177), `acceptance-discharge` (SKILL.md:29,
+  references/evidence-rubric.md:123), `cycle-closeout` (SKILL.md:28,
+  references/closeout-checklist.md:194), `roadmap-roundtable` (SKILL.md:28/:132),
+  `ideation-scaffold` (SKILL.md:28/:106); optionally one clarifying clause in
+  `vlt-lifecycle.md`'s standing-rule paragraph ("the foot of the roadmap" said plainly).
+- **Verification:** grep — every lifecycle skill that moves the position carries a
+  roadmap-foot restamp clause; none restates the map's rule body; `lifecycle-status`
+  (read-only, restamps nothing) correctly excluded.
+- **Out of scope:** any mechanical lint for a missing/stale foot stamp (a later item or
+  a P-6-class deterministic check); retro-stamping closed cycles' roadmaps.
+- **Done-when:** the next lifecycle run that moves the position (likely Cycle 11's
+  `acceptance-discharge`) leaves the roadmap's foot restamped without being prompted.
+
+---
+
+**BUILT 2026-08-27** (`plat:` commit — all sites are tracked factory skills). **Eleven clauses
+across nine files, plus the root fix in the map.**
+
+**⚠ The brief-lite's "optional" was wrong, and the optional edit turned out to be the root.**
+The Sites line called the `vlt-lifecycle.md` clause *"optionally one clarifying clause"*. It is
+not optional: **the map's own standing-rule paragraph said "One line, at the foot of the
+report"** — the map, which is the single home of the rule, was itself the source of the
+ambiguity every consumer skill inherited. Repairing the eleven consumer clauses while leaving
+that sentence standing would have left every reader one hop from the wrong reading. The map is
+therefore the **first** edit, not an afterthought:
+
+- `.claude/skills/vlt-lifecycle.md` — *"One line, written **into the foot of the open cycle
+  roadmap** — the file the next reader opens"*, plus a short dated paragraph recording that the
+  wording said "report" until today and what that cost (Cycle 11's roadmap: **zero** stamps
+  across its whole lifecycle, against 2–3 in Cycles 9/10).
+
+**The eleven consumer clauses**, one pair per position-moving skill — the overview sentence that
+states the obligation, and the operative site where the line is actually written:
+
+| Skill | Overview clause | Operative clause |
+|---|---|---|
+| `inbox-capture` | `SKILL.md` | `references/roadmap-synthesis.md` Handoff |
+| `ideation-scaffold` | `SKILL.md` | `SKILL.md` Handoff |
+| `roadmap-roundtable` | `SKILL.md` | `SKILL.md` Handoff |
+| `build-brief` | `SKILL.md` | `SKILL.md` Handoff |
+| `vlt-release` | `SKILL.md` | `references/choreography.md` **Stage 8 — the site that bit** |
+| `acceptance-discharge` | `SKILL.md` | `references/evidence-rubric.md` |
+| `cycle-closeout` | `SKILL.md` | `references/closeout-checklist.md` |
+
+Every clause is a **pointer**: it names the roadmap's foot as the obligation and the chat report
+as a copy, then defers to the map. **None restates the map's rule body** (the frontmatter-agreement
+clause and the append-only rationale appear nowhere outside `vlt-lifecycle.md`) — single-home
+discipline held. Two sites per skill matches the doubling these skills already had for the
+"report ends with a Next lifecycle move" sentence; it is the same sentence, corrected in both
+its existing homes, not a new home.
+
+**Two skill-specific wordings, deliberately not uniform:**
+- `cycle-closeout` says *"the foot of the roadmap **it is closing**"* — it resets `factory/CYCLE`
+  to `none`, so "the open cycle roadmap" would name nothing by the time the stamp lands. This is
+  also where the clause matters most: that roadmap becomes a permanent archive nobody restamps later.
+- `vlt-release`'s Stage 8 carries the dated instance record, because that is the exact line whose
+  "report" resolved to the chat report in the v0.15.0 run.
+
+**Verification — the brief-lite's grep test, all four legs green:**
+
+| Leg | Expected | Result |
+|---|---|---|
+| Coverage | all 7 position-moving skills carry the clause | **7/7**, two sites each |
+| Exclusion | `lifecycle-status` (read-only, restamps nothing) not touched | **0 hits** — and `issue-triage` also **0**, excluded on the same ground: it moves *rail* state, never the cycle's lifecycle position *(named here rather than silently omitted; the brief-lite's site list did not mention it)* |
+| Single-home | no consumer restates the map's rule body | **0 hits** outside `vlt-lifecycle.md` |
+| Gates | tree still clean | `factory-paths-check` **PASS** (128 refs, 20 files); `package-lint` **A/B/C/E PASS, D SKIPPED** |
+
+**No shipped surface touched** — every edit is under `.claude/skills/`, so the channel's
+delivery boundary holds.
+
+**Done-when — WIDENED 2026-08-27, by [P-20]'s question run against this item's own check.**
+
+Original: *"the next lifecycle run that moves the position leaves the roadmap's foot restamped
+without being prompted."* **That check was incomplete, and the adversary question found it the
+day both items shipped:**
+
+> **Property it protects:** a lifecycle skill's text reliably causes the roadmap's foot to be
+> restamped — *by a reader who did not write the clause*.
+> **Passing-but-violated state:** the check passes when the agent that **authored** the clause
+> runs the skill **in the same session**, with the change still in working memory, while the
+> property — a cold reader restamps — goes untested.
+
+That state is not hypothetical. It is what happened: the 2026-08-27 Cycle 13
+`acceptance-discharge` and `cycle-closeout` runs both restamped unprompted, and both were the
+authoring session. **The evidence is real but contaminated**, and P-13 is therefore **NOT closed
+on it**. This is the item's own instance of the failure P-20 exists for — a check written beside
+its fix, in one sitting, by one author, inheriting that fix's framing.
+
+**Corroborating: the clause was demonstrably not self-sufficient.** The first restamp landed
+inside the roadmap's existing `## Next lifecycle move` heading with superseded routing still
+below it — the exact defect this item exists to prevent, committed while obeying it. It was
+self-caught from the **map's** rule (*"the reader trusts the END"*), not from the clause's own
+wording, which said only *"the roadmap's foot."* A cold reader has the wording and not the
+author's working memory.
+
+**Wording repair shipped the same day.** The precise definition landed in `vlt-lifecycle.md`,
+where the mechanics are single-homed — *"**Foot** means the **last block in the file**, not the
+last `## Next lifecycle move` heading"*, plus the demote-prior-stamp-under-a-`— historical
+record`-heading procedure and the closing test (*if anything at all follows the stamp, it is not
+the foot*). The seven **operative** clauses gained a six-word pointer-grade precision (*"its
+**last block**, below any earlier routing"*); the seven overview clauses are unchanged, and no
+consumer restates the map's rule body.
+
+**Done-when (widened):** the next lifecycle run that moves the position leaves the roadmap's
+foot restamped without being prompted **in a session that did not author the clause** — a cold
+exercise. Cycle 14's next `acceptance-discharge` is the first available one. Record that run's
+date here; the two 2026-08-27 runs stand as evidence the mechanism works, not as the close.
+
+**⚠ FIRST COLD EXERCISE RUN 2026-09-01 — AND IT FAILED, FOUR TIMES. P-13 STAYS OPEN on a
+NEGATIVE result.** *(Owner-ruled 2026-09-01.)*
+
+The widened done-when asked for a restamp *"in a session that did not author the clause."*
+**Cycle 14 supplied four such sessions and all four failed**: `acceptance-discharge` passes 3, 4
+and 5 (2026-08-31, 2026-09-01 ×2) and the `cycle-closeout` run of 2026-09-01 each placed its stamp
+**inside** the roadmap's existing `## Next lifecycle move` heading with ~140 lines of superseded
+routing still below it. The file's last block remained 2026-08-27 routing throughout. **That is
+this item's own defect, reproduced four times by cold readers, after the wording repair shipped.**
+
+**The cause is recorded because it is not the one the repair assumed.** The map's wording was not
+misread — it was **outranked**. Cycle 14's roadmap carries a strong local convention of
+newest-routing-at-the-top-of-the-section with historicals below, and each cold session followed the
+*file's* pattern in preference to the *map's* rule. The closeout session's reasoning is on record
+verbatim: it saw the convention, weighed it against the map, and chose the convention. **A cold
+reader takes the local pattern as evidence of the rule** — so a rule that lives only in the map
+loses to a file that demonstrates the opposite four times.
+
+**This is also a [P-20] instance** — *property:* a cold reader restamps the **last block in the
+file**; *passing-but-violated state:* a cold reader restamps **something**, under the right
+heading, with stale routing still below it. Reached four times running. The widened check itself
+performed correctly: it **detected** what the original check would have passed. The check works;
+the clause does not.
+
+**Corrected 2026-09-01** in `factory/cycles/14-no-enforcement-point/roadmap.md`: prior routing
+demoted under `## Next lifecycle move — historical record`, the authoritative stamp written last,
+nothing following it. The failure is recorded in that roadmap's foot **and** its frontmatter
+`status:`, so the closed archive carries its own negative result.
+
+**Re-bound: Cycle 15's first position-moving lifecycle run**, cold. ⚠ **Do not read the two
+2026-08-27 restamps as the close** — they were the authoring session, which is why the done-when
+was widened in the first place. **And a fifth failure should not produce a sixth re-bind:** if
+Cycle 15's cold run also fails, the honest reading is that the map-only home is insufficient and
+the fix is a mechanical check — routed to [P-6], as the out-of-scope note below already
+anticipates.
+
+**Out of scope, unchanged and now more clearly earned:** no mechanical lint for a missing or
+stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadmap's last
+`Next lifecycle move` agrees with its frontmatter `status:`"* is exactly the shape P-6's
+tranche takes, and it should be earned there on evidence rather than invented here.
+
+
