@@ -52,11 +52,28 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ---
 
-## Active (WIP 0/2 — P-10, P-14, P-20, P-13, P-3, P-18 Tier A and P-16 are all BUILT-awaiting and consume no slot, per the contract header)
+## Active (WIP 0/2 — P-10, P-13, P-3 and P-18 Tiers B/C are open and consume no slot; P-14, P-20 and P-16 CLOSED 2026-09-09; P-18 Tier A self-accepted 2026-09-09)
+
+*(Updated 2026-09-09: the ledger had not been stamped since 2026-09-02, and every built-awaiting item's bound event had run in the meantime. Discharge pass: **[P-14], [P-20], [P-16] CLOSED** (moved to Closed); **[P-18] Tier A self-accepted** (item stays open for Tiers B/C; Tier C's precondition met); **[P-13]** second cold exercise POSITIVE ×4, owner's grade owed; **[P-3]** legs 2 + 3 ticked, leg 1 waits on a `lifecycle-status` run; **[P-10] BOUND MISSED** — Cycle 15 closed with no tracker sync — re-bound to Cycle 16's. Built-awaiting inventory **7 → 3** (P-10, P-13, P-3). The six-day stamping gap is itself a P-3 leg-1 datum: nothing read the map from cold in the span.)*
 
 *(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**, then **4 → 5** the same day when **[P-3] built**. *(The ruling below is unchanged by that: it was made on the ground that items with named discharging events and bounds are cheaper to read in place than to re-file, and P-3 arrives with three such events, each bound to a named Cycle 15 run. Revisit if the inventory grows without bounds, not merely if it grows.)* **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
-### P-10 — the loop, visible — **open: BUILT 2026-08-23, awaiting self-acceptance (the OPEN cycle's milestone + build issues generated, not typed — subject made generic 2026-08-25; heading label corrected 2026-09-01)**
+### P-10 — the loop, visible — **open: BUILT 2026-08-23; BOUND MISSED — Cycle 15 ran start to finish with no tracker sync (0 milestones, 0 `B15-` issues); re-bound to Cycle 16's `sync the tracker` run, after its ideation rules the builds**
+
+**Missed bound, recorded 2026-09-09.** The discharging event was *Cycle 15's `sync the tracker` run, after
+`inbox-capture` opens the cycle*. It never ran: `gh api repos/mggower/bmad-module-vlt/milestones?state=all`
+returns **0** and the tracker holds **no** `B15-` issue, while Cycle 15 was captured, ideated, reviewed,
+briefed, released, discharged and closed (2026-09-01 → 2026-09-03). The 2026-09-01 `issue-triage` run was
+triage mode and declined the sync as a no-op on an empty diff — correctly — and no later session invoked
+the sync mode; today's `issue-triage` run (2026-09-09) was triage mode again. **The done-when is not stale**
+(its subject is *the open cycle*, generic since 2026-08-25) and **Cycle 16 is open** as of today, so the
+event is available again. **Re-bound: Cycle 16's `sync the tracker` run** — the first one that projects a
+non-empty diff, which is after ideation rules the builds (a capture-only roadmap has no builds to project).
+*Recorded as a missed bound rather than quietly re-bound* — this ledger's own three-instance pattern
+(*a done-when naming a numbered cycle expires unnoticed*, [P-16]) now has a fourth shape: a done-when
+naming an **owner-invoked** event that no lifecycle step triggers is skipped the same way. Whether the sync
+should hang off a lifecycle step (e.g. `ideation-scaffold`'s handoff naming it) is a question for the
+owner, not decided here.
 
 **Build record (2026-08-23):** `issue-triage` gained its second mode — **'sync the
 tracker'**, mechanics single-homed at the new
@@ -140,338 +157,21 @@ bootstrap is **already complete** — all seven labels (`stage:captured` … `st
 run, after `inbox-capture` opens the cycle.** Owner-gated as always.
 here. Only the third step is new work.
 
-### P-14 — the study register: give root-cause analyses a tracked home — **open: BUILT 2026-08-25, awaiting self-acceptance (Cycle 12's `inbox-capture` folding a study-citing filing)**
+### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **open: BUILT 2026-08-27; FIRST COLD EXERCISE FAILED ×4 (2026-09-01); SECOND COLD EXERCISE POSITIVE ×4 (2026-09-03) — awaiting the owner's grade**
 
-*(Filed 2026-08-25, from the PARA problem-solving session. The session's own finding:
-the 2026-08-20 analysis diagnosed the PARA root cause correctly, lived in `_output/`
-— **gitignored** — and was distilled into a filing that carried the symptom but not the
-cause. The cause never entered the factory record, and re-surfaced five days and two
-releases later as an independent re-derivation by the owner. The loss was not a filing
-discipline failure; the document had nowhere tracked to live. Note this ledger already
-cites `_output/brainstorming/…` as provenance in its own stood-up note and in P-5 — the
-factory record's own links point into untracked space.)*
-
-**Brief-lite:**
-- **Intent:** a durable, citable home for **studies** — cross-cycle, problem-shaped
-  root-cause analyses that outlive any one cycle and that filings rest on. A filing
-  should cite a study by tracked path instead of restating it or losing it.
-- **Sites:** new `factory/studies/` with `README.md` as **single home** (what a study is,
-  the naming shape, and the boundary against neighbours — a **spike** reads an *external*
-  source before a brief (P-2's register); a **study** diagnoses *internal* structure
-  across cycles; a **method** note records how the factory works). Entries are
-  `ST-N-<slug>.md`. Back-fill **ST-1** (2026-08-20, PARA write-path — the stranded one)
-  and **ST-2** (2026-08-25, location-as-proxy-for-trust) from `_output/`, scrubbed to
-  placeholders per the publication rules. One clause in CLAUDE.md's lifecycle section
-  pointing at the register (point-at-the-map, no restated mechanics).
-- **Verification:** `factory-paths-check` PASS; the 2026-08-25 PARA filing's provenance
-  paragraph resolves to a tracked `ST-2` path rather than declaring itself
-  self-contained-because-`_output/`-is-gitignored; no personal or machine-specific
-  content in either back-fill (grep for machine paths, owner username, field-vault name).
-- **Out of scope:** gates in the lifecycle skills (P-2's spike register earns those; a
-  study is *citable*, not *blocking* — adding a second set of adoption gates across five
-  skills is exactly the accretion this session was convened about); migrating
-  `_output/brainstorming/` wholesale (brainstorm memlogs are a different artifact class
-  — a later item if they prove worth tracking); any change to shipped surface.
-- **Done-when:** Cycle 12's `inbox-capture` folds a filing that cites a study, and the
-  citation resolves to a tracked path.
-
-**Build record (2026-08-25).** `factory/studies/` stood up with `README.md` as single home:
-what a study is; the boundary against **spike** (reads an *external* source pre-brief),
-**method** note (how the factory works), and **filing** (one field instance); `ST-N-<slug>`
-register-global ids; the frontmatter shape; and the register index. Two back-fills landed —
-**`ST-1`** (2026-08-20, the PARA write-path analysis that stranded) and **`ST-2`** (2026-08-25,
-location-as-proxy-for-trust), each self-contained, each scrubbed. The 2026-08-25 PARA filing's
-provenance paragraph now **cites `ST-2`** instead of declaring itself
-self-contained-because-`_output/`-is-gitignored. CLAUDE.md gained a three-line pointer below
-the platform-ledger clause (point-at-the-map; no restated mechanics).
-
-**Design note (1), stated because it diverges from P-2's register.** A spike entry is a
-**pointer** — its harvest lives in the cycle directory that produced it. A study has no durable
-source to point at: the session artifact is in gitignored `_output/`, which is the failure being
-fixed. So a study **carries its diagnosis in full**, and the `_output/` path is recorded as
-provenance only, never load-bearing. The README states this so the two registers are not read
-as the same shape.
-
-**Design note (2).** `status: superseded` means a later study **replaced the diagnosis**, not
-that the problem was fixed — and a superseded study stays in the register. Knowing what the
-factory believed, and why it was wrong, is half of what a register is for. `ST-1` and `ST-2`
-are both `standing`: `ST-2` sharpens `ST-1`'s primary cause and adds the process cause, and
-does not refute its second-verb design (out-priced, not wrong). Each says so at the other's
-name.
-
-**Deviation (1), flagged — and half of it was an error, corrected 2026-08-25.** The brief-lite's
-back-fill scope said "from `_output/`, scrubbed." Three neighbouring `problem-solution-*`
-sessions (2026-08-08 — extending module-owned skills without editing source; 2026-08-19 — the
-single-machine feedback loop; 2026-08-24 — full lint's cost curve) were **deliberately not**
-back-filled. **08-08 and 08-19 reached their fix and stand excluded. 08-24 did not, and its
-exclusion was an error** — its cause is live, captured as Cycle 11's **A11-11**, graded
-CONFIRMED, with **directions 1–4 deferred to Cycle 12** and only the instrumentation shipped.
-It is now back-filled as **`ST-3`**. Named **here**, so the silence is a recorded choice; the
-README states the criterion, not the roster (a dated list of untracked paths is build-time
-bookkeeping, not study mechanics).
-
-**What the error was, since it is the item's own subject matter.** The excluded session's
-Key Insight 4 — *"every honesty repair correctly added coverage guards; none of them ever
-removed work… a guard's cost should be reviewed on the same cadence as its correctness"* — is
-`ST-2`'s **RC2** and **P-15**'s baseline claim, derived a day earlier from the cost side. So
-this register's back-fill dropped a live third derivation of the very cause the register and
-the retirement rail were both built to stop losing. The criterion that produced it ("reached
-its fix") also contradicted the README's own `status:` rule, which keeps a repaired cause
-`standing` once inside. **The criterion has been replaced with a cause-reusability test carrying
-an explicit guard that a live diagnosis is never excluded**, and the miss is recorded at
-`ST-3`'s head and in the README rather than quietly repaired. *(Found by the tech-writer review
-pass, 2026-08-25.)*
-
-**Verification (at rest).** `uv run tools/factory-paths-check.py` PASS (re-run after the
-2026-08-25 review corrections; the new register paths, including `ST-3`, resolve); a scrub grep over every new and edited file for machine paths,
-the owner's name, and partner-local names returns clean; the filing's citation resolves to a
-tracked path on disk, which is the done-when's own test performed early. The remaining clause
-is the Cycle 12 capture run named above.
-
-**Scope addition, owner-ruled 2026-08-25 — the re-derivation detector.** Folded into P-14
-*before* self-acceptance rather than opened as its own item: one non-blocking clause in
-`inbox-capture`'s `references/grounding-methodology.md` — **"does this filing's cause already
-have a study?"** — asked at the one beat already reading source for a cause. Cited → the capture
-names the `ST-N`, states only the residual, appends to `cited_by:`; not cited → say so, and
-opening a study stays the author's call. **Not a gate**, so *Citable, never blocking* is
-untouched, and P-14's out-of-scope line (no second set of adoption gates across five skills)
-does not bite: one clause, one skill, no hold.
-
-*Grounds for folding rather than opening:* the clause lives in the same skill, fires at the same
-moment, and is exercised by the same event as P-14's own done-when — P-15's "one item, not
-three" argument pointing the other way. *Grounds for building it now rather than waiting:* the
-detector has **two observed instances** (ST-1 → ST-2 at five days; the 2026-08-24 session →
-ST-2's RC2 at one day), and both occurred while the register was empty or tiny — so "small
-enough to remember" is the condition under which it already failed twice. The failure was never
-volume; **nobody thought to look.** Flagged as scope touching a built item so it reads as a
-ruling, not creep.
-
-**Watch (attached to this item's discharging event) — partial supersession.** `superseded_by:`
-is a whole-file scalar and cannot express what `ST-2` did to `ST-1`: RC-A sharpened into RC1,
-RC-B left standing ("out-priced, not wrong"). The relationship survives only in prose, in two
-sections that must be read to be found — **a register whose schema cannot express partial
-obsolescence, describing a loop that could not express partial obsolescence.** Deliberately
-**not** designed now: the population is **one**, and a schema change grounded in a single
-instance is a rule ahead of its mechanism — the fault the roundtable hunts, and poor form to
-ship out of the item just reviewed for that class of problem. Re-examined at this item's
-self-acceptance (Cycle 12's `inbox-capture`), by which point a second instance may exist and
-would show whether the fix is scalar→list, a `supersedes:` field with per-cause granularity, or
-nothing. *(Owner-ruled 2026-08-25 off the tech-writer review.)*
-
-**⚠ Note added 2026-09-01 — the two study-citing filings are now ON THE RAIL as well as in the
-inbox.** Posted the same day as issues **#17** (the PARA `type:` enum) and **#18** (the `verified_by`
-roster), both `vault-filed` / `field:candidate` under `rail_contract: 1`. This makes P-14's
-discharging capture slightly richer than the done-when anticipated: the filings reach Cycle 15's
-`inbox-capture` **already materialized**, each citing `ST-2`, so the register is exercised through
-the rail rather than only factory-side. The done-when is otherwise unchanged.
-
-**Status 2026-09-01 — not met, and imminent. No ruling needed; the event is scheduled.** The
-done-when asks that an `inbox-capture` run fold a filing that **cites a study**. None of Cycle 14's
-eight captured filings does. **But Cycle 14 produced two that do:** the supersession filings
-`factory/inbox/2026-09-01-160000-…` and `…-170000-…` both rest on **`ST-2`**
-(*location as proxy for trust*) — and the first of them cites it as the reason **Cycle 14 build-6
-was withdrawn**, which is the register earning its keep exactly as the item intended: a study
-outliving one cycle and a filing resting on it rather than restating it. **Bound: Cycle 15's
-`inbox-capture`.** That capture discharges this item on arrival.
-
-### P-20 — the check adversary: attack the checks, not the fix — **open: BUILT 2026-08-27, awaiting self-acceptance (the next cycle's briefing run)**
-
-*(Filed 2026-08-27, from an owner observation at the end of Cycle 14's two-release day: *"we need a
-better release review/test process — the last few releases have had a lot of defects and this has
-become expensive."* Routed here, not inbox: every site is a factory skill — `vlt-upgrade` delivers
-none of them. Cross-referenced to [P-18] Tier B and [P-19].)*
-
-**The cause it repairs — a check inherits the blind spot of the fix it was written beside.** The
-same reasoning that designs a repair designs its acceptance check, in the same sitting, from the
-same framing. A briefer who has just ruled *"define the class in one place"* writes a check that
-verifies one definition exists. The property they meant to protect — *every site that names it
-agrees* — is never tested, because it was never stated separately from the fix.
-
-**This is not a hypothesis. It is the same failure three cycles running — now four recorded
-instances — and it is the ONLY failure mode that has escaped to the field in that span** (the
-fourth, added 2026-08-27, did **not** escape: it was field-contingent and was caught by the next
-discharge run, which is why it is the cheapest and clearest of the four):
-
-| Cycle | Check | The blind spot | Cost |
-|---|---|---|---|
-| 12 | b2(5), findings cache | Tagged **field-contingent**, so it never gated; the fixture stubbed the SKILL-side writer — the exact seam that broke | Shipped broken, undetected **three cycles** |
-| 13 | check (2), reduce-side guard | The instrument could be **defeated by the thing it measured** (a scanner citing the rule it applies) | Refuted in the field **within hours**; cycle could not close |
-| 14 | build-3 check (4), class membership | Tested single-home-**ness** (defined in exactly one file) and never compared **membership** between the naming sites and the defining site | Contradiction shipped in v0.17.0; hot-fixed as v0.17.1 the same day |
-| 14 | build-5 check (6), the park's resolution | Predicted the `write-verification.md` park would unpark **because the hot-fix cured the charter membership** — testing *what the fix does*, never the property (*the park's blocker is cleared*). The park's actual blocker is the **refused partner-sitting reading** and the unchanged `verified_by` roster, which the hot-fix does not touch | **FAILED** on the 0.17.1 upgrade — the park was **re-surfaced, not unparked**, blocker intact for 27 files. Field-contingent, so no gate was breached and nothing shipped broken |
-
-**Fifth instance, and the first the item CAUGHT rather than reconstructed — 2026-08-27, on
-[P-13]'s own done-when.** A day after both items shipped, the adversary question was run against
-P-13's check (*"the next lifecycle run leaves the roadmap's foot restamped without being
-prompted"*) and found a reachable passing-violating state immediately: **the check passes when
-the agent that authored the clause runs the skill in the same session**, while the property — *a
-reader who did not write the clause restamps* — goes untested. Two real runs had already passed
-it that way. P-13's done-when was **widened rather than closed**, which is this item's prescribed
-cure applied for the first time. Two things this instance establishes that the reconstructed four
-could not: the question **works prospectively** (minutes, at rest, no field escape), and it is
-**not self-exempting** — the item's own neighbour was written beside its own fix, in one sitting,
-by one author, and inherited that framing exactly like the rest.
-
-**The fourth instance is the one that scopes the intervention, because it was observed in REAL
-TIME.** Instances 1–3 were reconstructed after an escape. Instance 4 was graded by the very next
-`acceptance-discharge` run, hours after the check was written — and its refuting evidence was
-**already on disk when the check was written**: the **0.17.0** post-flight, hours before build-5 was
-briefed, had already named the actual blocker (*"narrowed it by ARTIFACT CLASS ONLY … explicitly
-refusing the partner-sitting reading the park was built on … the park's substantive blocker
-STANDS"*) and had already counted the charter omission as **one file of 29**. It was flagged in
-session before the hot-fix was ruled. **The brief wrote the check from the fix's framing anyway.**
-
-That is the sharpest available statement of this item's cause: **the blind spot is not missing
-evidence, and it is therefore not curable by more grounding or another reviewer.** The briefer had
-the refutation in hand and did not apply it, because the question they were answering was *"what
-does this fix achieve?"* rather than *"what property am I protecting, and could this check pass
-while it is violated?"*. It also confirms the item's own **out-of-scope** ruling: a second reviewer
-reading that brief would have inherited the same framing and the same in-hand-but-unapplied
-evidence. Graded at `factory/cycles/14-no-enforcement-point/roadmap.md` §build-5 (6) (discharge
-pass 2, 2026-08-27); no inbox filing was drafted for it — the signal is factory-side and its home is
-this item.
-
-**Confirmed the same day the item was filed.** v0.17.1's repair built the membership comparison build-3 check (4) lacked, and it immediately found a **sixth** enumerating site the defect's own filing had missed — `vault-operating-contract.md:66`, the Layer-3 **entry condition itself**. It also caught that a naive member insert would ship a *new* contradiction: `:190`'s predicate said the class is *append-shaped*, and a charter is not. **A hand-written enumeration of the defect found 5 sites and one wrong predicate; the mechanical comparison found 6 and the predicate.** That gap — between what careful reading finds and what asking the adversary question finds — is this item's whole argument, measured.
-
-**The counter-evidence matters too, and it is what scopes this item.** On the 2026-08-27 two-release
-day, every *other* defect was caught before it shipped — three by briefer grounding (a roundtable
-amendment that was factually wrong about live code; a second wrong about which rules three lines
-restated; a roadmap `Touches` list missing a file), three by builder verification (a brief that
-contradicted itself; an incomplete grounding pass; a pre-measurement off by 4), one at the release
-gate (a re-ack count conflating acks with prose recitations). **Grounding and at-rest verification
-are working. The gap is specifically in the checks.**
-
-**Brief-lite:**
-- **Intent:** make each ship-verifiable check state the property it protects, then try to break the
-  check rather than the fix.
-- **The mechanic, one question per ship-verifiable check:** *"Name the property this check exists to
-  protect. Now construct a state where the check **passes** and the property is **violated**."*
-  If such a state exists and is reachable, the check is incomplete — widen it, or add a second.
-  Worked example (build-3 check (4)): property = *the class has one consistent definition*;
-  passing-but-violated state = *a second site names the class with different members*. That is
-  exactly the defect that shipped, findable at brief time in minutes.
-- **Sites:** `build-brief`'s check anatomy (the adversary question sits beside the existing seam
-  declaration under R1 — same slot, same discipline) · `roadmap-roundtable` (the roster already
-  hunts the plan's joints; this points one voice at the *instruments* rather than the plan) ·
-  the brief's acceptance section records the answer, so a check that survived the question is
-  visibly distinct from one never asked.
-- **Verification:** at rest — run the question against Cycle 14's shipped checks. It **must** find
-  build-3 check (4) (a known positive) and **must not** flag build-1 check (2) or build-2 check (1)
-  (known negatives — both were adversarially constructed already: check (2) was graded on six real
-  subjects and its instrument proven failable against the prior release's code; check (1)'s fixture
-  is three runs precisely because two cannot observe reused-half loss). A pass that flags everything
-  is noise, not an instrument.
-- **Out of scope, named not omitted:**
-  - **A new review stage or an extra reviewer.** Refused on the cause: a reviewer reading the brief
-    inherits the brief's framing, which is the defect. The intervention has to be a *question that
-    reframes*, not a *person who re-reads*.
-  - **Anything about grounding or at-rest verification discipline.** Both are working — see the
-    counter-evidence above. Widening this item to "release quality" would dilute it into the generic
-    review stage the previous bullet refuses.
-  - **Release cost / cadence.** The owner's expense complaint on 2026-08-27 was **three forced cold
-    sweeps in one day**, and that is release *granularity*, not defect rate: release 1 was split
-    deliberately to reopen Cycle 13's gate and the hot-fix was an owner-chosen third cut. Two of the
-    three were scheduling decisions. The structural answer is [P-19]'s frozen corpus plus Cycle 14
-    build-2's cache repair (routine sweeps become warm again). **Do not justify P-20 on cost** — it
-    buys correctness, and the sweeps are a separate lever.
-  - **Automating the question.** It is a reasoning prompt, not a lint rule. If a mechanical subset
-    emerges (e.g. "every enumeration of a set named in >1 site is compared"), that is a package-lint
-    check earned later, on evidence.
-- **Relationship to the neighbours:** [P-18] Tier B declares *what kind* of evidence a check rests
-  on; [P-19] declares *which corpus* supplies it; **P-20 asks whether the check tests the right
-  property at all.** Provenance, population, and validity — three different questions about one
-  instrument. P-20 is independent of both and blocked by neither.
-- **Done-when (self-acceptance):** the next cycle's briefing runs the adversary question on its
-  ship-verifiable checks and **either** widens at least one check **or** records that each survived
-  — the answer on record either way, since a silent pass is indistinguishable from a skipped one.
-
----
-
-**BUILT 2026-08-27** (`plat:` commit — both sites are tracked factory skills). Three edits, no
-new skill, no new stage — the item's out-of-scope forbade both.
-
-1. **`build-brief/references/brief-anatomy.md` §9** gains *The adversary question (required, per
-   ship-verifiable check)* — the question verbatim, the widen-or-add-a-second cure, the explicit
-   *"no passing-violating state found"* return, the cause paragraph (why a reviewer cannot fix
-   what only restating the property fixes), the worked positive (build-3 check (4)) and the two
-   worked negatives (build-1 check (2), build-2 check (1)), the reconcile clause against a
-   property the roadmap already recorded, and the field-contingent scope exclusion.
-2. **`build-brief/SKILL.md` Exit gate** gains a bullet beside the existing R1/R4 and retirement
-   clauses: an unanswered adversary question makes the brief **not complete**. This is what stops
-   the question being optional; a silent pass is not an answer.
-3. **`roadmap-roundtable/SKILL.md`** gains *The instrument beat (required, every run)*, modelled
-   exactly on [P-15]'s obsolescence beat, plus its two consequential edits — the Hunt return
-   contract now mandates **both** beats, and Converge records the instrument beat's outcome or an
-   explicit `Instruments: none named` line.
-
-**⚠ Grounding correction — the brief-lite's Sites line was wrong twice, and the second error
-changed the build.**
-
-- *"beside the existing **seam** declaration under R1"* — §9 has no "seam" declaration. The
-  paragraph meant is **"A ship-verifiable check names its at-rest *instrument* at tag time"**
-  *(Cycle 11 roundtable R1, 2026-08-24)*, and that "R1" is the **Cycle 11 roundtable amendment
-  id**, not `build-brief` §3's own R1 (interim posture). The adversary question was placed beside
-  that paragraph as intended; only the name was wrong. (Per-check *seams* are named in the
-  ledger bullets, not mandated by §9 — a separate observation, not repaired here.)
-- *"`roadmap-roundtable` … points one voice at the **instruments** rather than the plan"* —
-  **not implementable as written.** The roundtable is lifecycle step 4; checks are authored at
-  step 5. **At review time no check exists to attack.** Shipping the sentence literally would
-  have produced a beat whose only legal return is "no checks yet", every run — ceremony, which
-  the item's own P-15-derived standard forbids. The beat was re-shaped to what the roundtable
-  *can* do and no other stage can: **name the property, before anyone has a fix to state it in
-  terms of.** `build-brief` then reconciles the authored check against that recorded property.
-  This strengthens the item's cause rather than diluting it — the roundtable voice does not
-  inherit the brief's framing **because the brief does not exist yet**, which is the one thing
-  the refused "extra reviewer" could never claim.
-
-**Verification — the brief-lite's at-rest test, run against Cycle 14's shipped checks. 1 of 3
-flagged, and it is the known positive.**
-
-| Check | Property, stated without the fix | Passing-but-violated state | Verdict |
-|---|---|---|---|
-| build-3 (4) *(known positive)* | Every site that names the Layer-3 operational-record class agrees on its **members** | Reachable, and it happened: exactly one file *defines* the class while a fifth naming site inside that same file (`extraction.md:84`) lists **different members** than `:190`. The check enumerated four sites and tested single-home-**ness**, never membership | **FLAGGED** — cure: compare membership across every naming site (this is precisely what build-5 shipped, and it found a **sixth** site the filing had missed) |
-| build-1 (2) *(known negative)* | The rewritten reduce stops producing the two false classes on real pages, **without** silencing the classes that should still fire | None found. It runs end-to-end over real bytes from the six subjects that refuted the prior release, requires two *other* detectors to still carry them (a both-directions control blocking "everything went quiet"), and carries a binding refusing any fixture limited to the changed surfaces | **not flagged** ✓ |
-| build-2 (1) *(known negative)* | The cache sidecar round-trips through the **shipped** writer and reader without losing reused records | None found. The third run exists specifically because two runs cannot observe reused-half loss, run 3 must be identical to run 2, and only the page-scanner agents are stubbed — the serialize→disk→parse seam is real, which is the exact stub that defeated Cycle 12 b2(5) | **not flagged** ✓ |
-
-A pass that flagged all three would have been noise; the instrument discriminates on the
-corpus the item named.
-
-**Cross-file agreement at rest:** `build-brief`'s §9 points at
-`roadmap-roundtable/SKILL.md` for the property record, and the roundtable's instrument beat
-points back at `brief-anatomy.md` §9 — mutual, one pointer each, neither restating the other's
-mechanics (single-home). No shipped surface touched: `git status` shows edits confined to
-`.claude/skills/build-brief/` and `.claude/skills/roadmap-roundtable/`, so the channel's
-delivery boundary holds.
-
-**Done-when (unchanged):** the next cycle's briefing runs the adversary question on its
-ship-verifiable checks and **either** widens at least one check **or** records that each
-survived. The instrument beat self-accepts on the next `roadmap-roundtable` run.
-
-**⚠ STATUS 2026-09-01 — NEITHER HALF FIRED. P-20 stays open, re-bound to Cycle 15.**
-*(Grounded at Cycle 14's closeout; corrects a same-session first reading that called it met.)*
-
-- **The briefing half did NOT fire.** `grep -i adversary` over all six of Cycle 14's briefs returns
-  **zero**. `build-6-declared-typed-subtree.md:193` references this item once — a single check's
-  mandatory control described as *"[P-20]'s question asked at brief time rather than after"* — and
-  that is the **idea applied to one check**, not the done-when, which requires the question run
-  **per ship-verifiable check** with the explicit widen-or-*"no passing-violating state found"*
-  return that `brief-anatomy.md` §9 mandates. Build-6 was subsequently **withdrawn**, but the
-  shortfall is independent of that: no brief in the cycle ran the pass.
-- **The instrument-beat half did NOT fire** — no `roadmap-roundtable` has run since the build
-  (Cycle 14's roundtable was 2026-08-26, the day before).
-- ⚠ **The near-miss is the point, and it is this item's own failure mode.** The single control that
-  *was* written this way (build-6 check (4)) is a genuine instance of the question working — it
-  produced a mandatory control at brief time — and it was **read as satisfying the item** on a
-  first pass. A partial exercise that reads as a full one is exactly *"a silent pass is
-  indistinguishable from a skipped one"*, which is the sentence the done-when ends on. Recorded as
-  the item's **sixth** instance and its first against **itself**.
-
-**Re-bound:** Cycle 15's `roadmap-roundtable` (instrument beat) and Cycle 15's first `build-brief`
-run (the adversary pass, with the answer on record either way). Both are ordinary, scheduled,
-unavoidable beats of the next cycle — no staging required.
-
----
-
-### P-13 — say "the roadmap's foot", not "the report": disambiguate the terminal-restamp obligation — **open: BUILT 2026-08-27, awaiting self-acceptance (the next lifecycle run that moves the position)**
+**Second cold exercise — POSITIVE, recorded 2026-09-09 (owner to grade).** The re-bound event was *Cycle
+15's first position-moving lifecycle run, cold*. Cycle 15 supplied **four**: `acceptance-discharge` passes 1,
+2 and 3 (2026-09-03) and `cycle-closeout` (2026-09-03), none of which authored the Cycle 15 roadmap's
+routing clause. **All four restamped the foot correctly** — each demoted the prior block with the ⚠
+strikethrough marker, wrote its stamp as the file's last block, and left nothing below it
+(`factory/cycles/15-nothing-reads-it-back/roadmap.md`, foot). Cycle 15's closeout record names it
+explicitly as *"a positive one today … for the owner to grade on the platform ledger, not graded here."*
+Cycle 16's capture (2026-09-09) also stamped its foot in the P-13 form, but as the authoring session it is
+evidence the mechanism works, not a cold exercise. **The [P-6] route (a fifth failure) did not fire.**
+**Grade owed:** 4 failures then 4 passes on the corrected file — whether the corrected roadmap form
+(prior routing demoted, stamp last) is the fix, or the readers simply had a conforming file to copy, is
+the owner's call; the honest reading is the second, which is the same *local pattern outranks the map*
+cause working in the item's favour. A mechanical check stays out of scope here per the note below.
 
 *(Filed 2026-08-24, from a lifecycle-status flag: the v0.15.0 release run updated the
 Cycle 11 roadmap's frontmatter but wrote no foot restamp — the roadmap had **zero**
@@ -637,7 +337,22 @@ stale foot stamp. That is a [P-6]-class deterministic check — *"the open roadm
 tranche takes, and it should be earned there on evidence rather than invented here.
 
 
-### P-3 — channel plumbing: platform lane, intake route, closeout hook — **open: BUILT 2026-09-01, awaiting self-acceptance (three discharging events, named below)**
+### P-3 — channel plumbing: platform lane, intake route, closeout hook — **open: BUILT 2026-09-01; legs 2 and 3 DISCHARGED (Cycle 15's capture 2026-09-01 + closeout 2026-09-03; the fork again on Cycle 16's capture 2026-09-09); leg 1 OPEN — no `lifecycle-status` run since the build**
+
+**Discharge record (stamped 2026-09-09).** Of the three bound events: **(2) the fork — ticked, weakly,
+twice.** Cycle 15's capture reported no marked filings (`roadmap.md` §Routed away from this cycle — the
+platform fork) and Cycle 16's capture did the same (`factory/cycles/16-closed-loops/roadmap.md`, same
+section); both took the *empty* branch the clause admits. **The 2026-09-01 paragraph below travels with
+this tick**: the code path executed twice and the seam that breaks has still never been touched — the
+fork's first real exercise is whenever a genuinely platform-side filing arrives. **(3) the footprint —
+ticked, cold.** Cycle 15's `cycle-closeout` (2026-09-03, a session that did not author the step) emitted
+both the visibility line (*platform work landed during this cycle: [P-15] … [P-24]*) and the categorized
+retirement count (PRE-NAMED 2 / BEAT-PRODUCED 5 builds / REASONED REFUSALS 1 / EXPLICIT NON-RETIREMENTS 4)
+unprompted — `roadmap.md` §Closeout record, *Footprint (Stage 2b)*. **(1) the lane — NOT ticked.** No
+`lifecycle-status` run has occurred since the build: none is recorded in Cycle 15's or Cycle 16's roadmap
+and none in the commit record 2026-09-01 → 2026-09-09. *Bound: the next such run* — unchanged, and now
+overdue in the ordinary sense that a fresh cycle is open and the map has not been read from cold. One
+run closes the item.
 
 **Build record (2026-09-01).** All four diagnosed gaps closed in one pass, built **before**
 Cycle 15's capture deliberately (owner-directed) so that every one of this item's discharging
@@ -775,7 +490,20 @@ prose), the missing visibility line (three closeouts), and now the missing retir
 Nothing blocks it; it has simply never been picked up. **Strongest candidate for the next free
 slot.**
 
-### P-18 — specimen custody: give field observations a carrier — **open: BUILT 2026-09-01 (Tier A), awaiting self-acceptance (Cycle 15's capture; Tiers B and C remain queued behind their preconditions)**
+### P-18 — specimen custody: give field observations a carrier — **open: Tier A SELF-ACCEPTED 2026-09-09 (discharged on Cycle 15's capture 2026-09-01 and again on Cycle 16's 2026-09-09); Tiers B and C remain queued — Tier C's precondition is now MET, not merely armed**
+
+**Tier A self-acceptance record (stamped 2026-09-09).** The done-when's second branch — *an `inbox-capture`
+run recovers a specimen set from a count-only filing* — fired twice. **Cycle 15's capture** recovered A15-1's
+set (two sweeps filed → three verified) and used the axis to **refute** A15-3 outright
+(`factory/cycles/15-nothing-reads-it-back/roadmap.md:134-135`, `:159`, `:293`). **Cycle 16's capture** recovered
+A16-2's *"22 reconciled, page set not recovered"* to **22 pages / 55 entries** from the field vault's commit,
+which changed the defect's shape (`factory/cycles/16-closed-loops/roadmap.md` §A16-2). The RED control
+(`2026-08-24-173002`, the 18) was **not** recovered by either run — it is a Cycle 12 capture held on its
+clause and was in neither run's un-captured set; the control stays in the inbox for whichever run touches it.
+**Tier C's precondition** (*Tier A producing one cycle of real manifests*) is met by Cycle 15: the two
+filings `acceptance-discharge` drafted 2026-09-03 both carry manifests, and both were captured under the
+axis today. Tier C is therefore **openable**, not queued behind a precondition — an owner call, a slot
+spend, not made here. Tier B's trigger is unchanged (a build with no prior failure behind it).
 
 **Build record (2026-09-01), Tier A only — Tiers B and C are untouched and their preconditions
 stand.** Built immediately before Cycle 15's capture, deliberately: the discharging event is an
@@ -917,278 +645,6 @@ near-miss is evidence about **where the trigger actually sits**: the condition a
 *unchallenged*, and a briefer who names the reach honestly will keep clearing the bar while the
 underlying gap — a rule with no executable enforcement point — stays open. If a second challenged
 reach lands before an unchallenged one, the trigger's wording is the thing to revisit, not the tier.
-
-### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **open: BUILT 2026-09-01, awaiting self-acceptance (Cycle 15's ideation)** *(unparked the same day — exit condition had been met 2026-08-26 and unnoticed for six days; done-when re-bound; both open questions ruled. See the amendment and the ruling block below.)*
-
-**Build record (2026-09-01).** Built the same session the park was discharged and the two
-questions ruled, and built **before Cycle 15's `ideation-scaffold` run** for a reason the item's
-own history supplies: its re-bound done-when is *the next cycle ideated after this item builds*,
-so shipping after that scaffold ran would have slipped it to Cycle 16 — a third consecutive
-missed window, the exact failure the re-bind exists to stop.
-
-- **The field is emitted where it is authored.** `ideation-scaffold`'s grouping bullet now lays
-  **three** one-line owner-filled fields — `binds:`, `spike:`, `promise:` — and gains the
-  standing rule **"every build bullet carries a `promise:` line"**, the field's single home. It
-  states the sentence's shape (*after this ships, a vault owner running `vlt-<x>` sees Y instead
-  of Z*) and, more importantly, **why it sits at ruling time**: a vault-facing sentence already
-  existed, but it was authored at brief time by the briefer, *after* scope was ruled — so scope
-  got ruled against filing ids and the delivery was first described by someone reporting a
-  decision they did not make.
-- **The field is consumed without being re-authored.** `build-brief`'s Discovery reads it beside
-  `binds:`/`spike:` and carries it into the brief's scope statement **and its `title:`**, with the
-  line that makes the rule enforceable by reading: *a brief whose `title:` bears no relation to the
-  promise has quietly re-ruled the scope.* `brief-anatomy`'s `title:` bullet now says the field is
-  **carried, not authored here**, and points at the single home rather than restating it.
-- **The gate blocks, and says why it is not the `binds:` treatment.** A new Readiness-gate clause
-  blocks on an unfilled `promise:` — absent, empty, or still `*(owner to fill)*` — and carries the
-  structural reason inline at both sites, because it is exactly the kind of asymmetry a later
-  reader would "fix" into consistency: **`binds:` is reconstructible and a promise is not.** One
-  deliberate narrowing: a promise that is *present but describes the mechanism* rather than the
-  vault-visible delivery is a **filled** field — flagged in the report, not blocked on. Judging
-  sentence quality at a gate would make the gate the author, which is this item's own disease.
-- **The release path is untouched, per Q1.** `vlt-release/choreography.md` is **unmodified** —
-  verified, not assumed. `promise:` feeds `title:`; the CHANGELOG still collects from `title:`, so
-  no second vault-facing sentence exists to drift.
-
-**Verification at rest (2026-09-01).** Bipartite agreement holds across all five seams — emitter
-(`ideation-scaffold` grouping bullet) ↔ reader (`build-brief` Discovery) ↔ gate (Readiness) ↔
-headless `blocked` reason ↔ `title:` consumer (`brief-anatomy`), each present exactly once.
-Single-home verified: the field's mechanics resolve to **one** file and the other site points at
-it. `git status` confirms `vlt-release/` unmodified. package-lint A/B/C/E PASS ·
-factory-paths-check PASS (136 refs) · no shipped surface touched.
-
-**Done-when (re-bound, and now dischargeable):** the next cycle ideated after this item builds —
-**Cycle 15** — carries a filled `promise:` line on every build bullet, and that cycle's CHANGELOG
-entry is recognisably the same sentence. *Bound:* Cycle 15's `ideation-scaffold` run for the first
-half; Cycle 15's release for the second. ⚠ **The second half cannot discharge before the first**,
-and a `lifecycle-status` run that sees the scaffold ran without filled promises should grade the
-item FAILED rather than STILL-OPEN — the field would have shipped and been skipped, which is the
-`b2(5)` shape.
-
-*(The brief-lite below is preserved verbatim as built-from. Its `choreography.md:61-62` site is
-**out of scope as built**, per Q1; the seven homeless items remain homeless and unruled.)*
-
-*(Filed 2026-08-25, from an owner brainstorming session on the loop's comprehension problem
-— memlog + keepsake at `_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/`,
-untracked, provenance only. **Not actioned mid-flight by owner ruling**: three of the session's
-directions touch `ideation-scaffold` and `build-brief`, which Cycle 12 is mid-way through
-using, and changing the scaffold's contract against a half-filled skeleton risks a section that
-parses under neither shape. This item waits for Cycle 12 to ship.)*
-
-**The cause it repairs — `ST-4`** (*provenance is staffed, cognition is not*; root cause (b):
-no promise artifact stands between the diagnosis chain and the implementation chain, so the first
-vault-facing sentence anywhere is the CHANGELOG, written after the surprise). Read the study for
-the derivation and for the four other repairs it implies; this item is only the first of them.
-`ST-4` gates nothing — the scope ruling below is this item's, not the study's.
-
-- **Intent:** every build bullet carries a one-sentence, vault-facing **`promise:`** line
-  written at ruling time — *after this ships, a vault owner running `vlt-<x>` sees Y instead of
-  Z* — so scope is ruled against promises rather than against filing ids, and the sentence is
-  reused (not re-invented) at acceptance and in the CHANGELOG. **Amended 2026-08-25 — see the
-  correction below; the CHANGELOG half of this intent rests on a premise that was wrong.**
-- **Sites:** `.claude/skills/ideation-scaffold/SKILL.md:76-80` (the grouping bullet — a third
-  one-line field beside `binds:` and `spike:`, same `*(owner to fill)*` discipline) and its
-  standing-rule section at `:114` if the roster rule is the right home for the parallel rule;
-  `.claude/skills/build-brief/SKILL.md:83-88` (Discovery reads the bullet — carry the
-  `promise:` into the brief's scope statement, never re-author it);
-  `.claude/skills/vlt-release/references/choreography.md:61-62` (the sentence that names the
-  CHANGELOG bullet source — **corrected from `:59`**, which opens the paragraph but is not the
-  clause in question).
-
-  **Correction, 2026-08-25, from the first `ST-4` instrument dry run.** This entry was written
-  on the premise that the CHANGELOG is the *first* vault-facing sentence in the loop. It is not.
-  A brief's **`title:`** is already *"public prose … collected verbatim into the module's
-  `CHANGELOG.md` entry"* (`.claude/skills/build-brief/references/brief-anatomy.md:30-31`), and
-  `choreography.md:61-62` collects *"one bullet per build … from each open-cycle brief's
-  `title:`"*. So a vault-facing per-build sentence exists today; it is authored at **brief
-  time** by the **briefer**. `ST-4` root cause (b) is corrected to match: the gap is *who and
-  when*, not that nothing exists. **This entry never mentioned `title:` — it was not considered
-  when the item was queued.**
-
-  **Prior open question this raises, ahead of the gate question below:** given that `title:`
-  already reaches the CHANGELOG, what relation does `promise:` bear to it — does `promise:`
-  become the CHANGELOG bullet source in place of `title:`, does it feed `title:` at brief time,
-  or do the two coexist with different jobs? Unsettled; not settled here.
-
-  **Owner-ruled open question, not settled here:** which treatment `build-brief`'s Readiness
-  gate gives an unfilled `promise:` — **(A)** blocking, the treatment `spike:` has
-  (`build-brief` SKILL.md:129-135); **(B)** non-blocking carry-when-present, which has no
-  precedent in the tree; or **(C)** non-blocking reconstruct-and-disclose, the treatment
-  `binds:` has (`build-brief` SKILL.md:88). *(The original phrasing here — "gating makes it real
-  … not gating makes it advisory and probably decorative" — is **struck**. It was a
-  recommendation written into a tracked file, which is the failure `ST-4` root cause (c) names:
-  it would have pre-framed the question for every later reader of this entry. The three-option
-  form above is the dry-run packet's, and the packet is where the grounding lives.)*
-- **Verification:** grep — bipartite agreement between the scaffold's emitted field and
-  `build-brief`'s reader; a scaffolded skeleton on a real cycle shows the field present and
-  empty; no site restates another's mechanics (single-home).
-- **Out of scope:** the wider comprehension-debt repair this session produced — the
-  six-field ruling shape, ruling-by-exception (a reversal of the 2026-07-12 "an empty slot is
-  honest, a guessed answer is a lifecycle violation" ruling, which belongs to the roundtable,
-  not to this channel), the generated ideation view, and the `NEVER-VERIFIABLE` acceptance
-  grade. Also out: retro-writing promises for shipped builds.
-- **Done-when:** ~~the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
-  on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.~~
-  <br>**RE-BOUND 2026-09-01 (owner-ruled).** The struck clause became **unsatisfiable**: the first
-  cycle ideated after Cycle 12 shipped was **Cycle 13**, which carries zero `promise:` lines, as
-  does Cycle 14 — the named event came and went **twice** while the item sat parked. Under
-  `acceptance-discharge`'s rubric that is not a waiting state but **BLOCKED (unreachable)**, and
-  the route out is an owner re-binding ruling. The subject is now generic, per **P-10's 2026-08-25
-  precedent** (*"the subject is now the open cycle, not a numbered one, so a missed window
-  re-binds itself instead of needing this ruling again"*):
-  <br>**The next cycle ideated after this item builds** carries a filled `promise:` line on every
-  build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
-
-**~~PARKED 2026-08-25~~ — PARK DISCHARGED 2026-09-01, exit condition met.** *(Kept in full, not
-deleted: this ledger is append-only, and the park's reasoning is the record of why the item waited.
-Everything below reopened together, as it said it would — six days after it was entitled to.)* The
-original ruling, taken while Cycle 12 was still open:
-
-*Recorded per A12-5's shape (Cycle 12 build-5): an exit condition records the **blocker's
-shape** and the reference, never a pre-authorized sequence of moves. So no command list and no
-"then do X" below — only what is unsettled, where its grounding lives, and what state ends the
-park.*
-
-- **Exit condition (shape, not a trigger):** Cycle 12 ships. Nothing here is actioned before
-  that — three of the repairs touch `ideation-scaffold` and `build-brief`, which Cycle 12 used
-  mid-flight. The park does not expire on a date and nothing schedules it; `cycle-closeout`'s
-  carry-forward record is where it should surface.
-- **If Cycle 12's shape changes before it ships** (a build dropped, a ruling reversed, the
-  grouping re-cut) this block does not silently survive it — re-read the two P-16 questions
-  above against whatever actually shipped. That is the A12-5 failure mode this block exists to
-  avoid: a parked record that reads as still-authorized after the thing it rested on moved.
-
-**The two P-16 questions** are stated in full above (the `promise:`/`title:` relation, then the
-Readiness-gate treatment A/B/C). They are not restated here.
-
-**⚠ BOTH RULED 2026-09-01 (owner), unblocking the build.** Grounding re-verified at ruling time —
-all five cited sites still read as the entry describes, no drift since 2026-08-25.
-
-- **Q1 — the `promise:`/`title:` relation: `promise:` FEEDS `title:`.** The owner writes the
-  promise at ruling time; the briefer **carries it into `title:` rather than re-authoring it**,
-  and may sharpen it for what actually shipped. The CHANGELOG keeps collecting from `title:`, so
-  the release path is **untouched** — `vlt-release`'s `choreography.md:61-62` **drops out of this
-  item's sites entirely** and the item gets smaller. Rejected: *promise replaces title as the
-  CHANGELOG source* (moves the release path, and deletes the place where post-build deviations
-  are currently reconciled — a brief's `status:` records deviations and `title:` is where they
-  reach the vault); *the two coexist with different jobs* (two vault-facing sentences per build
-  that can drift — a two-homes violation).
-- **Q2 — an unfilled `promise:` BLOCKS, the treatment `spike:` has** (`build-brief`
-  SKILL.md:129-135), **not** the reconstruct-and-disclose treatment `binds:` has (`:88`).
-  Option (B), carry-when-present, is rejected as having no precedent in the tree and being the
-  treatment most likely to make the field decorative. The decisive argument is **structural, not
-  merely preferential**: reconstruct-and-disclose works only where the thing is *reconstructible*.
-  `binds:` is — the ruling ids exist in the roadmap and can be re-derived. **A promise cannot be
-  reconstructed, only re-invented** — and a briefer inventing the owner's promise is precisely the
-  `ST-4` failure this item exists to repair (the first vault-facing sentence authored by the wrong
-  person at the wrong time). Option (C) is therefore *unavailable*, not weaker. Supporting, not
-  load-bearing: this factory's non-gating obligations reliably do not fire — [P-20] has not fired
-  across **6** instances, [P-3]'s two closeout steps sat unenforced for **3 cycles**, and Cycle
-  12's `b2(5)` shipped broken because its check did not gate. Blocking is cheap here: one
-  sentence, written by an owner already in the session.
-- **Not ruled, and not owed at build time:** the seven homeless items below. They stay homeless.
-  Unparking granted no answers to them and this ruling does not either.
-
-**Homeless items — unsettled, and this is their only tracked home:**
-
-1. **The reversibility rubric has no definition in the tree.** The three grades used by the
-   six-field shape are: **CHEAP** — change it next cycle, nothing shipped; **STICKY** — it is in
-   vaults, unwinding needs a migration; **ONE-WAY** — a convention bump plus re-ack, or a
-   governance rule other runs cite. Recorded here because they existed nowhere on disk. *Known
-   defect:* the dry run could not grade its own option (A) — "nothing shipped" and "a governance
-   rule others cite" point at different grades for a factory-side gate, so the clerk wrote the
-   disagreement rather than picking. Unsettled: whether the rubric gets a tracked home, and how
-   that clause conflict resolves.
-2. **Field 4 (*what happens if you say nothing*) leans structurally toward the status quo**,
-   because the status quo is what it describes. Unsettled: keep, reshape, or drop. Known to be
-   the shape's sharpest flaw; ordering it after options mitigates and does not remove it.
-3. **Fields 5 and 6 collapse into each other on platform-channel questions** — roughly 40%
-   restatement when nothing ships and no version bumps, because "which files get re-edited" and
-   "how hard to unwind" are the same question there. They separate cleanly on shipped work.
-   Unsettled: whether they merge for platform items only.
-4. **Whether the six-field shape gets a tracked home at all before Cycle 13.** The field list
-   survives in `ST-4` §Disposition; the withholding protocol survives in `ST-4` §The sharpest
-   acceptance test. What survives nowhere else: the per-question marks — **ruled / stalled /
-   routed** — and the two numbers a run reports (how many of a batch ruled with no read, and
-   where the stalls clustered). Recorded here for that reason. Unsettled: file it as a method
-   note, leave it in `ST-4`, or leave it unwritten until a second run.
-5. **Who clerks the first clean legibility reading, and on what.** It cannot be the session that
-   produced `ST-4` or this entry — both have given the owner recommendations on `promise:`,
-   which is what made the 2026-08-25 dry run a *format* test rather than a measurement. Earliest
-   honest venue: the first ideation batch after Cycle 12 ships. Unsettled: venue and clerk.
-6. **`P-17` and `P-18` are not queued.** Their diagnoses are carried in `ST-4` §Disposition —
-   *inbox holds unclaimed only, filings migrate at capture* (repairs root cause (d)) and *a
-   `NEVER-VERIFIABLE` acceptance grade* (lets a tail die rather than carry). Unsettled: whether
-   they enter the queue at all. Nothing is lost by leaving them out — the causes are tracked.
-7. **`ST-4`'s scope precedent awaits nobody, and that is deliberate — but it is unratified.**
-   The study is the register's first factory-side entry; the descriptive-vs-causal cut it rests
-   on was the clerk's call, stated at the head of the file for a later reader to overrule in
-   place. No ruling is owed. Recorded so the reopening does not mistake silence for ratification.
-
----
-
-#### Amendment, 2026-09-01 — the park expired unread, and the done-when had gone unsatisfiable
-
-*(Raised by a `lifecycle-status` run reading the queue for the next free slot, and owner-ruled the
-same session. No build; this is a ledger act.)*
-
-**1. The park's exit condition was met on 2026-08-26 and nothing noticed for six days.** The
-condition was *"Cycle 12 ships"* — v0.16.0 shipped 2026-08-25 @ `216bea2`, and Cycle 12 closed
-2026-08-26. The item stayed marked PARKED through Cycles 13 and 14 in their entirety.
-
-**2. The done-when had gone unsatisfiable in the meantime, which is the more serious half.** It
-named *"the first cycle ideated after Cycle 12 ships"* — that was **Cycle 13**. Verified rather
-than assumed: `grep -c "promise:"` returns **0** for both `13-trusted-returns/roadmap.md` and
-`14-no-enforcement-point/roadmap.md`, and `promise:` appears **nowhere** in `ideation-scaffold` or
-`build-brief`, so the field was never wired at all. Two cycles ideated past a clause that could
-only ever have been satisfied by the first of them. Re-bound above to a generic, self-re-binding
-subject on P-10's precedent — **the third time this channel has had to re-bind a done-when that
-named a specific cycle**, after P-10 (2026-08-25) and P-3's own cold-reader wording. The pattern is
-now strong enough to name: *a done-when that names a numbered cycle expires unnoticed; one that
-names a role ("the open cycle", "the next cycle ideated") re-binds itself.* Worth a queued item's
-attention if it recurs a fourth time — not opened as one here, per the widen-don't-multiply posture.
-
-**3. Why it went unread — the park named a surfacing mechanism that does not exist.** The block
-says *"`cycle-closeout`'s carry-forward record is where it should surface."* It cannot: Stage 2
-collects carry-forwards **from the closing cycle's roadmap**, and a parked *platform* item is not
-on any cycle roadmap. Checked directly — `P-16` appears in Cycle 12's roadmap only as **A47**, a
-numbering-collision note, and appears in Cycles 13 and 14 **zero times**. Three closeouts ran and
-none of them could have surfaced it.
-
-⚠ **[P-3]'s new Stage 2b narrows this gap but does not close it.** The footprint line records
-*platform work that landed* during a cycle; a platform item **parked and waiting** landed nothing,
-so it is invisible to that line by construction. The honest statement of the residue: **an expired
-park on the platform ledger still has no reader.** Recorded here rather than opened as an item —
-the lane rows P-3 just added to `vlt-lifecycle.md` mean a `lifecycle-status` run now reads this
-ledger every time it runs, which is how this park was in fact found today. Whether that is
-sufficient is a question for the second instance, not this one.
-
-**Unchanged by this amendment:** both open questions (the `promise:`/`title:` relation, then the
-Readiness-gate treatment A/B/C) remain **unsettled and owed at build time**, and the seven homeless
-items above remain homeless. Unparking grants no answers. The A12-5 clause still binds — re-read
-the two questions against what Cycle 12 **actually shipped** (four builds, `216bea2`) before
-briefing, not against what it was projected to ship when the park was written.
-
-**The dry-run packet itself is not tracked.** It lives only in the transcript of the session
-that assembled it (2026-08-25) and will not survive. Deliberate: it re-derives in ~15 minutes
-and 9 reads from four files — `factory/platform/roadmap.md` (this entry),
-`.claude/skills/build-brief/SKILL.md`, `.claude/skills/ideation-scaffold/SKILL.md`,
-`.claude/skills/vlt-release/references/choreography.md` — plus two confirmatory reads
-(`build-brief/references/brief-anatomy.md`, `tools/package-lint.py`). Its durable findings are
-the corrections already applied above and in `ST-4`; nothing else in it is load-bearing.
-
----
-
-*(Superseded as a count — kept as the dated record of when the threshold was crossed and why the call was flagged. The **current** inventory and the ruling that settled it are in this section's header; today it is again five, P-15 having closed and **P-3** having built. Marked 2026-09-01 rather than rewritten: this ledger is append-only, and an uncorrected count sitting at the foot of a section is the [P-13] failure shape.)*
-
-**Built-awaiting inventory is now FIVE (P-10, P-15, P-14, P-20, P-13) — well past the contract
-header's threshold.** The header defers a separate section or second cap "until built-awaiting
-inventory reaches three." It reached three on 2026-08-25 and **five on 2026-08-27**. Flagged as an
-**owner call**, not acted on: four items with named discharging events and bounds may still be
-cheaper to read in place than to re-file into a section. The ruling belongs on the ledger either
-way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
-itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
-note is preserved above in substance, not re-derived.)*
 
 ## Queued
 
@@ -2355,3 +1811,637 @@ on 2026-09-01 still returns nothing for it. **Folded into [P-3]** (2026-09-01) r
 as its own item — P-3 already owns the neighbouring visibility-floor step. Cycles 12, 13 and 14
 all closed with no count recorded; Cycle 14's roundtable produced **6 retirements** and the number
 appears in no series.
+
+### P-14 — the study register: give root-cause analyses a tracked home — **CLOSED 2026-09-09 (self-accepted on Cycle 15's `inbox-capture`, 2026-09-01; exercised again by Cycle 16's, 2026-09-09; recorded 2026-09-09)**
+
+**Self-acceptance record (stamped 2026-09-09, six days after the event).** The done-when asked that an
+`inbox-capture` run fold a filing that cites a study. **Cycle 15's capture (2026-09-01) did**: A15-12 and
+A15-13 both rest on `ST-2` (`factory/cycles/15-nothing-reads-it-back/roadmap.md`), and the same run
+**opened `ST-7`** from a cause it kept finding under fourteen filings — the register earning its keep in
+both directions. **Cycle 16's capture (2026-09-09) exercised it again**: A16-1 cites `ST-7`, A16-3/4/5
+cite `ST-8` (opened by the owner 2026-09-09), and each capture was appended to the study's `cited_by:`.
+The bound (*Cycle 15's `inbox-capture`*) was met on the day it named; the stamp is late, not the event —
+the ledger was not read between 2026-09-02 and today, which is itself a [P-3] leg-1 observation (no
+`lifecycle-status` run in the span). **Watch attached above (partial supersession) stays attached to the
+register, not to this item.**
+
+*(Filed 2026-08-25, from the PARA problem-solving session. The session's own finding:
+the 2026-08-20 analysis diagnosed the PARA root cause correctly, lived in `_output/`
+— **gitignored** — and was distilled into a filing that carried the symptom but not the
+cause. The cause never entered the factory record, and re-surfaced five days and two
+releases later as an independent re-derivation by the owner. The loss was not a filing
+discipline failure; the document had nowhere tracked to live. Note this ledger already
+cites `_output/brainstorming/…` as provenance in its own stood-up note and in P-5 — the
+factory record's own links point into untracked space.)*
+
+**Brief-lite:**
+- **Intent:** a durable, citable home for **studies** — cross-cycle, problem-shaped
+  root-cause analyses that outlive any one cycle and that filings rest on. A filing
+  should cite a study by tracked path instead of restating it or losing it.
+- **Sites:** new `factory/studies/` with `README.md` as **single home** (what a study is,
+  the naming shape, and the boundary against neighbours — a **spike** reads an *external*
+  source before a brief (P-2's register); a **study** diagnoses *internal* structure
+  across cycles; a **method** note records how the factory works). Entries are
+  `ST-N-<slug>.md`. Back-fill **ST-1** (2026-08-20, PARA write-path — the stranded one)
+  and **ST-2** (2026-08-25, location-as-proxy-for-trust) from `_output/`, scrubbed to
+  placeholders per the publication rules. One clause in CLAUDE.md's lifecycle section
+  pointing at the register (point-at-the-map, no restated mechanics).
+- **Verification:** `factory-paths-check` PASS; the 2026-08-25 PARA filing's provenance
+  paragraph resolves to a tracked `ST-2` path rather than declaring itself
+  self-contained-because-`_output/`-is-gitignored; no personal or machine-specific
+  content in either back-fill (grep for machine paths, owner username, field-vault name).
+- **Out of scope:** gates in the lifecycle skills (P-2's spike register earns those; a
+  study is *citable*, not *blocking* — adding a second set of adoption gates across five
+  skills is exactly the accretion this session was convened about); migrating
+  `_output/brainstorming/` wholesale (brainstorm memlogs are a different artifact class
+  — a later item if they prove worth tracking); any change to shipped surface.
+- **Done-when:** Cycle 12's `inbox-capture` folds a filing that cites a study, and the
+  citation resolves to a tracked path.
+
+**Build record (2026-08-25).** `factory/studies/` stood up with `README.md` as single home:
+what a study is; the boundary against **spike** (reads an *external* source pre-brief),
+**method** note (how the factory works), and **filing** (one field instance); `ST-N-<slug>`
+register-global ids; the frontmatter shape; and the register index. Two back-fills landed —
+**`ST-1`** (2026-08-20, the PARA write-path analysis that stranded) and **`ST-2`** (2026-08-25,
+location-as-proxy-for-trust), each self-contained, each scrubbed. The 2026-08-25 PARA filing's
+provenance paragraph now **cites `ST-2`** instead of declaring itself
+self-contained-because-`_output/`-is-gitignored. CLAUDE.md gained a three-line pointer below
+the platform-ledger clause (point-at-the-map; no restated mechanics).
+
+**Design note (1), stated because it diverges from P-2's register.** A spike entry is a
+**pointer** — its harvest lives in the cycle directory that produced it. A study has no durable
+source to point at: the session artifact is in gitignored `_output/`, which is the failure being
+fixed. So a study **carries its diagnosis in full**, and the `_output/` path is recorded as
+provenance only, never load-bearing. The README states this so the two registers are not read
+as the same shape.
+
+**Design note (2).** `status: superseded` means a later study **replaced the diagnosis**, not
+that the problem was fixed — and a superseded study stays in the register. Knowing what the
+factory believed, and why it was wrong, is half of what a register is for. `ST-1` and `ST-2`
+are both `standing`: `ST-2` sharpens `ST-1`'s primary cause and adds the process cause, and
+does not refute its second-verb design (out-priced, not wrong). Each says so at the other's
+name.
+
+**Deviation (1), flagged — and half of it was an error, corrected 2026-08-25.** The brief-lite's
+back-fill scope said "from `_output/`, scrubbed." Three neighbouring `problem-solution-*`
+sessions (2026-08-08 — extending module-owned skills without editing source; 2026-08-19 — the
+single-machine feedback loop; 2026-08-24 — full lint's cost curve) were **deliberately not**
+back-filled. **08-08 and 08-19 reached their fix and stand excluded. 08-24 did not, and its
+exclusion was an error** — its cause is live, captured as Cycle 11's **A11-11**, graded
+CONFIRMED, with **directions 1–4 deferred to Cycle 12** and only the instrumentation shipped.
+It is now back-filled as **`ST-3`**. Named **here**, so the silence is a recorded choice; the
+README states the criterion, not the roster (a dated list of untracked paths is build-time
+bookkeeping, not study mechanics).
+
+**What the error was, since it is the item's own subject matter.** The excluded session's
+Key Insight 4 — *"every honesty repair correctly added coverage guards; none of them ever
+removed work… a guard's cost should be reviewed on the same cadence as its correctness"* — is
+`ST-2`'s **RC2** and **P-15**'s baseline claim, derived a day earlier from the cost side. So
+this register's back-fill dropped a live third derivation of the very cause the register and
+the retirement rail were both built to stop losing. The criterion that produced it ("reached
+its fix") also contradicted the README's own `status:` rule, which keeps a repaired cause
+`standing` once inside. **The criterion has been replaced with a cause-reusability test carrying
+an explicit guard that a live diagnosis is never excluded**, and the miss is recorded at
+`ST-3`'s head and in the README rather than quietly repaired. *(Found by the tech-writer review
+pass, 2026-08-25.)*
+
+**Verification (at rest).** `uv run tools/factory-paths-check.py` PASS (re-run after the
+2026-08-25 review corrections; the new register paths, including `ST-3`, resolve); a scrub grep over every new and edited file for machine paths,
+the owner's name, and partner-local names returns clean; the filing's citation resolves to a
+tracked path on disk, which is the done-when's own test performed early. The remaining clause
+is the Cycle 12 capture run named above.
+
+**Scope addition, owner-ruled 2026-08-25 — the re-derivation detector.** Folded into P-14
+*before* self-acceptance rather than opened as its own item: one non-blocking clause in
+`inbox-capture`'s `references/grounding-methodology.md` — **"does this filing's cause already
+have a study?"** — asked at the one beat already reading source for a cause. Cited → the capture
+names the `ST-N`, states only the residual, appends to `cited_by:`; not cited → say so, and
+opening a study stays the author's call. **Not a gate**, so *Citable, never blocking* is
+untouched, and P-14's out-of-scope line (no second set of adoption gates across five skills)
+does not bite: one clause, one skill, no hold.
+
+*Grounds for folding rather than opening:* the clause lives in the same skill, fires at the same
+moment, and is exercised by the same event as P-14's own done-when — P-15's "one item, not
+three" argument pointing the other way. *Grounds for building it now rather than waiting:* the
+detector has **two observed instances** (ST-1 → ST-2 at five days; the 2026-08-24 session →
+ST-2's RC2 at one day), and both occurred while the register was empty or tiny — so "small
+enough to remember" is the condition under which it already failed twice. The failure was never
+volume; **nobody thought to look.** Flagged as scope touching a built item so it reads as a
+ruling, not creep.
+
+**Watch (attached to this item's discharging event) — partial supersession.** `superseded_by:`
+is a whole-file scalar and cannot express what `ST-2` did to `ST-1`: RC-A sharpened into RC1,
+RC-B left standing ("out-priced, not wrong"). The relationship survives only in prose, in two
+sections that must be read to be found — **a register whose schema cannot express partial
+obsolescence, describing a loop that could not express partial obsolescence.** Deliberately
+**not** designed now: the population is **one**, and a schema change grounded in a single
+instance is a rule ahead of its mechanism — the fault the roundtable hunts, and poor form to
+ship out of the item just reviewed for that class of problem. Re-examined at this item's
+self-acceptance (Cycle 12's `inbox-capture`), by which point a second instance may exist and
+would show whether the fix is scalar→list, a `supersedes:` field with per-cause granularity, or
+nothing. *(Owner-ruled 2026-08-25 off the tech-writer review.)*
+
+**⚠ Note added 2026-09-01 — the two study-citing filings are now ON THE RAIL as well as in the
+inbox.** Posted the same day as issues **#17** (the PARA `type:` enum) and **#18** (the `verified_by`
+roster), both `vault-filed` / `field:candidate` under `rail_contract: 1`. This makes P-14's
+discharging capture slightly richer than the done-when anticipated: the filings reach Cycle 15's
+`inbox-capture` **already materialized**, each citing `ST-2`, so the register is exercised through
+the rail rather than only factory-side. The done-when is otherwise unchanged.
+
+**Status 2026-09-01 — not met, and imminent. No ruling needed; the event is scheduled.** The
+done-when asks that an `inbox-capture` run fold a filing that **cites a study**. None of Cycle 14's
+eight captured filings does. **But Cycle 14 produced two that do:** the supersession filings
+`factory/inbox/2026-09-01-160000-…` and `…-170000-…` both rest on **`ST-2`**
+(*location as proxy for trust*) — and the first of them cites it as the reason **Cycle 14 build-6
+was withdrawn**, which is the register earning its keep exactly as the item intended: a study
+outliving one cycle and a filing resting on it rather than restating it. **Bound: Cycle 15's
+`inbox-capture`.** That capture discharges this item on arrival.
+
+### P-20 — the check adversary: attack the checks, not the fix — **CLOSED 2026-09-09 (self-accepted on Cycle 15's roundtable, 2026-09-02, and all seven Cycle 15 briefs; recorded 2026-09-09)**
+
+**Self-acceptance record (stamped 2026-09-09).** Both halves of the re-bound done-when fired in Cycle 15,
+verified at rest today: the **instrument beat** ran at the 2026-09-02 `roadmap-roundtable`
+(`factory/cycles/15-nothing-reads-it-back/roadmap.md` §Roundtable review carries the per-check
+*adversary:* lines — 35 occurrences in the roadmap), and the **briefing half** ran in **every one of the
+seven briefs** (`briefs/build-1` … `build-7`: 4, 5, 5, 6, 8, 5, 4 adversary passes respectively, each
+with the widen-or-*no passing-violating state found* return `brief-anatomy.md` §9 mandates). That is the
+full done-when — the question per ship-verifiable check, on record either way — not the one-check
+near-miss the 2026-09-01 status recorded as the sixth instance. The seventh-instance counter stops here.
+
+*(Filed 2026-08-27, from an owner observation at the end of Cycle 14's two-release day: *"we need a
+better release review/test process — the last few releases have had a lot of defects and this has
+become expensive."* Routed here, not inbox: every site is a factory skill — `vlt-upgrade` delivers
+none of them. Cross-referenced to [P-18] Tier B and [P-19].)*
+
+**The cause it repairs — a check inherits the blind spot of the fix it was written beside.** The
+same reasoning that designs a repair designs its acceptance check, in the same sitting, from the
+same framing. A briefer who has just ruled *"define the class in one place"* writes a check that
+verifies one definition exists. The property they meant to protect — *every site that names it
+agrees* — is never tested, because it was never stated separately from the fix.
+
+**This is not a hypothesis. It is the same failure three cycles running — now four recorded
+instances — and it is the ONLY failure mode that has escaped to the field in that span** (the
+fourth, added 2026-08-27, did **not** escape: it was field-contingent and was caught by the next
+discharge run, which is why it is the cheapest and clearest of the four):
+
+| Cycle | Check | The blind spot | Cost |
+|---|---|---|---|
+| 12 | b2(5), findings cache | Tagged **field-contingent**, so it never gated; the fixture stubbed the SKILL-side writer — the exact seam that broke | Shipped broken, undetected **three cycles** |
+| 13 | check (2), reduce-side guard | The instrument could be **defeated by the thing it measured** (a scanner citing the rule it applies) | Refuted in the field **within hours**; cycle could not close |
+| 14 | build-3 check (4), class membership | Tested single-home-**ness** (defined in exactly one file) and never compared **membership** between the naming sites and the defining site | Contradiction shipped in v0.17.0; hot-fixed as v0.17.1 the same day |
+| 14 | build-5 check (6), the park's resolution | Predicted the `write-verification.md` park would unpark **because the hot-fix cured the charter membership** — testing *what the fix does*, never the property (*the park's blocker is cleared*). The park's actual blocker is the **refused partner-sitting reading** and the unchanged `verified_by` roster, which the hot-fix does not touch | **FAILED** on the 0.17.1 upgrade — the park was **re-surfaced, not unparked**, blocker intact for 27 files. Field-contingent, so no gate was breached and nothing shipped broken |
+
+**Fifth instance, and the first the item CAUGHT rather than reconstructed — 2026-08-27, on
+[P-13]'s own done-when.** A day after both items shipped, the adversary question was run against
+P-13's check (*"the next lifecycle run leaves the roadmap's foot restamped without being
+prompted"*) and found a reachable passing-violating state immediately: **the check passes when
+the agent that authored the clause runs the skill in the same session**, while the property — *a
+reader who did not write the clause restamps* — goes untested. Two real runs had already passed
+it that way. P-13's done-when was **widened rather than closed**, which is this item's prescribed
+cure applied for the first time. Two things this instance establishes that the reconstructed four
+could not: the question **works prospectively** (minutes, at rest, no field escape), and it is
+**not self-exempting** — the item's own neighbour was written beside its own fix, in one sitting,
+by one author, and inherited that framing exactly like the rest.
+
+**The fourth instance is the one that scopes the intervention, because it was observed in REAL
+TIME.** Instances 1–3 were reconstructed after an escape. Instance 4 was graded by the very next
+`acceptance-discharge` run, hours after the check was written — and its refuting evidence was
+**already on disk when the check was written**: the **0.17.0** post-flight, hours before build-5 was
+briefed, had already named the actual blocker (*"narrowed it by ARTIFACT CLASS ONLY … explicitly
+refusing the partner-sitting reading the park was built on … the park's substantive blocker
+STANDS"*) and had already counted the charter omission as **one file of 29**. It was flagged in
+session before the hot-fix was ruled. **The brief wrote the check from the fix's framing anyway.**
+
+That is the sharpest available statement of this item's cause: **the blind spot is not missing
+evidence, and it is therefore not curable by more grounding or another reviewer.** The briefer had
+the refutation in hand and did not apply it, because the question they were answering was *"what
+does this fix achieve?"* rather than *"what property am I protecting, and could this check pass
+while it is violated?"*. It also confirms the item's own **out-of-scope** ruling: a second reviewer
+reading that brief would have inherited the same framing and the same in-hand-but-unapplied
+evidence. Graded at `factory/cycles/14-no-enforcement-point/roadmap.md` §build-5 (6) (discharge
+pass 2, 2026-08-27); no inbox filing was drafted for it — the signal is factory-side and its home is
+this item.
+
+**Confirmed the same day the item was filed.** v0.17.1's repair built the membership comparison build-3 check (4) lacked, and it immediately found a **sixth** enumerating site the defect's own filing had missed — `vault-operating-contract.md:66`, the Layer-3 **entry condition itself**. It also caught that a naive member insert would ship a *new* contradiction: `:190`'s predicate said the class is *append-shaped*, and a charter is not. **A hand-written enumeration of the defect found 5 sites and one wrong predicate; the mechanical comparison found 6 and the predicate.** That gap — between what careful reading finds and what asking the adversary question finds — is this item's whole argument, measured.
+
+**The counter-evidence matters too, and it is what scopes this item.** On the 2026-08-27 two-release
+day, every *other* defect was caught before it shipped — three by briefer grounding (a roundtable
+amendment that was factually wrong about live code; a second wrong about which rules three lines
+restated; a roadmap `Touches` list missing a file), three by builder verification (a brief that
+contradicted itself; an incomplete grounding pass; a pre-measurement off by 4), one at the release
+gate (a re-ack count conflating acks with prose recitations). **Grounding and at-rest verification
+are working. The gap is specifically in the checks.**
+
+**Brief-lite:**
+- **Intent:** make each ship-verifiable check state the property it protects, then try to break the
+  check rather than the fix.
+- **The mechanic, one question per ship-verifiable check:** *"Name the property this check exists to
+  protect. Now construct a state where the check **passes** and the property is **violated**."*
+  If such a state exists and is reachable, the check is incomplete — widen it, or add a second.
+  Worked example (build-3 check (4)): property = *the class has one consistent definition*;
+  passing-but-violated state = *a second site names the class with different members*. That is
+  exactly the defect that shipped, findable at brief time in minutes.
+- **Sites:** `build-brief`'s check anatomy (the adversary question sits beside the existing seam
+  declaration under R1 — same slot, same discipline) · `roadmap-roundtable` (the roster already
+  hunts the plan's joints; this points one voice at the *instruments* rather than the plan) ·
+  the brief's acceptance section records the answer, so a check that survived the question is
+  visibly distinct from one never asked.
+- **Verification:** at rest — run the question against Cycle 14's shipped checks. It **must** find
+  build-3 check (4) (a known positive) and **must not** flag build-1 check (2) or build-2 check (1)
+  (known negatives — both were adversarially constructed already: check (2) was graded on six real
+  subjects and its instrument proven failable against the prior release's code; check (1)'s fixture
+  is three runs precisely because two cannot observe reused-half loss). A pass that flags everything
+  is noise, not an instrument.
+- **Out of scope, named not omitted:**
+  - **A new review stage or an extra reviewer.** Refused on the cause: a reviewer reading the brief
+    inherits the brief's framing, which is the defect. The intervention has to be a *question that
+    reframes*, not a *person who re-reads*.
+  - **Anything about grounding or at-rest verification discipline.** Both are working — see the
+    counter-evidence above. Widening this item to "release quality" would dilute it into the generic
+    review stage the previous bullet refuses.
+  - **Release cost / cadence.** The owner's expense complaint on 2026-08-27 was **three forced cold
+    sweeps in one day**, and that is release *granularity*, not defect rate: release 1 was split
+    deliberately to reopen Cycle 13's gate and the hot-fix was an owner-chosen third cut. Two of the
+    three were scheduling decisions. The structural answer is [P-19]'s frozen corpus plus Cycle 14
+    build-2's cache repair (routine sweeps become warm again). **Do not justify P-20 on cost** — it
+    buys correctness, and the sweeps are a separate lever.
+  - **Automating the question.** It is a reasoning prompt, not a lint rule. If a mechanical subset
+    emerges (e.g. "every enumeration of a set named in >1 site is compared"), that is a package-lint
+    check earned later, on evidence.
+- **Relationship to the neighbours:** [P-18] Tier B declares *what kind* of evidence a check rests
+  on; [P-19] declares *which corpus* supplies it; **P-20 asks whether the check tests the right
+  property at all.** Provenance, population, and validity — three different questions about one
+  instrument. P-20 is independent of both and blocked by neither.
+- **Done-when (self-acceptance):** the next cycle's briefing runs the adversary question on its
+  ship-verifiable checks and **either** widens at least one check **or** records that each survived
+  — the answer on record either way, since a silent pass is indistinguishable from a skipped one.
+
+---
+
+**BUILT 2026-08-27** (`plat:` commit — both sites are tracked factory skills). Three edits, no
+new skill, no new stage — the item's out-of-scope forbade both.
+
+1. **`build-brief/references/brief-anatomy.md` §9** gains *The adversary question (required, per
+   ship-verifiable check)* — the question verbatim, the widen-or-add-a-second cure, the explicit
+   *"no passing-violating state found"* return, the cause paragraph (why a reviewer cannot fix
+   what only restating the property fixes), the worked positive (build-3 check (4)) and the two
+   worked negatives (build-1 check (2), build-2 check (1)), the reconcile clause against a
+   property the roadmap already recorded, and the field-contingent scope exclusion.
+2. **`build-brief/SKILL.md` Exit gate** gains a bullet beside the existing R1/R4 and retirement
+   clauses: an unanswered adversary question makes the brief **not complete**. This is what stops
+   the question being optional; a silent pass is not an answer.
+3. **`roadmap-roundtable/SKILL.md`** gains *The instrument beat (required, every run)*, modelled
+   exactly on [P-15]'s obsolescence beat, plus its two consequential edits — the Hunt return
+   contract now mandates **both** beats, and Converge records the instrument beat's outcome or an
+   explicit `Instruments: none named` line.
+
+**⚠ Grounding correction — the brief-lite's Sites line was wrong twice, and the second error
+changed the build.**
+
+- *"beside the existing **seam** declaration under R1"* — §9 has no "seam" declaration. The
+  paragraph meant is **"A ship-verifiable check names its at-rest *instrument* at tag time"**
+  *(Cycle 11 roundtable R1, 2026-08-24)*, and that "R1" is the **Cycle 11 roundtable amendment
+  id**, not `build-brief` §3's own R1 (interim posture). The adversary question was placed beside
+  that paragraph as intended; only the name was wrong. (Per-check *seams* are named in the
+  ledger bullets, not mandated by §9 — a separate observation, not repaired here.)
+- *"`roadmap-roundtable` … points one voice at the **instruments** rather than the plan"* —
+  **not implementable as written.** The roundtable is lifecycle step 4; checks are authored at
+  step 5. **At review time no check exists to attack.** Shipping the sentence literally would
+  have produced a beat whose only legal return is "no checks yet", every run — ceremony, which
+  the item's own P-15-derived standard forbids. The beat was re-shaped to what the roundtable
+  *can* do and no other stage can: **name the property, before anyone has a fix to state it in
+  terms of.** `build-brief` then reconciles the authored check against that recorded property.
+  This strengthens the item's cause rather than diluting it — the roundtable voice does not
+  inherit the brief's framing **because the brief does not exist yet**, which is the one thing
+  the refused "extra reviewer" could never claim.
+
+**Verification — the brief-lite's at-rest test, run against Cycle 14's shipped checks. 1 of 3
+flagged, and it is the known positive.**
+
+| Check | Property, stated without the fix | Passing-but-violated state | Verdict |
+|---|---|---|---|
+| build-3 (4) *(known positive)* | Every site that names the Layer-3 operational-record class agrees on its **members** | Reachable, and it happened: exactly one file *defines* the class while a fifth naming site inside that same file (`extraction.md:84`) lists **different members** than `:190`. The check enumerated four sites and tested single-home-**ness**, never membership | **FLAGGED** — cure: compare membership across every naming site (this is precisely what build-5 shipped, and it found a **sixth** site the filing had missed) |
+| build-1 (2) *(known negative)* | The rewritten reduce stops producing the two false classes on real pages, **without** silencing the classes that should still fire | None found. It runs end-to-end over real bytes from the six subjects that refuted the prior release, requires two *other* detectors to still carry them (a both-directions control blocking "everything went quiet"), and carries a binding refusing any fixture limited to the changed surfaces | **not flagged** ✓ |
+| build-2 (1) *(known negative)* | The cache sidecar round-trips through the **shipped** writer and reader without losing reused records | None found. The third run exists specifically because two runs cannot observe reused-half loss, run 3 must be identical to run 2, and only the page-scanner agents are stubbed — the serialize→disk→parse seam is real, which is the exact stub that defeated Cycle 12 b2(5) | **not flagged** ✓ |
+
+A pass that flagged all three would have been noise; the instrument discriminates on the
+corpus the item named.
+
+**Cross-file agreement at rest:** `build-brief`'s §9 points at
+`roadmap-roundtable/SKILL.md` for the property record, and the roundtable's instrument beat
+points back at `brief-anatomy.md` §9 — mutual, one pointer each, neither restating the other's
+mechanics (single-home). No shipped surface touched: `git status` shows edits confined to
+`.claude/skills/build-brief/` and `.claude/skills/roadmap-roundtable/`, so the channel's
+delivery boundary holds.
+
+**Done-when (unchanged):** the next cycle's briefing runs the adversary question on its
+ship-verifiable checks and **either** widens at least one check **or** records that each
+survived. The instrument beat self-accepts on the next `roadmap-roundtable` run.
+
+**⚠ STATUS 2026-09-01 — NEITHER HALF FIRED. P-20 stays open, re-bound to Cycle 15.**
+*(Grounded at Cycle 14's closeout; corrects a same-session first reading that called it met.)*
+
+- **The briefing half did NOT fire.** `grep -i adversary` over all six of Cycle 14's briefs returns
+  **zero**. `build-6-declared-typed-subtree.md:193` references this item once — a single check's
+  mandatory control described as *"[P-20]'s question asked at brief time rather than after"* — and
+  that is the **idea applied to one check**, not the done-when, which requires the question run
+  **per ship-verifiable check** with the explicit widen-or-*"no passing-violating state found"*
+  return that `brief-anatomy.md` §9 mandates. Build-6 was subsequently **withdrawn**, but the
+  shortfall is independent of that: no brief in the cycle ran the pass.
+- **The instrument-beat half did NOT fire** — no `roadmap-roundtable` has run since the build
+  (Cycle 14's roundtable was 2026-08-26, the day before).
+- ⚠ **The near-miss is the point, and it is this item's own failure mode.** The single control that
+  *was* written this way (build-6 check (4)) is a genuine instance of the question working — it
+  produced a mandatory control at brief time — and it was **read as satisfying the item** on a
+  first pass. A partial exercise that reads as a full one is exactly *"a silent pass is
+  indistinguishable from a skipped one"*, which is the sentence the done-when ends on. Recorded as
+  the item's **sixth** instance and its first against **itself**.
+
+**Re-bound:** Cycle 15's `roadmap-roundtable` (instrument beat) and Cycle 15's first `build-brief`
+run (the adversary pass, with the answer on record either way). Both are ordinary, scheduled,
+unavoidable beats of the next cycle — no staging required.
+
+---
+
+### P-16 — the `promise:` line: name the vault-visible delivery at ruling time — **CLOSED 2026-09-09 (self-accepted on Cycle 15's ideation, 2026-09-02, and the v0.18.0 CHANGELOG; recorded 2026-09-09 — with one recorded deviation for the owner to accept)**
+
+**Self-acceptance record (stamped 2026-09-09).** Both halves of the re-bound done-when met on Cycle 15:
+**every build bullet** in the 2026-09-02 ideation rulings carries a filled `promise:` line (seven of seven,
+`factory/cycles/15-nothing-reads-it-back/roadmap.md:2189` onward), and the **v0.18.0 CHANGELOG entry**
+(`CHANGELOG.md:8`, dated 2026-09-02) renders each build as recognisably the same sentence — build-1's
+*"a vault owner filing a retirement gets an issue that says it is one"* is the promise verbatim.
+**Deviation, recorded at ruling time, owner to accept:** the promises were **clerk-drafted and
+owner-ratified**, not owner-written (roadmap `:2170`, with the grounding safeguard that caught two
+over-claims before ratification). The item's target — a briefer authoring the sentence after the fact —
+was not reproduced; the owner was present and owned the scope call. Closed on that reading; if the owner
+rules the letter binds, the item reopens against Cycle 16's ideation, which is imminent.
+
+**Build record (2026-09-01).** Built the same session the park was discharged and the two
+questions ruled, and built **before Cycle 15's `ideation-scaffold` run** for a reason the item's
+own history supplies: its re-bound done-when is *the next cycle ideated after this item builds*,
+so shipping after that scaffold ran would have slipped it to Cycle 16 — a third consecutive
+missed window, the exact failure the re-bind exists to stop.
+
+- **The field is emitted where it is authored.** `ideation-scaffold`'s grouping bullet now lays
+  **three** one-line owner-filled fields — `binds:`, `spike:`, `promise:` — and gains the
+  standing rule **"every build bullet carries a `promise:` line"**, the field's single home. It
+  states the sentence's shape (*after this ships, a vault owner running `vlt-<x>` sees Y instead
+  of Z*) and, more importantly, **why it sits at ruling time**: a vault-facing sentence already
+  existed, but it was authored at brief time by the briefer, *after* scope was ruled — so scope
+  got ruled against filing ids and the delivery was first described by someone reporting a
+  decision they did not make.
+- **The field is consumed without being re-authored.** `build-brief`'s Discovery reads it beside
+  `binds:`/`spike:` and carries it into the brief's scope statement **and its `title:`**, with the
+  line that makes the rule enforceable by reading: *a brief whose `title:` bears no relation to the
+  promise has quietly re-ruled the scope.* `brief-anatomy`'s `title:` bullet now says the field is
+  **carried, not authored here**, and points at the single home rather than restating it.
+- **The gate blocks, and says why it is not the `binds:` treatment.** A new Readiness-gate clause
+  blocks on an unfilled `promise:` — absent, empty, or still `*(owner to fill)*` — and carries the
+  structural reason inline at both sites, because it is exactly the kind of asymmetry a later
+  reader would "fix" into consistency: **`binds:` is reconstructible and a promise is not.** One
+  deliberate narrowing: a promise that is *present but describes the mechanism* rather than the
+  vault-visible delivery is a **filled** field — flagged in the report, not blocked on. Judging
+  sentence quality at a gate would make the gate the author, which is this item's own disease.
+- **The release path is untouched, per Q1.** `vlt-release/choreography.md` is **unmodified** —
+  verified, not assumed. `promise:` feeds `title:`; the CHANGELOG still collects from `title:`, so
+  no second vault-facing sentence exists to drift.
+
+**Verification at rest (2026-09-01).** Bipartite agreement holds across all five seams — emitter
+(`ideation-scaffold` grouping bullet) ↔ reader (`build-brief` Discovery) ↔ gate (Readiness) ↔
+headless `blocked` reason ↔ `title:` consumer (`brief-anatomy`), each present exactly once.
+Single-home verified: the field's mechanics resolve to **one** file and the other site points at
+it. `git status` confirms `vlt-release/` unmodified. package-lint A/B/C/E PASS ·
+factory-paths-check PASS (136 refs) · no shipped surface touched.
+
+**Done-when (re-bound, and now dischargeable):** the next cycle ideated after this item builds —
+**Cycle 15** — carries a filled `promise:` line on every build bullet, and that cycle's CHANGELOG
+entry is recognisably the same sentence. *Bound:* Cycle 15's `ideation-scaffold` run for the first
+half; Cycle 15's release for the second. ⚠ **The second half cannot discharge before the first**,
+and a `lifecycle-status` run that sees the scaffold ran without filled promises should grade the
+item FAILED rather than STILL-OPEN — the field would have shipped and been skipped, which is the
+`b2(5)` shape.
+
+*(The brief-lite below is preserved verbatim as built-from. Its `choreography.md:61-62` site is
+**out of scope as built**, per Q1; the seven homeless items remain homeless and unruled.)*
+
+*(Filed 2026-08-25, from an owner brainstorming session on the loop's comprehension problem
+— memlog + keepsake at `_output/brainstorming/brainstorm-lifecycle-comprehension-2026-08-25/`,
+untracked, provenance only. **Not actioned mid-flight by owner ruling**: three of the session's
+directions touch `ideation-scaffold` and `build-brief`, which Cycle 12 is mid-way through
+using, and changing the scaffold's contract against a half-filled skeleton risks a section that
+parses under neither shape. This item waits for Cycle 12 to ship.)*
+
+**The cause it repairs — `ST-4`** (*provenance is staffed, cognition is not*; root cause (b):
+no promise artifact stands between the diagnosis chain and the implementation chain, so the first
+vault-facing sentence anywhere is the CHANGELOG, written after the surprise). Read the study for
+the derivation and for the four other repairs it implies; this item is only the first of them.
+`ST-4` gates nothing — the scope ruling below is this item's, not the study's.
+
+- **Intent:** every build bullet carries a one-sentence, vault-facing **`promise:`** line
+  written at ruling time — *after this ships, a vault owner running `vlt-<x>` sees Y instead of
+  Z* — so scope is ruled against promises rather than against filing ids, and the sentence is
+  reused (not re-invented) at acceptance and in the CHANGELOG. **Amended 2026-08-25 — see the
+  correction below; the CHANGELOG half of this intent rests on a premise that was wrong.**
+- **Sites:** `.claude/skills/ideation-scaffold/SKILL.md:76-80` (the grouping bullet — a third
+  one-line field beside `binds:` and `spike:`, same `*(owner to fill)*` discipline) and its
+  standing-rule section at `:114` if the roster rule is the right home for the parallel rule;
+  `.claude/skills/build-brief/SKILL.md:83-88` (Discovery reads the bullet — carry the
+  `promise:` into the brief's scope statement, never re-author it);
+  `.claude/skills/vlt-release/references/choreography.md:61-62` (the sentence that names the
+  CHANGELOG bullet source — **corrected from `:59`**, which opens the paragraph but is not the
+  clause in question).
+
+  **Correction, 2026-08-25, from the first `ST-4` instrument dry run.** This entry was written
+  on the premise that the CHANGELOG is the *first* vault-facing sentence in the loop. It is not.
+  A brief's **`title:`** is already *"public prose … collected verbatim into the module's
+  `CHANGELOG.md` entry"* (`.claude/skills/build-brief/references/brief-anatomy.md:30-31`), and
+  `choreography.md:61-62` collects *"one bullet per build … from each open-cycle brief's
+  `title:`"*. So a vault-facing per-build sentence exists today; it is authored at **brief
+  time** by the **briefer**. `ST-4` root cause (b) is corrected to match: the gap is *who and
+  when*, not that nothing exists. **This entry never mentioned `title:` — it was not considered
+  when the item was queued.**
+
+  **Prior open question this raises, ahead of the gate question below:** given that `title:`
+  already reaches the CHANGELOG, what relation does `promise:` bear to it — does `promise:`
+  become the CHANGELOG bullet source in place of `title:`, does it feed `title:` at brief time,
+  or do the two coexist with different jobs? Unsettled; not settled here.
+
+  **Owner-ruled open question, not settled here:** which treatment `build-brief`'s Readiness
+  gate gives an unfilled `promise:` — **(A)** blocking, the treatment `spike:` has
+  (`build-brief` SKILL.md:129-135); **(B)** non-blocking carry-when-present, which has no
+  precedent in the tree; or **(C)** non-blocking reconstruct-and-disclose, the treatment
+  `binds:` has (`build-brief` SKILL.md:88). *(The original phrasing here — "gating makes it real
+  … not gating makes it advisory and probably decorative" — is **struck**. It was a
+  recommendation written into a tracked file, which is the failure `ST-4` root cause (c) names:
+  it would have pre-framed the question for every later reader of this entry. The three-option
+  form above is the dry-run packet's, and the packet is where the grounding lives.)*
+- **Verification:** grep — bipartite agreement between the scaffold's emitted field and
+  `build-brief`'s reader; a scaffolded skeleton on a real cycle shows the field present and
+  empty; no site restates another's mechanics (single-home).
+- **Out of scope:** the wider comprehension-debt repair this session produced — the
+  six-field ruling shape, ruling-by-exception (a reversal of the 2026-07-12 "an empty slot is
+  honest, a guessed answer is a lifecycle violation" ruling, which belongs to the roundtable,
+  not to this channel), the generated ideation view, and the `NEVER-VERIFIABLE` acceptance
+  grade. Also out: retro-writing promises for shipped builds.
+- **Done-when:** ~~the first cycle ideated after Cycle 12 ships carries a filled `promise:` line
+  on every build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.~~
+  <br>**RE-BOUND 2026-09-01 (owner-ruled).** The struck clause became **unsatisfiable**: the first
+  cycle ideated after Cycle 12 shipped was **Cycle 13**, which carries zero `promise:` lines, as
+  does Cycle 14 — the named event came and went **twice** while the item sat parked. Under
+  `acceptance-discharge`'s rubric that is not a waiting state but **BLOCKED (unreachable)**, and
+  the route out is an owner re-binding ruling. The subject is now generic, per **P-10's 2026-08-25
+  precedent** (*"the subject is now the open cycle, not a numbered one, so a missed window
+  re-binds itself instead of needing this ruling again"*):
+  <br>**The next cycle ideated after this item builds** carries a filled `promise:` line on every
+  build bullet, and that cycle's CHANGELOG entry is recognisably the same sentence.
+
+**~~PARKED 2026-08-25~~ — PARK DISCHARGED 2026-09-01, exit condition met.** *(Kept in full, not
+deleted: this ledger is append-only, and the park's reasoning is the record of why the item waited.
+Everything below reopened together, as it said it would — six days after it was entitled to.)* The
+original ruling, taken while Cycle 12 was still open:
+
+*Recorded per A12-5's shape (Cycle 12 build-5): an exit condition records the **blocker's
+shape** and the reference, never a pre-authorized sequence of moves. So no command list and no
+"then do X" below — only what is unsettled, where its grounding lives, and what state ends the
+park.*
+
+- **Exit condition (shape, not a trigger):** Cycle 12 ships. Nothing here is actioned before
+  that — three of the repairs touch `ideation-scaffold` and `build-brief`, which Cycle 12 used
+  mid-flight. The park does not expire on a date and nothing schedules it; `cycle-closeout`'s
+  carry-forward record is where it should surface.
+- **If Cycle 12's shape changes before it ships** (a build dropped, a ruling reversed, the
+  grouping re-cut) this block does not silently survive it — re-read the two P-16 questions
+  above against whatever actually shipped. That is the A12-5 failure mode this block exists to
+  avoid: a parked record that reads as still-authorized after the thing it rested on moved.
+
+**The two P-16 questions** are stated in full above (the `promise:`/`title:` relation, then the
+Readiness-gate treatment A/B/C). They are not restated here.
+
+**⚠ BOTH RULED 2026-09-01 (owner), unblocking the build.** Grounding re-verified at ruling time —
+all five cited sites still read as the entry describes, no drift since 2026-08-25.
+
+- **Q1 — the `promise:`/`title:` relation: `promise:` FEEDS `title:`.** The owner writes the
+  promise at ruling time; the briefer **carries it into `title:` rather than re-authoring it**,
+  and may sharpen it for what actually shipped. The CHANGELOG keeps collecting from `title:`, so
+  the release path is **untouched** — `vlt-release`'s `choreography.md:61-62` **drops out of this
+  item's sites entirely** and the item gets smaller. Rejected: *promise replaces title as the
+  CHANGELOG source* (moves the release path, and deletes the place where post-build deviations
+  are currently reconciled — a brief's `status:` records deviations and `title:` is where they
+  reach the vault); *the two coexist with different jobs* (two vault-facing sentences per build
+  that can drift — a two-homes violation).
+- **Q2 — an unfilled `promise:` BLOCKS, the treatment `spike:` has** (`build-brief`
+  SKILL.md:129-135), **not** the reconstruct-and-disclose treatment `binds:` has (`:88`).
+  Option (B), carry-when-present, is rejected as having no precedent in the tree and being the
+  treatment most likely to make the field decorative. The decisive argument is **structural, not
+  merely preferential**: reconstruct-and-disclose works only where the thing is *reconstructible*.
+  `binds:` is — the ruling ids exist in the roadmap and can be re-derived. **A promise cannot be
+  reconstructed, only re-invented** — and a briefer inventing the owner's promise is precisely the
+  `ST-4` failure this item exists to repair (the first vault-facing sentence authored by the wrong
+  person at the wrong time). Option (C) is therefore *unavailable*, not weaker. Supporting, not
+  load-bearing: this factory's non-gating obligations reliably do not fire — [P-20] has not fired
+  across **6** instances, [P-3]'s two closeout steps sat unenforced for **3 cycles**, and Cycle
+  12's `b2(5)` shipped broken because its check did not gate. Blocking is cheap here: one
+  sentence, written by an owner already in the session.
+- **Not ruled, and not owed at build time:** the seven homeless items below. They stay homeless.
+  Unparking granted no answers to them and this ruling does not either.
+
+**Homeless items — unsettled, and this is their only tracked home:**
+
+1. **The reversibility rubric has no definition in the tree.** The three grades used by the
+   six-field shape are: **CHEAP** — change it next cycle, nothing shipped; **STICKY** — it is in
+   vaults, unwinding needs a migration; **ONE-WAY** — a convention bump plus re-ack, or a
+   governance rule other runs cite. Recorded here because they existed nowhere on disk. *Known
+   defect:* the dry run could not grade its own option (A) — "nothing shipped" and "a governance
+   rule others cite" point at different grades for a factory-side gate, so the clerk wrote the
+   disagreement rather than picking. Unsettled: whether the rubric gets a tracked home, and how
+   that clause conflict resolves.
+2. **Field 4 (*what happens if you say nothing*) leans structurally toward the status quo**,
+   because the status quo is what it describes. Unsettled: keep, reshape, or drop. Known to be
+   the shape's sharpest flaw; ordering it after options mitigates and does not remove it.
+3. **Fields 5 and 6 collapse into each other on platform-channel questions** — roughly 40%
+   restatement when nothing ships and no version bumps, because "which files get re-edited" and
+   "how hard to unwind" are the same question there. They separate cleanly on shipped work.
+   Unsettled: whether they merge for platform items only.
+4. **Whether the six-field shape gets a tracked home at all before Cycle 13.** The field list
+   survives in `ST-4` §Disposition; the withholding protocol survives in `ST-4` §The sharpest
+   acceptance test. What survives nowhere else: the per-question marks — **ruled / stalled /
+   routed** — and the two numbers a run reports (how many of a batch ruled with no read, and
+   where the stalls clustered). Recorded here for that reason. Unsettled: file it as a method
+   note, leave it in `ST-4`, or leave it unwritten until a second run.
+5. **Who clerks the first clean legibility reading, and on what.** It cannot be the session that
+   produced `ST-4` or this entry — both have given the owner recommendations on `promise:`,
+   which is what made the 2026-08-25 dry run a *format* test rather than a measurement. Earliest
+   honest venue: the first ideation batch after Cycle 12 ships. Unsettled: venue and clerk.
+6. **`P-17` and `P-18` are not queued.** Their diagnoses are carried in `ST-4` §Disposition —
+   *inbox holds unclaimed only, filings migrate at capture* (repairs root cause (d)) and *a
+   `NEVER-VERIFIABLE` acceptance grade* (lets a tail die rather than carry). Unsettled: whether
+   they enter the queue at all. Nothing is lost by leaving them out — the causes are tracked.
+7. **`ST-4`'s scope precedent awaits nobody, and that is deliberate — but it is unratified.**
+   The study is the register's first factory-side entry; the descriptive-vs-causal cut it rests
+   on was the clerk's call, stated at the head of the file for a later reader to overrule in
+   place. No ruling is owed. Recorded so the reopening does not mistake silence for ratification.
+
+---
+
+#### Amendment, 2026-09-01 — the park expired unread, and the done-when had gone unsatisfiable
+
+*(Raised by a `lifecycle-status` run reading the queue for the next free slot, and owner-ruled the
+same session. No build; this is a ledger act.)*
+
+**1. The park's exit condition was met on 2026-08-26 and nothing noticed for six days.** The
+condition was *"Cycle 12 ships"* — v0.16.0 shipped 2026-08-25 @ `216bea2`, and Cycle 12 closed
+2026-08-26. The item stayed marked PARKED through Cycles 13 and 14 in their entirety.
+
+**2. The done-when had gone unsatisfiable in the meantime, which is the more serious half.** It
+named *"the first cycle ideated after Cycle 12 ships"* — that was **Cycle 13**. Verified rather
+than assumed: `grep -c "promise:"` returns **0** for both `13-trusted-returns/roadmap.md` and
+`14-no-enforcement-point/roadmap.md`, and `promise:` appears **nowhere** in `ideation-scaffold` or
+`build-brief`, so the field was never wired at all. Two cycles ideated past a clause that could
+only ever have been satisfied by the first of them. Re-bound above to a generic, self-re-binding
+subject on P-10's precedent — **the third time this channel has had to re-bind a done-when that
+named a specific cycle**, after P-10 (2026-08-25) and P-3's own cold-reader wording. The pattern is
+now strong enough to name: *a done-when that names a numbered cycle expires unnoticed; one that
+names a role ("the open cycle", "the next cycle ideated") re-binds itself.* Worth a queued item's
+attention if it recurs a fourth time — not opened as one here, per the widen-don't-multiply posture.
+
+**3. Why it went unread — the park named a surfacing mechanism that does not exist.** The block
+says *"`cycle-closeout`'s carry-forward record is where it should surface."* It cannot: Stage 2
+collects carry-forwards **from the closing cycle's roadmap**, and a parked *platform* item is not
+on any cycle roadmap. Checked directly — `P-16` appears in Cycle 12's roadmap only as **A47**, a
+numbering-collision note, and appears in Cycles 13 and 14 **zero times**. Three closeouts ran and
+none of them could have surfaced it.
+
+⚠ **[P-3]'s new Stage 2b narrows this gap but does not close it.** The footprint line records
+*platform work that landed* during a cycle; a platform item **parked and waiting** landed nothing,
+so it is invisible to that line by construction. The honest statement of the residue: **an expired
+park on the platform ledger still has no reader.** Recorded here rather than opened as an item —
+the lane rows P-3 just added to `vlt-lifecycle.md` mean a `lifecycle-status` run now reads this
+ledger every time it runs, which is how this park was in fact found today. Whether that is
+sufficient is a question for the second instance, not this one.
+
+**Unchanged by this amendment:** both open questions (the `promise:`/`title:` relation, then the
+Readiness-gate treatment A/B/C) remain **unsettled and owed at build time**, and the seven homeless
+items above remain homeless. Unparking grants no answers. The A12-5 clause still binds — re-read
+the two questions against what Cycle 12 **actually shipped** (four builds, `216bea2`) before
+briefing, not against what it was projected to ship when the park was written.
+
+**The dry-run packet itself is not tracked.** It lives only in the transcript of the session
+that assembled it (2026-08-25) and will not survive. Deliberate: it re-derives in ~15 minutes
+and 9 reads from four files — `factory/platform/roadmap.md` (this entry),
+`.claude/skills/build-brief/SKILL.md`, `.claude/skills/ideation-scaffold/SKILL.md`,
+`.claude/skills/vlt-release/references/choreography.md` — plus two confirmatory reads
+(`build-brief/references/brief-anatomy.md`, `tools/package-lint.py`). Its durable findings are
+the corrections already applied above and in `ST-4`; nothing else in it is load-bearing.
+
+---
+
+*(Superseded as a count — kept as the dated record of when the threshold was crossed and why the call was flagged. The **current** inventory and the ruling that settled it are in this section's header; today it is again five, P-15 having closed and **P-3** having built. Marked 2026-09-01 rather than rewritten: this ledger is append-only, and an uncorrected count sitting at the foot of a section is the [P-13] failure shape.)*
+
+**Built-awaiting inventory is now FIVE (P-10, P-15, P-14, P-20, P-13) — well past the contract
+header's threshold.** The header defers a separate section or second cap "until built-awaiting
+inventory reaches three." It reached three on 2026-08-25 and **five on 2026-08-27**. Flagged as an
+**owner call**, not acted on: four items with named discharging events and bounds may still be
+cheaper to read in place than to re-file into a section. The ruling belongs on the ledger either
+way, and it is now **two** items overdue — the inventory grew by two in a single day, which is
+itself the argument that the threshold was set at the right number. *(Count updated 2026-08-27 at P-20's build; the original
+note is preserved above in substance, not re-derived.)*
