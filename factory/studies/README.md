@@ -142,6 +142,7 @@ earlier criterion also contradicted the `status:` rule above — a repaired caus
 | `ST-5` | specimens-have-no-owner | standing | 2026-08-26 | Field specimens have no owner, so instruments are built at the point of least evidence — from the fix's shape, not the failure's; and one tag welds blocking power to grading modality |
 | `ST-6` | closed-rosters-meet-authorized-actors | standing | 2026-08-26 | Authorization and enumeration live in different conventions, so a closed roster excludes an actor the surrounding rules make legal — and single-home discipline is what hides it |
 | `ST-7` | prose-specified-derivations-have-no-read-back | standing | 2026-09-01 | A derivation stated in prose for an executor to render is never read back, so a wrong rendering is indistinguishable from a correct one — and a cache freezes it |
+| `ST-8` | always-read-memory-has-no-budget-and-no-owner | standing | 2026-09-09 | A partner's always-read memory has no budget (the ladder has one axis, durability, whose top is the always-read file — groom is a ratchet) and no owner-side author (the partner writes, is, and reads its own identity — a bias loop with no reset), and governance rides the same ritual, so the owner's partnerless escape sheds the rulebook |
 
 *(This table is a convenience index over the files, which are authoritative. It lists every
 register file — a completeness claim it can keep only because the directory is its population;
