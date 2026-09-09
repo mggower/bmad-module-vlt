@@ -11,7 +11,10 @@ causes:
   - 'Primary B: a partner is the author, the subject, and the reader of its own identity. `## Self` is written by the partner, in its own voice, at sitting end, and loaded as instruction on every activation — a self-narrative loop with no owner-side line in the file. The behavior confirms the narrative and the narrative records the behavior. The only exits are groom (upward-biased, approval-gated, one partner at a time) and a council-gated SKILL.md rebirth; there is no reset act and no cold-summon posture.'
   - 'Enabling C: the contract has no partnerless actor. The rule-card read, the reflex rung, and session ownership (the sitting, its note, its log tag) are wired to the Activation ritual — a partner-only ceremony. Operation skills already run partnerless (vlt-ingest omits the tag), so the cheapest way to think without the partner''s baggage is to skip the partner, and that also sheds every act-blocking rule. The owner''s relief valve vents governance, which is what keeps A and B invisible as a system: the symptom presents as "sessions feel lawless," not as "identity has no budget."'
   - 'Amplifying: statefulness is uniform across roles though roles differ in whether continuity helps. The longitudinal partners (track-shaped loops) benefit; the breadth partner (Researcher) and any brainstorm are harmed. The light partners are the control group — cheap, unbiased, working — which shows the model fails at WEIGHT, not at concept.'
-cited_by: []
+cited_by:
+  - 'factory/inbox/2026-09-09-160000-governance-has-no-partnerless-carrier.md (cause C — the partnerless carrier)'
+  - 'factory/inbox/2026-09-09-160100-always-read-partner-memory-has-no-budget.md (cause A — the Beat 1 budget and the demote verb)'
+  - 'factory/inbox/2026-09-09-160200-partner-identity-has-no-owner-side-author-or-reset.md (cause B + amplifying — charter, reset, cold summon, memory posture)'
 superseded_by: ''
 ---
 
