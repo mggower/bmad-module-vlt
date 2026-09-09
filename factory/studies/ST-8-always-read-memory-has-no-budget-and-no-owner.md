@@ -15,6 +15,9 @@ cited_by:
   - 'factory/inbox/2026-09-09-160000-governance-has-no-partnerless-carrier.md (cause C — the partnerless carrier)'
   - 'factory/inbox/2026-09-09-160100-always-read-partner-memory-has-no-budget.md (cause A — the Beat 1 budget and the demote verb)'
   - 'factory/inbox/2026-09-09-160200-partner-identity-has-no-owner-side-author-or-reset.md (cause B + amplifying — charter, reset, cold summon, memory posture)'
+  - 'factory/cycles/16-closed-loops/roadmap.md §A16-3 (capture 2026-09-09 — cause C grounded; vault rung at contract :226; S-4 opened for the @import carriage)'
+  - 'factory/cycles/16-closed-loops/roadmap.md §A16-4 (capture 2026-09-09 — cause A grounded; correction: partner_memory_bytes exists at vlt-vitals.py:242 as a fleet total, display-only — the gap is per-partner Beat 1 weight with a bound)'
+  - 'factory/cycles/16-closed-loops/roadmap.md §A16-5 (capture 2026-09-09 — cause B + amplifying grounded; groom has no reset/demote/charter/cold)'
 superseded_by: ''
 ---
 
