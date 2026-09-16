@@ -39,8 +39,16 @@ does not answer it; the per-kind observation does.
 the card through it. The spike should record which kinds run that hook too, so the fallback is
 grounded in the same run.
 
-**Consumers:** A16-3's brief (direction 1 is ungrounded until this is harvested); A16-5's cold summon
-(which reads the card + rung through whichever carriage this spike proves).
+**Consumers:** A16-3's brief (direction 1 is ungrounded until this is harvested); A16-7's delegate
+runner (`vlt-delegate.js`) and, by the same ruling, `vlt-consult.js`'s lite boot — both are the
+**workflow-`agent()` subagent kind**, which this spike probes on its own row (record whether the
+`SessionStart` hook fires for an in-session spawn as well as whether imports load). Whatever this
+row shows applies to both engines alike (Cycle 16 roundtable, D-5 owner-ruled symmetric).
+*Corrected 2026-09-16 by the Cycle 16 roundtable (A5): this line previously named "A16-5's cold
+summon (which reads the card + rung through whichever carriage this spike proves)" — the cold
+summon reads through the activation ritual and is **not** a tenant of the carrier (ideation D6);
+the register contradicted the ruling and is the record, so it is corrected here, not in roadmap
+prose only.*
 
 ## Ruling (Cycle 16 ideation, round 2, 2026-09-16)
 

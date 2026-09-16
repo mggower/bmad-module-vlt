@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8: the ST-9 pair + rail issue #19); ideation FILLED 2026-09-16 over five rounds (scope all eight; three builds; one release conditional on S-4 harvested; S-4 ruled RUN; every Q/D/S/E slot ruled) — next: convene the roundtable'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — next: brief build 1'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -920,7 +920,17 @@ carrier ruling because it is a partner activation and the ritual already loads t
 
 - **build-1 — the at-rest fixes: A16-1, A16-2 (directions 1 and 2; direction 3 is the vault's), A16-8.**
   All prose and fixtures inside `vlt-lint`, `vlt-mint`, `vlt-track`, `vlt-upgrade`; no handshake bump;
-  no dependency on any other build. A16-8's CHANGELOG notice reaches wearers first.
+  no dependency on any other build. ~~A16-8's CHANGELOG notice reaches wearers first.~~ *(struck —
+  roundtable A17, 2026-09-16: under A10 build 1 is its own release, so the notice ships with it, and
+  build 1's brief carries its CHANGELOG notice text verbatim in a §8 stub headed "notice text —
+  collated at release". The A16-8 notice says* delete the apology parenthetical, *not only* rename
+  the key, *and* old key accepted indefinitely *so nobody hunts for a sunset.)*
+  *(roundtable A9/A10 constraint, 2026-09-16: build 1 ships alone so that Cycle 15's build-2 (6)
+  "first warm release" watch has its chance — therefore build 1's brief must achieve Q3 (a)'s
+  per-page drop **without touching `PAGE_SCAN`, the scanner enum, or the scanner conventions** (the
+  census is script-side in `lint-page-facts.py` either way; the drop is a reduce-side exclusion keyed
+  on script-derived page facts, never on complaint wording) — or the brief states that the watch's
+  chance is false on this release too, and the ledger says so. Amelia's finding; brief's call.)*
   - `binds:` Q1, Q2, Q3, Q4, Q5, Q20, Q21, D5, E1, E2, E3 *(confirmed 2026-09-16 with the round-3 rulings)*
   - `spike:` none *(ruled with the cut)*
   - `promise:` After this ships, a vault owner running `vlt-lint` or `vlt-track` sees the module read its own writes back, instead of a lint that mislocates the heading it was sent for, a sweep that writes a form its own checker rejects, and a slot whose key contradicts its description. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time)*
@@ -928,16 +938,16 @@ carrier ruling because it is a partner activation and the ritual already loads t
 - **build-2 — the partner-memory schema: A16-4 whole, A16-5 whole, A16-3 direction 2 only (the
   `partner: none` sitting named in the contract).** The one `frontmatter@14` → `@15` bump, all ten
   consumers re-acked in this build. Internal order forced: demote verb → charter → cold summon.
-  - `binds:` Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, D1, D2, D3, D4, D7, D8, E4, E5 *(confirmed 2026-09-16 with the round-4 rulings)*
+  - `binds:` Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, D1, D2, D3, D4, D7, D8, E4, E5 *(confirmed 2026-09-16 with the round-4 rulings)*, **D9** *(roundtable A4 — build 2 defines the class)*
   - `spike:` none *(ruled with the cut — the cold summon reads the card through the ritual)*
-  - `promise:` After this ships, a vault owner sees the partner loop opened from outside: a budget the lint enforces, a charter the owner holds, a demote verb, a cold summon, and a named partnerless sitting, instead of a partner memory whose only reader is its writer. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time; enumerates five deliverables — re-stamp if the roundtable trims one)*
+  - `promise:` After this ships, a vault owner sees the partner loop opened from outside: a budget a wire trips on, a charter slot the owner fills, a demote verb, a cold summon, and a named partnerless sitting, instead of a partner memory whose only reader is its writer. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time; enumerates five deliverables)* *(re-stamped 2026-09-16, roundtable A1/A3: "a budget the lint enforces" → "a budget a wire trips on" — nothing in build 2 gates a write, and "enforces" would promise an enforcement point one cycle after the no-enforcement-point cycle; "a charter the owner holds" → "a charter slot the owner fills" — minted for new partners, seeded with the mint prompts as placeholders for the nine existing ones, whom the owner fills by hand. "A named partnerless sitting" stays: per A6 the paragraph names what the sitting OWES and is mechanism-free about what it reads.)*
 
 - **build-3 — the carrier and what rides it: A16-3 direction 1 (governance on a surface every session
   reads), A16-7 delegate, A16-6.** One carrier, two tenants (D6). Sequenced after build 2 (A16-7's
   runner is partnerless; A16-6 (3)'s cue names delegate).
-  - `binds:` Q6, Q15, Q16, Q17, Q18, Q19, D3, D6, D7, D8, E7, E8 *(confirmed 2026-09-16 with the round-5 rulings)*
-  - `spike:` S-4 *(as laid; an owner ruling that the `SessionStart` hook is the carriage retires `S-4` unrun and turns this to `none` — written back to the register file in the same session)*
-  - `promise:` After this ships, a vault owner sees every session, partnered or not, open on the same rules, and a partner running `vlt-dispatch` can delegate a bounded research dive and get the result back in the same sitting, instead of rules that ride only the summoning ritual and a one-fact dive deferred to another session because the partner inferred a lane the contract never stated. *(owner-ruled 2026-09-16, a blend of two clerk drafts approved at ruling time; carriage mechanism deliberately absent so the sentence survives `S-4` either way)*
+  - `binds:` Q6, Q15, Q16, Q17, Q18, Q19, D3, D6, D7, D8, E7, E8 *(confirmed 2026-09-16 with the round-5 rulings)*, **D9** *(roundtable A4 — build 3 consumes the class for the rung line)*
+  - `spike:` S-4 *(as laid; an owner ruling that the `SessionStart` hook is the carriage retires `S-4` unrun and turns this to `none` — written back to the register file in the same session)* *(roundtable A5: the harvest records the workflow-`agent()` subagent kind on its own row — the delegate runner and the consult lite boot are that kind; the register's Consumers line is corrected this session to drop the cold summon, which D6 rules is not a tenant)*
+  - `promise:` After this ships, a vault owner sees every session, partnered or not, open on the same rules, and a partner running `vlt-dispatch` can delegate a bounded research dive and get the result back in the same sitting, instead of rules that ride only the summoning ritual and a one-fact dive deferred to another session because the partner inferred a lane the contract never stated. *(owner-ruled 2026-09-16, a blend of two clerk drafts approved at ruling time; carriage mechanism deliberately absent so the sentence survives `S-4` either way)* *(roundtable A5, 2026-09-16: if the harvest narrows the reach, the narrowing is written into THIS line — "every session" becomes the kinds reached — not only into the brief; briefs cite this line. Only the every-session clause can narrow; the delegate half cannot, because the runner's carriage is whatever the harvest shows for its kind and an engine-prompt pointer is the carriage of last resort for that kind.)*
 
 *(An unfilled `spike:` or `promise:` is **not** `none` — it blocks `build-brief`, which is the field
 working. `binds:` is reconstructible and is disclosed rather than blocking; a promise is not
@@ -948,7 +958,30 @@ reconstructible, which is why it blocks.)*
 release, two releases split after build 2, or one release conditional on ruling `S-4` around; the owner
 took the conditional form and then ruled `S-4` *run*, not ruled-around — so the condition is a harvested
 spike, not a hook assumption. Builds 1 and 2 are briefed on the rulings alone; build 3's brief waits on
-the harvest. (Cycle 15's build-2 (6) watch — *first warm release* — gets exactly one chance this cycle.)
+the harvest. ~~(Cycle 15's build-2 (6) watch — *first warm release* — gets exactly one chance this cycle.)~~
+
+**AMENDED 2026-09-16 (roundtable A10, owner-ruled live): TWO releases, and the S-4 condition gains its
+failure branch.** Two findings forced it. Amelia: Cycle 15's build-2 (6) watch fires only on a release
+whose diff touches none of `frontmatter`/`wiki-supersession`/`write-verification`, the scan prompt, or
+the scan model (C15 roadmap, the (6) clause) — and D1's `@14→@15` re-ack edits the literal
+`frontmatter@14` inside the scanner prompt (`vlt-lint-full.js:297/:299`), moving `scanFingerprint`,
+while the merged convention digest moves too; both cache-key halves move, so the parenthetical above
+was false as written. Seven voices: the single release's condition had no branch for "S-4 not
+harvested", and the recorded alternative (split after build 2) would ship the `partner: none`
+paragraph with no carriage and no stated interim. Ruled:
+- **Build 1 ships alone, first**, as a patch release (clerk's read: v0.18.1) — it touches none of the
+  six cache inputs *provided its brief honours the A9/A10 constraint in the build-1 bullet*, so the
+  warm-release watch gets its one chance there. Build 1 gains nothing from waiting on `S-4`.
+- **Builds 2 + 3 ship as one release** (clerk's read: v0.19.0), **held whole until `S-4` is harvested
+  — no split branch exists.** If the harvest drags, the release waits; the `partner: none` paragraph
+  never reaches a vault without its carriage.
+- *(roundtable A17)* Builds 1 and 2 each carry their CHANGELOG notice text verbatim in their own brief
+  (a §8 stub headed "notice text — collated at release"); the release build's §8 **collates, never
+  authors**, earlier builds' notices. The v0.19.0 field-notice block states R1 (below, D9) once, above
+  the two builds, so the three postures toward vault-owned files read as one hand.
+- *(roundtable A6, Maya)* Build 2's acceptance for the `partner: none` sitting is at-rest prose (grep)
+  only; the *first partnerless note written* check is entered on **build 3's** ledger, because build 2
+  ships no actor that reads the rule.
 
 ### Pre-ideation rulings the capture demanded
 
@@ -978,6 +1011,7 @@ attestation-only complaint;
 *Capture's proposal, unaccepted: "a count the owner can watch fall beats a flag the owner cannot
 act on."*
 **RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): (a).** The class leaves `malformed_frontmatter` and surfaces as a denominated census line (`bare_path_sources: N entries / M pages`). Legality is indexed on write date, which bytes cannot carry, so a per-page flag can only be arbitrary.
+*(roundtable A9, 2026-09-16 — the line's shape and gate, Caravaggio/Amelia/Mary/Sophia, no dissent):* the line is **full-mode only** (`# full mode only` per `report.md`'s grammar, or the literal `not instrumented (scoped run)` as `scanner_return_rejected` renders — scoped mode's denominator changes every run); its shape is three-term, **`N entries across P of M pages`**; it is **computed script-side by `lint-page-facts.py`** (which already parses the frontmatter block and rule 4's form, `:43`), never from scanner returns; and **`lint-report-check.py` compares it by string equality** as it does `para_scan:` — an inline map's children are not validated (`report.md:9` rule 2), so without this the census is a self-reported number. The drop from `malformed_frontmatter` has no reduce-side enforcement point as ruled (a bare-path complaint arrives `unclassified`, which the reduce never refuses, `vlt-lint-full.js:1067`); the brief must site one — **under the A9/A10 constraint** (build-1 bullet): keyed on script-derived page facts, never a new scanner verdict kind, so `PAGE_SCAN` stays byte-identical for the warm-release watch.
 
 **Q4 — A16-2: does the writer-side repair ship this cycle?** Direction 1 — `fix-and-file.md:12`
 loses its frontmatter-write residue (or states rule 4's form for it if a frontmatter write is ever
@@ -987,7 +1021,7 @@ legal on that path), made `checks.md:16`-consistent. One paragraph, exact F-site
 **Q5 — A16-2: the vault's 55 entries.** The capture calls this **not module scope** and records it
 so the field debt has a name — a hand pass, or an owner-ruled one-time exception to rule 4's
 no-backfill clause, both vault-side. Does the owner rule the exception now, or leave it?
-**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): LEAVE.** Vault-side, after this ships; the Q3 census line shows it done. No module ruling, no exception ruled.
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): LEAVE.** Vault-side, after this ships; ~~the Q3 census line shows it done~~ **the Q3 census line shows it stopped growing** *(roundtable A9, Sophia/Mary: ~185 of the 240 entries stay legal forever under rule 4's no-backfill clause, so the line falls toward a floor nobody had named and an owner watching it plateau would read a stalled fix — the line's job is* never rises, *not* falls to zero*; the floor is recorded at E2)*. No module ruling, no exception ruled.
 
 **Q6 — A16-3: the carriage mechanism for partnerless governance.** Direction 1 is **ungrounded
 pending `S-4`** — whether `@path` imports in a vault `CLAUDE.md` load for every session kind. The
@@ -995,18 +1029,21 @@ grounded fallback is the existing `SessionStart` hook (`vlt-setup/SKILL.md:187`,
 `vlt-vitals.py --strip`), which already fires per session. Ruling needed on: does a build bind
 `S-4`, and does the fallback ship if `S-4` returns *no*?
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): MECHANISM FOLLOWS THE `S-4` HARVEST; the fallback ships on a *no*.** Build 3 binds `S-4`. Imports carry the card and rung for every session kind the harvest shows they reach; the `SessionStart` hook carries them for any kind imports miss; if both miss a kind, build 3's promise narrows from *every session* to the kinds reached, stated in the brief.
+*(roundtable A5, 2026-09-16, no dissent):* **(i)** the hook fallback is a **second `SessionStart` entry keyed on its own command path** (per `vlt-setup/SKILL.md` §2b's merge rule), never a flag on `vlt-vitals.py --strip` — the strip's contract is at most one line, nothing when green, and §2b's idempotency key is the script path so a second flag is invisible to the merge (Winston). **(ii)** The narrowing is written into build 3's `promise:` line as well as the brief (John). **(iii)** Only the *every session* clause can narrow; the delegate runner's carriage is decided by the harvest for its own kind (D6 gloss) and cannot narrow the promise's delegate half (Sophia).
 
 **Q7 — A16-3: the `partner: none` sitting.** Direction 2 does **not** depend on `S-4`. Naming it in
 the contract's *Sessions, sittings, and hand-offs* turns `frontmatter.md:167`'s *"Omit only for a
 partner-less generic-agent session"* into an explicit value — **a rule change to `frontmatter@14`**
 (see D1). In or out, and with what clauses (one session note, log tag `(session)`, no
 partner-memory writes, wiki single-writer)?
-**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): IN**, with the four clauses as filed (one session note, `(session)` log tag, no partner-memory writes, wiki single-writer holds) **plus one**: the sitting does not read `_agent/dispatch.md`'s open slice — it has no addressee. `purpose:` is free text in the note, not a field.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): IN**, with the four clauses as filed (one session note, ~~`(session)` log tag~~ **`(none)` log tag** *(roundtable A8)*, no partner-memory writes, wiki single-writer holds) **plus one**: the sitting does not read `_agent/dispatch.md`'s open slice — it has no addressee. `purpose:` is free text in the note, not a field.
+*(roundtable A8, 2026-09-16 — owner-ruled live, dispute D-7):* **one string on every surface** — `partner: none` on the note ↔ **`(none)`** in the `{log}` paren ↔ `none` in a dispatch pointer's slug slot (build 3's runner has no slug otherwise). As ruled before, the sitting's log line would have read `session (session)` (the type slot and the paren slot spelling one word — `session` is a `<type>` at contract `:154`), ops inside it would stay paren-less, and Q13's own reasoning — a `partner:` modifier overloads the field every reader parses — applies to the paren, which is that field's log twin (`frontmatter.md:167`). The three omit clauses — contract `:159` (the `{log}` section, which D8 assigned to nobody), `frontmatter.md:167`, `vlt-ingest/SKILL.md:24` — **narrow to headless ops outside any sitting** and are edited in build 2; A16-3 (3) "ops unchanged" narrows to *op mechanics unchanged; the tag follows the sitting*. **Mary's rider, no dissent:** the field's two pre-adoption values (`partner: user` ×1, `partner: vlt-mint` ×1 in `{sessions}`) are declared **legal-until-groomed** in the `@15` bump, or the schema's one specimen of the very thing it names becomes malformed the day the value is born.
 
 **Q8 — A16-4: the Beat 1 budget value.** An owner ruling by construction. *Capture's proposal,
 unaccepted: the light partners' median ×2 (~12K words), to be tightened once the instrument
 exists.*
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): 12,000 words**, on the per-partner Beat 1 set only (SKILL.md + `identity.md` + `reflexes.md`; the card and rung are fleet-constant and excluded). Three partners trip it at ship — the instrument doing its job. The wire's recalibration clause: tighten once the metric has run a few sweeps.
+*(roundtable A1, 2026-09-16 — all thirteen voices; owner-ruled live on two disputes):* **(i) The number lives once.** A16-4 (1)'s "the contract declares a word bound" would give 12,000 two homes with different owners, and the registry's seed-merge is *local thresholds win* (`tripwires.yaml`), so only the vault copy is live and the recalibration clause could never reach an existing vault through the module. **The bound's single home is the seed wire's `threshold:`; the contract states that a bound exists and points at the wire** — the posture the reflex cap already takes (`frontmatter.md:224`). **(ii) The legal response has a named home.** `tripwires.yaml`: *a wire's legal response homes in `surface_text`*. The wire's `surface_text` names the response **and its order**: *author the charter, then `groom <partner>` (D4's identity-to-card migration — the only act that moves the librarian from 22,144 to under 12,000; item-wise demotion cannot)*; the recalibration clause runs on sweeps after that order has been walked once (Maya). **(iii) Dispute D-1, owner-ruled: the wired set stays SKILL.md + `identity.md` + `reflexes.md`**; the `surface_text` names the fork — *identity-heavy → groom; SKILL-heavy → rebirth via `vlt-mint`* — and the per-partner detail shows the split. Dissent on record (Builder): narrow the wired set to the two groom-reachable files; minted partners spend 3.3–3.9K of the 12K on template scaffold. **(iv) The read set is posture-aware** (Carson, Victor): the metric derives over the Beat 1 set the partner's declared `memory:` posture actually reads (`full` → all three; `reflexes` → SKILL + reflexes), and the report names the posture beside the number. Three trips at ship are **the expected state, stated in the acceptance, not a defect** (Amelia).
 
 Beat 1 words per partner, re-measured read-only in `{field-vault}` 2026-09-16 (SKILL.md + `identity.md` + `reflexes.md`; `thread.md` shown for scale, not counted):
 
@@ -1031,6 +1068,7 @@ heaviest partner has changed since the filing (librarian now above football-anal
 never wired). The ask is per-partner, Beat 1-subset, bounded. Does the new metric **replace,
 refine, or sit beside** it?
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): SITS BESIDE.** `partner_memory_bytes` is a fleet total including `thread.md` + capabilities — a different question. Replacing deletes a working display; refining changes its meaning under whatever reads it.
+*(roundtable A1, 2026-09-16 — the scalar the wire binds, which this ruling never named):* a per-partner metric cannot be a tripwire's metric — `evaluate_wire` compares one scalar to one integer (`vlt-vitals.py:479-486`), a wire carries one `owner:`, the strip prints one line, and the ledger's Tripped-wires row shows a value and an owner slug, never a partner (B10-4 (4)'s shape, A10-19). Ruled: **the wire binds a denominated count, `partners_over_activation_budget: N of M partners`** (the `expired_pages` idiom), whose tripped detail names each partner slug; **the per-partner Beat 1 words render as a second column on the existing per-partner display block beside bytes** (`vlt-vitals.py:806-809`, the `partner_rows` idiom: `- <partner>: <bytes> bytes · <words> words [over budget]`), so strip, ledger row and vitals block all name the partner. Winston conceded the fleet-max alternative: a max hides the second and third partner on the surface that matters. **Dispute D-2, owner-ruled: `owner: human`** — the owner runs the summon-and-groom; partners are named in the detail; the registry schema's single static owner is filed as a defect (inbox). *(roundtable A18, Paige)* **`casebook.md` is IN `partner_memory_bytes`**, stated in the METRICS description — it is partner memory on disk and the metric is a disk-mass vital.
 
 **Q10 — A16-4: the casebook's shape.** A fourth partner-memory file, or a section of `thread.md`
 below `## Set aside`? And where does `## Bond`'s owner-model material migrate — the wiki
@@ -1047,16 +1085,19 @@ or empty and owner-authored? And the adoption posture for the nine existing part
 `vlt-setup`/`vlt-upgrade` may **seed an empty section, never author one** (durability posture; the
 B1 local-mint preserve path is in play).
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): MINTED** from `vlt-mint`'s partner-ideation beat, then owner-editable. Adoption for existing partners: `vlt-setup`/`vlt-upgrade` **seed an empty section, never author one** (durability posture; B1 local-mint preserve path re-checked at brief).
+*(roundtable A3, 2026-09-16 — John/Maya/Carson/Sally/Builder, no dissent on the first three; two owner rulings):* **(i) The empty charter has a stated posture.** Nine existing partners hold an empty `## Charter` on upgrade day — the day the three heaviest trip the wire, whose response is a groom against the charter. An empty `## Charter` **disables the charter check** — no finding, never "all off-charter" — and the groom diff header says *charter empty — nothing to check against*, never silence; demote still proposes on the **casebook shape criterion** (dated first-person case narratives → `casebook.md`) with no charter. **(ii) The seeded section carries the mint template's prompts as placeholder text** (*what do you want this partner for; what should it refuse; what should it never remember*) — the seed-placeholder idiom `identity.md` already uses at cold start (contract `:202`); setup/upgrade still author nothing. The seed is a **D9** act (below). **(iii) The first-meeting detector narrows** (Victor): contract `:202`'s test reads `## Bond`/`## Self` only; `## Charter` content never counts as a filled identity, or no minted partner ever has a first meeting. **(iv) Dispute D-4, owner-ruled: the lint half of A16-5 (1) — "`vlt-lint` flags partner edits to `## Charter`" — is DROPPED.** A section's author is not in its bytes (Q3 (a)'s own reasoning), `identity.md` carries no `author:` (`frontmatter.md:234`), `vlt-lint` has zero partner-memory checks, and `frontmatter.md:290` says enforcement ships with the widening or is withdrawn. The guard is the **render surface**: `## Charter` is **keep-only in every groom diff and every partner end-of-sitting write**, `enforcement_stage: declared` with the deferral triple — the reflex cap's posture (Builder, Carson, Sally). **(v) Dispute D-11, owner-ruled: the mint-time `## Self` seed is RETIRED** (`vlt-mint/SKILL.md:132` "seed `## Self` with the distinctive starting register"; `partner-agent-template.md:111`) — two seeds from one becoming conversation, the second written in the voice the charter check will later grade; **`## Self` is born empty, like `reflexes.md`** (Builder). Obsolescence beat.
 
 **Q13 — A16-5: is `cold` a `partner:` modifier or its own `sitting:` field?** The session-note
 shape follows the answer.
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): its own `sitting: cold` field** on the session note. A `partner:` modifier overloads the field every log reader parses.
+*(roundtable A2, 2026-09-16 — the cold summon's read set, trigger, log form, and the groom it may host):* **(i) Dispute D-3, owner-ruled: a `sitting: cold` MAY host an owner-invoked, approval-gated `vlt-groom` pass.** Cold's write ban is on *drift*, not on hygiene by reference; the writer identity stays the partner. This is the intended response to a budget trip: without it, curing the librarian's 22,144-word Beat 1 means summoning the librarian warm at 22,144 words — three partners, three full-weight sittings before the instrument's first response (John, Victor, Sally, Builder; ST-8 cause B executing the remedy for cause A). The honest alternative — keep cold groom-free, a partner should read what it is asked to demote — was recorded, not argued. **(ii) Cold reads SKILL.md + `## Charter` + `reflexes.md` + card + rung; it sheds `## Self`/`## Bond`/`## Thread` only** (Builder): A16-5 (3) as filed dropped `reflexes.md`, the rules that "must fire unasked" (`:224`) — ST-8 cause C reproduced inside the fix. **(iii) The trigger is the summon utterance** (Maya): the contract's fourth posture states the partner honours it *before* Beat 1's identity read and skips Beat 2; the sitting-end identity/thread update (`:269`) is suspended for it. Wording at brief time (D8 — build 2 owns the section). **(iv) `cold` goes in the `{log}` summary after `|`, never inside the paren** (Sally): `LOG_HEADER_RE` (`vlt-vitals.py:49-51`) captures everything inside the parens as the partner; `(librarian, cold)` breaks every per-partner log read. `sitting: cold` on the note is the greppable record.
 
 **Q14 — A16-5: the Researcher pilot for `memory: full | reflexes | none`.** Pilot on the Researcher
 only, or fleet? Its breadth measure (*capture's proposal, unaccepted: distinct source domains per
 dive over five dives before and after*), and the filing's own note that **a null result is a
 finding** relocating the cause to `vlt-research`'s search discipline.
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): RESEARCHER ONLY**; breadth measure as proposed (distinct source domains per dive, five dives before and after); **field-contingent, watch not gate**; a null result relocates the cause to `vlt-research`'s search discipline, as filed.
+*(roundtable A14, 2026-09-16):* **(i) Dispute D-9, owner-ruled: the enum narrows to `memory: full | reflexes` this cycle.** `none` is unexercised by the pilot; a `memory: none` partner never writes `## Bond`/`## Self`, so contract `:202`'s first-meeting detector would fire on every activation, and its every sitting would be cold without the tag — the population D3 was meant to cut, cut for the wrong pair (Builder, Carson; elimination, not precedence). Dissent on record (Victor): keep `none` and narrow the detector's population to `full`. Per-summon statelessness is `sitting: cold`; a later cycle may add `none` on evidence. **(ii) The pilot gets a baseline and an arm** (Mary, Maya) — the "before" is measurable only *before* the field Researcher is flipped, i.e. before the upgrade lands, and no build owned it: **build 2's brief derives the baseline** (the last five Researcher dives identified by the `{log}` `research (researcher)` line; distinct source domains from each note's `sources:`, vault-internal entries excluded) **and records the five numbers in the ledger row**, naming the derivation as the instrument; the arm value is named (`reflexes` is the clerk's read); the flip date is the `identity.md` commit; compare **depth-matched** dives only (domain count is depth-confounded, `vlt-research/SKILL.md:44-46`); **delegate runs (build 3, same release) are excluded** or the pilot is confounded by its own cycle; discharging vault `{field-vault}`. Field today: 46 `research (researcher)` lines, 8 in the last ten days — five-after is weeks. Still watch-not-gate, but a watch a human can run.
 
 *(added 2026-09-16)* **Q15 — A16-6: which of the five dispositions ship?** (1) the *Capabilities*
 sentence; (2) the rung pointer line; (3) the Creative `:37` remedy wording; (4) the hygiene-row
@@ -1064,6 +1105,7 @@ clause at `:318`; (5) read-and-cite extended to the web at `:282` with its blind
 capture flags (2) as reaching **new vaults only** by seed and (5) as carrying an honor-system tier
 the roundtable dissented on and kept.
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ALL FIVE.** (1)–(4) are one sentence each; (5) ships with its blind spot stated in the rule and Quinn's dissent recorded as a **watch**. Dropping (5) leaves the one-fact case no route but delegate, heavier than the case needs.
+*(roundtable A15, 2026-09-16, Quinn — no dissent):* **(5) names the wrong field for the class it most serves.** The caller Creative `:37` names is shaping a **PARA deliverable**, where `sources:` is *wiki-only method provenance* and non-wiki evidence goes in `grounding:` (`frontmatter.md:94`; `extraction.md`'s segregation rule and `method_in_grounding` firewall) — a Creative obeying (5) as ruled trips an existing lint. Amended: *cited inline with a `sources:` entry on wiki-class artifacts and a `grounding:` entry on PARA artifacts; the blind-spot sentence names **`web_cited_entries: N entries / M pages`** as its only read-back — one line in `report.md` under the Q3 (a) census idiom* (URL-form entries are countable on disk; the honor-system tier gets the visible half it was not being given). Build 3 appends the line; build 1's reduce edit is the precedent, not a dependency. *(roundtable A4, Paige)* **(2)'s rung line is pointer-grammar** per contract `:226` (subject + directed read — *"research runs — any partner, as itself: Capabilities, the lane sentence"*), never rule content; the brief greps it against `:226`'s copy falsifier. *(roundtable A19, Quinn)* **(3)** retires the word *Researcher* from Creative `:37`'s remedy; the *Librarian* half (thin wiki) stands.
 
 *(added 2026-09-16)* **Q16 — A16-6: how does the rung line reach an existing vault?** `vlt-setup:275`
 seeds `_agent/reflexes.md` *if absent, never touching a populated file*. Options the capture sees:
@@ -1072,6 +1114,7 @@ upgrade-side step that appends one pointer line under the rung's promote-in/edit
 cap (a durability-posture question — B1 preserve path in play); (c) skip the rung, contract sentence
 only.
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): (b) — an additive upgrade-side step** appending one pointer line under the rung's cap and promote-in/edit-one-out rule. The rung is the Beat 1 file every partner reads; a contract sentence alone does not reach the memory the belief lives in. B1 preserve path re-checked at brief.
+*(roundtable A4, 2026-09-16 — seven voices, no dissent):* (b) stands and becomes a **consumer of D9** (below) — the same act class Q12's charter seed needs, defined once in build 2. Two clauses (b) lacked: **idempotent by exact line** (a second upgrade never appends twice); and **at cap the step degrades to a human-gated offer** in `vlt-upgrade/SKILL.md:79-84`'s migration list and records the skip in the upgrade report — an unattended upgrade can neither edit-one-out nor argue the cap, so it **never exceeds the cap** (Paige, Winston, Carson). Winston's always-offer position conceded once the class was named.
 
 *(added 2026-09-16)* **Q17 — A16-7: is `delegate` in Cycle 16 at all, and if so is it bound to
 A16-3's build?** The runner is partnerless by construction and its governance carriage *is* A16-3's
@@ -1086,13 +1129,15 @@ definition at `:23–27` and the trigger rule pointer at `:36` are untouched. Ru
 `vlt-lint`)? *Capture's read, unaccepted: clarification, provided delegate stays a sibling and never
 "a consult that does work".*
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): PROSE CLARIFICATION, no `consult@1` bump**, provided delegate stays a **sibling** of consult and is never "a consult that does work". The brief verifies bipartite consistency; the roundtable is asked to hunt the sibling claim.
+*(roundtable A11, 2026-09-16 — the sibling claim, hunted; Winston, Carson, Caravaggio, Quinn):* **The convention half holds; the machine half did not.** **(i) The `delegate:` block had no decay contract:** the shipped drain predicate is a positive header list (`vlt-vitals.py:604-617` files any other header as `other` and skips it; `vlt-decay/references/drain.md:9`; `vlt-decay/SKILL.md:36`; contract `:314`'s decay row names `consult:` retained) — a `delegate:` block would accumulate on the live board forever with none of consult's reason for exemption, and the table's own rule (*enters this table in the act that creates it*) would be violated. Ruled: **`delegate:` blocks are drain-eligible when written** (bounded, like `relay`); the four sites gain the kind; **the header is a distinct kind, never `consult:` with an `op` field.** **(ii) The sibling's real ground is trigger populations, not the neighbour list** (Carson): consult reaches for a **partner** (test: memory, `:282`); delegate reaches for a **runner** (test: findable-later, A16-6 (5)) — disjoint, eliminated, no precedence. The 2×2 paragraph says so, and `:282`'s "reaching for another partner … its test is memory" narrows to partner reaches. **(iii) The surface that already defines consult as a relay** (`vlt-dispatch/SKILL.md:15` "a `relay` whose drain happens immediately") **would produce "a consult whose return is a note"** in the same house style (Caravaggio): the brief's verification adds a **grep-negative** over `skills/vlt-dispatch/` and the contract — no sentence defines `delegate` in terms of `consult` ("a consult that/whose", "like a consult"); the mode bullet at `:13-16` is written on the 2×2's two axes; `conventions/consult.md:29-32` **points at the contract's 2×2** for the full set rather than enumerating it. **(iv) Dispute D-5, owner-ruled: SYMMETRIC** — whatever `S-4` shows for the subagent kind applies to `vlt-consult.js` and `vlt-delegate.js` alike; `vlt-consult.js:138`'s "no rule-card or contract read" clause (and `references/consult.md:9`) is **retired** if the carriage reaches subagents and **replaced by the same pointer** if it does not — consult writes its own `thread.md` (`:141`), so it is a writer (Quinn, Carson, Amelia, Winston). Dissent on record (Sally): exempt consult by write posture and let the promise read "every session that writes".
 
 *(added 2026-09-16)* **Q19 — A16-7: the return union and depth ceiling as filed.** `done{notePath,
 headline, verification, wikiCandidate} | incomplete{wipPath} | insufficient-context | needs-human |
 too-big`; depth `quick|moderate`, `deep` → `too-big` → relay; `op` single-tenant (`research`) under
 the population cut (not a shared lane). Accept as filed, or amend? Victor's dissent (generalize now)
 is on record and was rejected by the cut.
-**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ACCEPT AS FILED.** `deep` → `too-big` → relay is the only deep route; `op` single-tenant (`research`). Victor's dissent stays on record and stays rejected.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ACCEPT AS FILED.** `deep` → `too-big` → relay is the only deep route ~~.~~ **through delegate** *(roundtable A11, Carson — four words: as worded, build 3 would re-state in module source the belief A16-6 (1) exists to dissolve, "deep research goes to the Researcher", when a Creative may run `vlt-research` deep in its own sitting; the 2×2 paragraph names the in-sitting run as the other route)*; `op` single-tenant (`research`). Victor's dissent stays on record and stays rejected — and Victor conceded at the table that the single-tenant ruling composes with D6 once the carrier is the pointer pair and delivery is per kind: *a second tenant next cycle is an enum change, never a second engine.*
+*(roundtable A12, 2026-09-16 — `incomplete` and the killed runner; Amelia, Sally, no dissent):* **(i) `incomplete` is engine-derived:** `agent()` returns null on non-return (`vlt-consult.js:155-166`) and nothing typed comes back from an interrupted subagent — the engine derives `incomplete{wipPath}` from *null return + newest `{research}/*.WIP.md` since spawn*; its **at-rest instrument is a pre-planted `.WIP.md` fixture with a runner forced to null** (e.g. unreadable `skillsPath`), because a cooperative "stop after writing WIP" prompt tests the fix's shape (brief-anatomy §9 forbids it); the true-interruption leg stays Sally's field watch. **(ii) Spawn count is per leg:** 1 for thin / quick / incomplete, **0 for `too-big`** — the engine returns *before* spawning on `deep`, or `too-big` is a spawned agent's opinion ("exactly one agent spawned" in the acceptance as filed was wrong for that leg). **(iii) A killed runner's `.WIP.md` names neither caller nor question**, and `linkage_ripe` (`checks.md:61`) would call it ripe with a nonsense legal response: the engine prompt requires the runner's `.WIP.md` first lines to carry **`delegated_by: <caller>` and the question**, and the candidacy pass **excludes `*.WIP.md`** and reports **`wip_notes: N of M`** (one line at `checks.md:55`) — pre-existing for headless dives, but build 3 multiplies the population and one line is cheaper than a filing.
 
 *(added 2026-09-16)* **Q20 — A16-8: alias lifetime.** `non-negotiable-gate` accepted beside
 `write-gate` for one release (the filing), or indefinitely (no shipped reader parses the key —
@@ -1118,19 +1163,22 @@ explicitly calls this *ideation's call*. Note the exclusions the capture already
 a **prose clarification, no bump**; A16-2 (2)'s report slot, if any, is `report.md`, **not** the
 convention.
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): ONCE, in build 2** (`frontmatter@14` → `@15`); build 2 owns the bipartite-consistency verification across all ten consumers.
+*(roundtable A14, 2026-09-16, Builder — no dissent):* one re-ack is otherwise hollow. `vlt-consult.js:136`'s lite boot reads `identity.md` + `thread.md` **unconditionally**; after build 2 a consult of the Researcher would still load its `## Self` whatever `memory:` says, so `vlt-dispatch`'s `@15` ack would be true in the summon and false in the consult. **D1's re-ack list carries one site line: `vlt-consult.js` honours `memory:`** (skip identity/thread reads on `reflexes`); build 3's `vlt-delegate.js` clone inherits it. *(roundtable A10, Amelia)* The re-ack edits the literal `frontmatter@14` inside the scanner prompt (`vlt-lint-full.js:297/:299`), which moves `scanFingerprint` — the reason the `@15` release can never be the warm release Cycle 15's watch waits for; see Release shape.
 
 **D2 — the `demote` verb is a shared dependency.** A16-4 (2) asks for it (the ladder only lifts;
 `grep` for `reset`/`demote` across `vlt-groom` returns nothing) and A16-5 (1)'s charter check
 **depends on it** (groom proposes demotion of off-charter material). It must be sited once. Which
 build owns it, and do both consumers ship in the same cycle or does one wait?
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BUILD 2 OWNS `demote`**; both consumers (A16-4 (2) casebook, A16-5 (1) charter check) ship in the same build — it is the same `vlt-groom` edit.
+*(roundtable A13, 2026-09-16, Quinn — no dissent):* **the verb ships with the axis it moves on.** The contract's ladder (`:228-238`) is one column of rungs ordered by *durability*; `promote` is "move material up a rung" (`:240`); `vlt-groom` classifies every item against the ladder's *entry criteria* (`groom-pass.md:11`) — so as ruled `demote` has no position on the ladder and no criterion of the same kind (every existing criterion is the item's own test; demote's trigger is the *file's* budget or the *owner's* charter). The casebook is durable AND low wake-cost — on a one-axis ladder it is both above and below `identity`, and groom would "promote" casebook narratives back into `## Self` because that is what *up* means. ST-8 asked for "a second axis" in so many words. **D2 gains:** *the ladder table gains a second column, **wake-read** (`Beat 1` / `Beat 2` / `point-of-use`); `casebook.md` and the wiki are point-of-use; `demote` moves material along the wake-read axis only, never along durability; its criteria are budget (Q8) and charter-fit (A16-5 (1)), stated as file-level, not item-level, tests.* Contract prose in build 2; no extra bump. Brief-time (Quinn): whether `casebook.md` is seeded for the nine existing partners or born on first demote.
 
 **D3 — the cold summon and the partnerless session are the same move, governed and ungoverned.**
 The capture states the pairing explicitly: A16-5 (3)'s cold summon is *"the governed form of the
 fresh-eyes move that the partnerless session"* (A16-3) *"currently provides ungoverned."* Are they
 one mechanism with two entry points, or two independent postures? Ruled once, or the contract
 gains two overlapping populations — the **precedence-by-elimination** rule applies.
-**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): TWO POSTURES, DISJOINT POPULATIONS — eliminated, not precedenced.** Cold summon has a partner and writes a partner-tagged note; the partnerless sitting has none and writes a `(session)` note. Nothing overlaps; no precedence statement.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): TWO POSTURES, DISJOINT POPULATIONS — eliminated, not precedenced.** Cold summon has a partner and writes a partner-tagged note; the partnerless sitting has none and writes a ~~`(session)`~~ **`(none)`** *(roundtable A8)* note. Nothing overlaps; no precedence statement.
+*(roundtable A14, 2026-09-16):* the room found the pair this ruling did **not** cut — cold vs `memory: none` (a `none` partner's every sitting is cold without the tag; one behaviour, two records — Victor, Builder). Resolved by elimination under D-9: `none` leaves the enum this cycle, so `sitting: cold` is the **only** per-summon statelessness and is meaningful on every partner. No third posture remains to precedence.
 
 **D4 — `vlt-groom`'s whole-section acts.** A16-5 (2) (`--reset self|bond|thread`) and A16-4 (3)
 (the `identity.md`-becomes-a-card migration, *"a groom act per partner, by reference,
@@ -1149,12 +1197,14 @@ question: *what does a session with no partner (or a partner without its memory)
 does it owe the record?* The delegate filing's own constraint is *never a second carrier*. Ruled
 once: which build owns the carrier, and do the other two consume it in the same cycle or wait?
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): BUILD 3 OWNS THE CARRIER.** Tenants: the `partner: none` sitting (lands in build 2 as a contract posture, gains carriage in build 3) and the delegate runner (consumes in build 3). The cold summon reads through the ritual and is **not** a tenant. Stated in build 3's brief so no second carrier is built.
+*(roundtable A5, 2026-09-16 — the most-hunted joint after the wire; Winston, Victor, Quinn, Amelia, Sophia, Carson, Sally):* as ruled, "one carrier" named **three delivery surfaces** — `@import` (Q6), the `SessionStart` hook (Q6 fallback), and "pointer to the card and rung in the engine prompt" (A16-7 (4), decided in the filing before `S-4` and never re-pointed at the harvest) — and the engine build 3 clones (`vlt-consult.js:138`) forbids exactly the third for its own summoned partner. **The gloss:** *the carrier is the **pointer pair** (card + rung), single-homed as text once; a **delivery** per session kind — import, hook, or engine-prompt line — is not a second carrier; a second **copy** is.* An engine-prompt pointer ships **only** for a kind the harvest shows reached by neither import nor hook, and is then *the* carriage for that kind, never in addition (Victor's carried dissent dissolves on that sentence, by his own concession). Whatever the harvest shows for the workflow-`agent()` subagent kind **applies to `vlt-consult.js` and `vlt-delegate.js` alike** (D-5, owner-ruled symmetric; Q18). **The `S-4` register is corrected this session** (the §Spikes rule — written back, never roadmap-only): its Consumers line named "A16-5's cold summon (which reads the card + rung through whichever carriage this spike proves)", contradicting this ruling; the cold summon is struck and the workflow-`agent()` kind is named as its own probe row (Carson). *(roundtable A6)* Under A10 there is no split-release branch, so the "posture with no carriage" interim never reaches a vault; build 2's paragraph is nonetheless written **owes-only** (D8) so that this stays true by construction, not by release timing.
 
 *(added 2026-09-16)* **D7 — the weight lever is pulled from two sides.** A16-4 bounds Beat 1 so
 that a full activation is cheaper; A16-7 makes a lite partnerless runner so that a full activation
 is unnecessary for a bounded dive. Both are honest; both reduce the rational pressure `ST-9` names
 as amplifying. Does the cycle ship both, or does one carry the other's promise?
-**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BOTH SHIP, each claiming its own outcome at acceptance.** Build 2: activation words under the bound. Build 3: a dive returned in one sitting. Neither claims the other's.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BOTH SHIP, each claiming its own outcome at acceptance.** ~~Build 2: activation words under the bound.~~ Build 3: a dive returned in one sitting. Neither claims the other's.
+*(roundtable A16, 2026-09-16, Quinn — no dissent):* build 2's line was not ship-verifiable and its ST-9 lever was mis-named. Three partners are over 12,000 the day the wire lands and only owner-run, invoked-only, approval-gated grooms bring them under — "under the bound" cannot discharge at ship. And the Researcher, the partner whose weight ST-9 names as the amplifier, sits at 9,293 — Q8 does not touch the ST-9 pressure at all. **Build 2's line becomes:** *the metric derives per partner and the wire trips for exactly the partners over the vault's bound — ship-verifiable on a fixture; "under the bound" is a field watch owed to owner groom acts; build 2's ST-9 contribution is Q14 (`memory: reflexes`), watch not gate.* Build 3's line stands as ruled.
 
 *(added 2026-09-16)* **D8 — the contract's *Sessions* section is edited by three entries.** A16-3
 (2) names the `partner: none` sitting; A16-7 (1) publishes the 2×2 and names delegate; A16-6 (5)
@@ -1162,6 +1212,31 @@ extends read-and-cite at `:282`. The contract is unhandshaked by design (single-
 no bump — but three builds editing one section in one cycle want one owner of the section's prose,
 or the rule-card's *Sessions* row (`vault-rule-card.md:50`) is re-pointed three times.
 **RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BUILD 2 OWNS the *Sessions* section's prose** and lands the `partner: none` paragraph. Build 3 appends the delegate cell and the read-and-cite extension as **additive** edits and re-points the rule-card row (`vault-rule-card.md:50`) **once, at the end**.
+*(roundtable A6 + A7, 2026-09-16 — Paige, Caravaggio, Sally, Carson; no dissent):* **(i) The card is hash-checked, so "once, at the end" was a hidden dependency on the single release.** `vault-rule-card.md:11` carries `derived_from: 'vault-operating-contract.md sha256:…'` and `tools/package-lint.py:315` (`check_rule_card`) fails the tag gate whenever the contract's bytes move without a re-derive — build 2's edits would have left the card stale in build 2's own commit. Ruled: **every build that edits the contract re-derives the card's `derived_from:` hash in its own commit**; only the row *wording* at `:50` waits for build 3. **(ii) Three card sites change, not one:** rows `:46` (*cold-start, the hand-off skip* — a fourth posture) and `:47` (*the three files … the promotion ladder + verbs* — four files, four-plus verbs, a charter) go stale in build 2 and are **re-derived by build 2**; the act-blocking line `:30` (*"a partner consults, or it cites"*) changes meaning in build 3 — a card rule line is identity-bearing wording, not a pointer — and **build 3 owns it** ("consults, cites, or delegates a bounded dive") beside `:50`. **(iii) Placement:** build 2 inserts the `partner: none` paragraph (and, per D3/A2, the cold-sitting obligations) **directly after *Ending a sitting* (`:269`) and leaves `:284-288` byte-identical**; build 3's 2×2 lands at `:288`. Session *kinds* and the mechanism 2×2 are different tables. **(iv) What the paragraph says:** build 2's `partner: none` paragraph states what the sitting **owes** (one note, the `(none)` tag, no partner-memory writes, wiki single-writer, no dispatch-slice read) and is **mechanism-free about what it reads** ("reads what the vault `CLAUDE.md` loads") — so build 3 never edits it, which is the only way "additive" can hold whatever `S-4` returns (Sally, Carson). Contract `:159` (the `{log}` section's omit clause) gets an owner: **build 2**, per A8.
+
+*(added 2026-09-16, roundtable A4)* **D9 — the additive write into a populated vault-grown file.** Three
+rulings in two builds needed the same new act and none named it: Q12 seeds an empty `## Charter` into
+nine populated `identity.md`s (`vlt-setup/SKILL.md:225` enumerates the three *shipped* partners and
+never edits a populated file); Q16 (b) appends a pointer line to a populated `_agent/reflexes.md`
+(`:275` "never touch"); Q21 declined even an *offer* for a one-word capability edit on the
+"never rewrite unasked" principle — and a vault owner reading the release would call the three
+inconsistent (Sophia). Builder, Sally, Sophia, Winston, Paige, John, Carson.
+**RULED 2026-09-16 (roundtable A4, no dissent): ONE CLASS, DEFINED IN BUILD 2, CONSUMED IN BUILD 3.**
+`vlt-upgrade` Step 5 defines *insert-if-absent into a vault-grown agent-zone file*: by heading (a
+section) or by exact line (a rung line); **idempotent** (a second upgrade never inserts twice);
+`migrations_run`-tokened; walks **installed** `vlt-agent-*` partners, not the shipped three; the B1
+local-mint preserve path checked **once**, here; never rewrites, never reorders. **At cap it degrades
+to a human-gated offer** in the migration list (`SKILL.md:79-84`) and records the skip in the upgrade
+report — never edit-one-out, never exceed the cap. Members: the empty `## Charter` with placeholder
+prompts (build 2 — Q12); the rung pointer line (build 3 — Q16 (b)). Both `binds:` rosters carry D9.
+
+**R1 — a standing rule, home named (roundtable, 2026-09-16, Sophia; no dissent).** *"An upgrade may
+add **empty structure** to a vault-owned file — a section heading, one pointer line under the file's
+cap; it never adds or changes **content**, and never touches a partner's capability body."* **Home:**
+`vlt-upgrade/SKILL.md`'s Step-4/Step-5 durability posture (Step 4 today says only *never auto-rewrite
+a partner's body*). The home's edit is itself build 2's (D9's defining build), so this declaration is
+the interim posture until build 2 ships; the v0.19.0 field-notice block states the rule once, above
+the builds, so the three postures read as one hand.
 
 ### Spikes
 
@@ -1188,6 +1263,11 @@ Open against this cycle (register `status:` as of 2026-09-16):
   timebox as registered stands (one session, one probe per session kind, canary line, record which
   kinds run the hook too). Written back to the register file (`## Ruling` section) this session;
   `status:` stays `proposed` until the probing session starts, per the register's own table.
+  *(roundtable A5, 2026-09-16 — written back to the register file this session):* the Consumers line
+  **drops the cold summon** (D6 rules it not a tenant; the register contradicted the ruling — Carson)
+  and **names the workflow-`agent()` subagent kind as its own probe row** — the delegate runner and
+  the consult lite boot are that kind and, per D-5, come out identical whatever it shows. The
+  harvest must also record whether the `SessionStart` hook fires for an in-session spawn.
 
 Carried, not open (visible so it is not rediscovered at brief time):
 
@@ -1222,6 +1302,7 @@ post-adoption and illegal; 240 bare-path entries across 83 of 146 pages exist on
 reader can tell which are legal**. Vault-side by the capture's reading (see Q5). Not-blocking for
 the module builds, or does a build owe the census that makes the count watchable?
 **RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): DISCHARGED BY Q3 (a) — attached to build 1.** The census line is the instrument that makes the count watchable.
+*(roundtable A9, 2026-09-16, Mary — no dissent):* "watchable" now has a number. Re-derived read-only today: **240 entries / 83 pages of 152** (the wiki grew six pages since capture); 55 are the post-adoption debt, **≈185 are legal-until-edited** under rule 4's no-backfill clause — repairing the 55 moves the line to ≈185, not 0, and the count also falls for a *legal* reason (a substantive edit adopts the form) while it rises only through the writer build 1 fixes. So a falling number is not evidence the 55 were repaired and a flat one is not evidence they weren't. **Baseline `240 / 83` and floor `≈185 entries`** (the page figure is not derivable — some pages hold both kinds) are the meaning of "done". Build 1's ledger carries **one bounded check** instead of the unbounded "watch it fall": *the first post-upgrade full sweep on `{field-vault}` renders the census line and its value equals an independent recount* — ship-verifiable on upgrade evidence.
 
 **E3 — A16-2's adjacent carry must be read before (2) is scoped.** Cycle 15 closeout carry 9's
 `sources_vs_prose_mismatches` tier question (refused wholesale on consecutive sweeps;
@@ -1245,6 +1326,7 @@ build-4's `pageHashes` digest form, field-confirmed; build-5's `para_type_unknow
 build-7's five-value enum + partner-side attestation beat; A15-12's subtree-`type:` mechanism).
 None blocks a Cycle 16 build on its face; recorded so the cycle does not close over them silently.
 **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): NOT BLOCKING any Cycle 16 build.** The owner writes them via the rail when ready; recorded so closeout does not pass over them silently.
+*(roundtable A9, 2026-09-16, Mary):* a **sixth** owed filing joins the list so E1's ruling is not the silence E6 exists to prevent — *build-1: an overridden `stub_discovery` read (`located: no` corrected by eye) leaves no trace in the persisted report — owner to file.*
 
 *(added 2026-09-16)* **E7 — A16-6's belief-in-memory half is inferred, not observed.** The filing's
 own recovery grep (`Researcher` near `lane` under `## Self`, nine `identity.md` files, read-only)
@@ -1266,11 +1348,86 @@ non-Researcher partner) is a watch. Not-blocking on the capture's read.
 
 Per-build, not cross-cutting. **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): exactly these, nothing cross-cutting.**
 
-- **build-1:** the census line's exact report field (Q3 (a)'s `bare_path_sources` shape in `report.md`).
-- **build-2:** the casebook's decay-contract values; the charter's minted template text (Q12); the
-  `partner: none` paragraph's wording in *Sessions* (D8 — build 2 owns the section).
+- **build-1:** the census line's exact report field (Q3 (a)'s `bare_path_sources` shape in `report.md`)
+  — *within A9's constraints: full-mode only, three-term, script-side, string-equality gate*; the
+  reduce-side drop mechanism *within the A9/A10 constraint* (no `PAGE_SCAN` edit); the C15 build-3
+  check (4) `grep '## Stubs'` count moves from 1 to 2 under Q1 (a) — note it, expected 2 (Amelia).
+- **build-2:** the casebook's decay-contract values; the charter's minted template text (Q12) and the
+  placeholder prompts the seed carries (A3); the `partner: none` paragraph's wording in *Sessions* (D8
+  — build 2 owns the section; owes-only, mechanism-free about reads); the cold summon's utterance
+  wording (A2); whether `casebook.md` is seeded for the nine or born on first demote (A13); the
+  demote criterion when the charter is empty (A3); *(roundtable A18)* **the count-word sweep** — every
+  "three files"/"three verbs" site re-nouned or turned into a pointer at *Partner memory* (contract
+  `:212`/`:240`, `frontmatter.md:183`, rule-card `:47`, `vlt-groom/SKILL.md:4`+`:11`,
+  `groom-pass.md:5`/`:10`, decay row `:312`, `vlt-vitals.py:242`'s description).
 - **build-3:** the 2×2's wording and whether the section gains a table; whether the `delegate:`
-  header shape is the mode signal as `relay:` is; whether a human-invoked delegate tags `(user)`.
+  header shape is the mode signal as `relay:` is; whether a human-invoked delegate tags `(user)`;
+  *(roundtable A11/A12/A18)* the four decay sites' exact edits; the grep-negative's pattern list;
+  the `.WIP.md` header lines; the `wip_notes` line; **`references/daily.md:60`** and the
+  `module-help.csv:13` **`args` enum** join A16-7 (7)'s pointer list ("four modes" claims
+  completeness in both).
+
+## Roundtable review — A16-1..A16-8 (2026-09-16)
+
+**Convened** over the filled Ideation rulings above (five rounds, all Q/D/S/E slots ruled), before any
+brief. **Roster** discovered fresh, **full 13, nobody excused** (owner-ruled): Mary (analyst), Winston
+(architect), Builder, Amelia (dev), John (PM), Paige (tech writer), Sally (UX), Carson (brainstorming),
+Dr. Quinn (problem-solving), Maya (design thinking), Victor (innovation), Caravaggio (presentation),
+Sophia (storytelling). Owner's prior worries: none named; the roadmap's five seams (D6 carrier gap,
+Q18 sibling claim, D8 three-build section, Q8 three-trip budget, the S-4 release condition) carried
+verbatim into every prompt. Thirteen returns, ~75 findings, merged to nineteen joints; every voice
+returned both mandatory beats. Session file:
+`_output/party-mode/2026-09-16-cycle16-roadmap-roundtable-session.md`; keepsake:
+`_output/party-mode/2026-09-16-cycle16-roadmap-roundtable.html`.
+
+**Amendments — applied above, each marked *(roundtable A#)* at the section it amends:**
+- **A1** — Q8/Q9 + build-2 promise: the wire binds a denominated count (`partners_over_activation_budget: N of M`); per-partner words render beside bytes; 12,000 lives once in the seed wire's `threshold:`, the contract points at it; `surface_text` names the response in order (charter, then D4 groom) and the fork (identity-heavy → groom; SKILL-heavy → rebirth); the read set is `memory:`-posture-aware; three trips at ship are the expected state; promise "a budget a wire trips on".
+- **A2** — Q13: a `sitting: cold` may host an owner-invoked, approval-gated groom; cold reads SKILL + charter + reflexes + card + rung; trigger is the summon utterance before the identity read; `cold` in the log summary, never the paren.
+- **A3** — Q12 + build-2 promise: an empty `## Charter` disables the charter check and says so; the seed carries the mint prompts as placeholders; the first-meeting test reads Bond/Self only; the lint half of A16-5 (1) dropped for keep-only in the groom diff (`declared`); the mint-time `## Self` seed retired; promise "a charter slot the owner fills".
+- **A4** — new decide-once **D9** (additive write into a populated vault-grown file, defined build 2, consumed build 3; idempotent; at cap → human-gated offer); Q16 (b) consumes it; Q15 (2)'s rung line is pointer-grammar per `:226`; both `binds:` carry D9.
+- **A5** — D6 gloss (carrier = the pointer pair; a delivery per kind is not a second carrier, a copy is; engine-prompt pointer only for an unreached kind); Q6: hook fallback is a second `SessionStart` entry keyed on its own path, never `--strip`; narrowing written into build 3's promise line; the S-4 register's Consumers line corrected (cold summon struck; workflow-`agent()` kind its own row).
+- **A6** — D8/Release shape: build 2's `partner: none` paragraph is owes-only and mechanism-free about reads, never edited by build 3; the first-partnerless-note check enters build 3's ledger.
+- **A7** — D8: every contract-editing build re-derives the rule-card hash in its own commit; build 2 re-derives rows `:46`/`:47`; build 3 owns `:30` ("consults, cites, or delegates") and `:50`; build 2 inserts after *Ending a sitting* (`:269`), leaves `:284-288` byte-identical; build 3's 2×2 at `:288`.
+- **A8** — Q7/D3: one string on every surface — `partner: none` ↔ `(none)` ↔ `none`; the three omit clauses (`:159`, `frontmatter:167`, `vlt-ingest:24`) narrow to headless ops outside any sitting, edited in build 2; `partner: user`/`partner: vlt-mint` legal-until-groomed.
+- **A9** — Q3/Q5/E2/E6 + build-1 park: the census line is full-mode only, three-term, script-side, string-equality-gated; "shows it done" → "shows it stopped growing"; baseline 240/83, floor ≈185; one bounded ledger check (first post-upgrade full sweep equals an independent recount); the drop needs a reduce-side enforcement point under the A9/A10 constraint; E6 gains the E1 filing.
+- **A10** — Release shape: **two releases** — build 1 alone first (v0.18.x) so Cycle 15's warm-release watch has its chance; builds 2 + 3 as one release **held whole until S-4 is harvested, no split**; the false "one chance this cycle" parenthetical struck with Amelia's cache-key finding.
+- **A11** — Q18/Q19: `delegate:` blocks drain-eligible when written, four decay sites gain the kind, header a distinct kind; the sibling's ground is disjoint trigger populations stated in the 2×2; grep-negative for delegate-defined-as-consult; `conventions/consult.md` points at the 2×2; "the only deep route **through delegate**".
+- **A12** — Q19: `incomplete` engine-derived (null + newest WIP), at-rest fixture pre-planted; spawn count per leg (0 on `deep`); `.WIP.md` carries `delegated_by` + question; candidacy excludes WIP and reports `wip_notes`.
+- **A13** — D2: the ladder gains a wake-read column; demote moves along it only; file-level criteria.
+- **A14** — Q14/D1/D3: `memory:` narrowed to `full | reflexes`; `vlt-consult.js` honours `memory:` (D1 site line); the pilot's baseline derived at brief time, arm named, depth-matched, delegate runs excluded.
+- **A15** — Q15 (5): `grounding:` on PARA artifacts, `sources:` on wiki-class; `web_cited_entries` census read-back; Creative `:37` loses the word *Researcher*.
+- **A16** — D7: build 2's outcome is "trips for exactly the partners over"; its ST-9 lever is Q14.
+- **A17** — build-1 bullet + Release shape: "reaches wearers first" struck; builds 1 and 2 carry CHANGELOG notice text in their own briefs (§8 stub); the release build collates; A16-8's notice says *delete the apology* and *old key accepted indefinitely*.
+- **A18** — parks/Q9/A16-7 (7): the count-word sweep; `casebook.md` IN `partner_memory_bytes`; `references/daily.md:60` + the `module-help.csv:13` `args` enum join the pointer list.
+- **A19** — the retirements below, written into the build scopes they belong to.
+
+**Rules:**
+- **R1** — *an upgrade may add empty structure to a vault-owned file, never content, never a capability body.* Home: `vlt-upgrade/SKILL.md` Step-4/5 durability posture; the edit lands in build 2 with D9; interim posture is the dated declaration at D9 above.
+
+**Owner rulings (live) and dissents on record:**
+- **D-1** wired set — keep SKILL.md in it; fork named in `surface_text`. *Dissent: Builder (narrow to identity + reflexes).*
+- **D-2** wire owner — `owner: human`, partners in the detail.
+- **D-3** cold groom — a cold sitting may host an approval-gated groom. *Alternative recorded, not argued.*
+- **D-4** charter lint flag — dropped; keep-only in the groom diff, `declared`.
+- **D-5** consult symmetry — symmetric per harvest. *Dissent: Sally (exempt by write posture).*
+- **D-6/D-8** release — build 1 alone first; 2+3 held whole, no split.
+- **D-7** spelling — `(none)` everywhere.
+- **D-9** `memory: none` — narrowed out this cycle. *Dissent: Victor (keep, narrow the detector).*
+- **D-10** `cap: 30` — `cap_words:` replaces it. *Dissent: Maya, Paige (keep as shape-only).*
+- **D-11** mint `## Self` seed — retired; Self born empty.
+- **Open disputes: none.**
+
+**Obsolescence beat — retirements found (P-15):**
+- *build-1:* Q3 (a) and Q4 **are retirements** and the record now says so (the bare-path class leaves `malformed_frontmatter`'s verdict kinds; `fix-and-file.md:12`'s residue is deleted, not re-caveated). Q20's indefinite alias is a **deliberate non-retirement**, recorded so no later cycle "discovers" a second spelling. C15 build-3 check (4)'s `grep '## Stubs'` = 1 is obsoleted by Q1 (a) — expected 2.
+- *build-2:* `frontmatter.md:167`'s omit clause and its twin contract `:159` → retired by `partner: none`/`(none)`; the reflex cap's deferral posture (`frontmatter.md:224-230`, "mechanical bell deferred … threshold 2 … expiry") → superseded by the Beat 1 wire, retired; the fired line-form falsifier half → retired per `:222`; **`cap: 30` → retired, `cap_words:` replaces** (D-10); contract `:244` "informational until the groom op exists" → dead since v0.11.0, retired; `:217` "writes this freely" → narrowed to below the charter; `:246` "reversible" → points at `--reset`; the mint-time `## Self` seed (`vlt-mint/SKILL.md:132`, template `:111`) → retired (D-11); the "three files"/"three verbs" enumerations → pointers.
+- *build-3:* contract `:194`/`:226` ritual card-and-rung read → for every kind the harvest names reached, "arrives with the session; the ritual reads it only for kinds the harvest says are missed" (conditional on harvest, stated in the brief); the seeded `CLAUDE.md` pointer at the 67,844-char contract (`vlt-setup/SKILL.md:202-213` "read it before writing anything") → retired to point at the card (conditional on the interactive kind); `vlt-consult.js:138` + `references/consult.md:9` exemption → retired or replaced per D-5; `references/consult.md:63` needs-work → relay → replacement line; `vlt-consult.js:147`'s engine copy of the routing rule → pointer; rule-card `:18` "Becoming — the ceremony's frame" → re-framed; Creative `:37`'s *Researcher* → retired; `:282`'s population → partner reaches only; `vlt-setup/SKILL.md:200`'s one-line strip promise → retired for any hook-carried kind.
+
+**Instrument beat — the property each build's acceptance must protect (P-20), stated fix-free:**
+- *build-1:* **Stub read** — given only the shipped `wiki-index.md` bytes (and an overlay variant), a reader following the procedure returns the heading string a human reads from the convention's Stubs rule: `located: yes` on a long-form index, `located: no` on bare `## Stubs`, with no reference to fences; a fixture that is a *copy* of the convention is not the instrument. **Census** — every bare-path `sources:` entry on disk is counted exactly once on one denominated line whose value equals an independent recount; no per-page finding is raised for the form; a full sweep never increases it. **Writer** — a full sweep over a page whose prose cites a note absent from frontmatter leaves that page's frontmatter byte-identical. **Slot** — a loop profile carrying either key reaches the same gate in `vlt-track` and the relocation scan recognizes both. A16-8 otherwise: none named.
+- *build-2:* **Budget** — for every partner, the number reported equals the word count of exactly the files that partner's next activation reads under its declared posture, measured by counting files, never by the metric's own output; every partner over the bound is named by slug on the surface the owner sees at next session start with the act that answers it, and none under is (adversary: a fleet aggregate under while one partner is over; a `reflexes` partner counted full). **Demote** — after an approved demote the material exists at exactly one rung below Beat 1, absent from every Beat 1 read, reachable at its new home and via `archive:`, and the words across all memory files did not fall. **Charter** — an owner-held section is byte-identical after any partner sitting that wrote elsewhere in the file; an empty charter proposes nothing and says so. **Cold** — a `sitting: cold` leaves `identity.md` and `thread.md` byte-identical, yields exactly one note, and a human reading the log alone can tell it was cold. **`partner: none`** — one `(none)`-tagged note, zero bytes under `{partners}/` and `{wiki}`, no dispatch-slice read. **Handshake** — every consumer acks `@15`, none `@14`. **Q14** — watch, graded against the A14 baseline row.
+- *build-3:* **Carrier** — in every session kind the harvest names as reached, opened at the vault root with no partner summoned, a canary line in the card and one in the rung are in context at the first turn, once not twice; unreached kinds are stated. **Delegate** — from partner P: exactly one agent (zero on `deep`); at most one note under `{research}` carrying `verified_by: vlt-research` and passing tier-1; P's sitting ends with exactly one session note authored by P; nothing under `{wiki}`; zero relays fired; both `{log}` lines caller-tagged; the `delegate:` block absent from the ledger's open board and every open slice and drained on its bound; a dive stopped before its note, by choice or by kill, leaves a file a human can attribute to caller and question with no log line present. **Sibling** — `conventions/consult.md:23-27`'s bytes and both consumers' `consult@1` acks unchanged after the neighbour list grows; a grep for delegate defined in terms of consult returns nothing. **Lane** — no shipped sentence names `{research}` single-writer or routes a non-Researcher away from `vlt-research`; otherwise none named (E7 watch).
+
+**Capture-don't-interrupt — for `factory/inbox/` at handoff:** the tripwire registry schema takes one static `owner:` (a count wire's debtor varies per trip); `## Thread` has a section bound, not a size (Cycle 17); `vlt-lint-full.js:297`'s prompt-side prohibition ignored in the field (files only if build 1 takes a route the A9/A10 constraint forbids); `vlt-setup/SKILL.md:200`'s one-line strip promise vs hook carriage (files after S-4).
 
 ## Deferred acceptance ledger
 
@@ -1386,6 +1543,25 @@ and the brief-time parks. Two obligations sit outside the roundtable and are not
 **run `S-4`** (one session, the register's timebox) before build 3's brief; and the owner's five owed
 candidate filings (E6). Briefs follow the roundtable, never precede it; build 1 and build 2 are
 briefable on the review's amendments alone.
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing.
+
+---
+
+**Next lifecycle move (2026-09-16, `roadmap-roundtable`): `brief build 1` (`build-brief`).** The
+Roundtable review record is in place (§Roundtable review — A16-1..A16-8, above the ledger): 19
+amendments applied in-section with `(roundtable A#)` markers, R1 declared with its home, D9 added to
+§Cross-filing, 11 owner rulings live, **0 open disputes**. Build 1 is briefable now and, per A10, is
+**its own release** (v0.18.x — clerk's read v0.18.1) so that Cycle 15's build-2 (6) warm-release
+watch gets its chance; its brief must honour the A9/A10 constraint (no `PAGE_SCAN` or scanner-
+convention edit) and carry its CHANGELOG notice text in a §8 stub. Build 2 is briefable on the
+amendments alone; build 3's brief waits on the **S-4 harvest** (register corrected this session —
+the workflow-`agent()` kind is its own row). Builds 2 + 3 ship as one release (v0.19.0), **held whole
+until S-4 is harvested — no split**. Outside the roundtable: run `S-4`; file the four
+capture-don't-interrupt items to `factory/inbox/` (tripwire single-owner schema; `## Thread` size
+bound; `vlt-lint-full.js:297` conditional; strip-promise conditional); the owner's six owed
+candidate filings (E6, now including E1's).
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.
