@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (five filings, grounded at v0.18.0 @ `1e119a4`); ideation skeleton laid 2026-09-16, UNFILLED — awaiting owner rulings'
+status: 'open — captured 2026-09-09 (A16-1..A16-5); ideation skeleton laid 2026-09-16 then HELD by the owner, UNFILLED — cycle open to further filings before ideation resumes'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -522,9 +522,16 @@ Collected from the entries above, verbatim there; listed here so the scaffold ca
 ## Ideation rulings — A16-1..A16-5 (owner-steered, 2026-09-16)
 
 **Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
-**OPEN — skeleton laid 2026-09-16 by `ideation-scaffold`; no slot is filled.** Every question
-below is seeded from the capture (2026-09-09) or from the spike register; none is answered here.
-`build-brief` gates on this section being filled — it is not yet.
+**HELD by the owner 2026-09-16, before round 1 was ruled — no slot is filled.** The owner may add
+filings to this cycle, so the batch is **not closed**: the material below was seeded from the
+2026-09-09 capture of A16-1..A16-5 and from the spike register, and a later capture addendum
+**extends this section's batch label and re-seeds it** rather than laying a second skeleton (one
+skeleton per batch — `ideation-scaffold`'s own rule). Round 1 (cycle scope, the build cut, build 1)
+was put to the owner in-session and **deliberately not answered**; nothing was recorded, and the
+questions below stand exactly as laid.
+
+`build-brief` gates on this section being filled — it is not yet, and it should not be until the
+cycle's contents are settled.
 
 Question numbering is the clerk's, for reference in session only; it implies no ordering or
 priority. Where the capture proposed something, it is carried as **capture's proposal,
@@ -769,6 +776,9 @@ direction 1 is briefed.** — DISCHARGED 2026-09-16 (this run laid the skeleton)
 
 </details>
 
+<details>
+<summary>Superseded routing — 2026-09-16, `ideation-scaffold` (skeleton laid; ideation then held)</summary>
+
 **Next lifecycle move (2026-09-16, `ideation-scaffold`): the owner fills the rulings skeleton
 above** — `## Ideation rulings — A16-1..A16-5`, laid unfilled this run with 14 seeded questions
 (Q1–Q14), 5 cross-filing decide-once slots (D1–D5), the spike view (`S-4` `proposed`, `S-3`
@@ -778,6 +788,30 @@ above** — `## Ideation rulings — A16-1..A16-5`, laid unfilled this run with 
 review, never precede it.** `S-4` must be run, killed, or ruled-around (the `SessionStart`-hook
 fallback) before A16-3's direction 1 is briefed; any spike ruling is written back to its register
 file in the same session.
+
+</details>
+
+**Next lifecycle move (2026-09-16, owner hold): the cycle is OPEN TO FURTHER FILINGS — ideation is
+paused, not abandoned.** The rulings skeleton above is laid and unfilled; round 1 was put and not
+ruled, by the owner's choice. The route from here:
+
+1. **The owner files what they want to add** into `factory/inbox/` (filing shape:
+   `factory/inbox/README.md`). The inbox is **fully captured as of this run** — 62 files, every one
+   named in some cycle's `derives_from:` — so anything new is unambiguously the addendum set.
+2. **Run `inbox-capture` again** ("run inbox capture"). `factory/CYCLE` reads `16-closed-loops`, so
+   it appends to **this** roadmap as an addendum batch (A16-6…) rather than opening Cycle 17 —
+   the shape Cycle 10 used three times.
+3. **Re-seed this section, do not lay a second one** — extend the batch label past `A16-5`, add the
+   addendum's questions, and re-check the cross-filing decide-once slots (D1's one-bump ruling and
+   D2's shared `demote` verb are the two most likely to move when filings are added).
+4. **Then resume ideation at round 1** (cycle scope, the build cut, build 1), then
+   `roadmap-roundtable`, then briefs.
+
+If the owner instead decides to add nothing, the move reverts to **resume ideation at round 1** —
+the skeleton is current as it stands.
+
+`S-4` is unaffected and still `proposed`: it must be run, killed, or ruled-around (the
+`SessionStart`-hook fallback) before A16-3's direction 1 is briefed, whenever briefing happens.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report
