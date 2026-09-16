@@ -18,6 +18,7 @@ cited_by:
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-3 (capture 2026-09-09 — cause C grounded; vault rung at contract :226; S-4 opened for the @import carriage)'
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-4 (capture 2026-09-09 — cause A grounded; correction: partner_memory_bytes exists at vlt-vitals.py:242 as a fleet total, display-only — the gap is per-partner Beat 1 weight with a bound)'
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-5 (capture 2026-09-09 — cause B + amplifying grounded; groom has no reset/demote/charter/cold)'
+  - 'factory/studies/ST-9-one-axis-design-leaves-the-diagonal-empty.md (amplifying cause — the ghost research lane hardens as `## Self`; the Researcher''s weight makes avoiding it rational)'
 superseded_by: ''
 ---
 
