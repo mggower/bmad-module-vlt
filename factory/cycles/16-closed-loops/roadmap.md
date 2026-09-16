@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (five filings, grounded at v0.18.0 @ `1e119a4`); awaiting owner-steered ideation'
+status: 'open — captured 2026-09-09 (five filings, grounded at v0.18.0 @ `1e119a4`); ideation skeleton laid 2026-09-16, UNFILLED — awaiting owner rulings'
 module_code: 'vlt'
 created: '2026-09-09'
-updated: '2026-09-09'
+updated: '2026-09-16'
 derives_from:
   - 'factory/inbox/2026-09-03-124500-stub-heading-is-stated-inside-a-fence-so-a-faithful-section-scan-reads-located-no.md'
   - 'factory/inbox/2026-09-03-124600-lint-sources-reconciliation-writes-the-retired-bare-path-form.md'
@@ -519,6 +519,238 @@ Collected from the entries above, verbatim there; listed here so the scaffold ca
 - **Cross-cutting:** one `frontmatter@14` bump for A16-3/4/5 (and A16-2 (2) if it adds a report slot,
   which is `report.md`, not the convention); build grouping across the lint pair and the partner triple.
 
+## Ideation rulings — A16-1..A16-5 (owner-steered, 2026-09-16)
+
+**Rulings below are the owner's; briefs cite this section, never re-litigate.** Session
+**OPEN — skeleton laid 2026-09-16 by `ideation-scaffold`; no slot is filled.** Every question
+below is seeded from the capture (2026-09-09) or from the spike register; none is answered here.
+`build-brief` gates on this section being filled — it is not yet.
+
+Question numbering is the clerk's, for reference in session only; it implies no ordering or
+priority. Where the capture proposed something, it is carried as **capture's proposal,
+unaccepted** — never as a ruling.
+
+### Grouping & order
+
+**Cycle scope — *(owner to fill)*.** Which of A16-1..A16-5 are in Cycle 16, and which (if any)
+leave for a later cycle. The capture routed nothing away and opened no platform fork; all five
+name fix sites under the shipped surface.
+
+**The grouping question the capture flagged, unresolved:** *"build grouping across the lint pair
+and the partner triple"* — A16-1/A16-2 share a skill (`vlt-lint`) and share nothing else;
+A16-3/A16-4/A16-5 share a cause (`ST-8`), a file (`frontmatter.md`), and a handshake bump. Whether
+that is two builds, five, or some other cut is the owner's call.
+
+Build numbering is itself an owner call — the bullets below are placeholders, not proposed
+numbers. Each carries the three fields `build-brief` reads:
+
+- **build-? — *(owner to fill: which filings this build folds in)***
+  - `binds:` *(owner to fill — the ruling-id roster that governs this build; keep current as rounds add rulings)*
+  - `spike:` *(owner to fill — `none`, or the `S-N` this build's brief depends on)*
+  - `promise:` *(owner to fill — one vault-facing sentence: after this ships, a vault owner running `vlt-<x>` sees Y instead of Z)*
+
+- **build-? — *(owner to fill)***
+  - `binds:` *(owner to fill)*
+  - `spike:` *(owner to fill)*
+  - `promise:` *(owner to fill)*
+
+- **build-? — *(owner to fill)***
+  - `binds:` *(owner to fill)*
+  - `spike:` *(owner to fill)*
+  - `promise:` *(owner to fill)*
+
+*(Add or remove bullets as the grouping is ruled. An unfilled `spike:` or `promise:` is **not**
+`none` — it blocks `build-brief`, which is the field working. `binds:` is reconstructible and is
+disclosed rather than blocking; a promise is not reconstructible, which is why it blocks.)*
+
+**Release shape — *(owner to fill)*.** One release or more; and which builds ride which. (Cycle
+15's build-2 (6) watch — *first warm release* — has its first chance at whatever release this
+cycle cuts; noted as context, not a ruling.)
+
+### Pre-ideation rulings the capture demanded
+
+Seeded as questions, unanswered. Each cites the capture entry that raised it.
+
+**Q1 — A16-1: which side of the seam gets the heading fix?** The capture's two directions are
+mutually exclusive in practice and both are one line:
+(a) **convention-side** — `wiki-index.md` states the heading text *outside* the fence at `:80`
+(prose clarification: no rule change, **no `version:` bump, no consumer re-ack**); or
+(b) **procedure-side** — `checks.md:13` says the heading is stated inside the convention's fenced
+example and the reader takes the first `## ` line inside that fence.
+*(owner to fill)*
+
+**Q2 — A16-1: does the convention-side fixture ship, and where?** The capture's direction 3 —
+`wiki-index.md` §Stubs bytes in, the heading string out — lands in this cycle's `fixtures/`
+whichever of Q1 (a)/(b) is ruled. Ship it, or defer it? *(owner to fill)*
+
+**Q3 — A16-2: the checker's posture on bare-path `sources:` entries.** The capture sharpened this
+to three options and explicitly left it to ideation:
+(a) **drop the class from `malformed_frontmatter`** (unobservable at rest ⇒ not a per-page
+finding) and surface it as a **denominated census line** (`bare_path_sources: N entries / M pages`,
+the `attestation_census` idiom at `checks.md:18`);
+(b) **keep the scanner verdict** and have the **reduce refuse it by name**, as it refuses the
+attestation-only complaint;
+(c) **status quo.**
+*Capture's proposal, unaccepted: "a count the owner can watch fall beats a flag the owner cannot
+act on."* *(owner to fill)*
+
+**Q4 — A16-2: does the writer-side repair ship this cycle?** Direction 1 — `fix-and-file.md:12`
+loses its frontmatter-write residue (or states rule 4's form for it if a frontmatter write is ever
+legal on that path), made `checks.md:16`-consistent. One paragraph, exact F-site. In or out?
+*(owner to fill)*
+
+**Q5 — A16-2: the vault's 55 entries.** The capture calls this **not module scope** and records it
+so the field debt has a name — a hand pass, or an owner-ruled one-time exception to rule 4's
+no-backfill clause, both vault-side. Does the owner rule the exception now, or leave it? *(owner
+to fill)*
+
+**Q6 — A16-3: the carriage mechanism for partnerless governance.** Direction 1 is **ungrounded
+pending `S-4`** — whether `@path` imports in a vault `CLAUDE.md` load for every session kind. The
+grounded fallback is the existing `SessionStart` hook (`vlt-setup/SKILL.md:187`,
+`vlt-vitals.py --strip`), which already fires per session. Ruling needed on: does a build bind
+`S-4`, and does the fallback ship if `S-4` returns *no*? *(owner to fill — see **Spikes**)*
+
+**Q7 — A16-3: the `partner: none` sitting.** Direction 2 does **not** depend on `S-4`. Naming it in
+the contract's *Sessions, sittings, and hand-offs* turns `frontmatter.md:167`'s *"Omit only for a
+partner-less generic-agent session"* into an explicit value — **a rule change to `frontmatter@14`**
+(see D1). In or out, and with what clauses (one session note, log tag `(session)`, no
+partner-memory writes, wiki single-writer)? *(owner to fill)*
+
+**Q8 — A16-4: the Beat 1 budget value.** An owner ruling by construction. *Capture's proposal,
+unaccepted: the light partners' median ×2 (~12K words), to be tightened once the instrument
+exists.* *(owner to fill)*
+
+**Q9 — A16-4: `activation_words` vs `partner_memory_bytes`.** `vlt-vitals.py:242` already carries
+`partner_memory_bytes` (fleet-wide, bytes, includes `thread.md` + capabilities, display-only,
+never wired). The ask is per-partner, Beat 1-subset, bounded. Does the new metric **replace,
+refine, or sit beside** it? *(owner to fill — the capture flags this as a brief-time trap if left
+unruled)*
+
+**Q10 — A16-4: the casebook's shape.** A fourth partner-memory file, or a section of `thread.md`
+below `## Set aside`? And where does `## Bond`'s owner-model material migrate — the wiki
+(single-writer, Librarian hand-off) or a PARA area the partner may write? *(owner to fill)*
+
+**Q11 — A16-4: does the reflex `cap_words:` rider ship?** Its own falsifier fired
+(`frontmatter.md:224–226`; `review_after: 2026-11-17` is the n=1 recalibration expiry the falsifier
+was written for). Ride with the budget build, or stand alone, or defer? *(owner to fill)*
+
+**Q12 — A16-5: is `## Charter` minted or blank at birth?** From `vlt-mint`'s partner-ideation beat,
+or empty and owner-authored? And the adoption posture for the nine existing partners —
+`vlt-setup`/`vlt-upgrade` may **seed an empty section, never author one** (durability posture; the
+B1 local-mint preserve path is in play). *(owner to fill)*
+
+**Q13 — A16-5: is `cold` a `partner:` modifier or its own `sitting:` field?** The session-note
+shape follows the answer. *(owner to fill)*
+
+**Q14 — A16-5: the Researcher pilot for `memory: full | reflexes | none`.** Pilot on the Researcher
+only, or fleet? Its breadth measure (*capture's proposal, unaccepted: distinct source domains per
+dive over five dives before and after*), and the filing's own note that **a null result is a
+finding** relocating the cause to `vlt-research`'s search discipline. *(owner to fill)*
+
+### Cross-filing decide-once rulings
+
+Decisions that must resolve identically across filings. Unfilled.
+
+**D1 — one `frontmatter@14` bump, or several?** The capture flags this at four entries: A16-3 (2),
+A16-4 (1)/(2)/(3), and all four of A16-5's directions are **rule changes** to `frontmatter.md`
+(version 14 at `:11`), each demanding a `version:` bump **and every consumer re-acked in the same
+build**. The capture's read is that ideation should group them so the bump happens **once**; it
+explicitly calls this *ideation's call*. Note the exclusions the capture already drew: A16-1 (a) is
+a **prose clarification, no bump**; A16-2 (2)'s report slot, if any, is `report.md`, **not** the
+convention. *(owner to fill — and if the answer is "once", the build that carries the bump owns the
+bipartite-consistency verification)*
+
+**D2 — the `demote` verb is a shared dependency.** A16-4 (2) asks for it (the ladder only lifts;
+`grep` for `reset`/`demote` across `vlt-groom` returns nothing) and A16-5 (1)'s charter check
+**depends on it** (groom proposes demotion of off-charter material). It must be sited once. Which
+build owns it, and do both consumers ship in the same cycle or does one wait? *(owner to fill)*
+
+**D3 — the cold summon and the partnerless session are the same move, governed and ungoverned.**
+The capture states the pairing explicitly: A16-5 (3)'s cold summon is *"the governed form of the
+fresh-eyes move that the partnerless session"* (A16-3) *"currently provides ungoverned."* Are they
+one mechanism with two entry points, or two independent postures? Ruled once, or the contract
+gains two overlapping populations — the **precedence-by-elimination** rule applies. *(owner to
+fill)*
+
+**D4 — `vlt-groom`'s whole-section acts.** A16-5 (2) (`--reset self|bond|thread`) and A16-4 (3)
+(the `identity.md`-becomes-a-card migration, *"a groom act per partner, by reference,
+approval-gated"*) both add acts to a skill whose three verbs are item-wise. Are these one new
+class of groom act or two separate ones? *(owner to fill)*
+
+**D5 — fixtures on the convention side of a read.** A16-1 (3) asks for one specific fixture. Is
+that a one-off for this seam, or does the cycle adopt the shape (a read whose input is a
+convention gets a fixture on the convention's side)? *(owner to fill — a standing rule costs a
+build bullet; a one-off costs nothing and repeats the gap elsewhere)*
+
+### Spikes
+
+**The register is the record; this section is its view.** Mechanics single-homed at
+`factory/platform/spikes/README.md`. An owner ruling here — open a spike, kill one, rule a build
+`spike: none` — is **written back to the register file in the same session**; status and
+`verdict:` live there, never only in roadmap prose.
+
+Open against this cycle (register `status:` as of 2026-09-16):
+
+- **`S-4` (vault-claude-md-imports-per-session-kind) — `proposed`** — *Does an `@path` import line
+  in a vault-root `CLAUDE.md` load for EVERY session kind the module runs in the current Claude
+  Code runtime — interactive, headless op (`claude -p`), partner summon, and subagent — or only for
+  some; and does the same hold for a `CLAUDE.md` pointer that names a path without `@`?*
+  Opened by capture from A16-3; **direction 1 rests on it**, direction 2 does not. `build-brief`
+  blocks a build whose `spike:` names `S-4` until the register file reads `harvested` or
+  `consumed`. Owner ruling needed: **run it, kill it, or rule the A16-3 build `spike: none` by
+  taking the `SessionStart`-hook fallback instead.** *(owner to fill)*
+
+Carried, not open (visible so it is not rediscovered at brief time):
+
+- **`S-3` (github-notification-semantics) — `harvested`, `verdict: reshape`, `consumed_by: []`** —
+  harvested 2026-08-24, **unconsumed for a fifth cycle** (Cycle 15 carry 11). It gates nothing (a
+  harvested spike satisfies `build-brief`), but its reshape has never been cut into an answerable
+  question. Does Cycle 16 consume it, re-cut it, or carry it again? *(owner to fill)*
+
+Spikes this batch newly demands: *(owner to fill — an external unknown gets a spike **before** the
+brief is written; reasoning from docs or memory is the failure the rule exists to prevent)*
+
+### Evidence-debt dispositions
+
+Each debt attached to a build, or ruled not-blocking. Unfilled.
+
+**E1 — A16-1's triggering fragment is unpersisted.** The first discovery run's
+`section located: false, 0 slugs` exists only as an operator record; the persisted report
+(`{lint_reports}/2026-09-03-1206-lint.yaml:6`) carries the second, by-eye read. *A `located: no`
+that was overridden leaves no trace in the report* — which is itself the finding. Attach to a
+build, or rule not-blocking? *(owner to fill)*
+
+**E2 — A16-2's field debt is denominated but unowned.** 55 entries across 22 pages are
+post-adoption and illegal; 240 bare-path entries across 83 of 146 pages exist on disk and **no
+reader can tell which are legal**. Vault-side by the capture's reading (see Q5). Not-blocking for
+the module builds, or does a build owe the census that makes the count watchable? *(owner to fill)*
+
+**E3 — A16-2's adjacent carry must be read before (2) is scoped.** Cycle 15 closeout carry 9's
+`sources_vs_prose_mismatches` tier question (refused wholesale on consecutive sweeps;
+`{backlog}` carries a standing human ruling on four pages) touches **the same reduce** as Q3. The
+capture states: *a brief for (2) should read the carry before it scopes.* Is that an obligation on
+the brief, or does the carry get filed first? *(owner to fill)*
+
+**E4 — A16-4's word table was not re-measured.** The 9-of-9 partner word census is carried as
+filed (2026-09-09, `wc -w`); the one instrument that could have corroborated it reports the wrong
+unit — which **is** the gap the filing names. A build that sets a budget sets it against numbers
+nobody re-derived this run. Blocking, or accepted? *(owner to fill)*
+
+**E5 — A16-5's field evidence was not re-read** beyond the session census at A16-3. Same shape as
+E4, smaller stakes. *(owner to fill)*
+
+**E6 — five candidate filings are owed and unwritten** (Cycle 15 carry 7: build-3's optional args;
+build-4's `pageHashes` digest form, field-confirmed; build-5's `para_type_unknown` count leg;
+build-7's five-value enum + partner-side attestation beat; A15-12's subtree-`type:` mechanism).
+None blocks a Cycle 16 build on its face; recorded so the cycle does not close over them silently.
+*(owner to fill)*
+
+### Questions deliberately left to brief time
+
+Per-build, not cross-cutting. *(owner to fill — a question parked here is one the briefer may
+answer; a question parked here **by accident** is one the briefer will answer without knowing it
+was the owner's.)*
+
 ## Deferred acceptance ledger
 
 *(Populated per build at brief time — `build-brief` appends each build's live-acceptance checks here,
@@ -526,11 +758,26 @@ tagged ship-verifiable or field-contingent.)*
 
 ---
 
+<details>
+<summary>Superseded routing — 2026-09-09, `inbox-capture`</summary>
+
 **Next lifecycle move (2026-09-09, `inbox-capture`): owner-steered ideation — run `ideation-scaffold`
 ("scaffold ideation") to lay the rulings skeleton for A16-1..A16-5, then the owner rules grouping,
 order, and scope (the lint pair vs the partner triple; one `frontmatter@14` bump; `S-4` bound or not),
 then `roadmap-roundtable` before any brief. `S-4` is `proposed` and must be run or ruled before A16-3's
-direction 1 is briefed.**
+direction 1 is briefed.** — DISCHARGED 2026-09-16 (this run laid the skeleton).
+
+</details>
+
+**Next lifecycle move (2026-09-16, `ideation-scaffold`): the owner fills the rulings skeleton
+above** — `## Ideation rulings — A16-1..A16-5`, laid unfilled this run with 14 seeded questions
+(Q1–Q14), 5 cross-filing decide-once slots (D1–D5), the spike view (`S-4` `proposed`, `S-3`
+`harvested`/unconsumed), and 6 evidence debts (E1–E6). Build numbering, `binds:`, `spike:` and
+`promise:` are placeholders; an unfilled `spike:` or `promise:` blocks `build-brief`, by design.
+**Once the rulings are filled: `roadmap-roundtable` ("convene the roundtable") — briefs follow the
+review, never precede it.** `S-4` must be run, killed, or ruled-around (the `SessionStart`-hook
+fallback) before A16-3's direction 1 is briefed; any spike ruling is written back to its register
+file in the same session.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report

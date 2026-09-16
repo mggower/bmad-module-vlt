@@ -105,6 +105,7 @@ here so the register's silence about it is a recorded choice rather than an over
 | `S-1` | para-container-harvest | consumed | proceed | 2026-08-21 | Cycle 9 → consumed in Cycle 10 |
 | `S-2` | projection-baseline | consumed | proceed | 2026-07-25 | Cycle 3 |
 | `S-3` | github-notification-semantics | **harvested** (run 2026-08-24, owner-delegated) | reshape | 2026-08-24 | Cycle 11 (A11-2; filing defers to Cycle 12) |
+| `S-4` | vault-claude-md-imports-per-session-kind | `proposed` | — | 2026-09-09 | Cycle 16 (A16-3; laid in the ideation skeleton 2026-09-16) |
 
 *(This table is a convenience index over the files, which are authoritative. It lists
 every register file — a completeness claim it can keep only because the directory is its
