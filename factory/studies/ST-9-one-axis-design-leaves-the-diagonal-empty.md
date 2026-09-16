@@ -13,6 +13,8 @@ causes:
 cited_by:
   - 'factory/inbox/2026-09-16-094501-research-is-not-a-lane-but-partners-enforce-one.md (cause B + amplifying — the lane-status gap and the rung line)'
   - 'factory/inbox/2026-09-16-094502-no-seam-returns-worked-results-to-a-caller-who-keeps-the-wheel.md (cause A — the delegate mode and its population cut)'
+  - 'factory/cycles/16-closed-loops/roadmap.md §A16-6 (capture 2026-09-16 of 094501 — GAP CONFIRMED; the filing''s `## Self` recovery grep run and found nothing, so cause B''s memory half is inferred for this instance, module-source half fully grounded)'
+  - 'factory/cycles/16-closed-loops/roadmap.md §A16-7 (capture 2026-09-16 of 094502 — GAP CONFIRMED; adds `vlt-dispatch/SKILL.md:18` as a site and the `consult@1` neighbour-list handshake question; carrier bound to A16-3/S-4 as decide-once D6)'
 superseded_by: ''
 ---
 
