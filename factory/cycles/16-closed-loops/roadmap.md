@@ -928,7 +928,7 @@ carrier ruling because it is a partner activation and the ritual already loads t
 - **build-2 — the partner-memory schema: A16-4 whole, A16-5 whole, A16-3 direction 2 only (the
   `partner: none` sitting named in the contract).** The one `frontmatter@14` → `@15` bump, all ten
   consumers re-acked in this build. Internal order forced: demote verb → charter → cold summon.
-  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, D1, D2, D3, D4, D7, D8, E4, E5)*
+  - `binds:` Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, D1, D2, D3, D4, D7, D8, E4, E5 *(confirmed 2026-09-16 with the round-4 rulings)*
   - `spike:` none *(ruled with the cut — the cold summon reads the card through the ritual)*
   - `promise:` After this ships, a vault owner sees the partner loop opened from outside: a budget the lint enforces, a charter the owner holds, a demote verb, a cold summon, and a named partnerless sitting, instead of a partner memory whose only reader is its writer. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time; enumerates five deliverables — re-stamp if the roundtable trims one)*
 
@@ -999,38 +999,63 @@ grounded fallback is the existing `SessionStart` hook (`vlt-setup/SKILL.md:187`,
 the contract's *Sessions, sittings, and hand-offs* turns `frontmatter.md:167`'s *"Omit only for a
 partner-less generic-agent session"* into an explicit value — **a rule change to `frontmatter@14`**
 (see D1). In or out, and with what clauses (one session note, log tag `(session)`, no
-partner-memory writes, wiki single-writer)? *(owner to fill)*
+partner-memory writes, wiki single-writer)?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): IN**, with the four clauses as filed (one session note, `(session)` log tag, no partner-memory writes, wiki single-writer holds) **plus one**: the sitting does not read `_agent/dispatch.md`'s open slice — it has no addressee. `purpose:` is free text in the note, not a field.
 
 **Q8 — A16-4: the Beat 1 budget value.** An owner ruling by construction. *Capture's proposal,
 unaccepted: the light partners' median ×2 (~12K words), to be tightened once the instrument
-exists.* *(owner to fill)*
+exists.*
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): 12,000 words**, on the per-partner Beat 1 set only (SKILL.md + `identity.md` + `reflexes.md`; the card and rung are fleet-constant and excluded). Three partners trip it at ship — the instrument doing its job. The wire's recalibration clause: tighten once the metric has run a few sweeps.
+
+Beat 1 words per partner, re-measured read-only in `{field-vault}` 2026-09-16 (SKILL.md + `identity.md` + `reflexes.md`; `thread.md` shown for scale, not counted):
+
+| partner | SKILL | identity | reflexes | **Beat 1** | thread |
+|---|---|---|---|---|---|
+| librarian | 1,744 | 19,840 | 560 | **22,144** | 10,914 |
+| football-analyst | 3,840 | 14,873 | 681 | **19,394** | 21,898 |
+| creative | 2,037 | 12,192 | 1,792 | **16,021** | 17,411 |
+| researcher | 1,812 | 6,421 | 1,060 | **9,293** | 10,033 |
+| career-strategist | 3,872 | 2,651 | 475 | **6,998** | 5,114 |
+| chef | 2,998 | 3,472 | 67 | **6,537** | 3,770 |
+| chess-coach | 3,328 | 2,633 | 67 | **6,028** | 2,579 |
+| health-coach | 2,585 | 1,610 | 67 | **4,262** | 917 |
+| dog-trainer | 2,204 | 909 | 67 | **3,180** | 486 |
+
+Fleet-constant on top of every partner: vault rung 171 words + rule-card 1,076 words = 1,247. The
+heaviest partner has changed since the filing (librarian now above football-analyst). Light-six median
+6,283 → ×2 ≈ 12.5K, consistent with the capture's ~12K.
 
 **Q9 — A16-4: `activation_words` vs `partner_memory_bytes`.** `vlt-vitals.py:242` already carries
 `partner_memory_bytes` (fleet-wide, bytes, includes `thread.md` + capabilities, display-only,
 never wired). The ask is per-partner, Beat 1-subset, bounded. Does the new metric **replace,
-refine, or sit beside** it? *(owner to fill — the capture flags this as a brief-time trap if left
-unruled)*
+refine, or sit beside** it?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): SITS BESIDE.** `partner_memory_bytes` is a fleet total including `thread.md` + capabilities — a different question. Replacing deletes a working display; refining changes its meaning under whatever reads it.
 
 **Q10 — A16-4: the casebook's shape.** A fourth partner-memory file, or a section of `thread.md`
 below `## Set aside`? And where does `## Bond`'s owner-model material migrate — the wiki
-(single-writer, Librarian hand-off) or a PARA area the partner may write? *(owner to fill)*
+(single-writer, Librarian hand-off) or a PARA area the partner may write?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): a fourth file, `casebook.md`, never wake-read** (a `thread.md` section keeps it in a file Beat 2 opens, defeating the rung). Owner-model material migrates to the **wiki via Librarian hand-off**, not a PARA area — single-writer is the rule everywhere else and this is the wrong cycle to open a partner-writable exception.
 
 **Q11 — A16-4: does the reflex `cap_words:` rider ship?** Its own falsifier fired
 (`frontmatter.md:224–226`; `review_after: 2026-11-17` is the n=1 recalibration expiry the falsifier
-was written for). Ride with the budget build, or stand alone, or defer? *(owner to fill)*
+was written for). Ride with the budget build, or stand alone, or defer?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): RIDES BUILD 2.** Its falsifier fired; it is one field in the same schema edit; deferring means a second bump for one line.
 
 **Q12 — A16-5: is `## Charter` minted or blank at birth?** From `vlt-mint`'s partner-ideation beat,
 or empty and owner-authored? And the adoption posture for the nine existing partners —
 `vlt-setup`/`vlt-upgrade` may **seed an empty section, never author one** (durability posture; the
-B1 local-mint preserve path is in play). *(owner to fill)*
+B1 local-mint preserve path is in play).
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): MINTED** from `vlt-mint`'s partner-ideation beat, then owner-editable. Adoption for existing partners: `vlt-setup`/`vlt-upgrade` **seed an empty section, never author one** (durability posture; B1 local-mint preserve path re-checked at brief).
 
 **Q13 — A16-5: is `cold` a `partner:` modifier or its own `sitting:` field?** The session-note
-shape follows the answer. *(owner to fill)*
+shape follows the answer.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): its own `sitting: cold` field** on the session note. A `partner:` modifier overloads the field every log reader parses.
 
 **Q14 — A16-5: the Researcher pilot for `memory: full | reflexes | none`.** Pilot on the Researcher
 only, or fleet? Its breadth measure (*capture's proposal, unaccepted: distinct source domains per
 dive over five dives before and after*), and the filing's own note that **a null result is a
-finding** relocating the cause to `vlt-research`'s search discipline. *(owner to fill)*
+finding** relocating the cause to `vlt-research`'s search discipline.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): RESEARCHER ONLY**; breadth measure as proposed (distinct source domains per dive, five dives before and after); **field-contingent, watch not gate**; a null result relocates the cause to `vlt-research`'s search discipline, as filed.
 
 *(added 2026-09-16)* **Q15 — A16-6: which of the five dispositions ship?** (1) the *Capabilities*
 sentence; (2) the rung pointer line; (3) the Creative `:37` remedy wording; (4) the hygiene-row
@@ -1085,25 +1110,27 @@ A16-4 (1)/(2)/(3), and all four of A16-5's directions are **rule changes** to `f
 build**. The capture's read is that ideation should group them so the bump happens **once**; it
 explicitly calls this *ideation's call*. Note the exclusions the capture already drew: A16-1 (a) is
 a **prose clarification, no bump**; A16-2 (2)'s report slot, if any, is `report.md`, **not** the
-convention. *(owner to fill — and if the answer is "once", the build that carries the bump owns the
-bipartite-consistency verification)*
+convention.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): ONCE, in build 2** (`frontmatter@14` → `@15`); build 2 owns the bipartite-consistency verification across all ten consumers.
 
 **D2 — the `demote` verb is a shared dependency.** A16-4 (2) asks for it (the ladder only lifts;
 `grep` for `reset`/`demote` across `vlt-groom` returns nothing) and A16-5 (1)'s charter check
 **depends on it** (groom proposes demotion of off-charter material). It must be sited once. Which
-build owns it, and do both consumers ship in the same cycle or does one wait? *(owner to fill)*
+build owns it, and do both consumers ship in the same cycle or does one wait?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BUILD 2 OWNS `demote`**; both consumers (A16-4 (2) casebook, A16-5 (1) charter check) ship in the same build — it is the same `vlt-groom` edit.
 
 **D3 — the cold summon and the partnerless session are the same move, governed and ungoverned.**
 The capture states the pairing explicitly: A16-5 (3)'s cold summon is *"the governed form of the
 fresh-eyes move that the partnerless session"* (A16-3) *"currently provides ungoverned."* Are they
 one mechanism with two entry points, or two independent postures? Ruled once, or the contract
-gains two overlapping populations — the **precedence-by-elimination** rule applies. *(owner to
-fill)*
+gains two overlapping populations — the **precedence-by-elimination** rule applies.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): TWO POSTURES, DISJOINT POPULATIONS — eliminated, not precedenced.** Cold summon has a partner and writes a partner-tagged note; the partnerless sitting has none and writes a `(session)` note. Nothing overlaps; no precedence statement.
 
 **D4 — `vlt-groom`'s whole-section acts.** A16-5 (2) (`--reset self|bond|thread`) and A16-4 (3)
 (the `identity.md`-becomes-a-card migration, *"a groom act per partner, by reference,
 approval-gated"*) both add acts to a skill whose three verbs are item-wise. Are these one new
-class of groom act or two separate ones? *(owner to fill)*
+class of groom act or two separate ones?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): ONE CLASS** — *whole-section acts by reference, approval-gated* — with two members (`--reset`, the identity-to-card migration). Two classes for two acts invites a third definition next cycle.
 
 **D5 — fixtures on the convention side of a read.** A16-1 (3) asks for one specific fixture. Is
 that a one-off for this seam, or does the cycle adopt the shape (a read whose input is a
@@ -1120,15 +1147,15 @@ once: which build owns the carrier, and do the other two consume it in the same 
 *(added 2026-09-16)* **D7 — the weight lever is pulled from two sides.** A16-4 bounds Beat 1 so
 that a full activation is cheaper; A16-7 makes a lite partnerless runner so that a full activation
 is unnecessary for a bounded dive. Both are honest; both reduce the rational pressure `ST-9` names
-as amplifying. Does the cycle ship both, or does one carry the other's promise? *(owner to fill —
-a ruling here keeps two builds from each claiming the same field outcome at acceptance)*
+as amplifying. Does the cycle ship both, or does one carry the other's promise?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BOTH SHIP, each claiming its own outcome at acceptance.** Build 2: activation words under the bound. Build 3: a dive returned in one sitting. Neither claims the other's.
 
 *(added 2026-09-16)* **D8 — the contract's *Sessions* section is edited by three entries.** A16-3
 (2) names the `partner: none` sitting; A16-7 (1) publishes the 2×2 and names delegate; A16-6 (5)
 extends read-and-cite at `:282`. The contract is unhandshaked by design (single-home + pointers), so
 no bump — but three builds editing one section in one cycle want one owner of the section's prose,
-or the rule-card's *Sessions* row (`vault-rule-card.md:50`) is re-pointed three times. *(owner to
-fill)*
+or the rule-card's *Sessions* row (`vault-rule-card.md:50`) is re-pointed three times.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): BUILD 2 OWNS the *Sessions* section's prose** and lands the `partner: none` paragraph. Build 3 appends the delegate cell and the read-and-cite extension as **additive** edits and re-points the rule-card row (`vault-rule-card.md:50`) **once, at the end**.
 
 ### Spikes
 
@@ -1200,10 +1227,12 @@ the brief, or does the carry get filed first?
 **E4 — A16-4's word table was not re-measured.** The 9-of-9 partner word census is carried as
 filed (2026-09-09, `wc -w`); the one instrument that could have corroborated it reports the wrong
 unit — which **is** the gap the filing names. A build that sets a budget sets it against numbers
-nobody re-derived this run. Blocking, or accepted? *(owner to fill)*
+nobody re-derived this run. Blocking, or accepted?
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): DISCHARGED** — re-measured this session (table at Q8); the budget is set against today's numbers.
 
 **E5 — A16-5's field evidence was not re-read** beyond the session census at A16-3. Same shape as
-E4, smaller stakes. *(owner to fill)*
+E4, smaller stakes.
+**RULED 2026-09-16 (round 4, build 2 — clerk's read accepted by the owner): ACCEPTED, NOT BLOCKING.** The `identity.md` sizes at Q8 are the same evidence in a coarser unit; the specimen quotes are in the filing.
 
 **E6 — five candidate filings are owed and unwritten** (Cycle 15 carry 7: build-3's optional args;
 build-4's `pageHashes` digest form, field-confirmed; build-5's `para_type_unknown` count leg;
