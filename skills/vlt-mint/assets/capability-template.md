@@ -65,7 +65,7 @@ requires: []                       # OPTIONAL — machine-level tools this capab
 - subject-model: single | multi        # multi → scoped under a slug, e.g. {dog}; single → one subject, no nesting
 - data-streams: <file(s) the log beat appends to, and what each holds>
 - log-tag: <this partner's slug for the {log} line, e.g. dog-trainer>
-- non-negotiable-gate: <this partner's named method gate — re-asserted at the write, e.g. least-intrusive / never past the evidence>
+- write-gate: <this partner's named method gate — re-asserted at the write, e.g. least-intrusive / never past the evidence>
 ```
 
 "Wear `vlt-track`" = add a `capabilities/track.md` heavy pointer (`procedure: { skill: vlt-track }`) carrying a filled Loop-profile block — **not** mint a duplicate loop op. The partner's gated mint must also have opted into the `extraction.md` personalized-extraction widening (the op writes PARA via personalized extraction). See `skills/vlt-track/SKILL.md`.

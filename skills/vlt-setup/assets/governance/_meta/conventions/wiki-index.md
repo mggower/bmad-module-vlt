@@ -1,7 +1,7 @@
 ---
 type: note
 created: 2026-06-06
-last_updated: 2026-08-24
+last_updated: 2026-09-16
 title: Wiki Index Conventions
 author: hybrid
 trust: reviewed
@@ -77,7 +77,7 @@ Each page is one list item: its wikilink, optionally a terse **structural tag**.
 
 ## The Stubs section
 
-A page may link to a concept with no page yet. Catalog these under a trailing section so the gap is visible:
+A page may link to a concept with no page yet. Catalog these under a trailing section whose heading is **`## Stubs (linked, not yet written)`** — the heading text is stated here, in this sentence, and a reader takes it from here; the fenced block below is an example of the section, not the statement of its heading:
 
 ```markdown
 ## Stubs (linked, not yet written)

@@ -2,9 +2,11 @@
 # /// script
 # requires-python = ">=3.9"
 # ///
-"""Derive the two per-page BYTE FACTS the vlt-lint fan-out's link graph and summary-length
-clauses run on: every `[[ ]]` inner text on each page (raw) and each page's parsed `summary:`
-length in characters. Cycle 15 build-4 (A15-1 / A15-3 / A15-4 fidelity half / A15-5; D-C, D-A).
+"""Derive the per-page BYTE FACTS the vlt-lint fan-out's link graph, summary-length and bare-path
+clauses run on: every `[[ ]]` inner text on each page (raw), each page's parsed `summary:` length in
+characters, and each page's count of frontmatter `sources:` entries in the bare-path form — plus, as
+a second entry point, the wiki-wide BARE-PATH CENSUS the full-mode report renders. Cycle 15 build-4
+(A15-1 / A15-3 / A15-4 fidelity half / A15-5; D-C, D-A); Cycle 16 build-1 (A16-2, Q3 (a), A9).
 
 Why this exists: the fan-out's reduce (`vlt-lint-full.js`) has no filesystem access and used to
 build its inbound map and its missing-target list from whatever link list the page SCANNERS
@@ -16,20 +18,39 @@ boundary that can read bytes: the SKILL runs THIS script and passes its two maps
 `pageLinks` / `summaryLengths` (the `crossLayerSlugs` / `pageHashes` precedent); the scanner is
 no longer asked for links at all.
 
-FACTS, NEVER VERDICTS. This script emits raw inner texts and an integer length. The normal form
-(`normalizeTarget`, B5-3) and the 160-character verdict stay in the workflow, where they already
-live — a verdict here would put the limit in a second home.
+FACTS, NEVER VERDICTS. This script emits raw inner texts, an integer length and an integer count.
+The normal form (`normalizeTarget`, B5-3) and the 160-character verdict stay in the workflow, where
+they already live — a verdict here would put the limit in a second home. The bare-path count is a
+FORM the bytes carry; its legality under frontmatter.md rule 4 is indexed on WRITE DATE, which no
+byte carries — which is why the count is a census and never a per-page verdict (Cycle 16 Q3 (a)).
+
+Two entry points, mutually exclusive:
 
 Input   --pages <path|->   a JSON array `[{slug, path}]` — the same list the SKILL builds at
-                           `references/full-scale.md` step 1. The two maps are keyed by the
+                           `references/full-scale.md` step 1. The maps are keyed by the
                            SKILL-SUPPLIED slug, never one this script derives (the cacheRecords
                            principle: keying on anything else lets a derivation drift from the
                            population).
 Output  --out <path>       (default stdout) one JSON object:
           {"pageLinks": {slug: [inner, ...]}, "summaryLengths": {slug: int},
+           "bareSources": {slug: int}, "sourcesUnparsed": [slug, ...],
            "unreadable": [slug, ...], "pages": N}
         At scale the SKILL writes it to the scratch directory and the wrapper-writing step
-        (full-scale.md step 3) embeds the two maps — the payload never transits the caller.
+        (full-scale.md step 3) embeds the three maps — the payload never transits the caller.
+
+Input   --census <wiki-dir> [--census-exclude <path> ...]   walk every `*.md` under the directory
+                           recursively (sorted; excluded files/subtrees pruned; an unreadable file
+                           is counted in M and carries no entries — the lint-para-facts.py walk
+                           idiom). The SKILL passes `{index}` as the exclusion.
+Output  --out <path>       one JSON object {"bareSources": {page: int}, "sourcesUnparsed": [page, ...],
+                           "counts": {"N": entries, "P": pages carrying >= 1, "M": pages walked}},
+                           keyed by the wiki-relative path with `.md` stripped; with --census-line,
+                           ONLY the report line below, for `bare_path_sources:` (report.md).
+        Two callers, one function: the SKILL's full-scale.md step 1 run (the --pages map for the
+        reduce, the --census-line for Step 5) and the persist gate's recount (lint-report-check.py
+        imports `census`/`census_line` by sibling path and compares the rendered line by string
+        equality). The line: `N entries across P of M pages — sources: scalars unquoted and ending
+        .md (instrument: scripts/lint-page-facts.py --census)`.
 
 pageLinks — the executable form of `references/checks.md` Missing targets' POPULATION statement:
 only `[[ ]]`-delimited text is an outbound link; a `[[wikilink]]` inside an inline code span or a
@@ -57,15 +78,29 @@ and every vault must run it with nothing installed. A PyYAML parse would be the 
 scalar" but is not available at that cost, and the three quoted/plain forms above are the whole
 of what the convention permits.
 
-unreadable — a page whose bytes cannot be read or decoded is listed by slug and absent from both
-maps; the workflow renders the gap as a denominated coverage cap.
+bareSources — THE BARE-PATH FORM, STATED ONCE (Cycle 16 build-1 disposition 6). A `sources:` ENTRY
+is an item of the frontmatter `sources:` key's YAML sequence — block form (`- <value>` lines
+following the key) or flow form (`[a, b]` on the key line). An entry is in BARE-PATH FORM iff its
+value, after a trailing ` #comment` is stripped, does not begin with `"` or `'`, does not begin
+with `[[`, and ends with `.md`. Everything else — quoted wikilinks, URLs, quoted paths, entries
+without `.md` — is not counted. Only the `sources:` key counts: `grounding:`,
+`personalization_sources:`, `artifacts:` and any prose `## Sources` section are never read. The
+frame is the same frontmatter block `frontmatter_lines` delimits. A page whose `sources:` is NOT a
+parseable list — the key absent, a scalar value, a block-scalar indicator, an empty key, no closing
+frontmatter delimiter — has NO entry in the map and is listed under `sourcesUnparsed` instead: the
+census counts only what it could parse, so a complaint about such a page can never be refused as
+"the census has it" (the reduce's disposition 3 keys on a present integer). `sources: []` -> 0.
 
-Exit 0 whenever the input parsed; non-zero only for an unreadable `--pages` input (2) or an
-unwritable `--out` (3). No `--self-test`: the factory harness is the test, a vault runs none.
+unreadable — a page whose bytes cannot be read or decoded is listed by slug and absent from every
+map; the workflow renders the gap as a denominated coverage cap.
+
+Exit 0 whenever the input parsed; non-zero only for an unreadable `--pages` input or a missing
+`--census` directory (2) or an unwritable `--out` (3). No `--self-test`: the factory harness is the test, a vault runs none.
 """
 
 import argparse
 import json
+import os
 import re
 import sys
 
@@ -75,6 +110,8 @@ FENCE_CLOSE = re.compile(r"^\s*(`{3,}|~{3,})\s*$")
 # A maximal run of N backticks, then the shortest span to the next maximal run of exactly N.
 INLINE_SPAN = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 SUMMARY_KEY = re.compile(r"^summary:(.*)$")
+SOURCES_KEY = re.compile(r"^sources:(.*)$")
+INSTRUMENT = "scripts/lint-page-facts.py --census"
 
 
 def strip_code(text):
@@ -176,6 +213,130 @@ def summary_length(text):
     return len(summary_value(frontmatter_lines(text)))
 
 
+def strip_plain_comment(raw):
+    """A plain scalar's trailing ` #comment` is not part of the value (the summary_value rule)."""
+    return re.sub(r"\s+#.*$", "", raw).strip()
+
+
+def is_bare_path(value):
+    """The bare-path form, per the docstring: unquoted, not a wikilink, ending `.md`."""
+    v = strip_plain_comment(value)
+    if not v or v[0] in ('"', "'") or v.startswith("[["):
+        return False
+    return v.endswith(".md")
+
+
+def split_flow(inner):
+    """Split a flow sequence's inner text on top-level commas (quotes and [[ ]] respected)."""
+    items, buf, quote, depth = [], [], None, 0
+    for ch in inner:
+        if quote:
+            buf.append(ch)
+            if ch == quote:
+                quote = None
+            continue
+        if ch in ('"', "'"):
+            quote = ch
+        elif ch == "[":
+            depth += 1
+        elif ch == "]":
+            depth = max(0, depth - 1)
+        elif ch == "," and depth == 0:
+            items.append("".join(buf).strip())
+            buf = []
+            continue
+        buf.append(ch)
+    tail = "".join(buf).strip()
+    if tail or items:
+        items.append(tail)
+    return [i for i in items if i != ""]
+
+
+def bare_sources(text):
+    """(count, unparsed) over the frontmatter `sources:` list — the ONE function both callers use.
+    count is the number of entries in bare-path form; (None, True) when `sources:` is not a
+    parseable list (absent, scalar, block-scalar indicator, empty key, no frontmatter block)."""
+    fm = frontmatter_lines(text)
+    if not fm:
+        return None, True
+    for idx, line in enumerate(fm):
+        m = SOURCES_KEY.match(line)
+        if not m:
+            continue
+        raw = m.group(1).strip()
+        if raw.startswith("["):
+            body = strip_plain_comment(raw)
+            if not body.endswith("]"):
+                return None, True  # a flow sequence that never closes on its line
+            return sum(1 for item in split_flow(body[1:-1]) if is_bare_path(item)), False
+        if raw == "" or raw.startswith("#"):
+            count, items = 0, 0
+            for cont in fm[idx + 1:]:
+                if cont.strip() == "":
+                    continue
+                if not cont[:1].isspace():
+                    break
+                s = cont.strip()
+                if s == "-":
+                    items += 1  # an empty item
+                elif s.startswith("- "):
+                    items += 1
+                    count += 1 if is_bare_path(s[2:]) else 0
+                else:
+                    return None, True  # an indented non-item line: not a plain sequence
+            return (count, False) if items else (None, True)  # `sources:` alone is YAML null
+        return None, True  # a scalar or a block-scalar indicator: not a list
+    return None, True  # no sources: key
+
+
+def _under(path, excludes):
+    for ex in excludes:
+        if path == ex or path.startswith(ex + os.sep):
+            return True
+    return False
+
+
+def census(wiki_dir, excludes=()):
+    """The wiki-wide bare-path census: walk `*.md` under wiki_dir recursively (sorted, excluded
+    paths pruned, unreadable files counted in M with no entries) and count with bare_sources().
+    Raises FileNotFoundError for a missing directory (a mistyped dir must never read as zero)."""
+    top = os.path.realpath(wiki_dir)
+    if not os.path.isdir(top):
+        raise FileNotFoundError(top)
+    ex = [os.path.realpath(e) for e in excludes]
+    bare, unparsed, walked = {}, [], 0
+    for cur, subdirs, names in os.walk(top):
+        subdirs[:] = sorted(s for s in subdirs if not _under(os.path.join(cur, s), ex))
+        for name in sorted(names):
+            if not name.endswith(".md"):
+                continue
+            full = os.path.join(cur, name)
+            if _under(full, ex):
+                continue
+            walked += 1
+            key = os.path.relpath(full, top).replace(os.sep, "/")[:-3]
+            try:
+                with open(full, "rb") as fh:
+                    text = fh.read().decode("utf-8")
+            except Exception:
+                continue  # unreadable: in M, no entries, no map entry
+            count, un = bare_sources(text)
+            if un:
+                unparsed.append(key)
+            else:
+                bare[key] = count
+    n = sum(bare.values())
+    p = sum(1 for v in bare.values() if v > 0)
+    return {"bareSources": bare, "sourcesUnparsed": unparsed, "counts": {"N": n, "P": p, "M": walked}}
+
+
+def census_line(result):
+    """The `bare_path_sources:` value — `references/report.md`'s placeholder, filled."""
+    c = result["counts"]
+    return "%d entries across %d of %d pages — sources: scalars unquoted and ending .md (instrument: %s)" % (
+        c["N"], c["P"], c["M"], INSTRUMENT)
+
+
 def load_pages(spec):
     try:
         if spec == "-":
@@ -195,11 +356,37 @@ def load_pages(spec):
     return pages
 
 
+def write_out(payload, out):
+    try:
+        if out == "-":
+            sys.stdout.write(payload)
+        else:
+            with open(out, "w", encoding="utf-8") as fh:
+                fh.write(payload)
+    except Exception as exc:
+        sys.stderr.write("lint-page-facts: cannot write --out %s: %s\n" % (out, exc))
+        return 3
+    return 0
+
+
 def main(argv):
-    ap = argparse.ArgumentParser(description="derive each page's raw [[ ]] set and parsed summary: length from its bytes")
-    ap.add_argument("--pages", required=True, help="path to a JSON array of {slug, path}, or - for stdin")
-    ap.add_argument("--out", default="-", help="where to write the JSON result (default: stdout)")
+    ap = argparse.ArgumentParser(description="derive each page's raw [[ ]] set, parsed summary: length and bare-path sources: count from its bytes; or the wiki-wide bare-path census")
+    mode = ap.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--pages", help="path to a JSON array of {slug, path}, or - for stdin")
+    mode.add_argument("--census", metavar="WIKI_DIR", help="walk *.md under this directory and count bare-path sources: entries")
+    ap.add_argument("--census-exclude", action="append", default=[], metavar="PATH", help="a file or subtree the census walk skips (repeatable; the SKILL passes {index})")
+    ap.add_argument("--census-line", action="store_true", help="with --census: print only the report's bare_path_sources: line")
+    ap.add_argument("--out", default="-", help="where to write the result (default: stdout)")
     args = ap.parse_args(argv)
+
+    if args.census:
+        try:
+            result = census(args.census, args.census_exclude)
+        except FileNotFoundError as exc:
+            sys.stderr.write("lint-page-facts: --census is not a directory: %s\n" % exc)
+            return 2
+        payload = census_line(result) + "\n" if args.census_line else json.dumps(result, ensure_ascii=False, indent=1) + "\n"
+        return write_out(payload, args.out)
 
     try:
         pages = load_pages(args.pages)
@@ -207,7 +394,7 @@ def main(argv):
         sys.stderr.write(str(exc) + "\n")
         return 2
 
-    links, lengths, unreadable = {}, {}, []
+    links, lengths, bare, unparsed, unreadable = {}, {}, {}, [], []
     for slug, path in pages:
         try:
             with open(path, "rb") as fh:
@@ -217,19 +404,16 @@ def main(argv):
             continue
         links[slug] = page_links(text)
         lengths[slug] = summary_length(text)
-
-    result = {"pageLinks": links, "summaryLengths": lengths, "unreadable": unreadable, "pages": len(pages)}
-    payload = json.dumps(result, ensure_ascii=False, indent=1) + "\n"
-    try:
-        if args.out == "-":
-            sys.stdout.write(payload)
+        count, un = bare_sources(text)
+        if un:
+            unparsed.append(slug)
         else:
-            with open(args.out, "w", encoding="utf-8") as fh:
-                fh.write(payload)
-    except Exception as exc:
-        sys.stderr.write("lint-page-facts: cannot write --out %s: %s\n" % (args.out, exc))
-        return 3
-    return 0
+            bare[slug] = count
+
+    result = {"pageLinks": links, "summaryLengths": lengths, "bareSources": bare, "sourcesUnparsed": unparsed,
+              "unreadable": unreadable, "pages": len(pages)}
+    payload = json.dumps(result, ensure_ascii=False, indent=1) + "\n"
+    return write_out(payload, args.out)
 
 
 if __name__ == "__main__":

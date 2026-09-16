@@ -39,6 +39,7 @@ FACTS_ORACLE = os.path.join(HERE, "build-5-expected-para-facts.json")
 DIRS = ["--dir", os.path.join(PARA, "projects"), "--dir", os.path.join(PARA, "areas"),
         "--dir", os.path.join(PARA, "resources"), "--exclude", os.path.join(PARA, "resources", "wiki"),
         "--root", PARA]
+WIKI_DIR = ["--wiki-dir", os.path.join(PARA, "resources", "wiki")]  # gate-only (Cycle 16 build-1 F11: the bare_path_sources: recount); the walker takes no such flag
 
 # the preserved specimens (brief §Acceptance: `specimens: 4/9`)
 FRAGMENT_QUOTED = 'research_zone: "145 notes scanned; 24 carry revisit_after:"'
@@ -78,7 +79,7 @@ def mutate(text, old, new, count=1):
 def gate(report, mode="full", schema=None, kind="report", python=None, env=None):
     cmd = [python or sys.executable, GATE, "check", "--report", report, "--kind", kind]
     if kind == "report":
-        cmd += ["--mode", mode] + DIRS
+        cmd += ["--mode", mode] + DIRS + WIKI_DIR
     if schema:
         cmd += ["--schema", schema]
     p = subprocess.run(cmd, capture_output=True, text=True, env=env)
@@ -123,7 +124,7 @@ def check_1():
         "sys.argv = [%r, 'check', '--report', %r, '--mode', 'full'] + %r\n"
         "try:\n    runpy.run_path(%r, run_name='__main__')\nexcept SystemExit as e:\n    code = e.code\n"
         "sys.stderr.write('YAML_IMPORTED=%%s EXIT=%%s\\n' %% ('yaml' in sys.modules, code))\n"
-    ) % (GATE, json_path, DIRS, GATE)
+    ) % (GATE, json_path, DIRS + WIKI_DIR, GATE)
     p = subprocess.run([py3 or "python3", "-c", probe], capture_output=True, text=True, env={"PATH": bare_path})
     out = {}
     try:
@@ -285,8 +286,8 @@ WRITER_LINE = '  para_writer_scan: "9 judged; 5 under a declaring ancestor; 4 pa
 def check_7():
     p = subprocess.run([sys.executable, GATE, "schema"], capture_output=True, text=True)
     schema = json.loads(p.stdout)
-    expect("7", "a: the shipped fence (para_writer_scan: nested under flag_for_human) deep-equals the re-derived oracle — 18 top-level, 74 key paths",
-           p.returncode == 0 and schema == json.loads(read(SCHEMA_ORACLE)) and schema["top_level"] == 18 and len(schema["keys"]) == 74
+    expect("7", "a: the shipped fence (para_writer_scan: nested under flag_for_human) deep-equals the re-derived oracle — 18 top-level, 75 key paths (74 + bare_path_sources, Cycle 16 build-1)",
+           p.returncode == 0 and schema == json.loads(read(SCHEMA_ORACLE)) and schema["top_level"] == 18 and len(schema["keys"]) == 75
            and schema["keys"]["flag_for_human.para_writer_scan"] == {"type": "scalar", "per_file": False, "full_mode_only": False},
            "top_level=%s keys=%s" % (schema.get("top_level"), len(schema.get("keys", {}))))
     code, out = gate(write("7b.yaml", mutate(OK, WRITER_LINE, "")))

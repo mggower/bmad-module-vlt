@@ -33,6 +33,7 @@ flag_for_human:
   unattested_write: []
   attestation_stale: []
   attestation_census: {pages_total: 1, fresh: 0, stale: 0, unattested_pre_adoption: 1}
+  bare_path_sources: "0 entries across 0 of 1 pages — sources: scalars unquoted and ending .md (instrument: scripts/lint-page-facts.py --census)"
   para_scan: "9 files walked under {projects}/{areas}/{resources}, {wiki} subtree carved out (instrument: scripts/lint-para-facts.py); 3 carry author agent|hybrid with no attestation outside the operational-record class"
   para_status_unknown: []
   para_type_unknown:

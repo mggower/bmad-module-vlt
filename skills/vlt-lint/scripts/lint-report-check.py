@@ -51,12 +51,21 @@ WHAT `check` VERIFIES (A16 (2), (3)) — presence + type, NEVER closure:
   - para_writer_scan: the same compare against the walker's `--writer-line` (build-7) — N, D
                  and O on a persisted report come from the walk, never from the agent that
                  judged `para_writer_unauthorized`; a hand-composed line cannot land.
+  - bare_path_sources: (Cycle 16 build-1, A9) the report's full-mode `bare_path_sources:` scalar
+                 equals, by string equality, the census line `lint-page-facts.py` (imported by
+                 sibling path, its `census` walk run HERE over `--wiki-dir` / `--wiki-exclude`)
+                 prints for the same wiki — an inline map's children are not validated (report.md
+                 rule 2), so without this recount the census would be a self-reported number.
+                 `--wiki-dir` is REQUIRED under `--mode full` (usage error 2 without it, like a
+                 missing `--dir`); under `--mode scoped` the key may be absent and, when present,
+                 is compared only if `--wiki-dir` was given (scoped mode composes no census).
 
 REASON VOCABULARY (fixed; one clause per defect, joined `; `):
   `parse: <parser message>` | `key missing: <path>` | `wrong type: <path> (got X, expected Y)`
   | `not a member: <slot> <- <entry head>` | `duplicate: <slot> <- <path>`
   | `count: <slot> rendered N, walk finds M` | `para_scan: rendered line does not match the walk`
   | `para_writer_scan: rendered line does not match the walk`
+  | `bare_path_sources: rendered line does not match the recount`
 
 `--kind failed` checks a `...-lint-failed.yaml` record instead: parse, plus presence of
 `status`, `reason`, `next` and `unvalidated_report` — so the failure artifact can never be a
@@ -68,6 +77,7 @@ compared against it; a build that edits the fence re-derives the oracle).
 Usage
   lint-report-check.py check --report <path> --mode full|scoped --dir <p> [--dir ...]
                              [--exclude <p> ...] [--root <project-root>] [--schema <report.md>]
+                             --wiki-dir <wiki> [--wiki-exclude <p> ...]   (required in full mode)
                              [--kind report|failed] [--format yaml|json]
   lint-report-check.py schema [--schema <report.md>]
 """
@@ -92,6 +102,7 @@ FULL_MODE_MARKER = "full mode only"
 COUNT_SLOTS = {"para_missing_attestation": "missing_attestation"}  # slot -> walker list (disposition 3)
 SCAN_KEY = "para_scan"
 WRITER_SCAN_KEY = "para_writer_scan"
+CENSUS_KEY = "bare_path_sources"  # Cycle 16 build-1: recounted by lint-page-facts.py's census walk
 SCALAR_TYPES = (str, int, float, bool, datetime.date, datetime.datetime)
 
 
@@ -295,6 +306,15 @@ def check_report(data, schema, mode, walk_result):
             if present and isinstance(value, str) and value != walk_result[walk_key]:
                 reasons.append("%s: rendered line does not match the walk" % key)
 
+    # the bare-path census line, by string equality against the recount (None = no census composed:
+    # scoped mode without --wiki-dir — the key is then ignored, present or not)
+    recount = walk_result.get("census_line")
+    if recount is not None:
+        for path in [p for p in keys if p.rsplit(".", 1)[-1] == CENSUS_KEY]:
+            present, value = lookup(data, path)
+            if present and isinstance(value, str) and value != recount:
+                reasons.append("%s: rendered line does not match the recount" % CENSUS_KEY)
+
     return reasons, extra
 
 
@@ -308,12 +328,20 @@ def check_failed_record(data):
 
 # ---------------------------------------------------------------- the walker, by sibling path
 
-def load_walker():
+def load_sibling(name, filename):
     here = os.path.dirname(os.path.abspath(__file__))
-    spec = importlib.util.spec_from_file_location("lint_para_facts", os.path.join(here, "lint-para-facts.py"))
+    spec = importlib.util.spec_from_file_location(name, os.path.join(here, filename))
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+def load_walker():
+    return load_sibling("lint_para_facts", "lint-para-facts.py")
+
+
+def load_page_facts():
+    return load_sibling("lint_page_facts", "lint-page-facts.py")
 
 
 # ---------------------------------------------------------------- entry points
@@ -352,6 +380,9 @@ def cmd_check(args):
     if not args.dir:
         sys.stderr.write("lint-report-check: at least one --dir is required for --kind report\n")
         return 2
+    if args.mode == "full" and not args.wiki_dir:
+        sys.stderr.write("lint-report-check: --wiki-dir is required under --mode full (the bare_path_sources: recount)\n")
+        return 2
     try:
         schema = load_schema(args.schema)
     except SchemaUnreadable as exc:
@@ -365,6 +396,17 @@ def cmd_check(args):
         return 2
     walk["line"] = walker.scan_line(walk)
     walk["writer_line"] = walker.writer_line(walk)
+    walk["census_line"] = None
+    census_counts = None
+    if args.wiki_dir:
+        facts = load_page_facts()
+        try:
+            census = facts.census(args.wiki_dir, args.wiki_exclude)
+        except FileNotFoundError as exc:
+            sys.stderr.write("lint-report-check: --wiki-dir is not a directory: %s\n" % exc)
+            return 2
+        walk["census_line"] = facts.census_line(census)
+        census_counts = census["counts"]
 
     reasons, extra = check_report(data, schema, args.mode, walk)
     verdict = {
@@ -374,6 +416,7 @@ def cmd_check(args):
         "schema_keys": len(schema["keys"]),
         "extra_keys": extra,
         "walk": walk["counts"],
+        "census": census_counts,
     }
     if reasons:
         verdict["reason"] = "; ".join(reasons)
@@ -392,6 +435,8 @@ def main(argv):
     ck.add_argument("--dir", action="append", default=[])
     ck.add_argument("--exclude", action="append", default=[])
     ck.add_argument("--root", default=".")
+    ck.add_argument("--wiki-dir", help="the {wiki} directory the bare_path_sources: recount walks (required under --mode full)")
+    ck.add_argument("--wiki-exclude", action="append", default=[], help="a file or subtree the recount skips (repeatable; pass {index})")
     ck.add_argument("--schema", default=DEFAULT_SCHEMA)
     ck.add_argument("--kind", choices=("report", "failed"), default="report")
     ck.add_argument("--format", choices=("yaml", "json"), help="override the extension-derived format")

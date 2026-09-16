@@ -34,7 +34,8 @@ export const meta = {
 // args:
 //   {
 //     pages:           [{ slug, path }]   // every wiki page to scan (LIVE abs paths). required — together
-//                                          //   with pageLinks + summaryLengths below (the args guard names all five).
+//                                          //   with pageLinks + summaryLengths below (the args guard names all five;
+//                                          //   bareSources, the third byte fact, is optional — see its row).
 //     indexPath:       string             // LIVE abs path to {index}. required.
 //     conventionsPath: string             // LIVE abs path to {conventions} dir. required.
 //     overlaysPath:    string  (optional) // LIVE abs path to {overlays} (vault-local convention overlays).
@@ -67,6 +68,20 @@ export const meta = {
 //                                          //   script (A15-5, D-A); the reduce measures from THIS, never from the
 //                                          //   returned summary. REQUIRED; same refusal/cap posture. NOT a
 //                                          //   cache-key term — recomputed from bytes every run (D4).
+//     bareSources:     {slug: int} (optional) // the count of frontmatter sources: entries in the BARE-PATH
+//                                          //   form (unquoted, not a wikilink, ending .md), derived from the
+//                                          //   page's bytes by the same script (Cycle 16 build-1, Q3 (a) / A9).
+//                                          //   The reduce's disposition 3 refuses a bare-path complaint ONLY
+//                                          //   where this map carries an integer > 0 for the page — the form is
+//                                          //   counted once, denominated, on the SKILL's bare_path_sources:
+//                                          //   census line (report.md), never listed per page. OPTIONAL: absent
+//                                          //   → the refusal is inert and coverage_caps says so; present-and-
+//                                          //   wrong-type (the map, or an entry for a listed page: not a
+//                                          //   non-negative integer) → refused pre-dispatch by name
+//                                          //   (`bareSources[<slug>]`). A page whose sources: is not a parseable
+//                                          //   list has NO entry (the script's sourcesUnparsed) — its complaint
+//                                          //   reports. NOT a cache-key term — recomputed from bytes every run;
+//                                          //   the reduce re-runs over cached scans with fresh facts (D4).
 //     cachedScans:     [{slug, key, scan}] (optional) // prior PAGE_SCAN records the SKILL read from the
 //                                          //   sidecar (_agent/lint-cache.json, read through
 //                                          //   vlt-lint/scripts/lint-cache.py) — they are the PREVIOUS run's
@@ -161,6 +176,11 @@ if (a.pageLinks !== undefined && !isPlainObject(a.pageLinks)) wrongTypeSlots.pus
 if (a.summaryLengths !== undefined && !isPlainObject(a.summaryLengths)) wrongTypeSlots.push({ slot: 'summaryLengths', got: typeName(a.summaryLengths), expected: 'plain object' })
 const pageLinks = isPlainObject(a.pageLinks) ? a.pageLinks : {}
 const summaryLengths = isPlainObject(a.summaryLengths) ? a.summaryLengths : {}
+// The third byte fact (Cycle 16 build-1, disposition 4): OPTIONAL — null when absent (distinct from
+// {}), so the reduce can name the absence on coverage_caps; the same by-name refusal for a
+// present-and-wrong-type map or entry. Never a cache-key term.
+if (a.bareSources !== undefined && !isPlainObject(a.bareSources)) wrongTypeSlots.push({ slot: 'bareSources', got: typeName(a.bareSources), expected: 'plain object' })
+const bareSources = isPlainObject(a.bareSources) ? a.bareSources : null
 for (const p of pages) {
   const slug = p && p.slug
   if (slug === undefined) continue
@@ -168,6 +188,10 @@ for (const p of pages) {
   if (l !== undefined && !Array.isArray(l)) wrongTypeSlots.push({ slot: `pageLinks[${slug}]`, got: typeName(l), expected: 'array' })
   const n = summaryLengths[slug]
   if (n !== undefined && !(Number.isInteger(n) && n >= 0)) wrongTypeSlots.push({ slot: `summaryLengths[${slug}]`, got: typeName(n), expected: 'integer' })
+  if (bareSources !== null) {
+    const b = bareSources[slug]
+    if (b !== undefined && !(Number.isInteger(b) && b >= 0)) wrongTypeSlots.push({ slot: `bareSources[${slug}]`, got: typeName(b), expected: 'integer' })
+  }
 }
 const cachedScans = Array.isArray(a.cachedScans) ? a.cachedScans : []
 const rulesetComponents = isPlainObject(a.rulesetComponents) ? a.rulesetComponents : {}
@@ -611,6 +635,13 @@ if (noSummaryLength.length) {
   coverageCaps.push(m)
   log(m)
 }
+// The third byte fact is OPTIONAL (Cycle 16 build-1, disposition 4): its absence degrades in the
+// honest direction (over-reporting) and is stated, never silent.
+if (bareSources === null) {
+  const m = 'bareSources absent — bare-path sources: complaints report unrefused; bare_path_sources: is the SKILL\'s census, unaffected'
+  coverageCaps.push(m)
+  log(m)
+}
 
 // The single-writer clause's read-back (Cycle 15 build-4, disposition 5 / A12): the ONE
 // scanner-returned value the reduce still consumes that has a byte-fact to read against is a
@@ -888,13 +919,19 @@ const isStale = (s) => attested(s) && !!s.last_updated && s.last_updated > s.ver
 // list cannot be defeated by wording.
 //
 // The invariant, restated for the structured return: the guards only ever REFUSE an entry, they
-// never add one, and they fire ONLY on frontmatter_defect === 'missing_required' whose field
-// list is non-empty and lies WHOLLY inside a known set. 'unclassified' and 'malformed_block' are
-// never refused by either disposition — 'unclassified' is the deliberate fail-OPEN escape, the
-// member a scanner reaches for when a genuine break fits no other, and it always reports. So the
-// failure direction remains over-reporting, never swallowing a genuine schema break — but that is
-// now a property of the enum's escape member rather than of a filler word list, and it is TESTED
-// by this build's acceptance (check 1's five controls) rather than asserted here.
+// never add one. Dispositions 1 and 2 fire ONLY on frontmatter_defect === 'missing_required' whose
+// field list is non-empty and lies WHOLLY inside a known set. 'malformed_block' is never refused.
+// 'unclassified' is the deliberate fail-OPEN escape, the member a scanner reaches for when a
+// genuine break fits no other, and it always reports — WITH ONE BYTE-GATED EXCEPTION, narrowed by
+// Cycle 16 build-1 (disposition 3 below): an 'unclassified' whose field list is exactly ['sources']
+// on a page whose own bytes carry >= 1 bare-path sources: entry (bareSources[slug] > 0, derived by
+// lint-page-facts.py) is refused, because that form is counted once on the report's
+// bare_path_sources: census and its legality is write-dated (no byte carries it). A byte-gated
+// exception is not a wording exception: nothing about the complaint's phrasing enters the test, and
+// a page whose sources: is not a parseable list has NO bareSources entry, so its complaint reports.
+// So the failure direction remains over-reporting, never swallowing a genuine schema break — a
+// property of the enum's escape member plus one integer fact, TESTED by the Cycle 14 build-1
+// controls and Cycle 16 build-1's census harness rather than asserted here.
 
 // The page-required frontmatter set is the WIKI PAGE SCHEMA's ({conventions}/frontmatter.md,
 // *Wiki pages* — base fields plus the wiki additions), deliberately NOT PAGE_SCAN.required
@@ -942,7 +979,21 @@ const attestationOnlyComplaint = (s) =>
 const inventedRequirement = (s) =>
   s.frontmatter_defect === 'missing_required' && whollyWithin(s.frontmatter_defect_fields, PAGE_OPTIONAL_FRONTMATTER)
 
-const refusedFrontmatterClaim = (s) => attestationOnlyComplaint(s) || inventedRequirement(s)
+// Disposition 3 — the bare-path form (Cycle 16 build-1, Q3 (a)). A complaint that a sources: entry is
+// in the unquoted `.md` form is refused ONLY when the page's own bytes carry that form (bareSources,
+// derived by lint-page-facts.py) — the form is counted once, denominated, on bare_path_sources:, and
+// its legality is write-dated, which no byte carries. Like disposition 1 this removes a DUPLICATE of a
+// fact the report carries elsewhere; unlike it, the fact is byte-derived, never a scanner return.
+// Wording never enters the test: the verdict kind and the bare field list are machine-shaped.
+// `whollyWithin` cannot express this — it rejects any list naming a page-REQUIRED key, and `sources`
+// is one — so the predicate is written out. bareSources === null (absent) makes it inert.
+const barePathFormClaim = (s) =>
+  bareSources !== null && s.frontmatter_defect === 'unclassified' &&
+  Array.isArray(s.frontmatter_defect_fields) && s.frontmatter_defect_fields.length === 1 &&
+  s.frontmatter_defect_fields[0] === 'sources' &&
+  Number.isInteger(bareSources[s.slug]) && bareSources[s.slug] > 0
+
+const refusedFrontmatterClaim = (s) => attestationOnlyComplaint(s) || inventedRequirement(s) || barePathFormClaim(s)
 // The finding line, rendered from the structured verdict rather than echoed from free text.
 const frontmatterDefectText = (s) => {
   const fields = (Array.isArray(s.frontmatter_defect_fields) ? s.frontmatter_defect_fields : []).filter(Boolean)
@@ -1063,8 +1114,11 @@ return {
     thin_pages: scans.filter((s) => s.thin).map((s) => s.slug),
     // The scan's frontmatter verdict is no longer taken on faith: a 'missing_required' naming
     // ONLY the attestation pair, or ONLY documented-optional fields, is refused entry (see the
-    // reduce-side guards above for why the prompt cannot enforce this and the reduce can).
-    // 'unclassified' and 'malformed_block' are never refused — they always report.
+    // reduce-side guards above for why the prompt cannot enforce this and the reduce can), and —
+    // disposition 3 (Cycle 16 build-1) — an 'unclassified' naming exactly ['sources'] on a page
+    // whose bytes carry the bare-path form (bareSources[slug] > 0) is refused as a duplicate of the
+    // report's bare_path_sources: census. 'malformed_block' is never refused; every other
+    // 'unclassified' always reports.
     malformed_frontmatter: scans
       .filter((s) => s.frontmatter_defect && s.frontmatter_defect !== 'none' && !refusedFrontmatterClaim(s))
       .map((s) => `${s.slug}: ${frontmatterDefectText(s)}`),
