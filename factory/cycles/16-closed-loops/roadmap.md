@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8: the ST-9 pair + rail issue #19); ideation skeleton laid 2026-09-16, HELD by the owner, re-seeded for the extended batch, UNFILLED — next: resume ideation at round 1'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8: the ST-9 pair + rail issue #19); ideation round 1 RULED 2026-09-16 (scope: all eight; cut: three builds, A16-3 split; three promises recorded) — next: release shape, then Q1–Q21 / D1–D8 / S-4 / E1–E8'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -892,9 +892,9 @@ unaccepted** — never as a ruling.
 
 ### Grouping & order
 
-**Cycle scope — *(owner to fill)*.** Which of A16-1..A16-5 are in Cycle 16, and which (if any)
-leave for a later cycle. The capture routed nothing away and opened no platform fork; all five
-name fix sites under the shipped surface.
+**Cycle scope — RULED 2026-09-16: all eight.** A16-1..A16-8 are in Cycle 16; nothing leaves.
+(The capture's grouping question and the addendum's widening, below, are retained as the record of
+what was put to the owner.)
 
 **The grouping question the capture flagged, unresolved:** *"build grouping across the lint pair
 and the partner triple"* — A16-1/A16-2 share a skill (`vlt-lint`) and share nothing else;
@@ -906,30 +906,42 @@ a seam (a non-Researcher partner needing a dive mid-sitting); A16-7 **depends on
 runner's governance carriage (one carrier, never two — the filing's own constraint) and so on `S-4`
 or its fallback; A16-6 is prose plus a rung line and could ship alone or ride A16-7. A16-8 is a
 one-line rename with an alias and shares nothing with any other entry — a candidate for whichever
-build ships first, or its own small build. Cycle scope now asks: **all eight, or does A16-8 (small,
-independent) or the ST-9 pair (larger, carrier-bound) leave?**
+build ships first, or its own small build.
 
-Build numbering is itself an owner call — the bullets below are placeholders, not proposed
-numbers. Each carries the three fields `build-brief` reads:
+**Build cut — RULED 2026-09-16 (round 1): three builds, A16-3 split across builds 2 and 3 so the
+spike touches exactly one build.** Put to the owner as the clerk's read after the owner asked for it;
+approved as laid. The reasoning on record: the capture's two-build shape puts `S-4` under the
+`frontmatter` bump, so an unrun spike would block the schema brief too; a schema-first cut ships a
+bump with no behaviour behind it for a whole build; splitting A16-3 costs one line in two briefs and
+buys two builds that are briefable immediately. The cold summon (A16-5 (3)) sits in build 2 without a
+carrier ruling because it is a partner activation and the ritual already loads the card
+(`vault-operating-contract.md:194`). A16-6 rides build 3, not build 1, because its Creative cue
+(A16-6 (3)) names delegate.
 
-- **build-? — *(owner to fill: which filings this build folds in)***
-  - `binds:` *(owner to fill — the ruling-id roster that governs this build; keep current as rounds add rulings)*
-  - `spike:` *(owner to fill — `none`, or the `S-N` this build's brief depends on)*
-  - `promise:` *(owner to fill — one vault-facing sentence: after this ships, a vault owner running `vlt-<x>` sees Y instead of Z)*
+- **build-1 — the at-rest fixes: A16-1, A16-2 (directions 1 and 2; direction 3 is the vault's), A16-8.**
+  All prose and fixtures inside `vlt-lint`, `vlt-mint`, `vlt-track`, `vlt-upgrade`; no handshake bump;
+  no dependency on any other build. A16-8's CHANGELOG notice reaches wearers first.
+  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q1, Q2, Q3, Q4, Q5, Q20, Q21, D5, E1, E2, E3)*
+  - `spike:` none *(ruled with the cut)*
+  - `promise:` After this ships, a vault owner running `vlt-lint` or `vlt-track` sees the module read its own writes back, instead of a lint that mislocates the heading it was sent for, a sweep that writes a form its own checker rejects, and a slot whose key contradicts its description. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time)*
 
-- **build-? — *(owner to fill)***
-  - `binds:` *(owner to fill)*
-  - `spike:` *(owner to fill)*
-  - `promise:` *(owner to fill)*
+- **build-2 — the partner-memory schema: A16-4 whole, A16-5 whole, A16-3 direction 2 only (the
+  `partner: none` sitting named in the contract).** The one `frontmatter@14` → `@15` bump, all ten
+  consumers re-acked in this build. Internal order forced: demote verb → charter → cold summon.
+  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, D1, D2, D3, D4, D7, D8, E4, E5)*
+  - `spike:` none *(ruled with the cut — the cold summon reads the card through the ritual)*
+  - `promise:` After this ships, a vault owner sees the partner loop opened from outside: a budget the lint enforces, a charter the owner holds, a demote verb, a cold summon, and a named partnerless sitting, instead of a partner memory whose only reader is its writer. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time; enumerates five deliverables — re-stamp if the roundtable trims one)*
 
-- **build-? — *(owner to fill)***
-  - `binds:` *(owner to fill)*
-  - `spike:` *(owner to fill)*
-  - `promise:` *(owner to fill)*
+- **build-3 — the carrier and what rides it: A16-3 direction 1 (governance on a surface every session
+  reads), A16-7 delegate, A16-6.** One carrier, two tenants (D6). Sequenced after build 2 (A16-7's
+  runner is partnerless; A16-6 (3)'s cue names delegate).
+  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q6, Q15, Q16, Q17, Q18, Q19, D3, D6, D7, D8, E7, E8)*
+  - `spike:` S-4 *(as laid; an owner ruling that the `SessionStart` hook is the carriage retires `S-4` unrun and turns this to `none` — written back to the register file in the same session)*
+  - `promise:` After this ships, a vault owner sees every session, partnered or not, open on the same rules, and a partner running `vlt-dispatch` can delegate a bounded research dive and get the result back in the same sitting, instead of rules that ride only the summoning ritual and a one-fact dive deferred to another session because the partner inferred a lane the contract never stated. *(owner-ruled 2026-09-16, a blend of two clerk drafts approved at ruling time; carriage mechanism deliberately absent so the sentence survives `S-4` either way)*
 
-*(Add or remove bullets as the grouping is ruled. An unfilled `spike:` or `promise:` is **not**
-`none` — it blocks `build-brief`, which is the field working. `binds:` is reconstructible and is
-disclosed rather than blocking; a promise is not reconstructible, which is why it blocks.)*
+*(An unfilled `spike:` or `promise:` is **not** `none` — it blocks `build-brief`, which is the field
+working. `binds:` is reconstructible and is disclosed rather than blocking; a promise is not
+reconstructible, which is why it blocks.)*
 
 **Release shape — *(owner to fill)*.** One release or more; and which builds ride which. (Cycle
 15's build-2 (6) watch — *first warm release* — has its first chance at whatever release this
@@ -1289,3 +1301,18 @@ way (A16-9…); the skeleton is re-seeded again, never re-laid.
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and the roadmap's newest-at-top convention does **not** apply to it. The chat report
 is a copy; this line is the obligation.
+
+---
+
+**Next lifecycle move (2026-09-16, ideation round 1 ruled): continue owner-steered ideation at round 2 —
+release shape, then the pre-ideation questions Q1–Q21, the decide-once slots D1–D8, the `S-4`
+disposition (run / kill / rule-around via the `SessionStart` hook — written back to its register file),
+and the evidence debts E1–E8.** Round 1 is on record in §Grouping & order: cycle scope all eight; three
+builds (1 at-rest fixes, 2 partner-memory schema with the single `frontmatter@15` bump, 3 the carrier +
+delegate + lane); `spike:` ruled on every build (`none`, `none`, `S-4`); every `promise:` filled by the
+owner at ruling time. `binds:` rosters are laid as clerk reconstructions awaiting owner confirmation.
+Once the remaining slots are ruled: **`roadmap-roundtable`** ("convene the roundtable") — briefs follow
+the review, never precede it.
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing.
