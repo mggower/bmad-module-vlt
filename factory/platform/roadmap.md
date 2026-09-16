@@ -54,6 +54,17 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 ## Active (WIP 0/2 — P-10 and P-18 Tiers B/C are open and consume no slot; P-3 and P-13 CLOSED 2026-09-09 on the `lifecycle-status` run and the owner's grade; P-14, P-20 and P-16 CLOSED 2026-09-09; P-18 Tier A self-accepted 2026-09-09)
 
+*(Updated 2026-09-16: **[P-10]'s sync mode ran for the first time** — `issue-triage` sync mode created
+milestone **#1 `Cycle 16 — closed loops`**, the tracker's first milestone ever. **Bound HELD OPEN by owner
+ruling**, not discharged and not re-missed: the projection is milestone-only because Cycle 16 is
+un-ideated, and the bound's own reason clause names the post-ideation run. Discharging event is now the
+Cycle 16 **re-sync after `ideation-scaffold`**. Built-awaiting inventory unchanged at **1** (P-10). Same
+session, rail side: issue **#19** (loop-profile slot name) triaged **ACCEPTED** with two grounding
+corrections on the thread — a third rename site at `skills/vlt-upgrade/SKILL.md:81`, and the filing's
+write-gate premise being narrower than shipped behavior (`vlt-track/SKILL.md:38` fires the gate at the
+design beat *and* the write). That is cycle-side, not platform — recorded here only because the same run
+carried both.)*
+
 *(Updated 2026-09-09, later the same day: the `lifecycle-status` run that [P-3] leg 1 waited on happened — it read the lane off the map from cold and named the leg as discharging on itself. **[P-3] CLOSED** (all three legs). **[P-13] owner-graded PASS and CLOSED** — four cold restamps on the bound, confound recorded and inherited by [P-6]. Built-awaiting inventory **3 → 1** (P-10, re-bound to Cycle 16's tracker sync). Both moved to Closed.)*
 
 
@@ -61,7 +72,28 @@ memlog + keepsake are the design record). This ledger is cycle-less, kanban-styl
 
 *(Updated 2026-09-01: **[P-15] CLOSED** and moved to Closed — built-awaiting inventory **5 → 4**, then **4 → 5** the same day when **[P-3] built**. *(The ruling below is unchanged by that: it was made on the ground that items with named discharging events and bounds are cheaper to read in place than to re-file, and P-3 arrives with three such events, each bound to a named Cycle 15 run. Revisit if the inventory grows without bounds, not merely if it grows.)* **And the inventory call the header deferred is RULED: settled — no separate section, no second cap.** It was flagged as an owner call 2026-08-25 and stood two items overdue by 2026-08-27; ruled 2026-09-01 on the ground the header itself names — four items, each with a named discharging event and a bound now re-grounded and dated, are cheaper to read in place than to re-file, and the bookkeeping would cost more than the sprawl it guards against. Revisit if the inventory grows again rather than shrinks.)*
 
-### P-10 — the loop, visible — **open: BUILT 2026-08-23; BOUND MISSED — Cycle 15 ran start to finish with no tracker sync (0 milestones, 0 `B15-` issues); re-bound to Cycle 16's `sync the tracker` run, after its ideation rules the builds**
+### P-10 — the loop, visible — **open: BUILT 2026-08-23; BOUND MISSED once (Cycle 15); bound HELD OPEN 2026-09-16 — Cycle 16's first sync ran and created the milestone, but a capture-only roadmap has no builds to project, which is the condition the bound names**
+
+**Bound held open, owner-ruled 2026-09-16.** The sync mode ran for the first time
+(`issue-triage` → *sync the tracker*, following a triage-mode run in the same session) and applied
+one operation: milestone **`Cycle 16 — closed loops`** created open
+(`repos/mggower/bmad-module-vlt/milestones` → milestone **#1**). The nine `stage:`/`check:` labels
+were already bootstrapped — no-op. **Zero `B16-` issues**, because Cycle 16 is captured but
+un-ideated: no *Ideation rulings* section exists in `factory/cycles/16-closed-loops/roadmap.md`,
+so no build is ruled and the acceptance ledger is empty. The diff was therefore non-empty *in the
+literal sense* while projecting none of the per-build state this item exists to make visible.
+**Owner ruled: hold P-10 open, bound unchanged** — the re-binding clause names "the first [run] that
+projects a non-empty diff" **and gives its reason** ("after ideation rules the builds"); the reason
+does not hold yet, and the clause's reason governs its words. **Discharging event: the Cycle 16
+re-sync after `ideation-scaffold` and the owner's rulings**, which is the run that fills the
+milestone with `B16-<i>` issues and `stage:` labels. Not recorded as a second missed bound — the
+bound's event has not passed, it has not yet arrived.
+
+*Open question, unchanged and still the owner's ([P-10], 2026-09-09):* **the sync only ever runs
+because the owner types it.** Cycle 15 missed its bound that way; this run happened only because the
+owner asked for it by name in a session that had already run triage mode without it. That is now two
+data points for hanging the sync off a lifecycle step — `ideation-scaffold`'s handoff naming it is the
+candidate on the table — rather than leaving it owner-invoked. Not decided here.
 
 **Missed bound, recorded 2026-09-09.** The discharging event was *Cycle 15's `sync the tracker` run, after
 `inbox-capture` opens the cycle*. It never ran: `gh api repos/mggower/bmad-module-vlt/milestones?state=all`
