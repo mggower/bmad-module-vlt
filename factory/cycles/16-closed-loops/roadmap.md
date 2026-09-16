@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — next: brief build 1'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — next: build build 1 in a fresh session'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -1012,6 +1012,7 @@ attestation-only complaint;
 act on."*
 **RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): (a).** The class leaves `malformed_frontmatter` and surfaces as a denominated census line (`bare_path_sources: N entries / M pages`). Legality is indexed on write date, which bytes cannot carry, so a per-page flag can only be arbitrary.
 *(roundtable A9, 2026-09-16 — the line's shape and gate, Caravaggio/Amelia/Mary/Sophia, no dissent):* the line is **full-mode only** (`# full mode only` per `report.md`'s grammar, or the literal `not instrumented (scoped run)` as `scanner_return_rejected` renders — scoped mode's denominator changes every run); its shape is three-term, **`N entries across P of M pages`**; it is **computed script-side by `lint-page-facts.py`** (which already parses the frontmatter block and rule 4's form, `:43`), never from scanner returns; and **`lint-report-check.py` compares it by string equality** as it does `para_scan:` — an inline map's children are not validated (`report.md:9` rule 2), so without this the census is a self-reported number. The drop from `malformed_frontmatter` has no reduce-side enforcement point as ruled (a bare-path complaint arrives `unclassified`, which the reduce never refuses, `vlt-lint-full.js:1067`); the brief must site one — **under the A9/A10 constraint** (build-1 bullet): keyed on script-derived page facts, never a new scanner verdict kind, so `PAGE_SCAN` stays byte-identical for the warm-release watch.
+*(grounding correction — `build-brief` build 1, 2026-09-16):* A9's premise that `lint-page-facts.py` *"already parses the frontmatter block and rule 4's form, `:43`"* is **superseded**: `:42-44` is a docstring remark that a quoted `"[[path]]"` `sources:` entry counts as a link; the script delimits the frontmatter block and parses only `summary:` — no `sources:` entry is read and no form is classified. The ruling (script-side, never from scanner returns) stands; **build 1 adds the parser** (`bare_sources()`, a `--census` walk, and the per-page `bareSources` map — brief F4). The line's shape and gate are unchanged.
 
 **Q4 — A16-2: does the writer-side repair ship this cycle?** Direction 1 — `fix-and-file.md:12`
 loses its frontmatter-write residue (or states rule 4's form for it if a frontmatter write is ever
@@ -1434,6 +1435,60 @@ returned both mandatory beats. Session file:
 *(Populated per build at brief time — `build-brief` appends each build's live-acceptance checks here,
 tagged ship-verifiable or field-contingent.)*
 
+- [ ] **build-1 (own-writes-read-back, briefed 2026-09-16):** brief
+  `factory/cycles/16-closed-loops/briefs/build-1-own-writes-read-back.md`. **Six checks — five
+  `[ship-verifiable]` (GATE), one `[field-contingent]`.** `specimens: 56/61` (A16-1 1/1 — the convention
+  site read by path + the Cycle 15 index pair; A16-2 55/55 as the per-page manifest into `build-1-wiki/`,
+  bytes preserved for 1 — the `dutch-oven-braising` line/fragment as the planted return; A16-8 0/5 — no
+  wearer bytes reach an at-rest grep). R1 n/a (every rule ships with its mechanism). **Retirement
+  SUBSTANTIVE** — the bare-path `sources:` form leaves `malformed_frontmatter`'s population
+  (`checks.md:15` exclusion (c) + reduce disposition 3); `fix-and-file.md:12`'s frontmatter-write residue
+  deleted; Cycle 15 build-3 (4)'s `grep -c '## Stubs'` = 1 obsoleted (expected 2); **deliberate
+  non-retirement:** `non-negotiable-gate` accepted indefinitely (Q20). R4 n/a (no shipped file added;
+  fixtures are factory-side). This build is **v0.18.1, alone** (A10). **(1) `[ship-verifiable]` Stub read**
+  — property: from the shipped `wiki-index.md` bytes (+ an overlay-merged variant) a reader following
+  `checks.md:13` returns the heading; `located: yes` on the long-form index fixture, `no` on the bare one,
+  no reference to fences. Instrument: `fixtures/build-1-stub-heading-harness.py` (reads the shipped file
+  by path, two readers, overlay case, Cycle 15 index pair; failable against `v0.18.0` bytes — record the
+  FAIL count); `grep -c '## Stubs' wiki-index.md` = 2. Adversary answered: read-by-path (a copy would
+  pass on a changed heading); overlay restating a heading is `overlay_issues`, named. **(2)
+  `[ship-verifiable]` Census** — property: every bare-form `sources:` entry on disk counted exactly once
+  on one denominated line equal to an independent recount; no per-page finding for the form; a full sweep
+  never increases it. Instrument: `fixtures/build-1-census-harness.mjs` + `build-1-wiki/` +
+  `build-1-expected-census.json` (oracle written before the script runs): the 22-page/55-entry manifest +
+  controls (flow-form list counted; `.md` under `grounding:` not counted; prose `## Sources` not counted;
+  scalar `sources:` absent from the map; `index.md` excluded) → oracle line `57 entries across 23 of 29
+  pages …`; reduce cases: `unclassified/['sources']` on a manifest page REFUSED; the same on the
+  unparsed page, with `bareSources` absent (+ cap line), as `missing_required/['sources']`, as
+  `unclassified/['sources','title']`, as `malformed_block`, and as `unclassified/[]` with sources-naming
+  prose ALL REPORT; gate `ok` on the oracle line, `failed` on an off-by-one, exit 2 without `--wiki-dir`
+  in full mode; failable against `v0.18.0`'s workflow. Adversary answered with four widenings in the
+  fixture; the accepted residual (a bare entry beside a second genuine `sources:` defect reported only as
+  `unclassified/['sources']` is refused) is stated. **(3) `[ship-verifiable]` Writer** — property: a
+  sweep over a page whose prose `## Sources` lacks an entry frontmatter carries leaves the frontmatter
+  byte-identical. Instrument: `fixtures/build-1-reader-protocol.md` (fresh agent, shipped `fix-and-file.md`
+  Step 3, `build-1-writer-page.md`, `shasum -a 256` over the frontmatter block before/after equal, prose
+  +1 line) + the grep-negative over `skills/vlt-lint/` (brief §Verification 4). Adversary answered: the
+  prose-form residual accepted; direction-ambiguous sentences elsewhere unreachable by the grep. **(4)
+  `[ship-verifiable]` Slot** — property: a profile under either key reaches the same gate in `vlt-track`,
+  the relocation scan recognizes both, the persona *non-negotiable* concept survives. Instrument: the
+  greps of brief §Verification 5 recorded verbatim (`non-negotiable-gate` in exactly `vlt-track/SKILL.md`
+  + `vlt-upgrade/SKILL.md`, both in accepted clauses; template `write-gate` = 1; persona
+  `non-negotiable` count unchanged vs `v0.18.0`; `module-help.csv` Group B pass). Adversary answered: the
+  hyphenated key is grepped, the persona count asserted unchanged. **(5) `[ship-verifiable]` Warm-release
+  chance + E2 census** — property: v0.18.1 moves none of the cache-key inputs; the first post-upgrade full
+  sweep on `{field-vault}` renders `bare_path_sources:` equal to an independent recount. Instrument, at
+  rest: `build-4-return-harness.mjs --fingerprint` equal over `v0.18.0` and `v0.18.1`, empty
+  `git diff v0.18.0 --stat` over `frontmatter`/`wiki-supersession`/`write-verification`, the `scanModel`
+  default line. Instrument, upgrade evidence (bounded — the owner's ordinary `vlt-upgrade` to 0.18.1 + the
+  ordinary post-upgrade full sweep on `{field-vault}`): the persisted line vs an `awk` recount over each
+  page's frontmatter `sources:` block (unquoted, ends `.md`), one-liner recorded verbatim; baseline
+  `240 / 83 of 152` (A9, 2026-09-16). Adversary answered: the discharge recount is not the script.
+  **(F1) `[field-contingent]` Wearer parse** — a coaching-style wearer's profile parses under either key
+  with no explanatory note. Event: the next `vlt-mint` of a `vlt-track` wearer, or an owner-run rename of
+  an existing wearer's `capabilities/track.md` on `{field-vault}`; performer: the owner; vault:
+  `{field-vault}` (`career-strategist` is the named case). Watch, not gate.
+
 ---
 
 <details>
@@ -1562,6 +1617,24 @@ until S-4 is harvested — no split**. Outside the roundtable: run `S-4`; file t
 capture-don't-interrupt items to `factory/inbox/` (tripwire single-owner schema; `## Thread` size
 bound; `vlt-lint-full.js:297` conditional; strip-promise conditional); the owner's six owed
 candidate filings (E6, now including E1's).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing.
+
+---
+
+**Next lifecycle move (2026-09-16, `build-brief` build 1): a fresh builder session implements
+`briefs/build-1-own-writes-read-back.md` via `bmad-workflow-builder`.** The Readiness gate passed on the
+roundtable record (0 open disputes, `promise:` filled, `spike: none`, E1–E3 dispositioned); every site was
+re-grounded at `601b09b` (= `v0.18.0` bytes); one grounding correction is on record under Q3 (the
+`lint-page-facts.py` parser premise — build 1 adds it) and one site was added (`module-help.csv:17`). The
+ledger carries build-1's six checks (five ship-verifiable, one field-contingent watch; `specimens: 56/61`).
+**Builder's exit obligations:** rewrite the brief's `status:` to a BUILT record with numbered deviations;
+delete any `.decision-log.md`; one commit for the build on `cycle16-v0.18.1`; then `vlt-release` for
+**v0.18.1 (build 1 alone — A10)**, with the brief's §Release notice text landing in `CHANGELOG.md`. After
+the release: **brief build 2** (`build-brief`, briefable on the amendments alone); build 3 waits on the
+**S-4 harvest**. Outside the lifecycle: run `S-4`; the four capture-don't-interrupt filings; the owner's
+six owed candidate filings (E6).
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.
