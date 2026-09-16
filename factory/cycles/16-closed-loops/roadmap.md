@@ -1533,7 +1533,8 @@ tagged ship-verifiable or field-contingent.)*
     full sweep's persisted `bare_path_sources:` line compared against the independent `awk` recount over each
     `{wiki}` page's frontmatter block, the one-liner recorded verbatim (baseline `240 entries across 83 of 152
     pages`, A9 2026-09-16 — the vault may have moved). **Trigger:** the owner's agent, sweep in flight as of this
-    run. (Cycle 15 build-2 (6)'s warm `lint_cache:` line rides the same sweep — its discharge, not this one's.)
+    run. **(Cycle 15 build-2 (6)'s warm `lint_cache:` line rode the same sweep and FAILED — see the addendum
+    below; it is that closed cycle's watch, not this row's, and nothing here is re-graded on it.)**
   - **(F1) Wearer parse — DISCHARGED 2026-09-16 (residual stated; no subject substitution).** The named event
     fired **five minutes after the upgrade**: the owner renamed the slot in two wearers' profiles —
     `_agent/partners/career-strategist/capabilities/track.md:37` and `.../football-analyst/capabilities/track.md:181`
@@ -1726,6 +1727,41 @@ owner's six owed candidate filings (E6). Memory sync: the `vlt-cycle-16-roadmap`
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.
+  **Addendum — 2026-09-16, same day, from the field sweep (`vlt-core`, relayed by the vault session).** The
+  post-upgrade full sweep ran and **Cycle 15 build-2 (6)'s warm-cache watch FAILED: `files_cached: 0` — 0 of
+  144 records reused, 152 scans where ~20 were due.** Two things follow, and they point in opposite directions:
+  - **v0.18.1 is exonerated, by field evidence independent of this factory's at-rest proof.** The vault
+    confirmed all three scanner-read convention digests matched the sidecar's stored components, `scan_model`
+    unchanged (haiku), and `pageScanPrompt` + `PAGE_SCAN` byte-identical across 0.18.0/0.18.1 (`md5`
+    `e54b7990…` / `2b84caff…`). Check **(5)'s at-rest half stands** — the release moved no cache-key input,
+    proven now on both sides of the seam. What it does **not** get to claim is the watch: **A9/A10 spent
+    Cycle 15 build-2 (6)'s one warm chance, and the chance was lost to something else.**
+  - **The something else is a spec gap, filed as rail issue #20** (`github.com/mggower/bmad-module-vlt/issues/20`;
+    the vault withdrew its `factory/inbox/` copy — it carried no `origin:` header, so an accepted #20 would have
+    materialized a second filing. The issue is the only copy; `factory/inbox/` and `factory/CYCLE` are untouched).
+    **Grounded against module source this run, and it is one notch worse than the filing states:**
+    `full-scale.md` step 2 pins `convention_digests` to *"the first **16 hex characters**, lowercase"*; step 1
+    gives `pageHashes` an instrument and **no form** — and explicitly licenses a *different tool*
+    (*"`shasum -a 256` … is the expected instrument, but the rule names a property, not a tool"*). So the
+    divergence is not merely truncated-vs-untruncated: two conformant executors may legally use **different
+    digest algorithms** for the first term of `runKey` (`vlt-lint-full.js:427`,
+    `${pageHashes[slug]}|${scanFingerprint}|${rulesetFingerprint}`). Field proof: stored `8410d5ed45c6b19c` vs
+    this run's instrument output `8410d5ed45c6b19c7f5fa80c…`; after truncating to 16 and re-running, **132 of 152
+    matched.** Pinning the *tool* would therefore not fix it and would contradict the contract's instrument rule —
+    **pinning the form is the only fix**, which is why the suggested hardening (refuse an entry failing
+    `/^[0-9a-f]{16}$/` at the pre-dispatch gate that already refuses wrong-typed slots by name) sits at the
+    reader, the one place the two executors meet.
+  - **Why it needs a build, not a doc edit:** no instrument catches it. `files_checked: 152 / files_cached: 0` is
+    a legal rendering, and a 100% `page_bytes` miss reads as *"the whole wiki changed"* because step 5 renders the
+    cold reason from the other two terms. The workflow's own comment at `:420` claims *"two conformant executors
+    cannot disagree about it"* — of the **third** term. The first term is exactly where they can.
+  - **Lineage:** the residue of Cycle 14's *"the findings cache cannot round-trip"* filing, which fixed the record
+    shape and `rulesetFingerprint`'s algorithm, specified the key as `${pageHashes[slug]}|${cache_fingerprint}`,
+    and never pinned the first term's form. Step 3's parenthetical already defers the whole-derivation executable
+    *"gated on the pageHashes digest-form filing"* — **#20 is that filing.** Issue #13 touches `pageHashes` only
+    as payload bulk, not its form. **Routes to the next `inbox-capture` via `issue-triage`; nothing in this
+    cycle's ledger is re-graded on it.**
+
 
 ---
 
@@ -1742,9 +1778,11 @@ carry on the next pass:
 1. **(5) E2 census recount** — the persisted `bare_path_sources:` line vs an independent `awk` recount over
    each `{wiki}` page's frontmatter block, the one-liner recorded verbatim (A9 baseline `240 entries across 83
    of 152 pages`). **Trigger: the owner's agent, sweep in flight.**
-2. **Riding the same sweep, not this ledger's:** Cycle 15 build-2 (6)'s **warm `lint_cache:` line** — the vault's
-   own upgrade record calls a cold line on this sweep *a finding to file*, so a cold line routes to
-   `factory/inbox/`, not to a re-annotation here.
+2. **~~Riding the same sweep~~ — ANSWERED the same day, see the addendum above the ledger foot:** Cycle 15
+   build-2 (6)'s warm `lint_cache:` line came back **COLD — 0 of 144 records reused, 152 scans**. Filed by the
+   vault as rail **issue #20** (not `factory/inbox/` — the vault's session withdrew its inbox copy so an accepted
+   #20 materializes exactly one filing at `issue-triage`). **v0.18.1 is exonerated by independent field evidence.**
+   Nothing here is re-graded on it.
 3. **(1)'s field render** — `stub_discovery: section located: yes` on the field index — is confirmatory, not
    gating: (1) is ship-verifiable and already discharged.
 
@@ -1754,6 +1792,11 @@ own clauses have all passed — `2026-09-03-124500-…` (A16-1, check (1)) and `
 checks (4)+(F1)) — are **archived to `filings/`** on the owner's call (an ordinary archive, not an early
 release: neither carries an open clause). `2026-09-03-124600-…` (A16-2) stays in `factory/inbox/` — check
 (5)'s census half is its own clause.
+
+**New this evening, routing to the next capture, not to this ledger:** rail **issue #20** (`pageHashes` has no
+specified digest form — the field cause of the cold sweep, grounded against module source in the addendum above).
+It needs a build, not a doc edit, and it is the residue Cycle 14's cache filing left behind; `issue-triage` admits
+it and `inbox-capture` routes it. **Do not re-grade check (5) on it** — the release is exonerated.
 
 In parallel, factory-side, unchanged by this run: **brief build 2** (`build-brief`, briefable on the roundtable
 amendments alone); build 3 waits on the **S-4 harvest**; run `S-4`; the four capture-don't-interrupt filings;
