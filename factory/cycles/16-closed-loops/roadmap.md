@@ -1883,3 +1883,44 @@ sub-clause — **(5)'s E2 census recount MATCHED on three independent instrument
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing. The chat report is a copy; this line is the obligation.
+
+---
+
+**Next lifecycle move (2026-09-16, `inbox-capture` — DEFERRED by owner ruling): unchanged from pass 2 —
+`brief build 2` (`build-brief`). The two cache-key defects do NOT enter this cycle.** Owner ruling, this
+session: rail issue **#20** (`pageHashes` has no specified digest form) and filing
+**`2026-09-16-185500`** (a reduce predicate keyed on a new scanner-return field is inert on every cached
+record) are **deferred to Cycle 17**, and **capture itself is deferred until Cycle 16 wraps** — no Cycle 17
+roadmap is opened yet, `factory/CYCLE` still reads `16-closed-loops`, and neither filing is folded anywhere.
+Both sit un-captured in `factory/inbox/`.
+
+- **What did happen this run:** the GitHub intake leg ran before the ruling — **#20 is materialized** to
+  `factory/inbox/2026-09-16-221715-state-the-digest-form-for-pagehashes-an-unspecified-key-term-silently-runs-every-full-lint-cold.md`
+  and carries the `captured` label on the tracker. **Materialization is not capture** (`github-intake.md` §4:
+  *"the filing is raw field signal; materialization does not ground it"*) — the filing waits in the inbox like
+  any other. Triage grounding is on the issue thread; every claim verified, no corrections.
+- **Routing fork exercised:** neither filing is marked `channel: platform`, and the boundary was re-derived,
+  not trusted — both fix sites (`skills/vlt-lint/references/full-scale.md`,
+  `skills/vlt-setup/assets/workflows/vlt-lint-full.js`) are shipped surface. Both are cycle-roadmap channel
+  when they are captured.
+- **The consequence to hold onto:** build-1 check **(2) stays FAILED and still GATES this cycle's closeout**,
+  and its fix now rides **Cycle 17**. So Cycle 16 closes carrying **(2) as a bound inherited debt bound to
+  Cycle 17** — the mechanism this factory has retired four times running (B8-2(4), B10-2(5)/B10-12(6), and
+  Cycle 14's two, all on their bounds). `cycle-closeout` must record it that way, tagged **ship-verifiable so
+  it gates**, which is the A4-4(5) lesson applied preemptively.
+- **Owed platform candidate (unfiled, surfaced here so it is not lost):** the **capture boundary has no row
+  for a partially-shipped cycle.** Discovery's ship-day rule says a cycle that has cut a release is closed to
+  capture; P-4's mid-cycle addendum says an open cycle folds into unbuilt builds only. Ruling A10's
+  two-release shape put Cycle 16 in both states at once, and the owner had to rule the boundary by hand. Same
+  family as Cycle 13's *"closeout's Stage 4 has no row for two open cycles."* Joins the owner's owed candidate
+  set (E6).
+- **`build-brief` for the cache-key build is BLOCKED and correctly so** — its Readiness gate needs an ideation
+  ruling naming the build, a roundtable record, a filled `promise:` and a `spike:` field, and none exist until
+  Cycle 17 captures and ideates. The route is `inbox-capture` once Cycle 16 wraps, not a brief now.
+- **Unchanged and still owed:** the owner call under check (3) (is a mismatch fix a *substantive edit* for
+  `fix-and-file.md:7`/`:18`); **brief build 2**; build 3 waits on the **S-4 harvest**; run `S-4`; the four
+  capture-don't-interrupt filings; the owner's owed candidate filings (E6, now including the boundary gap
+  above).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing. The chat report is a copy; this line is the obligation.
