@@ -921,7 +921,7 @@ carrier ruling because it is a partner activation and the ritual already loads t
 - **build-1 — the at-rest fixes: A16-1, A16-2 (directions 1 and 2; direction 3 is the vault's), A16-8.**
   All prose and fixtures inside `vlt-lint`, `vlt-mint`, `vlt-track`, `vlt-upgrade`; no handshake bump;
   no dependency on any other build. A16-8's CHANGELOG notice reaches wearers first.
-  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q1, Q2, Q3, Q4, Q5, Q20, Q21, D5, E1, E2, E3)*
+  - `binds:` Q1, Q2, Q3, Q4, Q5, Q20, Q21, D5, E1, E2, E3 *(confirmed 2026-09-16 with the round-3 rulings)*
   - `spike:` none *(ruled with the cut)*
   - `promise:` After this ships, a vault owner running `vlt-lint` or `vlt-track` sees the module read its own writes back, instead of a lint that mislocates the heading it was sent for, a sweep that writes a form its own checker rejects, and a slot whose key contradicts its description. *(owner-ruled 2026-09-16, chosen from three clerk drafts at ruling time)*
 
@@ -943,9 +943,12 @@ carrier ruling because it is a partner activation and the ritual already loads t
 working. `binds:` is reconstructible and is disclosed rather than blocking; a promise is not
 reconstructible, which is why it blocks.)*
 
-**Release shape — *(owner to fill)*.** One release or more; and which builds ride which. (Cycle
-15's build-2 (6) watch — *first warm release* — has its first chance at whatever release this
-cycle cuts; noted as context, not a ruling.)
+**Release shape — RULED 2026-09-16 (round 2): one release carrying all three builds, conditional on
+`S-4` being RUN before build 3 is briefed** (ruled in the same round, below). Put to the owner as: one
+release, two releases split after build 2, or one release conditional on ruling `S-4` around; the owner
+took the conditional form and then ruled `S-4` *run*, not ruled-around — so the condition is a harvested
+spike, not a hook assumption. Builds 1 and 2 are briefed on the rulings alone; build 3's brief waits on
+the harvest. (Cycle 15's build-2 (6) watch — *first warm release* — gets exactly one chance this cycle.)
 
 ### Pre-ideation rulings the capture demanded
 
@@ -957,11 +960,12 @@ mutually exclusive in practice and both are one line:
 (prose clarification: no rule change, **no `version:` bump, no consumer re-ack**); or
 (b) **procedure-side** — `checks.md:13` says the heading is stated inside the convention's fenced
 example and the reader takes the first `## ` line inside that fence.
-*(owner to fill)*
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): (a), convention-side.** `wiki-index.md:80` states the heading outside the fence; no bump. The convention was the ambiguous thing; a fence-aware procedure would be a workaround for a document that should just say the heading.
 
 **Q2 — A16-1: does the convention-side fixture ship, and where?** The capture's direction 3 —
 `wiki-index.md` §Stubs bytes in, the heading string out — lands in this cycle's `fixtures/`
-whichever of Q1 (a)/(b) is ruled. Ship it, or defer it? *(owner to fill)*
+whichever of Q1 (a)/(b) is ruled. Ship it, or defer it?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): SHIP.** The fixture lands in `factory/cycles/16-closed-loops/fixtures/`; it is the only check on the side that broke.
 
 **Q3 — A16-2: the checker's posture on bare-path `sources:` entries.** The capture sharpened this
 to three options and explicitly left it to ideation:
@@ -972,17 +976,18 @@ the `attestation_census` idiom at `checks.md:18`);
 attestation-only complaint;
 (c) **status quo.**
 *Capture's proposal, unaccepted: "a count the owner can watch fall beats a flag the owner cannot
-act on."* *(owner to fill)*
+act on."*
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): (a).** The class leaves `malformed_frontmatter` and surfaces as a denominated census line (`bare_path_sources: N entries / M pages`). Legality is indexed on write date, which bytes cannot carry, so a per-page flag can only be arbitrary.
 
 **Q4 — A16-2: does the writer-side repair ship this cycle?** Direction 1 — `fix-and-file.md:12`
 loses its frontmatter-write residue (or states rule 4's form for it if a frontmatter write is ever
 legal on that path), made `checks.md:16`-consistent. One paragraph, exact F-site. In or out?
-*(owner to fill)*
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): SHIP.** `fix-and-file.md:12` loses its frontmatter-write residue, `checks.md:16`-consistent. It is the enforcement point.
 
 **Q5 — A16-2: the vault's 55 entries.** The capture calls this **not module scope** and records it
 so the field debt has a name — a hand pass, or an owner-ruled one-time exception to rule 4's
-no-backfill clause, both vault-side. Does the owner rule the exception now, or leave it? *(owner
-to fill)*
+no-backfill clause, both vault-side. Does the owner rule the exception now, or leave it?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): LEAVE.** Vault-side, after this ships; the Q3 census line shows it done. No module ruling, no exception ruled.
 
 **Q6 — A16-3: the carriage mechanism for partnerless governance.** Direction 1 is **ungrounded
 pending `S-4`** — whether `@path` imports in a vault `CLAUDE.md` load for every session kind. The
@@ -1061,12 +1066,14 @@ is on record and was rejected by the cut. *(owner to fill)*
 *(added 2026-09-16)* **Q20 — A16-8: alias lifetime.** `non-negotiable-gate` accepted beside
 `write-gate` for one release (the filing), or indefinitely (no shipped reader parses the key —
 `vlt-track:38` binds by description and no lint reads loop-profile keys — so an alias costs nothing
-to keep and a sunset costs every wearer an edit). *(owner to fill)*
+to keep and a sunset costs every wearer an edit).
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): INDEFINITE.** Nothing parses the key; the alias is free to keep and a sunset costs every wearer an edit.
 
 *(added 2026-09-16)* **Q21 — A16-8: does `vlt-upgrade` offer the wearer-side rename?** Its migration
 list (`vlt-upgrade/SKILL.md:79–84`) is where human-gated offers live and `:81` already enumerates the
 profile keys. Offer the rename per wearer (never rewrite a partner's capability file unasked), or a
-CHANGELOG notice only? *(owner to fill)*
+CHANGELOG notice only?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): CHANGELOG notice only.** Five wearers, one-word edit each, alias means nothing breaks; a migration offer is machinery for a non-problem.
 
 ### Cross-filing decide-once rulings
 
@@ -1100,8 +1107,8 @@ class of groom act or two separate ones? *(owner to fill)*
 
 **D5 — fixtures on the convention side of a read.** A16-1 (3) asks for one specific fixture. Is
 that a one-off for this seam, or does the cycle adopt the shape (a read whose input is a
-convention gets a fixture on the convention's side)? *(owner to fill — a standing rule costs a
-build bullet; a one-off costs nothing and repeats the gap elsewhere)*
+convention gets a fixture on the convention's side)?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): ONE-OFF for this seam.** The shape (a read whose input is a convention gets a fixture on the convention's side) is recorded as a **platform-ledger candidate**, not a build bullet — a standing rule needs an enumeration of convention-reading sites nobody has made.
 
 *(added 2026-09-16)* **D6 — one partnerless carrier, three tenants.** A16-3's partnerless session,
 A16-5's cold summon (D3), and A16-7's delegate runner are three entry points onto the same
@@ -1139,7 +1146,15 @@ Open against this cycle (register `status:` as of 2026-09-16):
   Opened by capture from A16-3; **direction 1 rests on it**, direction 2 does not. `build-brief`
   blocks a build whose `spike:` names `S-4` until the register file reads `harvested` or
   `consumed`. Owner ruling needed: **run it, kill it, or rule the A16-3 build `spike: none` by
-  taking the `SessionStart`-hook fallback instead.** *(owner to fill)*
+  taking the `SessionStart`-hook fallback instead.**
+  **RULED 2026-09-16 (round 2): RUN IT.** `S-4` binds build 3 (`spike: S-4`); its harvest is the
+  condition on the cycle's single release. The owner's stated reason on record: it is one session,
+  and it is the only thing in the cycle that can make build 3's already-written promise ("every
+  session, partnered or not") come out false — the fallback hook's per-kind reach is the same
+  unknown in another form, so ruling the hook would carry the reach as an assumption. The
+  timebox as registered stands (one session, one probe per session kind, canary line, record which
+  kinds run the hook too). Written back to the register file (`## Ruling` section) this session;
+  `status:` stays `proposed` until the probing session starts, per the register's own table.
 
 Carried, not open (visible so it is not rediscovered at brief time):
 
@@ -1166,18 +1181,21 @@ Each debt attached to a build, or ruled not-blocking. Unfilled.
 `section located: false, 0 slugs` exists only as an operator record; the persisted report
 (`{lint_reports}/2026-09-03-1206-lint.yaml:6`) carries the second, by-eye read. *A `located: no`
 that was overridden leaves no trace in the report* — which is itself the finding. Attach to a
-build, or rule not-blocking? *(owner to fill)*
+build, or rule not-blocking?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): NOT BLOCKING.** The Q2 fixture is the catch; a report-shape change to log overridden reads is a separate filing if ever wanted.
 
 **E2 — A16-2's field debt is denominated but unowned.** 55 entries across 22 pages are
 post-adoption and illegal; 240 bare-path entries across 83 of 146 pages exist on disk and **no
 reader can tell which are legal**. Vault-side by the capture's reading (see Q5). Not-blocking for
-the module builds, or does a build owe the census that makes the count watchable? *(owner to fill)*
+the module builds, or does a build owe the census that makes the count watchable?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): DISCHARGED BY Q3 (a) — attached to build 1.** The census line is the instrument that makes the count watchable.
 
 **E3 — A16-2's adjacent carry must be read before (2) is scoped.** Cycle 15 closeout carry 9's
 `sources_vs_prose_mismatches` tier question (refused wholesale on consecutive sweeps;
 `{backlog}` carries a standing human ruling on four pages) touches **the same reduce** as Q3. The
 capture states: *a brief for (2) should read the carry before it scopes.* Is that an obligation on
-the brief, or does the carry get filed first? *(owner to fill)*
+the brief, or does the carry get filed first?
+**RULED 2026-09-16 (round 3, build 1 — clerk's read accepted by the owner): OBLIGATION ON THE BRIEF.** Build 1's briefer reads Cycle 15 carry 9 before scoping the reduce edit; the carry is not filed first.
 
 **E4 — A16-4's word table was not re-measured.** The 9-of-9 partner word census is carried as
 filed (2026-09-09, `wc -w`); the one instrument that could have corroborated it reports the wrong

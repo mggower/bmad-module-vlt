@@ -41,3 +41,12 @@ grounded in the same run.
 
 **Consumers:** A16-3's brief (direction 1 is ungrounded until this is harvested); A16-5's cold summon
 (which reads the card + rung through whichever carriage this spike proves).
+
+## Ruling (Cycle 16 ideation, round 2, 2026-09-16)
+
+**RUN IT** — owner-ruled. Binds **Cycle 16 build 3** (`spike: S-4`; A16-3 direction 1 + the A16-7
+delegate runner's carriage). The cycle's single release is conditional on this spike being harvested
+before build 3 is briefed; builds 1 and 2 do not wait. Kill and rule-around (the `SessionStart` hook
+as carriage) were both declined: the hook's per-session-kind reach is the same unknown, so the run
+must record which kinds fire the hook as well as which load imports. `status:` moves to `running`
+when the probing session opens.
