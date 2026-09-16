@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — next: `vlt-release` v0.18.1 (build 1 alone, A10), then brief build 2'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -1653,6 +1653,20 @@ both version strings, runs `package-lint --expect-version 0.18.1`, ff-merges, ta
 Acceptance for build 1 (ledger row 1: five ship-verifiable + one watch) discharges on the owner's `vlt-upgrade`
 to 0.18.1 + the first post-upgrade full sweep (`acceptance-discharge`). Outside the lifecycle: run `S-4`; the
 four capture-don't-interrupt filings; the owner's six owed candidate filings (E6).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing.
+
+---
+
+**Next lifecycle move (2026-09-16, `vlt-release` v0.18.1): live acceptance for build 1 — the owner runs
+`vlt-upgrade` to 0.18.1 on the field vault and one ordinary post-upgrade full sweep; then `acceptance-discharge`
+over ledger row 1 (five ship-verifiable + one watch), including the E2 census recount by an independent `awk`
+instrument and Cycle 15 build-2 (6)'s warm `lint_cache:` line — a cold line after this upgrade is a finding.**
+v0.18.1 shipped at `4fd8049`, annotated tag `v0.18.1`, pushed to origin (main + tag); `package-lint: A/B/C/E PASS,
+D PASS — vlt 0.18.1`. In parallel, factory-side: **brief build 2** (`build-brief`, briefable on the roundtable
+amendments alone); build 3 waits on the **S-4 harvest**; run `S-4`; the four capture-don't-interrupt filings; the
+owner's six owed candidate filings (E6). Memory sync: the `vlt-cycle-16-roadmap` topic records the ship.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.
