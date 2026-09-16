@@ -5,6 +5,22 @@ Notable changes to the `vlt` module, one section per released version, newest fi
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
+## v0.18.1 — 2026-09-16
+
+**Cycle 16** — closed loops. Build 1 ships **alone** (roundtable A10): it moves none of the findings cache's key inputs, so Cycle 15 build-2's *first warm release* watch gets its one chance. Builds 2 and 3 follow as one release once spike S-4 is harvested.
+
+- **Build 1 — read your own writes back:** a vault owner running `vlt-lint` or `vlt-track` sees the module read its own writes back, instead of a lint that mislocates the heading it was sent for, a sweep that writes a form its own checker rejects, and a slot whose key contradicts its description. `{conventions}/wiki-index.md` states the stub heading in prose (a clarification, no `version:` move). The bare-path `sources:` form leaves `malformed_frontmatter` for one denominated, script-derived, gate-checked census line — `scripts/lint-page-facts.py` gains the `sources:` parser and a `--census` entry point, the fan-out reduce gains a third refusal disposition keyed on the byte-derived `bareSources` map (optional, never a cache-key term), and `scripts/lint-report-check.py` recounts the line under `--wiki-dir`. The Librarian's mismatch fix (`fix-and-file.md` Step 3) loses its frontmatter-write residue. The loop-profile slot is `write-gate` (`vlt-mint`'s template, `vlt-track`, `vlt-upgrade`'s relocation scan, `module-help.csv`). Convention-side fixture and census harness both fail against v0.18.0 and pass against this tree.
+
+**Field notice — the loop-profile slot is now `write-gate`.** `vlt-mint`'s capability template names the loop-profile method-gate slot `write-gate`; **the old key `non-negotiable-gate` is accepted indefinitely** — nothing parses the key, there is no sunset, and a wearer renames at leisure or never. A profile carrying an explanatory parenthetical about the old key's name (*"the slot is named non-negotiable-gate in the template …"*) should **delete the parenthetical** — the mismatch it apologized for no longer exists. `vlt-upgrade`'s loop-profile relocation scan recognizes both spellings.
+
+**Field notice — bare-path `sources:` entries are a census, not a per-page finding.** A wiki page whose frontmatter `sources:` carries entries in the unquoted `.md` form no longer appears under `malformed_frontmatter` for that form; a full sweep instead renders one line, `bare_path_sources: N entries across P of M pages …`, computed from bytes by `scripts/lint-page-facts.py` and checked by the persist gate against its own recount. The line's job is **never rises** — entries written before 2026-08-15 stay legal under `frontmatter.md` rule 4's no-backfill clause, so a vault's floor is above zero and a fall is not evidence of repair. Entries the lint's own sweep wrote after adoption are the vault's to repair by hand, at the owner's cadence. The Librarian's mismatch fix (`fix-and-file.md` Step 3) never writes frontmatter `sources:` — the prose section is the side that moves.
+
+**Field notice — the stub heading is stated in prose.** `{conventions}/wiki-index.md` §The Stubs section now states `## Stubs (linked, not yet written)` outside its fenced example. No vault action; a vault whose index already carries the long-form heading is unaffected, and `stub_discovery:` should read `located: yes` on the first sweep after this release.
+
+**The first full lint after this release is WARM by construction** — no scanner-read convention, scan prompt, scan schema or scan-model default moved (the persist gate and the reduce moved; neither is a cache-key input). A cold `lint_cache:` line after the v0.18.1 upgrade is a finding — file it.
+
+**Changed paths:** `.claude-plugin/marketplace.json`, `skills/vlt-lint`, `skills/vlt-mint`, `skills/vlt-setup`, `skills/vlt-track`, `skills/vlt-upgrade`
+
 ## v0.18.0 — 2026-09-02
 
 **Cycle 15** — nothing reads it back. One release for the whole cycle: builds 1 through 7.
