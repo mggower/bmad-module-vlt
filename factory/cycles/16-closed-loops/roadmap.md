@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASS 1 2026-09-16 (`acceptance-discharge`, upgrade evidence only) — ledger row 1 **SPLIT, unchecked**: checks (1) stub read, (2) census, (3) writer, (4) slot, (5)''s at-rest warm-safety half and the (F1) wearer watch all DISCHARGED (every at-rest instrument re-run independently this run); **STILL-OPEN: (5)''s E2 census recount**, awaiting the first post-upgrade full sweep on `{field-vault}`; one owner call outstanding under (3) (is a mismatch fix a *substantive edit* for `fix-and-file.md:7`/`:18`) — next: brief build 2; re-run `acceptance-discharge` when the sweep lands'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -1489,6 +1489,62 @@ tagged ship-verifiable or field-contingent.)*
   an existing wearer's `capabilities/track.md` on `{field-vault}`; performer: the owner; vault:
   `{field-vault}` (`career-strategist` is the named case). Watch, not gate.
 
+  **Discharge pass 1 — 2026-09-16 (`acceptance-discharge`, upgrade evidence only; the post-upgrade full
+  sweep had not landed at run time).** Upgrade: `vlt-core` **0.18.0 → 0.18.1** at `[2026-09-16 17:43]`
+  (`_agent/upgrade-ledger.md:417`; report `_agent/upgrade-reports/2026-09-16-1743-upgrade.yaml`) — own-the-apply,
+  7 mints preserved, base divergence none, `wiki-index.md` the one convention refreshed, 4 skill-asset
+  divergences ruled *sanctioned* by the owner in-session. **Item stays unchecked — split** (one sub-clause open).
+  **Upgrade-side + at-rest DISCHARGED: (1), (2), (3), (4), (5) at-rest half, (F1). STILL-OPEN: (5)'s E2 census
+  recount.** Every at-rest instrument was **re-run independently in this discharge run**, not taken from the
+  BUILT record.
+  - **(1) Stub read — DISCHARGED 2026-09-16.** `fixtures/build-1-stub-heading-harness.py` re-run: **8 rows,
+    0 failed**, reading the shipped convention by path (both readers, base + overlay, the Cycle 15 index pair,
+    the stated-twice row); `grep -c '## Stubs'` = **2** (disposition 3). Reached the field: the vault's installed
+    `_meta/conventions/wiki-index.md` is byte-identical to shipped (`md5 -q` = `e6deb3ce2e8d8783ae73131629ca6604`
+    both sides), stating the heading in prose at `:80`; the field index carries the long form at
+    `resources/wiki/index.md:374`, so the first sweep has a `located: yes` to return. Failability on record
+    (6/8 FAIL over `v0.18.0` bytes).
+  - **(2) Census — DISCHARGED 2026-09-16.** `fixtures/build-1-census-harness.mjs` re-run: **all expectations
+    hold** across all three phases — phase 1 oracle `57 entries across 23 of 29 pages` deep-equal; phase 2 A(a)–(j),
+    B(a)–(c), C, D, E, F (disposition 3 refuses only the byte-gated case; `bareSources` absent degrades with the cap
+    and never refuses; wrong-typed intake refused pre-dispatch by name at 0 agent invocations); phase 3 gate `ok`,
+    `failed` on the off-by-one with the exact reason string, scoped-mode ok, `exit 2` without `--wiki-dir`.
+    Failability on record (5 FAIL over `v0.18.0`'s workflow).
+  - **(3) Writer — DISCHARGED 2026-09-16, one owner call outstanding.** Grep-negative re-run over
+    `skills/vlt-lint/`: `never writes into frontmatter` exactly **1**, the three prohibited patterns **0**. The
+    vault's installed `fix-and-file.md:12` carries the shipped clause verbatim. The fresh-agent reader-protocol
+    leg is not re-runnable in a discharge run and rests on its recorded result (frontmatter sha256
+    `851f5dcf…ceca` before == after, prose list 2 → 3) — stated, not re-proved. ⚠ **Owner call the BUILT record
+    deferred to this check (deviation 4):** whether a mismatch fix is a *substantive edit* for the Step 3 preamble
+    (`fix-and-file.md:7`) and the attester paragraph (`:18`), both of which instruct frontmatter writes while the
+    F3 bullet demands a byte-identical frontmatter block. **Unruled as of this run**; the failure direction is
+    over-reporting (a tripped clause), never a silent `sources:` write.
+  - **(4) Slot — DISCHARGED 2026-09-16.** Greps re-run over `skills/`: `non-negotiable-gate` in exactly
+    `vlt-track/SKILL.md` + `vlt-upgrade/SKILL.md` (both the accepted-indefinitely clauses), template `write-gate`
+    = 1. Reached the field: the vault's installed `capability-template.md:68`, `vlt-track:15`/`:38` and
+    `vlt-upgrade:81` all carry the rename post-apply.
+  - **(5) Warm-release chance + E2 census — SPLIT.** *At-rest half DISCHARGED 2026-09-16:*
+    `build-4-return-harness.mjs --fingerprint` = `fe29c6f398d02c6b1cdf` on the 0.18.1 tree, equal to the value
+    recorded on `v0.18.0`; `git diff v0.18.0 v0.18.1 --stat` over `frontmatter`/`wiki-supersession`/`write-verification`
+    **empty**; and the vault's own upgrade record states it independently — *"the first full `vlt-lint` after this
+    release is WARM by construction (no cache-key input moved) — a cold `lint_cache:` line on the next full sweep
+    is a finding to file."* *STILL-OPEN:* **the E2 census recount.** No post-upgrade sweep exists — the newest is
+    `_agent/lint-reports/2026-09-15-1134-lint.yaml`, pre-upgrade. **Discharging event:** the first post-upgrade
+    full sweep's persisted `bare_path_sources:` line compared against the independent `awk` recount over each
+    `{wiki}` page's frontmatter block, the one-liner recorded verbatim (baseline `240 entries across 83 of 152
+    pages`, A9 2026-09-16 — the vault may have moved). **Trigger:** the owner's agent, sweep in flight as of this
+    run. (Cycle 15 build-2 (6)'s warm `lint_cache:` line rides the same sweep — its discharge, not this one's.)
+  - **(F1) Wearer parse — DISCHARGED 2026-09-16 (residual stated; no subject substitution).** The named event
+    fired **five minutes after the upgrade**: the owner renamed the slot in two wearers' profiles —
+    `_agent/partners/career-strategist/capabilities/track.md:37` and `.../football-analyst/capabilities/track.md:181`
+    now read `write-gate:` (mtimes 17:48:49 / 17:48:54; vault commit `2fd4a01`, *"cut the loop-profile
+    parentheticals"*), and the explanatory notes the release told wearers to delete are **gone**. The three
+    unrenamed wearers (`chess-coach:30`, `dog-trainer:20`, `health-coach:25`) still read `non-negotiable-gate:`
+    and stay legal indefinitely (Q20; `vlt-track:38`) — **both keys live side by side in one vault, neither
+    carrying an apology.** `career-strategist` is the check's named case; nothing substituted. **Residual:** no
+    `vlt-track` loop has yet run against a renamed profile — nothing parses the key by design, so the rename act
+    is the exercise the check named, and the parse proper rides the next loop session.
+
 ---
 
 <details>
@@ -1670,3 +1726,38 @@ owner's six owed candidate filings (E6). Memory sync: the `vlt-cycle-16-roadmap`
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.
+
+---
+
+**Next lifecycle move (2026-09-16, `acceptance-discharge` pass 1): re-run `acceptance-discharge` once the
+first post-upgrade full sweep lands on `{field-vault}` — one sub-clause is open, `(5)`'s E2 census recount.**
+Pass 1 ran on upgrade evidence alone (`vlt-core` 0.18.0 → 0.18.1, `[2026-09-16 17:43]`; the newest lint report
+is `2026-09-15-1134`, pre-upgrade). Ledger row 1 is **SPLIT and stays unchecked**: (1) stub read, (2) census,
+(3) writer, (4) slot, (5)'s at-rest warm-safety half and the (F1) wearer watch are **DISCHARGED** — every
+at-rest instrument re-run independently in the discharge run (stub harness 8/8, census harness all
+expectations, grep-negatives, fingerprint `fe29c6f398d02c6b1cdf`), and (F1)'s named event fired five minutes
+after the upgrade (`2fd4a01` renamed two wearers' profiles and cut the parentheticals). What the sweep must
+carry on the next pass:
+
+1. **(5) E2 census recount** — the persisted `bare_path_sources:` line vs an independent `awk` recount over
+   each `{wiki}` page's frontmatter block, the one-liner recorded verbatim (A9 baseline `240 entries across 83
+   of 152 pages`). **Trigger: the owner's agent, sweep in flight.**
+2. **Riding the same sweep, not this ledger's:** Cycle 15 build-2 (6)'s **warm `lint_cache:` line** — the vault's
+   own upgrade record calls a cold line on this sweep *a finding to file*, so a cold line routes to
+   `factory/inbox/`, not to a re-annotation here.
+3. **(1)'s field render** — `stub_discovery: section located: yes` on the field index — is confirmatory, not
+   gating: (1) is ship-verifiable and already discharged.
+
+**Two owner items, neither blocking the sweep:** (a) the call the BUILT record deferred to check (3) — whether
+a mismatch fix is a *substantive edit* for `fix-and-file.md:7`/`:18`, unruled; (b) **ruled this run:** the two filings whose
+own clauses have all passed — `2026-09-03-124500-…` (A16-1, check (1)) and `2026-09-09-184840-…` (A16-8,
+checks (4)+(F1)) — are **archived to `filings/`** on the owner's call (an ordinary archive, not an early
+release: neither carries an open clause). `2026-09-03-124600-…` (A16-2) stays in `factory/inbox/` — check
+(5)'s census half is its own clause.
+
+In parallel, factory-side, unchanged by this run: **brief build 2** (`build-brief`, briefable on the roundtable
+amendments alone); build 3 waits on the **S-4 harvest**; run `S-4`; the four capture-don't-interrupt filings;
+the owner's six owed candidate filings (E6).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing. The chat report is a copy; this line is the obligation.
