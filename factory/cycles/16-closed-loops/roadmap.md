@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8: the ST-9 pair + rail issue #19); ideation round 1 RULED 2026-09-16 (scope: all eight; cut: three builds, A16-3 split; three promises recorded) — next: release shape, then Q1–Q21 / D1–D8 / S-4 / E1–E8'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8: the ST-9 pair + rail issue #19); ideation FILLED 2026-09-16 over five rounds (scope all eight; three builds; one release conditional on S-4 harvested; S-4 ruled RUN; every Q/D/S/E slot ruled) — next: convene the roundtable'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -935,7 +935,7 @@ carrier ruling because it is a partner activation and the ritual already loads t
 - **build-3 — the carrier and what rides it: A16-3 direction 1 (governance on a surface every session
   reads), A16-7 delegate, A16-6.** One carrier, two tenants (D6). Sequenced after build 2 (A16-7's
   runner is partnerless; A16-6 (3)'s cue names delegate).
-  - `binds:` *(owner to fill — clerk's reconstruction, to confirm: Q6, Q15, Q16, Q17, Q18, Q19, D3, D6, D7, D8, E7, E8)*
+  - `binds:` Q6, Q15, Q16, Q17, Q18, Q19, D3, D6, D7, D8, E7, E8 *(confirmed 2026-09-16 with the round-5 rulings)*
   - `spike:` S-4 *(as laid; an owner ruling that the `SessionStart` hook is the carriage retires `S-4` unrun and turns this to `none` — written back to the register file in the same session)*
   - `promise:` After this ships, a vault owner sees every session, partnered or not, open on the same rules, and a partner running `vlt-dispatch` can delegate a bounded research dive and get the result back in the same sitting, instead of rules that ride only the summoning ritual and a one-fact dive deferred to another session because the partner inferred a lane the contract never stated. *(owner-ruled 2026-09-16, a blend of two clerk drafts approved at ruling time; carriage mechanism deliberately absent so the sentence survives `S-4` either way)*
 
@@ -993,7 +993,8 @@ no-backfill clause, both vault-side. Does the owner rule the exception now, or l
 pending `S-4`** — whether `@path` imports in a vault `CLAUDE.md` load for every session kind. The
 grounded fallback is the existing `SessionStart` hook (`vlt-setup/SKILL.md:187`,
 `vlt-vitals.py --strip`), which already fires per session. Ruling needed on: does a build bind
-`S-4`, and does the fallback ship if `S-4` returns *no*? *(owner to fill — see **Spikes**)*
+`S-4`, and does the fallback ship if `S-4` returns *no*?
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): MECHANISM FOLLOWS THE `S-4` HARVEST; the fallback ships on a *no*.** Build 3 binds `S-4`. Imports carry the card and rung for every session kind the harvest shows they reach; the `SessionStart` hook carries them for any kind imports miss; if both miss a kind, build 3's promise narrows from *every session* to the kinds reached, stated in the brief.
 
 **Q7 — A16-3: the `partner: none` sitting.** Direction 2 does **not** depend on `S-4`. Naming it in
 the contract's *Sessions, sittings, and hand-offs* turns `frontmatter.md:167`'s *"Omit only for a
@@ -1061,32 +1062,37 @@ finding** relocating the cause to `vlt-research`'s search discipline.
 sentence; (2) the rung pointer line; (3) the Creative `:37` remedy wording; (4) the hygiene-row
 clause at `:318`; (5) read-and-cite extended to the web at `:282` with its blind spot stated. The
 capture flags (2) as reaching **new vaults only** by seed and (5) as carrying an honor-system tier
-the roundtable dissented on and kept. *(owner to fill)*
+the roundtable dissented on and kept.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ALL FIVE.** (1)–(4) are one sentence each; (5) ships with its blind spot stated in the rule and Quinn's dissent recorded as a **watch**. Dropping (5) leaves the one-fact case no route but delegate, heavier than the case needs.
 
 *(added 2026-09-16)* **Q16 — A16-6: how does the rung line reach an existing vault?** `vlt-setup:275`
 seeds `_agent/reflexes.md` *if absent, never touching a populated file*. Options the capture sees:
 (a) seed-only — existing vaults add the line by hand (a CHANGELOG notice); (b) an additive
 upgrade-side step that appends one pointer line under the rung's promote-in/edit-one-out rule and
 cap (a durability-posture question — B1 preserve path in play); (c) skip the rung, contract sentence
-only. *(owner to fill)*
+only.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): (b) — an additive upgrade-side step** appending one pointer line under the rung's cap and promote-in/edit-one-out rule. The rung is the Beat 1 file every partner reads; a contract sentence alone does not reach the memory the belief lives in. B1 preserve path re-checked at brief.
 
 *(added 2026-09-16)* **Q17 — A16-7: is `delegate` in Cycle 16 at all, and if so is it bound to
 A16-3's build?** The runner is partnerless by construction and its governance carriage *is* A16-3's
 (pointer to the card and rung in the engine prompt). Sequence with or after A16-3; whether that is
-one build or two with an ordering is the owner's. *(owner to fill — see Q6 and D6)*
+one build or two with an ordering is the owner's.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): IN, and bound to A16-3's build (build 3).** Internal order: carrier, then runner.
 
 *(added 2026-09-16)* **Q18 — A16-7: the neighbour list and `consult@1`.** Adding `delegate` to
 `conventions/consult.md:29–32` (what moves, per neighbour) reads as a prose clarification — the class
 definition at `:23–27` and the trigger rule pointer at `:36` are untouched. Ruling: clarification
 (no bump; brief verifies bipartite consistency), or a rule change (bump + re-ack `vlt-dispatch`,
 `vlt-lint`)? *Capture's read, unaccepted: clarification, provided delegate stays a sibling and never
-"a consult that does work".* *(owner to fill)*
+"a consult that does work".*
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): PROSE CLARIFICATION, no `consult@1` bump**, provided delegate stays a **sibling** of consult and is never "a consult that does work". The brief verifies bipartite consistency; the roundtable is asked to hunt the sibling claim.
 
 *(added 2026-09-16)* **Q19 — A16-7: the return union and depth ceiling as filed.** `done{notePath,
 headline, verification, wikiCandidate} | incomplete{wipPath} | insufficient-context | needs-human |
 too-big`; depth `quick|moderate`, `deep` → `too-big` → relay; `op` single-tenant (`research`) under
 the population cut (not a shared lane). Accept as filed, or amend? Victor's dissent (generalize now)
-is on record and was rejected by the cut. *(owner to fill)*
+is on record and was rejected by the cut.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ACCEPT AS FILED.** `deep` → `too-big` → relay is the only deep route; `op` single-tenant (`research`). Victor's dissent stays on record and stays rejected.
 
 *(added 2026-09-16)* **Q20 — A16-8: alias lifetime.** `non-negotiable-gate` accepted beside
 `write-gate` for one release (the filing), or indefinitely (no shipped reader parses the key —
@@ -1142,7 +1148,7 @@ A16-5's cold summon (D3), and A16-7's delegate runner are three entry points ont
 question: *what does a session with no partner (or a partner without its memory) read, and what
 does it owe the record?* The delegate filing's own constraint is *never a second carrier*. Ruled
 once: which build owns the carrier, and do the other two consume it in the same cycle or wait?
-*(owner to fill — D3's precedence-by-elimination rule applies across all three)*
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): BUILD 3 OWNS THE CARRIER.** Tenants: the `partner: none` sitting (lands in build 2 as a contract posture, gains carriage in build 3) and the delegate runner (consumes in build 3). The cold summon reads through the ritual and is **not** a tenant. Stated in build 3's brief so no second carrier is built.
 
 *(added 2026-09-16)* **D7 — the weight lever is pulled from two sides.** A16-4 bounds Beat 1 so
 that a full activation is cheaper; A16-7 makes a lite partnerless runner so that a full activation
@@ -1188,10 +1194,10 @@ Carried, not open (visible so it is not rediscovered at brief time):
 - **`S-3` (github-notification-semantics) — `harvested`, `verdict: reshape`, `consumed_by: []`** —
   harvested 2026-08-24, **unconsumed for a fifth cycle** (Cycle 15 carry 11). It gates nothing (a
   harvested spike satisfies `build-brief`), but its reshape has never been cut into an answerable
-  question. Does Cycle 16 consume it, re-cut it, or carry it again? *(owner to fill)*
+  question. Does Cycle 16 consume it, re-cut it, or carry it again?
+  **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): CARRY AGAIN**, `opened_by` restamped to Cycle 16 in the register file this session. Nothing in this cycle touches GitHub notification semantics; re-cutting a spike nothing needs is work for its own sake.
 
-Spikes this batch newly demands: *(owner to fill — an external unknown gets a spike **before** the
-brief is written; reasoning from docs or memory is the failure the rule exists to prevent)*
+Spikes this batch newly demands: **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): NONE.** The engine question is module source; the rest is greppable prose.
 
 *(added 2026-09-16)* **The addendum opened no spike, and `S-4` now underlies two entries.** A16-7's
 runner is partnerless; its governance carriage is whatever A16-3 direction 1 or its
@@ -1238,7 +1244,7 @@ E4, smaller stakes.
 build-4's `pageHashes` digest form, field-confirmed; build-5's `para_type_unknown` count leg;
 build-7's five-value enum + partner-side attestation beat; A15-12's subtree-`type:` mechanism).
 None blocks a Cycle 16 build on its face; recorded so the cycle does not close over them silently.
-*(owner to fill)*
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): NOT BLOCKING any Cycle 16 build.** The owner writes them via the rail when ready; recorded so closeout does not pass over them silently.
 
 *(added 2026-09-16)* **E7 — A16-6's belief-in-memory half is inferred, not observed.** The filing's
 own recovery grep (`Researcher` near `lane` under `## Self`, nine `identity.md` files, read-only)
@@ -1246,19 +1252,25 @@ found **nothing**; the owner's report of partner speech is the whole evidence an
 persisted it. The module-source half (the SKILL listing + *Capabilities* prose) is fully grounded.
 A build that ships the rung pointer (Q15 (2)) ships it against an inferred cause. Blocking, or
 accepted with the watch (*a partner that formerly declined now runs, delegates, or cites*) as the
-only read-back? *(owner to fill)*
+only read-back?
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): ACCEPTED, with the watch as the only read-back.** The module-source half is fully grounded and is what the sentence fixes.
 
 *(added 2026-09-16)* **E8 — A16-7's cost claim is the owner's report, count only.** *"A task needing
 one external fact spans ≥2 sessions"* — no instrument persists task closes across sittings, so the
 set is unrecoverable and the capture says so. The acceptance the filing proposes is entirely
 at-rest (temp-vault fixture), which is right; the field tail (first live `delegate:` block from a
-non-Researcher partner) is a watch. Not-blocking on the capture's read. *(owner to fill)*
+non-Researcher partner) is a watch. Not-blocking on the capture's read.
+**RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): NOT BLOCKING.** Acceptance at rest against a temp vault, as filed; the field tail is a watch.
 
 ### Questions deliberately left to brief time
 
-Per-build, not cross-cutting. *(owner to fill — a question parked here is one the briefer may
-answer; a question parked here **by accident** is one the briefer will answer without knowing it
-was the owner's.)*
+Per-build, not cross-cutting. **RULED 2026-09-16 (round 5, build 3 + cycle-wide — clerk's read accepted by the owner): exactly these, nothing cross-cutting.**
+
+- **build-1:** the census line's exact report field (Q3 (a)'s `bare_path_sources` shape in `report.md`).
+- **build-2:** the casebook's decay-contract values; the charter's minted template text (Q12); the
+  `partner: none` paragraph's wording in *Sessions* (D8 — build 2 owns the section).
+- **build-3:** the 2×2's wording and whether the section gains a table; whether the `delegate:`
+  header shape is the mode signal as `relay:` is; whether a human-invoked delegate tags `(user)`.
 
 ## Deferred acceptance ledger
 
@@ -1360,6 +1372,20 @@ delegate + lane); `spike:` ruled on every build (`none`, `none`, `S-4`); every `
 owner at ruling time. `binds:` rosters are laid as clerk reconstructions awaiting owner confirmation.
 Once the remaining slots are ruled: **`roadmap-roundtable`** ("convene the roundtable") — briefs follow
 the review, never precede it.
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing.
+
+---
+
+**Next lifecycle move (2026-09-16, ideation FILLED): `roadmap-roundtable` — "convene the roundtable".**
+Every slot in §Ideation rulings is ruled: cycle scope (all eight), three builds with `binds:`/`spike:`/
+`promise:` all filled, release shape (one release, conditional on `S-4` harvested before build 3 is
+briefed), `S-4` RUN (register written back), `S-3` carried again, no new spikes, Q1–Q21, D1–D8, E1–E8,
+and the brief-time parks. Two obligations sit outside the roundtable and are not gated by it:
+**run `S-4`** (one session, the register's timebox) before build 3's brief; and the owner's five owed
+candidate filings (E6). Briefs follow the roundtable, never precede it; build 1 and build 2 are
+briefable on the review's amendments alone.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing.

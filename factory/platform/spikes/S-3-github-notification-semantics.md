@@ -4,7 +4,7 @@ slug: 'github-notification-semantics'
 status: 'harvested'
 question: 'Does a repository watch actually notify a maintainer on comments to issues they have not participated in — and is there a filer-grantable "please look" mechanism, or is the permission model owner-only?'
 opened: '2026-08-24'
-opened_by: 'capture — Cycle 11 (A11-2, open question 1; the capture flagged it and deferred registration to P-2)'
+opened_by: 'capture — Cycle 11 (A11-2, open question 1; the capture flagged it and deferred registration to P-2); carried forward unconsumed by Cycle 16 ideation 2026-09-16 (sixth cycle; owner-ruled carry-again, no re-cut)'
 timebox: 'read the current GitHub notification/subscription documentation AND confirm against real repo behavior — a docs-only answer does not close this spike'
 verdict: 'reshape'
 sources:
