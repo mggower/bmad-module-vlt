@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASS 1 2026-09-16 (`acceptance-discharge`, upgrade evidence only) — ledger row 1 **SPLIT, unchecked**: checks (1) stub read, (2) census, (3) writer, (4) slot, (5)''s at-rest warm-safety half and the (F1) wearer watch all DISCHARGED (every at-rest instrument re-run independently this run); **STILL-OPEN: (5)''s E2 census recount**, awaiting the first post-upgrade full sweep on `{field-vault}`; one owner call outstanding under (3) (is a mismatch fix a *substantive edit* for `fix-and-file.md:7`/`:18`) — next: brief build 2; re-run `acceptance-discharge` when the sweep lands'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2)'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-16'
@@ -1504,7 +1504,7 @@ tagged ship-verifiable or field-contingent.)*
     both sides), stating the heading in prose at `:80`; the field index carries the long form at
     `resources/wiki/index.md:374`, so the first sweep has a `located: yes` to return. Failability on record
     (6/8 FAIL over `v0.18.0` bytes).
-  - **(2) Census — DISCHARGED 2026-09-16.** `fixtures/build-1-census-harness.mjs` re-run: **all expectations
+  - **(2) Census — ~~DISCHARGED~~ → REVERSED to FAILED in pass 2, same day (owner-ruled). Pass-1 note kept for the record:** `fixtures/build-1-census-harness.mjs` re-run: **all expectations
     hold** across all three phases — phase 1 oracle `57 entries across 23 of 29 pages` deep-equal; phase 2 A(a)–(j),
     B(a)–(c), C, D, E, F (disposition 3 refuses only the byte-gated case; `bareSources` absent degrades with the cap
     and never refuses; wrong-typed intake refused pre-dispatch by name at 0 agent invocations); phase 3 gate `ok`,
@@ -1523,7 +1523,7 @@ tagged ship-verifiable or field-contingent.)*
     `vlt-track/SKILL.md` + `vlt-upgrade/SKILL.md` (both the accepted-indefinitely clauses), template `write-gate`
     = 1. Reached the field: the vault's installed `capability-template.md:68`, `vlt-track:15`/`:38` and
     `vlt-upgrade:81` all carry the rename post-apply.
-  - **(5) Warm-release chance + E2 census — SPLIT.** *At-rest half DISCHARGED 2026-09-16:*
+  - **(5) Warm-release chance + E2 census — SPLIT in pass 1, FULLY DISCHARGED in pass 2 (E2 matched).** *At-rest half DISCHARGED 2026-09-16:*
     `build-4-return-harness.mjs --fingerprint` = `fe29c6f398d02c6b1cdf` on the 0.18.1 tree, equal to the value
     recorded on `v0.18.0`; `git diff v0.18.0 v0.18.1 --stat` over `frontmatter`/`wiki-supersession`/`write-verification`
     **empty**; and the vault's own upgrade record states it independently — *"the first full `vlt-lint` after this
@@ -1762,6 +1762,51 @@ earlier routing.
     as payload bulk, not its form. **Routes to the next `inbox-capture` via `issue-triage`; nothing in this
     cycle's ledger is re-graded on it.**
 
+  **Discharge pass 2 — 2026-09-16, evening (`acceptance-discharge`, the completed post-upgrade full sweep;
+  report `_agent/lint-reports/2026-09-16-1827-lint.yaml`, vault commit `23430dc`).** The sweep landed clean —
+  0 orphans, 0 missing targets, 0 index drift, 0 frontmatter drift, 0 review_due, 0 thin pages,
+  `scanner_return_rejected 0 of 152`, governance clean, all 10 conventions carrying `version:`+`consumers:`.
+  **Row 1 still does NOT tick — and now for a harder reason than pass 1:** its last open sub-clause closed,
+  and a discharged one reversed. **Net: (1)(3)(4)(5)(F1) DISCHARGED · (2) FAILED (gates).**
+  - **(5) E2 census — DISCHARGED 2026-09-16.** The recount **matched on three independent instruments**:
+    the persisted `bare_path_sources: "240 entries across 83 of 152 pages — sources: scalars unquoted and
+    ending .md (instrument: scripts/lint-page-facts.py --census)"`; the vault's `awk` pass over each
+    `{wiki}` page's frontmatter block (one-liner recorded verbatim in the filing relay and in the vault's
+    report); and the persist gate's own walk, `census {N: 240, P: 83, M: 152}`, `status ok`, 78 schema keys,
+    no extra keys. Exactly the A9 baseline. **(5) is now discharged whole** — its at-rest half held in pass 1,
+    its field half here.
+  - **(2) Census — REVERSED to FAILED 2026-09-16 (owner-ruled at pass 2).** Its property has three clauses;
+    clause 1 held twice over (above), clause 3 is not yet observable, and **clause 2 — *"no per-page finding
+    is raised for the form"* — was contradicted on the sweep's only target page.** `dutch-oven-braising`
+    satisfied the byte gate (`bareSources = 1`) and the verdict test (`unclassified`) and still landed in
+    `flag_for_human.malformed_frontmatter`, because build-1's **disposition 3** needs
+    `frontmatter_defect_fields == ['sources']` and the page's record — **served from cache, written
+    2026-09-03 by a pre-build-1 scanner** — carries `[]`. `frontmatter_defect_fields` is **not a `runKey`
+    term** (`vlt-lint-full.js:427`), so records written before the field existed survive the build that
+    began depending on it. **On any warm cache, disposition 3 is inert for exactly the pages it was built
+    to refuse.** It passes at rest forever — a fixture's scanner returns are fresh by construction — which
+    is the **Cycle 12 `b2(5)` lesson in a new place**, and the reason the grade is FAILED rather than a
+    separate defect filed around an intact check. **(2) is `[ship-verifiable]`, so this GATES cycle
+    closeout:** row 1 cannot tick, and Cycle 16 cannot close on it, until a fix ships and re-discharges.
+    Filed with a complete specimen manifest as
+    `factory/inbox/2026-09-16-185500-a-reduce-predicate-keyed-on-a-new-scanner-return-field-is-inert-on-every-cached-record.md`
+    (1/1 target named; 5/5 sidecar records with non-empty `frontmatter_defect_fields` named with values —
+    all five `missing_required`, so **disposition 3's live population in the sidecar is empty**; both
+    triggering fragments quoted). **The module named its own blind spot** — the report's `coverage_caps`
+    carries the whole diagnosis, so the defect arrived loud, not silent. The vault evicted
+    `dutch-oven-braising` (a one-page remedy, not a fix).
+  - **Cycle 15 build-2 (6)'s warm watch stays FAILED (owner-ruled).** The vault re-ran the sweep under a
+    hand-applied 16-char truncation and got the round trip the watch wanted — `files_cached 132 of 152`,
+    `cache_rejected 0`, `cache_miss_terms {page_bytes: 12, scan_surface: 0, ruleset: 0}`, all 12 genuine
+    churn, `coverage_caps` empty. **It does not discharge the watch:** the shipped surface still cannot
+    round-trip, and the workaround was a human hand applied outside it. Its value is as **evidence for
+    #20's fix** — the mechanism demonstrably works the moment the digest form is pinned. (Cycle 15 is
+    closed; its roadmap is not appended to either way.)
+  - **#20 updated** with this factory's grounding refinement (the instrument-licensing clause and the
+    `vlt-lint-full.js:420` site, appended to `provenance_guess`; nothing rewritten).
+  - **Two standing items are the vault's, not this ledger's:** the undisposed `researcher`/`brief`
+    `weight_mismatch`, and 8 `para_writer_unauthorized` under `areas/career/charter.md`.
+
 
 ---
 
@@ -1801,6 +1846,40 @@ it and `inbox-capture` routes it. **Do not re-grade check (5) on it** — the re
 In parallel, factory-side, unchanged by this run: **brief build 2** (`build-brief`, briefable on the roundtable
 amendments alone); build 3 waits on the **S-4 harvest**; run `S-4`; the four capture-don't-interrupt filings;
 the owner's six owed candidate filings (E6).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing. The chat report is a copy; this line is the obligation.
+
+---
+
+**Next lifecycle move (2026-09-16, `acceptance-discharge` pass 2): brief a build for the two cache-key
+defects — rail issue #20 and filing `2026-09-16-185500-…` — because check (2) is now a GATING FAIL and
+Cycle 16 cannot close until it re-discharges.** The post-upgrade full sweep landed clean
+(`_agent/lint-reports/2026-09-16-1827-lint.yaml`, vault commit `23430dc`) and closed row 1's last open
+sub-clause — **(5)'s E2 census recount MATCHED on three independent instruments**, `240 entries across 83 of
+152 pages`. But the same sweep reversed a discharged check. **Row 1 stands at (1)(3)(4)(5)(F1) DISCHARGED ·
+(2) FAILED, and stays unchecked.**
+
+1. **The gating fail — (2) Census, clause 2.** Build-1's disposition 3 is **inert on any cached scanner
+   record**: it needs `frontmatter_defect_fields == ['sources']`, and `frontmatter_defect_fields` is not a
+   `runKey` term (`vlt-lint-full.js:427`), so pre-build-1 records survive the build that began depending on
+   them. It passes at rest forever and does nothing in the field wherever cache reuse is highest. Filed with
+   a complete specimen manifest; routes to the next `inbox-capture`.
+2. **Its sibling — rail issue #20.** Same family (a term the key does not cover). **Sequence them together:
+   fixing #20 makes the disposition-3 defect *more* likely, not less** — warm sweeps are the point of the
+   cache, and the predicate is inert in proportion to cache reuse. This vault's current exposure is zero
+   only because #20's cold sweep re-derived every record; that is an accident resting on a bug.
+3. **Worth an owner call at capture:** whether the class — *a reduce predicate depending on a scanner-return
+   field is inert unless a cache-key term covers it or a migration runs* — earns a study-register entry
+   (`ST-N`). Two instances surfaced the same day.
+4. **Unchanged and still owed:** the owner call under (3) (is a mismatch fix a *substantive edit* for
+   `fix-and-file.md:7`/`:18`); **brief build 2** (`build-brief`, briefable on the roundtable amendments
+   alone); build 3 waits on the **S-4 harvest**; run `S-4`; the four capture-don't-interrupt filings; the
+   owner's six owed candidate filings (E6).
+5. **Not this ledger's:** Cycle 15 build-2 (6)'s warm watch stays FAILED (the 132/152 round trip ran under a
+   hand workaround, not the shipped surface — its value is evidence for #20's fix). The vault's own two
+   standing items — the undisposed `researcher`/`brief` `weight_mismatch` and 8 `para_writer_unauthorized`
+   under `areas/career/charter.md` — are the vault's.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing. The chat report is a copy; this line is the obligation.
