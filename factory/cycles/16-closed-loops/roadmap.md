@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4''s question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: brief build 3 — DONE. — **BUILD 3 BRIEFED 2026-09-17** (`briefs/build-3-carrier-and-tenants.md`; 18 F-sites, 13 brief-time dispositions, 8 acceptance checks appended to the ledger — 6 ship-verifiable GATE + 2 field-contingent, `specimens: 7/7`; five grounding corrections, one with scope consequences — `vlt-setup/SKILL.md:218`''s offer key would have kept the carrier out of every installed vault; `S-4` stamped **consumed**; promise does NOT narrow). Build 3 is the **release build**: v0.19.0 carries builds 2+3 whole (A10). next: **a fresh builder session implements the build-3 brief**'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4''s question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: brief build 3 — DONE. — **BUILD 3 BRIEFED 2026-09-17** (`briefs/build-3-carrier-and-tenants.md`; 18 F-sites, 13 brief-time dispositions, 8 acceptance checks appended to the ledger — 6 ship-verifiable GATE + 2 field-contingent, `specimens: 7/7`; five grounding corrections, one with scope consequences — `vlt-setup/SKILL.md:218`''s offer key would have kept the carrier out of every installed vault; `S-4` stamped **consumed**; promise does NOT narrow). Build 3 is the **release build**: v0.19.0 carries builds 2+3 whole (A10). next: **a fresh builder session implements the build-3 brief** — **BUILD 3 BUILT + v0.19.0 SHIPPED 2026-09-17** (`03e4686`, builds 2+3 whole; all 18 F-sites, package-lint A/B/C/E PASS, 15/15 at-rest verification) — **ACCEPTANCE PASS 3 2026-09-17** (`acceptance-discharge`, over the `vlt-core` 0.18.1 → 0.19.0 own-the-apply at `[2026-09-17 10:46]`, vault commit `7d3d7fd`). **Rows 2 and 3 do NOT tick.** Row 2 (build 2): (1)(2)(5)(6) DISCHARGED, (3) SPLIT, (4)(7)(8) STILL-OPEN. Row 3 (build 3): (1)(2)(3)(4)(5) DISCHARGED, (7)(8) STILL-OPEN, and **(6) Rung line FAILED — ship-verifiable, so it GATES closeout**: build 2 retired `cap:` → `cap_words:` at `frontmatter@15` and migrated only the three shipped seeds, so the `rung-lane-pointer` degrade path (`vlt-upgrade/SKILL.md:82`) reads a key **no installed vault carries** (9/10 live `reflexes.md` on `{field-vault}` carry the retired `cap: 30`, 0/10 carry `cap_words:`, 1/10 carries neither) and the recorded pass came from a hand substitution of both the key and its unit — the `ST-2`/Cycle 12 `b2(5)` family a third time. Filed with the complete 10-specimen manifest as `2026-09-17-113000-…`. **Cycle 16 will therefore close carrying TWO bound debts to Cycle 17** — build-1 (2) Census and build-3 (6) Rung line, both ship-verifiable, both gating; capture stays DEFERRED to Cycle 17 by owner ruling, so neither filing is folded. 0 filings archived this run. Soonest waitable tail: build-2 (3)''s `shasum` half, on the next partner sitting that writes an `identity.md` outside `## Charter`; build-2 (4) Cold can be discharged today by running and recording its never-run reader protocol. next: **re-run `acceptance-discharge` once a tail fires; `cycle-closeout` is blocked on the two gating FAILs**'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-17'
@@ -1711,6 +1711,97 @@ tagged ship-verifiable or field-contingent.)*
   are over the day the wire lands and only owner-run, invoked-only, approval-gated grooms bring them
   under. Build 2's ST-9 contribution is (7), watch not gate: the Researcher sits at 9,293 words, so Q8
   does not touch the ST-9 pressure at all.
+
+  **Discharge pass 3 — 2026-09-17 (`acceptance-discharge`, the `vlt-core` 0.18.1 → 0.19.0 upgrade at
+  `[2026-09-17 10:46]`; `_agent/upgrade-ledger.md` block, report `_agent/upgrade-reports/2026-09-17-1046-upgrade.yaml`,
+  vault commit `7d3d7fd`, source `03e4686` = the v0.19.0 release commit itself).** Own-the-apply: 7 mints
+  preserved, base divergence none, governance divergence none, `vault_writable_collisions: []`, manifest
+  72 → 75 with no path removed. **Item stays unchecked — split** (four sub-clauses open). **DISCHARGED:
+  (1), (2), (5), (6). SPLIT: (3). STILL-OPEN: (3)'s sitting half, (4), (7), (8).** Every at-rest
+  instrument was **re-run independently in this run**, not taken from the BUILT record.
+  - **(1) Budget — DISCHARGED 2026-09-17, both halves.** *Fixture half:* `build-2-vitals-fixture.py` +
+    shipped `vlt-vitals.py` re-run — `partners_over_activation_budget` **2** (over: `heavy-identity`
+    13,120 w, `heavy-skill` 13,262 w), `roster_partners` **6**, the `reflexes`-posture partner **not
+    counted** (5,104 w under on its declared set though its `full` set is over), the unresolvable-SKILL
+    partner rendered **`n/a`** and named in the notes (*"SKILL.md unresolvable (words n/a, not
+    counted): no-skill"* — the third state the adversary widened into), casebook bytes **in**
+    `partner_memory_bytes`, `--strip` **exactly one line**, and with `activation_budget_words:` removed
+    the wire **errors loudly** (*"requires an `activation_budget_words:` field … absent, the count is
+    underivable"*), `n/a` never `0`. Failable: on `v0.18.1`'s reader the same fixture yields `unknown
+    metric id partners_over_activation_budget` (ERROR), no `roster_partners`, no per-partner activation
+    words, and `partner_memory_bytes` 130,803 vs 160,871 (casebook excluded) — **4 ways**. *Field half:*
+    the installed hook on `{field-vault}` renders `⚠ activation-budget: 3 [of 9 partners on the roster;
+    bound 12,000 words; over: creative, football-analyst, librarian]` — **exactly the three the brief
+    predicted, and exactly six under**, which is half the check. Counts drifted upward from the
+    brief-time baseline (librarian 22,171 vs 22,144; football-analyst 20,263 vs 19,394; creative 16,068
+    vs 16,021) — ordinary partner growth plus the `charter-seed` insert; **membership is exact**.
+    ⚠ **Instrument note, stated not hidden:** the render was reproduced by executing the vault's own
+    installed `.claude/hooks/vlt-vitals.py`, which is what SessionStart runs — it was **not** scraped
+    from a session transcript, because no post-upgrade partner session has occurred (last sitting
+    09:59, upgrade 10:46). No subject substitution: the vault, the hook and the roster are the named ones.
+  - **(2) Demote — DISCHARGED 2026-09-17 (arithmetic re-derived here; gated-diff half rests on the
+    recorded protocol run).** *Re-derived in this run:* the same fixture built twice, narratives in
+    `## Self` vs narratives demoted to `casebook.md` — `activation_words` **6,212 → 1,208** (falls by
+    the 5,004 narrative words, absent from every Beat 1 read) while `partner_memory_bytes` **160,825 →
+    160,871** (does **not** fall — it rises by the casebook's 46 frontmatter bytes). That is A18's
+    property and the demote-as-delete falsifier, executed. *Stated, not re-proved:* the gated-diff
+    clauses (narratives proposed `demote` on the casebook-shape criterion, manner notes `keep`,
+    `casebook.md` created in the proposal, *"demote is not retire"*) rest on
+    `fixtures/build-2-groom-reader-protocol.md`'s two recorded runs (filled-charter 7/7, empty-charter
+    6/6) — a fresh-agent reader protocol is not re-runnable in a discharge run.
+  - **(3) Charter — SPLIT 2026-09-17.** *DISCHARGED:* the two groom-diff clauses, on the recorded
+    protocol runs' verbatim excerpts — the empty-charter header prints `charter empty — nothing to check
+    against` (stated, never silence) and the filled-charter run produces the off-charter proposal citing
+    the charter's own terms, with *"`## Charter` renders keep, always — the owner's section, untouchable
+    by any proposal."* Reached the field: `charter-seed` fired on **all 9** partners, so every installed
+    `identity.md` now carries the owner-held section the clause protects. *STILL-OPEN:* the
+    **`shasum` before/after** clause — gate-2 requires *a partner sitting that wrote elsewhere in the
+    same file*, and **no partner sitting has occurred since the upgrade** (last `{log}` session 09:59,
+    apply 10:46; all 9 `identity.md` mtimes are `10:50:46`, the charter insert alone). **Discharging
+    event:** the next ordinary partner sitting on `{field-vault}` that writes to that partner's
+    `identity.md` outside `## Charter`, with the section's hash equal before and after. **Trigger:** the
+    owner, in ordinary use — `football-analyst` sits most days, so this is near-term, not speculative.
+  - **(4) Cold — STILL-OPEN 2026-09-17.** *At-rest prose present and coherent, re-read this run:* the
+    contract's cold paragraph at `:281` (read set named, Beat 2 skipped, `## Self`/`## Bond`/`## Thread`
+    unread, sitting-end updates suspended, the hosted approval-gated groom carve-out, and **`cold` after
+    the `|`, never inside the partner paren**), its Beat-1-side twin at `:208`, and `sitting: cold` in
+    `frontmatter.md:162` with the statelessness pointer at `:204`. *But the check's named instrument —
+    a fresh-agent reader protocol over the shipped text plus `shasum` on the fixture — **has no recorded
+    run**; build 2's record names only the two `vlt-groom` protocol runs.* Prose presence is not the
+    property: the property is that a cold sitting leaves `identity.md`/`thread.md` byte-identical and
+    yields exactly one note a human can tell was cold. **Discharging event:** either the reader protocol
+    run and recorded (a factory act, like build 2's groom protocol), or the first cold summon on
+    `{field-vault}`. **Trigger:** the owner, for either. ⚠ **Pass-through watch, not yet fired:** this is
+    this check's *first* discharge run, so STILL-OPEN is legal — if a second run finds the instrument
+    still un-run, reachability is re-examined rather than re-annotated.
+  - **(5) `partner: none`, at rest — DISCHARGED 2026-09-17.** The paragraph sits at contract `:279`,
+    **directly after *Ending a sitting*** (`:277`), and names all five obligations — one session note
+    stamped `partner: none`, one `{log}` entry tagged `(none)`, **nothing** under `{partners}`, the wiki
+    still through the Librarian, and **no** `_agent/dispatch.md` open-slice read. The **negative** grep
+    for `@import` / `SessionStart` / `hook` / `CLAUDE.md` over the paragraph returns **only** the
+    mechanism-free closing sentence — *"What it **reads** is whatever the vault's `CLAUDE.md` loads."* —
+    which names no mechanism, exactly as A6 required. Build 3's carriage landed in the same release and
+    did **not** leak a mechanism into this paragraph.
+  - **(6) Handshake — DISCHARGED 2026-09-17.** `uv run tools/package-lint.py` re-run on the 0.19.0 tree:
+    **`PASS group E — self-description integrity`** (A/B/C also PASS, D skipped without
+    `--expect-version`), so every consumer acks `@15` and none `@14`, bipartite. And
+    `grep -rn "frontmatter@14" skills/ tools/ .claude-plugin/` = **0**, which is the half Group E cannot
+    catch — the three `vlt-lint-full.js` prompt literals the brief re-grounded are clean.
+  - **(7) Q14 Researcher pilot — STILL-OPEN 2026-09-17.** Zero of the five post-flip Researcher dives
+    have run: the newest `{log}` research line predates the flip, and the newest three sessions on the
+    vault are all `football-analyst` (09:59, 08:57, and 2026-09-16 17:00). **Discharging event:** five
+    completed Researcher dives on `{field-vault}` after the `memory: reflexes` commit, delegate runs
+    excluded, human-depth-matched against the recorded baseline **33 · 6 · 1 · 31 · 16**. **Trigger:**
+    the owner, in ordinary use. Watch, never gate.
+  - **(8) Under the bound — STILL-OPEN 2026-09-17.** The precondition now exists and did not before:
+    `charter-seed` gave all 9 partners an empty `## Charter`, so the owner can author one. Nothing
+    authored yet — the migration record is explicit that *"not a word [was] authored"*, and all three
+    over-budget partners are still over. **Discharging event:** the owner authors a `## Charter` for one
+    of `creative` / `football-analyst` / `librarian` and runs `vlt-groom <partner>` to completion,
+    accepting the identity-to-card migration; that partner's `activation_words` falls under 12,000 and
+    the denominated count drops **3 → 2**. **Trigger:** the owner. Explicitly not a gate and explicitly
+    not (1)'s claim (A16).
+
 - [ ] **build-3 (carrier-and-tenants, briefed 2026-09-17):** brief
   `factory/cycles/16-closed-loops/briefs/build-3-carrier-and-tenants.md`. **Eight checks — six
   `[ship-verifiable]` (GATE), two `[field-contingent]`.** `specimens: 7/7` — `S-4`'s six probe rows
@@ -1779,6 +1870,105 @@ tagged ship-verifiable or field-contingent.)*
   Event: the owner works a partnerless sitting in `{field-vault}` and writes its note; graded on exactly
   one note stamped `partner: none`, one `(none)` `{log}` entry, **zero** bytes under `{partners}`, no
   dispatch-slice read, and that the sitting opened with the card and rung in context. Unbounded; watch.
+
+  **Discharge pass 3 — 2026-09-17 (`acceptance-discharge`, the same 0.18.1 → 0.19.0 upgrade evidence as
+  build 2's block above).** **Item stays unchecked — one check FAILED and it GATES.** **DISCHARGED: (1),
+  (2), (3), (4), (5). FAILED: (6). STILL-OPEN: (7), (8).** Every at-rest instrument bar the carrier probe
+  was **re-run independently in this run**.
+  - **(1) Carrier — DISCHARGED 2026-09-17 (probe not re-run; field corroboration is this run's own).**
+    *Stated, not re-proved:* `fixtures/build-3-carrier-probe/probe.sh`'s five legs, recorded green at
+    build time on the runtime's **attachment record** — card and rung named **exactly once each** in a
+    headless `claude -p` session, an in-session summon and an Agent-tool subagent, both planted canaries
+    returned; and on a vault whose `CLAUDE.md` already referenced the contract and lacked the imports,
+    **neither** named (`UNKNOWN` twice) before the offer and **both, once each,** after — the second leg
+    the roundtable demanded, and the direct demonstration that F2's re-key is what reaches installed
+    vaults. *Re-verified in the field this run:* the owner was **offered and accepted** the two import
+    lines on `{field-vault}` (ledger, owner decision 1; decision-log entry `ref: CLAUDE.md`), they sit as
+    the last two lines of the vault's `CLAUDE.md` — `@_meta/vault-rule-card.md` and `@_agent/reflexes.md`
+    — everything else byte-for-byte, and **both targets exist** (`_meta/vault-rule-card.md` **7,596 B**,
+    byte-for-byte the size of the card this build re-derived, and `_agent/reflexes.md` 1,363 B). The
+    re-keyed offer fired on a vault that would have failed the old test — the exact path F2 exists for.
+  - **(2) Delegate — DISCHARGED 2026-09-17.** `build-3-delegate-harness.mjs` re-run end-to-end through
+    the shipped engine: **all expectations hold**. Five legs with per-leg spawn counts — thin →
+    `insufficient-context`, `deep` → `too-big` with **zero** spawns, real quick → `done` with **exactly
+    1**, forced-null over a pre-planted `.WIP.md` → `incomplete` carrying the `wipProbe {dir, newerThan,
+    pattern}` that mechanically resolves the planted file (whose first two body lines read
+    `delegated_by: creative` / `question: …`), unreadable op → `needs-human`, degraded, naming the
+    unreadable skill and inventing nothing. Both guards refuse **before any spawn** (`invocations=0` on
+    the enum refusal and on missing args). The adversary's widening holds: `fromSlug` is echoed for the
+    caller-tagged record (`creative`), the runner is **forbidden a session note** and **forbidden the
+    wiki**, and it carries no card/rung text of its own.
+  - **(3) Sibling — DISCHARGED 2026-09-17.** `git diff` of `conventions/consult.md` across build 3
+    (`cbeb7fd` → `HEAD`) is **3 insertions / 2 deletions**: a fourth neighbour bullet, the enumerative
+    clause `three neighbours` → `neighbours`, and one parenthetical pointing at the contract's full 2×2.
+    The class-definition sentence and the trigger-rule pointer are unmoved, and **`version: 1`** is
+    unmoved — delegate narrows no population, it fills an empty cell. `package-lint` **Group E PASS**
+    covers both consumers' `consult@1` acks. The grep-negative over `skills/vlt-dispatch/`, the
+    governance bundle and the workflows returns **no line naming delegate** (the 3 raw matches are the
+    pre-existing `references/consult.md:25`/`:87`/`:107`, per the build's deviation 4), and the
+    **positive control** — the planted `"delegate is a consult that does bounded work"` — **matches**, so
+    a silently-broken pattern list cannot pass as a clean one.
+  - **(4) Lane — DISCHARGED 2026-09-17.** Written as a **negative over the shipped surface** and clean:
+    no shipped sentence names `{research}` single-writer or routes a non-Researcher away. Contract `:263`
+    states it positively twice — *"`{research}` is not one either: its notes are dated snapshots, never
+    synthesized and never promoted … so it has no single writer to contend with"* and *"**Any partner may
+    run `vlt-research`, tagged as itself** — the Researcher's depth is a matter of its craft, not of a
+    lane it owns."* The rung seed line is present at `vlt-setup/SKILL.md:304` and is a **pointer**, not a
+    copy of `:229`. The Creative's remedy at `vlt-agent-creative/SKILL.md:37` has ***Researcher* absent**
+    (the word survives only at `:8` and `:39`, neither a remedy), ***Librarian* present**, ***surfaced to
+    the user* present**, and now offers the delegate route — A19 exactly. `build-3-web-census-harness.py`
+    re-run: **all expectations hold** — counts `{N:6, P:3, M:6}` and the per-file and unparsed sets
+    deep-equal the pre-written oracle, the rendered line matches, a missing directory **exits 2** (never
+    reads as zero), the persist gate **accepts** the instrument's line and **rejects an off-by-one by its
+    own reason** (*"web_cited_entries: rendered line does not match the recount"*) and rejects the key's
+    absence in full mode.
+  - **(5) Decay — DISCHARGED 2026-09-17, executed both ways.** A scratch `_agent/dispatch.md` carrying one
+    closed, dated `delegate:` block (`[2026-05-20]`, one `- [x]` row): the **shipped** `vlt-vitals.py`
+    reports `oldest_drainable_section_days` **120** and **`drain-due` TRIPPED** (120 > 45); the
+    **pre-build v0.18.1** reader reports **0** on the byte-identical fixture (it classifies the header as
+    `other`) — the A11 (i) failure mode, closed by executing the reader rather than asserting the list.
+    Four sites agree by grep: `vlt-decay/references/drain.md:9`, `vlt-dispatch/references/delegate.md:84`,
+    `vlt-vitals.py:237` (description) with its predicate at `:686`, and the contract's *Decay contracts*
+    row `:330`.
+  - **(6) Rung line reaches an installed vault — ⚠ FAILED 2026-09-17. `[ship-verifiable]`, so it GATES
+    closeout.** Two of four clauses pass, one is untested, and **one is contradicted**. *Passing:* the
+    exact line was inserted **once** into `_agent/reflexes.md` (3 → 4 lines, nothing rewritten or
+    reordered) and `migrations_run` carries **`rung-lane-pointer`**. *Untested:* **a second run inserts
+    nothing** — the adversary's widening, and no second upgrade run has occurred; non-idempotency only
+    appears there. *Contradicted — **under `cap_words:`** and the at-cap degrade path:* the shipped
+    migration (`vlt-upgrade/SKILL.md:82`) reads the cap from **`cap_words:` in the rung's own
+    frontmatter**, and **no installed `reflexes.md` carries that key**. Build 2 retired `cap:` →
+    `cap_words:` at `frontmatter@15` (D-10) and migrated the **three shipped seeds** (its own deviation
+    1) but shipped **no vault-side migration**, and `@15` gives `cap:` no legal-until-groomed clause the
+    way A8 gave one to `partner:`. On `{field-vault}`, **9 of 10** `reflexes.md` carry the retired
+    `cap: 30`, **0 of 10** carry `cap_words:`, and **1 of 10** (`career-strategist`) carries neither. The
+    upgrade operator resolved the check by reading the **retired key** and counting **lines** — the
+    ledger records it verbatim: *"which stood at 3 lines against its `cap: 30`, so the class's
+    degrade-to-offer path was not live"* — but `cap_words: 900` is a **word** cap and `cap: 30` was a
+    **line** cap, so the recorded pass came from a hand substitution of both the key and its unit, not
+    from the shipped surface. That is **this roadmap's own Cycle 15 build-2 (6) precedent**, graded the
+    same way. Worse than cosmetic: keyed to an absent key the at-cap branch derives *"no cap declared"*
+    forever, so *"a human-gated offer + a recorded skip, never edit-one-out"* **cannot fire on any
+    installed vault** — the `ST-2`/`b2(5)` family again, a rule whose enforcement point does not exist
+    where the rule applies. Module-side corroboration is complete: `grep -rn "^cap: " skills/` = **0**
+    (seeds migrated) and `cap_words` appears in `vlt-upgrade`/`vlt-groom`/`vlt-lint` in **exactly one
+    line** — the degrade sentence itself. No migration, no lint class, no groom step renames it.
+    **FILED with the complete 10-specimen manifest and the live rung's frontmatter as the minimal
+    triggering fragment:**
+    `factory/inbox/2026-09-17-113000-a-retired-frontmatter-key-left-no-migration-so-the-rung-cap-has-no-enforcement-point.md`.
+  - **(7) First live delegate — STILL-OPEN 2026-09-17.** No `delegate:` block exists in `{field-vault}`
+    — the mechanism is minutes old and no partner sitting has run since the apply. **Discharging
+    event:** the first `delegate:` block written by a **non-Researcher** partner in an ordinary sitting,
+    graded on block shape, both `{log}` lines caller-tagged, the note attested, the caller's single
+    session note, and D7's outcome — the dive returned **inside one sitting**. **Trigger:** the owner, in
+    ordinary use; `creative`'s `:37` cue is now the shipped invitation. Carries the E7 watch in its
+    weakest honest form. Unbounded; watch, never gate.
+  - **(8) First partnerless note — STILL-OPEN 2026-09-17.** The carriage landed (check (1)) and the
+    posture is stated (build 2's (5)), so both halves of the rule now exist in the field; no partnerless
+    sitting has been worked since. **Discharging event:** the owner works a partnerless sitting in
+    `{field-vault}` and writes its note — exactly one note stamped `partner: none`, one `(none)` `{log}`
+    entry, **zero** bytes under `{partners}`, no dispatch-slice read, and the sitting opened with the card
+    and rung in context. **Trigger:** the owner. Unbounded; watch.
 ---
 
 <details>
@@ -2237,7 +2427,7 @@ as the single **v0.19.0**; nothing releases until build 3 is built.
 *(This block was the routing of record until the build-3 brief; the stamp below supersedes it.)*
 
 
-## Next lifecycle move (2026-09-17, `build-brief` — build 3 BRIEFED) — authoritative
+## Next lifecycle move (2026-09-17, `build-brief` — build 3 BRIEFED) — superseded by the stamp at the foot
 
 **A fresh builder session implements `factory/cycles/16-closed-loops/briefs/build-3-carrier-and-tenants.md`
 via `bmad-workflow-builder`.** The brief's `status:` line states the builder's exit obligations: rewrite
@@ -2272,6 +2462,51 @@ collation of build 2's notice text (A17). Ideation is not re-opened.
   *research notes persist no `depth:` field*); the owner's owed candidate filings (E6, incl. the
   partially-shipped-cycle capture-boundary gap); **capture stays DEFERRED to Cycle 17** by owner
   ruling. Build-1 check **(2) stays FAILED and still GATES closeout**, bound to Cycle 17.
+
+*(This block was the routing of record until acceptance pass 3; the stamp below supersedes it.)*
+
+
+## Next lifecycle move (2026-09-17, `acceptance-discharge` pass 3 — v0.19.0 acceptance) — authoritative
+
+**Rows 2 and 3 do NOT tick. Cycle 16 now carries TWO bound debts into Cycle 17, and neither can be
+waited out — both need a build.** The soonest *waitable* tail is near-term, so the route has two legs
+that run in parallel.
+
+- **Leg 1 — the gating debts, both `[ship-verifiable]`, both bound to Cycle 17's capture.**
+  **build-1 (2) Census** (FAILED 2026-09-16, `2026-09-16-185500`) and **build-3 (6) Rung line**
+  (FAILED this run, `2026-09-17-113000`). They are the same family and the third instance of it in
+  this factory's record — `ST-2`/Cycle 12 `b2(5)`: a rule shipped whose enforcement point does not
+  exist where the rule applies. Capture stays **DEFERRED to Cycle 17** by owner ruling, so neither
+  filing is folded now; both route into Cycle 17's `inbox-capture` alongside rail issue **#20**.
+- **Leg 2 — re-run `acceptance-discharge` once the soonest waitable tail has fired.** Four tails wait
+  on the owner's ordinary use of `{field-vault}`, none on a clock:
+  - **build-2 (3)'s `shasum` half** — the next partner sitting that writes to an `identity.md` outside
+    `## Charter`. **Soonest by far** (`football-analyst` sits most days). This one alone turns row 2's
+    (3) from SPLIT to DISCHARGED.
+  - **build-3 (7)** — the first `delegate:` block by a non-Researcher partner.
+  - **build-3 (8)** — the first partnerless sitting that writes its note.
+  - **build-2 (8)** — a `## Charter` authored for `creative`/`football-analyst`/`librarian` + a
+    completed `vlt-groom`, dropping the denominated count 3 → 2.
+  - **build-2 (7)** — five post-flip Researcher dives (the slowest; watch, never gate).
+- **Leg 3 — one factory act the owner can do without waiting on the vault at all.** **build-2 (4)
+  Cold** is STILL-OPEN only because its named instrument — a fresh-agent reader protocol over the
+  shipped cold text plus `shasum` on a fixture — **was never run**; build 2 recorded only the two
+  `vlt-groom` protocol runs. Running and recording it (the shape of
+  `fixtures/build-2-groom-reader-protocol.md`) discharges it today. ⚠ If a second discharge run finds
+  it still un-run, the rubric's pass-through tripwire applies and reachability is re-examined rather
+  than re-annotated.
+- **Not closeout.** `cycle-closeout` cannot run: two gating FAILs stand, and eight further checks are
+  open across the two rows. Nothing is released as a watch and nothing is early-archived here — that
+  is the owner's call at closeout, not this run's.
+- **Unchanged and still owed:** the owner call under build-1 check (3) (is a mismatch fix a
+  *substantive edit* for `fix-and-file.md:7`/`:18`); the five capture-don't-interrupt filings; the
+  owner's owed candidate filings (E6, incl. the partially-shipped-cycle capture-boundary gap); and the
+  **second consecutive release** paying the stores-integration 3-way merge — the vault's ledger names
+  its durable host (upstream, `vlt-feedback` kind `candidate`) and the filing is **still OWED**, now a
+  pattern rather than an incident. The live `parked-interim` (`full-scale.md`, `pageHashes` digest form
+  unpinned) is re-derived and **unmoved** — `full-scale.md` did move in v0.19.0, but only to add the
+  `--web-census` call; step 1 still names `pageHashes` with no pinned form while step 2 pins *"the
+  first 16 hex characters, lowercase"* for `convention_digests`. Blocker unchanged, park stays live.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and nothing follows it. The chat report is a copy; this line is the obligation.
