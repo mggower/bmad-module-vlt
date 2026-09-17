@@ -696,6 +696,40 @@ live non-negotiable is not its write-gate).
 
 ---
 
+### Grounding corrections — build-2 brief (2026-09-17)
+
+Appended by `build-brief` at build-2 brief time (second grounding, per `grounding-at-brief-time.md`).
+Module source moved between the 2026-09-16 ideation/roundtable and today — build 1 shipped v0.18.1 in
+between. The capture bodies above are append-only and are **not** rewritten; these notes supersede the
+stale line refs they name. None of them contradicts a ruling; the brief carries each inline.
+
+- **`vlt-lint-full.js:297/:299` → `:321`/`:323` (and a third literal at `:946`).** D1 and roundtable
+  A10 cite the pre-build-1 line numbers for the `frontmatter@14` literals inside the scanner prompt.
+  Build 1's v0.18.1 moved them. **Superseded** — the build-2 brief's F2 re-acks three literals at the
+  fresh lines. A10's *conclusion* is unaffected: the re-ack still moves `scanFingerprint`.
+- **Contract `:154`/`:159` → `:155`/`:156`.** Roundtable A8's cites for the `{log}` `<type>` set and
+  the paren-omit clause. **Superseded**; F6 edits `:156`.
+- **Contract `:312` → `:316`.** The A18 count-word sweep list's cite for the partner-memory decay row.
+  **Superseded**; A11's separate `:314` cite (the dispatch row's `consult:` retention) HOLDS.
+- **`vlt-consult.js:141` → `:143`** (the lite boot's one write exception). **Superseded**; F16 cites
+  the fresh line. `:136`/`:138` HOLD.
+- **`vlt-setup/SKILL.md:215` → `:217`** (the *user's file, additive heading-scoped edits only* rule,
+  A16-3's capture). **Superseded**; informational for build 2, live for build 3.
+- **`partner-agent-template.md:111` → `:112`** for the `## Self` seed instruction (`:111` is the
+  heading). **Superseded**; F13 deletes `:112`'s clause per dispute D-11.
+- **D9 and R1 name the wrong `vlt-upgrade` steps.** D9 sites the additive-write class in *"Step 5"*
+  and R1 homes its rule in the *"Step-4/Step-5 durability posture"*. Current source: **Step 5
+  (`:136`) is the standing divergence ledger**; the migration list is **Step 3 item 5** (`:77-84` —
+  D9's own `:79-84` cite points correctly into it) and *"never auto-rewrite a partner's body"* is
+  **Step 3 item 4** (`:72`). **Superseded on the step numbers only — the substance stands**, and the
+  brief's F15 lands both in Step 3. No re-ruling is owed.
+- **Grounding additions (sites the A18 sweep list missed):** `groom-pass.md:9` (*"any of the three
+  memory files"*) and `vlt-setup/SKILL.md:225` (*"create the three memory files if absent"*) are in
+  scope for the count-word sweep. `vlt-groom/SKILL.md:4` carries **no count word** and needs no edit —
+  the roadmap's list named it.
+
+---
+
 ## Routed away from this cycle — the platform fork
 
 **No filing was marked `channel: platform`, and none is factory-side by re-derivation.** All five name
@@ -1546,6 +1580,104 @@ tagged ship-verifiable or field-contingent.)*
     `vlt-track` loop has yet run against a renamed profile — nothing parses the key by design, so the rename act
     is the exercise the check named, and the parse proper rides the next loop session.
 
+
+- [ ] **build-2 (partner-memory-schema, briefed 2026-09-17):** brief
+  `factory/cycles/16-closed-loops/briefs/build-2-partner-memory-schema.md`. **Eight checks — six
+  `[ship-verifiable]` (GATE), two `[field-contingent]`.** `specimens: 13/15` (A16-4 11 observed — the
+  9-partner Beat 1 word table re-measured 2026-09-16 and carried as Q8's basis, the Researcher reflex
+  specimen as the `cap_words:` calibration, and the football-analyst triggering fragment preserved **as
+  shape, not bytes** — its live `## Self` is a real person's vault prose and cannot ship into
+  `fixtures/`, so the §Verification-6 fixture reconstructs four dated `###` narratives rather than
+  freezing them, and the brief says so; A16-3 2/2 — the two anomalous `partner:` values become the
+  `@15` bump's legal-until-groomed clause; A16-5 0/2 — its two quoted `identity.md` fragments are the
+  same unshippable class and no check rests on them, E5 ACCEPTED). **R1 SUBSTANTIVE, two instances** —
+  (a) the `partner: none` paragraph is a rule whose carriage is build 3's, so it is written **owes-only
+  and mechanism-free about reads** (A6), and under A10's no-split release the window never reaches a
+  vault; (b) the charter guard ships `enforcement_stage: declared` with the full deferral triple
+  (metric: observed partner edits to a `## Charter`; threshold 2; `review_after: 2027-03-17`), the
+  render surface being keep-only in every groom diff (dispute D-4). **Retirement SUBSTANTIVE** —
+  `frontmatter.md:167`'s omit clause, contract `:156`'s twin and `vlt-ingest:24`'s third all narrow to
+  headless ops outside any sitting; the reflex cap's deferred-bell posture (`frontmatter.md:230`) and
+  its fired line-form falsifier half are superseded by the Beat 1 wire; `cap: 30` → `cap_words:`
+  (D-10); contract `:244`'s *"until the groom op exists"* dead since v0.11.0; `:217`'s *"writes this
+  freely"* narrowed to below the charter; `:246`'s *"reversible"* gains `--reset`; the mint-time
+  `## Self` seed retired (D-11); the "three files"/"three verbs" enumerations → pointers.
+  **Deliberate non-retirements:** `partner_memory_bytes` sits beside the new metric (Q9), and the
+  field's `partner: user` / `partner: vlt-mint` values stay legal-until-groomed (A8). **R4** — the new
+  `casebook.md` widens `partner_memory_bytes`' filename tuple and description, the contract's *Decay
+  contracts* table, and `frontmatter.md`'s partner-memory section; **declared exclusions:** it is
+  outside `activation_words` (never wake-read) and takes no wire. **R3** — the one new finding class is
+  the `activation-budget` trip, whose legal response homes in `surface_text` with its order (charter,
+  then groom; identity-heavy → groom, SKILL-heavy → rebirth). **R2 n/a** (no new `package-lint`
+  check). **This build is NOT the release** — builds 2+3 ship as one v0.19.0, held whole until `S-4`
+  harvests (A10). **(1) `[ship-verifiable]` Budget** — property: per partner the reported number equals
+  the word count of exactly the files that partner's next activation reads under its declared posture,
+  every partner over the bound is named by slug on the surface the owner sees at next session start
+  with the act that answers it, and none under is. First post-upgrade SessionStart on `{field-vault}`:
+  `activation-budget` tripped, denominated, detail naming exactly the partners over 12,000 — expected
+  **librarian / football-analyst / creative** (22,144 / 19,394 / 16,021) and **the other six expected
+  under, which is half the check**. Instrument: a six-partner temp-vault fixture with a hand-written
+  oracle (over on identity mass, over on SKILL mass, under, a `reflexes` partner whose `full` total is
+  over, one missing `reflexes.md`, one with a `casebook.md`), proven failable against v0.18.1.
+  Adversary answered: the fleet-aggregate-under state is unreachable because the wire binds a
+  denominated count, not a total (A1); the `reflexes`-counted-full state is the fixture's fourth
+  partner; a **third** state was found and **widened**, not accepted — an unresolvable `SKILL.md`
+  derives `None` and reads *not tripped*, i.e. a missing file looks like a partner under budget, so the
+  derivation names it in `notes[]` and the display prints `n/a`. **(2) `[ship-verifiable]` Demote** —
+  property: after an approved demote the material sits exactly one rung below Beat 1, absent from every
+  Beat 1 read, reachable at its new home and via `archive:`, and the words across all memory files did
+  **not** fall. `casebook.md` holds the narratives, `## Self` does not, `activation_words` falls,
+  `partner_memory_bytes` does not (A18). Instrument: the §Verification-6 reader protocol + the fixture
+  re-derived before/after. Adversary answered: demote-as-delete passes "absent" and "words fell" — the
+  words-did-not-fall and `archive:`-reachability clauses exist for it; wiki-by-Librarian-hand-off is a
+  legal second destination and is accepted. **(3) `[ship-verifiable]` Charter** — property: an
+  owner-held section is byte-identical after any partner sitting that wrote **elsewhere in the same
+  file**; an empty charter proposes nothing and says so. `shasum` before/after equal; the groom diff
+  prints *charter empty — nothing to check against*; a filled charter proposes off-charter demotions.
+  Adversary answered: a sitting writing nothing at all would pass vacuously, which is why the property
+  requires a sitting that wrote elsewhere (gate-2, applied at brief time). **(4) `[ship-verifiable]`
+  Cold** — property: a `sitting: cold` leaves `identity.md` and `thread.md` byte-identical, yields
+  exactly one note, and a human reading the log alone can tell it was cold (paren holds only the slug;
+  `cold` after the `|`). Instrument: an agent reader protocol over the shipped contract text plus
+  `shasum` on the fixture. Adversary answered: a cold sitting hosting an approved groom legitimately
+  writes `identity.md` and would fail byte-identity though no *drift* occurred — **widened**: the
+  byte-identity clause is scoped to a cold sitting with no approved groom, and a second clause requires
+  every `identity.md` change to trace to an approved line in that groom's diff with `groomed:` moved.
+  **(5) `[ship-verifiable]` `partner: none`, at rest** — property: the contract states what the sitting
+  **owes** and states nothing about what it **reads**. At-rest prose grep only (A6 — build 2 ships no
+  actor that reads the rule; the first-partnerless-note check is entered on **build 3's** ledger): the
+  paragraph sits directly after *Ending a sitting*, names all five obligations, and a **negative** grep
+  for `@import` / `SessionStart` / `hook` / `CLAUDE.md` returns only the mechanism-free sentence.
+  Adversary answered: a paragraph naming all five **and** a mechanism passes a presence-only check
+  while breaking build 3's additive landing — hence the negative grep. **(6) `[ship-verifiable]`
+  Handshake** — property: every consumer acks `@15`, none `@14`, and no prose still cites `@14`.
+  `package-lint` Group E clean on the A/B/C/E run **and** `grep -rn "frontmatter@14"` over
+  `skills/ tools/ .claude-plugin/` = 0. Adversary answered: Group E passes while three prompt literals
+  inside `vlt-lint-full.js` still read `@14` — it checks acks, not prose; not hypothetical, since those
+  literals moved `:297/:299` → `:321/:323` under build 1 unnoticed until this brief re-ground them.
+  **(7) `[field-contingent]` Q14 Researcher pilot** — event: **five completed Researcher dives on
+  `{field-vault}` after the flip** (the commit setting `memory: reflexes` in the Researcher's
+  `identity.md`); performed by the owner in ordinary use; `{field-vault}` only (no other vault has a
+  Researcher history). Measure: distinct external source domains per dive from each note's `sources:`,
+  vault-internal entries excluded, **delegate runs excluded** (build 3, same release). **Baseline
+  derived at brief time per A14 (ii)** — the five most recent dives, counts and dates only:
+  **33 · 6 · 1 · 31 · 16** (`sources:` entries 57 · 13 · 5 · 42 · 28; dates 2026-09-09 ×3, 2026-09-14
+  ×2), median 16, mean 17.4, range 1–33, derived from the 46 `research (researcher)` `{log}` lines
+  across the live log and its `{archive}` mirror. One derivation correction on record: the fifth-newest
+  such line is a *correction* entry with no note and is excluded. ⚠ **The depth-match A14 (ii) asks for
+  is not derivable** — research notes persist no `depth:` field (`vlt-research/SKILL.md:27` is an
+  in-flight choice nothing writes down); `sources:` entry count is recorded as the stated stand-in and
+  is weak (correlated with domain count by construction). Given the 1–33 spread, **a before/after
+  comparison on the mean is not a result this pilot can honestly claim** — the protocol is that a human
+  depth-matches by reading the questions and grades matched pairs only. Watch, never gate; a null
+  result relocates the cause to `vlt-research`'s search discipline. **(8) `[field-contingent]` Under
+  the bound** — event: the owner authors a `## Charter` for an over-budget partner and runs
+  `vlt-groom <partner>` to completion, accepting the identity-to-card migration; performed by the
+  owner on `{field-vault}`; that partner's `activation_words` falls below 12,000 and the denominated
+  count drops by one. **Explicitly not a gate and explicitly not (1)'s claim** (A16) — three partners
+  are over the day the wire lands and only owner-run, invoked-only, approval-gated grooms bring them
+  under. Build 2's ST-9 contribution is (7), watch not gate: the Researcher sits at 9,293 words, so Q8
+  does not touch the ST-9 pressure at all.
 ---
 
 <details>
@@ -1921,6 +2053,49 @@ Both sit un-captured in `factory/inbox/`.
   `fix-and-file.md:7`/`:18`); **brief build 2**; build 3 waits on the **S-4 harvest**; run `S-4`; the four
   capture-don't-interrupt filings; the owner's owed candidate filings (E6, now including the boundary gap
   above).
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing. The chat report is a copy; this line is the obligation.
+
+---
+
+**Next lifecycle move (2026-09-17, `build-brief` — build 2 BRIEFED): a fresh builder session
+implements `factory/cycles/16-closed-loops/briefs/build-2-partner-memory-schema.md` via
+`bmad-workflow-builder`.** The brief's `status:` line states the builder's exit obligations: rewrite
+`status:` to a BUILT record with numbered deliberate deviations, delete any `.decision-log.md` left on
+disk, **one commit for the build**, on `cycle16-v0.19.0`. Ideation is not re-opened.
+
+- **What landed this run.** Build 2's brief — 17 F-sites, 8 brief-time dispositions, Registration (the
+  ten-consumer `frontmatter@14` → `@15` walk + the `module-help.csv` `vlt-groom` row + package-lint
+  C6's rule-card re-derive), 13 at-rest verification items, the §8 CHANGELOG notice text (A17), and 8
+  acceptance checks **appended to the Deferred acceptance ledger above** (6 ship-verifiable GATE, 2
+  field-contingent; `specimens: 13/15`).
+- **Readiness gate passed on all five clauses:** ideation ruled build 2 (rounds 1 and 4); the
+  roundtable covers the batch with **no OPEN disputes**; `promise:` is filled (and is carried verbatim
+  into the brief's `title:`); `spike: none` — ruled with the cut, so nothing waits on `S-4` here; E4
+  DISCHARGED and E5 ACCEPTED-not-blocking.
+- **Seven grounding corrections issued**, each recorded twice (inline in the brief, and as superseding
+  notes in §*Grounding corrections — build-2 brief* above): the `vlt-lint-full.js` `@14` literals moved
+  `:297/:299` → `:321/:323` (+ a third at `:946`) under build 1; contract `:154`/`:159` → `:155`/`:156`;
+  contract `:312` → `:316`; `vlt-consult.js:141` → `:143`; `vlt-setup:215` → `:217`;
+  `partner-agent-template.md:111` → `:112`; and **D9/R1 name the wrong `vlt-upgrade` steps** — the
+  additive-write class belongs in **Step 3 item 5** (the migration list) and R1's rule in **Step 3
+  item 4**, not Steps 4/5. **Step numbers only; no ruling is contradicted and no re-ruling is owed.**
+  Two grounding **additions** widen the A18 count-word sweep (`groom-pass.md:9`,
+  `vlt-setup/SKILL.md:225`).
+- **A14 (ii)'s brief-time obligation is discharged:** the Q14 pilot baseline is derived (five dives —
+  **33 · 6 · 1 · 31 · 16** distinct external source domains; median 16, range 1–33) and recorded in the
+  ledger row, counts and dates only. ⚠ It surfaced a gap the plan assumed away: **research notes
+  persist no `depth:` field**, so the depth-matching A14 (ii) asks for is not derivable from the record.
+  The brief states the stand-in, states that it is weak, and rules the pilot ungradeable on a mean —
+  matched pairs only, by a human. *That research notes record no depth is a candidate filing the owner
+  has not written.*
+- **Unchanged and still owed:** the owner call under build-1 check (3) (is a mismatch fix a
+  *substantive edit* for `fix-and-file.md:7`/`:18`); **build 3 waits on the `S-4` harvest** — run
+  `S-4`; the four capture-don't-interrupt filings (now five — add *research notes persist no `depth:`
+  field*, surfaced above); the owner's owed candidate filings (E6, including the
+  partially-shipped-cycle capture-boundary gap). Build-1 check **(2) stays FAILED and still GATES
+  closeout**, bound to Cycle 17.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing. The chat report is a copy; this line is the obligation.
