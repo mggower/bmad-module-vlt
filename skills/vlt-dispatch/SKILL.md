@@ -1,21 +1,22 @@
 ---
 name: vlt-dispatch
 depends_on: ["consult@1", "spec@2", "frontmatter@15"]
-description: The vault's partner communication bus — one routing record with a drain, four modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner pointer (a handoff doc, or a doc-less ask/answer/deliver); `consult` asks another partner a question synchronously and returns its attributed answer now; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', when a partner hands off a doc to another partner, or when a partner needs another partner's domain to finish its current move. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
+description: The vault's partner communication bus — one routing record with a drain, five modes. `daily` scans the human capture stream (daily/) and routes each fragment to the domain partner it serves; `relay` appends a pre-addressed partner→partner pointer (a handoff doc, or a doc-less ask/answer/deliver); `consult` asks another partner a question synchronously and returns its attributed answer now; `delegate` hands bounded work to a partnerless runner and returns its typed result now; `ledger` is a read-only open-items board. Use when the user says 'dispatch my daily notes', 'triage today's memos', 'route my captures', 'what's still open across the team', when a partner hands off a doc to another partner, when a partner needs another partner's domain to finish its current move, or when it needs a bounded, findable-later artifact to finish it. A bare call lists the modes and asks which to run. Writes open, checkable pointers each partner drains; reads daily/ only in `daily` mode; never edits a daily note; never auto-ingests into the wiki.
 ---
 
 # vlt-dispatch
 
 ## Overview
 
-vlt-dispatch is the **vault's partner communication bus** — the one place a message gets a checkable home and reaches the partner it's for. It is **one record with a drain** (`_agent/dispatch.md`) read through **four modes**:
+vlt-dispatch is the **vault's partner communication bus** — the one place a message gets a checkable home and reaches the partner it's for. It is **one record with a drain** (`_agent/dispatch.md`) read through **five modes**:
 
 - **`daily`** — scan the human capture stream (`daily/`), *segment + classify + route* each fragment to the domain partner whose lane it serves. The hard part is *finding* the destination. *(This is the original "daily-note router," now named.)*
 - **`relay`** — a partner hands over a *pre-addressed* pointer to another partner (a durable handoff doc is waiting — or a doc-less `ask`/`answer`/`deliver`; the shape facet, `references/relay.md`). The destination arrives **known**, so classification is skipped — dispatch just appends the pointer with keyed idempotency (see the mode reference).
 - **`consult`** — a partner asks another partner a question **synchronously**, mid-turn, and gets that partner's own attributed answer back **now**. Nothing transfers: the caller keeps the wheel. *(A consult is a `relay` whose drain happens immediately, in-process, with the answer returned to the caller instead of left on the board.)*
+- **`delegate`** — a partner hands **bounded** work to a **partnerless runner** and gets a typed result back **now**. The work moves; the wheel does not. v1 tenant: `vlt-research`.
 - **`ledger`** — read-only: grep the whole record for still-open items, grouped by partner, across both human and relay traffic. The standing signal of what's waiting.
 
-All four modes are **the same machine**: every mode emits the **identical pointer line** (`- [ ] \`slug\` Partner — gist → [[link]]`) into the **identical record**, drained by the **identical grep-and-check loop** (The pickup loop, below). The drain is **source-agnostic** — it does not care whether a pointer came from a daily note or another partner. That is the whole design: one drain, many intakes. *(`consult` emits the same line into the same record, but writes it already **checked** — it never waited, so there is nothing to drain. It is traffic, not a queue item.)*
+All five modes are **the same machine**: every mode emits the **identical pointer line** (`- [ ] \`slug\` Partner — gist → [[link]]`) into the **identical record**, drained by the **identical grep-and-check loop** (The pickup loop, below). The drain is **source-agnostic** — it does not care whether a pointer came from a daily note or another partner. That is the whole design: one drain, many intakes. *(`consult` and `delegate` emit the same line into the same record, but write it already **checked** — it never waited, so there is nothing to drain. It is traffic, not a queue item.)*
 
 It is a **surface-and-point** bus, never an ingest: it writes only the routing record in the agent zone, **never edits a daily note**, and **never promotes anything into the wiki** — graduation stays the human's and the receiving partner's deliberate call. The Librarian owns it (it is vault-routing, the same family as ingest and lint). It does **no web access**.
 
@@ -59,18 +60,19 @@ Daily memos are personal human capture, not curated sources — so scan a fragme
 
 Resolve the mode **first**, before any other work:
 
-- **An explicit subcommand** names the mode: `daily` / `relay` / `consult` / `ledger` (e.g. `/vlt-dispatch daily`, `/vlt-dispatch relay …`, `/vlt-dispatch consult …`, `/vlt-dispatch ledger`). A partner firing a handoff calls `relay` with its arguments; a partner needing another's domain mid-turn calls `consult` with its own. Natural-language requests resolve the same way — "dispatch my daily notes" / "route my captures" → `daily`; "what's still open" / "show the board" → `ledger`; a partner-supplied `(to-slug, gist, handoff-path)` → `relay` (plus `shape`/`ref` where the payload is an ask, answer, or delivery, plus `to-principal` where a routing profile declares a roster); a partner-supplied `(to-slug, question, groundIn, why)` → `consult`.
+- **An explicit subcommand** names the mode: `daily` / `relay` / `consult` / `delegate` / `ledger` (e.g. `/vlt-dispatch daily`, `/vlt-dispatch relay …`, `/vlt-dispatch consult …`, `/vlt-dispatch ledger`). A partner firing a handoff calls `relay` with its arguments; a partner needing another's domain mid-turn calls `consult` with its own. Natural-language requests resolve the same way — "dispatch my daily notes" / "route my captures" → `daily`; "what's still open" / "show the board" → `ledger`; a partner-supplied `(to-slug, gist, handoff-path)` → `relay` (plus `shape`/`ref` where the payload is an ask, answer, or delivery, plus `to-principal` where a routing profile declares a roster); a partner-supplied `(to-slug, question, groundIn, why)` → `consult`; `(op, question, depth, groundIn, why)` → `delegate`.
 - **A bare invocation** (`/vlt-dispatch` with no mode and no relay payload) does **not** silently default to `daily`. List the available modes and ask which to run:
 
   > vlt-dispatch is the partner communication bus. Which mode?
   > - **daily** — scan your daily notes and route them to the team.
   > - **relay** — append a partner→partner handoff pointer *(usually fired automatically by a partner; runnable here for debugging)*.
   > - **consult** — ask another partner a question and get an attributed answer back now *(usually fired by a partner mid-turn)*.
+  > - **delegate** — hand bounded work to a partnerless runner and get its typed result back now *(usually fired by a partner mid-turn)*.
   > - **ledger** — show the standing board of everything still open, plus tripped wires.
 
   The mode menu is the home, not a hidden default — most discoverable as modes grow. (This is a deliberate reframe: dispatch is no longer "the daily-note router that sometimes does other things"; it is a bus whose first question is *which channel*.)
 
-Once the mode is known, **read its reference file and run it** — `references/daily.md` / `references/relay.md` / `references/consult.md` / `references/ledger.md`. The rule has no exceptions: **every mode reads its reference on entry**, `ledger` included (uniformity is the rule, not size). Each reference carries the mode's mechanics, its `{log}` line shape, and its Verify checklist; each mode writes its own `{log}` line (see Log) and ends in its own report, verified against that checklist.
+Once the mode is known, **read its reference file and run it** — `references/daily.md` / `references/relay.md` / `references/consult.md` / `references/delegate.md` / `references/ledger.md`. The rule has no exceptions: **every mode reads its reference on entry**, `ledger` included (uniformity is the rule, not size). Each reference carries the mode's mechanics, its `{log}` line shape, and its Verify checklist; each mode writes its own `{log}` line (see Log) and ends in its own report, verified against that checklist.
 
 ---
 

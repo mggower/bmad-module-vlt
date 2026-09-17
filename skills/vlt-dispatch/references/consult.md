@@ -6,7 +6,7 @@ Read on entering `consult` mode (router: `SKILL.md`, Mode dispatch).
 
 **A consult is a `relay` whose drain happens immediately, in-process, with the answer returned to the caller instead of left on the board.** Synchronous, **depth-1 hard** — the summoned partner answers, or refuses and names why; **it never summons**. It is read-only except its own memory. *Consult answers; relay assigns.*
 
-Governed by `{conventions}/consult.md` — what a consult is, when it is earned, and the precondition it places on specs live there. This section owns the **mechanics**. The summoned partner **boots lite** — the engine prompt exempts it from its SKILL's activation ritual (no rule-card/contract read, no Beat 2 orient); entry is lite, and exit was already exempt (the contract: a consult crosses no sitting boundary, so no session note).
+Governed by `{conventions}/consult.md` — what a consult is, when it is earned, and the precondition it places on specs live there. This section owns the **mechanics**. The summoned partner **boots lite** — the engine prompt exempts it from its SKILL's activation ritual (no Beat 2 orient) — the rule-card and the vault rung arrive with the session through the vault's `CLAUDE.md`; entry is lite, and exit was already exempt (the contract: a consult crosses no sitting boundary, so no session note).
 
 ### Who fires it
 
@@ -60,7 +60,7 @@ A digested partner voice is an unattributed claim. Two agents converging is only
 
 ### Route the return
 
-- **`needs-work`** → the caller writes the handoff doc and fires the existing **`relay`** path. *Consult answers; relay assigns* — the summoned partner never does the work.
+- **`needs-work`** → **delegate if the work is bounded and its write target is not a shared lane; relay if it is not** (the contract's two axes, *Sessions, sittings, and hand-offs*). On the relay path the caller writes the handoff doc and fires `relay`. *Consult answers; delegate runs bounded work; relay assigns* — the summoned partner never does the work.
 - **`wrong-partner`** → the caller may consult the named slug. This is a **second consult by the caller**, still depth-1 from the caller — never a chained one by the summoned partner.
 - **`needs-human`** → surface it and stop.
 - **`insufficient-context`** → name what was missing; re-fire with a fuller payload, or fall back to read-and-cite.

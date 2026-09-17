@@ -171,6 +171,7 @@ The module ships **dynamic workflows** at `./assets/workflows/` that the skills 
 - **`vlt-review-council.js`** — the review-council panel engine (`vlt-mint` gates a mint with it; the `vlt-review-council` SKILL runs a debate through it).
 - **`vlt-lint-full.js`** — the fan-out wiki health-check (`vlt-lint` delegates a large `--full` sweep to it).
 - **`vlt-consult.js`** — the synchronous partner→partner consult engine (`vlt-dispatch`'s `consult` mode invokes it).
+- **`vlt-delegate.js`** — the partnerless bounded-work runner (`vlt-dispatch`'s `delegate` mode invokes it).
 
 Install all of them:
 
@@ -202,9 +203,14 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   ```markdown
   # Vault
 
+  @_meta/vault-rule-card.md
+  @_agent/reflexes.md
+
   This vault is tended by the **Vault** BMad module — a cast of partners (Librarian, Researcher)
-  who share this wiki. The operating rules live in `_meta/vault-operating-contract.md`; read it
-  before writing anything. The conventions every write obeys are in `_meta/conventions/`.
+  who share this wiki. The two lines above load the rule-card (the identity-bearing and act-blocking
+  rules) and this vault's rung (its pointer lines) into **every** session — partnered or not. The full
+  rules live in `_meta/vault-operating-contract.md`, read point-of-use by section; the conventions
+  every write obeys are in `_meta/conventions/`.
 
   Summon a partner by name (e.g. "Librarian, ingest this") or run the operation skills directly.
 
@@ -214,8 +220,10 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   headless op (e.g. "use the Tavily MCP for web search"). Empty until you set one._
   ```
 
+- **The two import paths are resolved at write time, never hardcoded**: the card is the resolved `{contract}` directory + `vault-rule-card.md`, the rung is `_agent/reflexes.md`. Imports resolve from the **vault root**, so write both lines root-relative regardless of the session's cwd — a vault carrying a `vault_structure` override gets its own resolved paths, never a dead import.
+
 - If a `CLAUDE.md` **already exists**, do **not** overwrite it — it is the user's file; only make additive, heading-scoped edits:
-  - Offer to append a one-line pointer (`See \`_meta/vault-operating-contract.md\` for the Vault operating rules.`) if it doesn't already reference the contract.
+  - **Offer to append the two `@` import lines** (the resolved card path and `@_agent/reflexes.md`, as above) when **those lines** are absent — the test is the import lines' own presence, never whether the file mentions the contract somewhere (every installed vault's `CLAUDE.md` already does, so a contract-mention key would never fire and the carrier would reach no existing vault). Human-gated: `CLAUDE.md` is the user's file — offer, never write unasked. Everything else stays byte-for-byte, including any existing prose pointer.
   - **Append a `## Preferences` heading only if one is absent** (with the same placeholder line); if a `## Preferences` section already exists, leave its contents untouched. Never rewrite existing content — this keeps the never-clobber promise while still giving prefs a home.
 
 ### 4. Scaffold the partner + evolution layer
@@ -293,8 +301,12 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   review_after: 2026-11-17
   ---
 
-  _One pointer line per overlaid subject — empty at birth; written by overlay mints/amends and fleet-relevant promotions (contract, *Partner memory*); hand-adding a line is legal — this file is vault-owned._
+  research runs — any partner, as itself: the contract, *Capabilities*; the lane sentence.
+
+  _One pointer line per overlaid subject — written by overlay mints/amends and fleet-relevant promotions (contract, *Partner memory*); hand-adding a line is legal — this file is vault-owned._
   ```
+
+  The rung is otherwise **empty at birth**; the one line above is the deliberate exception. It points at a rule whose *absence* is what made partners infer a lane they do not own — a rung line, not a copy: subject plus directed read (contract, the rung-line grammar and its copy falsifier).
 
 - Create `backlog` (`{root}/_agent/backlog.md`) **if absent**. The backlog is a frontmatter-less structured checklist (per `conventions/frontmatter.md`) — do not give it YAML frontmatter:
 

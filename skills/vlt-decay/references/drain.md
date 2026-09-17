@@ -6,7 +6,7 @@ Read on entering the drain verb (router: `SKILL.md`, The verbs). Every act obeys
 
 **Eligibility — a run block is drain-eligible iff ALL of:**
 
-1. it is a `daily/…` or **`relay`** block — **`consult:` blocks are permanently drain-exempt** (tiny by construction; their evidentiary window is unbounded — the consult-precondition check compares them against specs of any age, so retaining them is the derivability clause's retained-tail leg, at a cost that rounds to nothing);
+1. it is a `daily/…`, **`relay`** or **`delegate:`** block — **`consult:` blocks are permanently drain-exempt** (tiny by construction; their evidentiary window is unbounded — the consult-precondition check compares them against specs of any age, so retaining them is the derivability clause's retained-tail leg, at a cost that rounds to nothing). A `delegate:` block is **eligible when written**: its evidentiary window is bounded — it is one piece of finished work with an artifact of its own, exactly like a relay — so it drains with the ordinary population;
 2. **every** pointer line in it is checked (`- [x]`) — an open row anywhere keeps the whole block live;
 3. it is **not** the newest `daily/<source>` block for its capture source (per principal stream) — that block carries the source's `routed through line N` watermark, and removing it would reset the watermark to 0 and re-route the entire note as duplicate open items;
 4. its run-header date is older than **45 days** (mirroring the `drain-due` wire, so a performed drain always clears the wire it answers).

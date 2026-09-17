@@ -59,6 +59,13 @@ WHAT `check` VERIFIES (A16 (2), (3)) — presence + type, NEVER closure:
                  `--wiki-dir` is REQUIRED under `--mode full` (usage error 2 without it, like a
                  missing `--dir`); under `--mode scoped` the key may be absent and, when present,
                  is compared only if `--wiki-dir` was given (scoped mode composes no census).
+  - web_cited_entries: (Cycle 16 build-3, F17) the same treatment for the report's full-mode
+                 `web_cited_entries:` scalar, against `lint-page-facts.py`'s `web_census` walk run
+                 HERE over the UNION of `--dir` and `--wiki-dir` — the same union the SKILL renders
+                 from, with no excludes (the PARA carve-out that matters for `para_*` findings is
+                 irrelevant to a count, and the wiki belongs INSIDE this denominator: a PARA
+                 artifact's web evidence lives in `grounding:`). Composed only when `--wiki-dir`
+                 was given, exactly as the bare-path recount is.
 
 REASON VOCABULARY (fixed; one clause per defect, joined `; `):
   `parse: <parser message>` | `key missing: <path>` | `wrong type: <path> (got X, expected Y)`
@@ -66,6 +73,7 @@ REASON VOCABULARY (fixed; one clause per defect, joined `; `):
   | `count: <slot> rendered N, walk finds M` | `para_scan: rendered line does not match the walk`
   | `para_writer_scan: rendered line does not match the walk`
   | `bare_path_sources: rendered line does not match the recount`
+  | `web_cited_entries: rendered line does not match the recount`
 
 `--kind failed` checks a `...-lint-failed.yaml` record instead: parse, plus presence of
 `status`, `reason`, `next` and `unvalidated_report` — so the failure artifact can never be a
@@ -103,6 +111,7 @@ COUNT_SLOTS = {"para_missing_attestation": "missing_attestation"}  # slot -> wal
 SCAN_KEY = "para_scan"
 WRITER_SCAN_KEY = "para_writer_scan"
 CENSUS_KEY = "bare_path_sources"  # Cycle 16 build-1: recounted by lint-page-facts.py's census walk
+WEB_CENSUS_KEY = "web_cited_entries"  # Cycle 16 build-3: recounted by lint-page-facts.py's web_census walk
 SCALAR_TYPES = (str, int, float, bool, datetime.date, datetime.datetime)
 
 
@@ -315,6 +324,14 @@ def check_report(data, schema, mode, walk_result):
             if present and isinstance(value, str) and value != recount:
                 reasons.append("%s: rendered line does not match the recount" % CENSUS_KEY)
 
+    # the web-citation census line, by string equality against its own recount (same None rule)
+    web_recount = walk_result.get("web_census_line")
+    if web_recount is not None:
+        for path in [p for p in keys if p.rsplit(".", 1)[-1] == WEB_CENSUS_KEY]:
+            present, value = lookup(data, path)
+            if present and isinstance(value, str) and value != web_recount:
+                reasons.append("%s: rendered line does not match the recount" % WEB_CENSUS_KEY)
+
     return reasons, extra
 
 
@@ -397,7 +414,9 @@ def cmd_check(args):
     walk["line"] = walker.scan_line(walk)
     walk["writer_line"] = walker.writer_line(walk)
     walk["census_line"] = None
+    walk["web_census_line"] = None
     census_counts = None
+    web_census_counts = None
     if args.wiki_dir:
         facts = load_page_facts()
         try:
@@ -407,6 +426,15 @@ def cmd_check(args):
             return 2
         walk["census_line"] = facts.census_line(census)
         census_counts = census["counts"]
+        # the web census walks the UNION of the PARA dirs and the wiki, with no excludes —
+        # the same invocation the SKILL renders the line from (report.md)
+        try:
+            web = facts.web_census(list(args.dir) + [args.wiki_dir])
+        except FileNotFoundError as exc:
+            sys.stderr.write("lint-report-check: --web-census directory is not a directory: %s\n" % exc)
+            return 2
+        walk["web_census_line"] = facts.web_census_line(web)
+        web_census_counts = web["counts"]
 
     reasons, extra = check_report(data, schema, args.mode, walk)
     verdict = {
@@ -417,6 +445,7 @@ def cmd_check(args):
         "extra_keys": extra,
         "walk": walk["counts"],
         "census": census_counts,
+        "web_census": web_census_counts,
     }
     if reasons:
         verdict["reason"] = "; ".join(reasons)

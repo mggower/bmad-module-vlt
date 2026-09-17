@@ -24,7 +24,7 @@ they already live — a verdict here would put the limit in a second home. The b
 FORM the bytes carry; its legality under frontmatter.md rule 4 is indexed on WRITE DATE, which no
 byte carries — which is why the count is a census and never a per-page verdict (Cycle 16 Q3 (a)).
 
-Two entry points, mutually exclusive:
+Three entry points, mutually exclusive:
 
 Input   --pages <path|->   a JSON array `[{slug, path}]` — the same list the SKILL builds at
                            `references/full-scale.md` step 1. The maps are keyed by the
@@ -51,6 +51,25 @@ Output  --out <path>       one JSON object {"bareSources": {page: int}, "sources
         imports `census`/`census_line` by sibling path and compares the rendered line by string
         equality). The line: `N entries across P of M pages — sources: scalars unquoted and ending
         .md (instrument: scripts/lint-page-facts.py --census)`.
+
+Input   --web-census <dir> [<dir> ...] [--census-exclude <path> ...]   the same walk over a UNION of
+                           directories — `{wiki}` u `{projects}`/`{areas}`/`{resources}` — counting
+                           entries in URL form in `sources:` AND `grounding:`. Both keys, because
+                           frontmatter.md segregates them: a wiki-class artifact carries method
+                           provenance in `sources:`, a PARA artifact carries evidence in
+                           `grounding:`, and a census over `sources:` alone would measure the one
+                           population the rule does not serve. The directories may nest (the wiki
+                           subtree lives inside {resources}); each real file is walked exactly once.
+Output  --out <path>       one JSON object {"webEntries": {realpath: int}, "webUnparsed": [...],
+                           "counts": {"N": entries, "P": files carrying >= 1, "M": files walked}};
+                           with --web-census-line, ONLY the report line for `web_cited_entries:`
+                           (report.md): `N entries across P of M files — sources:/grounding: entries
+                           in URL form (instrument: scripts/lint-page-facts.py --web-census)`.
+        Two callers, one function, exactly as the bare-path census above: the SKILL's Step 5 render
+        and the persist gate's string-equality recount. THE BARE-PATH CENSUS IS UNTOUCHED BY IT —
+        `is_bare_path`, `bare_sources`, `census` and `census_line` are byte-unchanged; the web
+        census is a sibling built from the same `frontmatter_lines` / `split_flow` /
+        `strip_plain_comment` primitives (Cycle 16 build-3, F17, disposition 10).
 
 pageLinks — the executable form of `references/checks.md` Missing targets' POPULATION statement:
 only `[[ ]]`-delimited text is an outbound link; a `[[wikilink]]` inside an inline code span or a
@@ -112,6 +131,8 @@ INLINE_SPAN = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 SUMMARY_KEY = re.compile(r"^summary:(.*)$")
 SOURCES_KEY = re.compile(r"^sources:(.*)$")
 INSTRUMENT = "scripts/lint-page-facts.py --census"
+GROUNDING_KEY = re.compile(r"^grounding:(.*)$")
+WEB_INSTRUMENT = "scripts/lint-page-facts.py --web-census"
 
 
 def strip_code(text):
@@ -289,6 +310,69 @@ def bare_sources(text):
     return None, True  # no sources: key
 
 
+def is_web_entry(value):
+    """The URL form: an entry whose value is an http(s) URL, quoted or not. A wikilink entry is
+    excluded by construction (it addresses a vault page, not the web), and so is a bare path."""
+    v = strip_plain_comment(value)
+    if not v or v.startswith("[["):
+        return False
+    if v[0] in ('"', "'") and len(v) > 1 and v[-1] == v[0]:
+        v = v[1:-1].strip()
+    return v.startswith("http://") or v.startswith("https://")
+
+
+def _list_entries(fm, key_re):
+    """(entries, unparsed) for one frontmatter list key — the shared list-walk `bare_sources` runs
+    over `sources:`, generalized to a key. Returns (None, True) where the key is absent or is not a
+    parseable list (a scalar, a block-scalar indicator, an empty key)."""
+    for idx, line in enumerate(fm):
+        m = key_re.match(line)
+        if not m:
+            continue
+        raw = m.group(1).strip()
+        if raw.startswith("["):
+            body = strip_plain_comment(raw)
+            if not body.endswith("]"):
+                return None, True  # a flow sequence that never closes on its line
+            return split_flow(body[1:-1]), False
+        if raw == "" or raw.startswith("#"):
+            items = []
+            for cont in fm[idx + 1:]:
+                if cont.strip() == "":
+                    continue
+                if not cont[:1].isspace():
+                    break
+                s = cont.strip()
+                if s == "-":
+                    items.append("")  # an empty item
+                elif s.startswith("- "):
+                    items.append(s[2:])
+                else:
+                    return None, True  # an indented non-item line: not a plain sequence
+            return (items, False) if items else (None, True)  # the key alone is YAML null
+        return None, True  # a scalar or a block-scalar indicator: not a list
+    return None, True  # no such key
+
+
+def web_entries(text):
+    """(count, unparsed) over the frontmatter `sources:` AND `grounding:` lists — entries in URL
+    form. The two keys are segregated by `frontmatter.md` (wiki-class artifacts carry `sources:`,
+    PARA artifacts carry `grounding:`), so a census over the union of both zones must read both or
+    it measures the population the rule does not serve. `unparsed` is True only when NEITHER key
+    yields a list — a file with a parseable `grounding:` and no `sources:` is counted, not skipped."""
+    fm = frontmatter_lines(text)
+    if not fm:
+        return None, True
+    total, parsed_any = 0, False
+    for key_re in (SOURCES_KEY, GROUNDING_KEY):
+        entries, un = _list_entries(fm, key_re)
+        if un:
+            continue
+        parsed_any = True
+        total += sum(1 for item in entries if is_web_entry(item))
+    return (total, False) if parsed_any else (None, True)
+
+
 def _under(path, excludes):
     for ex in excludes:
         if path == ex or path.startswith(ex + os.sep):
@@ -328,6 +412,50 @@ def census(wiki_dir, excludes=()):
     n = sum(bare.values())
     p = sum(1 for v in bare.values() if v > 0)
     return {"bareSources": bare, "sourcesUnparsed": unparsed, "counts": {"N": n, "P": p, "M": walked}}
+
+
+def web_census(dirs, excludes=()):
+    """The web-citation census: walk `*.md` under every directory in `dirs` (sorted, excluded paths
+    pruned, unreadable files counted in M with no entries) and count URL-form `sources:`/`grounding:`
+    entries with web_entries(). The directories are a UNION and may nest (the wiki subtree lives
+    inside {resources}) — each real file is walked exactly once, keyed by its real path.
+    Raises FileNotFoundError for a missing directory (a mistyped dir must never read as zero)."""
+    ex = [os.path.realpath(e) for e in excludes]
+    web, unparsed, seen = {}, [], set()
+    for d in dirs:
+        top = os.path.realpath(d)
+        if not os.path.isdir(top):
+            raise FileNotFoundError(top)
+        for cur, subdirs, names in os.walk(top):
+            subdirs[:] = sorted(s for s in subdirs if not _under(os.path.join(cur, s), ex))
+            for name in sorted(names):
+                if not name.endswith(".md"):
+                    continue
+                full = os.path.realpath(os.path.join(cur, name))
+                if _under(full, ex) or full in seen:
+                    continue
+                seen.add(full)
+                try:
+                    with open(full, "rb") as fh:
+                        text = fh.read().decode("utf-8")
+                except Exception:
+                    continue  # unreadable: in M, no entries, no map entry
+                count, un = web_entries(text)
+                if un:
+                    unparsed.append(full)
+                else:
+                    web[full] = count
+    n = sum(web.values())
+    p = sum(1 for v in web.values() if v > 0)
+    return {"webEntries": {k: v for k, v in sorted(web.items())}, "webUnparsed": sorted(unparsed),
+            "counts": {"N": n, "P": p, "M": len(seen)}}
+
+
+def web_census_line(result):
+    """The `web_cited_entries:` value — `references/report.md`'s placeholder, filled."""
+    c = result["counts"]
+    return "%d entries across %d of %d files — sources:/grounding: entries in URL form (instrument: %s)" % (
+        c["N"], c["P"], c["M"], WEB_INSTRUMENT)
 
 
 def census_line(result):
@@ -374,10 +502,21 @@ def main(argv):
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--pages", help="path to a JSON array of {slug, path}, or - for stdin")
     mode.add_argument("--census", metavar="WIKI_DIR", help="walk *.md under this directory and count bare-path sources: entries")
+    mode.add_argument("--web-census", nargs="+", metavar="DIR", help="walk *.md under these directories (a union; {wiki} u {projects}/{areas}/{resources}) and count URL-form sources:/grounding: entries")
     ap.add_argument("--census-exclude", action="append", default=[], metavar="PATH", help="a file or subtree the census walk skips (repeatable; the SKILL passes {index})")
     ap.add_argument("--census-line", action="store_true", help="with --census: print only the report's bare_path_sources: line")
+    ap.add_argument("--web-census-line", action="store_true", help="with --web-census: print only the report's web_cited_entries: line")
     ap.add_argument("--out", default="-", help="where to write the result (default: stdout)")
     args = ap.parse_args(argv)
+
+    if args.web_census:
+        try:
+            result = web_census(args.web_census, args.census_exclude)
+        except FileNotFoundError as exc:
+            sys.stderr.write("lint-page-facts: --web-census is not a directory: %s\n" % exc)
+            return 2
+        payload = web_census_line(result) + "\n" if args.web_census_line else json.dumps(result, ensure_ascii=False, indent=1) + "\n"
+        return write_out(payload, args.out)
 
     if args.census:
         try:

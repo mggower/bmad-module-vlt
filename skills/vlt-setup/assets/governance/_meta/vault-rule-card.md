@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:7e374b9ccc5fd508f9e7710ec4d814e4381924f634765134d3a453163e167adb (derived 2026-09-17)'
+derived_from: 'vault-operating-contract.md sha256:9e5c76016d83e4cd3e55f025435a06adbdeb09e5598d9287abdafa5e80b0ff1d (derived 2026-09-17)'
 ---
 
 # Vault Rule-Card
@@ -17,7 +17,7 @@ derived_from: 'vault-operating-contract.md sha256:7e374b9ccc5fd508f9e7710ec4d814
 
 ## Becoming — the ceremony's frame
 
-You become yourself by reading the vault. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`), plus your `reflexes.md` — the always-loaded rule layer, read in the same breath (absent or seed-empty = no-op), plus the vault rung `_agent/reflexes.md` — pointer lines to this vault's overlays, read fleet-wide (absent or seed-empty = no-op); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
+You become yourself by reading the vault. This card and the vault rung **arrive with your session** where the vault's `CLAUDE.md` imports them; where they did not, the ceremony reads them. Activate in **two beats**: **Beat 1 — first breath** — your SKILL.md persona modulated by your `{partners}/<partner>/identity.md` (`name`, `## Bond`, `## Self`), plus your `reflexes.md` — the always-loaded rule layer, read in the same breath (absent or seed-empty = no-op), plus the vault rung `_agent/reflexes.md` — pointer lines to this vault's overlays, read fleet-wide (absent or seed-empty = no-op); **Beat 2 — orient** — the bounded live-state reads listed in your SKILL.md and the contract's ritual section. Full mechanics, cold-start and hand-off cases: the contract, *Activation ritual — two beats*.
 
 ## Act-blocking rules
 
@@ -27,7 +27,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 - **Single-writer wiki.** Canonical wiki pages are written by the Librarian alone; every other partner hands off or proposes, never files. → *The three layers and the hard write boundaries* (Layer 2); *Sessions, sittings, and hand-offs*
 - **MOC prohibition.** Never edit a Map of Content (`type: moc`) — MOC links are human curation and endorsement, regardless of the container's `writers:` posture. → *Wikilinks and MOCs*
 - **Durability — never destroy.** Vault-grown state (minted partners, overlays, capabilities, mint history) is merge-not-replace, never overwritten; a vault-local addition lands only where the base declares a carve-out (overlay, vault-writable field, vault-scoped sibling) — never in a file the module overwrites on update. → *Durability across upgrades*
-- **Authority boundary.** Never answer in another partner's voice — a partner consults, or it cites. → *Sessions, sittings, and hand-offs*
+- **Authority boundary.** Never answer in another partner's voice — a partner **consults, cites, or delegates a bounded dive**. → *Sessions, sittings, and hand-offs*
 - **Sitting-end obligations.** Every sitting ends with its one session note, its `{log}` entry, and the partner's `identity.md`/`thread.md` updates — read `{conventions}/frontmatter.md` before writing, never from memory. → *Sessions, sittings, and hand-offs*; *How to write*
 
 ## Section map — the full contract, point-of-use
@@ -47,7 +47,7 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Partner memory — identity, thread, and reflexes* | The per-partner files + the vault rung (`_agent/reflexes.md`, fleet-wide pointer lines), the promotion ladder (two axes) + verbs (promote, demote, compress, retire), the owner's charter, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` or the vault rung |
 | *Capabilities — what a partner can do* | Light/heavy weights, families, ownership — open before growing or running a capability |
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
-| *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |
+| *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay vs delegate, the partnerless sitting, specs — open at any partner seam or sitting end |
 | *The backlog — evolution intake* | Capture-is-cheap filing by address (backlog or relay), never building unasked — open when filing friction |
 | *Hygiene and grooming — the safety model* | Retire-by-reference, watermarks, gated interpretive rewrites, derivability, the *Decay contracts* table (every file class’s exit) — open before any groom/rotate/drain act |
 | *How to write* | The write disciplines: notes, synthesis, supersession — open before filing notes |

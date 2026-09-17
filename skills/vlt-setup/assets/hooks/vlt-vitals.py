@@ -234,9 +234,9 @@ METRICS = {
     ),
     "oldest_drainable_section_days": (
         "days since the run-header date of the oldest drain-eligible "
-        "_agent/dispatch.md run block — fully closed `daily/`/`relay` block "
-        "that is not its source's newest watermark carrier; `consult:` blocks "
-        "exempt; 0 when none (display + wire)"
+        "_agent/dispatch.md run block — fully closed `daily/`/`relay`/`delegate:` "
+        "block that is not its source's newest watermark carrier; `consult:` "
+        "blocks exempt; 0 when none (display + wire)"
     ),
     "index_bytes": "byte size of {index} (display-only size vital)",
     "partner_memory_bytes": (
@@ -659,6 +659,8 @@ def derive_metrics(vault_root, smap, today=None, activation_budget_words=None):
                     kind, source = "relay", None
                 elif head.startswith("consult"):
                     kind, source = "consult", None
+                elif head.startswith("delegate"):
+                    kind, source = "delegate", None
                 else:
                     kind, source = "other", None
                 dm = DATE_RE.search(hb.group(1))
@@ -681,7 +683,7 @@ def derive_metrics(vault_root, smap, today=None, activation_budget_words=None):
                 newest_daily_idx[b["source"]] = i  # file order: last wins
         oldest_drainable = 0
         for i, b in enumerate(blocks):
-            if b["kind"] not in ("daily", "relay"):
+            if b["kind"] not in ("daily", "relay", "delegate"):
                 continue
             if b["pointers"] == 0 or b["open"]:
                 continue  # empty or still-live block — not drainable

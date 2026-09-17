@@ -166,8 +166,12 @@ if (workflowPath === SHIPPED) {
   if (!ok.includes(CENSUS_ANCHOR)) throw new Error('build-5-report-ok.yaml anchor moved — fix the harness')
   // build-5-report-ok.yaml already carries its own bare_path_sources: line (F11) — replace it with the oracle's
   const stripped = ok.split('\n').filter((l) => !l.startsWith('  bare_path_sources:')).join('\n')
-  const withLine = (line) => stripped.replace(CENSUS_ANCHOR, CENSUS_ANCHOR + `  bare_path_sources: "${line}"\n`)
   const DIRS = ['--dir', path.join(PARA, 'projects'), '--dir', path.join(PARA, 'areas'), '--dir', path.join(PARA, 'resources'), '--exclude', path.join(PARA, 'resources', 'wiki'), '--root', PARA]
+  // Cycle 16 build-3 (F17): the fence gained a second full-mode census line, recounted by the same
+  // gate. Full-mode reports here must carry it, from the instrument — never hand-composed.
+  const WEB_DIRS = [path.join(PARA, 'projects'), path.join(PARA, 'areas'), path.join(PARA, 'resources'), WIKI]
+  const webLine = py([SCRIPT, '--web-census', ...WEB_DIRS, '--web-census-line']).stdout.trim()
+  const withLine = (line) => stripped.replace(CENSUS_ANCHOR, CENSUS_ANCHOR + `  bare_path_sources: "${line}"\n  web_cited_entries: "${webLine}"\n`)
   const gate = (text, mode, extra) => {
     const p = path.join(tmp, `${mode}-${Math.random().toString(16).slice(2)}.yaml`)
     fs.writeFileSync(p, text)

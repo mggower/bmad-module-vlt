@@ -146,6 +146,11 @@
    "per_file": false,
    "full_mode_only": true
   },
+  "flag_for_human.web_cited_entries": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": true
+  },
   "flag_for_human.para_scan": {
    "type": "scalar",
    "per_file": false,
@@ -182,6 +187,11 @@
    "full_mode_only": false
   },
   "flag_for_human.research_zone": {
+   "type": "scalar",
+   "per_file": false,
+   "full_mode_only": false
+  },
+  "flag_for_human.wip_notes": {
    "type": "scalar",
    "per_file": false,
    "full_mode_only": false

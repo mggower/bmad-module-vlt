@@ -24,13 +24,14 @@ A **consult** is a *synchronous, depth-1, cross-partner question* in which the s
 
 ## What a consult is (and is not)
 
-A consult transfers **nothing**. The caller keeps the wheel and gets an attributed answer back. Its three neighbours in the vault differ by what moves:
+A consult transfers **nothing**. The caller keeps the wheel and gets an attributed answer back. Its neighbours in the vault differ by what moves:
 
 - **A relay** routes and waits — the answer lands on the board later, drained by the recipient on its own next orient (`vlt-dispatch`, its `relay` mode).
 - **A hand-off** transfers the work *and the wheel* — it ends one sitting and begins another (`vault-operating-contract.md`, *Sessions, sittings, and hand-offs*).
 - **A council** is fixed lenses applied in parallel with no cross-talk, returning a *verdict* — not a partner (`vlt-review-council`).
+- **A delegate** moves the **work** but not the wheel — a partnerless runner does a bounded piece of work and returns a typed result inside the caller's own sitting (`vlt-dispatch`, its `delegate` mode).
 
-A consult is none of these: the work does not move, the wheel does not move, and what comes back is a named partner's answer in its own voice. The summoned partner answers from a **lite boot**, not a full activation (mechanics at `vlt-dispatch`, *Mode: consult*).
+A consult is none of these: the work does not move, the wheel does not move, and what comes back is a named partner's answer in its own voice. (This list is not the full set — the two axes and every cell they make are at `vault-operating-contract.md`, *Sessions, sittings, and hand-offs*.) The summoned partner answers from a **lite boot**, not a full activation (mechanics at `vlt-dispatch`, *Mode: consult*).
 
 ## When a consult is earned
 

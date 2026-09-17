@@ -1,0 +1,12 @@
+{
+  "_note": "HAND-WRITTEN ORACLE — written before scripts/lint-page-facts.py --web-census was ever run over build-3-web-census/ (Cycle 16 build-3, §Verification 9). Counts URL-form entries in sources: AND grounding:, over one walk of the fixture root. Controls that must NOT count: a wikilink entry, a bare .md path, a URL in a prose ## Sources section, a sources: scalar, a file with no frontmatter.",
+  "counts": {"N": 6, "P": 3, "M": 6},
+  "perFile": {
+    "wiki/alpha.md": 2,
+    "projects/beta.md": 2,
+    "areas/gamma.md": 0,
+    "zeta.md": 2
+  },
+  "unparsed": ["resources/delta.md", "epsilon.md"],
+  "line": "6 entries across 3 of 6 files — sources:/grounding: entries in URL form (instrument: scripts/lint-page-facts.py --web-census)"
+}

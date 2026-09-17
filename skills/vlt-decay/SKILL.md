@@ -33,7 +33,7 @@ The vault is this project — resolve paths through the `vault_structure` map (o
 
 ## Standing rules (act-blocking)
 
-- **Never touch an open (`- [ ]`) row or any `consult:` block.** An open row anywhere keeps its whole block live; consult blocks are permanently drain-exempt (their evidentiary window is unbounded).
+- **Never touch an open (`- [ ]`) row or any `consult:` block.** An open row anywhere keeps its whole block live; consult blocks are permanently drain-exempt (their evidentiary window is unbounded). This names `consult:` only: a **`delegate:` block is drain-eligible** with the ordinary population (bounded window, its own artifact) — no exemption is implied by silence.
 - **Never cross the newest `lint` header.** Rotation cuts strictly before it; a `{log}` with no `lint` header refuses loudly (`references/rotate.md`).
 - **Never touch the newest `daily/<source>` block per source.** It carries the source's `routed through line N` watermark; draining it would re-route the whole note as duplicates.
 - **Never touch `## Open`.** A backlog drain moves `## Done` items only; `## Open` stays byte-identical.

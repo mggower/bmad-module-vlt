@@ -43,6 +43,7 @@ flag_for_human:
   para_writer_unauthorized: []
   review_due: []
   research_zone: "145 notes scanned; 24 carry revisit_after:"
+  wip_notes: "0 of 145 research-zone files are in-flight .WIP.md — excluded from candidacy"
   linkage_ripe: []
   revisit_due: []
   governance_memory: "0 governance findings checked against the log; 0 adjudicated, 0 undisposed; 0 log entries (## headings, instrument: grep -c '^## '), 0 schema-keyed, 0 unclassifiable, 0 uncounted"
