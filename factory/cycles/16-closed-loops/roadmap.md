@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2)'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4's question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: **brief build 3** (its spike gate is open); builds 2+3 ship together as the single v0.19.0'
 module_code: 'vlt'
 created: '2026-09-09'
-updated: '2026-09-16'
+updated: '2026-09-17'
 derives_from:
   - 'factory/inbox/2026-09-03-124500-stub-heading-is-stated-inside-a-fence-so-a-faithful-section-scan-reads-located-no.md'
   - 'factory/inbox/2026-09-03-124600-lint-sources-reconciliation-writes-the-retired-bare-path-form.md'
@@ -2059,6 +2059,8 @@ earlier routing. The chat report is a copy; this line is the obligation.
 
 ---
 
+### Routing — historical record (superseded by the stamp at the foot of this file)
+
 **Next lifecycle move (2026-09-17, `build-brief` — build 2 BRIEFED): a fresh builder session
 implements `factory/cycles/16-closed-loops/briefs/build-2-partner-memory-schema.md` via
 `bmad-workflow-builder`.** The brief's `status:` line states the builder's exit obligations: rewrite
@@ -2099,3 +2101,35 @@ disk, **one commit for the build**, on `cycle16-v0.19.0`. Ideation is not re-ope
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing. The chat report is a copy; this line is the obligation.
+
+## Next lifecycle move (2026-09-17, `S-4` harvested) — authoritative
+
+**`S-4` is HARVESTED, `verdict: proceed`. Build 3's spike gate is open — next move: `brief build 3`
+(`build-brief`).** Harvest artifact:
+`factory/cycles/16-closed-loops/spike-s-4-claude-md-imports-2026-09-17.md`; the register entry
+`factory/platform/spikes/S-4-vault-claude-md-imports-per-session-kind.md` reads `harvested` and is the
+pointer, not a copy. Build 2 is **BUILT** (2026-09-17, `6ab70b0`) — the earlier stamp routing a builder
+session at build 2 is spent and demoted above. Under A10's no-split release, builds 2+3 ship together
+as the single **v0.19.0**; nothing releases until build 3 is built.
+
+- **What the spike found.** `@path` imports in a vault-root `CLAUDE.md` load for **every** session kind
+  probed — interactive, headless `claude -p`, a summon inside a session, an Agent-tool subagent, a
+  **workflow-`agent()` subagent** (the engine `vlt-consult.js:160` calls, which A16-7's delegate runner
+  inherits), and a session whose cwd is a vault subdirectory. Imports are transitive and resolve from the
+  vault root. A `CLAUDE.md` pointer **without** `@` loaded in none of them. Evidence is the runtime's own
+  startup attachment record, not a model's self-report. **A16-3 direction 1 is grounded.**
+- **Two findings build 3 must carry, not just the green.** (i) The `SessionStart` hook — the filing's
+  fallback carriage — fires once per **CLI session start** and **not** for an in-session subagent spawn,
+  so it misses exactly the kind the delegate runner is; imports reach it. The fallback is the weaker
+  carrier and should not be chosen. (ii) **No size or depth ceiling was measured.** "Imports load" is not
+  "imports load without bound" — the budget question is A16-4's, and build 3 may not assume it away.
+  The artifact records both limits, plus the two rows it could not probe.
+- **Unchanged and still owed** (carried verbatim from the demoted stamp): the owner call under build-1
+  check (3) (is a mismatch fix a *substantive edit* for `fix-and-file.md:7`/`:18`); the five
+  capture-don't-interrupt filings (incl. *research notes persist no `depth:` field*); the owner's owed
+  candidate filings (E6, incl. the partially-shipped-cycle capture-boundary gap); **capture stays
+  DEFERRED to Cycle 17** by owner ruling. Build-1 check **(2) stays FAILED and still GATES closeout**,
+  bound to Cycle 17.
+
+⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
+earlier routing, and nothing follows it. The chat report is a copy; this line is the obligation.
