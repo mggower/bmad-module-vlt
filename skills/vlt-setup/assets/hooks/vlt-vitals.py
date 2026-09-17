@@ -241,7 +241,16 @@ METRICS = {
     "index_bytes": "byte size of {index} (display-only size vital)",
     "partner_memory_bytes": (
         "total bytes of per-partner identity.md + thread.md + reflexes.md + "
-        "capabilities/ under {partners} (display-only size vital)"
+        "casebook.md + capabilities/ under {partners} (display-only size vital)"
+    ),
+    "partners_over_activation_budget": (
+        "count of partners whose Beat 1 activation word count exceeds the "
+        "`activation-budget` wire's threshold, of M partners on the roster "
+        "(the denominated form; the tripped detail names each partner slug)"
+    ),
+    "roster_partners": (
+        "count of partner directories under {partners} — the honest denominator "
+        "`partners_over_activation_budget` is judged against"
     ),
 }
 
@@ -536,18 +545,51 @@ def _frontmatter_has_key(path, key):
     return False
 
 
+def _read_memory_posture(path):
+    """The partner's declared `memory:` activation posture from identity.md
+    frontmatter. `reflexes` when declared; `full` otherwise (absent = full —
+    `none` is deliberately not a member of the enum)."""
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return "full"
+    if not text.startswith("---"):
+        return "full"
+    for line in text.split("\n")[1:60]:
+        if line.strip() == "---":
+            break
+        m = re.match(r"^memory:\s*(\S+)", line.strip())
+        if m:
+            return "reflexes" if m.group(1).strip().strip("'\"") == "reflexes" else "full"
+    return "full"
+
+
+def _word_count(path):
+    """Words in a file (the `wc -w` analogue), or None when it cannot be read —
+    never a fabricated zero."""
+    try:
+        return len(path.read_text(encoding="utf-8", errors="replace").split())
+    except OSError:
+        return None
+
+
 def _dir_bytes(directory):
     if not directory.is_dir():
         return 0
     return sum(p.stat().st_size for p in directory.rglob("*") if p.is_file())
 
 
-def derive_metrics(vault_root, smap, today=None):
+def derive_metrics(vault_root, smap, today=None, activation_budget_words=None):
     """Derive every canonical metric. Returns (metrics, notes, partner_rows).
 
     metrics: id -> int or None (underivable — stated, never silently zeroed).
     notes: per-metric honesty notes (absent records, blind-spot counts).
-    partner_rows: per-partner size breakdown for the display block.
+    partner_rows: per-partner breakdown (name, bytes, words, posture, over)
+    for the display block.
+
+    activation_budget_words is the Beat 1 word bound, read from the
+    `activation-budget` wire by the caller — the bound lives once, in the
+    registry, and is never hard-coded here.
     """
     today = today or datetime.date.today()
     metrics, notes = {}, {}
@@ -729,17 +771,57 @@ def derive_metrics(vault_root, smap, today=None):
             notes[metric_id] = f"{smap[key]} absent"
     partner_rows = []
     partners_dir = vault_root / smap["partners"].rstrip("/")
+    skills_dir = vault_root / ".claude" / "skills"
     total_partner = 0
+    over, unresolvable = [], []
     if partners_dir.is_dir():
         for pdir in sorted(p for p in partners_dir.iterdir() if p.is_dir()):
             n = sum(
                 (pdir / f).stat().st_size
-                for f in ("identity.md", "thread.md", "reflexes.md")
+                for f in ("identity.md", "thread.md", "reflexes.md", "casebook.md")
                 if (pdir / f).is_file()
             ) + _dir_bytes(pdir / "capabilities")
-            partner_rows.append((pdir.name, n))
             total_partner += n
+
+            # Beat 1 activation words: exactly the files this partner's declared
+            # posture reads. The rule-card and the vault rung are fleet-constant
+            # and excluded — this metric compares partners to each other.
+            posture = _read_memory_posture(pdir / "identity.md")
+            wake = [skills_dir / f"vlt-agent-{pdir.name}" / "SKILL.md"]
+            if posture == "full":
+                wake.append(pdir / "identity.md")
+            wake.append(pdir / "reflexes.md")
+            skill_words = _word_count(wake[0]) if wake[0].is_file() else None
+            if skill_words is None:
+                # The partner's SKILL.md cannot be resolved on this vault. Its
+                # activation cost is unknown, not zero — say so on the same
+                # surface rather than letting an absence read as "under budget".
+                words, is_over = None, False
+                unresolvable.append(pdir.name)
+            else:
+                words = skill_words + sum(
+                    _word_count(f) or 0 for f in wake[1:] if f.is_file()
+                )
+                is_over = activation_budget_words is not None and words > activation_budget_words
+                if is_over:
+                    over.append(pdir.name)
+            partner_rows.append((pdir.name, n, words, posture, is_over))
     metrics["partner_memory_bytes"] = total_partner
+    metrics["roster_partners"] = len(partner_rows)
+    if activation_budget_words is None:
+        metrics["partners_over_activation_budget"] = None
+        notes["partners_over_activation_budget"] = (
+            "no `activation_budget_words:` on the `activation-budget` wire — the bound "
+            "lives in the registry and nowhere else, so the count is underivable (never 0)"
+        )
+    else:
+        metrics["partners_over_activation_budget"] = len(over)
+        detail = f"of {len(partner_rows)} partners on the roster; bound {activation_budget_words:,} words"
+        if over:
+            detail += "; over: " + ", ".join(over)
+        if unresolvable:
+            detail += "; SKILL.md unresolvable (words n/a, not counted): " + ", ".join(unresolvable)
+        notes["partners_over_activation_budget"] = detail
     return metrics, notes, partner_rows
 
 
@@ -766,12 +848,36 @@ def load_registry(vault_root, smap):
     text = reg.read_text(encoding="utf-8", errors="replace")
     wires, wire_errors = parse_wires(text)
     local_defs, local_errors = parse_local_metrics(text)
+    for w in wires:
+        # `activation_budget_words:` is the one metric-parameter key in the
+        # schema: it carries the Beat 1 bound the derivation needs, and its
+        # absence is an error, never a silent zero.
+        if w.get("metric") == "partners_over_activation_budget" and not w.get("activation_budget_words"):
+            wire_errors.append(
+                f"wire `{w.get('id', '(no id)')}`: metric `partners_over_activation_budget` "
+                "requires an `activation_budget_words:` field (the Beat 1 bound) — absent, "
+                "the count is underivable"
+            )
     return wires, local_defs, wire_errors, local_errors, None
 
 
+def activation_budget_from(wires):
+    """The Beat 1 word bound, read from whichever wire binds the activation
+    metric. None when no such wire is seeded or the value is unreadable."""
+    for w in wires:
+        if w.get("metric") == "partners_over_activation_budget":
+            try:
+                return int(str(w.get("activation_budget_words", "")).replace(",", "").strip())
+            except ValueError:
+                return None
+    return None
+
+
 def render_report(vault_root, smap, fallbacks):
-    metrics, notes, partner_rows = derive_metrics(vault_root, smap)
     wires, local_defs, wire_errors, local_errors, reg_note = load_registry(vault_root, smap)
+    metrics, notes, partner_rows = derive_metrics(
+        vault_root, smap, activation_budget_words=activation_budget_from(wires)
+    )
     local_values, local_notes = derive_local_metrics(vault_root, smap, local_defs)
     metrics.update(local_values)  # local ids can never shadow canonical ones (validated)
     local_ids = {d["id"] for d in local_defs}
@@ -803,9 +909,18 @@ def render_report(vault_root, smap, fallbacks):
             out.append(line)
     if partner_rows:
         out.append("")
-        out.append("Per-partner memory bytes (identity.md + thread.md + reflexes.md + capabilities/):")
-        for name, n in partner_rows:
-            out.append(f"  - {name}: {n:,}")
+        out.append(
+            "Per-partner memory bytes (identity.md + thread.md + reflexes.md + "
+            "casebook.md + capabilities/) and Beat 1 activation words:"
+        )
+        for name, n, words, posture, is_over in partner_rows:
+            shown = "n/a" if words is None else f"{words:,}"
+            line = f"  - {name}: {n:,} bytes · {shown} words ({posture})"
+            if words is None:
+                line += " — SKILL.md unresolvable on this vault, activation cost unknown"
+            elif is_over:
+                line += " — over budget"
+            out.append(line)
     out.append("")
     out.append(f"## Wires ({smap['tripwires']})")
     out.append("")
@@ -834,8 +949,10 @@ def render_report(vault_root, smap, fallbacks):
 
 def render_strip(vault_root, smap):
     """At most one line: tripped wires + wire errors only; empty string when green."""
-    metrics, _notes, _rows = derive_metrics(vault_root, smap)
     wires, local_defs, wire_errors, local_errors, _reg_note = load_registry(vault_root, smap)
+    metrics, notes, _rows = derive_metrics(
+        vault_root, smap, activation_budget_words=activation_budget_from(wires)
+    )
     local_values, _local_notes = derive_local_metrics(vault_root, smap, local_defs)
     metrics.update(local_values)
     local_ids = {d["id"] for d in local_defs}
@@ -848,7 +965,11 @@ def render_strip(vault_root, smap):
         state, detail = evaluate_wire(w, metrics, local_ids)
         if state == "tripped":
             value = metrics.get(w["metric"])
-            parts.append(f"{w['id']}: {value} {w.get('surface_text')} (wire {w.get('threshold')})")
+            detail_note = notes.get(w["metric"])
+            named = f" [{detail_note}]" if detail_note else ""
+            parts.append(
+                f"{w['id']}: {value}{named} {w.get('surface_text')} (wire {w.get('threshold')})"
+            )
         elif state == "error":
             parts.append(f"{w.get('id', '(no id)')}: wire error — {detail}")
     if not parts:

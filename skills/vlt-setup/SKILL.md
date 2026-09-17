@@ -1,6 +1,6 @@
 ---
 name: "vlt-setup"
-depends_on: ["frontmatter@14"]
+depends_on: ["frontmatter@15"]
 description: Sets up the Vault module in a vault — installs the governance bundle, scaffolds the partner layer, and registers the module config. Use when the user requests to 'install vlt module', 'configure Vault', or 'setup Vault'.
 ---
 
@@ -222,7 +222,7 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
 
 - Ensure `partners` (`{root}/_agent/partners/`) exists.
 - **Upgrade migration (idempotent — finding from the partner-layer rework).** Before seeding, check each `{partners}/{partner}/` for a **legacy single `thread.md`** that carries all three sections (`## Bond` + `## Self` + `## Thread`). If found, split it into the two-file layout: move `## Bond` and `## Self` into a new `identity.md`, leave `## Thread` in `thread.md`, set both files' frontmatter `type:` accordingly. This is safe to re-run — a vault already on the two-file layout (an `identity.md` exists) is skipped. The split now also seeds `reflexes.md` if absent (the seed-if-absent pass below covers migrated partners the same as fresh ones). **Never discard relationship history** — migrate, don't reset.
-- For each shipped partner — `librarian`, `researcher`, and `creative` — create the **three memory files if absent**, per the operating contract's *Partner memory* and `frontmatter.md` (never overwrite an existing file — it holds the relationship history; an existing populated `reflexes.md` is vault relationship history and is never touched):
+- For each shipped partner — `librarian`, `researcher`, and `creative` — create the **memory files if absent**, per the operating contract's *Partner memory* and `frontmatter.md` (never overwrite an existing file — it holds the relationship history; an existing populated `reflexes.md` is vault relationship history and is never touched):
 
   `{partners}/{partner}/identity.md` (evergreen):
 
@@ -233,7 +233,13 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   name:                              # the name the user gives this partner in this vault; empty until then (goes by role)
   created: <today YYYY-MM-DD>
   last_updated: <today YYYY-MM-DD>
+  memory: full                       # activation posture — full (default) | reflexes
   ---
+
+  ## Charter
+  <what you want this partner for — the owner writes this; a partner never edits it>
+  <what it should refuse>
+  <what it should never remember>
 
   ## Bond
   _What I understand about you — preferences, style, tastes, boundaries. (Empty until we work together.)_
@@ -241,6 +247,8 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   ## Self
   _How I've come to carry myself in this vault — voice, tone, emphasis. (Empty; drifts as we go.)_
   ```
+
+  **Seed only, never author.** The `## Charter` above ships as three bracketed placeholder prompts and nothing else — the section is the owner's, and setup writes no word into it. An **existing** `identity.md` is never rewritten here; adding the `## Charter` section to a populated `identity.md` is an upgrade-side act — see `vlt-upgrade`, the insert-if-absent migration.
 
   `{partners}/{partner}/thread.md` (prunable):
 
@@ -264,8 +272,8 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   partner: <librarian|researcher|creative>
   created: <today YYYY-MM-DD>
   last_updated: <today YYYY-MM-DD>
-  cap: 30
-  falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, or reflexes routinely exceed one line, the cap value (or the one-line form) is mis-set — file it"
+  cap_words: 900              # at most 900 words of reflexes (30 one-line rules × the ~30-word line the falsifier fired on)
+  falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, the cap value is mis-set — file it"
   review_after: 2026-11-17
   ---
 
@@ -280,7 +288,7 @@ The kit is three provisioned surfaces — the vitals reader (module-owned code),
   scope: vault
   created: <today YYYY-MM-DD>
   last_updated: <today YYYY-MM-DD>
-  cap: 30
+  cap_words: 900              # at most 900 words of reflexes (30 one-line rules × the ~30-word line the falsifier fired on)
   falsifier: "if a partner writes against an overlaid subject without the pre-act read after this rung named it, or a rung line carries rule content rather than pointing at the rule's home, the pointer shape is failing — file it"
   review_after: 2026-11-17
   ---

@@ -1,14 +1,14 @@
 ---
 name: vlt-groom
-depends_on: ["frontmatter@14"]
-description: Run an approval-gated groom pass over one partner's memory files (identity.md, thread.md, reflexes.md) — classify every item against the promotion ladder and propose promote / compress-to-latest-form / retire as a diff grouped by class, one-line rationale per item, applied only on the user's approval. Use when the user says 'groom the librarian', 'groom <partner>', or 'run a groom pass' — or when the active partner has proposed a groom and the user says go. Invoked-only; runs inside the target partner's own sitting (the partner is the writer, this op is the procedure). Never destruction — the pre-groom state stays reachable via the `archive:` watermark.
+depends_on: ["frontmatter@15"]
+description: Run an approval-gated groom pass over one partner's memory files (identity.md, thread.md, reflexes.md, casebook.md) — classify every item against the promotion ladder and propose promote / demote / compress-to-latest-form / retire as a diff grouped by class, plus the whole-section acts (`--reset self|bond|thread`, the identity-to-card migration), one-line rationale per item, applied only on the user's approval. Use when the user says 'groom the librarian', 'groom <partner>', or 'run a groom pass' — or when the active partner has proposed a groom and the user says go. Invoked-only; runs inside the target partner's own sitting (the partner is the writer, this op is the procedure). Never destruction — the pre-groom state stays reachable via the `archive:` watermark.
 ---
 
 # vlt-groom
 
 ## Overview
 
-Partner memory accumulates: standing reads stack revisions, closed inquiries linger, rules hide as narrative. A **groom pass** is the hygiene act that moves it back into shape — **one partner, its three memory files (`identity.md`, `thread.md`, `reflexes.md`), the three verbs executed as one gated pass**: **promote** (up a ladder rung), **compress-to-latest-form** (a standing read's revision stack becomes its latest form), **retire** (a fired falsifier, closed item, or dead inquiry leaves the file — by reference, never deletion). The ladder, the verbs, and their entry criteria live in the operating contract's *Partner memory — identity, thread, and reflexes* section; every act of this op obeys the contract's *Hygiene and grooming — the safety model* — **cited here, restated nowhere**. Bond material is intimate: nothing is ever silently deleted, and nothing applies without the user's approval.
+Partner memory accumulates: standing reads stack revisions, closed inquiries linger, rules hide as narrative. A **groom pass** is the hygiene act that moves it back into shape — **one partner, its memory files (`identity.md`, `thread.md`, `reflexes.md`, and `casebook.md` where it exists), the verbs executed as one gated pass**: **promote** (up a ladder rung), **demote** (down the wake-read axis — out of the always-read `## Self` into `casebook.md`, or to the wiki by Librarian hand-off), **compress-to-latest-form** (a standing read's revision stack becomes its latest form), **retire** (a fired falsifier, closed item, or dead inquiry leaves the file — by reference, never deletion). The ladder, the verbs, and their entry criteria live in the operating contract's *Partner memory — identity, thread, and reflexes* section; every act of this op obeys the contract's *Hygiene and grooming — the safety model* — **cited here, restated nowhere**. Bond material is intimate: nothing is ever silently deleted, and nothing applies without the user's approval.
 
 The op constrains **form and safety**; the partner supplies **judgment** (what is dead vs merely quiet, which rung, how a compressed form reads). That split is deliberate — see the pass protocol.
 
@@ -24,6 +24,10 @@ The vault is this project — resolve paths through the `vault_structure` map (o
 
 **Hygiene machinery may detect and suggest; only an invocation executes.** A partner may *propose* a groom at a natural seam — end-of-sitting, reflex-cap pressure, a correction-as-signal recurrence — and a tripwire or vitals surface may *suggest* one. Proposing is free; **executing happens only on the user's explicit go**. No scheduled run, no tripwire-fired execution: the approval gate needs the user present, and invoked-only puts the user there by construction.
 
+## Invocation
+
+`vlt-groom <partner>` runs the full pass. One optional flag: **`--reset self|bond|thread`** runs the whole-section act on the named section alone instead of the item-wise pass — the section retires whole to `archive:` and is reborn empty, under the same approval gate. `name` and `## Charter` survive every reset; there is no `--reset charter` (the charter is the owner's, and the owner edits it directly).
+
 ## The pass
 
 Run the full protocol in `references/groom-pass.md` — the codified steps (pre-flight commit, whole-file reads, classify, stage, render the gated diff, halt, apply on approval), the diff-rendering contract, the decline markers and re-proposal rule, and the `groom` log-line format.
@@ -31,6 +35,7 @@ Run the full protocol in `references/groom-pass.md` — the codified steps (pre-
 ## Standing rules (act-blocking)
 
 - **Never groom any partner other than the active one.** One invocation, one partner, its own files — no cross-partner writes, ever.
+- **`## Charter` is the owner's section — keep-only.** It renders in every diff as **keep**, always, and no proposal may touch it. This is the charter's enforcement surface while its lint check is `declared` (`{conventions}/frontmatter.md`, the partner-memory section).
 - **The partner's SKILL.md is untouchable.** Changing who the partner fundamentally is is council-gated rebirth territory (the contract's two-tier identity line), never a groom act.
 - **A wiki-rung promotion is never a direct wiki write.** It renders in the diff as a proposed **Librarian hand-off** (relay) — single-writer holds at the wiki lane.
 - **Nothing applies without the gate.** The proposal halts for the user's ruling; declined or unapproved material stays **byte-identical**. There is no ungated in-place rewriting of records.

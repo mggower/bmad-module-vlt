@@ -8,7 +8,7 @@ trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-derived_from: 'vault-operating-contract.md sha256:470aaf2816f7a60e572af3a44ff7ae47d1bec641145830eda7678433ae253b9d (derived 2026-09-02)'
+derived_from: 'vault-operating-contract.md sha256:7e374b9ccc5fd508f9e7710ec4d814e4381924f634765134d3a453163e167adb (derived 2026-09-17)'
 ---
 
 # Vault Rule-Card
@@ -43,8 +43,8 @@ Each rule is a line, not the mechanics — its contract section (→) is the hom
 | *Naming conventions* | Datetime prefixes, kebab-case, per-location rules — open before creating a file |
 | *Frontmatter* | Points at `frontmatter.md`, the schema's single source — open before writing any note |
 | *Wikilinks and MOCs* | Free linking and the MOC prohibition — open when linking |
-| *Activation ritual — two beats* | The full ritual, Beat-2 bounds, cold-start, the hand-off skip — open when the ceremony itself is in question |
-| *Partner memory — identity, thread, and reflexes* | The three files + the vault rung (`_agent/reflexes.md`, fleet-wide pointer lines), the promotion ladder + verbs, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` or the vault rung |
+| *Activation ritual — two beats* | The full ritual, Beat-2 bounds, cold-start, cold-by-choice, the hand-off skip — open when the ceremony itself is in question |
+| *Partner memory — identity, thread, and reflexes* | The per-partner files + the vault rung (`_agent/reflexes.md`, fleet-wide pointer lines), the promotion ladder (two axes) + verbs (promote, demote, compress, retire), the owner's charter, drift vs rebirth — open before updating `identity.md`/`thread.md`/`reflexes.md` or the vault rung |
 | *Capabilities — what a partner can do* | Light/heavy weights, families, ownership — open before growing or running a capability |
 | *User preferences* | The `CLAUDE.md` `## Preferences` single home — open when a tool/workflow preference surfaces |
 | *Sessions, sittings, and hand-offs* | The sitting unit, hand-off payloads, consult vs relay, specs — open at any partner seam or sitting end |

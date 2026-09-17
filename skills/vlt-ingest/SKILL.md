@@ -1,7 +1,7 @@
 ---
 name: vlt-ingest
 description: Integrate a source into the vault wiki. Use when the user adds a file to the sources layer, shares an article or URL, pastes text to file, or says 'ingest this', 'process this source', 'add this to the wiki', or 'what should I take from this?' For curated material already in the vault's sources layer; for open-ended topics that need the web, use vlt-research.
-depends_on: ["frontmatter@14", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@6", "decision-log@4"]
+depends_on: ["frontmatter@15", "wiki-index@2", "wiki-consolidation@1", "wiki-supersession@2", "write-verification@6", "decision-log@4"]
 ---
 
 # vlt-ingest
@@ -21,7 +21,7 @@ Load config from `{project-root}/_bmad/config.yaml` and `{project-root}/_bmad/co
 - The vault is this project (`{project-root}`).
 - Resolve every location through the `vault_structure` map: an explicit override wins, else the shipped default. The logical names this skill uses (default shown, relative to the project root): `wiki` → `resources/wiki/`, `index` → `resources/wiki/index.md`, `research` → `_agent/research/`, `log` → `_agent/log.md`, `sessions` → `_agent/sessions/`, `conventions` → `_meta/conventions/`, `overlays` → `_agent/conventions/` (vault-local convention overlays), `archive` → `_archive/`. Below, `{wiki}` etc. mean the resolved path.
 
-**Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked standalone with no partner, omit the tag.
+**Identify the active partner** (the roster member running this — e.g. `librarian`) for the log tag. If invoked **standalone, outside any sitting**, omit the tag; inside a partnerless sitting the tag is **`(none)`**, per the operating contract's `{log}` grammar.
 
 **Read the conventions you will obey** before writing anything: `{conventions}/frontmatter.md` and `{conventions}/wiki-supersession.md` (and `{conventions}/wiki-consolidation.md` if a merge arises in Step 6) — read each together with its `{overlays}/{name}.overlay.md` if present, honoring the overlay's appended rules — and any **local convention** naming this skill in its `consumers:` (the operating contract, *Durability across upgrades*). These govern every write; honor them exactly.
 

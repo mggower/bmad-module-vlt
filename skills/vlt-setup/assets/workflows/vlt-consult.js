@@ -12,6 +12,11 @@ export const meta = {
 //   list is the explicit, checkable "reads no conventions" state the release gate
 //   (package-lint E5) requires on every shipped workflow, so a future convention
 //   read cannot arrive unacked and structurally unnoticed.
+//   NOTE: the lite boot below honours `identity.md`'s `memory:` posture, a field
+//   the frontmatter convention defines — but this file still pins NO convention.
+//   The ack lives on `vlt-dispatch`, which owns the consult mode and carries the
+//   frontmatter pin; adding one here would mint an eleventh consumer for a single
+//   field. Not a missing pin — a deliberate one.
 
 // ─────────────────────────────────────────────────────────────────────────────
 // vlt-consult — the synchronous partner→partner consult engine.
@@ -133,9 +138,9 @@ const consultPrompt =
   `You are the vault partner whose routing slug is "${toSlug}". ` +
   `Read your SKILL at the LIVE path ${skillsPath}/vlt-agent-${toSlug}/SKILL.md and BECOME that partner — answer in its own voice, from its own expertise, with its own manner. ` +
   (partnersPath
-    ? `Also read ${partnersPath}/${toSlug}/identity.md and ${partnersPath}/${toSlug}/thread.md if they exist — your accumulated identity in this vault and what you are currently on. `
+    ? `Read ${partnersPath}/${toSlug}/identity.md's FRONTMATTER first. If it declares \`memory: reflexes\`, that is your standing activation posture and it holds here too: read your \`## Charter\` and ${partnersPath}/${toSlug}/reflexes.md, and do NOT read the identity.md body or ${partnersPath}/${toSlug}/thread.md at all. Otherwise (absent, or \`memory: full\`) also read the identity.md body and ${partnersPath}/${toSlug}/thread.md if they exist — your accumulated identity in this vault and what you are currently on. `
     : '') +
-  `You are on a LITE BOOT: read your SKILL for voice, domain, and rules of refusal, your identity.md/thread.md for who you are here, and the GROUND IN paths below — you do NOT run your SKILL's activation ritual (no rule-card or contract read, no Beat 2 orient reads); a consult is depth-1 traffic, not a sitting. ` +
+  `You are on a LITE BOOT: read your SKILL for voice, domain, and rules of refusal, your identity.md/thread.md for who you are here — unless you have declared \`memory: reflexes\`, in which case you are your SKILL, your charter and your reflexes and nothing else — and the GROUND IN paths below — you do NOT run your SKILL's activation ritual (no rule-card or contract read, no Beat 2 orient reads); a consult is depth-1 traffic, not a sitting. ` +
   `If your SKILL file cannot be read, return { available: false } with empty fields and stop — do NOT answer as a generic assistant. ` +
   `\n\nYou have been CONSULTED by the partner "${fromSlug}". A consult is synchronous and depth-1: you answer, and you are done. ` +
   `HARD RULES:\n` +

@@ -1,14 +1,14 @@
 ---
 type: note
 created: 2026-06-01
-last_updated: 2026-09-02
+last_updated: 2026-09-17
 title: Frontmatter Conventions
 author: hybrid
 trust: reviewed
 topic: vault-meta, conventions
 status: complete
 sources: []
-version: 14
+version: 15
 consumers: [vlt-ingest, vlt-extract, vlt-research, vlt-lint, vlt-mint, vlt-dispatch, vlt-setup, vlt-groom, vlt-query, vlt-lint-full.js]
 enforcement_stage: checked
 enforcement_checked_by: vlt-lint
@@ -158,13 +158,18 @@ created: YYYY-MM-DD
 title: Session Log — YYYY-MM-DD HH:MM
 author: agent
 trust: raw
-partner: <partner-name>              # the roster member who ran the session, e.g. librarian, researcher
+partner: <partner-name>              # the roster member who ran the session, e.g. librarian, researcher; `none` = a sitting no partner ran
+sitting: cold                        # OPTIONAL — the sitting ran cold (a fourth activation posture: SKILL.md
+                                     # + ## Charter + reflexes.md + rule-card + vault rung; no identity or
+                                     # thread read, no identity or thread write). Absent = an ordinary sitting.
 ---
 ```
 
 Datetime-prefixed kebab-case filename; optional `-<type>` suffix per the operating contract's canonical suffix set (`ingest | query | lint | research | extract | setup | remediation | misc`). **No `last_updated`** — written once at session end.
 
-**`partner:`** names the roster member who authored the session — the frontmatter analogue of the `(<partner>)` tag on `{log}` entries, so the session trail is greppable by partner (`grep -l "partner: researcher" {sessions}/*.md`). The summoning partner owns the session note for the whole sitting (operation skills append `{log}` entries but never write session notes — see the operating contract's session-ownership rule). Omit only for a partner-less generic-agent session.
+**`partner:`** names the roster member who authored the session — the frontmatter analogue of the `(<partner>)` tag on `{log}` entries, so the session trail is greppable by partner (`grep -l "partner: researcher" {sessions}/*.md`). The summoning partner owns the session note for the whole sitting (operation skills append `{log}` entries but never write session notes — see the operating contract's session-ownership rule).
+
+**`partner: none`** names a sitting no partner ran — a session the owner or a generic agent held at the wheel. It is a value, not an absence: the note carries `partner: none`, the `{log}` entry carries `(none)`, and the session trail stays greppable by actor. Omit the field only for a **headless operation outside any sitting** (an op invoked standalone with no partner and no session note of its own). Two pre-adoption values exist in the field — `partner: user` and `partner: vlt-mint` — and are **legal-until-groomed** under the *Adoption postures* rule; no backfill sweep.
 
 ## PARA artifacts (`projects/`, `areas/`, `resources/`)
 
@@ -180,9 +185,9 @@ See `extraction.md` for the full schema, the container model, the trust ladder p
 
 ## Partner memory (`{partners}`)
 
-Each partner keeps its relationship with the user *in this vault* under `{partners}/<partner>/`, split by lifecycle into **three files** (the sections inside each — and the promotion ladder, lifecycle rules, and verbs that move material between them — are defined in the operating contract's "Partner memory — identity, thread, and reflexes", not here: **the contract owns behavior; this file owns fields**):
+Each partner keeps its relationship with the user *in this vault* under `{partners}/<partner>/`, split **by lifecycle** into the files below — plus a fourth, `casebook.md`, wherever a partner has demoted onto it. (The sections inside each — and the promotion ladder, lifecycle rules, and verbs that move material between them — are defined in the operating contract's *Partner memory*, not here: **the contract owns behavior; this file owns fields**.)
 
-**`identity.md`** — the evergreen identity layer (`## Bond` + `## Self`). Continuously updated, so it carries `last_updated`:
+**`identity.md`** — the evergreen identity layer (`## Charter` + `## Bond` + `## Self`). Continuously updated, so it carries `last_updated`:
 
 ```yaml
 ---
@@ -193,8 +198,16 @@ created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 groomed: YYYY-MM-DD         # OPTIONAL — date of the last groom pass; absence = never groomed
 archive: <ref>              # OPTIONAL — pre-groom state reference; see Hygiene watermarks (referenced, not redefined)
+memory: full | reflexes     # activation posture: what Beat 1 reads. full (default) = SKILL.md +
+                            # identity.md + reflexes.md; reflexes = SKILL.md + reflexes.md only.
+                            # Absent = full. `none` is deliberately not a member — per-summon
+                            # statelessness is `sitting: cold` on the session note.
 ---
 ```
+
+The body sections are **`## Charter`** (owner-written), **`## Bond`**, and **`## Self`**, in that order — `## Charter` is read **first in Beat 1**. The owner authors it (or `vlt-mint` does, at mint, from the becoming conversation) and edits it thereafter; **a partner never edits it**. `vlt-setup`/`vlt-upgrade` may **seed the section empty and never author one**.
+
+**Enforcement posture for `## Charter` (the owner-written rule does not ship silent):** stage `declared`; the shipped enforcement surface is the **render surface** — `## Charter` is keep-only in every `vlt-groom` diff and in every partner end-of-sitting write (`vlt-groom/references/groom-pass.md`, and the operating contract's *Partner memory*). A lint check is deferred — deferral metric: observed partner edits to a `## Charter` (in groom diffs, or by `git log` over `identity.md`); deferral threshold: 2; `review_after: 2027-03-17`.
 
 **`name` is a first-class but ungated identity fact.** When the user gives a partner a name ("I'll call you Gwyn"), the partner writes it here freely — a user naming a partner is not a contract change, so it needs no council gate; but it is load-bearing enough to deserve its own field rather than being buried in `## Self` prose. It is **per-vault** (the same partner can be named differently in another vault — consistent with "different person per vault") and **overrides the `customize.toml` install default** (`[agent].name`) for this vault. On activation the partner reads it in Beat 1 and answers to it; absent, it goes by its role/title.
 
@@ -213,6 +226,21 @@ archive: <ref>              # OPTIONAL — pre-groom state reference; see Hygien
 
 The thread body's **standing-read form** (a `### Standing reads` subsection whose entries are latest-form-only, grounds named, each carrying a falsifier) is contract-defined shape, not a frontmatter field — see the operating contract's *Partner memory* section for the rules; this file defines no body grammar.
 
+**`casebook.md`** — the demoted-narrative layer, **never wake-read**. Read point-of-use, when the partner reaches for a case it remembers filing:
+
+```yaml
+---
+type: casebook
+partner: <partner-name>
+created: YYYY-MM-DD
+last_updated: YYYY-MM-DD
+groomed: YYYY-MM-DD         # OPTIONAL — date of the last groom pass; absence = never groomed
+archive: <ref>              # OPTIONAL — pre-groom state reference; see Hygiene watermarks (referenced, not redefined)
+---
+```
+
+**Born on the first approved demote, never seeded** — its existence means material was moved down. Behavior — what belongs here, how `demote` moves it — lives in the operating contract's *Partner memory*; this file owns fields.
+
 **`reflexes.md`** — the always-loaded rule layer, read in Beat 1 (one line per rule, hard-capped). Continuously updated:
 
 ```yaml
@@ -221,17 +249,18 @@ type: reflexes
 partner: <partner-name>
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
-cap: 30                     # hard cap — at most 30 one-line rules; promoting one in means editing one out or arguing the cap
-falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, or reflexes routinely exceed one line, the cap value (or the one-line form) is mis-set — file it"
+cap_words: 900              # hard cap — at most 900 words of reflexes (30 one-line rules × the ~30-word line the
+                            # falsifier fired on); promoting one in means editing one out or arguing the cap
+falsifier: "if a partner in ordinary use twice argues the cap rather than consolidating, the cap value is mis-set — file it"
 review_after: 2026-11-17    # the wiki-page key above, referenced not redefined — the cap's n=1 calibration expiry
 ---
 ```
 
-The **cap is declared in the file's own frontmatter** because it is n=1-evidenced (one field prototype): it ships with its named `falsifier:` and `review_after:` so the value can be recalibrated on evidence — the first field groom runs are the named calibration evidence that may amend the cap value without re-opening ideation. **Enforcement posture (the cap does not ship silent):** stage `declared`; checked by **the partner itself at promote-time** (the edit-one-out rule) and *rendered* by `vlt-groom`'s approval-gated diff (the shipped render surface); the mechanical bell is deferred — deferral metric: cap-argued or cap-exceeded observations in the field; threshold: 2; expiry: the `review_after:` above. The cap + edit-one-out + the retire verb are also this file class's **decay contract at birth** — it structurally cannot become a no-decay accumulator.
+The **cap is declared in the file's own frontmatter** because it is n=1-evidenced (one field prototype): it ships with its named `falsifier:` and `review_after:` so the value can be recalibrated on evidence — the first field groom runs are the named calibration evidence that may amend the cap value without re-opening ideation. **Enforcement posture (the cap does not ship silent):** stage `declared`; checked by **the partner itself at promote-time** (the edit-one-out rule) and *rendered* by `vlt-groom`'s approval-gated diff (the shipped render surface); **the mechanical bell now exists** — the `activation-budget` wire trips on a partner's Beat 1 word count, of which `reflexes.md` is a term (`_agent/tripwires.yaml`, where the bound lives). The cap + edit-one-out + the retire verb are also this file class's **decay contract at birth** — it structurally cannot become a no-decay accumulator.
 
-**`_agent/reflexes.md` — the vault rung** (vault-scoped, partner-independent; read in Beat 1 by every partner): the same `type: reflexes` schema with **`scope: vault` in place of `partner:`** — all other keys (`created`, `last_updated`, `cap:`, `falsifier:`, `review_after:`) as above, under the same cap discipline. Body lines are **pointers**, one per line. Behavior — writers, pointer shape, promotion — lives in the operating contract (*Partner memory*, the vault rung): the contract owns behavior; this file owns fields.
+**`_agent/reflexes.md` — the vault rung** (vault-scoped, partner-independent; read in Beat 1 by every partner): the same `type: reflexes` schema with **`scope: vault` in place of `partner:`** — all other keys (`created`, `last_updated`, `cap_words:`, `falsifier:`, `review_after:`) as above, under the same cap discipline. Body lines are **pointers**, one per line. Behavior — writers, pointer shape, promotion — lives in the operating contract (*Partner memory*, the vault rung): the contract owns behavior; this file owns fields.
 
-The three per-partner files are partner-private (a relationship layer, not shared knowledge), so they carry `partner:` for attribution but need no `author`/`trust`; the vault rung is vault-scoped and carries `scope: vault` instead. Their bodies are `## ` sections per the operating contract (reflexes: one line per rule). *(Prior to the two-file split, identity and thread lived in a single `type: thread` file carrying all three sections; `vlt-setup` performs the one-time, idempotent migration — and seeds `reflexes.md` if absent. An existing populated `reflexes.md` is vault relationship history and is never touched.)*
+The per-partner files are partner-private (a relationship layer, not shared knowledge), so they carry `partner:` for attribution but need no `author`/`trust`; the vault rung is vault-scoped and carries `scope: vault` instead. Their bodies are `## ` sections per the operating contract (reflexes: one line per rule). *(Prior to the two-file split, identity and thread lived in a single `type: thread` file carrying all three sections; `vlt-setup` performs the one-time, idempotent migration — and seeds `reflexes.md` if absent. An existing populated `reflexes.md` is vault relationship history and is never touched.)*
 
 ## Hygiene watermarks
 

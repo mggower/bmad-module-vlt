@@ -35,8 +35,8 @@ This is the read-side bell for the failure that cannot be seen by reading a sing
 
 After the open board, run the vitals reader — `{root}/.claude/hooks/vlt-vitals.py` (default mode) — and render:
 
-- **Tripped wires** — one row per **tripped** wire: wire id, current value vs threshold, owner slug, its `surface_text`. A reader failure renders as a **warning row** (`⚠ vitals unavailable: <reason>`) — never omitted, never faked green. No tripped wires → one line **with the wire count checked**: "0 of 4 wires tripped" (a denominated zero, per the operating contract's *Honest reporting* — cited, not re-worded).
-- **Display-only vitals block** (pull, not push — everything beyond the strip's tripped-wires line is pull-budgeted): `days_since_lint`, the denominated `classifier_streak` line exactly as the reader renders it (count, denominator, and unreadable-count in the same breath), `expired_pages`, and the size vitals (`{log}` / `{backlog}` / `{index}` / per-partner memory bytes). Display only — nothing here trips or nags.
+- **Tripped wires** — one row per **tripped** wire: wire id, current value vs threshold, owner slug, its `surface_text`. A reader failure renders as a **warning row** (`⚠ vitals unavailable: <reason>`) — never omitted, never faked green. No tripped wires → one line **with the wire count checked**: "0 of 5 wires tripped" (illustrative — the count is derived from the registry, never a literal; a denominated zero, per the operating contract's *Honest reporting* — cited, not re-worded).
+- **Display-only vitals block** (pull, not push — everything beyond the strip's tripped-wires line is pull-budgeted): `days_since_lint`, the denominated `classifier_streak` line exactly as the reader renders it (count, denominator, and unreadable-count in the same breath), `expired_pages`, and the size vitals (`{log}` / `{backlog}` / `{index}` / per-partner memory bytes **and Beat 1 activation words**). Display only — nothing here trips or nags.
 
 ### Verify
 

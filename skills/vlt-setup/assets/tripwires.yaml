@@ -21,13 +21,22 @@
 #   id            — short kebab-case wire name (unique in this file)
 #   metric        — a canonical metric id from the vitals reader's table
 #   threshold     — comparison + integer, e.g. ">= 10" or "> 21"
-#   owner         — the partner slug whose debt this is (who acts on a trip)
+#   owner         — the partner slug whose debt this is, or `human` where the
+#                   responding act is the owner's (a count wire's debtor varies
+#                   per trip, so a single static slug cannot name it)
 #   moment        — where the trip surfaces (SessionStart strip / ledger)
 #   surface_text  — the short phrase rendered beside the value on a trip;
 #                   phrase it as the responding act — a wire's legal response
 #                   homes HERE, not in any per-check field
 #   review_after  — date this wire itself should be re-examined (the wiki-page
 #                   key's date semantics, referenced not redefined)
+#
+# METRIC PARAMETERS. One optional key exists beyond the seven, read only by the
+# derivation it parameterizes:
+#   activation_budget_words — REQUIRED on a wire whose metric is
+#                   `partners_over_activation_budget`: the Beat 1 word bound
+#                   each partner's activation set is judged against. Absent, the
+#                   metric is a LOUD wire error, never a silent zero.
 #
 # LOCAL METRICS (optional top-level `local_metrics:` section — B10-4, the
 # durable vault-local metric home). Each entry is a flat map declaring a
@@ -111,3 +120,19 @@ wires:
     moment: SessionStart strip + ledger
     surface_text: "days the oldest drainable dispatch section has sat closed on the live board — drain the board (`vlt-decay`)"
     review_after: 2027-02-28
+
+  # THE BEAT 1 BOUND lives here and nowhere else — in the
+  # `activation_budget_words:` value below, and in no other file. It is a word
+  # count over the per-partner Beat 1 set (SKILL.md + identity.md + reflexes.md, modulated by
+  # `memory:`; the rule-card and vault rung are fleet-constant and excluded).
+  # The contract states that a bound exists and points here; it never repeats
+  # the number. Seed-merge is `local thresholds win`, so a vault's own value is
+  # the live one.
+  - id: activation-budget
+    metric: partners_over_activation_budget
+    threshold: ">= 1"
+    owner: human
+    moment: SessionStart strip / ledger
+    surface_text: "partners whose Beat 1 activation memory is over budget — author the partner's ## Charter, then run `vlt-groom <partner>` (the identity-to-card migration; item-wise demotion will not get there). Identity-heavy → groom; SKILL-heavy → rebirth via `vlt-mint`. Recalibrate this threshold once the metric has run a few sweeps."
+    activation_budget_words: 12000
+    review_after: 2027-03-17
