@@ -1,6 +1,6 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4's question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: **brief build 3** (its spike gate is open); builds 2+3 ship together as the single v0.19.0'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4''s question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: brief build 3 — DONE. — **BUILD 3 BRIEFED 2026-09-17** (`briefs/build-3-carrier-and-tenants.md`; 18 F-sites, 13 brief-time dispositions, 8 acceptance checks appended to the ledger — 6 ship-verifiable GATE + 2 field-contingent, `specimens: 7/7`; five grounding corrections, one with scope consequences — `vlt-setup/SKILL.md:218`''s offer key would have kept the carrier out of every installed vault; `S-4` stamped **consumed**; promise does NOT narrow). Build 3 is the **release build**: v0.19.0 carries builds 2+3 whole (A10). next: **a fresh builder session implements the build-3 brief**'
 module_code: 'vlt'
 created: '2026-09-09'
 updated: '2026-09-17'
@@ -727,6 +727,39 @@ stale line refs they name. None of them contradicts a ruling; the brief carries 
   memory files"*) and `vlt-setup/SKILL.md:225` (*"create the three memory files if absent"*) are in
   scope for the count-word sweep. `vlt-groom/SKILL.md:4` carries **no count word** and needs no edit —
   the roadmap's list named it.
+
+### Grounding corrections — build-3 brief (2026-09-17)
+
+Appended by `build-brief` at build-3 brief time. Build 2 shipped on `cycle16-v0.19.0` (`6ab70b0`)
+between the roundtable and today, moving the operating contract and the consult engine. The capture
+bodies above are append-only and are **not** rewritten; these notes supersede the stale refs they
+name. Neither contradicts a ruling; the brief carries both inline.
+
+- **`conventions/consult.md:29–32` → `:29–31`.** A16-7's capture, Q18 and roundtable A11 all cite the
+  neighbour list as `:29–32`. It is **three bullets at `:29`, `:30`, `:31`**; `:32` is blank and `:33`
+  is the closing *"A consult is none of these…"* sentence. **Superseded** — the build-3 brief's F7
+  adds the fourth bullet after `:31` and re-points `:33`. The ruling's *premise* is confirmed exactly:
+  the rule-bearing lines (`:23–27` class definition, `:36` trigger pointer) sit outside the edit, so
+  the prose-clarification ruling stands and `consult@1` does not bump.
+- **Contract `:226` → `:229`** for the vault rung's pointer-grammar and copy falsifier (roundtable A4,
+  Paige: *"(2)'s rung line is pointer-grammar per contract `:226` … the brief greps it against `:226`'s
+  copy falsifier"*). Build 2's *Partner memory* edits moved it. **Superseded**; F15 greps the seeded
+  line against `:229`.
+- **`vlt-consult.js:138` → `:143`** for the lite boot's *"no rule-card or contract read"* clause (D-5,
+  Q18, D6's gloss all cite `:138`, which is now the *"You are the vault partner…"* opener), and
+  **`:147` → `:152`** for the engine's copy of the `needs-work` → relay routing rule (the obsolescence
+  beat's cite). **Superseded**; F5 and F11 cite the fresh lines. `vlt-consult.js:160` (the single
+  `agent()` call, as the `S-4` artifact names it) HOLDS.
+- **Contract `:318` → `:331`** for the *Wiki + research* hygiene row (A16-6 disposition 4) and
+  **`:314` → `:324`** for the `_agent/dispatch.md` decay row (roundtable A11 (i)). **Superseded**;
+  F16 and F12 cite the fresh lines.
+- **Grounding correction with scope consequences — `vlt-setup/SKILL.md:218`'s offer key.** A16-3
+  direction 1 and Q6 assume the seeded `CLAUDE.md` is the carriage question. Grounding shows the
+  **existing-file branch** is where reach is decided, and its offer is keyed on *"if it doesn't
+  already reference the contract"* — a test **every installed vault already passes**, so the offer
+  would never fire and the import lines would reach no live vault. The brief's F2 re-keys the offer on
+  the import lines' own absence. No ruling is contradicted (Q6 rules the mechanism, not the key); the
+  brief records it as a grounding-driven scope item and Acceptance (1)'s second leg tests it.
 
 ---
 
@@ -1678,6 +1711,74 @@ tagged ship-verifiable or field-contingent.)*
   are over the day the wire lands and only owner-run, invoked-only, approval-gated grooms bring them
   under. Build 2's ST-9 contribution is (7), watch not gate: the Researcher sits at 9,293 words, so Q8
   does not touch the ST-9 pressure at all.
+- [ ] **build-3 (carrier-and-tenants, briefed 2026-09-17):** brief
+  `factory/cycles/16-closed-loops/briefs/build-3-carrier-and-tenants.md`. **Eight checks — six
+  `[ship-verifiable]` (GATE), two `[field-contingent]`.** `specimens: 7/7` — `S-4`'s six probe rows
+  (the per-kind attachment records) become check (1)'s instrument and A16-7's one minimal triggering
+  fragment (`references/consult.md:63`) is the site F11 edits; **two classes preserved no set at all
+  and no stand-in is synthesized** — A16-6's belief half (the filing's own recovery grep over nine
+  `identity.md` files returned **zero** — E7) and A16-7's cost claim (no instrument persists task
+  closes across sittings — E8); both are watches below. **R1 n/a** (every rule ships with its
+  mechanism; R1's own rule text landed in build 2 at `vlt-upgrade/SKILL.md:72`). **Retirement
+  SUBSTANTIVE — five retirements, one deliberate survival:** the lite-boot *"no rule-card or contract
+  read"* exemption (`vlt-consult.js:143` + `references/consult.md:9`, D-5 symmetric); the seeded
+  `CLAUDE.md`'s *"read it before writing anything"* pointer at the 67,844-char contract
+  (`vlt-setup/SKILL.md:206-207`); the engine's copy of the `needs-work`→relay routing rule
+  (`vlt-consult.js:152` → a pointer); rule-card `:30` *"a partner consults, or it cites"* → *"consults,
+  cites, or delegates a bounded dive"*; the word *Researcher* in Creative `:37`'s remedy (A19).
+  **Deliberate survival:** `conventions/consult.md:23-27`/`:36` and `consult@1` — delegate narrows no
+  population, it fills an empty cell. **R4 substantive** — the new shipped asset `vlt-delegate.js`
+  widens the workflow enumeration at `vlt-setup/SKILL.md:171-173`; the skill-asset manifest needs none
+  (structural walk). **This build is the release build — v0.19.0, carrying builds 2+3** (A10).
+  **Promise does NOT narrow** (A5 ii): the harvest reached all six probed kinds; the two blank cells
+  are measurements not taken, carried as check (1)'s residual. **(1) `[ship-verifiable]` Carrier** —
+  property: in every kind the harvest names reached, a partnerless session at the vault root has a card
+  canary and a rung canary in context at turn one, **once not twice**. Instrument:
+  `fixtures/build-3-carrier-probe/` — the `S-4` harness re-pointed at a vault provisioned by the
+  **shipped** `vlt-setup` §3 text, graded on the runtime's **attachment record** (+ passphrase
+  corroboration), legs: `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()`
+  subagent. Adversary answered with two widenings: a **second leg over a pre-existing `CLAUDE.md` that
+  already references the contract** (F2's re-keyed offer must fire — the old key never would), and
+  *once-not-twice* asserted on the record so a double delivery cannot pass. **(2) `[ship-verifiable]`
+  Delegate** — property: one runner (zero on `deep`), at most one attested note, no wiki write, the
+  caller keeps the wheel and owns the sitting's single session note, and the record can neither rot
+  open nor accumulate. Instrument: `fixtures/build-3-delegate-vault/` end-to-end through the shipped
+  engine with a **pre-written oracle**, five legs (thin→`insufficient-context`; `deep`→`too-big` with
+  **zero** spawns; real quick→`done`; forced-null over a **pre-planted `.WIP.md`**→`incomplete`;
+  unreadable op→degraded); failable against v0.18.1. Adversary answered with one widening: the single
+  session note's **`partner:` must equal the caller** — a count-only check passes in a world where the
+  runner writes the caller's note. **(3) `[ship-verifiable]` Sibling** — property: delegate is a
+  neighbour, not a variant. Instrument: byte-compare `conventions/consult.md:23-27`/`:36` against
+  `HEAD~`, `package-lint` Group E for both acks, and the grep-negative pattern list. Adversary answered:
+  the grep ships with a **positive control** against a planted sentence — a silent pass is
+  indistinguishable from a broken pattern list. **(4) `[ship-verifiable]` Lane** — property: no shipped
+  sentence names `{research}` single-writer or routes a non-Researcher away; the four replacement
+  sentences are present and the census renders. Instrument: greps (contract `:263`, rung seed line
+  against `:229`'s copy falsifier, Creative `:37` — *Researcher* absent / *Librarian* + *surfaced to
+  the user* present, contract `:331`) + `--web-census` against `fixtures/build-3-web-census/`'s
+  pre-written oracle, gate accepting the line and **rejecting an off-by-one**. Adversary answered with
+  one widening: the check is written as a **negative over the shipped surface**, not only a positive
+  for the new sentences. **(5) `[ship-verifiable]` Decay** — property: a `delegate:` block enters the
+  decay table in the act that creates it. Instrument: the shipped `vlt-vitals.py` reports a non-zero
+  `oldest_drainable_section_days` on a closed dated `delegate:` fixture and the **pre-build** reader
+  reports `0` on the identical fixture; four sites agree by grep. Adversary: a list-only assertion
+  passes while the classifier still files the header as `other` (two edits, ~25 lines apart — the A11
+  (i) failure); executing the reader closes it. No remaining passing-violating state found. **(6)
+  `[ship-verifiable]` Rung line reaches an installed vault** — property: exactly one line, once, never
+  over the cap. Event: the owner's **next `vlt-upgrade` of `{field-vault}` to v0.19.0** (bounded —
+  scheduled by this release). Graded on: the line inserted once; a **second run inserts nothing**;
+  `migrations_run` carries `rung-lane-pointer`; under `cap_words:`; at cap a human-gated offer + a
+  recorded skip, never edit-one-out. Adversary answered with one widening: the **second run is part of
+  the check** — non-idempotency only appears there. **(7) `[field-contingent]` First live delegate** —
+  event: the first `delegate:` block written in `{field-vault}` by a **non-Researcher** partner in an
+  ordinary sitting; performed by the owner; graded on block shape, both `{log}` lines caller-tagged,
+  the note attested, the caller's single session note, and D7's outcome — **the dive returned inside
+  one sitting**. Carries the E7 watch in its weakest honest form (*a partner that formerly declined now
+  runs, delegates, or cites*). Unbounded; watch, never gate. **(8) `[field-contingent]` First
+  partnerless note** — carried from build 2 by A6 (build 2 shipped the posture, build 3 the carriage).
+  Event: the owner works a partnerless sitting in `{field-vault}` and writes its note; graded on exactly
+  one note stamped `partner: none`, one `(none)` `{log}` entry, **zero** bytes under `{partners}`, no
+  dispatch-slice read, and that the sitting opened with the card and rung in context. Unbounded; watch.
 ---
 
 <details>
@@ -2102,7 +2203,9 @@ disk, **one commit for the build**, on `cycle16-v0.19.0`. Ideation is not re-ope
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing. The chat report is a copy; this line is the obligation.
 
-## Next lifecycle move (2026-09-17, `S-4` harvested) — authoritative
+### Routing — historical record (superseded by the stamp at the foot of this file)
+
+**Next lifecycle move (2026-09-17, `S-4` harvested) — SPENT, demoted 2026-09-17 by the build-3 brief.**
 
 **`S-4` is HARVESTED, `verdict: proceed`. Build 3's spike gate is open — next move: `brief build 3`
 (`build-brief`).** Harvest artifact:
@@ -2130,6 +2233,45 @@ as the single **v0.19.0**; nothing releases until build 3 is built.
   candidate filings (E6, incl. the partially-shipped-cycle capture-boundary gap); **capture stays
   DEFERRED to Cycle 17** by owner ruling. Build-1 check **(2) stays FAILED and still GATES closeout**,
   bound to Cycle 17.
+
+*(This block was the routing of record until the build-3 brief; the stamp below supersedes it.)*
+
+
+## Next lifecycle move (2026-09-17, `build-brief` — build 3 BRIEFED) — authoritative
+
+**A fresh builder session implements `factory/cycles/16-closed-loops/briefs/build-3-carrier-and-tenants.md`
+via `bmad-workflow-builder`.** The brief's `status:` line states the builder's exit obligations: rewrite
+`status:` to a BUILT record with numbered deliberate deviations, delete any `.decision-log.md` left on
+disk, **one commit for the build**, on `cycle16-v0.19.0`. **Build 3 is the RELEASE build** — its §8
+carries the dual version bump to **v0.19.0**, the `--expect-version 0.19.0` gate, and the CHANGELOG
+collation of build 2's notice text (A17). Ideation is not re-opened.
+
+- **What landed this run.** Build 3's brief — 18 F-sites in three parts (the carrier, the delegate
+  mechanism, the lane), 13 brief-time dispositions, Registration (no new skill and **no new
+  `module-help.csv` row** — a mode, not a skill; one new workflow asset with its `depends_on` header;
+  package-lint **C6** owed for the contract edit, **E4/R2 not owed**), 15 at-rest verification items,
+  §8 release + notice text, and **8 acceptance checks appended to the Deferred acceptance ledger**
+  (6 ship-verifiable GATE, 2 field-contingent; `specimens: 7/7` with two classes honestly at zero).
+- **Readiness gate passed on all five clauses:** ideation ruled build 3 (rounds 1 and 5); the
+  roundtable covers the batch with **no OPEN disputes**; `promise:` is filled and is carried into the
+  brief's `title:` **without narrowing** (A5 (ii) — the harvest reached all six probed kinds); `spike:
+  S-4` reads **harvested** and is now stamped **`consumed`** in its register file with build 3 appended
+  to `consumed_by:`; E7 and E8 both ACCEPTED-not-blocking.
+- **Five grounding corrections issued**, each recorded twice (inline in the brief, and as superseding
+  notes in §*Grounding corrections — build-3 brief* above): `conventions/consult.md:29–32` → `:29–31`;
+  contract `:226` → `:229`, `:318` → `:331`, `:314` → `:324`; `vlt-consult.js:138` → `:143` and
+  `:147` → `:152`. **No ruling is contradicted and no re-ruling is owed** — Q18's premise is confirmed
+  exactly (the rule-bearing lines sit outside the edit, so `consult@1` does not bump).
+- **One correction has scope consequences, and it is the reason the carrier would otherwise have
+  reached nobody.** `vlt-setup/SKILL.md:218`'s additive offer is keyed on *"if it doesn't already
+  reference the contract"* — a test **every installed vault already passes**, so the import lines would
+  have shipped to new vaults only. F2 re-keys the offer on the import lines' own absence, and
+  Acceptance (1)'s second leg tests exactly that path.
+- **Unchanged and still owed:** the owner call under build-1 check (3) (is a mismatch fix a
+  *substantive edit* for `fix-and-file.md:7`/`:18`); the five capture-don't-interrupt filings (incl.
+  *research notes persist no `depth:` field*); the owner's owed candidate filings (E6, incl. the
+  partially-shipped-cycle capture-boundary gap); **capture stays DEFERRED to Cycle 17** by owner
+  ruling. Build-1 check **(2) stays FAILED and still GATES closeout**, bound to Cycle 17.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and nothing follows it. The chat report is a copy; this line is the obligation.

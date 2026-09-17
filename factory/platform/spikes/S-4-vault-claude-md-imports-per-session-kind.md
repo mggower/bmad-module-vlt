@@ -1,7 +1,7 @@
 ---
 id: 'S-4'
 slug: 'vault-claude-md-imports-per-session-kind'
-status: 'harvested'
+status: 'consumed'
 question: 'Does an `@path` import line in a vault-root CLAUDE.md load for EVERY session kind the module runs in the current Claude Code runtime — interactive, headless op (`claude -p`), partner summon, and subagent — or only for some; and does the same hold for a CLAUDE.md pointer that names a path without `@`?'
 opened: '2026-09-09'
 opened_by: 'capture — Cycle 16 (A16-3, the partnerless governance carrier — direction 1 rests on it)'
@@ -13,7 +13,8 @@ sources:
   - 'A disposable probe vault built for this run: root `CLAUDE.md` with one `@`-import + one no-`@` prose pointer, a second-level `@`-import, a `SessionStart` command hook, and a stand-in summon skill'
   - '`skills/vlt-setup/assets/workflows/vlt-consult.js:160` — confirms the workflow-`agent()` kind is the engine actually in use, so row 5 probes the real thing'
 findings: 'factory/cycles/16-closed-loops/spike-s-4-claude-md-imports-2026-09-17.md'
-consumed_by: []
+consumed_by:
+  - 'Cycle 16 build-3 (carrier-and-tenants) — briefed 2026-09-17; the harvest grounds A16-3 direction 1 (the two import lines) and rules the `SessionStart` fallback out, and its row-5 workflow-`agent()` result carries the D-5 symmetric retirement of the `vlt-consult.js` lite-boot card exemption'
 legacy_id: ''
 ---
 
