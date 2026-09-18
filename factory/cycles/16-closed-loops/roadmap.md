@@ -1,9 +1,9 @@
 ---
 title: 'Cycle 16 — closed loops'
-status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4''s question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: brief build 3 — DONE. — **BUILD 3 BRIEFED 2026-09-17** (`briefs/build-3-carrier-and-tenants.md`; 18 F-sites, 13 brief-time dispositions, 8 acceptance checks appended to the ledger — 6 ship-verifiable GATE + 2 field-contingent, `specimens: 7/7`; five grounding corrections, one with scope consequences — `vlt-setup/SKILL.md:218`''s offer key would have kept the carrier out of every installed vault; `S-4` stamped **consumed**; promise does NOT narrow). Build 3 is the **release build**: v0.19.0 carries builds 2+3 whole (A10). next: **a fresh builder session implements the build-3 brief** — **BUILD 3 BUILT + v0.19.0 SHIPPED 2026-09-17** (`03e4686`, builds 2+3 whole; all 18 F-sites, package-lint A/B/C/E PASS, 15/15 at-rest verification) — **ACCEPTANCE PASS 3 2026-09-17** (`acceptance-discharge`, over the `vlt-core` 0.18.1 → 0.19.0 own-the-apply at `[2026-09-17 10:46]`, vault commit `7d3d7fd`). **Rows 2 and 3 do NOT tick.** Row 2 (build 2): (1)(2)(5)(6) DISCHARGED, (3) SPLIT, (4)(7)(8) STILL-OPEN. Row 3 (build 3): (1)(2)(3)(4)(5) DISCHARGED, (7)(8) STILL-OPEN, and **(6) Rung line FAILED — ship-verifiable, so it GATES closeout**: build 2 retired `cap:` → `cap_words:` at `frontmatter@15` and migrated only the three shipped seeds, so the `rung-lane-pointer` degrade path (`vlt-upgrade/SKILL.md:82`) reads a key **no installed vault carries** (9/10 live `reflexes.md` on `{field-vault}` carry the retired `cap: 30`, 0/10 carry `cap_words:`, 1/10 carries neither) and the recorded pass came from a hand substitution of both the key and its unit — the `ST-2`/Cycle 12 `b2(5)` family a third time. Filed with the complete 10-specimen manifest as `2026-09-17-113000-…`. **Cycle 16 will therefore close carrying TWO bound debts to Cycle 17** — build-1 (2) Census and build-3 (6) Rung line, both ship-verifiable, both gating; capture stays DEFERRED to Cycle 17 by owner ruling, so neither filing is folded. 0 filings archived this run. Soonest waitable tail: build-2 (3)''s `shasum` half, on the next partner sitting that writes an `identity.md` outside `## Charter`; build-2 (4) Cold can be discharged today by running and recording its never-run reader protocol. next: **re-run `acceptance-discharge` once a tail fires; `cycle-closeout` is blocked on the two gating FAILs**'
+status: 'open — captured 2026-09-09 (A16-1..A16-5) + capture addendum 2026-09-16 (A16-6..A16-8); ideation FILLED 2026-09-16 (three builds; S-4 ruled RUN); ROUNDTABLE REVIEWED 2026-09-16 (full 13; 19 amendments A1–A19 applied, R1 declared, D9 added, 11 owner rulings, 0 open disputes; release shape amended to TWO releases — build 1 alone first, builds 2+3 held whole until S-4) — BUILD 1 BRIEFED 2026-09-16 (`briefs/build-1-own-writes-read-back.md`, its own release v0.18.1; ledger row 1 appended; one grounding correction under Q3) — BUILD 1 BUILT 2026-09-16 on `cycle16-v0.18.1` (F1–F11 landed; all at-rest verification green — both new harnesses PASS shipped / FAIL on v0.18.0, Cycle 15 build-2..5 regression green, scanFingerprint byte-identical, package-lint A/B/C/E PASS; three deviations recorded in the brief) — **v0.18.1 SHIPPED 2026-09-16 (build 1 alone, A10), @ `4fd8049`, tagged v0.18.1** (annotated; main + tag pushed to origin) — next: brief build 2; live acceptance for build 1 batched to the owner''s next `vlt-upgrade` on the field vault — ACCEPTANCE PASSES 1+2 2026-09-16 (`acceptance-discharge`) — pass 1 on upgrade evidence, pass 2 on the completed full sweep. **Ledger row 1 does NOT tick: (1)(3)(4)(5)(F1) DISCHARGED, (2) Census REVERSED to FAILED** (owner-ruled) — its census clause matched on three independent instruments (240 entries across 83 of 152 pages) but its *no per-page finding* clause was contradicted: build-1''s disposition 3 is **inert on any cached scanner record**, because `frontmatter_defect_fields` is not a `runKey` term, so it passes at rest forever and does nothing in the field (the Cycle 12 `b2(5)` shape). **(2) is ship-verifiable, so it GATES closeout.** Filed with a full specimen manifest as `2026-09-16-185500-…`. Cycle 15 build-2 (6)''s warm watch stays FAILED — the 132/152 warm re-run ran under a hand workaround, not the shipped surface. Rail issue #20 (`pageHashes` has no specified digest form) carries the cold-sweep cause. One owner call still outstanding under (3) — next: brief build 2; a build for #20 + the disposition-3 gap, then re-discharge (2) — BUILD 2 BRIEFED 2026-09-16 and BUILT 2026-09-17 on `cycle16-v0.19.0` (@ `6ab70b0`; F1–F17 landed, `frontmatter@14`→`@15`, package-lint A/B/C/E PASS, six-partner fixture PASSED its pre-written oracle and FAILS four ways against v0.18.1; four deviations recorded) — **`S-4` HARVESTED 2026-09-17, `verdict: proceed`**: `@path` imports in a vault-root CLAUDE.md load for every session kind probed (interactive, headless `claude -p`, in-session summon, Agent-tool subagent, workflow-`agent()` subagent, subdirectory cwd), transitively and root-relative, while a no-`@` pointer loads for none — A16-3 direction 1 grounded; the `SessionStart` fallback does NOT fire for in-session subagent spawns, and no size/depth ceiling was measured (A16-4''s question, left open on purpose). Artifact: `spike-s-4-claude-md-imports-2026-09-17.md` — next: brief build 3 — DONE. — **BUILD 3 BRIEFED 2026-09-17** (`briefs/build-3-carrier-and-tenants.md`; 18 F-sites, 13 brief-time dispositions, 8 acceptance checks appended to the ledger — 6 ship-verifiable GATE + 2 field-contingent, `specimens: 7/7`; five grounding corrections, one with scope consequences — `vlt-setup/SKILL.md:218`''s offer key would have kept the carrier out of every installed vault; `S-4` stamped **consumed**; promise does NOT narrow). Build 3 is the **release build**: v0.19.0 carries builds 2+3 whole (A10). next: **a fresh builder session implements the build-3 brief** — **BUILD 3 BUILT + v0.19.0 SHIPPED 2026-09-17** (`03e4686`, builds 2+3 whole; all 18 F-sites, package-lint A/B/C/E PASS, 15/15 at-rest verification) — **ACCEPTANCE PASS 3 2026-09-17** (`acceptance-discharge`, over the `vlt-core` 0.18.1 → 0.19.0 own-the-apply at `[2026-09-17 10:46]`, vault commit `7d3d7fd`). **Rows 2 and 3 do NOT tick.** Row 2 (build 2): (1)(2)(5)(6) DISCHARGED, (3) SPLIT, (4)(7)(8) STILL-OPEN. Row 3 (build 3): (1)(2)(3)(4)(5) DISCHARGED, (7)(8) STILL-OPEN, and **(6) Rung line FAILED — ship-verifiable, so it GATES closeout**: build 2 retired `cap:` → `cap_words:` at `frontmatter@15` and migrated only the three shipped seeds, so the `rung-lane-pointer` degrade path (`vlt-upgrade/SKILL.md:82`) reads a key **no installed vault carries** (9/10 live `reflexes.md` on `{field-vault}` carry the retired `cap: 30`, 0/10 carry `cap_words:`, 1/10 carries neither) and the recorded pass came from a hand substitution of both the key and its unit — the `ST-2`/Cycle 12 `b2(5)` family a third time. Filed with the complete 10-specimen manifest as `2026-09-17-113000-…`. **Cycle 16 will therefore close carrying TWO bound debts to Cycle 17** — build-1 (2) Census and build-3 (6) Rung line, both ship-verifiable, both gating; capture stays DEFERRED to Cycle 17 by owner ruling, so neither filing is folded. 0 filings archived this run. Soonest waitable tail: build-2 (3)''s `shasum` half, on the next partner sitting that writes an `identity.md` outside `## Charter`; build-2 (4) Cold can be discharged today by running and recording its never-run reader protocol. next: **re-run `acceptance-discharge` once a tail fires; `cycle-closeout` is blocked on the two gating FAILs** — ACCEPTANCE PASS 4 2026-09-18 (`acceptance-discharge`, **no new upgrade** — the evidence is the field''s ordinary use of what v0.19.0 delivered: four owner-authored charters + four completed `vlt-groom` passes on `{field-vault}`, 2026-09-17 17:48 → 2026-09-18 08:05). **Still no row ticks, but row 2 moved 4/8 → 6/8 discharged.** **build-2 (3) Charter DISCHARGED** — four grooms each rewrote `## Self` wholesale while `## Charter`''s content lines stayed byte-identical 4/4 (`creative` + `researcher` hash equal exactly; **owner-ruled** DISCHARGED over a stated 1-byte separator residual on `librarian`/`football-analyst`, a blank line inserted before `## Bond`), corroborated by the researcher''s own groom entry asserting the property. **build-2 (8) Under the bound DISCHARGED and over-satisfied** — all three named over-budget partners groomed, so the installed vitals hook now renders `partners_over_activation_budget` **0 of 9** (was 3): librarian 22,171→3,964 w, football-analyst 20,263→8,555 w, creative 16,068→5,637 w — the count dropped 3→0, not the 3→2 the check asked for, and every groom entry says the charter drove it, not the wire. **Both gating FAILs unmoved** (build-1 (2) Census — no sweep since 2026-09-16 18:27; build-3 (6) Rung line — no second upgrade run, and two groom entries reason about the cap in the retired `cap: 30` unit, the defect''s cost in ordinary use). **build-2 (4) Cold and (7) Researcher pilot, build-3 (7) delegate and (8) partnerless note all survived a SECOND run unfired** — pass-through tripwire applied to each, reachability re-examined and CONFIRMED for all four, none re-graded BLOCKED; (7)''s examination found the `memory: reflexes` flip itself has never been made. 0 filings archived. next: **build-2 (4) Cold is dischargeable TODAY by a factory-side reader-protocol run (no field event needed); otherwise re-run `acceptance-discharge` when a tail fires — `cycle-closeout` stays blocked on the two gating FAILs**'
 module_code: 'vlt'
 created: '2026-09-09'
-updated: '2026-09-17'
+updated: '2026-09-18'
 derives_from:
   - 'factory/inbox/2026-09-03-124500-stub-heading-is-stated-inside-a-fence-so-a-faithful-section-scan-reads-located-no.md'
   - 'factory/inbox/2026-09-03-124600-lint-sources-reconciliation-writes-the-retired-bare-path-form.md'
@@ -1613,6 +1613,15 @@ tagged ship-verifiable or field-contingent.)*
     `vlt-track` loop has yet run against a renamed profile — nothing parses the key by design, so the rename act
     is the exercise the check named, and the parse proper rides the next loop session.
 
+  **Discharge pass 4 — 2026-09-18 (`acceptance-discharge`, post-upgrade vault activity: four groom
+  sittings + four owner-authored charters + two ingests on `{field-vault}`, 2026-09-17 17:48 → 2026-09-18
+  08:05).** **Row unchanged — (2) Census stays FAILED and still GATES.** No new census evidence exists:
+  the newest full sweep on the vault is still `[2026-09-16 18:27] lint (librarian) | full — checked 152
+  files` (`_agent/log.md:28`), pre-dating the v0.19.0 upgrade, and `days_since_lint` reads **2** off the
+  installed vitals hook. The defect is module-side and no field act can discharge it — the filing
+  `2026-09-16-185500-…` routes into Cycle 17's `inbox-capture`, and the build it earns is what re-opens
+  this check. Nothing re-graded.
+
 
 - [ ] **build-2 (partner-memory-schema, briefed 2026-09-17):** brief
   `factory/cycles/16-closed-loops/briefs/build-2-partner-memory-schema.md`. **Eight checks — six
@@ -1802,6 +1811,82 @@ tagged ship-verifiable or field-contingent.)*
     the denominated count drops **3 → 2**. **Trigger:** the owner. Explicitly not a gate and explicitly
     not (1)'s claim (A16).
 
+  **Discharge pass 4 — 2026-09-18 (`acceptance-discharge`, post-upgrade vault activity — no new upgrade
+  ran; the evidence is the field's ordinary use of what v0.19.0 delivered).** Between 2026-09-17 17:48
+  and 2026-09-18 08:05 the owner authored charters for four partners and each partner ran a
+  `vlt-groom` pass to completion: `librarian` (`12cbd9d`), `football-analyst` (`957dad1`), `creative`
+  (`a0b6db6`) and `researcher` (`28994db`), each closed with its own `{log}` `groom` entry
+  (`_agent/log.md:37`, `:38`, `:42`, `:50`). **Item stays unchecked — split** (two sub-clauses open).
+  **DISCHARGED this run: (3) in full, (8). STILL-OPEN: (4), (7).** Row 2 now stands at **six of eight
+  discharged**.
+  - **(3) Charter — DISCHARGED 2026-09-18 (owner-ruled; residual stated, not hidden).** The `shasum`
+    half that pass 3 left open has fired **four times over**, and gate-2's precondition is met in each:
+    every one of the four grooms wrote elsewhere in the same file, massively — `## Self` was reborn as a
+    manner card in all four (`librarian` `## Self` 51 → 43, `football-analyst` 595 → 228, `creative`
+    92 → 47, `researcher` rewritten in place). Against that, the owner-held section held: the
+    `## Charter` **content lines are byte-identical in 4 of 4**, verified by extracting the section from
+    each partner's `identity.md` at the charter-authoring commit and again at the groom commit
+    (`9dbc351` → the groom, and `931088b` → `28994db` for `researcher`). `creative` and `researcher`
+    hash **equal exactly** (941 B and 1,562 B, unchanged). ⚠ **Residual, stated verbatim per the owner's
+    ruling:** extracting heading-to-next-heading, **2 of 4 differ by exactly one byte** — `librarian`
+    914 → 915 B and `football-analyst` 1108 → 1109 B — and the diff is a **single blank line inserted
+    between the charter's last content line and `## Bond`**, i.e. inter-section separator whitespace the
+    groom's write normalized, not an owner word. (`creative` gained two blank lines *above* `## Charter`,
+    likewise outside the section.) **Owner-ruled DISCHARGED on 2026-09-18** — no owner word was altered
+    and nothing was proposed inside the charter — with the one-byte delta and the 2-of-4 split recorded
+    here so a future reader sees it rather than inheriting a clean tick. **Corroborated independently by
+    the vault itself:** the researcher's own groom entry states *"`## Charter` and `## Bond`
+    byte-identical, verified by comparison"* (`_agent/log.md:50`) — the check's property asserted by the
+    performer, not only by this auditor. No subject substitution: (3) names a property, not a partner,
+    and four partners satisfy it.
+  - **(8) Under the bound — DISCHARGED 2026-09-18, and over-satisfied.** The check asked for **one** of
+    `creative`/`football-analyst`/`librarian` to gain a `## Charter` and a completed `vlt-groom`,
+    dropping its `activation_words` under 12,000 and the denominated count **3 → 2**. All three fired,
+    plus a fourth partner the check did not name. Executing the vault's own installed
+    `.claude/hooks/vlt-vitals.py` — the same instrument that rendered `3` at pass 3 — now renders
+    **`activation-budget` ok — partners_over_activation_budget 0 >= 1**, with the per-partner line
+    reading `librarian` **22,171 → 3,964 w**, `football-analyst` **20,263 → 8,555 w**, `creative`
+    **16,068 → 5,637 w** (roster still 9, bound still 12,000). The count dropped **3 → 0**, not 3 → 2.
+    Each drop is owner-gated and charter-driven exactly as A16 predicted, and each groom entry says so
+    in its own words — `librarian`: *"The demote was charter-driven, not merely budget-driven"*;
+    `football-analyst`: *"Charter-driven before it was budget-driven"*; `creative`: *"Third instance
+    today of the same finding — nothing reads a charter except a groom."* **No subject substitution**
+    (all three named partners are among the performers). Note for the record: `researcher` groomed too
+    and was **never over the bound** (~9,750 → ~6,470 w) — charter fit fired, not the wire, which is
+    (8)'s claim holding in a case it never claimed.
+  - **(4) Cold — STILL-OPEN 2026-09-18. ⚠ Second discharge run unfired; the rubric's pass-through
+    tripwire applied and reachability RE-EXAMINED, not re-annotated.** The examination: the discharging
+    event **is** producible by a shipped surface, and by two independent ones. (i) The field route —
+    `vault-operating-contract.md:208` states *"The owner may summon a mature partner **cold**, naming the
+    posture in the summon"*, with `:281` carrying the sitting-side obligations and `frontmatter.md:162`
+    the `sitting: cold` stamp; it is per-summon, needs no disk state, and any of the nine partners can
+    take it. (ii) The factory route — the check's own named instrument, a fresh-agent reader protocol
+    over the shipped cold text plus `shasum` on a fixture, is a factory act available today and needs no
+    field event at all. So the grade is **STILL-OPEN, not BLOCKED**: the event is reachable and cheaply
+    triggered on both routes. What the second run establishes instead is a **process** fact, not a module
+    defect: in the two days since the posture reached the vault nobody has summoned cold, and the factory
+    has not run the protocol it named at brief time. Confirmed unfired this run — `grep` for
+    `sitting: cold`, `partner: none`, `(none)` and a post-`|` `cold` across `_agent/log.md` and
+    `_agent/sessions/` returns **zero matches**. **Discharging event:** either route above. **Trigger:**
+    the owner (one summon), or the factory (one recorded protocol run). ⚠ **If a third run finds both
+    routes still untaken, the honest move is no longer a reachability re-exam — it is to ask whether a
+    check nobody exercises in three runs is a check or a wish**, and that is a closeout ruling.
+  - **(7) Q14 Researcher pilot — STILL-OPEN 2026-09-18. Second run unfired; reachability re-examined,
+    and the examination found the precondition itself still absent.** Pass 3 counted zero of five
+    post-flip dives. This run finds **the flip has not been made**: `researcher/identity.md` carries no
+    `memory:` key at all (`:3` `partner: researcher`, `:7` `groomed: 2026-09-18` — no `memory:` line), so
+    the partner still stands at the default `full` posture, which the installed vitals hook confirms
+    from the other side (`researcher: 66,219 bytes · 6,307 words (full)`). Nor has a dive run: the newest
+    `research (researcher)` `{log}` line still predates the flip, and the only researcher activity since
+    the upgrade is the 2026-09-18 08:05 groom. So the tail needs **two** owner acts, not one — the commit
+    setting `memory: reflexes`, then five completed dives — and the first has not happened. **Reachable**:
+    both are ordinary owner acts on a live partner, and the groom just cut that partner's Beat 1 mass by
+    a third, which makes the flip cheaper than it was. **Discharging event** (unchanged): five completed
+    Researcher dives after the `memory: reflexes` commit, delegate runs excluded, human-depth-matched
+    against the recorded baseline **33 · 6 · 1 · 31 · 16**. **Trigger:** the owner. ⚠ The depth-match
+    remains underivable from persisted state (no `depth:` field) — stated at brief time, restated here,
+    and it is the slowest tail on either row. **Watch, never gate.**
+
 - [ ] **build-3 (carrier-and-tenants, briefed 2026-09-17):** brief
   `factory/cycles/16-closed-loops/briefs/build-3-carrier-and-tenants.md`. **Eight checks — six
   `[ship-verifiable]` (GATE), two `[field-contingent]`.** `specimens: 7/7` — `S-4`'s six probe rows
@@ -1969,6 +2054,47 @@ tagged ship-verifiable or field-contingent.)*
     `{field-vault}` and writes its note — exactly one note stamped `partner: none`, one `(none)` `{log}`
     entry, **zero** bytes under `{partners}`, no dispatch-slice read, and the sitting opened with the card
     and rung in context. **Trigger:** the owner. Unbounded; watch.
+
+  **Discharge pass 4 — 2026-09-18 (`acceptance-discharge`, the same post-upgrade vault activity as build
+  2's block above).** **Item stays unchecked — (6) still FAILED and it still GATES.** **Unchanged:
+  (6). STILL-OPEN: (7), (8).** Nothing re-graded; both open tails survived a second run and both had
+  their reachability re-examined under the pass-through tripwire rather than re-annotated.
+  - **(6) Rung line — FAILED, unchanged 2026-09-18.** The one clause that was merely *untested* — **a
+    second run inserts nothing** — is still untested, because **no second upgrade run has occurred**:
+    `_agent/upgrade-ledger.md` records nothing after the `[2026-09-17 10:46]` 0.18.1 → 0.19.0 block, and
+    the vault's `git log` shows no `vlt:` commit after `7d3d7fd`. The *contradicted* clause is untouched
+    by anything the field did this window: four grooms ran, and a groom neither renames `cap:` nor
+    writes `cap_words:` — module-side `grep -rn "^cap: " skills/` is still **0** and `cap_words` still
+    appears in exactly the one degrade sentence. Two of the four groom entries even reason about the
+    rung cap **in the retired unit** while doing so (`librarian`: *"Promoted the 08-30 standing move to
+    a reflex (cap 30, file at 18)"*; `creative`: *"`reflexes.md` 13 → 14 of cap 30, cap not argued"*),
+    which is the defect's cost showing up in ordinary use: the field counts **lines against `cap: 30`**
+    because that is the only key its files carry. Filing `2026-09-17-113000-…` stands as written, with
+    its 10-specimen manifest; it routes into Cycle 17's `inbox-capture`. **This check cannot be
+    discharged by waiting — it needs a build.**
+  - **(7) First live delegate — STILL-OPEN 2026-09-18. Second run unfired; reachability re-examined and
+    CONFIRMED.** No `delegate:` block exists in `{field-vault}` — `grep -n "^delegate:"
+    _agent/dispatch.md` returns **zero**, over a board carrying 44 open pointers. The window was not
+    quiet: four partner sittings ran, and all four were grooms, plus two ingests — so no partner sat on
+    work of the shape that invites a bounded dive. The shipped surface that produces the event exists
+    and reached the field — `creative`'s `:37` remedy now offers the delegate route (check (4),
+    DISCHARGED pass 3) and `creative` sat twice in this window without taking it, which is
+    **information, not a failure**: the cue is an invitation on a specific remedy path, and a groom
+    sitting never walks that path. **Discharging event** (unchanged): the first `delegate:` block by a
+    non-Researcher partner in an ordinary sitting, graded on block shape, both `{log}` lines
+    caller-tagged, the note attested, the caller's single session note, and D7's outcome — the dive
+    returned inside one sitting. **Trigger:** the owner, in ordinary use. Carries the E7 watch.
+    Unbounded; **watch, never gate.**
+  - **(8) First partnerless note — STILL-OPEN 2026-09-18. Second run unfired; reachability re-examined
+    and CONFIRMED.** No partnerless sitting has been worked: the `(none)` / `partner: none` grep across
+    `_agent/log.md` and `_agent/sessions/` returns **zero**, and every `{log}` entry in the window
+    carries a partner paren. Both halves of the rule are in the field and were re-confirmed this run —
+    the posture (build 2's (5), contract `:279`) and the carriage (this build's (1), the two `@` import
+    lines on the vault's `CLAUDE.md`) — so the event is produced by the owner simply choosing to work a
+    sitting without summoning anyone. **Reachable; the only missing ingredient is the owner's choice.**
+    **Discharging event** (unchanged): exactly one note stamped `partner: none`, one `(none)` `{log}`
+    entry, **zero** bytes under `{partners}`, no dispatch-slice read, and the sitting opened with the
+    card and rung in context. **Trigger:** the owner. Unbounded; **watch.**
 ---
 
 <details>
@@ -2466,7 +2592,10 @@ collation of build 2's notice text (A17). Ideation is not re-opened.
 *(This block was the routing of record until acceptance pass 3; the stamp below supersedes it.)*
 
 
-## Next lifecycle move (2026-09-17, `acceptance-discharge` pass 3 — v0.19.0 acceptance) — authoritative
+<details>
+<summary>Superseded routing — 2026-09-17, `acceptance-discharge` pass 3 (rows 2+3 graded; superseded by pass 4)</summary>
+
+**Next lifecycle move (2026-09-17, `acceptance-discharge` pass 3 — v0.19.0 acceptance)**
 
 **Rows 2 and 3 do NOT tick. Cycle 16 now carries TWO bound debts into Cycle 17, and neither can be
 waited out — both need a build.** The soonest *waitable* tail is near-term, so the route has two legs
@@ -2507,6 +2636,64 @@ that run in parallel.
   unpinned) is re-derived and **unmoved** — `full-scale.md` did move in v0.19.0, but only to add the
   `--web-census` call; step 1 still names `pageHashes` with no pinned form while step 2 pins *"the
   first 16 hex characters, lowercase"* for `convention_digests`. Blocker unchanged, park stays live.
+
+*(This block was the routing of record until acceptance pass 4; the stamp below supersedes it.)*
+
+</details>
+
+
+## Next lifecycle move (2026-09-18, `acceptance-discharge` pass 4 — first field-use acceptance) — authoritative
+
+**No row ticks, and the two gating FAILs are untouched — but this is the first pass whose evidence is
+the field simply *using* what shipped, and it moved row 2 from four of eight discharged to six of
+eight.** Four owner-authored charters and four completed `vlt-groom` passes discharged **build-2 (3)
+Charter** (owner-ruled, one-byte separator residual stated) and **build-2 (8) Under the bound** — which
+did not merely meet its 3 → 2 claim but took `partners_over_activation_budget` to **0 of 9**. The route
+is unchanged in shape and shorter by two.
+
+- **Leg 1 — the two gating debts, both `[ship-verifiable]`, both bound to Cycle 17's capture.**
+  **build-1 (2) Census** (`2026-09-16-185500`) and **build-3 (6) Rung line** (`2026-09-17-113000`),
+  re-confirmed unmoved this run: no full sweep has run since 2026-09-16 18:27, and no second upgrade run
+  has occurred, so neither the census clause nor the rung's untested idempotency clause gained evidence.
+  Both are the `ST-2`/Cycle 12 `b2(5)` family — a rule shipped whose enforcement point does not exist
+  where the rule applies — and **neither can be waited out; both need a build.** Capture stays
+  **DEFERRED to Cycle 17** by owner ruling, so neither filing is folded; both route into Cycle 17's
+  `inbox-capture` alongside rail issue **#20**. The rung defect showed its cost in ordinary use this
+  window: two groom entries reason about the cap **in the retired unit** (*"cap 30, file at 18"*,
+  *"13 → 14 of cap 30"*), because `cap: 30` is the only key any installed `reflexes.md` carries.
+- **Leg 2 — one factory act, available today, waiting on nothing.** **build-2 (4) Cold** has now
+  survived **two** discharge runs unfired, so the rubric's pass-through tripwire applied: reachability
+  was re-examined and **CONFIRMED on two independent routes** — a field summon naming the posture
+  (`vault-operating-contract.md:208`/`:281`) and the check's own named instrument, a fresh-agent reader
+  protocol over the shipped cold text plus `shasum` on a fixture, which is a **factory** act needing no
+  field event at all. It is STILL-OPEN, not BLOCKED. But it has been dischargeable since the day it was
+  briefed and nobody has run it. ⚠ **If a third run finds both routes untaken, the question stops being
+  reachability and becomes whether a check nobody exercises in three runs is a check or a wish** — a
+  closeout ruling, not an auditor's call.
+- **Leg 3 — re-run `acceptance-discharge` once a waitable tail fires.** Three remain, all on the owner's
+  ordinary use of `{field-vault}`, none on a clock:
+  - **build-3 (7)** — the first `delegate:` block by a non-Researcher partner. `creative`'s `:37` cue is
+    the shipped invitation and `creative` sat twice this window without taking it; the board carries
+    **zero** `delegate:` blocks against 44 open pointers.
+  - **build-3 (8)** — the first partnerless sitting that writes its note. Both halves of the rule are in
+    the field; the only missing ingredient is the owner's choice to work one.
+  - **build-2 (7)** — the Researcher pilot, and the slowest by far. This run found the tail needs **two**
+    owner acts, not one: `researcher/identity.md` still carries **no `memory:` key**, so the
+    `memory: reflexes` flip has not been made, and zero of the five post-flip dives have run. The
+    2026-09-18 groom cut that partner's Beat 1 mass by a third, which makes the flip cheaper than it was.
+    Watch, never gate.
+- **Not closeout.** `cycle-closeout` cannot run: two gating FAILs stand and five checks are open across
+  the two rows. Nothing is released as a watch and nothing is early-archived here — that is the owner's
+  call at closeout, not this run's. **0 filings archived** (capture is deferred to Cycle 17).
+- **Unchanged and still owed:** the owner call under build-1 check (3) (is a mismatch fix a *substantive
+  edit* for `fix-and-file.md:7`/`:18`); the five capture-don't-interrupt filings; the owner's owed
+  candidate filings (E6, incl. the partially-shipped-cycle capture-boundary gap); the stores-integration
+  3-way merge filing, **still OWED** across two releases; and the live `parked-interim`
+  (`full-scale.md`, `pageHashes` digest form unpinned), blocker unchanged. One new candidate this run,
+  filed nowhere yet and **not** a module defect: `football-analyst`'s own groom found a heading splice in
+  `identity.md` that made every heading-based read wrong about where `## Self` begins, and named the
+  remedy itself — *a check that there is exactly one of each `## ` heading, in order, no duplicates,
+  belonging in `vlt-lint` or `vlt-groom`'s pre-flight*. It is the owner's to file via `vlt-feedback`.
 
 ⚠ **This block is the routing of record** (platform P-13): it sits at the file's **foot**, below every
 earlier routing, and nothing follows it. The chat report is a copy; this line is the obligation.
