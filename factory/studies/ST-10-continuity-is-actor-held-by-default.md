@@ -9,7 +9,7 @@ session: '_output/problem-solution-2026-10-06.md (gitignored — provenance only
 causes:
   - 'Primary A: the module has ONE home for a role''s continuity — partner memory. Statefulness arrives with the actor, uniformly, so nobody asks what a given role''s continuity is ABOUT. Where it is about the owner and a practice (a coaching loop), a partner is the right home: there is no corpus for it to live in. Where it is about the vault (what has been read, what is half-processed, what disagrees with what, what is still unknown), it is corpus state, and filing it in a persona stores it one remove from its subject, where it goes stale and must be groomed.'
   - 'Primary B: actor-held continuity has no address. A line in `thread.md` or `## Self` cannot be cited, contradicted by a source, superseded, or traced to where it entered — the properties the module built for the wiki (sources, supersession callouts, trust rungs) and withheld from the one layer that loads as instruction. Its cost model is also inverted: it is paid on every activation in proportion to the role''s history, where corpus state is paid at the moment of a question in proportion to relevance.'
-  - 'Enabling C: the corpus has no slot to receive it. A research note carries no reading-depth state; there is no vault-level register of open questions; the unit of citation is the page, so a disagreement between two sources has no edge to live on. With nowhere on the artifact to put "half-read", "contradicts that", or "still unknown", the thread is the only place left — the default is not a preference, it is the absence of an alternative.'
+  - 'Enabling C: the corpus''s slots for work state are partial, and where one exists the partner is told to keep a copy anyway. A research note carries no reading-depth state; the unit of citation is the page, so a claim has no address and a relation between two sources has no edge beyond the contradiction and supersession callouts. Unknowns DO have corpus homes — the backlog''s `knowledge-gap` kind (topic-level, one line), a research note''s Open Questions section, a contradiction callout''s disposition — but none carries an id an answer can close, and the Researcher''s sitting-end instruction still writes "the open questions still live" into its thread. So the default is two things at once: an absence of slots for some state, and a duplicate of the slots that exist.'
   - 'Contributing: the return path is the thinnest shipped surface. The skill that answers from the vault is ~1.0K words against ~18.8K for the skill that checks it, and its answer has no fixed shape. A corpus that is rarely consulted cannot show that it could have carried the continuity, so the partner keeps looking like the only thing that remembers.'
 cited_by: []
 superseded_by: ''
@@ -51,13 +51,20 @@ greppable, citable, and free until relevant.
   all of which live in the vault itself."* The intent was vault-held continuity. The mechanism
   that shipped holds it under `{partners}/`, where only that partner reads it.
 
-**2. The corpus has no slot for it.**
+**2. The corpus's slots are partial — and duplicated where they exist.**
 
-- A research note's frontmatter (`skills/vlt-research/SKILL.md:59–66`) carries `type`,
-  `created`, `title`, `author`, `trust`, `topic`, `status`, `sources` — nothing that says how
-  deeply a source was read or whether the note has been connected to anything.
-- No convention defines a vault-level register of open questions. The backlog holds what the
-  vault wants *built*; nothing holds what it does not yet *know*.
+- A research note's frontmatter (`skills/vlt-research/SKILL.md:59–72`) carries `type`,
+  `created`, `title`, `author`, `trust`, `topic`, `status`, `sources`, and an optional
+  `revisit_after` (graduation candidacy) — nothing that says how deeply a source was read or
+  whether the note has been connected to anything.
+- Unknowns have three corpus homes already: the backlog's `knowledge-gap` kind — *"a topic the
+  vault is thin on"* (`frontmatter.md:290`), a research note's **Open Questions** section
+  (`skills/vlt-ingest/SKILL.md:102`), and a contradiction callout's `open | adjudicable`
+  disposition (`wiki-supersession.md:88`). None carries a permanent id, and none is closed by a
+  link to the thing that answered it. And the Researcher already reads the backlog's
+  `knowledge-gap` items at Beat 2 (`skills/vlt-agent-researcher/SKILL.md:25`) **and** is told to
+  keep "the open questions still live" in its own thread (`:58`) — the same fact, two homes,
+  one of them private.
 - The unit of citation is the page. `vlt-query` cites `[[page]]` (`skills/vlt-query/SKILL.md:33`)
   and a canonical page's claims sit in a *Key Facts / Claims* section with a source each
   (`skills/vlt-ingest/SKILL.md:160`) but no per-claim address. A search of `skills/` for block
@@ -75,6 +82,13 @@ shipped knowledge partners among the four heaviest of nine at Beat 1 (Librarian 
 Creative ~16.4K, Researcher ~9.2K), and five of six minted practice partners between ~4.4K and
 ~7.8K. `ST-8` read that as *the model fails at weight, not at concept*. Read by role it says
 something narrower: the model is heaviest exactly where the role's subject is the vault.
+
+The module already draws this line and attaches nothing to it. `skills/vlt-mint/SKILL.md:55`
+distinguishes *horizontal* partners — *"**function** partners (librarian / researcher /
+creative) defined by a mode of work that spans domains"* — from *vertical (domain)* partners
+that most often run *"the **longitudinal loop**"*. The archetype decides which hand a partner
+wears. It does not decide whether the partner is stateful: both archetypes get the same memory
+files and the same `memory: full` default (`:132`).
 
 **5. The proportion of the return path.** `skills/vlt-query/` is one file, ~1.0K words.
 `skills/vlt-lint/` is nine files, ~18.8K. Word count is a proxy and is offered as one. But the
@@ -99,7 +113,7 @@ the corpus.
 | Continuity the role needs | Where the kit puts it | Where the module puts it |
 |---|---|---|
 | How deeply has this source been read? | `processing: captured → processed → connected → synthesized` on the source record | the partner's thread |
-| What is still unknown? | `00-meta/questions.md`, permanent ids, closed by a citing claim | the partner's thread ("open questions still live") |
+| What is still unknown? | `00-meta/questions.md`, permanent ids, closed by a citing claim | the backlog's `knowledge-gap` line, per-note Open Questions, **and** the partner's thread — no ids, no closing link |
 | What disagrees with what? | a typed inline field on the newer note (`contradicts::`), five relations, closed vocabulary | prose in a page section; supersession callouts for two of the five |
 | What exactly was claimed? | one bullet, own words, a block id (`^claim-<idea-slug>`), citable as `[[Source#^claim-slug]]` | a bullet with a source, no address |
 | What does the agent remember about itself? | nothing; a ~660-word root contract and skills read on demand | `identity.md`, `thread.md`, `reflexes.md`, `casebook.md` |
@@ -179,6 +193,17 @@ indispensable. Each turn makes the default look like a requirement.
   construction". Grounding refuted it: `vlt-query:34` asks for both. The true gap is narrower —
   no fixed output shape, and ranking by recency where evidence quality is available.
 
+- The study's first committed text (`0aaea50`) said no convention holds what the vault does not
+  yet know. Grounding for the filings refuted it: the backlog's `knowledge-gap` kind, the
+  research note's Open Questions section, and the contradiction disposition all do. The
+  correction sharpens cause C rather than weakening it — the gap is ids and closing links, and
+  the thread duplicates a slot that exists — but a filing written from the first text would
+  have proposed a second register beside the backlog, against single-home discipline.
+
+- The same pass found the module's own horizontal/vertical archetype split (`vlt-mint:55`),
+  which the session had re-derived from an outside kit as if it were new. The cut exists; what
+  is missing is anything that hangs statefulness on it.
+
 - The session treated the Creative as a knowledge role alongside the Librarian and Researcher
   because it is shipped and heavy. Brainstorming is not corpus work and the contrast case has
   nothing to say about it. The Creative's place on either side of this cut is **not established
@@ -196,9 +221,10 @@ indispensable. Each turn makes the default look like a requirement.
 
 Not a fix — ideation rules. The evidence bounds the shape:
 
-- **A second home.** Somewhere on the corpus for work state: how far a source has been read,
-  what is still unknown, what disagrees with what. Until those slots exist, moving a role off
-  actor memory just loses the state.
+- **A second home, completed rather than added.** A slot for how far a source has been read;
+  ids and closing links on the homes unknowns already have, not a new register beside them;
+  an edge for what relates to what. Until those exist, moving a role off actor memory just
+  loses the state — and where a slot already exists, the thread's copy of it is retired.
 - **An address per claim**, so that what a role "knows" can be cited, contradicted, and traced
   — the wiki's properties extended one level down. Shipped with its checker or not at all; the
   contrast case's own audit is the warning.
