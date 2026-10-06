@@ -21,7 +21,7 @@ the artifact, so the module's only fallback — the partner's thread — holds t
 
 - **No reading-depth field.** A research note's frontmatter (`skills/vlt-research/SKILL.md:59–72`)
   is `type`, `created`, `title`, `author`, `trust`, `topic`, `status`, `sources`, optional
-  `revisit_after`. `status` is `draft | in-progress | complete` (`frontmatter.md:107`) — the
+  `revisit_after`. `status` is `draft | in-progress | complete` (`frontmatter.md:141`, the research-note block) — the
   state of the *note*, not of the *reading*. `revisit_after` records graduation candidacy, a
   different question.
 - **Unknowns: three homes, no ids.** (a) backlog `knowledge-gap` — *"a topic the vault is thin
