@@ -11,7 +11,11 @@ causes:
   - 'Primary B: actor-held continuity has no address. A line in `thread.md` or `## Self` cannot be cited, contradicted by a source, superseded, or traced to where it entered — the properties the module built for the wiki (sources, supersession callouts, trust rungs) and withheld from the one layer that loads as instruction. Its cost model is also inverted: it is paid on every activation in proportion to the role''s history, where corpus state is paid at the moment of a question in proportion to relevance.'
   - 'Enabling C: the corpus''s slots for work state are partial, and where one exists the partner is told to keep a copy anyway. A research note carries no reading-depth state; the unit of citation is the page, so a claim has no address and a relation between two sources has no edge beyond the contradiction and supersession callouts. Unknowns DO have corpus homes — the backlog''s `knowledge-gap` kind (topic-level, one line), a research note''s Open Questions section, a contradiction callout''s disposition — but none carries an id an answer can close, and the Researcher''s sitting-end instruction still writes "the open questions still live" into its thread. So the default is two things at once: an absence of slots for some state, and a duplicate of the slots that exist.'
   - 'Contributing: the return path is the thinnest shipped surface. The skill that answers from the vault is ~1.0K words against ~18.8K for the skill that checks it, and its answer has no fixed shape. A corpus that is rarely consulted cannot show that it could have carried the continuity, so the partner keeps looking like the only thing that remembers.'
-cited_by: []
+cited_by:
+  - 'factory/inbox/2026-10-06-120000-the-answer-from-the-vault-has-no-shape.md (contributing cause — the shaped answer; independent, no convention bump)'
+  - 'factory/inbox/2026-10-06-120100-work-state-has-no-complete-slot-on-the-corpus-and-a-claim-has-no-address.md (causes B + C — reading depth, ids on the homes unknowns already have, claim addresses, typed relations; spike owed)'
+  - 'factory/inbox/2026-10-06-120200-structure-is-not-earned-and-the-unlock-rule-is-practised-but-unstated.md (cause A — the recurrence question at mint and the birth posture; the unlock rule''s population is a 3-of-76 sample, unclassified)'
+  - 'factory/inbox/2026-10-06-120300-the-archetype-cut-exists-and-no-memory-posture-hangs-on-it.md (cause A — the lens cut; filed held, blocked on 120100 and the Researcher pilot)'
 superseded_by: ''
 ---
 
