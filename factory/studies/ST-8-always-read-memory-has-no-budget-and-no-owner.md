@@ -19,6 +19,7 @@ cited_by:
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-4 (capture 2026-09-09 — cause A grounded; correction: partner_memory_bytes exists at vlt-vitals.py:242 as a fleet total, display-only — the gap is per-partner Beat 1 weight with a bound)'
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-5 (capture 2026-09-09 — cause B + amplifying grounded; groom has no reset/demote/charter/cold)'
   - 'factory/studies/ST-9-one-axis-design-leaves-the-diagonal-empty.md (amplifying cause — the ghost research lane hardens as `## Self`; the Researcher''s weight makes avoiding it rational)'
+  - 'factory/studies/ST-10-continuity-is-actor-held-by-default.md (the prior question — budget and authorship were repaired inside partner memory; ST-10 asks which roles'' continuity belongs there at all; refines the two-cycle prediction: a two-way ladder whose only corpus rung is the wiki still has no home for work state)'
 superseded_by: ''
 ---
 
