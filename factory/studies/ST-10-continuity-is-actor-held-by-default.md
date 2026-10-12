@@ -16,6 +16,7 @@ cited_by:
   - 'factory/inbox/2026-10-06-120100-work-state-has-no-complete-slot-on-the-corpus-and-a-claim-has-no-address.md (causes B + C — reading depth, ids on the homes unknowns already have, claim addresses, typed relations; spike owed)'
   - 'factory/inbox/2026-10-06-120200-structure-is-not-earned-and-the-unlock-rule-is-practised-but-unstated.md (cause A — the recurrence question at mint and the birth posture; the unlock rule''s population is a 3-of-76 sample, unclassified)'
   - 'factory/inbox/2026-10-06-120300-the-archetype-cut-exists-and-no-memory-posture-hangs-on-it.md (cause A — the lens cut; filed held, blocked on 120100 and the Researcher pilot)'
+  - 'factory/inbox/2026-10-12-100000-the-memory-posture-has-no-always-read-carrier.md (defect — the posture the Researcher pilot depends on has no always-read carrier; filed so the pilot''s result is gradable)'
 superseded_by: ''
 ---
 

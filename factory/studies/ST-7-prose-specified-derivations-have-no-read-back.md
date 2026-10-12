@@ -19,6 +19,7 @@ cited_by:
   - 'factory/cycles/15-nothing-reads-it-back/roadmap.md §A15-3, §A15-4, §A15-5 (the scanner-return half — the executor is an agent rather than an operator, and the same absence of read-back applies)'
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-1 (capture 2026-09-09 — the stub-registry procedure''s own input, the convention''s heading text, is stated inside a fenced illustration; an instance arriving inside the build that answered A15-2)'
   - 'factory/cycles/16-closed-loops/roadmap.md §A16-2, writer half (capture 2026-09-09 — fix-and-file.md:12 is prose an executor renders, and it rendered the wrong direction at 0.16.1 and still carries the frontmatter-write residue after 5122aa1)'
+  - 'factory/inbox/2026-10-12-100000-the-memory-posture-has-no-always-read-carrier.md (the rule-card''s *Becoming* paragraph re-stamped by hash without the `memory: reflexes` branch the contract gained — a derivation gate that read bytes, not meaning)'
 superseded_by: ''
 ---
 
