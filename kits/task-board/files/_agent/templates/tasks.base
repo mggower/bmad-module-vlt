@@ -1,0 +1,185 @@
+filters:
+  and:
+    - file.inFolder("ZONE_TASKS_FOLDER")
+    - file.ext == "md"
+formulas:
+  key_link: file.asLink(if(key, key, file.name))
+  lane: if(status == "idea", "1 · Ideas", if(status == "needs-ruling", "2 · Needs ruling", if(status == "ready", "3 · Ready", if(status == "in-progress", "4 · In progress", if(status == "parked", "5 · Parked", if(status == "done", "6 · Done", if(status == "dropped", "7 · Dropped", "0 · No status")))))))
+properties:
+  formula.key_link:
+    displayName: Key
+  note.summary:
+    displayName: Task
+  formula.lane:
+    displayName: Lane
+  note.status:
+    displayName: Status
+  note.sub:
+    displayName: Sub
+  note.theme:
+    displayName: Theme
+  note.owner:
+    displayName: Owner
+  note.priority:
+    displayName: Priority
+  note.due:
+    displayName: Due
+  note.done_on:
+    displayName: Done
+  note.sessions:
+    displayName: Sessions
+  note.related:
+    displayName: Related
+  note.last_updated:
+    displayName: Updated
+views:
+  - type: table
+    name: Board
+    filters:
+      and:
+        - status != "done"
+        - status != "dropped"
+        - status != "parked"
+    groupBy:
+      property: formula.lane
+      direction: ASC
+    order:
+      - formula.key_link
+      - summary
+      - sub
+      - theme
+      - priority
+      - due
+      - sessions
+      - related
+    sort:
+      - property: priority
+        direction: ASC
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 420
+      note.status: 120
+      note.sub: 80
+      note.theme: 160
+      note.priority: 127
+      note.due: 110
+      note.sessions: 300
+    rowHeight: medium
+  - type: table
+    name: My move
+    filters:
+      or:
+        - status == "needs-ruling"
+        - owner == "owner"
+    order:
+      - formula.key_link
+      - summary
+      - status
+      - sub
+      - last_updated
+    sort:
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short
+  - type: table
+    name: By sub
+    filters:
+      and:
+        - status != "done"
+        - status != "dropped"
+        - status != "parked"
+    groupBy:
+      property: sub
+      direction: ASC
+    order:
+      - formula.key_link
+      - summary
+      - status
+      - due
+    sort:
+      - property: formula.lane
+        direction: ASC
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short
+  - type: table
+    name: By theme
+    groupBy:
+      property: theme
+      direction: ASC
+    order:
+      - formula.key_link
+      - summary
+      - status
+      - sub
+      - done_on
+    sort:
+      - property: formula.lane
+        direction: ASC
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short
+  - type: table
+    name: Backlog
+    filters:
+      and:
+        - status == "parked"
+    order:
+      - formula.key_link
+      - summary
+      - sub
+      - owner
+      - last_updated
+    sort:
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short
+  - type: table
+    name: Done
+    filters:
+      and:
+        - status == "done"
+    order:
+      - formula.key_link
+      - summary
+      - sub
+      - done_on
+      - sessions
+    sort:
+      - property: done_on
+        direction: DESC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short
+  - type: table
+    name: By status (plain)
+    groupBy:
+      property: status
+      direction: ASC
+    order:
+      - formula.key_link
+      - summary
+      - sub
+      - last_updated
+    sort:
+      - property: key
+        direction: ASC
+    columnSize:
+      formula.key_link: 80
+      note.summary: 520
+    rowHeight: short

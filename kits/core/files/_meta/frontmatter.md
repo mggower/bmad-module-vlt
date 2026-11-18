@@ -114,4 +114,5 @@ title: <the zone's name>
 writers: any | owner              # optional; absent means any session may write here
 review_default: requested         # optional; see Review in PARA
 subs: [<the zone's sub-areas>]    # optional; the values a task's sub: may take
+task_prefix: <two or three capitals>   # set when the zone has a task board; never shared between zones
 ```
