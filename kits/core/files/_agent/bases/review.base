@@ -1,0 +1,32 @@
+filters:
+  and:
+    - file.ext == "md"
+    - review == "requested"
+formulas:
+  doc: file.asLink(file.basename)
+properties:
+  formula.doc:
+    displayName: Document
+  file.folder:
+    displayName: Folder
+  note.title:
+    displayName: Title
+  note.last_updated:
+    displayName: Updated
+views:
+  - type: table
+    name: Awaiting review
+    groupBy:
+      property: file.folder
+      direction: ASC
+    order:
+      - formula.doc
+      - title
+      - last_updated
+    sort:
+      - property: last_updated
+        direction: DESC
+    columnSize:
+      formula.doc: 280
+      note.title: 420
+    rowHeight: medium
