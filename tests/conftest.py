@@ -7,6 +7,7 @@ import pytest
 REPO = Path(__file__).resolve().parents[1]
 KITS_PY = REPO / "scripts" / "kits.py"
 sys.path.insert(0, str(REPO / "scripts"))
+sys.dont_write_bytecode = True   # importing scripts/kits.py must not leave cruft in the shipped surface
 
 
 def git(cwd, *args):

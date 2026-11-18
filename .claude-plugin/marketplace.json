@@ -7,35 +7,26 @@
   "license": "MIT",
   "homepage": "https://github.com/mggower/bmad-module-vlt",
   "repository": "https://github.com/mggower/bmad-module-vlt",
-  "keywords": ["bmad", "knowledge-vault", "wiki", "obsidian", "agents", "self-evolving"],
+  "keywords": [
+    "knowledge-vault",
+    "wiki",
+    "obsidian",
+    "playbooks",
+    "claude-code"
+  ],
   "plugins": [
     {
       "name": "vlt",
       "source": "./",
-      "description": "A self-evolving cast of distinct AI partners — librarian, researcher, creative, and more they mint themselves — who share one living knowledge vault. Install it into a vault and the cast grows itself.",
-      "version": "0.19.0",
+      "description": "A vault toolkit: conventions, playbooks any session can run, a strict wiki, research notes and task boards. vlt-setup seeds four kits into a vault, the vault owns every file, and vlt-pull offers later changes one file at a time.",
+      "version": "1.0.0",
       "author": {
         "name": "Mikey Pioli",
         "email": "gowermikey@gmail.com"
       },
       "skills": [
         "./skills/vlt-setup",
-        "./skills/vlt-upgrade",
-        "./skills/vlt-agent-librarian",
-        "./skills/vlt-agent-researcher",
-        "./skills/vlt-agent-creative",
-        "./skills/vlt-ingest",
-        "./skills/vlt-research",
-        "./skills/vlt-query",
-        "./skills/vlt-extract",
-        "./skills/vlt-track",
-        "./skills/vlt-lint",
-        "./skills/vlt-groom",
-        "./skills/vlt-decay",
-        "./skills/vlt-dispatch",
-        "./skills/vlt-mint",
-        "./skills/vlt-review-council",
-        "./skills/vlt-feedback"
+        "./skills/vlt-pull"
       ]
     }
   ]
