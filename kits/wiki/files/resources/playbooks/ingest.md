@@ -23,7 +23,7 @@ Something to ingest. Any of:
 - **A URL.** Capture it first: fetch the page and save it as `sources/web/<YYYY-MM-DD>-<slug>.md`, with frontmatter `type: source`, `url:`, `captured_at:`, `title:`, and the page's readable text as the body. If the page cannot be fetched, stop and say why; do not ingest from a summary or from memory.
 - **Anything a vault tool can turn into a source.** Run the tool's playbook (a video transcriber, a PDF extractor, whatever this vault has); it deposits a file in `sources/`, and ingest proceeds from that file. A vault adds a new kind of source by adding such a tool (`add-a-tool.md`). This playbook does not change.
 - **Pasted text.** Save it to `sources/notes/<YYYY-MM-DD>-<slug>.md` first, with `type: source` and where it came from.
-- **A research note** in `_agent/research/` that the owner has raised above `trust: draft`. It is used as it stands: skip step 5.
+- **A research note** in `_agent/research/` that carries its attestation keys. It is used as it stands: skip step 5, and cite the note in each page's `sources:`.
 
 `sources/` is add-only. A capture or a tool writes a new file there, and **nothing edits or deletes a source afterwards**. A correction is a new source.
 

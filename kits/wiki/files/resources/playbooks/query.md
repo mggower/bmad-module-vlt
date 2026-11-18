@@ -28,7 +28,7 @@ A query answers from what the owner has curated, not from general knowledge. Eve
 - **Not kept:** the answer, in the conversation. No note, no log entry.
 - **Kept as an investigation:** a research note, `_agent/research/YYYY-MM-DD-HHmmss-<slug>.md`, with `trust: draft`, `verified_by: query` and the pages consulted in `sources:`.
 - **Kept as reference the owner will use:** a document in the zone the owner names, written under that zone's README. Set `review: requested` if the zone or the owner asks for review.
-- **It belongs in the wiki:** do not write the page. A kept research note can be ingested once the owner has raised its trust (`ingest.md`); otherwise file a task on the vault board.
+- **It belongs in the wiki:** do not write the page. Keep it as a research note and offer to ingest that note (`ingest.md`), or file a task on the vault board.
 - When something was kept, one line in `_agent/log.md`: `## [YYYY-MM-DD HH:MM] query | "<question>" → [[<note>]]`, and a path-scoped commit.
 
 ## Rules
