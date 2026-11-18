@@ -1,9 +1,49 @@
 # Changelog
 
-Notable changes to the `vlt` module, one section per released version, newest first.
+Notable changes to `vlt`, one section per released version, newest first. Versions before 1.0 were a BMad module with a cast of partners; 1.0 is a different design.
 
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
+
+## v1.0.0 — unreleased
+
+**vlt becomes a vault toolkit.** The partner model is retired whole: no personas, no partner memory, no activation ritual, no hand-offs. What ships is a Claude Code plugin with two skills and four kits of files that a vault takes once and then owns. This is not an upgrade of 0.x; `vlt-upgrade` does not lead here. See `COMING-FROM-0.x.md`.
+
+**What ships**
+
+- **`vlt-setup`** seeds the kits into a vault. It never overwrites or deletes an existing file; where one exists it shows the difference and leaves the vault's copy. Safe to run in a vault still on 0.19.
+- **`vlt-pull`** shows what changed in the kits since the vault last took them (recorded in `_agent/kits.lock`) and applies only the files the owner accepts. It refuses to replace a file with uncommitted changes.
+- **Kit `core`:** `_meta/vault.md` (the rules, two pages) and `_meta/frontmatter.md`; the playbook convention, its index and the `vlt-playbook` skill; the tool convention (`_agent/tools/<name>/`) and a check runner; the `add-a-tool` and `feedback` playbooks; the `vlt-feedback` skill.
+- **Kit `wiki`:** `_meta/wiki.md`; the `ingest`, `query`, `supersede` and `consolidate` playbooks; the `vlt-ingest` and `vlt-query` skills; a three-part wiki check. Ingest now takes a URL, pasted text or the output of any vault tool that deposits into `sources/`, as well as a stored file or a research note.
+- **Kit `research`:** the `research` playbook and the `vlt-research` skill.
+- **Kit `task-board`:** zone task boards (a folder of task files and a base), the vault's own board at `_agent/tasks/`, and `set-up-a-zone`.
+
+**What changed for a vault**
+
+- **The vault owns its rules.** Every rule is a file in the vault; none needs a release to change. There are no overlays and no version handshake.
+- **Any session runs any procedure.** The wiki is still written only through the wiki playbooks, from a stored source; it no longer has a single named writer.
+- **PARA zones are open to any session** unless the zone's README restricts writers. A document that must be reviewed carries `review: requested`.
+- **Attestation** (`author`, `trust`, `verified_by`, `verified_at`) is required on wiki pages and research notes only. `verified_by` names the playbook. A session writes `trust: draft`; an older `raw` means the same.
+- **Task boards replace the backlog.**
+
+**Removed**
+
+- The partners (`vlt-agent-librarian`, `-researcher`, `-creative`) and `vlt-mint`'s partner minting.
+- `vlt-dispatch`, `vlt-track`, `vlt-review-council`, `vlt-decay`, `vlt-groom`, `vlt-extract`, `vlt-lint`, `vlt-upgrade`.
+- The operating contract, the rule card, the conventions bundle, overlays, enforcement declarations, the review-lens personas, `tripwires.yaml`, the `vlt-vitals` hook, and the four workflow scripts.
+- The BMad module packaging: `module.yaml`, the help registry, every `_bmad` read and write. vlt is installed as a plugin.
+- The `{logical-name}` path map. Kit files name literal paths; a vault that wants another path edits its own files.
+
+**For a vault on 0.x**
+
+- Nothing in 1.0 reads anything 0.x installed, so the old machinery can be retired before setup, after it, or gradually. `COMING-FROM-0.x.md` maps each piece to what replaces it.
+- `FLATTEN-A-PARTNER.md` is a reference for retiring a partner into playbooks and tools. The plugin runs none of it.
+- The feedback tracker and its contract (`rail_contract: 1`, the same field ids and labels) are unchanged.
+
+**Factory**
+
+- The eight-step cycle lifecycle is replaced by four steps: filing, change, package check, release. Cycle 16 is closed as superseded. Seven lifecycle skills are removed; `vlt-release` and `issue-triage` remain, rewritten.
+- `tools/package-lint.py` is rewritten: eight stdlib checks over the kits.
 
 ## v0.19.0 — 2026-09-17
 

@@ -1,242 +1,97 @@
-# Vault (`vlt`) — a self-evolving cast of knowledge partners
+# vlt — a vault toolkit
 
-A BMad module that turns an LLM-maintained knowledge wiki from *a toolbox of skills you invoke*
-into *a cast of distinct AI partners who share one brain — the vault — and can grow themselves*.
-Install it into a vault (existing or fresh) and the cast grows itself.
+vlt is a small toolkit for running a knowledge vault with an AI agent: conventions for where things live, **playbooks** any session can run, a strict wiki, research notes and task boards. It ships as a Claude Code plugin.
 
-The roster ships with three partners — a **Librarian** who tends the wiki, a **Researcher** who
-pushes you to learn, and a **Creative** who turns curated knowledge into made things. They share one
-living vault, hand work to each other through it, and can mint new partners and abilities on their
-own. **17 skills in all.**
+It has no cast, no personas and no memory of its own. A session reads the vault's rules, finds the playbook for the job, and runs it.
 
-## What Vault is
+**The vault owns everything.** Setup copies the kits into your vault once. From then on every rule, playbook and skill is a file in your vault that you change freely. Later changes to the kits are offered one file at a time, as a diff you take or leave.
 
-Most "AI knowledge base" setups are a pile of prompts and a folder of notes. Vault is different in
-three ways that compound:
+> **Coming from 0.x?** 1.0 is a different design: the partner model, the operating contract and the BMad module packaging are gone. Start with [`COMING-FROM-0.x.md`](COMING-FROM-0.x.md). The last 0.x release is the `v0.19.0` tag.
 
-- **It's a cast, not a toolbox.** You summon a *partner* by name and it stays in character —
-  remembering your bond, your open threads, and what it learned last session. Partners run shared
-  *operations* (ingest, research, query…) as their verbs.
-- **It ships its own rulebook.** The rules that keep a vault coherent — what may be written where,
-  how pages are named, how sources are cited — travel *inside the module* as a **governance bundle**,
-  so a fresh vault inherits a complete, working constitution instead of you hand-writing one.
-- **It grows itself, durably.** Partners can mint new abilities and new partners (`vlt-mint`), gated
-  by a review council where the blast radius warrants it — and your local evolution **survives module
-  upgrades** by design.
+## What a vault looks like
 
-The rest of this README walks the cast, then how a vault works day-to-day, then the two things that
-make it more than a skill bundle: **self-evolution** and **durability**.
-
-## Meet the cast
-
-Three partners ship in the box. Each is a real persona with its own memory (an `identity.md` for the
-bond and a `thread.md` for open inquiry), summoned by invoking its skill (e.g. `/vlt-agent-librarian`)
-or by calling it by name.
-
-| Partner | What it's for | Reaches for |
-|---|---|---|
-| 📖 **Librarian** (`vlt-agent-librarian`) | Tends the wiki. Brings sources in cleanly, keeps one canonical home per concept, runs health checks. Calm, custodial, protective of coherence. | `vlt-ingest`, `vlt-lint`, `vlt-query` |
-| 🔬 **Researcher** (`vlt-agent-researcher`) | Your intellectual sparring partner. Goes to the web, argues with the material, pushes you to think harder — then hands findings to the Librarian to file. | `vlt-research`, `vlt-query` |
-| 🎨 **Creative** (`vlt-agent-creative`) | Turns curated knowledge into deliverables — project briefs and area dashboards. Taste-driven, production-focused, challenges you toward *making*. | `vlt-extract`, `vlt-query` |
-
-Partners never call each other directly. When the Researcher finds something the Librarian should
-file, it leaves a pointer in shared vault state and the Librarian picks it up. The vault *is* the
-message bus.
-
-## How a vault works day-to-day
-
-A partner's job is to run **operations** — the workhorse verbs — against shared vault state, and to
-hand durable work to the right teammate when it crosses into another's lane.
-
-```mermaid
-flowchart LR
-    You([You]) -->|summon by name| P["Partner<br/>Librarian · Researcher · Creative"]
-    P -->|runs| OPS["Operations<br/>ingest · research · query · extract · lint"]
-    OPS <-->|read / write| V[("The vault<br/>wiki · notes · index · agent zone")]
-    P -. "relay handoff" .-> BUS{{"dispatch bus"}}
-    BUS -. "drained on next activation" .-> P2["A teammate partner"]
+```
+CLAUDE.md                  imports _meta/vault.md
+_meta/
+  vault.md                 the rules, two pages
+  wiki.md                  the wiki's rules
+  frontmatter.md           the keys each kind of note carries
+resources/playbooks/       one file per procedure; README.md is the convention
+resources/wiki/            written only through the wiki playbooks
+sources/                   add-only
+projects/ areas/ resources/   zones, each with a README, tasks/ and tasks.base
+_agent/
+  tools/<name>/            one folder per tool, each with a README
+  tasks/ + tasks.base      the vault's own task board
+  sessions/  log.md        session notes and the log
+  research/                research notes
+  kits.lock                what was seeded, and from which version
+.claude/skills/
+  vlt-playbook/            prints the playbook index
+  vlt-research/ vlt-ingest/ vlt-query/ vlt-feedback/    thin pointers at their playbooks
 ```
 
-**The operations** (any partner can run them; they also work headless):
+The vault is an Obsidian-style Markdown vault: wikilinks, callouts, YAML frontmatter, and `.base` files for the boards and indexes.
 
-- **`vlt-ingest`** — the *single writer* of canonical wiki pages. Brings a source (file, URL, or
-  text) in, updates existing pages, surfaces contradictions instead of smoothing them, keeps the
-  index accurate. Scans for credentials before writing.
-- **`vlt-research`** — investigates a sharp question against the web and files a standalone research
-  note. Builds new knowledge; leaves wiki integration to the Librarian. Survives interruption via a
-  work-in-progress file.
-- **`vlt-query`** — answers from the **wiki only**, no web reach. Grounds every claim in a cited
-  page, ranks contradictions, and admits when "the wiki is thin here."
-- **`vlt-extract`** — shapes wiki knowledge into a PARA deliverable (project brief, area dashboard)
-  for a specific reader and purpose. Every claim traces back to a wiki page.
-- **`vlt-lint`** — health-checks the wiki: orphans, stale claims, contradictions, near-duplicate
-  pages, index drift. Auto-fixes the safe structural issues, files the rest to the backlog.
+## The ideas
 
-**The dispatch bus (`vlt-dispatch`)** is how work moves between partners — one shared record, three
-modes: **`daily`** routes your daily-note captures to the partner who serves them, **`relay`** lets
-one partner leave a pre-addressed handoff for another, and **`ledger`** is a read-only board of open
-items. The **relay reflex** closes the loop: after a partner writes a durable handoff document, it
-fires a relay so a pointer lands in the recipient's slice, drained on that partner's next activation.
+- **Playbooks are the extension point.** A procedure a session runs is one Markdown file in `resources/playbooks/`, with the need it answers in its frontmatter. The `vlt-playbook` skill prints the index. The playbook holds its own rules and paths; nothing restates them. To teach the vault something new, write a playbook (and a tool, if there is something to compute).
+- **Tools live in one place.** Every script is in `_agent/tools/<name>/`, one folder per tool with a README. No scripts in PARA.
+- **The wiki is strict.** It is written only by a session running `ingest`, `supersede` or `consolidate`, from a stored source. Every page carries who wrote it, how, and how far it is trusted. A changed claim is always shown, never overwritten.
+- **Ingest takes more than files.** A file in `sources/`, a URL (captured first), pasted text, a research note, or anything a vault tool can turn into a source, such as a video transcriber.
+- **Research is its own thing.** Any session can investigate a question on the web and file one research note. A note reaches the wiki only through ingest.
+- **PARA is shared ground.** Any session may write in a zone unless its README says otherwise. A document that must be read before it is used carries `review: requested`.
+- **Task boards, not a backlog.** Each zone has a folder of task files and a base that shows them; the vault has one of its own.
+- **Checks, not a lint.** `python3 _agent/tools/checks/run.py` runs the small checks a vault has. A tool can add its own.
 
-## It grows itself
+## The four kits
 
-This is the headline. The cast isn't fixed — partners can build new abilities and even new
-teammates, mid-conversation, when they notice recurring friction. The engine is **`vlt-mint`**, and
-it's a capability *every partner has*, not a separate tool you visit ("I keep needing X — let me build
-myself X").
+| Kit | Holds |
+|---|---|
+| `core` | `_meta/vault.md`, `_meta/frontmatter.md`, the `CLAUDE.md` stub, the playbook convention and the `vlt-playbook` skill, the tool convention, the check runner, the `add-a-tool` and `feedback` playbooks |
+| `wiki` | `_meta/wiki.md`; the `ingest`, `query`, `supersede` and `consolidate` playbooks; the `vlt-ingest` and `vlt-query` skills; the wiki check |
+| `research` | the `research` playbook and the `vlt-research` skill |
+| `task-board` | the `task-board` and `set-up-a-zone` playbooks, the task template and base, the vault's own board |
 
-**Capabilities are first-class objects.** When something new is built, the owner declares one thing —
-its **`write_scope`** — and everything else (its weight, its home, whether a council must review it)
-*derives* from that:
-
-```mermaid
-flowchart TD
-    C["A new capability"] --> Q{"write_scope?"}
-    Q -->|"own zone only"| L["LIGHT<br/>partner-owned file<br/>no council · self-growable mid-flow"]
-    Q -->|"shared lane<br/>(wiki / PARA)"| H["HEAVY<br/>registered operation skill<br/>council-gated when it writes<br/>a lane it doesn't own"]
-```
-
-- **Light capabilities** touch only the owning partner's own zone — so they need no ceremony. A
-  partner can grow one in the middle of a conversation by logging a single line.
-- **Heavy capabilities** write a *shared* lane (canonical wiki pages, PARA deliverables) — so they're
-  registered operation skills (the `vlt-*` ops you've met) and get reviewed when they'd touch a lane
-  they don't own.
-
-**Minting is phased and gated.** A capability or partner that warrants review runs through three
-explicit phases with exit gates — **Ideate** (resolve the brief, you confirm) → **Validate**
-(blast-radius review by the **`vlt-review-council`**, a fixed panel of persona lenses that argue in
-parallel while a moderator synthesizes a verdict) → **Build** (author, install, register, verify) —
-backed by a resumable planning doc so a mint survives an interrupted session. The governing
-discipline: **capture is cheap and never gated; acting is deliberate.** A partner can file a backlog
-item the instant it notices friction, but building from it always passes the gate.
-
-**Worn, not minted — `vlt-track`.** Some abilities are *shared*. `vlt-track` is the verb for running
-a program across weeks — design a protocol, log progress, review and adjust. It's "one verb, many
-subjects": a single shared operation that encodes the loop, while each partner that uses it brings its
-own voice and a **loop profile** (where the working record lives, what to watch). A domain partner
-*wears* it by adding a pointer, rather than minting a duplicate — the clearest worked example of the
-capability model in action.
-
-## Durable by design
-
-Self-evolution is only worth having if your evolution **survives the next module update**. Vault's
-durability principle: *two classes of evolution, two fates.* Generic improvements flow upstream into
-the module and arrive on upgrade; **your** vault-specific evolution — minted partners, local rule
-tweaks, mint history — is reconciled by **merge, never replace**.
-
-- **The governance bundle** ships with the module: an **operating contract** (the vault's
-  constitution — what agents may write where, the research-vs-wiki distinction, naming, the activation
-  ritual, handoff rules), a set of **conventions** (frontmatter, indexing, supersession,
-  consolidation, extraction), and the council's **review-lens personas**. A fresh vault inherits all
-  of it.
-- **The version handshake** keeps rules and the skills that obey them in sync. Each convention
-  publishes a `version:` and its `consumers:`; each consuming skill pins `depends_on: ["frontmatter@1", …]`
-  recording the version it last reconciled against. The version advances only when someone
-  *deliberately reconciles and records it* — and `vlt-lint` flags any consumer that has fallen behind.
-  "Did everyone who depends on this rule get updated?" becomes machine-checkable.
-- **Append-only overlays** keep your local rule edits upgrade-safe. Base conventions stay pristine and
-  overwrite-safe; your additions live in a separate `_agent/conventions/{name}.overlay.md`, and skills
-  merge base + overlay on read. The collision *never forms*, so an upgrade can always cleanly refresh
-  the base.
-- **`vlt-upgrade`** owns *safe* upgrades end to end: pre-flight (snapshot your divergence into an
-  append-only ledger while the vault is intact) → apply (merge-copy new bits with no destruction) →
-  reconcile (preserve minted partners *and* their registration, refresh overlays/baselines, run
-  idempotent migrations) → post-flight divergence report. A generic installer can't silently destroy a
-  vault's hard-won evolution.
-
-`vlt-lint` is the net under all of this — beyond wiki hygiene it enforces the version handshake,
-overlay/baseline integrity, capability lane-safety, and a **personalized-extraction firewall** (every
-method claim must trace to a cited wiki source; a partner's own operational data is cited separately
-in `personalization_sources:` and never smuggled in as general knowledge). Coherence stays a
-*checkable property*, not a hope.
-
-## The full skill roster
-
-All 17 skills, grouped:
-
-| Group | Skills | Role |
-|---|---|---|
-| **Partners** | `vlt-agent-librarian`, `vlt-agent-researcher`, `vlt-agent-creative` | The cast you summon — personas with memory. |
-| **Operations** | `vlt-ingest`, `vlt-research`, `vlt-query`, `vlt-extract`, `vlt-lint`, `vlt-dispatch` | The verbs partners run against the vault. |
-| **Shared hand** | `vlt-track` | A longitudinal loop any partner can *wear*. |
-| **Hygiene** | `vlt-groom`, `vlt-decay` | Groom a partner's memory — approval-gated, never destructive. Rotate/drain the accumulating agent-zone records — mechanical, archives stay readable. |
-| **Self-evolution** | `vlt-mint`, `vlt-review-council` | Grow the cast; gate the growth. |
-| **Lifecycle** | `vlt-setup`, `vlt-upgrade`, `vlt-feedback` | Install/provision; upgrade durably; file field notes upstream to the module (the feedback rail). |
-
-**Self-contained:** the governance bundle (operating contract + conventions + review-lens personas)
-ships inside `vlt-setup/assets/` and installs into each target vault at setup.
+A vault takes all four.
 
 ## Install
 
-Vault is a standard BMad module, installed with the **BMad installer**. **The vault is the
-project** — install Vault *into* each vault you want a cast for, and run setup there. There is no
-external registry; one vault = one install.
+In Claude Code:
 
-Run the installer with the vault as your working directory, pointing `--custom-source` at this
-module's Git URL:
-
-```bash
-cd /path/to/your/vault
-
-npx bmad-method install --custom-source https://github.com/mggower/bmad-module-vlt --tools claude-code
+```
+/plugin marketplace add mggower/bmad-module-vlt
+/plugin install vlt@vlt
 ```
 
-Or run `npx bmad-method install` interactively and give it the source URL when prompted. (A local
-checkout works too — point `--custom-source` at the repo path instead.)
+Then open a session in your vault (a git repository) and say **"set up vlt"**. `vlt-setup` copies the kits in, never overwrites a file that already exists, shows a diff for each one it left alone, and runs the checks.
 
-The installer reads `.claude-plugin/marketplace.json`, copies the `vlt-*` skills into the
-vault's `.claude/skills/`, and runs `vlt-setup`, which installs the governance bundle into the
-vault's `_meta/`, writes a `CLAUDE.md` pointer, and scaffolds the partner + backlog layer. Setup is
-**additive and non-invasive** — it only writes Vault's own config and never touches another
-module's.
+## Updating
 
-**Multiple vaults** (e.g. work + personal): install into each — that's the whole multi-vault story.
-Each vault keeps its own cast, threads, and backlog. **Updating:** re-run the installer in a vault
-to pull a newer module version; re-running `vlt-setup` refreshes registration (governance install
-is skip-if-present, so local rule edits are preserved).
+Update the plugin, then say **"pull vlt"** in the vault. `vlt-pull` compares, for each seeded file, what the kit shipped when you last took it, what it ships now, and your copy. It shows what changed and applies only the files you accept. It refuses to replace a file with uncommitted changes, and it never deletes anything.
 
-## Recommended companion (optional)
+Two vaults seeded from the same kits will drift apart, on purpose. An improvement made in one reaches the other by going upstream: say **"file this upstream"** and `vlt-feedback` files a scrubbed issue you approve first.
 
-Vault is **standalone** — it degrades gracefully and never hard-requires another module. One
-companion makes it *fuller*, and `vlt-setup` will tell you if it's missing:
+## This repository
 
-- **`bmad-agent-builder`** (from the **BMad Builder / BMB** module) — only used by `vlt-mint`'s
-  *deliberate, from-scratch* partner-minting path, for a richer persona-discovery interview.
-  Without it, `vlt-mint` still mints partners and operations via its bundled in-flow templates — you
-  just lose the guided interview. Install BMB (via the BMad installer or as a plugin) if you want
-  it; `vlt-mint` picks it up automatically.
-- **`bmad-brainstorming` / `deep-research`** — the Researcher reaches for these mid-flow when
-  present; otherwise it proceeds with available web tooling and says so.
+This repo is where the plugin is developed. A vault is a separate folder; nothing here is one.
 
-There is no way (and no need) to *force* these at install time: BMad's philosophy — and Vault's
-design — is detect → warn → degrade, never block.
+| Path | What |
+|---|---|
+| `.claude-plugin/marketplace.json` | The plugin manifest |
+| `skills/` | The two skills the plugin serves: `vlt-setup`, `vlt-pull` |
+| `kits/<kit>/files/` | Every seeded file, at the path it has in a vault. `kit.yaml` carries the kit's version |
+| `scripts/kits.py` | The seed-and-pull engine |
+| `tools/package-lint.py` | The pre-release check |
+| `tests/` | `uv run --with pytest pytest tests/ -q` |
+| `COMING-FROM-0.x.md`, `FLATTEN-A-PARTNER.md` | For vaults on 0.x |
+| `factory/` | The development record: `inbox/` holds open field filings; `cycles/`, `studies/`, `platform/` and `method/` are the history of 0.x |
+| `docs/superpowers/` | The 1.0 design and its build plan |
 
-## A vault ≠ this repo
+Changes follow four steps: a filing lands in `factory/inbox/`, a change is made on a branch, the package check passes, and the release is tagged and noted in `CHANGELOG.md`.
 
-This repo is **module development**. A *vault* is whatever folder holds your knowledge wiki (e.g.
-`~/my-vault`); you register its path during `/vlt-setup`, and the module provisions it. Install
-Vault into each vault you want a cast for; each keeps its own wiki, partner threads, and backlog.
+Found a defect in a live vault? Open an issue with one of the templates, or use `vlt-feedback` from the vault.
 
-## How this project evolves
+## License
 
-The module is grown by a **field-driven evolution loop**, and the whole factory is public in this
-repo. Live vaults file friction and defects — as GitHub issues on this repo's tracker (the
-**feedback rail**), or directly into `factory/inbox/`. Filings are grounded against module source
-and folded into a **cycle**: one turn of the loop, with its own roadmap, owner-ruled scope, build
-briefs, a release, and a live-acceptance ledger that gates its closeout. Every closed cycle sits
-in full under `factory/cycles/` — roadmaps, briefs, and the filings that drove them — so *why any
-rule exists* is traceable to the field event that demanded it.
-
-- `factory/CYCLE` names the cycle currently open (or `none` between cycles).
-- `factory/method/` documents the loop itself; `.claude/skills/` holds the factory's own
-  lifecycle skills (capture, brief, release, closeout…) — the tooling that runs the loop.
-- Found a defect in a live vault? Open an issue — the rail's contract labels it, triage grounds
-  it, and you can watch it become a build in the next cycle.
-
-## Notable files
-
-- `.claude-plugin/marketplace.json` — the plugin manifest; lists the 17 `vlt-*` skills the installer copies.
-- `skills/` — the 17 `vlt-*` skills (the installable module).
-- `skills/vlt-setup/assets/governance/_meta/` — the canonical governance bundle (pruned conventions, review-lens personas, operating contract) that `vlt-setup` installs into a vault. Edit the bundle here (single source).
-- `factory/` — the evolution loop's working record: `cycles/` (one directory per cycle: roadmap, briefs, filings), `inbox/` (open field filings), `platform/` (the off-cadence factory-tooling ledger), `method/` (how the loop works).
-- `tools/` — the release contract's checks (`package-lint.py` and friends), documentation-grade and runnable.
+MIT. See `LICENSE`.

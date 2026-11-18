@@ -1,22 +1,19 @@
 # Inbox — field filings from live vaults
 
-This is where a live `vlt-*` install (e.g. a field vault) files **field notes** back to the module:
-friction hit in anger, defects, design gaps, "this should ship upstream" observations. Each filing
-is one dated markdown note (`YYYY-MM-DD-HHmmss-slug.md`) written by a partner or the owner.
+This is where a vault files **field notes** back to the plugin: a defect hit in real use, a pattern worth naming, something that should ship. Each filing is one dated markdown note (`YYYY-MM-DD-HHmmss-slug.md`).
 
-## Lifecycle
+## The flow (since 1.0)
 
-1. **File** — a filing lands here, raw, the moment a real install hits something worth upstreaming.
-2. **Capture** — filings are folded into a durable, resumable **roadmap** at
-   `factory/cycles/NN-<slug>/roadmap.md` (one roadmap per signal-cluster "cycle"; the open cycle is
-   named by `factory/CYCLE`), which phases and builds them. The roadmap is the cache; it spawns the
-   briefs in that cycle's `briefs/`. A closed cycle's directory simply stops changing — archival is a
-   property of location, not a move. (Cycles 1–10 were called arcs; Cycle 1 is
-   `factory/cycles/01-field-signal/`, builds #3–#11.)
-3. **Build** — each phase ships as a build; the roadmap tracks status + a deferred-acceptance ledger.
-4. **Retire** — once a filing's findings are fully captured (and built, and its clauses accepted), the
-   filing moves to the consuming cycle's `filings/` directory. The active inbox holds only
-   **un-captured** filings.
+1. **A filing lands here.** Written directly, or materialised from a tracker issue by the `issue-triage` skill.
+2. **A change is made on a branch.** The filing is grounded against current source first: filings regularly guess the wrong cause, and the change follows what the source shows.
+3. **The package check runs:** `python3 tools/package-lint.py --expect-version X.Y.Z`, exit 0.
+4. **The release is tagged and noted in `CHANGELOG.md`** (`vlt-release`). The filing moves to `factory/shipped/vX.Y.Z/`, and the issue it came from is answered and closed.
+
+There are no cycles, roadmaps, briefs or acceptance ledgers after 1.0. Cycles 1 to 16 are history under `factory/cycles/`; each closed cycle's `filings/` holds what it resolved.
+
+A filing that no longer applies is closed with a dated line at its top saying why, and moved the same way.
+
+> **The two sections below are the pre-1.0 filing guidance, kept as written.** What they ask of a filing (carry the evidence, not a count of it; a `supersession` names both halves) still holds. The skills and files they name (`inbox-capture`, `acceptance-discharge`, `vlt-lifecycle.md`, cycle `fixtures/`) were removed with 1.0.
 
 ## The specimen manifest — a filing carries its evidence, not a count of it
 
@@ -94,48 +91,15 @@ roundtable's obsolescence beat is where a retirement found *inside* a plan lands
 **Not to be confused with the `SUPERSEDED` grounding grade**, which means the module already
 fixed what a filing reported. Here supersession is the filing's *claim*, not its verdict.
 
-## When the fix site is off-cadence — `channel: platform`
-
-*(Platform P-3, 2026-09-01.)* One intake, two destinations. Most filings describe shipped
-behavior and land in the open cycle's roadmap. A filing whose fix site is **factory-side** —
-a factory skill under `.claude/skills/`, `tools/`, `.github/`, a process doc, this README —
-belongs on the **platform ledger** (`factory/platform/roadmap.md`) instead, because
-`vlt-upgrade` never delivers it to a vault. Before P-3 such candidates reached that ledger
-only by hand, which meant they reached it only when someone happened to remember.
-
-Mark those filings `channel: platform` in the opening line (the same place `class:` goes) and
-`inbox-capture` routes them to the ledger's **Queued** section rather than the cycle roadmap.
-
-Two things the marker does **not** do. It is not self-service: capture grounds a marked
-filing like any other and **the boundary is re-derived, not trusted** — a filing that marks
-itself platform but names a fix under the shipped surface (`skills/vlt-*`,
-`.claude-plugin/`) is routed to the cycle roadmap with the mis-mark reported, and an unmarked
-filing whose only fix site is factory-side is surfaced to the owner rather than silently
-re-routed. And it is optional: the boundary rule is the ledger's, and an unmarked filing is
-routed the ordinary way, so nothing regresses if the marker is never used.
-
-The boundary itself — *"an item is platform iff `vlt-upgrade` does not deliver it to
-vaults"* — is single-homed in the platform ledger's channel contract. Read it there.
-
 ## Remote filings
 
-- Filings can also arrive as GitHub issues on the module's public tracker and are
-  materialized here by the factory intake — the field contract (payload shape, labels,
-  `origin:` header) is single-homed at `skills/vlt-feedback/references/field-contract.md`.
-- A materialized filing carries an `origin: <repo>#<n>` header per that contract.
-- When a materialized filing retires (its build shipped and passed acceptance), the
-  factory closes its issue — and a declined issue is closed at triage with a reason,
-  nothing materialized. Mechanics: `inbox-capture`'s github-intake reference and
-  `cycle-closeout` Stage 5; vocabulary: the field contract (same home as above).
-
-So: an **empty** active inbox means everything filed so far has been pulled into a roadmap. New field
-signal goes here; processed signal lives in its cycle's `filings/` for provenance.
+- A filing can arrive as a GitHub issue on the plugin's public tracker. The field contract (payload shape, labels, the `origin:` header, the voice rule) is single-homed at `kits/core/files/resources/playbooks/feedback-field-contract.md`.
+- `issue-triage` grounds each issue, the owner rules, and an accepted issue is written here with an `origin: <repo>#<n>` first line.
+- When the release that answers it ships, the issue is commented on and closed (`vlt-release`, stage 8). A declined issue is closed at triage with a reason, and nothing is written here.
 
 ## Where processed filings live
 
-Each cycle's `filings/` under `factory/cycles/` holds the filings whose builds shipped and passed
-acceptance during that cycle; the closed roadmap beside them is the authoritative per-filing record.
+- **Before 1.0:** each cycle's `filings/` under `factory/cycles/`, beside the closed roadmap that says why each is there. Filings closed when 1.0 superseded Cycle 16 are in `factory/cycles/16-closed-loops/filings/`, with the reasons in `2026-11-18-1.0-disposition.md`.
+- **From 1.0:** `factory/shipped/vX.Y.Z/`.
 
-**This README maintains no list.** It once enumerated the archive by count, and the count fell behind
-the archive's real contents — the "lists that claim completeness drift" failure, in the lifecycle's
-own front door. Read the directories, and read the closed roadmap for why any given filing is there.
+This README maintains no list. Read the directories.

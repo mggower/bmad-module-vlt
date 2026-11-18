@@ -1,4 +1,3 @@
-# Names the open cycle — one line, `NN-<slug>` (a directory under factory/cycles/).
-# "none" between cycles: the previous cycle is closed and the next capture has not run.
-# inbox-capture updates this line when it opens a cycle; cycle-closeout resets it to none.
-16-closed-loops
+# Cycles ended with Cycle 16, closed 2026-11-18 as superseded by vlt 1.0.
+# The factory's flow is now four steps (see CLAUDE.md); this file stays so old tooling reading it finds an answer.
+none
