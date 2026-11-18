@@ -35,7 +35,9 @@ from pathlib import Path
 LOCK_REL = "_agent/kits.lock"
 SKIP_NAMES = {".DS_Store"}
 SKIP_DIRS = {"__pycache__"}
-NO_LOCK = "no usable {lock}: {why}. To seed this vault, run vlt-setup."
+NO_LOCK = ("no usable {lock}: {why}. If this vault was seeded before, restore the lock from git first "
+           "(git checkout -- {lock}); seeding without it re-creates files the vault deleted. "
+           "If it was never seeded, run vlt-setup.")
 
 
 class Stop(Exception):
@@ -94,9 +96,8 @@ def read_lock(vault):
         for kit in lock["kits"].values():
             if not isinstance(kit["files"], dict):
                 raise ValueError("unknown shape")
-    except (ValueError, KeyError, TypeError) as exc:
-        raise Stop(2, NO_LOCK.format(lock=LOCK_REL, why=f"it cannot be read ({exc}); "
-                                     "repair or remove it first"))
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        raise Stop(2, NO_LOCK.format(lock=LOCK_REL, why=f"it cannot be read ({exc})"))
     return lock
 
 
@@ -162,6 +163,8 @@ def stamp_versions(kits_dir, lock, rows):
 def cmd_seed(vault, kits_dir, _args):
     files = kit_files(kits_dir)
     lock_path = Path(vault) / LOCK_REL
+    if not lock_path.exists() and lock_was_committed(vault):
+        raise Stop(2, NO_LOCK.format(lock=LOCK_REL, why="the file is missing, but git has a history for it"))
     lock = read_lock(vault) if lock_path.exists() else {"schema": 1, "kits": {}}
     seen = locked(lock)
     for kit_dir in kit_dirs(kits_dir):
@@ -169,7 +172,7 @@ def cmd_seed(vault, kits_dir, _args):
     for rel in sorted(files):
         kit, src = files[rel]
         target = Path(vault) / rel
-        if not target.exists():
+        if not target.exists() and not target.is_symlink():    # a dangling symlink is the vault's, not a gap
             if rel in seen:
                 print(f"vault-removed {rel}")
                 continue
@@ -210,11 +213,25 @@ def cmd_diff(vault, kits_dir, args):
     return 0
 
 
-def uncommitted(vault, rel):
-    """True when git cannot give this path back as it stands now."""
-    proc = subprocess.run(["git", "status", "--porcelain", "--", rel],
-                          cwd=vault, capture_output=True, text=True)
-    return proc.returncode != 0 or bool(proc.stdout.strip())
+def git(vault, *args):
+    return subprocess.run(["git", *args], cwd=vault, capture_output=True, text=True)
+
+
+def unrecoverable(vault, rel):
+    """Why git could not give this path back as it stands now, or None when it could.
+
+    Clean in `git status` is not enough: an ignored file is clean and unrecoverable.
+    The path must be tracked, and identical to what is committed.
+    """
+    if git(vault, "ls-files", "--error-unmatch", "--", rel).returncode != 0:
+        return "is not tracked by git (ignored, never added, or the vault is not a git repository)"
+    if git(vault, "status", "--porcelain", "--", rel).stdout.strip():
+        return "has uncommitted changes"
+    return None
+
+
+def lock_was_committed(vault):
+    return bool(git(vault, "log", "-1", "--format=%H", "--", LOCK_REL).stdout.strip())
 
 
 def cmd_take(vault, kits_dir, args):
@@ -228,9 +245,19 @@ def cmd_take(vault, kits_dir, args):
             continue
         kit, src = files[rel]
         target = Path(vault) / rel
-        if target.exists() and sha(target) != sha(src) and uncommitted(vault, rel):
-            print(f"{rel}: refused, the vault's copy has uncommitted changes (or the vault is "
-                  "not a git repository). Commit it first so it can be recovered.", file=sys.stderr)
+        if target.is_symlink():
+            print(f"{rel}: refused, the vault's copy is a symlink and take does not write through one.",
+                  file=sys.stderr)
+            code = 1
+            continue
+        if target.exists() and not target.is_file():
+            print(f"{rel}: refused, the vault has something at this path that is not a file.", file=sys.stderr)
+            code = 1
+            continue
+        why = unrecoverable(vault, rel) if target.exists() and sha(target) != sha(src) else None
+        if why:
+            print(f"{rel}: refused, the vault's copy {why}. Commit it first so it can be recovered, "
+                  "or move it aside and take again.", file=sys.stderr)
             code = 1
             continue
         target.parent.mkdir(parents=True, exist_ok=True)

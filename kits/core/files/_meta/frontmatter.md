@@ -52,7 +52,7 @@ review: requested     # set by the session that wrote it
 review: approved      # set by the owner, and only by the owner
 ```
 
-A zone can ask for this on everything written in it, with `review_default: requested` in its `README.md`. `_agent/bases/review.base` lists every note waiting.
+A zone can ask for this on everything written in it, with `review_default: requested` in its `README.md`. A session writing in such a zone sets `review: requested` on each document it writes there; the default is an instruction to the writer, not something a base can infer. `_agent/bases/review.base` lists every note that carries `review: requested`.
 
 A document with no `review:` key and no zone default needs no review.
 

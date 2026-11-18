@@ -98,3 +98,22 @@ def test_status_is_all_unchanged_after_a_fresh_seed(fresh):
     r = run_kits(fresh, KITS, "status")
     assert r.returncode == 0
     assert {line.split()[0] for line in r.stdout.splitlines()} == {"unchanged"}
+
+
+# --- final-review fixes
+
+def test_docs_tell_a_0_x_vault_how_to_reach_the_plugin_setup():
+    for name in ("README.md", "COMING-FROM-0.x.md"):
+        text = (REPO / name).read_text()
+        assert "/vlt:vlt-setup" in text, name
+    assert "/vlt:vlt-setup" in (REPO / "skills/vlt-setup/SKILL.md").read_text()
+
+
+def test_review_default_tells_the_writer_to_set_the_key(fresh):
+    schema = (fresh / "_meta/frontmatter.md").read_text()
+    assert "sets `review: requested` on each document it writes there" in schema
+    assert "review: requested" in (fresh / "_agent/templates/zone-readme.md").read_text().split("## Writing here")[1]
+
+
+def test_pull_skill_says_to_restore_a_missing_lock():
+    assert "git checkout -- _agent/kits.lock" in (REPO / "skills/vlt-pull/SKILL.md").read_text()

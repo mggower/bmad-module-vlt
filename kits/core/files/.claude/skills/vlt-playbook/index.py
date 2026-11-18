@@ -18,6 +18,7 @@ REL = "resources/playbooks"
 FOLDER = VAULT / REL
 TOOLS_HOME = "_agent/tools/"
 STATES = ("live", "dormant")
+UNCLOSED = "(unclosed)"
 SECTIONS = ("Prerequisites", "Commands", "Procedure", "Output", "Schedule", "Rules", "Known gaps")
 
 
@@ -26,6 +27,8 @@ def frontmatter(path):
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
     if not lines or lines[0].strip() != "---":
         return {}
+    if not any(line.strip() == "---" for line in lines[1:]):
+        return {UNCLOSED: "yes"}        # no closing fence: body lines must not be read as keys
     out, key = {}, None
     for line in lines[1:]:
         if line.strip() == "---":
@@ -63,6 +66,8 @@ def load():
         if path.name == "README.md":
             continue
         fm = frontmatter(path)
+        if fm.pop(UNCLOSED, None):
+            problems.append(f"{path.name}: frontmatter is not closed (no second --- line)")
         parent = fm.get("companion_of")
         if parent:
             if not (FOLDER / parent).is_file():

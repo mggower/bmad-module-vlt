@@ -11,7 +11,7 @@ The engine is `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/kits.py"`, called `kits.py
 
 ## Steps
 
-1. **Read the state.** Run `kits.py status --vault .` from the vault's root. An exit code of 2 means there is no usable `_agent/kits.lock`: say that `vlt-setup` has not been run here (or the lock is damaged), show the message, and stop. Do not guess.
+1. **Read the state.** Run `kits.py status --vault .` from the vault's root. An exit code of 2 means there is no usable `_agent/kits.lock`: show the message and stop. If the vault was seeded before, the lock is restored from git (`git checkout -- _agent/kits.lock`), never rebuilt by running setup again: a fresh seed re-creates files the vault deleted on purpose and forgets which kit changes are still waiting. Only a vault that was never seeded needs `vlt-setup`. Do not guess which case it is; ask.
 2. **Report every file that is not `unchanged`,** grouped by state:
 
    | State | Means | What pull does |

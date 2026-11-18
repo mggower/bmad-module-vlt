@@ -131,7 +131,17 @@ def test_file_without_frontmatter_does_not_crash_table(pv):
     c = run(pv, "--check")
     assert c.returncode == 1
     assert "b.md" in c.stdout
+    assert "c.md: frontmatter is not closed" in c.stdout
     assert "Traceback" not in c.stderr
+
+
+def test_unclosed_frontmatter_is_a_problem_and_body_lines_are_not_keys(pv):
+    write(pv / FOLDER / "b.md", '---\ntype: resource\nneed: "Broken one"\nstate: live\ndomain: vault\n'
+                                 '# B\n\nstate: dormant\nneed: overwritten by body text\n')
+    r = run(pv, "--check")
+    assert r.returncode == 1
+    assert "b.md: frontmatter is not closed" in r.stdout
+    assert "overwritten by body text" not in run(pv).stdout
 
 
 def test_domains_read_from_readme(pv):

@@ -12,7 +12,7 @@ subs: [area]
 
 ## Writing here
 
-<Any session may write here. Or: say who may, and set `writers: owner` above. To have every document written here wait for review, set `review_default: requested` above.>
+<Any session may write here. Or: say who may, and set `writers: owner` above. To have every document written here wait for review, set `review_default: requested` above; a session writing here then sets `review: requested` on each document, which is what lists it in `_agent/bases/review.base`.>
 
 ## What is here
 

@@ -64,7 +64,7 @@ In Claude Code:
 /plugin install vlt@vlt
 ```
 
-Then open a session in your vault (a git repository) and say **"set up vlt"**. `vlt-setup` copies the kits in, never overwrites a file that already exists, shows a diff for each one it left alone, and runs the checks.
+Then open a session in your vault (a git repository) and say **"set up vlt"**, or run `/vlt:vlt-setup`. In a vault that still has 0.x installed, use `/vlt:vlt-setup`: the vault's own older `vlt-setup` answers the same words. `vlt-setup` copies the kits in, never overwrites a file that already exists, shows a diff for each one it left alone, and runs the checks.
 
 ## Updating
 

@@ -19,7 +19,7 @@ The engine is `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/kits.py"`, called `kits.py
    - `same <path>`: already there, identical.
    - `kept-yours <path>`: already there and different. It was left alone.
    - `vault-removed <path>`: seeded once, deleted by the vault since. It was not re-created.
-   An exit code of 2 means `_agent/kits.lock` exists but cannot be read, or a kit is broken: show the message and stop.
+   An exit code of 2 means `_agent/kits.lock` cannot be read, was deleted from a vault that had one, or a kit is broken: show the message and stop. A deleted lock is restored from git, not re-seeded.
 3. **Report.** Give the counts, then list every `kept-yours` and `vault-removed` path by name.
 4. **Show each difference, change nothing.** For each `kept-yours` path run `kits.py diff --vault . <path>` and show it. Do not take the kit's copy here. If the user wants one, they commit their own version first and then say so; run `kits.py take --vault . <path>`, which refuses over uncommitted changes.
 5. **The one line `CLAUDE.md` needs.** If `CLAUDE.md` was `kept-yours`, the vault's rules are not loaded until it imports them. Show the user this line to add, and add it only on their word:
@@ -31,5 +31,7 @@ The engine is `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/kits.py"`, called `kits.py
 7. **Hand over.** Tell the user what to commit: the seeded paths and `_agent/kits.lock`. Do not commit for them unless asked. Point at the three places to start: `_meta/vault.md` (the rules), `resources/playbooks/README.md` (how procedures work), and the `vlt-playbook` skill (the index).
 
 ## Coming from vlt 0.x
+
+A 0.x vault has its own older `vlt-setup` and `vlt-upgrade` in `.claude/skills/`, which answer the same words and run the old BMad merge scripts. Make sure this is the plugin's skill: it is invoked as `/vlt:vlt-setup`. If the session is following steps that mention `_bmad`, it is in the wrong one; stop. Archiving the vault's two old skills first (`git mv` into `_agent/archive/`) removes the ambiguity.
 
 Nothing seeded here reads or depends on anything an older vlt installed, so the old machinery can be retired before, after or gradually. The module repository's `COMING-FROM-0.x.md` maps what 0.x installed to what replaces it, and `FLATTEN-A-PARTNER.md` is a reference for retiring a partner. Both are read from `${CLAUDE_PLUGIN_ROOT}`. Setup runs neither: migrating a vault is that vault's own work.

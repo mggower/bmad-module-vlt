@@ -204,3 +204,83 @@ def test_same_path_in_two_kits_is_refused(vault, kits_dir):
     r = run_kits(vault, kits_dir, "seed")
     assert r.returncode == 2
     assert RULES in r.stderr
+
+
+# --- final-review fixes: take and seed must never write where git cannot give the old content back
+
+def test_take_refuses_a_gitignored_vault_file(vault, kits_dir):
+    write(vault / ".gitignore", "_meta/\n")
+    seeded(vault, kits_dir)                       # _meta/vault.md is on disk but ignored, so untracked
+    write(vault / RULES, "my ignored edit")
+    write(kits_dir / "core" / "files" / RULES, "# rules v2\n")
+    r = run_kits(vault, kits_dir, "take", RULES)
+    assert r.returncode == 1
+    assert "not tracked" in r.stderr
+    assert (vault / RULES).read_text() == "my ignored edit"
+
+
+def test_take_refuses_an_untracked_vault_file(vault, kits_dir):
+    run_kits(vault, kits_dir, "seed")             # never committed
+    write(vault / RULES, "mine, never committed")
+    write(kits_dir / "core" / "files" / RULES, "# rules v2\n")
+    r = run_kits(vault, kits_dir, "take", RULES)
+    assert r.returncode == 1
+    assert (vault / RULES).read_text() == "mine, never committed"
+
+
+def test_take_refuses_in_a_vault_that_is_not_a_git_repo(tmp_path, kits_dir):
+    v = tmp_path / "plain"
+    v.mkdir()
+    assert run_kits(v, kits_dir, "seed").returncode == 0
+    write(v / RULES, "mine")
+    write(kits_dir / "core" / "files" / RULES, "# rules v2\n")
+    r = run_kits(v, kits_dir, "take", RULES)
+    assert r.returncode == 1
+    assert (v / RULES).read_text() == "mine"
+
+
+def test_take_refuses_to_write_through_a_symlink(vault, kits_dir, tmp_path):
+    outside = tmp_path / "outside.md"
+    outside.write_text("outside the vault\n")
+    (vault / "_meta").mkdir()
+    (vault / RULES).symlink_to(outside)
+    seeded(vault, kits_dir)                       # the symlink is tracked and clean
+    write(kits_dir / "core" / "files" / RULES, "# rules v2\n")
+    r = run_kits(vault, kits_dir, "take", RULES)
+    assert r.returncode == 1
+    assert "symlink" in r.stderr
+    assert outside.read_text() == "outside the vault\n"
+
+
+def test_seed_does_not_write_through_a_dangling_symlink(vault, kits_dir, tmp_path):
+    outside = tmp_path / "not-yet.md"
+    (vault / "_meta").mkdir()
+    (vault / RULES).symlink_to(outside)
+    r = run_kits(vault, kits_dir, "seed")
+    assert r.returncode == 0, r.stderr
+    assert not outside.exists()
+    assert f"kept-yours {RULES}" in lines(r)
+
+
+def test_take_still_restores_a_file_the_vault_removed(vault, kits_dir):
+    seeded(vault, kits_dir)
+    (vault / RULES).unlink()                      # absent: nothing of the vault's to lose
+    r = run_kits(vault, kits_dir, "take", RULES)
+    assert r.returncode == 0, r.stderr
+
+
+def test_seed_refuses_when_the_lock_was_deleted(vault, kits_dir):
+    seeded(vault, kits_dir)                       # the lock is committed
+    (vault / README).unlink()
+    commit_all(vault, "owner removed a playbook file")
+    (vault / "_agent" / "kits.lock").unlink()
+    r = run_kits(vault, kits_dir, "seed")
+    assert r.returncode == 2
+    assert "git checkout" in r.stderr and "_agent/kits.lock" in r.stderr
+    assert not (vault / README).exists()          # the deliberate deletion is not undone
+    assert not (vault / "_agent" / "kits.lock").exists()
+
+
+def test_missing_lock_message_says_to_restore_it_first(vault, kits_dir):
+    r = run_kits(vault, kits_dir, "status")
+    assert "restore" in r.stderr and "run vlt-setup" in r.stderr

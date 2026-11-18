@@ -2,8 +2,9 @@
 
 vlt 1.0 is a different thing from 0.x: a toolkit a vault owns, not a cast of partners governed by a contract. It ships **no migration**. This page is a map: what 0.19 put into a vault, where it is, and what in 1.0 replaces it. A session working in the vault uses it to decide what to retire and when. That work is the vault's own, done at its own pace.
 
-Three things hold whatever the vault decides:
+Four things hold whatever the vault decides:
 
+- **Run the plugin's setup, not the vault's.** A 0.x vault holds its own older `vlt-setup` and `vlt-upgrade` in `.claude/skills/`, and they answer the same words. Invoke the new one as `/vlt:vlt-setup`, or archive the two old skills first.
 - **`vlt-setup` is safe to run first.** It never overwrites or deletes an existing file. Where a 1.0 file would land on one the vault already has (`CLAUDE.md`, a skill of the same name), it leaves the vault's copy and shows the difference.
 - **Nothing in 1.0 reads anything in the table below.** The old machinery can be retired before setup, after it, or piece by piece.
 - **Retiring is moving, not deleting.** `git mv` into `_agent/archive/`, keeping the path under it.
