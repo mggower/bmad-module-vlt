@@ -281,8 +281,10 @@ def test_page_without_frontmatter_fails_cleanly(): ...   # named in output, no t
 - Create: `skills-1.0/vlt-setup/SKILL.md`, `skills-1.0/vlt-pull/SKILL.md` (moved to `skills/` in Task 9, once the 0.19 skills are gone)
 - Test: `tests/test_seed_end_to_end.py`, `tests/fixtures/vault-0.19/` (a minimal stand-in: `CLAUDE.md`, `_meta/vault-operating-contract.md`, `_meta/conventions/frontmatter.md`, `.claude/skills/vlt-ingest/SKILL.md`, `_agent/backlog.md`, `_bmad/config.yaml`, each a few lines)
 
+**Spike result (2026-11-18, Claude Code docs: plugins-reference, plugin-marketplaces, skills; read through Tavily):** with no `plugin.json`, the marketplace entry is the manifest, and an entry whose `source` is the marketplace root and which lists `skills` loads only those. `${CLAUDE_PLUGIN_ROOT}` is substituted in a plugin skill's markdown and resolves to the plugin's installed directory, documented for "scripts or files bundled anywhere in the plugin, including resources shared between the plugin's skills". So the skills reach the engine through `${CLAUDE_PLUGIN_ROOT}`, not a `..` path from the skill directory. Not confirmed from the docs: the exact file set copied to the cache for a root-source plugin (0.19 shipped the same way).
+
 **Interfaces:**
-- Consumes: `scripts/kits.py` (Task 1), reached from a skill as `python3 "${CLAUDE_SKILL_DIR}/../../scripts/kits.py"`.
+- Consumes: `scripts/kits.py` (Task 1), reached from a skill as `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/kits.py"`.
 
 - [ ] **Step 1: Spike the install path before writing either skill.** Read the current Claude Code plugin documentation (Tavily first, per the owner's rule) and confirm three things: a marketplace entry with `"source": "./"` and a `skills` list installs without a separate `plugin.json`; the installed copy includes `scripts/` and `kits/` beside `skills/`; `${CLAUDE_SKILL_DIR}` resolves inside a plugin skill. If any is false, record what is true at the top of this task and adjust the path the skills use. Do not reason from memory.
 - [ ] **Step 2: Write the failing end-to-end tests**, using the real `kits/`:
