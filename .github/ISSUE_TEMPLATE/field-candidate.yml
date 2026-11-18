@@ -1,6 +1,6 @@
 # Field-contract issue form (candidate). ADDITIVE-ONLY: fields may be added, never renamed
 # or removed and never change meaning, without bumping rail_contract. The shape's single
-# source of truth is skills/vlt-feedback/references/field-contract.md — this form derives
+# source of truth is kits/core/files/resources/playbooks/feedback-field-contract.md — this form derives
 # from it and never restates it.
 name: Field candidate
 description: A live vault has a "this should ship upstream" proposal. Follows the field contract.
@@ -11,7 +11,7 @@ body:
       value: |
         This form is one surface of the module's **field contract** — the payload shape,
         label semantics, and evolution rule are single-homed at
-        [`skills/vlt-feedback/references/field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md).
+        [`kits/core/files/resources/playbooks/feedback-field-contract.md`](https://github.com/mggower/bmad-module-vlt/blob/main/kits/core/files/resources/playbooks/feedback-field-contract.md).
         Filing from an installed vault? Prefer the `vlt-feedback` skill — it scrubs,
         previews, and stamps the payload for you.
         To amend after an issue is labeled `captured`: add a comment with the new evidence **and @mention @mggower** — the notification is the trigger for a look; the owner applying the `amended` label is what admits the comment into the factory. An unadmitted comment is not read.
@@ -63,7 +63,7 @@ body:
     id: module_version
     attributes:
       label: module_version
-      description: The filing vault's installed module version.
+      description: The version of the core kit the filing vault last took (the core kit's version in _agent/kits.lock). A vault still on 0.x gives its installed module version.
     validations:
       required: true
   - type: input

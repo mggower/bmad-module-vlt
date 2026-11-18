@@ -1,10 +1,12 @@
-<!-- Most module work lands as direct commits (one per build); PRs are the exception.
-     If this PR implements a build, link it so the tracker's story stays connected. -->
+<!-- Most work lands as direct commits; PRs are the exception. -->
 
-**Build:** <!-- e.g. B11-3, or "none — not a build" -->
-**Brief:** <!-- link to factory/cycles/<NN-slug>/briefs/build-<id>-<slug>.md, if any -->
-**Build issue:** <!-- #n from the cycle's milestone, if the tracker sync has minted one -->
+**Filing:** <!-- the factory/inbox filing or tracker issue this answers, or "none" -->
 
 ## What this changes
 
-<!-- scope in a sentence; deviations from the brief belong in the brief's status:, not here -->
+<!-- scope in a sentence -->
+
+## Checks
+
+<!-- paste the last line of: uv run --with pytest pytest tests/ -q -p no:cacheprovider
+     and of: python3 tools/package-lint.py --expect-version X.Y.Z -->

@@ -4,7 +4,7 @@
 #
 # Owner bootstrap (build-time, run once before the release tag; idempotent via --force) —
 # the labels of the field contract (defined in
-# skills/vlt-feedback/references/field-contract.md, never here):
+# kits/core/files/resources/playbooks/feedback-field-contract.md, never here):
 #
 #   gh label create "vault-filed"     --repo mggower/bmad-module-vlt --force --color FBCA04 --description "Field contract: candidacy, not admission"
 #   gh label create "vault-accepted"  --repo mggower/bmad-module-vlt --force --color 0E8A16 --description "Field contract: owner-admitted; intake materializes"
@@ -25,5 +25,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: The field contract (payload shape, labels, evolution rule)
-    url: https://github.com/mggower/bmad-module-vlt/blob/main/skills/vlt-feedback/references/field-contract.md
+    url: https://github.com/mggower/bmad-module-vlt/blob/main/kits/core/files/resources/playbooks/feedback-field-contract.md
     about: The single home of the filing shape — the templates point here and never restate it.
