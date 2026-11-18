@@ -5,7 +5,7 @@ Notable changes to `vlt`, one section per released version, newest first. Versio
 The record begins at `v0.4.0`; earlier tags predate the per-build commit history these entries
 are derived from.
 
-## v1.0.0 — unreleased
+## v1.0.0 — 2026-11-18
 
 **vlt becomes a vault toolkit.** The partner model is retired whole: no personas, no partner memory, no activation ritual, no hand-offs. What ships is a Claude Code plugin with two skills and four kits of files that a vault takes once and then owns. This is not an upgrade of 0.x; `vlt-upgrade` does not lead here. See `COMING-FROM-0.x.md`.
 
