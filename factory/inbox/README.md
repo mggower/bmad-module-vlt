@@ -99,7 +99,7 @@ fixed what a filing reported. Here supersession is the filing's *claim*, not its
 
 ## Where processed filings live
 
-- **Before 1.0:** each cycle's `filings/` under `factory/cycles/`, beside the closed roadmap that says why each is there. Filings closed when 1.0 superseded Cycle 16 are in `factory/cycles/16-closed-loops/filings/`, with the reasons in `2026-11-18-1.0-disposition.md`.
+- **Before 1.0:** each cycle's `filings/` under `factory/cycles/`, beside the closed roadmap that says why each is there. Filings closed when 1.0 superseded Cycle 16 are in `factory/cycles/16-closed-loops/filings/`, with the reasons in `2026-11-18-1.0-disposition.md` beside them.
 - **From 1.0:** `factory/shipped/vX.Y.Z/`.
 
 This README maintains no list. Read the directories.

@@ -46,7 +46,7 @@ What that does to this roadmap's open ends:
 - **The two ship-verifiable FAILs that gated closeout** (build-1 (2) Census, build-3 (6) Rung line) are **void**, not discharged: the lint and the partner rung they tested are removed. No build repairs them.
 - **The four unfired field tails** are void for the same reason.
 - **Acceptance never ticked a row.** That stands as the record. The cycle is closed by supersession, not by a passed gate.
-- **Capture deferred to Cycle 17** did not happen and will not: there is no Cycle 17. The open inbox was sorted once against 1.0, in `factory/inbox/2026-11-18-1.0-disposition.md`.
+- **Capture deferred to Cycle 17** did not happen and will not: there is no Cycle 17. The open inbox was sorted once against 1.0, in `factory/cycles/16-closed-loops/filings/2026-11-18-1.0-disposition.md`.
 - **v0.18.1 and v0.19.0 shipped** and remain reachable at their tags.
 
 Nothing below this stamp was changed at the close. Read it as history. The factory's flow after 1.0 is four steps (filing, change, package check, release), stated in the repo's `CLAUDE.md`.
