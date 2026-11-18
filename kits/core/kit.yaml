@@ -1,0 +1,3 @@
+name: core
+version: 1.0.0
+description: The vault rules, the frontmatter schemas, playbooks and their index, the tool and check conventions, feedback upstream

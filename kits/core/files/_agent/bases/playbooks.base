@@ -1,0 +1,61 @@
+filters:
+  and:
+    - file.inFolder("resources/playbooks")
+    - file.basename != "README"
+formulas:
+  pretty_file: file.asLink(file.basename)
+properties:
+  formula.pretty_file:
+    displayName: Playbook
+  note.need:
+    displayName: Need
+  note.state:
+    displayName: State
+  note.domain:
+    displayName: Domain
+  note.tools:
+    displayName: Tools
+  note.companion:
+    displayName: Companion
+  note.companion_of:
+    displayName: Companion of
+  note.last_updated:
+    displayName: Updated
+views:
+  - type: table
+    name: By need
+    filters:
+      and:
+        - state == "live"
+    groupBy:
+      property: domain
+      direction: DESC
+    order:
+      - need
+      - formula.pretty_file
+      - tools
+      - companion
+    sort:
+      - property: need
+        direction: ASC
+    columnSize:
+      note.need: 460
+      formula.pretty_file: 220
+    rowHeight: medium
+  - type: table
+    name: All files
+    groupBy:
+      property: state
+      direction: DESC
+    order:
+      - formula.pretty_file
+      - need
+      - domain
+      - tools
+      - companion_of
+      - companion
+      - last_updated
+    columnSize:
+      formula.pretty_file: 240
+      note.need: 420
+    rowHeight: medium
