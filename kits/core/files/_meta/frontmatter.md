@@ -35,7 +35,7 @@ Required on **wiki pages and research notes**. Optional anywhere else.
 ```yaml
 author: agent | human | hybrid
 trust: draft | reviewed | verified | canonical
-verified_by: <the playbook that wrote the note: ingest, supersede, consolidate, research>
+verified_by: <the playbook that wrote the note: ingest, supersede, consolidate, research, query>
 verified_at: YYYY-MM-DD
 ```
 
